@@ -1,0 +1,468 @@
+<!-- NEUROGENOMIC · Bloque Elementor «04-s3-dato-95»
+     Pegar completo en un widget HTML de Elementor (ancho completo, sin padding).
+     Incluye tokens + núcleo NG (idempotentes: pueden repetirse en varios bloques).
+     Imágenes: reemplaza /img/ por la URL de la Biblioteca de medios. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+<style>
+:root{
+--ng-bg:#0A0B0D;
+--ng-s1:#111316;
+--ng-s2:#16191D;
+--ng-line:rgba(255,255,255,.08);
+--ng-line2:rgba(255,255,255,.16);
+--ng-tx:#F2F3F0;
+--ng-tx2:#8A8F98;
+--ng-volt:#C8F542;
+--ng-lime:#C8FF00;
+--ng-ff:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+--ng-mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+--ng-ease:cubic-bezier(.16,1,.3,1);
+--ng-gut:clamp(16px,4.4vw,72px);
+--ng-max:1680px;
+--ng-r:6px;
+--ng-nav-h:72px;
+}
+body:has(.ng-sec){background:var(--ng-bg);margin:0}
+html:has(.ng-sec){scroll-behavior:auto;-webkit-text-size-adjust:100%}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+.ng-sec,.ng-nav,.ng-pre,.ng-foot,.ng-menu{
+font-family:var(--ng-ff);color:var(--ng-tx);
+-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+font-size:16px;line-height:1.55;font-weight:400;
+}
+.ng-sec,.ng-nav,.ng-pre,.ng-foot,.ng-menu,.ng-sec *,.ng-nav *,.ng-pre *,.ng-foot *,.ng-menu *{box-sizing:border-box}
+.ng-sec{position:relative;background:var(--ng-bg);overflow:clip;isolation:isolate}
+.ng-sec :where(h1,h2,h3,h4,p,ul,ol,figure,blockquote){margin:0;padding:0}
+.ng-sec :where(ul,ol){list-style:none}
+.ng-sec :where(img,svg,canvas,picture){display:block;max-width:100%}
+.ng-sec :where(a),.ng-foot :where(a),.ng-nav :where(a){color:inherit;text-decoration:none}
+.ng-sec ::selection,.ng-foot ::selection{background:var(--ng-volt);color:var(--ng-bg)}
+.ng-wrap{width:100%;max-width:var(--ng-max);margin-inline:auto;padding-inline:var(--ng-gut)}
+.ng-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,1.6vw,24px)}
+.ng-mono{font-family:var(--ng-mono);font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;line-height:1.4}
+.ng-eyebrow{color:var(--ng-volt);display:inline-flex;align-items:center;gap:10px}
+.ng-eyebrow::before{content:"";width:18px;height:1px;background:currentColor}
+.ng-h2{font-size:clamp(36px,5.6vw,96px);line-height:.95;letter-spacing:-.03em;font-weight:500;text-wrap:balance}
+.ng-h3{font-size:clamp(26px,2.8vw,44px);line-height:1;letter-spacing:-.025em;font-weight:500}
+.ng-lead{font-size:clamp(18px,1.5vw,22px);line-height:1.45;color:var(--ng-tx);font-weight:300;max-width:46ch}
+.ng-body{color:var(--ng-tx2);max-width:60ch}
+.ng-volt{color:var(--ng-volt)}
+.ng-sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.ng-w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.ng-w>span{display:inline-block;will-change:transform}
+.ng-btn{
+--_bg:transparent;--_fg:var(--ng-tx);--_bd:var(--ng-line2);
+position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;
+min-height:48px;padding:0 22px;border-radius:var(--ng-r);border:1px solid var(--_bd);
+background:var(--_bg);color:var(--_fg)!important;font:500 15px/1 var(--ng-ff);letter-spacing:-.005em;
+cursor:pointer;transition:background .35s var(--ng-ease),border-color .35s var(--ng-ease),color .35s var(--ng-ease);
+text-decoration:none;white-space:nowrap;
+}
+.ng-btn:hover{--_bd:var(--ng-tx)}
+.ng-btn--volt{--_bg:var(--ng-volt);--_fg:var(--ng-bg);--_bd:var(--ng-volt)}
+.ng-btn--volt:hover{--_bg:var(--ng-tx);--_bd:var(--ng-tx)}
+.ng-btn__i{display:inline-block;transition:transform .45s var(--ng-ease)}
+.ng-btn:hover .ng-btn__i{transform:translate(3px,-1px)}
+.ng-sec :focus-visible,.ng-nav :focus-visible,.ng-foot :focus-visible,.ng-menu :focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px;border-radius:2px}
+.ng-chips{display:flex;flex-wrap:wrap;gap:8px}
+.ng-chip{font:500 11px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-tx);border:1px solid var(--ng-line2);border-radius:4px;padding:8px 10px}
+.ng-marks{position:absolute;inset:0;pointer-events:none}
+.ng-marks::before,.ng-marks::after,.ng-marks>i::before,.ng-marks>i::after{content:"";position:absolute;width:14px;height:14px;border:0 solid var(--ng-tx);opacity:.55}
+.ng-marks::before{top:10px;left:10px;border-top-width:1px;border-left-width:1px}
+.ng-marks::after{top:10px;right:10px;border-top-width:1px;border-right-width:1px}
+.ng-marks>i::before{bottom:10px;left:10px;border-bottom-width:1px;border-left-width:1px}
+.ng-marks>i::after{bottom:10px;right:10px;border-bottom-width:1px;border-right-width:1px}
+.ng-media{position:relative;overflow:hidden;background:var(--ng-s1);border-radius:var(--ng-r)}
+.ng-media picture{display:block;width:100%;height:100%}
+.ng-media img{width:100%;height:100%;object-fit:cover}
+.ng-media img.ng-is-missing{opacity:0}
+.ng-media[data-ph]::before{
+content:attr(data-ph);position:absolute;inset:0;display:flex;align-items:flex-end;padding:14px 16px;
+font:500 10px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);
+background:
+linear-gradient(var(--ng-line) 1px,transparent 1px) 0 0/40px 40px,
+linear-gradient(90deg,var(--ng-line) 1px,transparent 1px) 0 0/40px 40px,
+radial-gradient(60% 60% at 60% 45%,rgba(200,245,66,.07),transparent 70%),var(--ng-s1);
+}
+.ng-media[data-ph]:has(img:not(.ng-is-missing))::before{opacity:0}
+.ng-noise{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:9997;opacity:.035;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+.ng-sec[data-ng-bg]::before{content:"";position:absolute;inset:0;background:var(--ng-s1);opacity:var(--ng-bgo,1);z-index:-1;pointer-events:none}
+.ng-sec[data-ng-bg]{background:var(--ng-bg)}
+.ng-js .ng-sec[data-ng-bg]{--ng-bgo:0}
+.ng-head{display:grid;gap:22px;margin-bottom:clamp(40px,6vw,96px)}
+.ng-idx{color:var(--ng-tx2)}
+@media (prefers-reduced-motion:reduce){
+.ng-sec *,.ng-nav *,.ng-foot *,.ng-menu *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+.ng-js .ng-sec[data-ng-bg]{--ng-bgo:1}
+}
+.ng-stat{padding:clamp(96px,12vw,200px) 0}
+.ng-stat__sig{position:absolute;left:0;right:0;top:50%;height:220px;margin-top:-110px;width:100%;z-index:-1;pointer-events:none}
+.ng-stat__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end}
+.ng-stat__lbl{grid-column:1/-1;display:flex;justify-content:space-between;gap:16px;color:var(--ng-tx2);margin-bottom:12px}
+.ng-stat__num{grid-column:1/span 7;position:relative;font-size:clamp(150px,30vw,520px);line-height:.8;letter-spacing:-.06em;font-weight:500;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ng-stat__o{color:transparent;-webkit-text-stroke:1px rgba(242,243,240,.35)}
+.ng-stat__f{position:absolute;inset:0;overflow:hidden}
+.ng-stat__f>span{display:block;color:var(--ng-volt)}
+.ng-stat__d{display:inline-block;min-width:2ch;text-align:right}
+.ng-stat__pc{font-size:.42em;letter-spacing:-.02em;vertical-align:.95em;margin-left:.04em}
+.ng-stat__copy{grid-column:8/span 5;padding-bottom:clamp(10px,2vw,40px)}
+.ng-stat__copy p:first-child{font-size:clamp(20px,1.9vw,30px);line-height:1.2;letter-spacing:-.015em}
+.ng-stat__src{margin-top:20px;color:var(--ng-tx2)}
+.ng-stat__end{grid-column:1/-1;margin-top:clamp(40px,6vw,96px);padding-top:24px;border-top:1px solid var(--ng-line);display:flex;justify-content:space-between;align-items:baseline;gap:24px;flex-wrap:wrap}
+.ng-stat__end p{font-size:clamp(26px,3.4vw,56px);line-height:1;letter-spacing:-.03em;font-weight:500;max-width:22ch}
+@media (max-width:899px){
+.ng-stat__num,.ng-stat__copy{grid-column:1/-1}
+.ng-stat__num{font-size:clamp(130px,44vw,300px)}
+.ng-stat__sig{top:34%}
+}
+</style>
+<script>
+/* ==========================================================
+   NEUROGENOMIC · Núcleo JS compartido (window.NG)
+   Idempotente: puede venir repetido en varios bloques Elementor.
+   Carga GSAP + ScrollTrigger (cdnjs) y Lenis (jsDelivr) una sola vez.
+   ========================================================== */
+(function () {
+  if (window.NG) return;
+  var NG = (window.NG = {});
+  var d = document, de = d.documentElement;
+  de.classList.add('ng-js');
+
+  var mq = function (q) { return window.matchMedia ? window.matchMedia(q).matches : false; };
+  NG.rm = mq('(prefers-reduced-motion: reduce)');
+  NG.fine = mq('(hover: hover) and (pointer: fine)');
+  NG.edit = function () { return d.body && d.body.classList.contains('elementor-editor-active'); };
+  NG.lerp = function (a, b, t) { return a + (b - a) * t; };
+  NG.clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
+
+  var CDN = {
+    gsap: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',
+    st: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',
+    lenis: 'https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js'
+  };
+  function load(src) {
+    return new Promise(function (res, rej) {
+      var ex = d.querySelector('script[src="' + src + '"]');
+      if (ex) {
+        if (ex.getAttribute('data-ng-loaded')) return res();
+        ex.addEventListener('load', function () { res(); });
+        ex.addEventListener('error', rej);
+        return;
+      }
+      var s = d.createElement('script');
+      s.src = src; s.async = true; s.crossOrigin = 'anonymous';
+      s.onload = function () { s.setAttribute('data-ng-loaded', '1'); res(); };
+      s.onerror = rej;
+      d.head.appendChild(s);
+    });
+  }
+
+  /* --- Carga de librerías + Lenis ------------------------------------ */
+  var readyP = null;
+  NG.ready = function () {
+    if (readyP) return readyP;
+    readyP = (window.gsap ? Promise.resolve() : load(CDN.gsap))
+      .then(function () { return window.ScrollTrigger ? null : load(CDN.st); })
+      .then(function () {
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.defaults({ ease: 'power3.out', duration: 0.9 });
+        if (NG.rm || NG.edit()) return;
+        return (window.Lenis ? Promise.resolve() : load(CDN.lenis)).then(initLenis, function () {});
+      })
+      .then(function () { return window.gsap; })
+      .catch(function () { de.classList.add('ng-nolib'); return null; });
+    return readyP;
+  };
+  function initLenis() {
+    if (NG.lenis || !window.Lenis) return;
+    var lenis = (NG.lenis = new Lenis({ duration: 1.15, easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true }));
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+  NG.scrollTo = function (target) {
+    var el = typeof target === 'string' ? d.querySelector(target) : target;
+    if (!el) return;
+    if (NG.lenis) NG.lenis.scrollTo(el, { offset: 0, duration: 1.4 });
+    else el.scrollIntoView({ behavior: NG.rm ? 'auto' : 'smooth' });
+  };
+
+  /* --- Arranque con guardas data-init y múltiples entradas ----------- */
+  NG.boot = function (selector, init) {
+    var run = function () {
+      var els = d.querySelectorAll(selector);
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (el.getAttribute('data-init')) continue;
+        el.setAttribute('data-init', '1');
+        try { init(el); } catch (e) { if (window.console) console.error('[NG]', selector, e); }
+      }
+    };
+    if (d.readyState !== 'loading') run(); else d.addEventListener('DOMContentLoaded', run);
+    window.addEventListener('load', run);
+    var hook = function () {
+      if (window.elementorFrontend && elementorFrontend.hooks) elementorFrontend.hooks.addAction('frontend/element_ready/global', run);
+    };
+    if (window.elementorFrontend && window.elementorFrontend.hooks) hook();
+    else window.addEventListener('elementor/frontend/init', hook);
+  };
+
+  /* --- Preloader → secciones esperan este evento --------------------- */
+  NG.afterPreload = function (cb) {
+    if (!de.classList.contains('ng-pre-on') || de.classList.contains('ng-pre-done')) return cb();
+    window.addEventListener('ng:preloaded', function f() { window.removeEventListener('ng:preloaded', f); cb(); });
+  };
+
+  /* --- Split de texto accesible (copia sr + spans aria-hidden) ------- */
+  NG.split = function (el, mode) {
+    if (el._ngSplit) return el._ngSplit;
+    var text = el.textContent.replace(/\s+/g, ' ').trim();
+    var out = [];
+    el.setAttribute('aria-label', text);
+    var frag = d.createDocumentFragment();
+    var sr = d.createElement('span'); sr.className = 'ng-sr'; sr.textContent = text; frag.appendChild(sr);
+    var vis = d.createElement('span'); vis.setAttribute('aria-hidden', 'true');
+    // conserva <br> y <em> simples: trabajamos sobre los nodos hijos
+    var walk = function (node, parent) {
+      [].slice.call(node.childNodes).forEach(function (n) {
+        if (n.nodeType === 3) {
+          var parts = n.textContent.split(/(\s+)/);
+          parts.forEach(function (p) {
+            if (!p) return;
+            if (/^\s+$/.test(p)) { parent.appendChild(d.createTextNode(' ')); return; }
+            if (mode === 'chars') {
+              var w = d.createElement('span'); w.style.display = 'inline-block'; w.style.whiteSpace = 'nowrap';
+              p.split('').forEach(function (c) { var s = d.createElement('span'); s.textContent = c; s.style.display = 'inline-block'; w.appendChild(s); out.push(s); });
+              parent.appendChild(w);
+            } else {
+              var m = d.createElement('span'); m.className = 'ng-w';
+              var i = d.createElement('span'); i.textContent = p; m.appendChild(i); parent.appendChild(m); out.push(i);
+            }
+          });
+        } else if (n.nodeType === 1) {
+          if (n.tagName === 'BR') { parent.appendChild(d.createElement('br')); return; }
+          var c = n.cloneNode(false); c.removeAttribute('id'); parent.appendChild(c); walk(n, c);
+        }
+      });
+    };
+    walk(el, vis);
+    frag.appendChild(vis);
+    el.textContent = ''; el.appendChild(frag);
+    el.removeAttribute('aria-label');
+    el._ngSplit = out;
+    return out;
+  };
+
+  /* --- Visibilidad + bucles rAF que se pausan fuera de viewport ------ */
+  NG.vis = function (el, onIn, onOut, margin) {
+    if (!('IntersectionObserver' in window)) { onIn && onIn(); return; }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) onIn && onIn(e); else onOut && onOut(e); });
+    }, { rootMargin: margin || '0px' });
+    io.observe(el);
+    return io;
+  };
+  NG.loop = function (el, fn) {
+    var on = false, raf = 0, last = 0, docVis = !d.hidden;
+    var tick = function (t) {
+      raf = 0;
+      if (!on || !docVis) return;
+      var dt = last ? Math.min(64, t - last) : 16; last = t;
+      fn(t, dt);
+      raf = requestAnimationFrame(tick);
+    };
+    var start = function () { if (!raf && on && docVis) { last = 0; raf = requestAnimationFrame(tick); } };
+    NG.vis(el, function () { on = true; start(); }, function () { on = false; }, '80px');
+    d.addEventListener('visibilitychange', function () { docVis = !d.hidden; start(); });
+    return { kick: start };
+  };
+
+  /* --- Canvas con DPR y ResizeObserver ------------------------------ */
+  NG.canvas = function (cv, onResize) {
+    var ctx = cv.getContext('2d');
+    var o = { cv: cv, ctx: ctx, w: 0, h: 0, dpr: 1 };
+    var fit = function () {
+      var r = cv.getBoundingClientRect();
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var w = Math.max(1, Math.round(r.width)), h = Math.max(1, Math.round(r.height));
+      if (w === o.w && h === o.h && dpr === o.dpr) return;
+      o.w = w; o.h = h; o.dpr = dpr;
+      cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      onResize && onResize(o);
+    };
+    fit();
+    if ('ResizeObserver' in window) new ResizeObserver(fit).observe(cv); else window.addEventListener('resize', fit);
+    return o;
+  };
+
+  /* --- Heatmap monocromático dentro de la paleta (volt → lima → blanco) */
+  NG.heat = function (cv, pts, opts) {
+    opts = opts || {};
+    var r = cv.getBoundingClientRect();
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var W = Math.max(1, Math.round(r.width * dpr)), H = Math.max(1, Math.round(r.height * dpr));
+    cv.width = W; cv.height = H;
+    var ctx = cv.getContext('2d', { willReadFrequently: true });
+    var base = Math.min(W, H);
+    ctx.clearRect(0, 0, W, H);
+    pts.forEach(function (p) {
+      var rad = (p[2] || 0.12) * base, x = p[0] * W, y = p[1] * H, w = p[3] == null ? 1 : p[3];
+      var g = ctx.createRadialGradient(x, y, 0, x, y, rad);
+      g.addColorStop(0, 'rgba(0,0,0,' + 0.55 * w + ')'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = g; ctx.fillRect(x - rad, y - rad, rad * 2, rad * 2);
+    });
+    var img = ctx.getImageData(0, 0, W, H), px = img.data;
+    var ramp = [[0, [200, 245, 66, 0]], [0.18, [200, 245, 66, 70]], [0.55, [200, 255, 0, 170]], [1, [242, 243, 240, 225]]];
+    for (var i = 0; i < px.length; i += 4) {
+      var a = px[i + 3] / 255; if (!a) continue;
+      a = Math.min(1, a * (opts.gain || 1.25));
+      for (var k = 1; k < ramp.length; k++) {
+        if (a <= ramp[k][0]) {
+          var lo = ramp[k - 1], hi = ramp[k], t = (a - lo[0]) / (hi[0] - lo[0]);
+          px[i] = lo[1][0] + (hi[1][0] - lo[1][0]) * t; px[i + 1] = lo[1][1] + (hi[1][1] - lo[1][1]) * t;
+          px[i + 2] = lo[1][2] + (hi[1][2] - lo[1][2]) * t; px[i + 3] = lo[1][3] + (hi[1][3] - lo[1][3]) * t;
+          break;
+        }
+      }
+    }
+    ctx.putImageData(img, 0, 0);
+  };
+
+  /* --- Contador ----------------------------------------------------- */
+  NG.count = function (el, to, o) {
+    o = o || {};
+    var dec = o.dec || 0, fmt = function (v) { return (o.pre || '') + v.toFixed(dec) + (o.suf || ''); };
+    if (NG.rm || !window.gsap) { el.textContent = fmt(to); o.done && o.done(); return; }
+    var st = { v: o.from || 0 };
+    el.textContent = fmt(st.v);
+    return gsap.to(st, { v: to, duration: o.dur || 1.8, ease: o.ease || 'expo.out', delay: o.delay || 0,
+      onUpdate: function () { el.textContent = fmt(st.v); o.update && o.update(st.v / to); },
+      onComplete: function () { el.textContent = fmt(to); o.done && o.done(); } });
+  };
+
+  /* --- Reveals genéricos dentro de una sección ----------------------- */
+  NG.reveals = function (root) {
+    if (!window.gsap || NG.rm) return;
+    root.querySelectorAll('[data-ng-split]').forEach(function (el) {
+      var w = NG.split(el);
+      gsap.from(w, { yPercent: 110, duration: 1.1, ease: 'expo.out', stagger: 0.05,
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true } });
+    });
+    root.querySelectorAll('[data-ng-reveal]').forEach(function (el) {
+      gsap.from(el, { autoAlpha: 0, y: 28, duration: 1, ease: 'power3.out', delay: parseFloat(el.getAttribute('data-ng-reveal')) || 0,
+        scrollTrigger: { trigger: el, start: 'top 90%', once: true } });
+    });
+    if (root.hasAttribute('data-ng-bg')) {
+      gsap.timeline({ scrollTrigger: { trigger: root, start: 'top 75%', end: 'bottom 25%', scrub: true } })
+        .fromTo(root, { '--ng-bgo': 0 }, { '--ng-bgo': 1, ease: 'none', duration: 0.25 })
+        .to(root, { '--ng-bgo': 1, duration: 0.5 })
+        .to(root, { '--ng-bgo': 0, ease: 'none', duration: 0.25 });
+    }
+  };
+
+  /* --- Botones magnéticos ------------------------------------------- */
+  NG.magnet = function (el, k) {
+    if (!NG.fine || NG.rm || el._ngMag) return;
+    el._ngMag = 1; k = k || 0.3;
+    var inner = el.querySelector('.ng-btn__t') || el;
+    el.addEventListener('pointermove', function (e) {
+      var r = el.getBoundingClientRect();
+      var x = (e.clientX - r.left - r.width / 2) * k, y = (e.clientY - r.top - r.height / 2) * k;
+      el.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+      if (inner !== el) inner.style.transform = 'translate(' + x * 0.35 + 'px,' + y * 0.35 + 'px)';
+    });
+    el.addEventListener('pointerleave', function () {
+      el.style.transition = 'transform .6s cubic-bezier(.16,1,.3,1)';
+      el.style.transform = ''; if (inner !== el) { inner.style.transition = el.style.transition; inner.style.transform = ''; }
+      setTimeout(function () { el.style.transition = ''; inner.style.transition = ''; }, 600);
+    });
+  };
+
+  /* --- Anclas internas con Lenis ------------------------------------ */
+  d.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href*="#"]');
+    if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey) return;
+    var url = new URL(a.href, location.href);
+    if (url.pathname !== location.pathname || !url.hash || url.hash.length < 2) return;
+    var t = d.getElementById(decodeURIComponent(url.hash.slice(1)));
+    if (!t) return;
+    e.preventDefault();
+    NG.scrollTo(t);
+    if (t.tabIndex < 0 && !/^(A|BUTTON|INPUT|SELECT|TEXTAREA)$/.test(t.tagName)) t.setAttribute('tabindex', '-1');
+    t.focus({ preventScroll: true });
+    history.replaceState(null, '', url.hash);
+  });
+})();
+</script>
+<section class="ng-sec ng-stat" aria-labelledby="ng-stat-title" data-ng="stat">
+  <canvas class="ng-stat__sig" aria-hidden="true"></canvas>
+  <div class="ng-wrap ng-stat__grid">
+    <div class="ng-stat__lbl ng-mono" aria-hidden="true"><span>03 · Dato de impacto</span><span>Proceso no consciente</span></div>
+    <h2 class="ng-sr" id="ng-stat-title">El 95 % de las decisiones de compra se procesan de forma no consciente</h2>
+    <p class="ng-stat__num" aria-hidden="true">
+      <span class="ng-stat__o"><span class="ng-stat__d">95</span><span class="ng-stat__pc">%</span></span>
+      <span class="ng-stat__f"><span><span class="ng-stat__d">95</span><span class="ng-stat__pc">%</span></span></span>
+    </p>
+    <div class="ng-stat__copy">
+      <p data-ng-reveal>de las decisiones de compra se procesan de forma no consciente. El marketing tradicional gasta millones intentando descifrar el 5&nbsp;% restante.</p>
+      <p class="ng-stat__src ng-mono" data-ng-reveal=".1">Fuente: Gerald Zaltman, Harvard Business School</p>
+    </div>
+    <div class="ng-stat__end">
+      <p data-ng-split>Medimos la franja donde se pierde tu conversión.</p>
+      <span class="ng-mono ng-volt" aria-hidden="true">● señal en vivo</span>
+    </div>
+  </div>
+</section>
+
+<script>
+NG.boot('[data-ng="stat"]', function (sec) {
+  var ds = sec.querySelectorAll('.ng-stat__d');
+  var fill = sec.querySelector('.ng-stat__f'), fillIn = fill.firstElementChild;
+  var cv = NG.canvas(sec.querySelector('.ng-stat__sig'));
+  var spike = -1, phase = 0;
+  var draw = function (t, dt) {
+    var c = cv.ctx, w = cv.w, h = cv.h, mid = h / 2;
+    phase += (dt || 16) * .0016;
+    c.clearRect(0, 0, w, h);
+    c.strokeStyle = 'rgba(255,255,255,.08)'; c.lineWidth = 1;
+    c.beginPath(); c.moveTo(0, mid); c.lineTo(w, mid); c.stroke();
+    if (spike >= 0) spike += (dt || 16) * .0009;
+    var sx = spike * w;
+    c.strokeStyle = 'rgba(200,245,66,.55)'; c.lineWidth = 1.2; c.beginPath();
+    for (var x = 0; x <= w; x += 3) {
+      var y = mid + Math.sin(x * .021 + phase) * 3 + Math.sin(x * .057 - phase * 1.7) * 2;
+      if (spike >= 0) {
+        var dx = (x - sx) / 46;
+        y -= Math.exp(-dx * dx) * 78 * Math.cos(dx * 3.2) * Math.max(0, 1 - spike * .25);
+      }
+      x ? c.lineTo(x, y) : c.moveTo(x, y);
+    }
+    c.stroke();
+    if (spike >= 0 && sx < w) { c.fillStyle = '#C8FF00'; c.beginPath(); c.arc(sx, mid - 2, 3, 0, 6.283); c.fill(); }
+    if (spike > 1.3) spike = -1;
+  };
+  if (NG.rm) draw(0, 0); else NG.loop(sec, draw);
+
+  NG.reveals(sec);
+  NG.ready().then(function (gsap) {
+    if (!gsap || NG.rm) return;
+    gsap.set(fill, { yPercent: 100 }); gsap.set(fillIn, { yPercent: -100 });
+    ds.forEach(function (d) { d.textContent = '0'; });
+    ScrollTrigger.create({
+      trigger: sec, start: 'top 62%', once: true,
+      onEnter: function () {
+        NG.count(ds[0], 95, { dur: 2.2, update: function (k) { ds[1].textContent = ds[0].textContent; },
+          done: function () { ds[1].textContent = '95'; spike = 0; } });
+        gsap.to(fill, { yPercent: 0, duration: 2.2, ease: 'expo.out' });
+        gsap.to(fillIn, { yPercent: 0, duration: 2.2, ease: 'expo.out' });
+      }
+    });
+  });
+});
+</script>

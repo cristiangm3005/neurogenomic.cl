@@ -1,0 +1,122 @@
+/* ==========================================================
+   NEUROGENOMIC · Sistema de diseño base (prefijo ng-)
+   Se incluye una vez en index.html y al inicio de cada bloque
+   Elementor (es idempotente: repetirlo no rompe nada).
+   ========================================================== */
+:root{
+  --ng-bg:#0A0B0D;
+  --ng-s1:#111316;
+  --ng-s2:#16191D;
+  --ng-line:rgba(255,255,255,.08);
+  --ng-line2:rgba(255,255,255,.16);
+  --ng-tx:#F2F3F0;
+  --ng-tx2:#8A8F98;
+  --ng-volt:#C8F542;
+  --ng-lime:#C8FF00;
+  --ng-ff:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --ng-mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --ng-ease:cubic-bezier(.16,1,.3,1);
+  --ng-gut:clamp(16px,4.4vw,72px);
+  --ng-max:1680px;
+  --ng-r:6px;
+  --ng-nav-h:72px;
+}
+body:has(.ng-sec){background:var(--ng-bg);margin:0}
+html:has(.ng-sec){scroll-behavior:auto;-webkit-text-size-adjust:100%}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+
+.ng-sec,.ng-nav,.ng-pre,.ng-foot,.ng-menu{
+  font-family:var(--ng-ff);color:var(--ng-tx);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  font-size:16px;line-height:1.55;font-weight:400;
+}
+.ng-sec,.ng-nav,.ng-pre,.ng-foot,.ng-menu,.ng-sec *,.ng-nav *,.ng-pre *,.ng-foot *,.ng-menu *{box-sizing:border-box}
+.ng-sec{position:relative;background:var(--ng-bg);overflow:clip;isolation:isolate}
+.ng-sec :where(h1,h2,h3,h4,p,ul,ol,figure,blockquote){margin:0;padding:0}
+.ng-sec :where(ul,ol){list-style:none}
+.ng-sec :where(img,svg,canvas,picture){display:block;max-width:100%}
+.ng-sec :where(a),.ng-foot :where(a),.ng-nav :where(a){color:inherit;text-decoration:none}
+.ng-sec ::selection,.ng-foot ::selection{background:var(--ng-volt);color:var(--ng-bg)}
+
+/* Layout */
+.ng-wrap{width:100%;max-width:var(--ng-max);margin-inline:auto;padding-inline:var(--ng-gut)}
+.ng-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,1.6vw,24px)}
+
+/* Tipografía */
+.ng-mono{font-family:var(--ng-mono);font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;line-height:1.4}
+.ng-eyebrow{color:var(--ng-volt);display:inline-flex;align-items:center;gap:10px}
+.ng-eyebrow::before{content:"";width:18px;height:1px;background:currentColor}
+.ng-h2{font-size:clamp(36px,5.6vw,96px);line-height:.95;letter-spacing:-.03em;font-weight:500;text-wrap:balance}
+.ng-h3{font-size:clamp(26px,2.8vw,44px);line-height:1;letter-spacing:-.025em;font-weight:500}
+.ng-lead{font-size:clamp(18px,1.5vw,22px);line-height:1.45;color:var(--ng-tx);font-weight:300;max-width:46ch}
+.ng-body{color:var(--ng-tx2);max-width:60ch}
+.ng-volt{color:var(--ng-volt)}
+.ng-sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* Split text (máscara) */
+.ng-w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.ng-w>span{display:inline-block;will-change:transform}
+
+/* Botones (≥44px táctil) */
+.ng-btn{
+  --_bg:transparent;--_fg:var(--ng-tx);--_bd:var(--ng-line2);
+  position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;
+  min-height:48px;padding:0 22px;border-radius:var(--ng-r);border:1px solid var(--_bd);
+  background:var(--_bg);color:var(--_fg)!important;font:500 15px/1 var(--ng-ff);letter-spacing:-.005em;
+  cursor:pointer;transition:background .35s var(--ng-ease),border-color .35s var(--ng-ease),color .35s var(--ng-ease);
+  text-decoration:none;white-space:nowrap;
+}
+.ng-btn:hover{--_bd:var(--ng-tx)}
+.ng-btn--volt{--_bg:var(--ng-volt);--_fg:var(--ng-bg);--_bd:var(--ng-volt)}
+.ng-btn--volt:hover{--_bg:var(--ng-tx);--_bd:var(--ng-tx)}
+.ng-btn__i{display:inline-block;transition:transform .45s var(--ng-ease)}
+.ng-btn:hover .ng-btn__i{transform:translate(3px,-1px)}
+.ng-sec :focus-visible,.ng-nav :focus-visible,.ng-foot :focus-visible,.ng-menu :focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px;border-radius:2px}
+
+/* Chips */
+.ng-chips{display:flex;flex-wrap:wrap;gap:8px}
+.ng-chip{font:500 11px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-tx);border:1px solid var(--ng-line2);border-radius:4px;padding:8px 10px}
+
+/* Marcas de calibración (esquinas) */
+.ng-marks{position:absolute;inset:0;pointer-events:none}
+.ng-marks::before,.ng-marks::after,.ng-marks>i::before,.ng-marks>i::after{content:"";position:absolute;width:14px;height:14px;border:0 solid var(--ng-tx);opacity:.55}
+.ng-marks::before{top:10px;left:10px;border-top-width:1px;border-left-width:1px}
+.ng-marks::after{top:10px;right:10px;border-top-width:1px;border-right-width:1px}
+.ng-marks>i::before{bottom:10px;left:10px;border-bottom-width:1px;border-left-width:1px}
+.ng-marks>i::after{bottom:10px;right:10px;border-bottom-width:1px;border-right-width:1px}
+
+/* Imágenes: nítidas, sin velos. Si el archivo aún no existe se ve un
+   placeholder técnico con el nombre del archivo (no una imagen rota). */
+.ng-media{position:relative;overflow:hidden;background:var(--ng-s1);border-radius:var(--ng-r)}
+.ng-media picture{display:block;width:100%;height:100%}
+.ng-media img{width:100%;height:100%;object-fit:cover}
+.ng-media img.ng-is-missing{opacity:0}
+.ng-media[data-ph]::before{
+  content:attr(data-ph);position:absolute;inset:0;display:flex;align-items:flex-end;padding:14px 16px;
+  font:500 10px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);
+  background:
+    linear-gradient(var(--ng-line) 1px,transparent 1px) 0 0/40px 40px,
+    linear-gradient(90deg,var(--ng-line) 1px,transparent 1px) 0 0/40px 40px,
+    radial-gradient(60% 60% at 60% 45%,rgba(200,245,66,.07),transparent 70%),var(--ng-s1);
+}
+.ng-media[data-ph]:has(img:not(.ng-is-missing))::before{opacity:0}
+
+/* Grano fotográfico */
+.ng-noise{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:9997;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* Sección con transición de fondo (opacidad de una capa de superficie) */
+.ng-sec[data-ng-bg]::before{content:"";position:absolute;inset:0;background:var(--ng-s1);opacity:var(--ng-bgo,1);z-index:-1;pointer-events:none}
+.ng-sec[data-ng-bg]{background:var(--ng-bg)}
+.ng-js .ng-sec[data-ng-bg]{--ng-bgo:0}
+
+/* Cabecera de sección reutilizable */
+.ng-head{display:grid;gap:22px;margin-bottom:clamp(40px,6vw,96px)}
+.ng-idx{color:var(--ng-tx2)}
+
+@media (prefers-reduced-motion:reduce){
+  .ng-sec *,.ng-nav *,.ng-foot *,.ng-menu *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .ng-js .ng-sec[data-ng-bg]{--ng-bgo:1}
+}

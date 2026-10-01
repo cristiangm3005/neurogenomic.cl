@@ -1,0 +1,130 @@
+<style>
+/* ---------- S8 · CASO · tres packagings, heatmaps y ganadora ---------- */
+.ng-case{padding:clamp(96px,12vw,180px) 0}
+.ng-case__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:clamp(32px,4vw,56px)}
+.ng-case__head .ng-head{grid-column:1/span 8;margin:0}
+.ng-case__head .ng-mono{grid-column:10/span 3;color:var(--ng-tx2);text-align:right}
+.ng-case__pin{min-height:100vh;min-height:100svh;display:flex;align-items:center}
+.ng-case__row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,24px);width:100%}
+.ng-pk{position:relative;border:1px solid var(--ng-line);border-radius:8px;padding:14px;background:var(--ng-s1);transition:border-color .5s}
+.ng-pk__top{display:flex;justify-content:space-between;color:var(--ng-tx2);margin-bottom:12px}
+.ng-pk__stage{position:relative;aspect-ratio:30/38;border-radius:4px;overflow:hidden;background:#E9E7E1}
+.ng-pk__stage svg,.ng-pk__stage canvas{position:absolute;inset:0;width:100%;height:100%}
+.ng-pk__stage canvas{opacity:0}
+.ng-pk__tag{position:absolute;left:12px;right:12px;bottom:12px;background:var(--ng-volt);color:var(--ng-bg);font:500 11px/1.35 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;padding:9px 10px;border-radius:3px;opacity:0;transform:translateY(8px)}
+.ng-pk__stage,.ng-pk__top{transition:opacity .5s}
+.ng-case__row.ng-is-done .ng-pk:not(.ng-is-win) .ng-pk__stage,.ng-case__row.ng-is-done .ng-pk:not(.ng-is-win) .ng-pk__top{opacity:.4}
+.ng-case__row.ng-is-done .ng-pk.ng-is-win{border-color:var(--ng-volt)}
+.ng-case__row.ng-is-done .ng-pk.ng-is-win .ng-pk__top span:last-child{color:var(--ng-volt)}
+.ng-case__blocks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,24px);margin-top:clamp(40px,5vw,72px)}
+.ng-case__b{border-top:1px solid var(--ng-line2);padding-top:18px}
+.ng-case__b h3{font:500 12px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-volt);margin-bottom:12px}
+.ng-case__b p{font-size:clamp(17px,1.35vw,21px);line-height:1.4;font-weight:300}
+@media (max-width:1023px){
+  .ng-case__head .ng-head,.ng-case__head .ng-mono{grid-column:1/-1;text-align:left}
+  .ng-case__pin{min-height:0}
+  .ng-case__blocks{grid-template-columns:1fr}
+}
+@media (max-width:639px){
+  .ng-case__row{grid-template-columns:1fr;max-width:420px;margin-inline:auto}
+}
+</style>
+
+<section class="ng-sec ng-case" id="caso" aria-labelledby="ng-case-title" data-ng="case">
+  <div class="ng-wrap">
+    <div class="ng-case__head">
+      <div class="ng-head">
+        <p class="ng-mono ng-eyebrow">08 · Caso</p>
+        <h2 class="ng-h2" id="ng-case-title" data-ng-split>Un packaging, tres versiones, una respuesta clara.</h2>
+      </div>
+      <p class="ng-mono">Marca anonimizada.<br>Representación ilustrativa.</p>
+    </div>
+  </div>
+  <div class="ng-case__pin">
+    <div class="ng-wrap">
+      <div class="ng-case__row">
+        <figure class="ng-pk" data-v="a">
+          <figcaption class="ng-pk__top ng-mono"><span>Versión A</span><span>Panel · PDV simulado</span></figcaption>
+          <div class="ng-pk__stage" role="img" aria-label="Versión A: logotipo grande en la parte superior y nombre del producto pequeño.">
+            <svg viewBox="0 0 300 380" aria-hidden="true"><rect x="60" y="34" width="180" height="300" rx="4" fill="#1B1E22"/><rect x="60" y="34" width="180" height="300" rx="4" fill="none" stroke="#2A2E33"/>
+              <text x="150" y="110" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="40" letter-spacing="2" fill="#ECEAE4">BRISA</text>
+              <line x1="90" y1="132" x2="210" y2="132" stroke="#5A5F66"/><text x="150" y="290" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="2" fill="#8A8F98">TÉ VERDE · 20 SOBRES</text>
+              <ellipse cx="150" cy="350" rx="100" ry="8" fill="#D2CEC5"/></svg>
+            <canvas aria-hidden="true"></canvas>
+          </div>
+        </figure>
+        <figure class="ng-pk ng-is-win" data-v="b">
+          <figcaption class="ng-pk__top ng-mono"><span>Versión B</span><span>Ganadora</span></figcaption>
+          <div class="ng-pk__stage" role="img" aria-label="Versión B: ilustración central de hojas con la marca en la base; es la versión ganadora.">
+            <svg viewBox="0 0 300 380" aria-hidden="true"><rect x="60" y="34" width="180" height="300" rx="4" fill="#ECEAE4" stroke="#C9C5BC"/>
+              <circle cx="150" cy="160" r="62" fill="#C8F542"/><path d="M150 112 C120 140 120 180 150 210 C180 180 180 140 150 112Z" fill="#1B1E22"/><path d="M150 120 V204" stroke="#C8F542" stroke-width="2"/>
+              <text x="150" y="268" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="28" letter-spacing="3" fill="#14161A">BRISA</text>
+              <text x="150" y="292" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="2" fill="#4A4D52">TÉ VERDE · 20 SOBRES</text>
+              <ellipse cx="150" cy="350" rx="100" ry="8" fill="#D2CEC5"/></svg>
+            <canvas aria-hidden="true"></canvas>
+            <span class="ng-pk__tag">Mayor atención sostenida<br>+ respuesta emocional positiva</span>
+          </div>
+        </figure>
+        <figure class="ng-pk" data-v="c">
+          <figcaption class="ng-pk__top ng-mono"><span>Versión C</span><span>Panel · PDV simulado</span></figcaption>
+          <div class="ng-pk__stage" role="img" aria-label="Versión C: diseño minimalista tipográfico con la marca en vertical.">
+            <svg viewBox="0 0 300 380" aria-hidden="true"><rect x="60" y="34" width="180" height="300" rx="4" fill="#F6F5F1" stroke="#C9C5BC"/>
+              <text transform="translate(108 300) rotate(-90)" font-family="Space Grotesk,sans-serif" font-weight="300" font-size="44" letter-spacing="6" fill="#14161A">BRISA</text>
+              <rect x="150" y="60" width="70" height="4" fill="#14161A"/><text x="150" y="92" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="1.5" fill="#4A4D52">TÉ VERDE</text><text x="150" y="106" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="1.5" fill="#4A4D52">20 SOBRES</text>
+              <ellipse cx="150" cy="350" rx="100" ry="8" fill="#D2CEC5"/></svg>
+            <canvas aria-hidden="true"></canvas>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </div>
+  <div class="ng-wrap">
+    <div class="ng-case__blocks">
+      <div class="ng-case__b" data-ng-reveal><h3>Desafío</h3><p>El equipo de marketing debía elegir entre tres propuestas de packaging sin acuerdo interno.</p></div>
+      <div class="ng-case__b" data-ng-reveal=".08"><h3>Aplicación</h3><p>Expusimos las tres versiones a consumidores reales en punto de venta simulado, midiendo mirada y emoción.</p></div>
+      <div class="ng-case__b" data-ng-reveal=".16"><h3>Resultado</h3><p>Una versión generó mayor atención sostenida y respuesta emocional positiva, resolviendo el debate con datos.</p></div>
+    </div>
+  </div>
+</section>
+
+<script>
+NG.boot('[data-ng="case"]', function (sec) {
+  var row = sec.querySelector('.ng-case__row');
+  var cards = [].slice.call(sec.querySelectorAll('.ng-pk'));
+  var cvs = cards.map(function (c) { return c.querySelector('canvas'); });
+  var tag = sec.querySelector('.ng-pk__tag');
+  // Distribución ilustrativa de atención por versión (x, y, radio, peso) sobre 300×380
+  var H = {
+    a: [[.5, .27, .14, .9], [.5, .76, .07, .25], [.3, .5, .1, .2]],
+    b: [[.5, .42, .2, 1], [.5, .7, .12, .8], [.5, .77, .08, .5], [.45, .36, .1, .6]],
+    c: [[.33, .55, .1, .45], [.62, .2, .08, .3], [.5, .85, .1, .15]]
+  };
+  var draw = function () { cards.forEach(function (c, i) { NG.heat(cvs[i], H[c.getAttribute('data-v')], { gain: 1.6 }); }); };
+  draw();
+  if ('ResizeObserver' in window) { var to; new ResizeObserver(function () { clearTimeout(to); to = setTimeout(draw, 150); }).observe(row); }
+
+  var finish = function () { row.classList.add('ng-is-done'); };
+  NG.reveals(sec);
+  NG.ready().then(function (gsap) {
+    if (!gsap || NG.rm) { cvs.forEach(function (c) { c.style.opacity = .85; }); tag.style.opacity = 1; tag.style.transform = 'none'; finish(); return; }
+    var mm = gsap.matchMedia();
+    mm.add({ d: '(min-width:1024px) and (min-height:700px)', m: '(max-width:1023px), (max-height:699px)' }, function (ctx) {
+      var desk = ctx.conditions.d && !NG.edit();
+      var tl = gsap.timeline({
+        defaults: { ease: 'none' },
+        scrollTrigger: desk
+          ? { trigger: sec.querySelector('.ng-case__pin'), start: 'top top', end: '+=180%', pin: true, scrub: .6, anticipatePin: 1 }
+          : { trigger: row, start: 'top 75%', end: 'bottom 35%', scrub: .6 }
+      });
+      tl.from(cards, { autoAlpha: 0, y: 40, stagger: .15, duration: .5, ease: 'power2.out' })
+        .to(cvs[0], { opacity: .88, duration: .5 })
+        .to(cvs[1], { opacity: .88, duration: .5 })
+        .to(cvs[2], { opacity: .88, duration: .5 })
+        .to(tag, { opacity: 1, y: 0, duration: .4 })
+        .to({}, { duration: .3 });
+      tl.eventCallback('onUpdate', function () { row.classList.toggle('ng-is-done', tl.progress() > .78); });
+      return function () { row.classList.remove('ng-is-done'); };
+    });
+  });
+});
+</script>

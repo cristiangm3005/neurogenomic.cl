@@ -1,0 +1,147 @@
+<style>
+/* ---------- S1 · HERO · ojo macro + cursor de fijación + scanpath ---------- */
+.ng-hero{min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;padding:calc(var(--ng-nav-h) + 40px) 0 clamp(40px,6vw,80px)}
+.ng-hero__media{position:absolute;inset:0;z-index:-2;border-radius:0}
+.ng-hero__media img{transform-origin:var(--ng-pupil,64% 46%);will-change:transform}
+/* Degradado localizado SOLO bajo el bloque de texto (abajo-izquierda), no un velo general */
+.ng-hero__shade{position:absolute;inset:auto auto 0 0;width:min(100%,980px);height:78%;z-index:-1;pointer-events:none;
+  background:radial-gradient(120% 90% at 0% 100%,rgba(10,11,13,.86) 0%,rgba(10,11,13,.55) 42%,rgba(10,11,13,0) 72%)}
+.ng-hero__trail{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.ng-hero__hud{position:absolute;inset:calc(var(--ng-nav-h) + 12px) var(--ng-gut) 18px;pointer-events:none;font:500 11px/1.5 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx)}
+.ng-hero__hud>span{position:absolute;display:flex;gap:14px;align-items:center;text-shadow:0 1px 8px rgba(10,11,13,.6)}
+.ng-hero__hud .ng-hero__tl{top:0;left:0}.ng-hero__hud .ng-hero__tr{top:0;right:0}.ng-hero__hud .ng-hero__br{bottom:0;right:0}
+.ng-rec{display:inline-flex;align-items:center;gap:8px}
+.ng-rec::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--ng-lime);animation:ng-blink 1.2s steps(2,start) infinite}
+@keyframes ng-blink{to{visibility:hidden}}
+.ng-hero__hud b{font-weight:500;color:var(--ng-lime);font-variant-numeric:tabular-nums}
+.ng-hero__content{position:relative}
+.ng-hero__eyebrow{margin-bottom:clamp(20px,2.4vw,32px)}
+.ng-hero__title{font-size:clamp(52px,9vw,168px);line-height:.95;letter-spacing:-.045em;font-weight:500;max-width:11ch;will-change:transform}
+.ng-hero__row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end;margin-top:clamp(28px,3.4vw,48px)}
+.ng-hero__sub{font-size:clamp(19px,1.7vw,26px);line-height:1.25;letter-spacing:-.015em;font-weight:500;max-width:30ch}
+.ng-hero__text{margin-top:12px;color:var(--ng-tx);opacity:.82;max-width:52ch;font-weight:300}
+.ng-hero__ctas{display:flex;gap:12px;flex-wrap:wrap}
+.ng-hero__ctas .ng-btn:not(.ng-btn--volt){background:rgba(10,11,13,.35)}
+@media (max-width:899px){
+  .ng-hero__row{grid-template-columns:1fr}
+  .ng-hero__hud .ng-hero__tr{display:none}
+  .ng-hero__shade{width:100%;height:85%;background:linear-gradient(0deg,rgba(10,11,13,.9) 0%,rgba(10,11,13,.6) 45%,rgba(10,11,13,0) 80%)}
+}
+@media (max-width:480px){
+  .ng-hero__ctas .ng-btn{flex:1 1 100%}
+  .ng-hero__hud .ng-hero__br{display:none}
+}
+</style>
+
+<section class="ng-sec ng-hero" id="inicio" aria-labelledby="ng-hero-title" data-ng="hero">
+  <div class="ng-hero__media ng-media" data-ph="/img/hero-eye · 16:9 / 9:16">
+    {{img:hero}}
+  </div>
+  <div class="ng-hero__shade" aria-hidden="true"></div>
+  <canvas class="ng-hero__trail" aria-hidden="true"></canvas>
+  <div class="ng-hero__hud" aria-hidden="true">
+    <span class="ng-hero__tl"><span class="ng-rec">REC</span><span class="ng-hero__ts">00:00:00.000</span></span>
+    <span class="ng-hero__tr">FIX <b class="ng-hero__fix">214ms</b><span>SAMPLE <b>120Hz</b></span></span>
+    <span class="ng-hero__br"><span class="ng-hero__xy">X 0.000 · Y 0.000</span></span>
+  </div>
+  <div class="ng-wrap ng-hero__content">
+    <p class="ng-mono ng-eyebrow ng-hero__eyebrow">Neuroscience-Driven Marketing Optimization</p>
+    <h1 class="ng-hero__title" id="ng-hero-title">El marketing digital cambió.</h1>
+    <div class="ng-hero__row">
+      <div class="ng-hero__copy">
+        <p class="ng-hero__sub">Neuromarketing potenciado por inteligencia artificial.</p>
+        <p class="ng-hero__text">Analizamos procesos cerebrales subconscientes y los potenciamos con modelos predictivos para maximizar la conversión.</p>
+      </div>
+      <div class="ng-hero__ctas">
+        <a class="ng-btn ng-btn--volt" href="{{u:contacto}}" data-ng-magnet>Empieza hoy <span class="ng-btn__i" aria-hidden="true">↗</span></a>
+        <a class="ng-btn" href="#asi-mira">Así mira tu cliente <span class="ng-btn__i" aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+NG.boot('[data-ng="hero"]', function (sec) {
+  var img = sec.querySelector('.ng-hero__media img');
+  var title = sec.querySelector('.ng-hero__title');
+  var ts = sec.querySelector('.ng-hero__ts'), fix = sec.querySelector('.ng-hero__fix'), xy = sec.querySelector('.ng-hero__xy');
+  var cv = NG.canvas(sec.querySelector('.ng-hero__trail'));
+  var t0 = performance.now();
+
+  /* Lecturas "en vivo" */
+  var pad = function (n, l) { n = String(n); while (n.length < l) n = '0' + n; return n; };
+  setInterval(function () {
+    var ms = Math.floor(performance.now() - t0);
+    ts.textContent = pad(Math.floor(ms / 3600000), 2) + ':' + pad(Math.floor(ms / 60000) % 60, 2) + ':' + pad(Math.floor(ms / 1000) % 60, 2) + '.' + pad(ms % 1000, 3);
+  }, NG.rm ? 1000 : 67);
+
+  /* Scanpath: fijaciones que se desvanecen */
+  var fixes = [], LIFE = 2600, last = null, auto = !NG.fine || NG.rm;
+  var addFix = function (x, y, t) {
+    if (last && Math.hypot(x - last.x, y - last.y) < 38) { last.d = Math.min(last.d + 16, 600); last.t = t; return; }
+    last = { x: x, y: y, t: t, b: t, d: 120 }; fixes.push(last);
+    if (fixes.length > 24) fixes.shift();
+    fix.textContent = (180 + Math.round(Math.random() * 90)) + 'ms';
+  };
+  if (!auto) {
+    sec.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      var r = sec.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      addFix(x, y, performance.now());
+      xy.textContent = 'X ' + (x / r.width).toFixed(3) + ' · Y ' + (y / r.height).toFixed(3);
+    }, { passive: true });
+  }
+  /* Estela autónoma (móvil / sin puntero fino): sacadas entre zonas de interés */
+  var aoi = [[.64, .46], [.58, .40], [.72, .52], [.66, .58], [.52, .30], [.80, .38], [.62, .48]], ai = 0, nextAuto = 0;
+  var draw = function (t) {
+    var c = cv.ctx, w = cv.w, h = cv.h;
+    if (auto && t > nextAuto) {
+      var a = aoi[ai++ % aoi.length];
+      var x = (a[0] + (Math.random() - .5) * .06) * w, y = (a[1] + (Math.random() - .5) * .08) * h;
+      addFix(x, y, t); last.d = 140 + Math.random() * 260;
+      nextAuto = t + 260 + Math.random() * 420;
+      xy.textContent = 'X ' + (x / w).toFixed(3) + ' · Y ' + (y / h).toFixed(3);
+    }
+    c.clearRect(0, 0, w, h);
+    var live = fixes.filter(function (f) { return t - f.t < LIFE; });
+    c.lineWidth = 1;
+    for (var i = 1; i < live.length; i++) {
+      var a1 = 1 - (t - live[i].t) / LIFE;
+      c.strokeStyle = 'rgba(200,255,0,' + (a1 * .55).toFixed(3) + ')';
+      c.beginPath(); c.moveTo(live[i - 1].x, live[i - 1].y); c.lineTo(live[i].x, live[i].y); c.stroke();
+    }
+    live.forEach(function (f, i) {
+      var a2 = 1 - (t - f.t) / LIFE, r = 6 + f.d / 22;
+      c.strokeStyle = 'rgba(200,255,0,' + (a2 * .9).toFixed(3) + ')';
+      c.fillStyle = 'rgba(200,255,0,' + (a2 * .12).toFixed(3) + ')';
+      c.beginPath(); c.arc(f.x, f.y, r, 0, 6.283); c.fill(); c.stroke();
+      c.fillStyle = 'rgba(242,243,240,' + (a2 * .8).toFixed(3) + ')';
+      c.font = '500 9px "IBM Plex Mono", monospace';
+      c.fillText(String(i + 1).padStart(2, '0'), f.x + r + 4, f.y - r);
+    });
+  };
+  if (NG.rm) {
+    aoi.forEach(function (a, i) { fixes.push({ x: a[0] * cv.w, y: a[1] * cv.h, t: 0, d: 180 + i * 30 }); });
+    LIFE = Infinity; draw(1);
+  } else {
+    NG.loop(sec, draw);
+  }
+
+  /* Reveal + parallax/zoom hacia la pupila */
+  NG.ready().then(function (gsap) {
+    if (!gsap || NG.rm) return;
+    var words = NG.split(title);
+    gsap.set(words, { yPercent: 115 });
+    var rest = sec.querySelectorAll('.ng-hero__eyebrow,.ng-hero__copy>*,.ng-hero__ctas>*');
+    gsap.set(rest, { autoAlpha: 0, y: 20 });
+    NG.afterPreload(function () {
+      var tl = gsap.timeline({ delay: .05 });
+      tl.to(words, { yPercent: 0, duration: 1.2, ease: 'expo.out', stagger: .07 })
+        .to(rest, { autoAlpha: 1, y: 0, duration: .9, stagger: .06 }, .35);
+      gsap.fromTo(sec.querySelector('.ng-hero__media'), { scale: 1.08 }, { scale: 1, duration: 2.2, ease: 'expo.out' });
+    });
+    gsap.to(img, { scale: 1.32, ease: 'none', scrollTrigger: { trigger: sec, start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.to(title, { yPercent: -38, ease: 'none', scrollTrigger: { trigger: sec, start: 'top top', end: 'bottom top', scrub: true } });
+  });
+});
+</script>

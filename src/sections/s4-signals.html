@@ -1,0 +1,207 @@
+<style>
+/* ---------- S4 · TECNOLOGÍA · tres monitores de laboratorio ---------- */
+.ng-sig{padding:clamp(96px,12vw,180px) 0}
+.ng-sig__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:clamp(40px,5vw,80px)}
+.ng-sig__head .ng-head{grid-column:1/span 8;margin:0}
+.ng-sig__head .ng-body{grid-column:9/span 4}
+.ng-sig__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.4vw,20px)}
+.ng-mon{position:relative;display:flex;flex-direction:column;background:var(--ng-s1);border:1px solid var(--ng-line);border-radius:8px;padding:14px;text-align:left;color:inherit;font:inherit;cursor:pointer;transition:border-color .4s}
+.ng-sig__grid.ng-is-ready .ng-mon{transition:opacity .5s var(--ng-ease),transform .6s var(--ng-ease),border-color .4s}
+.ng-mon:hover,.ng-mon.ng-is-active{border-color:rgba(200,245,66,.5)}
+.ng-sig__grid.ng-has-active .ng-mon:not(.ng-is-active){opacity:.38}
+.ng-sig__grid.ng-has-active .ng-mon.ng-is-active{transform:scale(1.025);z-index:2}
+.ng-mon__top{display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--ng-tx2);margin-bottom:12px}
+.ng-mon__live{color:var(--ng-lime);display:inline-flex;align-items:center;gap:6px}
+.ng-mon__screen{position:relative;aspect-ratio:4/3;border-radius:4px;overflow:hidden;background:var(--ng-bg);border:1px solid var(--ng-line)}
+.ng-mon__screen canvas{position:absolute;inset:0;width:100%;height:100%}
+.ng-mon__screen .ng-media{position:absolute;inset:0;border-radius:0}
+.ng-mon__screen .ng-media::before{align-items:flex-start;justify-content:flex-end;padding:10px 12px}
+.ng-mon__screen::after{content:"";position:absolute;inset:0;background:var(--ng-tx);opacity:0;pointer-events:none}
+.ng-mon.ng-is-flash .ng-mon__screen::after{animation:ng-on .7s steps(1) forwards}
+@keyframes ng-on{0%{opacity:.5}12%{opacity:0}22%{opacity:.25}34%,100%{opacity:0}}
+.ng-mon__read{position:absolute;left:10px;bottom:10px;font:500 12px/1 var(--ng-mono);letter-spacing:.08em;color:var(--ng-lime);background:rgba(10,11,13,.82);padding:7px 9px;border-radius:3px;font-variant-numeric:tabular-nums}
+.ng-mon__body{padding:18px 4px 4px;display:grid;gap:8px}
+.ng-mon__k{color:var(--ng-tx2)}
+.ng-mon__t{font-size:clamp(26px,2.4vw,38px);line-height:1;letter-spacing:-.03em;font-weight:500}
+.ng-mon__d{color:var(--ng-tx2);font-size:15px;max-width:34ch}
+.ng-mon__hint{margin-top:auto;padding-top:14px;color:var(--ng-tx2);display:flex;justify-content:space-between}
+@media (max-width:1023px){
+  .ng-sig__head .ng-head,.ng-sig__head .ng-body{grid-column:1/-1}
+  .ng-sig__grid{grid-template-columns:1fr}
+  .ng-sig__grid.ng-has-active .ng-mon.ng-is-active{transform:none}
+  .ng-sig__grid.ng-has-active .ng-mon:not(.ng-is-active){opacity:.6}
+}
+@media (min-width:640px) and (max-width:1023px){.ng-mon{display:grid;grid-template-columns:1.1fr 1fr;gap:0 18px}.ng-mon__top{grid-column:1/-1}.ng-mon__body{padding-top:0}}
+</style>
+
+<section class="ng-sec ng-sig" id="tecnologia" aria-labelledby="ng-sig-title" data-ng="signals" data-ng-bg>
+  <div class="ng-wrap">
+    <div class="ng-sig__head">
+      <div class="ng-head">
+        <p class="ng-mono ng-eyebrow">04 · Tecnología</p>
+        <h2 class="ng-h2" id="ng-sig-title" data-ng-split>Biometría real. Tres señales involuntarias. Cero opiniones.</h2>
+      </div>
+      <p class="ng-body" data-ng-reveal>Eye tracking, facial coding y respuesta galvánica, cruzados con modelos de IA propios, para convertir reacciones no conscientes en una decisión validada antes de construir.</p>
+    </div>
+    <div class="ng-sig__grid">
+      <button type="button" class="ng-mon" data-k="eye" aria-pressed="false" aria-label="Eye tracking, atención: dónde mira, en qué orden y qué ignora por completo. Ampliar panel.">
+        <span class="ng-mon__top ng-mono"><span>C·01 · Eye tracking</span><span class="ng-mon__live">● señal en vivo</span></span>
+        <span class="ng-mon__screen"><canvas aria-hidden="true"></canvas><span class="ng-mon__read">fijación <span data-r>214</span> ms</span><span class="ng-marks" aria-hidden="true"><i></i></span></span>
+        <span class="ng-mon__body"><span class="ng-mon__k ng-mono">Señal 01</span><span class="ng-mon__t">Atención</span><span class="ng-mon__d">Dónde mira, en qué orden y qué ignora por completo.</span></span>
+      </button>
+      <button type="button" class="ng-mon" data-k="face" aria-pressed="false" aria-label="Facial coding, emoción: la microexpresión que aparece antes de que piense la respuesta. Ampliar panel.">
+        <span class="ng-mon__top ng-mono"><span>C·02 · Facial coding</span><span class="ng-mon__live">● señal en vivo</span></span>
+        <span class="ng-mon__screen">
+          <span class="ng-media" data-ph="/img/facial-coding · 4:5">{{img:facial}}</span>
+          <canvas aria-hidden="true"></canvas><span class="ng-mon__read">valencia <span data-r>+0.42</span></span><span class="ng-marks" aria-hidden="true"><i></i></span>
+        </span>
+        <span class="ng-mon__body"><span class="ng-mon__k ng-mono">Señal 02</span><span class="ng-mon__t">Emoción</span><span class="ng-mon__d">La microexpresión que aparece antes de que piense la respuesta.</span></span>
+      </button>
+      <button type="button" class="ng-mon" data-k="gsr" aria-pressed="false" aria-label="Respuesta galvánica, activación: la intensidad de la reacción, aunque el rostro se mantenga neutro. Ampliar panel.">
+        <span class="ng-mon__top ng-mono"><span>C·03 · Respuesta galvánica</span><span class="ng-mon__live">● señal en vivo</span></span>
+        <span class="ng-mon__screen">
+          <span class="ng-media" data-ph="/img/gsr-sensor · 1:1">{{img:gsr}}</span>
+          <canvas aria-hidden="true"></canvas><span class="ng-mon__read"><span data-r>0.00</span> μS</span><span class="ng-marks" aria-hidden="true"><i></i></span></span>
+        <span class="ng-mon__body"><span class="ng-mon__k ng-mono">Señal 03</span><span class="ng-mon__t">Activación</span><span class="ng-mon__d">La intensidad de la reacción, aunque el rostro se mantenga neutro.</span></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+NG.boot('[data-ng="signals"]', function (sec) {
+  var grid = sec.querySelector('.ng-sig__grid');
+  var mons = [].slice.call(sec.querySelectorAll('.ng-mon'));
+  var on = !NG.rm ? false : true;
+
+  /* Expandir uno, atenuar los otros (hover en desktop, tap/teclado en todos) */
+  var activate = function (m) {
+    mons.forEach(function (x) { x.classList.toggle('ng-is-active', x === m); x.setAttribute('aria-pressed', x === m); });
+    grid.classList.toggle('ng-has-active', !!m);
+  };
+  mons.forEach(function (m) {
+    if (NG.fine) { m.addEventListener('pointerenter', function () { activate(m); }); }
+    m.addEventListener('click', function () { activate(m.classList.contains('ng-is-active') && !NG.fine ? null : m); });
+    m.addEventListener('focus', function () { activate(m); });
+  });
+  grid.addEventListener('pointerleave', function () { if (NG.fine) activate(null); });
+  grid.addEventListener('focusout', function (e) { if (!grid.contains(e.relatedTarget)) activate(null); });
+
+  /* --- C·01 Eye tracking: sacadas entre fijaciones --- */
+  (function (m) {
+    var cv = NG.canvas(m.querySelector('canvas')), r = m.querySelector('[data-r]');
+    var pts = [], cur = { x: .5, y: .5 }, tgt = { x: .5, y: .5 }, next = 0, dwell = 0;
+    var draw = function (t) {
+      var c = cv.ctx, w = cv.w, h = cv.h;
+      if (t > next) {
+        pts.push({ x: tgt.x, y: tgt.y, d: dwell }); if (pts.length > 7) pts.shift();
+        tgt = { x: .12 + Math.random() * .76, y: .14 + Math.random() * .62 };
+        dwell = 140 + Math.random() * 260; next = t + dwell + 90;
+        r.textContent = Math.round(dwell);
+      }
+      cur.x = NG.lerp(cur.x, tgt.x, .35); cur.y = NG.lerp(cur.y, tgt.y, .35);
+      c.clearRect(0, 0, w, h);
+      c.strokeStyle = 'rgba(255,255,255,.06)'; c.lineWidth = 1;
+      for (var i = 1; i < 6; i++) { c.beginPath(); c.moveTo(i * w / 6, 0); c.lineTo(i * w / 6, h); c.stroke(); c.beginPath(); c.moveTo(0, i * h / 6); c.lineTo(w, i * h / 6); c.stroke(); }
+      c.strokeStyle = 'rgba(200,245,66,.45)'; c.beginPath();
+      pts.forEach(function (p, i) { i ? c.lineTo(p.x * w, p.y * h) : c.moveTo(p.x * w, p.y * h); });
+      c.lineTo(cur.x * w, cur.y * h); c.stroke();
+      pts.forEach(function (p, i) {
+        var a = (i + 1) / pts.length;
+        c.strokeStyle = 'rgba(200,245,66,' + a * .8 + ')'; c.beginPath(); c.arc(p.x * w, p.y * h, 4 + p.d / 40, 0, 6.283); c.stroke();
+      });
+      c.fillStyle = '#C8FF00'; c.beginPath(); c.arc(cur.x * w, cur.y * h, 5, 0, 6.283); c.fill();
+      c.strokeStyle = 'rgba(200,255,0,.5)'; c.beginPath(); c.arc(cur.x * w, cur.y * h, 16 + Math.sin(t / 160) * 2, 0, 6.283); c.stroke();
+    };
+    m._draw = draw;
+  })(mons[0]);
+
+  /* --- C·02 Facial coding: landmarks + barras de valencia --- */
+  (function (m) {
+    var cv = NG.canvas(m.querySelector('canvas')), r = m.querySelector('[data-r]');
+    var L = [];
+    for (var i = 0; i <= 16; i++) { var a = Math.PI * (1.05 - i / 16 * 1.1); L.push([.5 + Math.cos(a) * .2, .44 + Math.sin(a) * .26 * (i > 3 && i < 13 ? 1 : .9)]); }
+    [[.36, .3], [.39, .285], [.42, .283], [.45, .29], [.55, .29], [.58, .283], [.61, .285], [.64, .3]].forEach(function (p) { L.push(p); });
+    [[.38, .36], [.41, .35], [.44, .36], [.41, .37], [.56, .36], [.59, .35], [.62, .36], [.59, .37]].forEach(function (p) { L.push(p); });
+    [[.5, .37], [.5, .42], [.5, .47], [.47, .5], [.5, .51], [.53, .5]].forEach(function (p) { L.push(p); });
+    var mouth = [[.43, .58], [.46, .565], [.5, .56], [.54, .565], [.57, .58], [.54, .6], [.5, .605], [.46, .6]];
+    var bars = [['VAL', .42], ['JOY', .31], ['SUR', .12], ['NEU', .48], ['NEG', .06]], v = .42;
+    var draw = function (t) {
+      var c = cv.ctx, w = cv.w, h = cv.h, s = Math.sin(t / 900) * .5 + .5;
+      c.clearRect(0, 0, w, h);
+      var ox = -.06 * w;
+      c.fillStyle = 'rgba(242,243,240,.92)';
+      L.forEach(function (p, i) { c.beginPath(); c.arc(ox + p[0] * w + Math.sin(t / 700 + i) * .6, p[1] * h, 1.6, 0, 6.283); c.fill(); });
+      mouth.forEach(function (p, i) {
+        var lift = (i === 0 || i === 4) ? -s * .018 : 0;
+        c.fillStyle = (i === 0 || i === 4) ? '#C8FF00' : 'rgba(242,243,240,.92)';
+        c.beginPath(); c.arc(ox + p[0] * w, (p[1] + lift) * h, (i === 0 || i === 4) ? 2.6 : 1.6, 0, 6.283); c.fill();
+      });
+      c.strokeStyle = 'rgba(242,243,240,.18)'; c.lineWidth = 1; c.beginPath();
+      L.slice(0, 17).forEach(function (p, i) { i ? c.lineTo(ox + p[0] * w, p[1] * h) : c.moveTo(ox + p[0] * w, p[1] * h); }); c.stroke();
+      var bx = w - 88, by = 14;
+      c.fillStyle = 'rgba(10,11,13,.78)'; c.fillRect(bx - 8, by - 6, 84, bars.length * 16 + 10);
+      c.font = '500 9px "IBM Plex Mono", monospace';
+      bars.forEach(function (b, i) {
+        var val = Math.max(.02, b[1] + Math.sin(t / 600 + i * 1.7) * .06);
+        if (i === 0) v = val;
+        c.fillStyle = 'rgba(138,143,152,1)'; c.fillText(b[0], bx, by + i * 16 + 7);
+        c.fillStyle = 'rgba(255,255,255,.08)'; c.fillRect(bx + 26, by + i * 16, 44, 6);
+        c.fillStyle = i === 0 ? '#C8FF00' : '#C8F542'; c.fillRect(bx + 26, by + i * 16, 44 * Math.min(1, val), 6);
+      });
+      if (Math.floor(t / 300) % 2 === 0) r.textContent = (v >= 0 ? '+' : '') + v.toFixed(2);
+    };
+    m._draw = draw;
+  })(mons[1]);
+
+  /* --- C·03 GSR: conductancia con picos SCR --- */
+  (function (m) {
+    var cv = NG.canvas(m.querySelector('canvas')), r = m.querySelector('[data-r]');
+    var buf = [], base = 2.1, peaks = [], x = 0;
+    var draw = function (t, dt) {
+      var c = cv.ctx, w = cv.w, h = cv.h;
+      var steps = Math.max(1, Math.round((dt || 16) / 16));
+      for (var s = 0; s < steps; s++) {
+        x++;
+        if (Math.random() < .012) peaks.push({ t0: x, a: .6 + Math.random() * 1.6 });
+        var val = base + Math.sin(x / 90) * .08;
+        peaks = peaks.filter(function (p) { return x - p.t0 < 260; });
+        peaks.forEach(function (p) { var k = (x - p.t0); val += p.a * (1 - Math.exp(-k / 14)) * Math.exp(-k / 70); });
+        buf.push(val); if (buf.length > w) buf.shift();
+      }
+      c.clearRect(0, 0, w, h);
+      c.strokeStyle = 'rgba(255,255,255,.06)'; c.lineWidth = 1;
+      for (var i = 1; i < 4; i++) { c.beginPath(); c.moveTo(0, i * h / 4); c.lineTo(w, i * h / 4); c.stroke(); }
+      c.strokeStyle = '#C8F542'; c.lineWidth = 1.4; c.beginPath();
+      var off = w - buf.length;
+      buf.forEach(function (v, i) { var y = h * .82 - (v - 1.6) / 2.6 * h * .7; i ? c.lineTo(off + i, y) : c.moveTo(off + i, y); });
+      c.stroke();
+      var lv = buf[buf.length - 1] || base, ly = h * .82 - (lv - 1.6) / 2.6 * h * .7;
+      c.fillStyle = '#C8FF00'; c.beginPath(); c.arc(w - 2, ly, 3.5, 0, 6.283); c.fill();
+      if (Math.floor(t / 120) % 2 === 0) r.textContent = lv.toFixed(2);
+    };
+    m._draw = draw;
+  })(mons[2]);
+
+  /* Un solo bucle; se pausa fuera de viewport */
+  var start = function () {
+    on = true;
+    if (NG.rm) { mons.forEach(function (m) { m._draw(1000, 16); }); return; }
+    NG.loop(grid, function (t, dt) { mons.forEach(function (m) { m._draw(t, dt); }); });
+  };
+
+  NG.reveals(sec);
+  NG.ready().then(function (gsap) {
+    if (!gsap || NG.rm) { grid.classList.add('ng-is-ready'); start(); return; }
+    gsap.from(mons, {
+      autoAlpha: 0, y: 48, duration: 1, ease: 'power3.out', stagger: .14,
+      scrollTrigger: { trigger: grid, start: 'top 80%', once: true },
+      onStart: function () { start(); },
+      onComplete: function () { gsap.set(mons, { clearProps: 'transform,opacity,visibility' }); grid.classList.add('ng-is-ready'); }
+    });
+    ScrollTrigger.create({ trigger: grid, start: 'top 80%', once: true, onEnter: function () {
+      mons.forEach(function (m, i) { setTimeout(function () { m.classList.add('ng-is-flash'); }, 220 + i * 140); });
+    } });
+  });
+});
+</script>

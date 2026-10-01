@@ -1,0 +1,126 @@
+<style>
+/* ---------- S5 · SEIS SERVICIOS · scroll horizontal pinned (desktop) / apilado (móvil) ---------- */
+.ng-svc{padding:clamp(96px,12vw,180px) 0 0}
+.ng-svc__intro{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:clamp(40px,5vw,72px)}
+.ng-svc__intro .ng-head{grid-column:1/span 7;margin:0}
+.ng-svc__intro .ng-body{grid-column:9/span 4}
+.ng-svc__pin{position:relative}
+.ng-svc__track{display:flex;flex-direction:column}
+.ng-svc__ch{position:relative;border-top:1px solid var(--ng-line)}
+.ng-svc__in{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:0 clamp(16px,2vw,32px);padding:clamp(40px,6vw,72px) var(--ng-gut);max-width:var(--ng-max);margin-inline:auto;width:100%}
+.ng-svc__main{grid-column:1/span 7;display:flex;flex-direction:column;gap:clamp(14px,1.6vh,22px)}
+.ng-svc__lbl{display:flex;gap:16px;color:var(--ng-tx2)}
+.ng-svc__lbl b{color:var(--ng-volt);font-weight:500}
+.ng-svc__t{font-size:clamp(30px,3.5vw,60px);line-height:.98;letter-spacing:-.035em;font-weight:500;max-width:18ch;text-wrap:balance}
+.ng-svc__d{color:var(--ng-tx);opacity:.8;font-weight:300;max-width:60ch;font-size:clamp(15px,1.1vw,17px)}
+.ng-svc__k{color:var(--ng-tx2);margin-bottom:12px}
+.ng-svc__solve ul{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ng-svc__solve li{border-left:1px solid var(--ng-line2);padding-left:14px}
+.ng-svc__solve h4,.ng-svc__tl h4{font-size:16px;line-height:1.25;font-weight:500;letter-spacing:-.01em;margin-bottom:6px}
+.ng-svc__solve p,.ng-svc__tl p{font-size:14px;line-height:1.45;color:var(--ng-tx2)}
+.ng-svc__tl{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding-top:22px}
+.ng-svc__line{position:absolute;left:0;right:0;top:4px;height:1px;background:var(--ng-line2)}
+.ng-svc__line i{position:absolute;inset:0;background:var(--ng-volt);transform-origin:0 50%}
+.ng-svc__tl li{position:relative}
+.ng-svc__tl li:not(.ng-svc__line)::before{content:"";position:absolute;left:0;top:-22px;width:9px;height:9px;border-radius:50%;background:var(--ng-bg);border:1px solid var(--ng-volt)}
+.ng-svc__tl .ng-mono{display:block;color:var(--ng-volt);margin-bottom:6px;font-size:11px}
+.ng-svc__cta{align-self:flex-start;margin-top:4px}
+.ng-svc__fig{grid-column:9/span 4;align-self:center;position:relative;margin:0}
+.ng-svc__fig .ng-media{width:100%}
+.ng-svc__fig figcaption{display:flex;justify-content:space-between;margin-top:10px;color:var(--ng-tx2)}
+.ng-svc__hud{display:none}
+
+/* Modo horizontal (desktop con altura suficiente) */
+@media (min-width:1024px) and (min-height:700px){
+  .ng-svc.ng-is-h .ng-svc__pin{height:100vh;overflow:hidden}
+  .ng-svc.ng-is-h .ng-svc__track{flex-direction:row;height:100%;width:max-content;will-change:transform}
+  .ng-svc.ng-is-h .ng-svc__ch{flex:0 0 100vw;width:100vw;height:100%;border-top:0;border-left:1px solid var(--ng-line);display:flex;align-items:center}
+  .ng-svc.ng-is-h .ng-svc__in{padding-top:calc(var(--ng-nav-h) + 8px);padding-bottom:64px}
+  .ng-svc.ng-is-h .ng-svc__fig .ng-media{max-height:68vh}
+  .ng-svc.ng-is-h .ng-svc__hud{display:flex;position:absolute;left:var(--ng-gut);right:var(--ng-gut);bottom:22px;align-items:center;gap:20px;color:var(--ng-tx2);z-index:3;pointer-events:none}
+  .ng-svc__bar{flex:1;height:1px;background:var(--ng-line2);position:relative}
+  .ng-svc__bar i{position:absolute;inset:0;background:var(--ng-volt);transform:scaleX(0);transform-origin:0 50%}
+  .ng-svc__n{color:var(--ng-tx);font-variant-numeric:tabular-nums}
+}
+@media (max-width:1023px){
+  .ng-svc__intro .ng-head,.ng-svc__intro .ng-body{grid-column:1/-1}
+  .ng-svc__main,.ng-svc__fig{grid-column:1/-1}
+  .ng-svc__fig{order:-1;margin-bottom:28px;max-width:560px}
+}
+@media (max-width:639px){
+  .ng-svc__solve ul,.ng-svc__tl{grid-template-columns:1fr}
+  .ng-svc__tl{padding-top:0;padding-left:22px;gap:20px}
+  .ng-svc__line{left:4px;right:auto;top:6px;bottom:6px;width:1px;height:auto}
+  .ng-svc__line i{transform-origin:50% 0}
+  .ng-svc__tl li:not(.ng-svc__line)::before{left:-22px;top:4px}
+  .ng-svc__cta{align-self:stretch}
+}
+</style>
+
+<section class="ng-sec ng-svc" id="servicios" aria-labelledby="ng-svc-title" data-ng="services">
+  <div class="ng-wrap">
+    <div class="ng-svc__intro">
+      <div class="ng-head">
+        <p class="ng-mono ng-eyebrow">05 · Servicios</p>
+        <h2 class="ng-h2" id="ng-svc-title" data-ng-split>Seis servicios. Un framework.</h2>
+      </div>
+      <p class="ng-body" data-ng-reveal>Cada línea de servicio se ejecuta de forma independiente o integrada. La metodología neurocientífica y los modelos de IA son el tejido conector entre todas.</p>
+    </div>
+  </div>
+  <div class="ng-svc__pin">
+    <div class="ng-svc__track">
+{{services}}
+    </div>
+    <div class="ng-svc__hud ng-mono" aria-hidden="true"><span class="ng-svc__n">01 / 06</span><span class="ng-svc__bar"><i></i></span><span>Scroll ↓</span></div>
+  </div>
+</section>
+
+<script>
+NG.boot('[data-ng="services"]', function (sec) {
+  var track = sec.querySelector('.ng-svc__track'), pin = sec.querySelector('.ng-svc__pin');
+  var chs = [].slice.call(sec.querySelectorAll('.ng-svc__ch'));
+  var n = sec.querySelector('.ng-svc__n'), bar = sec.querySelector('.ng-svc__bar i');
+  var lines = chs.map(function (c) { return c.querySelector('.ng-svc__line i'); });
+
+  NG.reveals(sec);
+  NG.ready().then(function (gsap) {
+    if (!gsap || NG.rm) return;
+    var mm = gsap.matchMedia();
+    mm.add({ h: '(min-width:1024px) and (min-height:700px)', v: '(max-width:1023px), (max-height:699px)' }, function (ctx) {
+      if (ctx.conditions.h && !NG.edit()) {
+        sec.classList.add('ng-is-h');
+        var dist = function () { return track.scrollWidth - window.innerWidth; };
+        var tween = gsap.to(track, {
+          x: function () { return -dist(); }, ease: 'none',
+          scrollTrigger: {
+            trigger: pin, start: 'top top', end: function () { return '+=' + dist(); }, pin: true, scrub: .8,
+            invalidateOnRefresh: true, anticipatePin: 1,
+            snap: { snapTo: 1 / (chs.length - 1), duration: { min: .2, max: .6 }, delay: .08, ease: 'power2.inOut' },
+            onUpdate: function (s) {
+              bar.style.transform = 'scaleX(' + s.progress + ')';
+              n.textContent = '0' + (Math.round(s.progress * (chs.length - 1)) + 1) + ' / 06';
+            }
+          }
+        });
+        chs.forEach(function (c, i) {
+          gsap.fromTo(lines[i], { scaleX: 0 }, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: c, containerAnimation: tween, start: 'left 60%', end: 'left 5%', scrub: true } });
+          gsap.from(c.querySelectorAll('.ng-svc__main>*'), { autoAlpha: 0, x: 60, stagger: .05, ease: 'none',
+            scrollTrigger: { trigger: c, containerAnimation: tween, start: 'left 95%', end: 'left 35%', scrub: true } });
+          var img = c.querySelector('.ng-svc__fig img');
+          if (img) gsap.fromTo(img, { xPercent: -8, scale: 1.12 }, { xPercent: 8, scale: 1.12, ease: 'none', scrollTrigger: { trigger: c, containerAnimation: tween, start: 'left right', end: 'right left', scrub: true } });
+        });
+        return function () { sec.classList.remove('ng-is-h'); gsap.set(track, { clearProps: 'transform' }); };
+      }
+      var vertical = window.innerWidth < 640;
+      chs.forEach(function (c, i) {
+        var st = { trigger: c.querySelector('.ng-svc__tl'), start: 'top 85%', end: 'bottom 55%', scrub: true };
+        if (vertical) gsap.fromTo(lines[i], { scaleY: 0 }, { scaleY: 1, ease: 'none', scrollTrigger: st });
+        else gsap.fromTo(lines[i], { scaleX: 0 }, { scaleX: 1, ease: 'none', scrollTrigger: st });
+        gsap.from(c.querySelectorAll('.ng-svc__main>*'), { autoAlpha: 0, y: 24, stagger: .06, duration: .8, scrollTrigger: { trigger: c, start: 'top 75%', once: true } });
+        var img = c.querySelector('.ng-svc__fig img');
+        if (img) gsap.fromTo(img, { yPercent: -6, scale: 1.12 }, { yPercent: 6, scale: 1.12, ease: 'none', scrollTrigger: { trigger: c, start: 'top bottom', end: 'bottom top', scrub: true } });
+      });
+    });
+  });
+});
+</script>

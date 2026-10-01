@@ -1,0 +1,161 @@
+<style>
+/* ---------- NAV · header fijo + progreso + cursor de fijación + grano ---------- */
+.ng-skip{position:fixed;left:16px;top:-80px;z-index:10001;background:var(--ng-volt);color:var(--ng-bg)!important;font:500 14px/1 var(--ng-ff);padding:14px 16px;border-radius:4px;transition:top .2s}
+.ng-skip:focus{top:12px}
+.ng-progress{position:fixed;inset:0 0 auto 0;height:2px;z-index:10000;pointer-events:none}
+.ng-progress span{display:block;height:100%;background:var(--ng-volt);transform:scaleX(0);transform-origin:0 50%}
+.ng-nav{position:fixed;inset:0 0 auto 0;z-index:9990;height:var(--ng-nav-h);transition:background .45s var(--ng-ease),border-color .45s var(--ng-ease),transform .5s var(--ng-ease);border-bottom:1px solid transparent}
+.ng-nav.ng-is-scrolled{background:var(--ng-bg);border-bottom-color:var(--ng-line)}
+.ng-nav.ng-is-hidden{transform:translateY(-100%)}
+.ng-nav__bar{height:100%;display:flex;align-items:center;gap:32px}
+.ng-logo{display:inline-flex;align-items:baseline;font-size:21px;letter-spacing:-.035em;line-height:1;min-height:44px;align-items:center;position:relative;z-index:2}
+.ng-logo b{font-weight:700}.ng-logo span{font-weight:300}
+.ng-nav__links{display:flex;gap:4px;margin:0 0 0 auto;padding:0;list-style:none}
+.ng-nav__links a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;font-size:14px;color:var(--ng-tx2);transition:color .3s;position:relative}
+.ng-nav__links a::after{content:"";position:absolute;left:12px;right:12px;bottom:10px;height:1px;background:var(--ng-volt);transform:scaleX(0);transform-origin:0 50%;transition:transform .45s var(--ng-ease)}
+.ng-nav__links a:hover,.ng-nav__links a[aria-current="page"]{color:var(--ng-tx)}
+.ng-nav__links a:hover::after,.ng-nav__links a[aria-current="page"]::after{transform:scaleX(1)}
+.ng-nav__cta{min-height:44px;padding:0 18px}
+.ng-burger{display:none;position:relative;z-index:2;width:48px;height:48px;margin-left:auto;border:1px solid var(--ng-line2);border-radius:var(--ng-r);background:transparent;cursor:pointer;color:var(--ng-tx)}
+.ng-burger i{position:absolute;left:14px;right:14px;height:1px;background:currentColor;transition:transform .5s var(--ng-ease)}
+.ng-burger i:first-child{top:19px}.ng-burger i:last-child{top:27px}
+.ng-burger[aria-expanded="true"] i:first-child{transform:translateY(4px) rotate(45deg)}
+.ng-burger[aria-expanded="true"] i:last-child{transform:translateY(-4px) rotate(-45deg)}
+.ng-menu{position:fixed;inset:0;z-index:1;background:var(--ng-bg);padding:calc(var(--ng-nav-h) + 24px) var(--ng-gut) 32px;display:flex;flex-direction:column;justify-content:space-between;visibility:hidden;opacity:0;transition:opacity .4s var(--ng-ease),visibility 0s linear .4s}
+.ng-menu.ng-is-open{visibility:visible;opacity:1;transition:opacity .4s var(--ng-ease)}
+.ng-menu ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--ng-line)}
+.ng-menu li{border-bottom:1px solid var(--ng-line);overflow:hidden}
+.ng-menu li a{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:14px 0;font-size:clamp(38px,11vw,72px);font-weight:500;letter-spacing:-.04em;line-height:1;transform:translateY(105%);transition:transform .8s var(--ng-ease);transition-delay:calc(var(--i)*60ms + 80ms)}
+.ng-menu li a small{font:500 11px/1 var(--ng-mono);letter-spacing:.12em;color:var(--ng-tx2)}
+.ng-menu.ng-is-open li a{transform:none}
+.ng-menu__meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--ng-tx2)}
+.ng-cursor{position:fixed;left:0;top:0;z-index:10002;pointer-events:none;display:none}
+.ng-cursor__dot,.ng-cursor__ring{position:absolute;left:0;top:0;border-radius:50%;will-change:transform}
+.ng-cursor__dot{width:8px;height:8px;margin:-4px 0 0 -4px;background:var(--ng-lime)}
+.ng-cursor__ring{width:40px;height:40px;margin:-20px 0 0 -20px;border:1px solid rgba(200,255,0,.55);transition:width .35s var(--ng-ease),height .35s var(--ng-ease),margin .35s var(--ng-ease),opacity .3s}
+.ng-cursor.ng-is-hover .ng-cursor__ring{width:64px;height:64px;margin:-32px 0 0 -32px;border-color:var(--ng-lime)}
+.ng-cursor__lbl{position:absolute;left:18px;top:14px;font:500 9px/1 var(--ng-mono);letter-spacing:.12em;color:var(--ng-lime);white-space:nowrap;opacity:.8}
+html.ng-has-cursor .ng-cursor{display:block}
+html.ng-has-cursor,html.ng-has-cursor a,html.ng-has-cursor button{cursor:none}
+html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{cursor:text}
+@media (max-width:1023px){
+  .ng-nav__links,.ng-nav__cta{display:none}
+  .ng-burger{display:block}
+  :root{--ng-nav-h:64px}
+}
+</style>
+
+<a class="ng-skip" href="#ng-main">Saltar al contenido</a>
+<div class="ng-progress" aria-hidden="true"><span></span></div>
+<header class="ng-nav" data-ng="nav">
+  <div class="ng-wrap ng-nav__bar">
+    <a class="ng-logo" href="{{u:index}}" aria-label="Neurogenomic, ir al inicio"><b>Neuro</b><span>genomic</span></a>
+    <nav aria-label="Principal">
+      <ul class="ng-nav__links">
+        <li><a href="{{u:index}}" data-ng-page="index">Inicio</a></li>
+        <li><a href="{{u:servicios}}" data-ng-page="servicios">Servicios</a></li>
+        <li><a href="{{u:tecnologia}}" data-ng-page="tecnologia">Tecnología</a></li>
+        <li><a href="{{u:etica}}" data-ng-page="etica">Ética</a></li>
+        <li><a href="{{u:contacto}}" data-ng-page="contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <a class="ng-btn ng-btn--volt ng-nav__cta" href="{{u:contacto}}" data-ng-magnet>Empieza hoy <span class="ng-btn__i" aria-hidden="true">↗</span></a>
+    <button class="ng-burger" type="button" aria-expanded="false" aria-controls="ng-menu" aria-label="Abrir menú"><i></i><i></i></button>
+  </div>
+  <div class="ng-menu" id="ng-menu" aria-label="Menú" role="dialog" aria-modal="true">
+    <nav aria-label="Menú móvil">
+      <ul>
+        <li><a href="{{u:index}}" style="--i:0">Inicio <small>01</small></a></li>
+        <li><a href="{{u:servicios}}" style="--i:1">Servicios <small>02</small></a></li>
+        <li><a href="{{u:tecnologia}}" style="--i:2">Tecnología <small>03</small></a></li>
+        <li><a href="{{u:etica}}" style="--i:3">Ética <small>04</small></a></li>
+        <li><a href="{{u:contacto}}" style="--i:4">Contacto <small>05</small></a></li>
+      </ul>
+    </nav>
+    <div class="ng-menu__meta">
+      <a class="ng-btn ng-btn--volt" href="{{u:contacto}}">Empieza hoy <span class="ng-btn__i" aria-hidden="true">↗</span></a>
+      <p class="ng-mono">Neuroscience-Driven<br>Marketing Optimization</p>
+    </div>
+  </div>
+</header>
+<div class="ng-cursor" aria-hidden="true"><span class="ng-cursor__ring"></span><span class="ng-cursor__dot"></span></div>
+<div class="ng-noise" aria-hidden="true"></div>
+
+<script>
+NG.boot('[data-ng="nav"]', function (nav) {
+  var d = document, de = d.documentElement;
+  var bar = d.querySelector('.ng-progress span');
+  var burger = nav.querySelector('.ng-burger'), menu = nav.querySelector('.ng-menu');
+  var lastY = 0, ticking = false;
+
+  // Página actual
+  var path = location.pathname;
+  var page = de.getAttribute('data-ng-page') || (/servicios/.test(path) ? 'servicios' : /tecnologia/.test(path) ? 'tecnologia' : /contacto/.test(path) ? 'contacto' : 'index');
+  var cur = nav.querySelector('[data-ng-page="' + page + '"]');
+  if (cur) cur.setAttribute('aria-current', 'page');
+
+  // Estado al hacer scroll + barra de progreso
+  var onScroll = function () {
+    ticking = false;
+    var y = window.scrollY || 0, max = d.documentElement.scrollHeight - window.innerHeight;
+    nav.classList.toggle('ng-is-scrolled', y > 40);
+    nav.classList.toggle('ng-is-hidden', !menu.classList.contains('ng-is-open') && y > 600 && y > lastY + 4);
+    if (y < lastY - 4 || y < 600) nav.classList.remove('ng-is-hidden');
+    lastY = y;
+    if (bar) bar.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
+  };
+  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  onScroll();
+  nav.addEventListener('focusin', function () { nav.classList.remove('ng-is-hidden'); });
+
+  // Menú móvil
+  var focusables = function () { return [burger].concat([].slice.call(menu.querySelectorAll('a'))); };
+  var setOpen = function (open) {
+    menu.classList.toggle('ng-is-open', open);
+    burger.setAttribute('aria-expanded', open);
+    burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    nav.classList.toggle('ng-is-scrolled', open || window.scrollY > 40);
+    if (NG.lenis) open ? NG.lenis.stop() : NG.lenis.start();
+    de.style.overflow = open ? 'hidden' : '';
+    if (open) setTimeout(function () { var a = menu.querySelector('a'); a && a.focus(); }, 60);
+  };
+  burger.addEventListener('click', function () { setOpen(!menu.classList.contains('ng-is-open')); });
+  menu.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
+  d.addEventListener('keydown', function (e) {
+    if (!menu.classList.contains('ng-is-open')) return;
+    if (e.key === 'Escape') { setOpen(false); burger.focus(); }
+    if (e.key === 'Tab') {
+      var f = focusables(), i = f.indexOf(d.activeElement);
+      if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+    }
+  });
+  window.addEventListener('resize', function () { if (window.innerWidth >= 1024 && menu.classList.contains('ng-is-open')) setOpen(false); });
+
+  // Botones magnéticos de todo el documento
+  d.querySelectorAll('[data-ng-magnet]').forEach(function (b) { NG.magnet(b); });
+
+  // Cursor de fijación (solo puntero fino y sin reduced-motion)
+  if (NG.fine && !NG.rm) {
+    var cur2 = d.querySelector('.ng-cursor'), dot = cur2.querySelector('.ng-cursor__dot'), ring = cur2.querySelector('.ng-cursor__ring');
+    var mx = -100, my = -100, rx = -100, ry = -100, seen = false;
+    de.classList.add('ng-has-cursor');
+    window.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      mx = e.clientX; my = e.clientY;
+      if (!seen) { seen = true; rx = mx; ry = my; }
+      dot.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
+      var t = e.target.closest && e.target.closest('a,button,[role="button"],label,input,select,textarea,[data-ng-hover]');
+      cur2.classList.toggle('ng-is-hover', !!t);
+    }, { passive: true });
+    d.addEventListener('pointerleave', function () { cur2.style.opacity = 0; });
+    d.addEventListener('pointerenter', function () { cur2.style.opacity = 1; });
+    (function tick() {
+      rx = NG.lerp(rx, mx, 0.18); ry = NG.lerp(ry, my, 0.18);
+      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';
+      requestAnimationFrame(tick);
+    })();
+  }
+  NG.ready();
+});
+</script>

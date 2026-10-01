@@ -1,0 +1,53 @@
+<style>
+/* ---------- S10 · CTA FINAL · pupila contraída (cierre del hero) ---------- */
+.ng-cta{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:clamp(96px,10vw,160px) 0}
+.ng-cta__media{position:absolute;inset:0;z-index:-2;border-radius:0}
+.ng-cta__media img{transform-origin:var(--ng-pupil,64% 46%)}
+.ng-cta__shade{position:absolute;inset:0 auto 0 0;width:min(100%,900px);z-index:-1;pointer-events:none;background:radial-gradient(100% 80% at 0% 50%,rgba(10,11,13,.85) 0%,rgba(10,11,13,.5) 45%,rgba(10,11,13,0) 75%)}
+.ng-cta__ring{overflow:visible;position:absolute;left:var(--ng-px,64%);top:var(--ng-py,46%);width:min(60vw,640px);aspect-ratio:1;translate:-50% -50%;z-index:-1;pointer-events:none}
+.ng-cta__ring circle{fill:none;stroke:var(--ng-lime);stroke-width:1;vector-effect:non-scaling-stroke}
+.ng-cta__ring .ng-cta__r2{stroke:rgba(200,255,0,.35);stroke-dasharray:2 6}
+.ng-cta__ring text{font-family:var(--ng-mono);font-size:4.2px;font-weight:500;letter-spacing:.6px;fill:var(--ng-lime)}
+.ng-cta__in{max-width:900px}
+.ng-cta__t{font-size:clamp(44px,7vw,128px);line-height:.95;letter-spacing:-.045em;font-weight:500;margin:22px 0 28px;text-wrap:balance}
+.ng-cta__p{font-size:clamp(18px,1.5vw,22px);font-weight:300;max-width:44ch;color:var(--ng-tx)}
+.ng-cta__btn{margin-top:clamp(32px,4vw,56px);min-height:clamp(64px,7vw,96px);padding:0 clamp(28px,3vw,48px);font-size:clamp(17px,1.4vw,22px);border-radius:999px}
+.ng-cta__btn .ng-btn__t{display:inline-flex;gap:14px;align-items:center}
+@media (max-width:899px){
+  .ng-cta{align-items:flex-end}
+  .ng-cta__shade{width:100%;background:linear-gradient(0deg,rgba(10,11,13,.9) 0%,rgba(10,11,13,.65) 50%,rgba(10,11,13,0) 85%)}
+  .ng-cta__btn{width:100%}
+}
+</style>
+
+<section class="ng-sec ng-cta" id="contacto-cta" aria-labelledby="ng-cta-title" data-ng="cta">
+  <div class="ng-cta__media ng-media" data-ph="/img/cta-eye-contracted · 16:9 / 9:16">{{img:cta}}</div>
+  <div class="ng-cta__shade" aria-hidden="true"></div>
+  <svg class="ng-cta__ring" viewBox="0 0 200 200" aria-hidden="true">
+    <circle class="ng-cta__r1" cx="100" cy="100" r="90"/><circle class="ng-cta__r2" cx="100" cy="100" r="98"/>
+    <text x="100" y="-4" text-anchor="middle">PUPILA · Ø ↓</text>
+  </svg>
+  <div class="ng-wrap">
+    <div class="ng-cta__in">
+      <p class="ng-mono ng-eyebrow">10 · Diagnóstico</p>
+      <h2 class="ng-cta__t" id="ng-cta-title" data-ng-split>¿Construimos tu próxima decisión con evidencia?</h2>
+      <p class="ng-cta__p" data-ng-reveal>Cuéntanos qué servicio necesitas hoy. El diagnóstico inicial es la base de todo lo que viene después.</p>
+      <a class="ng-btn ng-btn--volt ng-cta__btn" href="{{u:contacto}}" data-ng-magnet><span class="ng-btn__t">Agendar diagnóstico <span class="ng-btn__i" aria-hidden="true">↗</span></span></a>
+    </div>
+  </div>
+</section>
+
+<script>
+NG.boot('[data-ng="cta"]', function (sec) {
+  var ring = sec.querySelector('.ng-cta__ring'), img = sec.querySelector('.ng-cta__media img');
+  NG.reveals(sec);
+  sec.querySelectorAll('[data-ng-magnet]').forEach(function (b) { NG.magnet(b, .35); });
+  NG.ready().then(function (gsap) {
+    if (!gsap || NG.rm) return;
+    var tl = gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top 85%', end: 'center 55%', scrub: true } });
+    tl.fromTo(ring, { scale: 1.6, autoAlpha: 0 }, { scale: .55, autoAlpha: 1, ease: 'none' }, 0);
+    if (img) tl.fromTo(img, { scale: 1.18 }, { scale: 1, ease: 'none' }, 0);
+    gsap.to(ring.querySelector('.ng-cta__r2'), { rotation: 360, transformOrigin: '50% 50%', duration: 40, repeat: -1, ease: 'none' });
+  });
+});
+</script>

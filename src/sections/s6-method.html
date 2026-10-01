@@ -1,0 +1,76 @@
+<style>
+/* ---------- S6 · MÉTODO · línea de señal que se dibuja con el scroll ---------- */
+.ng-met{padding:clamp(96px,12vw,180px) 0}
+.ng-met__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:clamp(40px,5vw,72px)}
+.ng-met__head .ng-head{grid-column:1/span 7;margin:0}
+.ng-met__head .ng-media{grid-column:8/span 5;aspect-ratio:21/9}
+.ng-met__flow{position:relative}
+.ng-met__svg{display:block;width:100%;height:120px;overflow:visible}
+.ng-met__svg path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ng-met__base{stroke:var(--ng-line2);stroke-width:1}
+.ng-met__sig{stroke:var(--ng-volt);stroke-width:1.6}
+.ng-met__steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,2vw,32px);margin-top:8px}
+.ng-met__st{position:relative;padding-top:28px;border-top:1px solid var(--ng-line);transition:opacity .5s}
+.ng-met__dot{position:absolute;left:0;top:-6px;width:11px;height:11px;border-radius:50%;background:var(--ng-bg);border:1px solid var(--ng-tx2);transition:background .4s,border-color .4s,box-shadow .4s}
+.ng-met__st.ng-is-on .ng-met__dot{background:var(--ng-lime);border-color:var(--ng-lime);box-shadow:0 0 0 6px rgba(200,255,0,.12)}
+.ng-met__n{font:500 clamp(48px,5vw,84px)/1 var(--ng-mono);letter-spacing:-.04em;color:var(--ng-tx2);transition:color .4s}
+.ng-met__st.ng-is-on .ng-met__n{color:var(--ng-volt)}
+.ng-met__st h3{font-size:clamp(24px,2.2vw,34px);line-height:1;letter-spacing:-.03em;font-weight:500;margin:18px 0 12px}
+.ng-met__st p{color:var(--ng-tx2);font-size:15px;max-width:34ch}
+.ng-js .ng-met__st:not(.ng-is-on){opacity:.55}
+@media (max-width:1023px){
+  .ng-met__head .ng-head,.ng-met__head .ng-media{grid-column:1/-1}
+  .ng-met__svg{display:none}
+  .ng-met__steps{grid-template-columns:1fr;gap:0;margin-top:0;padding-left:28px;position:relative}
+  .ng-met__steps::before{content:"";position:absolute;left:5px;top:0;bottom:0;width:1px;background:var(--ng-line2)}
+  .ng-met__vline{position:absolute;left:5px;top:0;bottom:40px;width:1px;background:var(--ng-volt);transform-origin:50% 0}
+  .ng-met__st{border-top:0;padding:0 0 40px}
+  .ng-met__dot{left:-28px;top:6px}
+}
+@media (min-width:1024px){.ng-met__vline{display:none}}
+</style>
+
+<section class="ng-sec ng-met" id="metodo" aria-labelledby="ng-met-title" data-ng="method">
+  <div class="ng-wrap">
+    <div class="ng-met__head">
+      <div class="ng-head">
+        <p class="ng-mono ng-eyebrow">06 · Método</p>
+        <h2 class="ng-h2" id="ng-met-title" data-ng-split>Un proceso, seis aplicaciones.</h2>
+      </div>
+      <div class="ng-media" data-ph="/img/lab-session · 21:9" data-ng-reveal>{{img:lab}}</div>
+    </div>
+    <div class="ng-met__flow">
+      <svg class="ng-met__svg" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+        <path class="ng-met__base" d="M0 60 H1200"/>
+        <path class="ng-met__sig" d="M0 60 H120 l10 -6 l8 10 l10 -40 l12 70 l10 -40 l8 6 H420 l10 -8 l8 14 l10 -46 l12 76 l10 -44 l8 8 H720 l10 -6 l8 12 l10 -50 l12 80 l10 -42 l8 6 H1020 l10 -8 l8 10 l10 -44 l12 74 l10 -38 l8 6 H1200"/>
+      </svg>
+      <span class="ng-met__vline" aria-hidden="true"></span>
+      <ol class="ng-met__steps">
+        <li class="ng-met__st"><span class="ng-met__dot" aria-hidden="true"></span><span class="ng-met__n">01</span><h3>Medir</h3><p>Biometría aplicada sobre el estímulo, la marca o el flujo actual: eye tracking, codificación facial, respuesta galvánica.</p></li>
+        <li class="ng-met__st"><span class="ng-met__dot" aria-hidden="true"></span><span class="ng-met__n">02</span><h3>Modelar</h3><p>La IA cruza mirada, gesto y piel con datos de negocio para identificar patrones y anticipar la respuesta del consumidor.</p></li>
+        <li class="ng-met__st"><span class="ng-met__dot" aria-hidden="true"></span><span class="ng-met__n">03</span><h3>Construir</h3><p>Diseño, contenido o producto se ejecutan sobre las opciones ya validadas, no sobre la primera idea que pareció correcta.</p></li>
+        <li class="ng-met__st"><span class="ng-met__dot" aria-hidden="true"></span><span class="ng-met__n">04</span><h3>Verificar</h3><p>Cada entregable se vuelve a testear contra el comportamiento real antes y después de salir a producción.</p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<script>
+NG.boot('[data-ng="method"]', function (sec) {
+  var sig = sec.querySelector('.ng-met__sig'), vline = sec.querySelector('.ng-met__vline');
+  var steps = [].slice.call(sec.querySelectorAll('.ng-met__st'));
+  var light = function (p) { steps.forEach(function (s, i) { s.classList.toggle('ng-is-on', p >= i * .25 + .04); }); };
+  NG.reveals(sec);
+  NG.ready().then(function (gsap) {
+    if (!gsap || NG.rm) { light(1); return; }
+    var len = sig.getTotalLength();
+    sig.style.strokeDasharray = len;
+    gsap.fromTo(sig, { strokeDashoffset: len }, { strokeDashoffset: 0, ease: 'none',
+      scrollTrigger: { trigger: sec.querySelector('.ng-met__flow'), start: 'top 75%', end: 'bottom 55%', scrub: true,
+        onUpdate: function (s) { if (window.innerWidth >= 1024) light(s.progress); } } });
+    gsap.fromTo(vline, { scaleY: 0 }, { scaleY: 1, ease: 'none',
+      scrollTrigger: { trigger: sec.querySelector('.ng-met__steps'), start: 'top 70%', end: 'bottom 60%', scrub: true,
+        onUpdate: function (s) { if (window.innerWidth < 1024) light(s.progress); } } });
+  });
+});
+</script>
