@@ -1,7 +1,6 @@
-<!-- NEUROGENOMIC · Bloque Elementor «06-s3b-no-se-dice»
+<!-- NEUROGENOMIC · Bloque Elementor «08-metodo»
      Pegar completo en un widget HTML de Elementor (ancho completo, sin padding).
      Incluye tokens + núcleo NG (idempotentes: pueden repetirse en varios bloques).
-     Nota: Usa img/ref-bottle-520.(avif|webp).
      Imágenes: reemplaza /img/ por la URL de la Biblioteca de medios. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -112,27 +111,35 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-sec *,.ng-nav *,.ng-foot *,.ng-menu *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
 .ng-js .ng-sec[data-ng-bg]{--ng-bgo:1}
 }
-.ng-said{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:clamp(80px,9vw,140px) 0;background:#000}
-.ng-said__beam{position:absolute;left:-10%;top:-20%;width:60%;height:130%;z-index:-1;pointer-events:none;transform-origin:0 0;
-background:linear-gradient(118deg,rgba(242,243,240,.13) 0%,rgba(242,243,240,.05) 32%,rgba(242,243,240,0) 58%);
-clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out infinite alternate}
-@keyframes ng-beam{from{transform:rotate(-2deg)}to{transform:rotate(2.5deg)}}
-.ng-said__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:center}
-.ng-said__copy{grid-column:1/span 6}
-.ng-said__t{font-size:clamp(66px,9.6vw,184px);line-height:.88}
-.ng-said__brand{margin-top:clamp(20px,2.4vw,32px);font:500 clamp(14px,1.3vw,20px)/1 var(--ng-mono);letter-spacing:.14em;color:var(--ng-lime);text-shadow:0 0 14px rgba(200,255,0,.55)}
-.ng-said__p{margin-top:clamp(28px,3vw,44px);color:var(--ng-tx2);max-width:44ch}
-.ng-said__stage{grid-column:8/span 5;display:flex;justify-content:center}
-.ng-said__fig{position:relative;height:min(86vh,820px);aspect-ratio:520/1350;margin:0}
-.ng-said__fig .ng-media{position:absolute;inset:0;border-radius:0;background:#000}
-.ng-said__fix{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
-.ng-said__fix circle{fill:none;stroke:var(--ng-lime);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.ng-met{padding:clamp(96px,12vw,180px) 0}
+.ng-met__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:clamp(40px,5vw,72px)}
+.ng-met__head .ng-head{grid-column:1/-1;margin:0}
+.ng-met__head .ng-media{grid-column:8/span 5;aspect-ratio:21/9}
+.ng-met__flow{position:relative}
+.ng-met__more{margin-top:clamp(20px,2.4vw,32px)}
+.ng-met__svg{display:block;width:100%;height:120px;overflow:visible}
+.ng-met__svg path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ng-met__base{stroke:var(--ng-line2);stroke-width:1}
+.ng-met__sig{stroke:var(--ng-volt);stroke-width:1.6}
+.ng-met__steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,2vw,32px);margin-top:8px}
+.ng-met__st{position:relative;padding-top:28px;border-top:1px solid var(--ng-line);transition:opacity .5s}
+.ng-met__dot{position:absolute;left:0;top:-6px;width:11px;height:11px;border-radius:50%;background:var(--ng-bg);border:1px solid var(--ng-tx2);transition:background .4s,border-color .4s,box-shadow .4s}
+.ng-met__st.ng-is-on .ng-met__dot{background:var(--ng-lime);border-color:var(--ng-lime);box-shadow:0 0 0 6px rgba(200,255,0,.12)}
+.ng-met__n{font:500 clamp(48px,5vw,84px)/1 var(--ng-mono);letter-spacing:-.04em;color:var(--ng-tx2);transition:color .4s}
+.ng-met__st.ng-is-on .ng-met__n{color:var(--ng-volt)}
+.ng-met__st h3{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(30px,2.8vw,46px);line-height:.95;letter-spacing:0;font-weight:400;margin:18px 0 12px}
+.ng-met__st p{color:var(--ng-tx2);font-size:15px;max-width:34ch}
+.ng-js .ng-met__st:not(.ng-is-on){opacity:.55}
 @media (max-width:1023px){
-.ng-said__copy,.ng-said__stage{grid-column:1/-1}
-.ng-said__fig{height:min(70svh,600px)}
-.ng-said__beam{width:110%}
+.ng-met__head .ng-head,.ng-met__head .ng-media{grid-column:1/-1}
+.ng-met__svg{display:none}
+.ng-met__steps{grid-template-columns:1fr;gap:0;margin-top:0;padding-left:28px;position:relative}
+.ng-met__steps::before{content:"";position:absolute;left:5px;top:0;bottom:0;width:1px;background:var(--ng-line2)}
+.ng-met__vline{position:absolute;left:5px;top:0;bottom:40px;width:1px;background:var(--ng-volt);transform-origin:50% 0}
+.ng-met__st{border-top:0;padding:0 0 40px}
+.ng-met__dot{left:-28px;top:6px}
 }
-@media (prefers-reduced-motion:reduce){.ng-said__beam{animation:none}}
+@media (min-width:1024px){.ng-met__vline{display:none}}
 </style>
 <script>
 /* ==========================================================
@@ -424,42 +431,47 @@ clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out
   });
 })();
 </script>
-<section class="ng-sec ng-said" aria-labelledby="ng-said-title" data-ng="said">
-  <div class="ng-said__beam" aria-hidden="true"></div>
+<section class="ng-sec ng-met" id="metodo" aria-labelledby="ng-met-title" data-ng="method">
   <div class="ng-wrap">
-    <div class="ng-said__grid">
-      <div class="ng-said__copy">
-        <h2 class="ng-h2 ng-said__t" id="ng-said-title" data-ng-split>Lo que<br>no se dice<br><span class="ng-hl">sí se mide.</span></h2>
-        <p class="ng-said__brand" aria-hidden="true">NEUROGENOMIC</p>
-        <p class="ng-said__p" data-ng-reveal>Una encuesta recoge lo que la persona cree que siente. La mirada, el gesto y la piel registran lo que realmente pasa, antes de que lo pueda explicar.</p>
+    <div class="ng-met__head">
+      <div class="ng-head">
+        <p class="ng-mono ng-eyebrow">06 · Método</p>
+        <h2 class="ng-h2" id="ng-met-title" data-ng-split>Un proceso, <span class="ng-hl">seis aplicaciones.</span></h2>
+        <p class="ng-met__more" data-ng-reveal><a class="ng-btn" href="/servicios/">Ver los seis servicios <span class="ng-btn__i" aria-hidden="true">→</span></a></p>
       </div>
-      <div class="ng-said__stage">
-        <figure class="ng-said__fig">
-          <div class="ng-media" data-ph="/img/ref-bottle"><picture><source type="image/avif" srcset="/img/ref-bottle-520.avif"><img src="/img/ref-bottle-520.webp" width="520" height="1350" alt="Botella de vino oscura bajo un foco, con puntos de fijación verdes brillando sobre la etiqueta blanca y un eye tracker detrás" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
-          <svg class="ng-said__fix" viewBox="0 0 520 1350" preserveAspectRatio="none" aria-hidden="true">
-            <circle cx="230" cy="650" r="34"/><circle cx="265" cy="757" r="36"/><circle cx="202" cy="830" r="44"/><circle cx="266" cy="965" r="34"/><circle cx="225" cy="1015" r="36"/>
-          </svg>
-        </figure>
-      </div>
+    </div>
+    <div class="ng-met__flow">
+      <svg class="ng-met__svg" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+        <path class="ng-met__base" d="M0 60 H1200"/>
+        <path class="ng-met__sig" d="M0 60 H120 l10 -6 l8 10 l10 -40 l12 70 l10 -40 l8 6 H420 l10 -8 l8 14 l10 -46 l12 76 l10 -44 l8 8 H720 l10 -6 l8 12 l10 -50 l12 80 l10 -42 l8 6 H1020 l10 -8 l8 10 l10 -44 l12 74 l10 -38 l8 6 H1200"/>
+      </svg>
+      <span class="ng-met__vline" aria-hidden="true"></span>
+      <ol class="ng-met__steps">
+        <li class="ng-met__st"><span class="ng-met__dot" aria-hidden="true"></span><span class="ng-met__n">01</span><h3>Medir</h3><p>Biometría aplicada sobre el estímulo, la marca o el flujo actual: eye tracking, codificación facial, respuesta galvánica.</p></li>
+        <li class="ng-met__st"><span class="ng-met__dot" aria-hidden="true"></span><span class="ng-met__n">02</span><h3>Modelar</h3><p>La IA cruza mirada, gesto y piel con datos de negocio para identificar patrones y anticipar la respuesta del consumidor.</p></li>
+        <li class="ng-met__st"><span class="ng-met__dot" aria-hidden="true"></span><span class="ng-met__n">03</span><h3>Construir</h3><p>Diseño, contenido o producto se ejecutan sobre las opciones ya validadas, no sobre la primera idea que pareció correcta.</p></li>
+        <li class="ng-met__st"><span class="ng-met__dot" aria-hidden="true"></span><span class="ng-met__n">04</span><h3>Verificar</h3><p>Cada entregable se vuelve a testear contra el comportamiento real antes y después de salir a producción.</p></li>
+      </ol>
     </div>
   </div>
 </section>
 
 <script>
-NG.boot('[data-ng="said"]', function (sec) {
-  var fig = sec.querySelector('.ng-said__fig'), rings = [].slice.call(sec.querySelectorAll('.ng-said__fix circle'));
+NG.boot('[data-ng="method"]', function (sec) {
+  var sig = sec.querySelector('.ng-met__sig'), vline = sec.querySelector('.ng-met__vline');
+  var steps = [].slice.call(sec.querySelectorAll('.ng-met__st'));
+  var light = function (p) { steps.forEach(function (s, i) { s.classList.toggle('ng-is-on', p >= i * .25 + .04); }); };
   NG.reveals(sec);
   NG.ready().then(function (gsap) {
-    if (!gsap || NG.rm) return;
-    gsap.fromTo(fig, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 1.6, ease: 'expo.out', scrollTrigger: { trigger: fig, start: 'top 85%', once: true } });
-    // Fijaciones que "laten" en orden, como una lectura en vivo
-    rings.forEach(function (c) { gsap.set(c, { svgOrigin: c.getAttribute('cx') + ' ' + c.getAttribute('cy'), scale: .4, autoAlpha: 0 }); });
-    var tl = gsap.timeline({ repeat: -1, repeatDelay: .6, paused: true });
-    rings.forEach(function (c, i) {
-      tl.to(c, { scale: 1.5, autoAlpha: 1, duration: .35, ease: 'power2.out' }, i * .45)
-        .to(c, { scale: 2.1, autoAlpha: 0, duration: .7, ease: 'power1.in' }, i * .45 + .35);
-    });
-    ScrollTrigger.create({ trigger: sec, start: 'top 80%', end: 'bottom 20%', onToggle: function (s) { s.isActive ? tl.play() : tl.pause(); } });
+    if (!gsap || NG.rm) { light(1); return; }
+    var len = sig.getTotalLength();
+    sig.style.strokeDasharray = len;
+    gsap.fromTo(sig, { strokeDashoffset: len }, { strokeDashoffset: 0, ease: 'none',
+      scrollTrigger: { trigger: sec.querySelector('.ng-met__flow'), start: 'top 75%', end: 'bottom 55%', scrub: true,
+        onUpdate: function (s) { if (window.innerWidth >= 1024) light(s.progress); } } });
+    gsap.fromTo(vline, { scaleY: 0 }, { scaleY: 1, ease: 'none',
+      scrollTrigger: { trigger: sec.querySelector('.ng-met__steps'), start: 'top 70%', end: 'bottom 60%', scrub: true,
+        onUpdate: function (s) { if (window.innerWidth < 1024) light(s.progress); } } });
   });
 });
 </script>

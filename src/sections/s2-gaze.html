@@ -16,33 +16,25 @@
 .ng-gaze__stagewrap{grid-column:4/span 9;position:relative}
 .ng-gaze__meta{display:flex;justify-content:space-between;gap:16px;margin-bottom:10px;color:var(--ng-tx2)}
 .ng-gaze__meta b{color:var(--ng-lime);font-weight:500}
-.ng-gaze__stage{position:relative;aspect-ratio:1000/625;width:100%;border:1px solid var(--ng-line2);border-radius:8px;overflow:hidden;container-type:inline-size;background:#ECEAE4;color:#14161A}
-/* Landing ficticia (marca inventada "Mesta") */
-.ng-mk{position:absolute;inset:0;font-family:var(--ng-ff);transition:filter .6s}
-.ng-mk__bar{position:absolute;inset:0 0 auto 0;height:6.4%;background:#DAD7CF;display:flex;align-items:center;gap:.6cqw;padding:0 1.6cqw}
-.ng-mk__bar i{width:.9cqw;height:.9cqw;border-radius:50%;background:#B9B5AB}
-.ng-mk__bar span{margin-left:2cqw;font:500 1.1cqw/1 var(--ng-mono);color:#6B675E;background:#ECEAE4;padding:.5cqw 1.4cqw;border-radius:.4cqw}
-.ng-mk__logo{position:absolute;left:6%;top:9.2%;font-weight:700;font-size:2.1cqw;letter-spacing:.18em}
-.ng-mk__links{position:absolute;left:52%;top:9.6%;display:flex;gap:3cqw;font-size:1.25cqw;color:#4A4D52}
-.ng-mk__cart{position:absolute;right:6%;top:9%;width:2.6cqw;height:2.6cqw;border:1.5px solid #14161A;border-radius:.4cqw}
-.ng-mk__h{position:absolute;left:6%;top:21%;width:48%;font-size:4.8cqw;line-height:.98;letter-spacing:-.04em;font-weight:600}
-.ng-mk__p{position:absolute;left:6%;top:46%;width:42%;font-size:1.5cqw;line-height:1.4;color:#4A4D52}
-.ng-mk__cta{position:absolute;left:6%;top:57%;width:19%;height:8.4%;background:#14161A;color:#ECEAE4;border-radius:.5cqw;display:flex;align-items:center;justify-content:center;font-size:1.4cqw;font-weight:500}
-.ng-mk__price{position:absolute;left:6%;top:70%;font-size:2.2cqw;font-weight:600;letter-spacing:-.02em}
-.ng-mk__price small{font-size:1.2cqw;color:#6B675E;font-weight:400;margin-left:.6cqw}
-.ng-mk__prod{position:absolute;left:60%;top:15%;width:32%;height:68%}
-.ng-mk__badges{position:absolute;left:6%;right:6%;top:87%;display:flex;justify-content:space-between;font:500 1.05cqw/1 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase;color:#6B675E;border-top:1px solid #CFCBC2;padding-top:1.6cqw}
-.ng-gaze__heat{position:absolute;inset:0;width:100%;height:100%;opacity:0;mix-blend-mode:normal}
+.ng-gaze__stage{position:relative;aspect-ratio:1000/625;width:100%;margin:0;border:1px solid var(--ng-line2);border-radius:8px;overflow:hidden;background:#000;box-shadow:0 40px 120px -40px rgba(0,0,0,.9),0 0 0 1px rgba(200,255,0,.04)}
+.ng-gaze__zoom{position:absolute;inset:0;transform:scale(1.14);transform-origin:52% 58%}
+.ng-gaze__stage .ng-media{position:absolute;inset:0;border-radius:0;background:#000}
+.ng-gaze__stage .ng-media img{transform-origin:50% 45%}
+.ng-gaze__scan{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.ng-gaze__scan i{position:absolute;left:0;right:0;top:0;height:22%;background:linear-gradient(180deg,rgba(200,255,0,0) 0%,rgba(200,255,0,.06) 85%,rgba(200,255,0,.45) 99%,rgba(200,255,0,0) 100%);transform:translateY(-100%);animation:ng-gscan 4.8s cubic-bezier(.45,0,.55,1) infinite}
+@keyframes ng-gscan{to{transform:translateY(560%)}}
+@media (prefers-reduced-motion:reduce){.ng-gaze__scan{display:none}}
+.ng-gaze__heat{position:absolute;inset:0;width:100%;height:100%;opacity:0}
 .ng-gaze__svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.ng-gaze__fix circle{fill:rgba(200,255,0,.22);stroke:#C8FF00;stroke-width:1.5}
+.ng-gaze__fix circle{fill:rgba(200,255,0,.16);stroke:#C8FF00;stroke-width:2;filter:drop-shadow(0 0 6px rgba(200,255,0,.55))}
 .ng-gaze__fix text{font:600 15px var(--ng-mono);fill:#0A0B0D}
 .ng-gaze__fix .ng-gaze__fx{fill:#0A0B0D;stroke:none}
 .ng-gaze__fix .ng-gaze__fn{fill:#C8FF00}
-.ng-gaze__path{fill:none;stroke:#0A0B0D;stroke-width:2;stroke-linejoin:round}
-.ng-gaze__path2{fill:none;stroke:#C8FF00;stroke-width:1.2;stroke-dasharray:4 5}
-.ng-gaze__blind rect{fill:url(#ng-hatch);stroke:#8A8F98;stroke-width:1.2;stroke-dasharray:6 4}
+.ng-gaze__path{fill:none;stroke:rgba(0,0,0,.65);stroke-width:4;stroke-linejoin:round}
+.ng-gaze__path2{fill:none;stroke:#C8FF00;stroke-width:1.6;stroke-linejoin:round}
+.ng-gaze__blind polygon{fill:url(#ng-hatch);stroke:#F2F3F0;stroke-width:1.2;stroke-dasharray:6 4;stroke-linejoin:round}
 .ng-gaze__blind text{font:500 12px var(--ng-mono);letter-spacing:.1em;fill:#0A0B0D}
-.ng-gaze__blind .ng-gaze__bl{fill:#8A8F98}
+.ng-gaze__blind .ng-gaze__bl{fill:#F2F3F0}
 .ng-gaze__outro{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;margin-top:clamp(48px,6vw,96px)}
 .ng-gaze__outro p{grid-column:4/span 7;font-size:clamp(22px,2.2vw,34px);line-height:1.2;letter-spacing:-.02em;font-weight:400}
 .ng-gaze__outro p span{color:var(--ng-tx2)}
@@ -56,13 +48,14 @@
   .ng-gaze__stagewrap{grid-column:1/-1}
 }
 @media (max-width:420px){.ng-gaze__meta span:last-child{display:none}}
+@media (max-width:767px){.ng-gaze__stage{aspect-ratio:1/1}.ng-gaze__zoom{inset:auto;left:50%;top:50%;width:160%;aspect-ratio:1000/625;transform:translate(-52%,-50%)}}
 </style>
 
 <section class="ng-sec ng-gaze" id="asi-mira" aria-labelledby="ng-gaze-title" data-ng="gaze">
   <div class="ng-wrap">
     <div class="ng-gaze__intro">
       <div class="ng-head">
-        <p class="ng-mono ng-eyebrow">02 · Eye tracking + IA</p>
+        <p class="ng-mono ng-eyebrow">{{n}} · Eye tracking + IA</p>
         <h2 class="ng-h2" id="ng-gaze-title" data-ng-split>Así mira <span class="ng-hl">tu cliente</span></h2>
       </div>
       <p class="ng-body" data-ng-reveal>Combinamos eye tracking e IA para revelar qué capta la mirada, cuánto tiempo la retiene y qué pasa desapercibido. Los consumidores deciden en segundos, y la mayoría de esas decisiones ocurre antes de que puedan explicarlas. Por eso no preguntamos qué les gusta: medimos cómo reaccionan.</p>
@@ -79,44 +72,24 @@
           <li class="ng-gaze__ph"><b>04</b><strong>Zonas ciegas</strong><span>Lo que nadie miró. Lo que hoy no está trabajando.</span></li>
         </ol>
         <div class="ng-gaze__stagewrap">
-          <div class="ng-gaze__meta ng-mono" aria-hidden="true"><span>Estímulo · Landing · <b class="ng-gaze__lbl">Fase 01</b></span><span>Marca ficticia · demostración</span></div>
-          <figure class="ng-gaze__stage" role="img" aria-label="Demostración de eye tracking sobre una landing ficticia de café: la mirada se concentra en el producto, el titular, el precio y el botón de compra; los enlaces del menú y la franja inferior de beneficios quedan como zonas ciegas.">
-            <div class="ng-mk" aria-hidden="true">
-              <div class="ng-mk__bar"><i></i><i></i><i></i><span>mesta.cafe</span></div>
-              <div class="ng-mk__logo">MESTA</div>
-              <div class="ng-mk__links"><span>Origen</span><span>Tienda</span><span>Suscripción</span><span>Blog</span></div>
-              <div class="ng-mk__cart"></div>
-              <div class="ng-mk__h">Café de altura, tostado esta semana.</div>
-              <div class="ng-mk__p">Lotes de origen único, enviados en 48 horas a todo Chile.</div>
-              <div class="ng-mk__cta">Comprar ahora</div>
-              <div class="ng-mk__price">$12.990<small>250 g</small></div>
-              <svg class="ng-mk__prod" viewBox="0 0 320 425" preserveAspectRatio="xMidYMid meet">
-                <ellipse cx="160" cy="405" rx="120" ry="12" fill="#D2CEC5"/>
-                <path d="M62 40 L258 40 L272 92 L282 392 Q160 410 38 392 L48 92 Z" fill="#1B1E22"/>
-                <path d="M62 40 L258 40 L264 64 L56 64 Z" fill="#2A2E33"/>
-                <rect x="88" y="150" width="144" height="170" rx="4" fill="#ECEAE4"/>
-                <text x="160" y="200" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="26" letter-spacing="5" fill="#14161A">MESTA</text>
-                <line x1="110" y1="218" x2="210" y2="218" stroke="#14161A"/>
-                <text x="160" y="250" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" letter-spacing="2" fill="#14161A">HUILA · 1.750 m</text>
-                <text x="160" y="290" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#6B675E">250 g · grano</text>
-              </svg>
-              <div class="ng-mk__badges"><span>Envío gratis sobre $30.000</span><span>Tostado en Santiago</span><span>Pago seguro</span></div>
-            </div>
+          <div class="ng-gaze__meta ng-mono" aria-hidden="true"><span>Estímulo · Packaging · <b class="ng-gaze__lbl">Fase 01</b></span><span>Marca ficticia · demostración</span></div>
+          <figure class="ng-gaze__stage" role="img" aria-label="Demostración de eye tracking sobre una bolsa de café de especialidad: la mirada se concentra en el origen HUILA, la marca, las notas de cata y el peso; el panel lateral, la letra chica del lote y la línea de apertura quedan como zonas ciegas.">
+            <div class="ng-gaze__zoom">
+            <div class="ng-media" data-ph="/img/ng-pouch">{{img:pouch}}</div>
             <canvas class="ng-gaze__heat" aria-hidden="true"></canvas>
             <svg class="ng-gaze__svg" viewBox="0 0 1000 625" aria-hidden="true">
               <defs>
-                <pattern id="ng-hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                  <rect width="8" height="8" fill="rgba(138,143,152,.35)"/><line x1="0" y1="0" x2="0" y2="8" stroke="#8A8F98" stroke-width="2"/>
+                <pattern id="ng-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                  <rect width="7" height="7" fill="rgba(10,11,13,.55)"/><line x1="0" y1="0" x2="0" y2="7" stroke="rgba(242,243,240,.55)" stroke-width="1.6"/>
                 </pattern>
               </defs>
-              <g class="ng-gaze__blind">
-                <g><rect x="505" y="48" width="320" height="44" rx="3"/><rect class="ng-gaze__bl" x="505" y="98" width="148" height="20" rx="2"/><text x="513" y="113" style="fill:#0A0B0D">ZONA CIEGA</text></g>
-                <g><rect x="50" y="535" width="900" height="56" rx="3"/><rect class="ng-gaze__bl" x="50" y="511" width="148" height="20" rx="2"/><text x="58" y="526" style="fill:#0A0B0D">ZONA CIEGA</text></g>
-              </g>
-              <polyline class="ng-gaze__path" points="760,294 130,169 330,181 200,231 740,175 120,456 150,388 780,325"/>
-              <polyline class="ng-gaze__path2" points="760,294 130,169 330,181 200,231 740,175 120,456 150,388 780,325"/>
+              <g class="ng-gaze__blind"></g>
+              <polyline class="ng-gaze__path" points=""/>
+              <polyline class="ng-gaze__path2" points=""/>
               <g class="ng-gaze__fix"></g>
             </svg>
+            </div>
+            <div class="ng-gaze__scan" aria-hidden="true"><i></i></div>
             <div class="ng-marks" aria-hidden="true"><i></i></div>
           </figure>
         </div>
@@ -134,24 +107,41 @@
 <script>
 NG.boot('[data-ng="gaze"]', function (sec) {
   var NS = 'http://www.w3.org/2000/svg';
-  // [x, y, duración ms] en coordenadas 1000×625
-  var F = [[760, 294, 420], [130, 169, 260], [330, 181, 240], [200, 231, 200], [740, 175, 330], [120, 456, 290], [150, 388, 360], [780, 325, 380]];
+  // Posiciones proyectadas desde la escena 3D del render (0–1 sobre la foto) → coordenadas 1000×625
+  var D = {{json:pouch}};
+  var A = D.anchors, X = function (p, dx, dy) { return [Math.round((p[0] + (dx || 0)) * 1000), Math.round((p[1] + (dy || 0)) * 625)]; };
+  // [x, y, duración ms] en orden de lectura real de un packaging
+  var F = [X(A.origin).concat(440), X(A.logo).concat(300), X(A.notes).concat(260), X(A.valve).concat(190),
+           X(A.weight).concat(340), X(A.beans).concat(230), X(A.logo, .03, .01).concat(210), X(A.origin, -.02, .01).concat(380)];
   var g = sec.querySelector('.ng-gaze__fix');
   var fixEls = F.map(function (f, i) {
     var gg = document.createElementNS(NS, 'g');
-    var r = 10 + f[2] / 18;
+    var r = 8 + f[2] / 22;
     gg.innerHTML = '<circle cx="' + f[0] + '" cy="' + f[1] + '" r="' + r + '"/>' +
-      '<rect class="ng-gaze__fx" x="' + (f[0] + r * .62) + '" y="' + (f[1] - r - 12) + '" width="26" height="20" rx="2"/>' +
-      '<text class="ng-gaze__fn" x="' + (f[0] + r * .62 + 4) + '" y="' + (f[1] - r + 3) + '">' + String(i + 1).padStart(2, '0') + '</text>';
+      '<rect class="ng-gaze__fx" x="' + (f[0] + r * .7) + '" y="' + (f[1] - r - 16) + '" width="28" height="20" rx="2"/>' +
+      '<text class="ng-gaze__fn" x="' + (f[0] + r * .7 + 5) + '" y="' + (f[1] - r - 1) + '">' + String(i + 1).padStart(2, '0') + '</text>';
     gg.setAttribute('data-o', f[0] + ' ' + f[1]);
     g.appendChild(gg);
     return gg;
   });
+  var ptsStr = F.map(function (f) { return f[0] + ',' + f[1]; }).join(' ');
+  sec.querySelectorAll('.ng-gaze__path,.ng-gaze__path2').forEach(function (pl) { pl.setAttribute('points', ptsStr); });
+  var gb = sec.querySelector('.ng-gaze__blind');
+  ['side', 'fine', 'tear'].forEach(function (k) {
+    var poly = D.blind[k].map(function (p) { return X(p); });
+    var minx = Math.min.apply(null, poly.map(function (p) { return p[0]; })), miny = Math.min.apply(null, poly.map(function (p) { return p[1]; }));
+    var maxx = Math.max.apply(null, poly.map(function (p) { return p[0]; }));
+    var lx = k === 'side' ? minx - 118 : k === 'fine' ? maxx + 10 : maxx + 10, ly = k === 'side' ? miny + 6 : miny - 4;
+    var e = document.createElementNS(NS, 'g');
+    e.innerHTML = '<polygon points="' + poly.map(function (p) { return p.join(','); }).join(' ') + '"/>' +
+      '<rect class="ng-gaze__bl" x="' + lx + '" y="' + ly + '" width="108" height="20" rx="2"/><text x="' + (lx + 8) + '" y="' + (ly + 15) + '" style="fill:#0A0B0D">ZONA CIEGA</text>';
+    gb.appendChild(e);
+  });
   var heat = sec.querySelector('.ng-gaze__heat');
   var drawHeat = function () {
-    var pts = F.map(function (f) { return [f[0] / 1000, f[1] / 625, .05 + f[2] / 5000, .55 + f[2] / 900]; });
-    pts.push([.74, .44, .1, .7], [.22, .29, .08, .45]);
-    NG.heat(heat, pts, { gain: .6 });
+    var pts = F.map(function (f) { return [f[0] / 1000, f[1] / 625, .035 + f[2] / 9000, .5 + f[2] / 900]; });
+    pts.push([A.origin[0], A.origin[1], .07, .9], [A.logo[0], A.logo[1], .05, .5]);
+    NG.heat(heat, pts, { gain: .62 });
   };
   drawHeat();
   if ('ResizeObserver' in window) { var to; new ResizeObserver(function () { clearTimeout(to); to = setTimeout(drawHeat, 120); }).observe(heat); }
@@ -185,7 +175,7 @@ NG.boot('[data-ng="gaze"]', function (sec) {
     tl.to(fixEls, { scale: 1, autoAlpha: 1, ease: 'back.out(2)', stagger: .12, duration: .3 }, 0)
       .to(main, { strokeDashoffset: 0, duration: 1 }, 1.05)
       .to(paths[1], { autoAlpha: 1, duration: .3 }, 1.6)
-      .to(heat, { autoAlpha: .92, duration: .8 }, 2.15)
+      .to(heat, { autoAlpha: .82, duration: .8 }, 2.15)
       .to(fixEls, { autoAlpha: .35, duration: .6 }, 2.2)
       .to([main, paths[1]], { autoAlpha: .25, duration: .6 }, 2.2)
       .to(blind, { autoAlpha: 1, stagger: .2, duration: .5 }, 3.15)

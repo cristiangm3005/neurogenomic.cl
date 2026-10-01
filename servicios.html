@@ -248,6 +248,7 @@ html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{c
 .ng-met__head .ng-head{grid-column:1/-1;margin:0}
 .ng-met__head .ng-media{grid-column:8/span 5;aspect-ratio:21/9}
 .ng-met__flow{position:relative}
+.ng-met__more{margin-top:clamp(20px,2.4vw,32px)}
 .ng-met__svg{display:block;width:100%;height:120px;overflow:visible}
 .ng-met__svg path{fill:none;stroke-linecap:round;stroke-linejoin:round}
 .ng-met__base{stroke:var(--ng-line2);stroke-width:1}
@@ -901,7 +902,7 @@ NG.boot('[data-ng="pagehead"]', function (sec) {
   <div class="ng-wrap">
     <div class="ng-svc__intro">
       <div class="ng-head">
-        <p class="ng-mono ng-eyebrow">05 · Servicios</p>
+        <p class="ng-mono ng-eyebrow">01 · Servicios</p>
         <h2 class="ng-h2" id="ng-svc-title" data-ng-split>Seis servicios. <span class="ng-hl">Un framework.</span></h2>
       </div>
       <p class="ng-body" data-ng-reveal>Cada línea de servicio se ejecuta de forma independiente o integrada. La metodología neurocientífica y los modelos de IA son el tejido conector entre todas.</p>
@@ -921,7 +922,7 @@ NG.boot('[data-ng="pagehead"]', function (sec) {
             <a class="ng-btn ng-btn--volt ng-svc__cta" href="contacto.html?servicio=branding">Solicitar diagnóstico <span class="ng-sr">de Branding</span><span class="ng-btn__i" aria-hidden="true">↗</span></a>
           </div>
           <figure class="ng-svc__fig">
-            <div class="ng-media ng-svc__photo" style="aspect-ratio:4/5;--ng-pos:50% 42%" data-ph="/img/ref-can"><picture><source type="image/avif" srcset="img/ref-can-570.avif"><img src="img/ref-can-570.webp" width="570" height="1590" alt="Lata negra con gotas de condensación y un mapa de calor de eye tracking pixelado sobre su superficie: la atención se concentra en el centro, la parte superior y la base" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
+            <div class="ng-media ng-svc__photo" style="aspect-ratio:4/5;--ng-pos:50% 42%" data-ph="/img/ref-can"><picture><source type="image/avif" srcset="img/ref-can-570.avif"><source type="image/webp" srcset="img/ref-can-570.webp"><img src="img/ref-can-570.webp" width="570" height="1590" alt="Lata negra con gotas de condensación y un mapa de calor de eye tracking pixelado sobre su superficie: la atención se concentra en el centro, la parte superior y la base" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
             <figcaption class="ng-mono" aria-hidden="true"><span>S·01</span><span>Branding</span></figcaption>
           </figure>
         </div>
@@ -988,7 +989,7 @@ NG.boot('[data-ng="pagehead"]', function (sec) {
             <a class="ng-btn ng-btn--volt ng-svc__cta" href="contacto.html?servicio=marketing-digital">Solicitar diagnóstico <span class="ng-sr">de Marketing Digital</span><span class="ng-btn__i" aria-hidden="true">↗</span></a>
           </div>
           <figure class="ng-svc__fig">
-            <div class="ng-media ng-svc__photo" style="aspect-ratio:4/5;--ng-pos:50% 66%" data-ph="/img/ref-bottle"><picture><source type="image/avif" srcset="img/ref-bottle-520.avif"><img src="img/ref-bottle-520.webp" width="520" height="1350" alt="Botella de vino oscura bajo un foco, con puntos de fijación verdes brillando sobre la etiqueta blanca y un eye tracker detrás" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
+            <div class="ng-media ng-svc__photo" style="aspect-ratio:4/5;--ng-pos:50% 66%" data-ph="/img/ref-bottle"><picture><source type="image/avif" srcset="img/ref-bottle-520.avif"><source type="image/webp" srcset="img/ref-bottle-520.webp"><img src="img/ref-bottle-520.webp" width="520" height="1350" alt="Botella de vino oscura bajo un foco, con puntos de fijación verdes brillando sobre la etiqueta blanca y un eye tracker detrás" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
             <figcaption class="ng-mono" aria-hidden="true"><span>S·04</span><span>Marketing Digital</span></figcaption>
           </figure>
         </div>
@@ -1108,8 +1109,9 @@ NG.boot('[data-ng="services"]', function (sec) {
   <div class="ng-wrap">
     <div class="ng-met__head">
       <div class="ng-head">
-        <p class="ng-mono ng-eyebrow">06 · Método</p>
+        <p class="ng-mono ng-eyebrow">02 · Método</p>
         <h2 class="ng-h2" id="ng-met-title" data-ng-split>Un proceso, <span class="ng-hl">seis aplicaciones.</span></h2>
+        <p class="ng-met__more" data-ng-reveal><a class="ng-btn" href="servicios.html">Ver los seis servicios <span class="ng-btn__i" aria-hidden="true">→</span></a></p>
       </div>
     </div>
     <div class="ng-met__flow">
@@ -1150,7 +1152,7 @@ NG.boot('[data-ng="method"]', function (sec) {
 <section class="ng-sec ng-why" aria-labelledby="ng-why-title" data-ng="why" data-ng-bg>
   <div class="ng-wrap">
     <div class="ng-head ng-why__head">
-      <p class="ng-mono ng-eyebrow">07 · Evidencia</p>
+      <p class="ng-mono ng-eyebrow">03 · Evidencia</p>
       <h2 class="ng-h2" id="ng-why-title" data-ng-split>Por qué neurociencia <span class="ng-hl">+ IA</span></h2>
       <p class="ng-lead" data-ng-reveal>Neurogenomic es diferente.</p>
     </div>
@@ -1184,7 +1186,7 @@ NG.boot('[data-ng="why"]', function (sec) {
 </script>
 <section class="ng-sec ng-cta" id="contacto-cta" aria-labelledby="ng-cta-title" data-ng="cta">
   <div class="ng-cta__dog">
-    <div class="ng-cta__frame"><div class="ng-media" data-ph="/img/ref-dog"><picture><source type="image/avif" srcset="img/ref-dog-655.avif"><img src="img/ref-dog-655.webp" width="655" height="1200" alt="Primer plano del ojo del perro con la pupila marcada por un anillo verde lima" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div></div>
+    <div class="ng-cta__frame"><div class="ng-media" data-ph="/img/ref-dog"><picture><source type="image/avif" srcset="img/ref-dog-655.avif"><source type="image/webp" srcset="img/ref-dog-655.webp"><img src="img/ref-dog-655.webp" width="655" height="1200" alt="Primer plano del ojo del perro con la pupila marcada por un anillo verde lima" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div></div>
     <svg class="ng-cta__ring" viewBox="0 0 200 200" aria-hidden="true">
       <circle class="ng-cta__r1" cx="100" cy="100" r="90"/><circle class="ng-cta__r2" cx="100" cy="100" r="98"/>
       <text x="100" y="-4" text-anchor="middle">PUPILA · Ø ↓</text>
@@ -1192,7 +1194,7 @@ NG.boot('[data-ng="why"]', function (sec) {
   </div>
   <div class="ng-wrap">
     <div class="ng-cta__in">
-      <p class="ng-mono ng-eyebrow">10 · Diagnóstico</p>
+      <p class="ng-mono ng-eyebrow">04 · Diagnóstico</p>
       <h2 class="ng-cta__t" id="ng-cta-title" data-ng-split>¿Construimos tu próxima decisión <span class="ng-hl">con evidencia?</span></h2>
       <p class="ng-cta__p" data-ng-reveal>Cuéntanos qué servicio necesitas hoy. El diagnóstico inicial es la base de todo lo que viene después.</p>
       <a class="ng-btn ng-btn--volt ng-cta__btn" href="contacto.html" data-ng-magnet><span class="ng-btn__t">Agendar diagnóstico <span class="ng-btn__i" aria-hidden="true">↗</span></span></a>

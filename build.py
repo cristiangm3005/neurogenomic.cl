@@ -103,15 +103,26 @@ REAL = {
     "dog-cta": ("ref-dog", 655, 1200, "Primer plano del ojo del perro con la pupila marcada por un anillo verde lima", False),
     "can": ("ref-can", 570, 1590, "Lata negra con gotas de condensación y un mapa de calor de eye tracking pixelado sobre su superficie: la atención se concentra en el centro, la parte superior y la base", False),
     "bottle": ("ref-bottle", 520, 1350, "Botella de vino oscura bajo un foco, con puntos de fijación verdes brillando sobre la etiqueta blanca y un eye tracker detrás", False),
+    # Renders fotográficos (Blender/Cycles) — ver render/README.md
+    "pouch": ("ng-pouch", 2400, 1500, "Bolsa de café de especialidad de papel kraft con etiqueta MESTA · HUILA, válvula desgasificadora y granos tostados sobre pizarra oscura, con contraluz verde lima", False, [960, 1600, 2400], "(min-width:1024px) 70vw, 100vw"),
+    "pouch-sm": ("ng-pouch", 2400, 1500, "Bolsa de café usada como estímulo en la lectura de eye tracking", False, [960, 1600], "(min-width:1024px) 30vw, 100vw"),
+    "tracker": ("ng-tracker", 2520, 1080, "Barra de eye tracking negra montada bajo un monitor, con emisores infrarrojos encendidos y una lectura de mirada en pantalla", False, [1260, 2520], "(min-width:1680px) 1600px, 100vw"),
+    "box-a": ("ng-box-a", 1200, 1520, "Versión A: caja de té negra con el logotipo BRISA grande en la parte superior", False, [600, 1200], "(min-width:640px) 31vw, 100vw"),
+    "box-b": ("ng-box-b", 1200, 1520, "Versión B: caja de té clara con una hoja negra dentro de un círculo verde lima y la marca BRISA debajo", False, [600, 1200], "(min-width:640px) 31vw, 100vw"),
+    "box-c": ("ng-box-c", 1200, 1520, "Versión C: caja de té blanca minimalista con la marca BRISA en vertical", False, [600, 1200], "(min-width:640px) 31vw, 100vw"),
 }
 
 
 def picture(key, base):
     if key in REAL:
-        name, w, h, alt, eager = REAL[key]
+        name, w, h, alt, eager, *rest = REAL[key]
+        widths, sizes = (rest + [[w], None])[:2] if rest else ([w], None)
         load = 'loading="eager" fetchpriority="high"' if eager else 'loading="lazy" decoding="async"'
-        return (f'<picture><source type="image/avif" srcset="{base}{name}-{w}.avif">'
-                f'<img src="{base}{name}-{w}.webp" width="{w}" height="{h}" alt="{html.escape(alt)}" {load} '
+        sz = f' sizes="{sizes}"' if sizes else ''
+        ss = lambda ext: ", ".join(f"{base}{name}-{x}.{ext} {x}w" for x in widths) if len(widths) > 1 else f"{base}{name}-{w}.{ext}"
+        fallback = widths[len(widths) // 2] if len(widths) > 1 else w
+        return (f'<picture><source type="image/avif" srcset="{ss("avif")}"{sz}><source type="image/webp" srcset="{ss("webp")}"{sz}>'
+                f'<img src="{base}{name}-{fallback}.webp" width="{w}" height="{h}" alt="{html.escape(alt)}" {load} '
                 f'onerror="this.classList.add(\'ng-is-missing\')"></picture>')
     n, name, w, h, ratio, alt, prompt, sizes, eager, portrait = IMAGES[key]
     def ss(nm, ext, widths=WIDTHS):
@@ -295,7 +306,7 @@ PAGES = {
     "index": dict(file="index.html", path="/",
                   title="Neurogenomic · Neuromarketing e IA para decisiones de marca con evidencia",
                   desc="Agencia chilena de neuromarketing e inteligencia biométrica: eye tracking, facial coding y respuesta galvánica cruzados con IA para optimizar marca, campañas, e-commerce y software.",
-                  sections=["nav", "s0-preloader", "s1-hero", "s2-gaze", "s2b-pack", "s3-stat", "s3b-said", "s4-signals", "s5-services",
+                  sections=["nav", "s0-preloader", "s1-hero", "s2-gaze", "s2b-pack", "s3-stat", "s3b-said", "s4-signals",
                             "s6-method", "s7-why", "s8-case", "s9-ethics", "s10-cta", "footer"]),
     "servicios": dict(file="servicios.html", path="/servicios/",
                       title="Servicios · Neurogenomic — Seis servicios, un framework de evidencia",
@@ -334,11 +345,22 @@ def jsonld(page):
     return json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, indent=1)
 
 
+def section_number(page, sec):
+    """Numeración secuencial (01, 02…) de las secciones con {{n}} según el orden de cada página."""
+    i = 0
+    for s_ in PAGES[page]["sections"]:
+        if "{{n}}" in read(f"sections/{s_}.html"):
+            i += 1
+            if s_ == sec:
+                return i
+    return None
+
+
 def read(p):
     return (SRC / p).read_text(encoding="utf-8")
 
 
-def render(text, urls, imgbase, page=None):
+def render(text, urls, imgbase, page=None, n=None):
     if "{{services}}" in text:
         text = text.replace("{{services}}", services_html())
     if page in PAGEHEADS and "{{ph:" in text:
@@ -351,6 +373,8 @@ def render(text, urls, imgbase, page=None):
             text = text.replace("{{ph:%s}}" % k, html.escape(ph[k]))
         text = text.replace("{{ph:media}}", media)
     text = text.replace("{{form_endpoint}}", FORM_ENDPOINT)
+    text = text.replace("{{n}}", f"{n:02d}" if n else "")
+    text = re.sub(r"\{\{json:(\w+)\}\}", lambda m: (SRC / "data" / f"{m.group(1)}.json").read_text(encoding="utf-8").strip(), text)
     text = re.sub(r"\{\{img:([\w-]+)\}\}", lambda m: picture(m.group(1), imgbase), text)
     text = re.sub(r"\{\{u:(\w+)\}\}", lambda m: urls[m.group(1)], text)
     assert "{{" not in text, re.findall(r"\{\{[^}]*\}\}", text)[:3]
@@ -375,7 +399,7 @@ def build_page(key):
     core = read("core/core.js")
     css_parts, body_parts = [min_css(tokens)], []
     for s in pg["sections"]:
-        block = render(read(f"sections/{s}.html"), URLS_STATIC, IMG_STATIC, key)
+        block = render(read(f"sections/{s}.html"), URLS_STATIC, IMG_STATIC, key, section_number(key, s))
         css, body = split_block(block)
         css_parts.append(min_css(css))
         if s in ("nav", "s0-preloader"):
@@ -440,20 +464,20 @@ def build_page(key):
 ELEMENTOR = [
     ("00-global-nav", "nav", "index", "Header fijo, barra de progreso, menú móvil, cursor de fijación y grano. Pégalo en el header (Theme Builder) o al inicio de cada página."),
     ("01-s0-preloader", "s0-preloader", "index", "Solo en la página de inicio, justo después del header."),
-    ("02-s1-hero", "s1-hero", "index", "Usa img/ref-dog-655.(avif|webp)."),
-    ("03-s2-asi-mira", "s2-gaze", "index", ""),
-    ("04-s2b-packaging", "s2b-pack", "index", "Usa img/ref-can-570.(avif|webp)."),
-    ("05-s3-dato-95", "s3-stat", "index", ""),
-    ("06-s3b-no-se-dice", "s3b-said", "index", "Usa img/ref-bottle-520.(avif|webp)."),
-    ("07-s4-tecnologia", "s4-signals", "index", ""),
-    ("08-s5-servicios", "s5-services", "index", "Usa ref-can y ref-bottle; el resto de ilustraciones va dibujado en SVG."),
-    ("09-s6-metodo", "s6-method", "index", ""),
-    ("10-s7-por-que", "s7-why", "index", ""),
-    ("11-s8-caso", "s8-case", "index", ""),
-    ("12-s9-etica", "s9-ethics", "index", ""),
-    ("13-s10-cta-final", "s10-cta", "index", "Usa img/ref-dog-655.(avif|webp)."),
-    ("14-footer", "footer", "index", "Pégalo en el footer (Theme Builder)."),
-    ("15-pagehead-servicios", "pagehead", "servicios", "Cabecera con H1 de /servicios/."),
+    ("02-hero", "s1-hero", "index", "Usa img/ref-dog-655.(avif|webp)."),
+    ("03-asi-mira", "s2-gaze", "index", "Usa img/ng-pouch-*.(avif|webp) (render calibrado con src/data/pouch.json)."),
+    ("04-packaging", "s2b-pack", "index", "Usa img/ref-can-570.(avif|webp)."),
+    ("05-dato-95", "s3-stat", "index", ""),
+    ("06-no-se-dice", "s3b-said", "index", "Usa img/ref-bottle-520.(avif|webp)."),
+    ("07-tecnologia", "s4-signals", "index", ""),
+    ("08-metodo", "s6-method", "index", ""),
+    ("09-por-que", "s7-why", "index", ""),
+    ("10-caso", "s8-case", "index", "Usa img/ng-box-a|b|c-*.(avif|webp) (render calibrado con src/data/boxes.json)."),
+    ("11-etica", "s9-ethics", "index", ""),
+    ("12-cta-final", "s10-cta", "index", "Usa img/ref-dog-655.(avif|webp)."),
+    ("13-footer", "footer", "index", "Pégalo en el footer (Theme Builder)."),
+    ("14-pagehead-servicios", "pagehead", "servicios", "Cabecera con H1 de /servicios/."),
+    ("15-servicios", "s5-services", "servicios", "Solo en /servicios/ (scroll horizontal de los seis servicios)."),
     ("16-pagehead-tecnologia", "pagehead", "tecnologia", "Cabecera con H1 de /tecnologia/."),
     ("17-pagehead-contacto", "pagehead", "contacto", "Cabecera con H1 de /contacto/."),
     ("18-contacto-formulario", "contact-form", "contacto", "Formulario en 4 pasos. Envía a FORM_EMAIL vía FormSubmit (ver README)."),
@@ -468,7 +492,7 @@ def build_elementor():
     tokens = min_css(read("core/tokens.css"))
     core = read("core/core.js").strip()
     for fname, sec, page, note in ELEMENTOR:
-        block = render(read(f"sections/{sec}.html"), URLS_WP, IMG_WP, page)
+        block = render(read(f"sections/{sec}.html"), URLS_WP, IMG_WP, page, section_number(page, sec))
         css, body = split_block(block)
         head = (f"<!-- NEUROGENOMIC · Bloque Elementor «{fname}»\n"
                 f"     Pegar completo en un widget HTML de Elementor (ancho completo, sin padding).\n"
@@ -487,7 +511,11 @@ def build_images_md():
             "| Archivo | Tamaño | Dónde se usa |", "|---|---|---|",
             "| `ref-dog-655.avif / .webp` | 655×1200 | Hero (panel derecho, anillo de fijación sobre el ojo) y CTA final (primer plano del ojo) |",
             "| `ref-can-570.avif / .webp` | 570×1590 | Sección «Tu packaging tiene una mirada para ganar» y Servicio 01 · Branding |",
-            "| `ref-bottle-520.avif / .webp` | 520×1350 | Sección «Lo que no se dice sí se mide» y Servicio 04 · Marketing Digital |", "",
+            "| `ref-bottle-520.avif / .webp` | 520×1350 | Sección «Lo que no se dice sí se mide» y Servicio 04 · Marketing Digital |",
+            "| `ng-pouch-960/1600/2400` | 2400×1500 | «Así mira tu cliente» (bolsa de café kraft, render fotográfico) y monitor C·01 de Tecnología |",
+            "| `ng-box-a/b/c-600/1200` | 1200×1520 | Caso: tres versiones de packaging (render fotográfico) |",
+            "| `ng-tracker-1260/2520` | 2520×1080 | Tecnología: barra de eye tracking bajo el monitor (render fotográfico) |", "",
+            "Los renders `ng-*` se generan con Blender/Cycles a partir de `render/`. Las capas de eye tracking se ubican con las coordenadas proyectadas que guarda `src/data/*.json`: si cambias un render, vuelve a copiar su JSON.", "",
             "Business Intelligence, E-commerce, SEO y Software usan ilustraciones dibujadas en SVG con mapa de calor térmico pixelado (no necesitan archivo).", "",
             "## Opcionales (para subir la resolución o reemplazar ilustraciones)", "",
             "Los originales miden entre 1080 y 1500 px. Para pantallas grandes conviene regenerarlos a ≥ 2000 px de alto con el mismo estilo:",

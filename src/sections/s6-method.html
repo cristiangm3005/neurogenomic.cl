@@ -5,6 +5,7 @@
 .ng-met__head .ng-head{grid-column:1/-1;margin:0}
 .ng-met__head .ng-media{grid-column:8/span 5;aspect-ratio:21/9}
 .ng-met__flow{position:relative}
+.ng-met__more{margin-top:clamp(20px,2.4vw,32px)}
 .ng-met__svg{display:block;width:100%;height:120px;overflow:visible}
 .ng-met__svg path{fill:none;stroke-linecap:round;stroke-linejoin:round}
 .ng-met__base{stroke:var(--ng-line2);stroke-width:1}
@@ -34,8 +35,9 @@
   <div class="ng-wrap">
     <div class="ng-met__head">
       <div class="ng-head">
-        <p class="ng-mono ng-eyebrow">06 · Método</p>
+        <p class="ng-mono ng-eyebrow">{{n}} · Método</p>
         <h2 class="ng-h2" id="ng-met-title" data-ng-split>Un proceso, <span class="ng-hl">seis aplicaciones.</span></h2>
+        <p class="ng-met__more" data-ng-reveal><a class="ng-btn" href="{{u:servicios}}">Ver los seis servicios <span class="ng-btn__i" aria-hidden="true">→</span></a></p>
       </div>
     </div>
     <div class="ng-met__flow">

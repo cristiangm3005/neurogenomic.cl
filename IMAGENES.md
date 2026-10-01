@@ -9,6 +9,11 @@ Recortes de las piezas de campaña de Neurogenomic, sin el texto incrustado. Se 
 | `ref-dog-655.avif / .webp` | 655×1200 | Hero (panel derecho, anillo de fijación sobre el ojo) y CTA final (primer plano del ojo) |
 | `ref-can-570.avif / .webp` | 570×1590 | Sección «Tu packaging tiene una mirada para ganar» y Servicio 01 · Branding |
 | `ref-bottle-520.avif / .webp` | 520×1350 | Sección «Lo que no se dice sí se mide» y Servicio 04 · Marketing Digital |
+| `ng-pouch-960/1600/2400` | 2400×1500 | «Así mira tu cliente» (bolsa de café kraft, render fotográfico) y monitor C·01 de Tecnología |
+| `ng-box-a/b/c-600/1200` | 1200×1520 | Caso: tres versiones de packaging (render fotográfico) |
+| `ng-tracker-1260/2520` | 2520×1080 | Tecnología: barra de eye tracking bajo el monitor (render fotográfico) |
+
+Los renders `ng-*` se generan con Blender/Cycles a partir de `render/`. Las capas de eye tracking se ubican con las coordenadas proyectadas que guarda `src/data/*.json`: si cambias un render, vuelve a copiar su JSON.
 
 Business Intelligence, E-commerce, SEO y Software usan ilustraciones dibujadas en SVG con mapa de calor térmico pixelado (no necesitan archivo).
 

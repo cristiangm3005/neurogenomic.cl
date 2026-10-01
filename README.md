@@ -4,14 +4,16 @@ Experiencia de scroll inmersiva para **Neurogenomic** (Genomic Industries SpA) �
 
 ## Concepto
 
-**Un registro de laboratorio en vivo.** El sitio se lee como una sesión de medición biométrica. Primero se calibra el instrumento (preloader de 5 puntos). Luego se mira: el ojo del perro («Todos miran. Nosotros medimos.»), donde tu cursor es el punto de fijación. Después se mide: la mirada sobre una pieza real se convierte en fijaciones, scanpath, heatmap y zonas ciegas. Al final se decide. La narrativa avanza **Calibrar → Mirar → Medir (95 %, tres señales) → Construir (6 servicios, método) → Probar (caso) → Proteger (ética) → Decidir (CTA)**. El cierre vuelve a ese mismo ojo en primer plano, con un anillo que se contrae sobre la pupila. El lenguaje visual sale de las piezas de campaña de Neurogenomic: negro puro, un solo foco, titulares condensados en mayúsculas (Anton) con la palabra clave en lima `#C8FF00`, heatmaps térmicos pixelados y lecturas de datos con línea guía (IBM Plex Mono). El texto corrido va en Space Grotesk. Retículas, crosshairs y timestamps le dan la precisión de un laboratorio.
+**Un registro de laboratorio en vivo.** El sitio se lee como una sesión de medición biométrica. Primero se calibra el instrumento (preloader de 5 puntos). Luego se mira: el ojo del perro («Todos miran. Nosotros medimos.»), donde tu cursor es el punto de fijación. Después se mide: la mirada sobre una pieza real se convierte en fijaciones, scanpath, heatmap y zonas ciegas. Al final se decide. La narrativa avanza **Calibrar → Mirar → Medir (packaging, 95 %, tres señales) → Construir (método) → Probar (caso) → Proteger (ética) → Decidir (CTA)**. Los seis servicios viven en su propia página (`servicios.html`). El cierre vuelve a ese mismo ojo en primer plano, con un anillo que se contrae sobre la pupila. El lenguaje visual sale de las piezas de campaña de Neurogenomic: negro puro, un solo foco, titulares condensados en mayúsculas (Anton) con la palabra clave en lima `#C8FF00`, heatmaps térmicos pixelados y lecturas de datos con línea guía (IBM Plex Mono). El texto corrido va en Space Grotesk. Retículas, crosshairs y timestamps le dan la precisión de un laboratorio.
 
 ## Estructura
 
 ```
 index.html · servicios.html · tecnologia.html · contacto.html   ← sitio listo (generado)
 elementor/00…18-*.html   ← cada sección como bloque autocontenido para el widget HTML de Elementor
-img/                     ← fotos incluidas (perro, lata, botella) en AVIF + WebP
+img/                     ← fotos (perro, lata, botella) y renders fotográficos (bolsa de café, cajas, eye tracker) en AVIF + WebP
+src/data/*.json          ← calibración: posición de cada zona de los renders, para fijaciones y heatmaps
+render/                  ← escenas de Blender (Cycles) que generan los renders; ver render/README.md
 IMAGENES.md              ← imágenes incluidas y prompts opcionales
 src/core/tokens.css      ← sistema de diseño (colores, tipografía, utilidades ng-)
 src/core/core.js         ← núcleo NG: carga GSAP/ScrollTrigger/Lenis una vez, guardas data-init, helpers
@@ -28,8 +30,9 @@ Abre `index.html` en el navegador o sirve la carpeta (`python3 -m http.server`).
 ## Elementor / WordPress
 
 1. Crea un widget **HTML** por bloque, a ancho completo y sin padding, y pega el archivo completo de `elementor/`.
-   - `00-global-nav` y `14-footer` van en el Theme Builder (header/footer) o al inicio y al final de cada página.
-   - Inicio: `01` a `13`. Servicios: `15` + `08` + `09` + `10` + `13`. Tecnología: `16` + `06` + `07` + `03` + `04` + `05` + `11` + `12` + `13`. Contacto: `17` + `18`.
+   - `00-global-nav` y `13-footer` van en el Theme Builder (header/footer) o al inicio y al final de cada página.
+   - Inicio: `01` a `12`. Servicios: `14` + `15` + `08` + `09` + `12`. Tecnología: `16` + `06` + `07` + `03` + `04` + `05` + `10` + `11` + `12`. Contacto: `17` + `18`.
+   - La numeración de los encabezados (01, 02…) se calcula según el orden de cada página. Los bloques sueltos llevan la numeración del inicio.
 2. Cada bloque trae los tokens y el núcleo `NG`. Si se repiten, no pasa nada: el núcleo se inicializa una sola vez y cada sección usa una guarda `data-init` (arranca en `DOMContentLoaded`, `load` y `elementor/frontend/init`).
 3. En el editor de Elementor se desactivan Lenis y los pins para poder editar con comodidad.
 4. Sube los archivos de `img/` a la Biblioteca de medios y reemplaza `/img/` por esa URL en los bloques.

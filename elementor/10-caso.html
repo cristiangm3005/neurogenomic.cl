@@ -1,6 +1,7 @@
-<!-- NEUROGENOMIC · Bloque Elementor «05-s3-dato-95»
+<!-- NEUROGENOMIC · Bloque Elementor «10-caso»
      Pegar completo en un widget HTML de Elementor (ancho completo, sin padding).
      Incluye tokens + núcleo NG (idempotentes: pueden repetirse en varios bloques).
+     Nota: Usa img/ng-box-a|b|c-*.(avif|webp) (render calibrado con src/data/boxes.json).
      Imágenes: reemplaza /img/ por la URL de la Biblioteca de medios. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -111,25 +112,34 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-sec *,.ng-nav *,.ng-foot *,.ng-menu *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
 .ng-js .ng-sec[data-ng-bg]{--ng-bgo:1}
 }
-.ng-stat{padding:clamp(96px,12vw,200px) 0}
-.ng-stat__sig{position:absolute;left:0;right:0;top:50%;height:220px;margin-top:-110px;width:100%;z-index:-1;pointer-events:none}
-.ng-stat__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end}
-.ng-stat__lbl{grid-column:1/-1;display:flex;justify-content:space-between;gap:16px;color:var(--ng-tx2);margin-bottom:12px}
-.ng-stat__num{grid-column:1/span 7;position:relative;font-size:clamp(150px,30vw,520px);line-height:.82;letter-spacing:0;font-family:var(--ng-disp);font-weight:400;font-variant-numeric:tabular-nums;white-space:nowrap}
-.ng-stat__o{color:rgba(242,243,240,.07)}
-.ng-stat__f{position:absolute;inset:0;overflow:hidden}
-.ng-stat__f>span{display:block;color:var(--ng-volt)}
-.ng-stat__d{display:inline-block;min-width:2ch;text-align:right}
-.ng-stat__pc{font-size:.42em;letter-spacing:-.02em;vertical-align:.95em;margin-left:.04em}
-.ng-stat__copy{grid-column:8/span 5;padding-bottom:clamp(10px,2vw,40px)}
-.ng-stat__copy p:first-child{font-size:clamp(20px,1.9vw,30px);line-height:1.2;letter-spacing:-.015em}
-.ng-stat__src{margin-top:20px;color:var(--ng-tx2)}
-.ng-stat__end{grid-column:1/-1;margin-top:clamp(40px,6vw,96px);padding-top:24px;border-top:1px solid var(--ng-line);display:flex;justify-content:space-between;align-items:baseline;gap:24px;flex-wrap:wrap}
-.ng-stat__end p{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(34px,4.4vw,76px);line-height:.92;letter-spacing:0;font-weight:400;max-width:22ch}
-@media (max-width:899px){
-.ng-stat__num,.ng-stat__copy{grid-column:1/-1}
-.ng-stat__num{font-size:clamp(130px,44vw,300px)}
-.ng-stat__sig{top:34%}
+.ng-case{padding:clamp(96px,12vw,180px) 0}
+.ng-case__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:clamp(32px,4vw,56px)}
+.ng-case__head .ng-head{grid-column:1/span 8;margin:0}
+.ng-case__head .ng-mono{grid-column:10/span 3;color:var(--ng-tx2);text-align:right}
+.ng-case__pin{min-height:100vh;min-height:100svh;display:flex;align-items:center}
+.ng-case__row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,24px);width:100%}
+.ng-pk{position:relative;border:1px solid var(--ng-line);border-radius:8px;padding:14px;background:var(--ng-s1);transition:border-color .5s}
+.ng-pk__top{display:flex;justify-content:space-between;color:var(--ng-tx2);margin-bottom:12px}
+.ng-pk__stage{position:relative;aspect-ratio:30/38;border-radius:4px;overflow:hidden;background:#000}
+.ng-pk__stage .ng-media{position:absolute;inset:0;border-radius:0;background:#000}
+.ng-pk__stage canvas{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:screen}
+.ng-pk__stage canvas{opacity:0}
+.ng-pk__tag{position:absolute;left:12px;right:12px;bottom:12px;background:var(--ng-volt);color:var(--ng-bg);font:500 11px/1.35 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;padding:9px 10px;border-radius:3px;opacity:0;transform:translateY(8px)}
+.ng-pk__stage,.ng-pk__top{transition:opacity .5s}
+.ng-case__row.ng-is-done .ng-pk:not(.ng-is-win) .ng-pk__stage,.ng-case__row.ng-is-done .ng-pk:not(.ng-is-win) .ng-pk__top{opacity:.4}
+.ng-case__row.ng-is-done .ng-pk.ng-is-win{border-color:var(--ng-volt)}
+.ng-case__row.ng-is-done .ng-pk.ng-is-win .ng-pk__top span:last-child{color:var(--ng-volt)}
+.ng-case__blocks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,24px);margin-top:clamp(40px,5vw,72px)}
+.ng-case__b{border-top:1px solid var(--ng-line2);padding-top:18px}
+.ng-case__b h3{font:500 12px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-volt);margin-bottom:12px}
+.ng-case__b p{font-size:clamp(17px,1.35vw,21px);line-height:1.4;font-weight:300}
+@media (max-width:1023px){
+.ng-case__head .ng-head,.ng-case__head .ng-mono{grid-column:1/-1;text-align:left}
+.ng-case__pin{min-height:0}
+.ng-case__blocks{grid-template-columns:1fr}
+}
+@media (max-width:639px){
+.ng-case__row{grid-template-columns:1fr;max-width:420px;margin-inline:auto}
 }
 </style>
 <script>
@@ -422,68 +432,92 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
   });
 })();
 </script>
-<section class="ng-sec ng-stat" aria-labelledby="ng-stat-title" data-ng="stat">
-  <canvas class="ng-stat__sig" aria-hidden="true"></canvas>
-  <div class="ng-wrap ng-stat__grid">
-    <div class="ng-stat__lbl ng-mono" aria-hidden="true"><span>03 · Dato de impacto</span><span>Proceso no consciente</span></div>
-    <h2 class="ng-sr" id="ng-stat-title">El 95 % de las decisiones de compra se procesan de forma no consciente</h2>
-    <p class="ng-stat__num" aria-hidden="true">
-      <span class="ng-stat__o"><span class="ng-stat__d">95</span><span class="ng-stat__pc">%</span></span>
-      <span class="ng-stat__f"><span><span class="ng-stat__d">95</span><span class="ng-stat__pc">%</span></span></span>
-    </p>
-    <div class="ng-stat__copy">
-      <p data-ng-reveal>de las decisiones de compra se procesan de forma no consciente. El marketing tradicional gasta millones intentando descifrar el 5&nbsp;% restante.</p>
-      <p class="ng-stat__src ng-mono" data-ng-reveal=".1">Fuente: Gerald Zaltman, Harvard Business School</p>
+<section class="ng-sec ng-case" id="caso" aria-labelledby="ng-case-title" data-ng="case">
+  <div class="ng-wrap">
+    <div class="ng-case__head">
+      <div class="ng-head">
+        <p class="ng-mono ng-eyebrow">08 · Caso</p>
+        <h2 class="ng-h2" id="ng-case-title" data-ng-split>Un packaging, tres versiones, <span class="ng-hl">una respuesta clara.</span></h2>
+      </div>
+      <p class="ng-mono">Marca anonimizada.<br>Representación ilustrativa.</p>
     </div>
-    <div class="ng-stat__end">
-      <p data-ng-split>Medimos la franja donde se pierde tu conversión.</p>
-      <span class="ng-mono ng-volt" aria-hidden="true">● señal en vivo</span>
+  </div>
+  <div class="ng-case__pin">
+    <div class="ng-wrap">
+      <div class="ng-case__row">
+        <figure class="ng-pk" data-v="a">
+          <figcaption class="ng-pk__top ng-mono"><span>Versión A</span><span>Panel · PDV simulado</span></figcaption>
+          <div class="ng-pk__stage" role="img" aria-label="Versión A: logotipo grande en la parte superior y nombre del producto pequeño.">
+            <div class="ng-media" data-ph="/img/ng-box-a"><picture><source type="image/avif" srcset="/img/ng-box-a-600.avif 600w, /img/ng-box-a-1200.avif 1200w" sizes="(min-width:640px) 31vw, 100vw"><source type="image/webp" srcset="/img/ng-box-a-600.webp 600w, /img/ng-box-a-1200.webp 1200w" sizes="(min-width:640px) 31vw, 100vw"><img src="/img/ng-box-a-1200.webp" width="1200" height="1520" alt="Versión A: caja de té negra con el logotipo BRISA grande en la parte superior" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
+            <canvas aria-hidden="true"></canvas>
+          </div>
+        </figure>
+        <figure class="ng-pk ng-is-win" data-v="b">
+          <figcaption class="ng-pk__top ng-mono"><span>Versión B</span><span>Ganadora</span></figcaption>
+          <div class="ng-pk__stage" role="img" aria-label="Versión B: ilustración central de hojas con la marca en la base; es la versión ganadora.">
+            <div class="ng-media" data-ph="/img/ng-box-b"><picture><source type="image/avif" srcset="/img/ng-box-b-600.avif 600w, /img/ng-box-b-1200.avif 1200w" sizes="(min-width:640px) 31vw, 100vw"><source type="image/webp" srcset="/img/ng-box-b-600.webp 600w, /img/ng-box-b-1200.webp 1200w" sizes="(min-width:640px) 31vw, 100vw"><img src="/img/ng-box-b-1200.webp" width="1200" height="1520" alt="Versión B: caja de té clara con una hoja negra dentro de un círculo verde lima y la marca BRISA debajo" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
+            <canvas aria-hidden="true"></canvas>
+            <span class="ng-pk__tag">Mayor atención sostenida<br>+ respuesta emocional positiva</span>
+          </div>
+        </figure>
+        <figure class="ng-pk" data-v="c">
+          <figcaption class="ng-pk__top ng-mono"><span>Versión C</span><span>Panel · PDV simulado</span></figcaption>
+          <div class="ng-pk__stage" role="img" aria-label="Versión C: diseño minimalista tipográfico con la marca en vertical.">
+            <div class="ng-media" data-ph="/img/ng-box-c"><picture><source type="image/avif" srcset="/img/ng-box-c-600.avif 600w, /img/ng-box-c-1200.avif 1200w" sizes="(min-width:640px) 31vw, 100vw"><source type="image/webp" srcset="/img/ng-box-c-600.webp 600w, /img/ng-box-c-1200.webp 1200w" sizes="(min-width:640px) 31vw, 100vw"><img src="/img/ng-box-c-1200.webp" width="1200" height="1520" alt="Versión C: caja de té blanca minimalista con la marca BRISA en vertical" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
+            <canvas aria-hidden="true"></canvas>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </div>
+  <div class="ng-wrap">
+    <div class="ng-case__blocks">
+      <div class="ng-case__b" data-ng-reveal><h3>Desafío</h3><p>El equipo de marketing debía elegir entre tres propuestas de packaging sin acuerdo interno.</p></div>
+      <div class="ng-case__b" data-ng-reveal=".08"><h3>Aplicación</h3><p>Expusimos las tres versiones a consumidores reales en punto de venta simulado, midiendo mirada y emoción.</p></div>
+      <div class="ng-case__b" data-ng-reveal=".16"><h3>Resultado</h3><p>Una versión generó mayor atención sostenida y respuesta emocional positiva, resolviendo el debate con datos.</p></div>
     </div>
   </div>
 </section>
 
 <script>
-NG.boot('[data-ng="stat"]', function (sec) {
-  var ds = sec.querySelectorAll('.ng-stat__d');
-  var fill = sec.querySelector('.ng-stat__f'), fillIn = fill.firstElementChild;
-  var cv = NG.canvas(sec.querySelector('.ng-stat__sig'));
-  var spike = -1, phase = 0;
-  var draw = function (t, dt) {
-    var c = cv.ctx, w = cv.w, h = cv.h, mid = h / 2;
-    phase += (dt || 16) * .0016;
-    c.clearRect(0, 0, w, h);
-    c.strokeStyle = 'rgba(255,255,255,.08)'; c.lineWidth = 1;
-    c.beginPath(); c.moveTo(0, mid); c.lineTo(w, mid); c.stroke();
-    if (spike >= 0) spike += (dt || 16) * .0009;
-    var sx = spike * w;
-    c.strokeStyle = 'rgba(200,245,66,.55)'; c.lineWidth = 1.2; c.beginPath();
-    for (var x = 0; x <= w; x += 3) {
-      var y = mid + Math.sin(x * .021 + phase) * 3 + Math.sin(x * .057 - phase * 1.7) * 2;
-      if (spike >= 0) {
-        var dx = (x - sx) / 46;
-        y -= Math.exp(-dx * dx) * 78 * Math.cos(dx * 3.2) * Math.max(0, 1 - spike * .25);
-      }
-      x ? c.lineTo(x, y) : c.moveTo(x, y);
-    }
-    c.stroke();
-    if (spike >= 0 && sx < w) { c.fillStyle = '#C8FF00'; c.beginPath(); c.arc(sx, mid - 2, 3, 0, 6.283); c.fill(); }
-    if (spike > 1.3) spike = -1;
+NG.boot('[data-ng="case"]', function (sec) {
+  var row = sec.querySelector('.ng-case__row');
+  var cards = [].slice.call(sec.querySelectorAll('.ng-pk'));
+  var cvs = cards.map(function (c) { return c.querySelector('canvas'); });
+  var tag = sec.querySelector('.ng-pk__tag');
+  // Distribución ilustrativa de atención por versión (x, y, radio, peso) sobre 300×380
+  // Atención proyectada desde la escena 3D de cada caja (0–1 sobre la foto): [x, y, radio, peso]
+  var B = {"a":{"logo":[0.5813,0.3655],"name":[0.58,0.7893],"mid":[0.49,0.572]},"b":{"logo":[0.581,0.4702],"brand":[0.5804,0.6872],"name":[0.5802,0.7486],"leaf":[0.5631,0.429]},"c":{"logo":[0.467,0.5732],"name":[0.6489,0.3311],"low":[0.5801,0.7601]}};
+  var H = {
+    a: [B.a.logo.concat([.13, .95]), B.a.name.concat([.06, .25]), B.a.mid.concat([.08, .18])],
+    b: [B.b.logo.concat([.17, 1]), B.b.leaf.concat([.09, .6]), B.b.brand.concat([.1, .85]), B.b.name.concat([.07, .45])],
+    c: [B.c.logo.concat([.09, .42]), B.c.name.concat([.07, .3]), B.c.low.concat([.08, .15])]
   };
-  if (NG.rm) draw(0, 0); else NG.loop(sec, draw);
+  var draw = function () { cards.forEach(function (c, i) { NG.heat(cvs[i], H[c.getAttribute('data-v')], { gain: 1 }); }); };
+  draw();
+  if ('ResizeObserver' in window) { var to; new ResizeObserver(function () { clearTimeout(to); to = setTimeout(draw, 150); }).observe(row); }
 
+  var finish = function () { row.classList.add('ng-is-done'); };
   NG.reveals(sec);
   NG.ready().then(function (gsap) {
-    if (!gsap || NG.rm) return;
-    gsap.set(fill, { yPercent: 100 }); gsap.set(fillIn, { yPercent: -100 });
-    ds.forEach(function (d) { d.textContent = '0'; });
-    ScrollTrigger.create({
-      trigger: sec, start: 'top 62%', once: true,
-      onEnter: function () {
-        NG.count(ds[0], 95, { dur: 2.2, update: function (k) { ds[1].textContent = ds[0].textContent; },
-          done: function () { ds[1].textContent = '95'; spike = 0; } });
-        gsap.to(fill, { yPercent: 0, duration: 2.2, ease: 'expo.out' });
-        gsap.to(fillIn, { yPercent: 0, duration: 2.2, ease: 'expo.out' });
-      }
+    if (!gsap || NG.rm) { cvs.forEach(function (c) { c.style.opacity = .85; }); tag.style.opacity = 1; tag.style.transform = 'none'; finish(); return; }
+    var mm = gsap.matchMedia();
+    mm.add({ d: '(min-width:1024px) and (min-height:700px)', m: '(max-width:1023px), (max-height:699px)' }, function (ctx) {
+      var desk = ctx.conditions.d && !NG.edit();
+      var tl = gsap.timeline({
+        defaults: { ease: 'none' },
+        scrollTrigger: desk
+          ? { trigger: sec.querySelector('.ng-case__pin'), start: 'top top', end: '+=180%', pin: true, scrub: .6, anticipatePin: 1 }
+          : { trigger: row, start: 'top 75%', end: 'bottom 35%', scrub: .6 }
+      });
+      tl.from(cards, { autoAlpha: 0, y: 40, stagger: .15, duration: .5, ease: 'power2.out' })
+        .to(cvs[0], { opacity: .88, duration: .5 })
+        .to(cvs[1], { opacity: .88, duration: .5 })
+        .to(cvs[2], { opacity: .88, duration: .5 })
+        .to(tag, { opacity: 1, y: 0, duration: .4 })
+        .to({}, { duration: .3 });
+      tl.eventCallback('onUpdate', function () { row.classList.toggle('ng-is-done', tl.progress() > .78); });
+      return function () { row.classList.remove('ng-is-done'); };
     });
   });
 });

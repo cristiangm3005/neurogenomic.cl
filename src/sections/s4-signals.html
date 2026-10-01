@@ -4,6 +4,14 @@
 .ng-sig__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:clamp(40px,5vw,80px)}
 .ng-sig__head .ng-head{grid-column:1/span 8;margin:0}
 .ng-sig__head .ng-body{grid-column:9/span 4}
+.ng-sig__photo{position:relative;margin:0 0 clamp(16px,2vw,28px);aspect-ratio:21/9;border:1px solid var(--ng-line);border-radius:8px;overflow:hidden;background:#000;box-shadow:0 40px 120px -40px rgba(0,0,0,.9)}
+.ng-sig__photo .ng-media{position:absolute;inset:0;border-radius:0;background:#000}
+.ng-sig__photo .ng-media img{transform-origin:45% 62%}
+.ng-sig__photo .ng-co{transform:translate(-6px,-50%)}
+.ng-sig__photo .ng-co--up{flex-direction:column-reverse;align-items:flex-start;transform:translate(-6px,calc(-100% + 6px))}
+.ng-sig__photo .ng-co--up .ng-co__ln{width:1px;height:var(--ng-co-h,46px);margin-left:5px;transform-origin:50% 100%}
+.ng-sig__photo figcaption{position:absolute;left:14px;bottom:12px;color:var(--ng-tx2)}
+@media (max-width:767px){.ng-sig__photo{aspect-ratio:16/10}.ng-sig__photo .ng-co--hide-m{display:none}}
 .ng-sig__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.4vw,20px)}
 .ng-mon{position:relative;display:flex;flex-direction:column;background:var(--ng-s1);border:1px solid var(--ng-line);border-radius:8px;padding:14px;text-align:left;color:inherit;font:inherit;cursor:pointer;transition:border-color .4s}
 .ng-sig__grid.ng-is-ready .ng-mon{transition:opacity .5s var(--ng-ease),transform .6s var(--ng-ease),border-color .4s}
@@ -14,6 +22,8 @@
 .ng-mon__live{color:var(--ng-lime);display:inline-flex;align-items:center;gap:6px}
 .ng-mon__screen{position:relative;aspect-ratio:4/3;border-radius:4px;overflow:hidden;background:var(--ng-bg);border:1px solid var(--ng-line)}
 .ng-mon__screen canvas{position:absolute;inset:0;width:100%;height:100%}
+.ng-mon__photo{position:absolute;inset:0;border-radius:0}
+.ng-mon__photo img{object-position:53% 50%;transform:scale(1.25);transform-origin:53% 50%}
 .ng-mon__screen .ng-media{position:absolute;inset:0;border-radius:0}
 .ng-mon__screen .ng-media::before{align-items:flex-start;justify-content:flex-end;padding:10px 12px}
 .ng-mon__screen::after{content:"";position:absolute;inset:0;background:var(--ng-tx);opacity:0;pointer-events:none}
@@ -38,15 +48,22 @@
   <div class="ng-wrap">
     <div class="ng-sig__head">
       <div class="ng-head">
-        <p class="ng-mono ng-eyebrow">04 · Tecnología</p>
+        <p class="ng-mono ng-eyebrow">{{n}} · Tecnología</p>
         <h2 class="ng-h2" id="ng-sig-title" data-ng-split>Biometría real. Tres señales involuntarias. <span class="ng-hl">Cero opiniones.</span></h2>
       </div>
       <p class="ng-body" data-ng-reveal>Eye tracking, facial coding y respuesta galvánica, cruzados con modelos de IA propios, para convertir reacciones no conscientes en una decisión validada antes de construir.</p>
     </div>
+    <figure class="ng-sig__photo">
+      <div class="ng-media" data-ph="/img/ng-tracker">{{img:tracker}}</div>
+      <span class="ng-co ng-co--up" style="left:19%;top:64.5%" aria-hidden="true"><span class="ng-co__dot"></span><span class="ng-co__ln"></span><span>Emisor IR · 850 nm</span></span>
+      <span class="ng-co ng-co--up ng-co--hide-m" style="left:45.5%;top:62%;--ng-co-h:84px" aria-hidden="true"><span class="ng-co__dot"></span><span class="ng-co__ln"></span><span>Cámara · reflejo corneal</span></span>
+      <span class="ng-co ng-co--up" style="left:71.8%;top:57%;--ng-co-h:64px" aria-hidden="true"><span class="ng-co__dot"></span><span class="ng-co__ln"></span><span>● Muestreo 120 Hz</span></span>
+      <figcaption class="ng-mono">Barra de eye tracking bajo el monitor de estímulos</figcaption>
+    </figure>
     <div class="ng-sig__grid">
       <button type="button" class="ng-mon" data-k="eye" aria-pressed="false" aria-label="Eye tracking, atención: dónde mira, en qué orden y qué ignora por completo. Ampliar panel.">
         <span class="ng-mon__top ng-mono"><span>C·01 · Eye tracking</span><span class="ng-mon__live">● señal en vivo</span></span>
-        <span class="ng-mon__screen"><canvas aria-hidden="true"></canvas><span class="ng-mon__read">fijación <span data-r>214</span> ms</span><span class="ng-marks" aria-hidden="true"><i></i></span></span>
+        <span class="ng-mon__screen"><span class="ng-media ng-mon__photo" data-ph="/img/ng-pouch">{{img:pouch-sm}}</span><canvas aria-hidden="true"></canvas><span class="ng-mon__read">fijación <span data-r>214</span> ms</span><span class="ng-marks" aria-hidden="true"><i></i></span></span>
         <span class="ng-mon__body"><span class="ng-mon__k ng-mono">Señal 01</span><span class="ng-mon__t">Atención</span><span class="ng-mon__d">Dónde mira, en qué orden y qué ignora por completo.</span></span>
       </button>
       <button type="button" class="ng-mon" data-k="face" aria-pressed="false" aria-label="Facial coding, emoción: la microexpresión que aparece antes de que piense la respuesta. Ampliar panel.">
@@ -93,13 +110,13 @@ NG.boot('[data-ng="signals"]', function (sec) {
       var c = cv.ctx, w = cv.w, h = cv.h;
       if (t > next) {
         pts.push({ x: tgt.x, y: tgt.y, d: dwell }); if (pts.length > 7) pts.shift();
-        tgt = { x: .12 + Math.random() * .76, y: .14 + Math.random() * .62 };
+        tgt = { x: .36 + Math.random() * .3, y: .2 + Math.random() * .56 };
         dwell = 140 + Math.random() * 260; next = t + dwell + 90;
         r.textContent = Math.round(dwell);
       }
       cur.x = NG.lerp(cur.x, tgt.x, .35); cur.y = NG.lerp(cur.y, tgt.y, .35);
       c.clearRect(0, 0, w, h);
-      c.strokeStyle = 'rgba(255,255,255,.06)'; c.lineWidth = 1;
+      c.strokeStyle = 'rgba(255,255,255,.05)'; c.lineWidth = 1;
       for (var i = 1; i < 6; i++) { c.beginPath(); c.moveTo(i * w / 6, 0); c.lineTo(i * w / 6, h); c.stroke(); c.beginPath(); c.moveTo(0, i * h / 6); c.lineTo(w, i * h / 6); c.stroke(); }
       c.strokeStyle = 'rgba(200,245,66,.45)'; c.beginPath();
       pts.forEach(function (p, i) { i ? c.lineTo(p.x * w, p.y * h) : c.moveTo(p.x * w, p.y * h); });
@@ -191,6 +208,10 @@ NG.boot('[data-ng="signals"]', function (sec) {
   NG.reveals(sec);
   NG.ready().then(function (gsap) {
     if (!gsap || NG.rm) { grid.classList.add('ng-is-ready'); start(); return; }
+    var ph = sec.querySelector('.ng-sig__photo'), pimg = ph.querySelector('img');
+    if (pimg) gsap.fromTo(pimg, { scale: 1.14 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: ph, start: 'top bottom', end: 'bottom 40%', scrub: true } });
+    var cos = ph.querySelectorAll('.ng-co');
+    gsap.from(cos, { autoAlpha: 0, y: 12, stagger: .18, duration: .7, scrollTrigger: { trigger: ph, start: 'top 60%', once: true } });
     gsap.from(mons, {
       autoAlpha: 0, y: 48, duration: 1, ease: 'power3.out', stagger: .14,
       scrollTrigger: { trigger: grid, start: 'top 80%', once: true },

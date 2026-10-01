@@ -209,6 +209,14 @@ clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out
 .ng-sig__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:clamp(40px,5vw,80px)}
 .ng-sig__head .ng-head{grid-column:1/span 8;margin:0}
 .ng-sig__head .ng-body{grid-column:9/span 4}
+.ng-sig__photo{position:relative;margin:0 0 clamp(16px,2vw,28px);aspect-ratio:21/9;border:1px solid var(--ng-line);border-radius:8px;overflow:hidden;background:#000;box-shadow:0 40px 120px -40px rgba(0,0,0,.9)}
+.ng-sig__photo .ng-media{position:absolute;inset:0;border-radius:0;background:#000}
+.ng-sig__photo .ng-media img{transform-origin:45% 62%}
+.ng-sig__photo .ng-co{transform:translate(-6px,-50%)}
+.ng-sig__photo .ng-co--up{flex-direction:column-reverse;align-items:flex-start;transform:translate(-6px,calc(-100% + 6px))}
+.ng-sig__photo .ng-co--up .ng-co__ln{width:1px;height:var(--ng-co-h,46px);margin-left:5px;transform-origin:50% 100%}
+.ng-sig__photo figcaption{position:absolute;left:14px;bottom:12px;color:var(--ng-tx2)}
+@media (max-width:767px){.ng-sig__photo{aspect-ratio:16/10}.ng-sig__photo .ng-co--hide-m{display:none}}
 .ng-sig__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.4vw,20px)}
 .ng-mon{position:relative;display:flex;flex-direction:column;background:var(--ng-s1);border:1px solid var(--ng-line);border-radius:8px;padding:14px;text-align:left;color:inherit;font:inherit;cursor:pointer;transition:border-color .4s}
 .ng-sig__grid.ng-is-ready .ng-mon{transition:opacity .5s var(--ng-ease),transform .6s var(--ng-ease),border-color .4s}
@@ -219,6 +227,8 @@ clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out
 .ng-mon__live{color:var(--ng-lime);display:inline-flex;align-items:center;gap:6px}
 .ng-mon__screen{position:relative;aspect-ratio:4/3;border-radius:4px;overflow:hidden;background:var(--ng-bg);border:1px solid var(--ng-line)}
 .ng-mon__screen canvas{position:absolute;inset:0;width:100%;height:100%}
+.ng-mon__photo{position:absolute;inset:0;border-radius:0}
+.ng-mon__photo img{object-position:53% 50%;transform:scale(1.25);transform-origin:53% 50%}
 .ng-mon__screen .ng-media{position:absolute;inset:0;border-radius:0}
 .ng-mon__screen .ng-media::before{align-items:flex-start;justify-content:flex-end;padding:10px 12px}
 .ng-mon__screen::after{content:"";position:absolute;inset:0;background:var(--ng-tx);opacity:0;pointer-events:none}
@@ -253,32 +263,25 @@ clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out
 .ng-gaze__stagewrap{grid-column:4/span 9;position:relative}
 .ng-gaze__meta{display:flex;justify-content:space-between;gap:16px;margin-bottom:10px;color:var(--ng-tx2)}
 .ng-gaze__meta b{color:var(--ng-lime);font-weight:500}
-.ng-gaze__stage{position:relative;aspect-ratio:1000/625;width:100%;border:1px solid var(--ng-line2);border-radius:8px;overflow:hidden;container-type:inline-size;background:#ECEAE4;color:#14161A}
-.ng-mk{position:absolute;inset:0;font-family:var(--ng-ff);transition:filter .6s}
-.ng-mk__bar{position:absolute;inset:0 0 auto 0;height:6.4%;background:#DAD7CF;display:flex;align-items:center;gap:.6cqw;padding:0 1.6cqw}
-.ng-mk__bar i{width:.9cqw;height:.9cqw;border-radius:50%;background:#B9B5AB}
-.ng-mk__bar span{margin-left:2cqw;font:500 1.1cqw/1 var(--ng-mono);color:#6B675E;background:#ECEAE4;padding:.5cqw 1.4cqw;border-radius:.4cqw}
-.ng-mk__logo{position:absolute;left:6%;top:9.2%;font-weight:700;font-size:2.1cqw;letter-spacing:.18em}
-.ng-mk__links{position:absolute;left:52%;top:9.6%;display:flex;gap:3cqw;font-size:1.25cqw;color:#4A4D52}
-.ng-mk__cart{position:absolute;right:6%;top:9%;width:2.6cqw;height:2.6cqw;border:1.5px solid #14161A;border-radius:.4cqw}
-.ng-mk__h{position:absolute;left:6%;top:21%;width:48%;font-size:4.8cqw;line-height:.98;letter-spacing:-.04em;font-weight:600}
-.ng-mk__p{position:absolute;left:6%;top:46%;width:42%;font-size:1.5cqw;line-height:1.4;color:#4A4D52}
-.ng-mk__cta{position:absolute;left:6%;top:57%;width:19%;height:8.4%;background:#14161A;color:#ECEAE4;border-radius:.5cqw;display:flex;align-items:center;justify-content:center;font-size:1.4cqw;font-weight:500}
-.ng-mk__price{position:absolute;left:6%;top:70%;font-size:2.2cqw;font-weight:600;letter-spacing:-.02em}
-.ng-mk__price small{font-size:1.2cqw;color:#6B675E;font-weight:400;margin-left:.6cqw}
-.ng-mk__prod{position:absolute;left:60%;top:15%;width:32%;height:68%}
-.ng-mk__badges{position:absolute;left:6%;right:6%;top:87%;display:flex;justify-content:space-between;font:500 1.05cqw/1 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase;color:#6B675E;border-top:1px solid #CFCBC2;padding-top:1.6cqw}
-.ng-gaze__heat{position:absolute;inset:0;width:100%;height:100%;opacity:0;mix-blend-mode:normal}
+.ng-gaze__stage{position:relative;aspect-ratio:1000/625;width:100%;margin:0;border:1px solid var(--ng-line2);border-radius:8px;overflow:hidden;background:#000;box-shadow:0 40px 120px -40px rgba(0,0,0,.9),0 0 0 1px rgba(200,255,0,.04)}
+.ng-gaze__zoom{position:absolute;inset:0;transform:scale(1.14);transform-origin:52% 58%}
+.ng-gaze__stage .ng-media{position:absolute;inset:0;border-radius:0;background:#000}
+.ng-gaze__stage .ng-media img{transform-origin:50% 45%}
+.ng-gaze__scan{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.ng-gaze__scan i{position:absolute;left:0;right:0;top:0;height:22%;background:linear-gradient(180deg,rgba(200,255,0,0) 0%,rgba(200,255,0,.06) 85%,rgba(200,255,0,.45) 99%,rgba(200,255,0,0) 100%);transform:translateY(-100%);animation:ng-gscan 4.8s cubic-bezier(.45,0,.55,1) infinite}
+@keyframes ng-gscan{to{transform:translateY(560%)}}
+@media (prefers-reduced-motion:reduce){.ng-gaze__scan{display:none}}
+.ng-gaze__heat{position:absolute;inset:0;width:100%;height:100%;opacity:0}
 .ng-gaze__svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.ng-gaze__fix circle{fill:rgba(200,255,0,.22);stroke:#C8FF00;stroke-width:1.5}
+.ng-gaze__fix circle{fill:rgba(200,255,0,.16);stroke:#C8FF00;stroke-width:2;filter:drop-shadow(0 0 6px rgba(200,255,0,.55))}
 .ng-gaze__fix text{font:600 15px var(--ng-mono);fill:#0A0B0D}
 .ng-gaze__fix .ng-gaze__fx{fill:#0A0B0D;stroke:none}
 .ng-gaze__fix .ng-gaze__fn{fill:#C8FF00}
-.ng-gaze__path{fill:none;stroke:#0A0B0D;stroke-width:2;stroke-linejoin:round}
-.ng-gaze__path2{fill:none;stroke:#C8FF00;stroke-width:1.2;stroke-dasharray:4 5}
-.ng-gaze__blind rect{fill:url(#ng-hatch);stroke:#8A8F98;stroke-width:1.2;stroke-dasharray:6 4}
+.ng-gaze__path{fill:none;stroke:rgba(0,0,0,.65);stroke-width:4;stroke-linejoin:round}
+.ng-gaze__path2{fill:none;stroke:#C8FF00;stroke-width:1.6;stroke-linejoin:round}
+.ng-gaze__blind polygon{fill:url(#ng-hatch);stroke:#F2F3F0;stroke-width:1.2;stroke-dasharray:6 4;stroke-linejoin:round}
 .ng-gaze__blind text{font:500 12px var(--ng-mono);letter-spacing:.1em;fill:#0A0B0D}
-.ng-gaze__blind .ng-gaze__bl{fill:#8A8F98}
+.ng-gaze__blind .ng-gaze__bl{fill:#F2F3F0}
 .ng-gaze__outro{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;margin-top:clamp(48px,6vw,96px)}
 .ng-gaze__outro p{grid-column:4/span 7;font-size:clamp(22px,2.2vw,34px);line-height:1.2;letter-spacing:-.02em;font-weight:400}
 .ng-gaze__outro p span{color:var(--ng-tx2)}
@@ -292,6 +295,7 @@ clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out
 .ng-gaze__stagewrap{grid-column:1/-1}
 }
 @media (max-width:420px){.ng-gaze__meta span:last-child{display:none}}
+@media (max-width:767px){.ng-gaze__stage{aspect-ratio:1/1}.ng-gaze__zoom{inset:auto;left:50%;top:50%;width:160%;aspect-ratio:1000/625;transform:translate(-52%,-50%)}}
 .ng-pack{padding:clamp(96px,11vw,170px) 0 clamp(56px,6vw,96px);background:#000}
 .ng-pack__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:center}
 .ng-pack__copy{grid-column:1/span 6}
@@ -346,8 +350,9 @@ clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out
 .ng-case__row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,24px);width:100%}
 .ng-pk{position:relative;border:1px solid var(--ng-line);border-radius:8px;padding:14px;background:var(--ng-s1);transition:border-color .5s}
 .ng-pk__top{display:flex;justify-content:space-between;color:var(--ng-tx2);margin-bottom:12px}
-.ng-pk__stage{position:relative;aspect-ratio:30/38;border-radius:4px;overflow:hidden;background:#E9E7E1}
-.ng-pk__stage svg,.ng-pk__stage canvas{position:absolute;inset:0;width:100%;height:100%}
+.ng-pk__stage{position:relative;aspect-ratio:30/38;border-radius:4px;overflow:hidden;background:#000}
+.ng-pk__stage .ng-media{position:absolute;inset:0;border-radius:0;background:#000}
+.ng-pk__stage canvas{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:screen}
 .ng-pk__stage canvas{opacity:0}
 .ng-pk__tag{position:absolute;left:12px;right:12px;bottom:12px;background:var(--ng-volt);color:var(--ng-bg);font:500 11px/1.35 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;padding:9px 10px;border-radius:3px;opacity:0;transform:translateY(8px)}
 .ng-pk__stage,.ng-pk__top{transition:opacity .5s}
@@ -916,13 +921,14 @@ NG.boot('[data-ng="pagehead"]', function (sec) {
   <div class="ng-wrap">
     <div class="ng-said__grid">
       <div class="ng-said__copy">
+        <p class="ng-mono ng-eyebrow" style="margin-bottom:clamp(18px,2vw,28px)">01 · Señal no consciente</p>
         <h2 class="ng-h2 ng-said__t" id="ng-said-title" data-ng-split>Lo que<br>no se dice<br><span class="ng-hl">sí se mide.</span></h2>
         <p class="ng-said__brand" aria-hidden="true">NEUROGENOMIC</p>
         <p class="ng-said__p" data-ng-reveal>Una encuesta recoge lo que la persona cree que siente. La mirada, el gesto y la piel registran lo que realmente pasa, antes de que lo pueda explicar.</p>
       </div>
       <div class="ng-said__stage">
         <figure class="ng-said__fig">
-          <div class="ng-media" data-ph="/img/ref-bottle"><picture><source type="image/avif" srcset="img/ref-bottle-520.avif"><img src="img/ref-bottle-520.webp" width="520" height="1350" alt="Botella de vino oscura bajo un foco, con puntos de fijación verdes brillando sobre la etiqueta blanca y un eye tracker detrás" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
+          <div class="ng-media" data-ph="/img/ref-bottle"><picture><source type="image/avif" srcset="img/ref-bottle-520.avif"><source type="image/webp" srcset="img/ref-bottle-520.webp"><img src="img/ref-bottle-520.webp" width="520" height="1350" alt="Botella de vino oscura bajo un foco, con puntos de fijación verdes brillando sobre la etiqueta blanca y un eye tracker detrás" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
           <svg class="ng-said__fix" viewBox="0 0 520 1350" preserveAspectRatio="none" aria-hidden="true">
             <circle cx="230" cy="650" r="34"/><circle cx="265" cy="757" r="36"/><circle cx="202" cy="830" r="44"/><circle cx="266" cy="965" r="34"/><circle cx="225" cy="1015" r="36"/>
           </svg>
@@ -954,15 +960,22 @@ NG.boot('[data-ng="said"]', function (sec) {
   <div class="ng-wrap">
     <div class="ng-sig__head">
       <div class="ng-head">
-        <p class="ng-mono ng-eyebrow">04 · Tecnología</p>
+        <p class="ng-mono ng-eyebrow">02 · Tecnología</p>
         <h2 class="ng-h2" id="ng-sig-title" data-ng-split>Biometría real. Tres señales involuntarias. <span class="ng-hl">Cero opiniones.</span></h2>
       </div>
       <p class="ng-body" data-ng-reveal>Eye tracking, facial coding y respuesta galvánica, cruzados con modelos de IA propios, para convertir reacciones no conscientes en una decisión validada antes de construir.</p>
     </div>
+    <figure class="ng-sig__photo">
+      <div class="ng-media" data-ph="/img/ng-tracker"><picture><source type="image/avif" srcset="img/ng-tracker-1260.avif 1260w, img/ng-tracker-2520.avif 2520w" sizes="(min-width:1680px) 1600px, 100vw"><source type="image/webp" srcset="img/ng-tracker-1260.webp 1260w, img/ng-tracker-2520.webp 2520w" sizes="(min-width:1680px) 1600px, 100vw"><img src="img/ng-tracker-2520.webp" width="2520" height="1080" alt="Barra de eye tracking negra montada bajo un monitor, con emisores infrarrojos encendidos y una lectura de mirada en pantalla" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
+      <span class="ng-co ng-co--up" style="left:19%;top:64.5%" aria-hidden="true"><span class="ng-co__dot"></span><span class="ng-co__ln"></span><span>Emisor IR · 850 nm</span></span>
+      <span class="ng-co ng-co--up ng-co--hide-m" style="left:45.5%;top:62%;--ng-co-h:84px" aria-hidden="true"><span class="ng-co__dot"></span><span class="ng-co__ln"></span><span>Cámara · reflejo corneal</span></span>
+      <span class="ng-co ng-co--up" style="left:71.8%;top:57%;--ng-co-h:64px" aria-hidden="true"><span class="ng-co__dot"></span><span class="ng-co__ln"></span><span>● Muestreo 120 Hz</span></span>
+      <figcaption class="ng-mono">Barra de eye tracking bajo el monitor de estímulos</figcaption>
+    </figure>
     <div class="ng-sig__grid">
       <button type="button" class="ng-mon" data-k="eye" aria-pressed="false" aria-label="Eye tracking, atención: dónde mira, en qué orden y qué ignora por completo. Ampliar panel.">
         <span class="ng-mon__top ng-mono"><span>C·01 · Eye tracking</span><span class="ng-mon__live">● señal en vivo</span></span>
-        <span class="ng-mon__screen"><canvas aria-hidden="true"></canvas><span class="ng-mon__read">fijación <span data-r>214</span> ms</span><span class="ng-marks" aria-hidden="true"><i></i></span></span>
+        <span class="ng-mon__screen"><span class="ng-media ng-mon__photo" data-ph="/img/ng-pouch"><picture><source type="image/avif" srcset="img/ng-pouch-960.avif 960w, img/ng-pouch-1600.avif 1600w" sizes="(min-width:1024px) 30vw, 100vw"><source type="image/webp" srcset="img/ng-pouch-960.webp 960w, img/ng-pouch-1600.webp 1600w" sizes="(min-width:1024px) 30vw, 100vw"><img src="img/ng-pouch-1600.webp" width="2400" height="1500" alt="Bolsa de café usada como estímulo en la lectura de eye tracking" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></span><canvas aria-hidden="true"></canvas><span class="ng-mon__read">fijación <span data-r>214</span> ms</span><span class="ng-marks" aria-hidden="true"><i></i></span></span>
         <span class="ng-mon__body"><span class="ng-mon__k ng-mono">Señal 01</span><span class="ng-mon__t">Atención</span><span class="ng-mon__d">Dónde mira, en qué orden y qué ignora por completo.</span></span>
       </button>
       <button type="button" class="ng-mon" data-k="face" aria-pressed="false" aria-label="Facial coding, emoción: la microexpresión que aparece antes de que piense la respuesta. Ampliar panel.">
@@ -1009,13 +1022,13 @@ NG.boot('[data-ng="signals"]', function (sec) {
       var c = cv.ctx, w = cv.w, h = cv.h;
       if (t > next) {
         pts.push({ x: tgt.x, y: tgt.y, d: dwell }); if (pts.length > 7) pts.shift();
-        tgt = { x: .12 + Math.random() * .76, y: .14 + Math.random() * .62 };
+        tgt = { x: .36 + Math.random() * .3, y: .2 + Math.random() * .56 };
         dwell = 140 + Math.random() * 260; next = t + dwell + 90;
         r.textContent = Math.round(dwell);
       }
       cur.x = NG.lerp(cur.x, tgt.x, .35); cur.y = NG.lerp(cur.y, tgt.y, .35);
       c.clearRect(0, 0, w, h);
-      c.strokeStyle = 'rgba(255,255,255,.06)'; c.lineWidth = 1;
+      c.strokeStyle = 'rgba(255,255,255,.05)'; c.lineWidth = 1;
       for (var i = 1; i < 6; i++) { c.beginPath(); c.moveTo(i * w / 6, 0); c.lineTo(i * w / 6, h); c.stroke(); c.beginPath(); c.moveTo(0, i * h / 6); c.lineTo(w, i * h / 6); c.stroke(); }
       c.strokeStyle = 'rgba(200,245,66,.45)'; c.beginPath();
       pts.forEach(function (p, i) { i ? c.lineTo(p.x * w, p.y * h) : c.moveTo(p.x * w, p.y * h); });
@@ -1107,6 +1120,10 @@ NG.boot('[data-ng="signals"]', function (sec) {
   NG.reveals(sec);
   NG.ready().then(function (gsap) {
     if (!gsap || NG.rm) { grid.classList.add('ng-is-ready'); start(); return; }
+    var ph = sec.querySelector('.ng-sig__photo'), pimg = ph.querySelector('img');
+    if (pimg) gsap.fromTo(pimg, { scale: 1.14 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: ph, start: 'top bottom', end: 'bottom 40%', scrub: true } });
+    var cos = ph.querySelectorAll('.ng-co');
+    gsap.from(cos, { autoAlpha: 0, y: 12, stagger: .18, duration: .7, scrollTrigger: { trigger: ph, start: 'top 60%', once: true } });
     gsap.from(mons, {
       autoAlpha: 0, y: 48, duration: 1, ease: 'power3.out', stagger: .14,
       scrollTrigger: { trigger: grid, start: 'top 80%', once: true },
@@ -1123,7 +1140,7 @@ NG.boot('[data-ng="signals"]', function (sec) {
   <div class="ng-wrap">
     <div class="ng-gaze__intro">
       <div class="ng-head">
-        <p class="ng-mono ng-eyebrow">02 · Eye tracking + IA</p>
+        <p class="ng-mono ng-eyebrow">03 · Eye tracking + IA</p>
         <h2 class="ng-h2" id="ng-gaze-title" data-ng-split>Así mira <span class="ng-hl">tu cliente</span></h2>
       </div>
       <p class="ng-body" data-ng-reveal>Combinamos eye tracking e IA para revelar qué capta la mirada, cuánto tiempo la retiene y qué pasa desapercibido. Los consumidores deciden en segundos, y la mayoría de esas decisiones ocurre antes de que puedan explicarlas. Por eso no preguntamos qué les gusta: medimos cómo reaccionan.</p>
@@ -1140,44 +1157,24 @@ NG.boot('[data-ng="signals"]', function (sec) {
           <li class="ng-gaze__ph"><b>04</b><strong>Zonas ciegas</strong><span>Lo que nadie miró. Lo que hoy no está trabajando.</span></li>
         </ol>
         <div class="ng-gaze__stagewrap">
-          <div class="ng-gaze__meta ng-mono" aria-hidden="true"><span>Estímulo · Landing · <b class="ng-gaze__lbl">Fase 01</b></span><span>Marca ficticia · demostración</span></div>
-          <figure class="ng-gaze__stage" role="img" aria-label="Demostración de eye tracking sobre una landing ficticia de café: la mirada se concentra en el producto, el titular, el precio y el botón de compra; los enlaces del menú y la franja inferior de beneficios quedan como zonas ciegas.">
-            <div class="ng-mk" aria-hidden="true">
-              <div class="ng-mk__bar"><i></i><i></i><i></i><span>mesta.cafe</span></div>
-              <div class="ng-mk__logo">MESTA</div>
-              <div class="ng-mk__links"><span>Origen</span><span>Tienda</span><span>Suscripción</span><span>Blog</span></div>
-              <div class="ng-mk__cart"></div>
-              <div class="ng-mk__h">Café de altura, tostado esta semana.</div>
-              <div class="ng-mk__p">Lotes de origen único, enviados en 48 horas a todo Chile.</div>
-              <div class="ng-mk__cta">Comprar ahora</div>
-              <div class="ng-mk__price">$12.990<small>250 g</small></div>
-              <svg class="ng-mk__prod" viewBox="0 0 320 425" preserveAspectRatio="xMidYMid meet">
-                <ellipse cx="160" cy="405" rx="120" ry="12" fill="#D2CEC5"/>
-                <path d="M62 40 L258 40 L272 92 L282 392 Q160 410 38 392 L48 92 Z" fill="#1B1E22"/>
-                <path d="M62 40 L258 40 L264 64 L56 64 Z" fill="#2A2E33"/>
-                <rect x="88" y="150" width="144" height="170" rx="4" fill="#ECEAE4"/>
-                <text x="160" y="200" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="26" letter-spacing="5" fill="#14161A">MESTA</text>
-                <line x1="110" y1="218" x2="210" y2="218" stroke="#14161A"/>
-                <text x="160" y="250" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" letter-spacing="2" fill="#14161A">HUILA · 1.750 m</text>
-                <text x="160" y="290" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#6B675E">250 g · grano</text>
-              </svg>
-              <div class="ng-mk__badges"><span>Envío gratis sobre $30.000</span><span>Tostado en Santiago</span><span>Pago seguro</span></div>
-            </div>
+          <div class="ng-gaze__meta ng-mono" aria-hidden="true"><span>Estímulo · Packaging · <b class="ng-gaze__lbl">Fase 01</b></span><span>Marca ficticia · demostración</span></div>
+          <figure class="ng-gaze__stage" role="img" aria-label="Demostración de eye tracking sobre una bolsa de café de especialidad: la mirada se concentra en el origen HUILA, la marca, las notas de cata y el peso; el panel lateral, la letra chica del lote y la línea de apertura quedan como zonas ciegas.">
+            <div class="ng-gaze__zoom">
+            <div class="ng-media" data-ph="/img/ng-pouch"><picture><source type="image/avif" srcset="img/ng-pouch-960.avif 960w, img/ng-pouch-1600.avif 1600w, img/ng-pouch-2400.avif 2400w" sizes="(min-width:1024px) 70vw, 100vw"><source type="image/webp" srcset="img/ng-pouch-960.webp 960w, img/ng-pouch-1600.webp 1600w, img/ng-pouch-2400.webp 2400w" sizes="(min-width:1024px) 70vw, 100vw"><img src="img/ng-pouch-1600.webp" width="2400" height="1500" alt="Bolsa de café de especialidad de papel kraft con etiqueta MESTA · HUILA, válvula desgasificadora y granos tostados sobre pizarra oscura, con contraluz verde lima" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
             <canvas class="ng-gaze__heat" aria-hidden="true"></canvas>
             <svg class="ng-gaze__svg" viewBox="0 0 1000 625" aria-hidden="true">
               <defs>
-                <pattern id="ng-hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                  <rect width="8" height="8" fill="rgba(138,143,152,.35)"/><line x1="0" y1="0" x2="0" y2="8" stroke="#8A8F98" stroke-width="2"/>
+                <pattern id="ng-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                  <rect width="7" height="7" fill="rgba(10,11,13,.55)"/><line x1="0" y1="0" x2="0" y2="7" stroke="rgba(242,243,240,.55)" stroke-width="1.6"/>
                 </pattern>
               </defs>
-              <g class="ng-gaze__blind">
-                <g><rect x="505" y="48" width="320" height="44" rx="3"/><rect class="ng-gaze__bl" x="505" y="98" width="148" height="20" rx="2"/><text x="513" y="113" style="fill:#0A0B0D">ZONA CIEGA</text></g>
-                <g><rect x="50" y="535" width="900" height="56" rx="3"/><rect class="ng-gaze__bl" x="50" y="511" width="148" height="20" rx="2"/><text x="58" y="526" style="fill:#0A0B0D">ZONA CIEGA</text></g>
-              </g>
-              <polyline class="ng-gaze__path" points="760,294 130,169 330,181 200,231 740,175 120,456 150,388 780,325"/>
-              <polyline class="ng-gaze__path2" points="760,294 130,169 330,181 200,231 740,175 120,456 150,388 780,325"/>
+              <g class="ng-gaze__blind"></g>
+              <polyline class="ng-gaze__path" points=""/>
+              <polyline class="ng-gaze__path2" points=""/>
               <g class="ng-gaze__fix"></g>
             </svg>
+            </div>
+            <div class="ng-gaze__scan" aria-hidden="true"><i></i></div>
             <div class="ng-marks" aria-hidden="true"><i></i></div>
           </figure>
         </div>
@@ -1195,24 +1192,41 @@ NG.boot('[data-ng="signals"]', function (sec) {
 <script>
 NG.boot('[data-ng="gaze"]', function (sec) {
   var NS = 'http://www.w3.org/2000/svg';
-  // [x, y, duración ms] en coordenadas 1000×625
-  var F = [[760, 294, 420], [130, 169, 260], [330, 181, 240], [200, 231, 200], [740, 175, 330], [120, 456, 290], [150, 388, 360], [780, 325, 380]];
+  // Posiciones proyectadas desde la escena 3D del render (0–1 sobre la foto) → coordenadas 1000×625
+  var D = {"size":[2400,1500],"anchors":{"logo":[0.5275,0.3888],"origin":[0.5409,0.5204],"notes":[0.5468,0.6262],"weight":[0.4979,0.69],"fine":[0.5483,0.7229],"tear":[0.5019,0.2098],"side":[0.3858,0.5352],"valve":[0.5113,0.2802],"beans":[0.2634,0.8945],"beans2":[0.7208,0.9089]},"blind":{"side":[[0.3786,0.7523],[0.3828,0.7544],[0.3875,0.7565],[0.3922,0.7586],[0.3973,0.7606],[0.4031,0.7626],[0.4099,0.7643],[0.4099,0.7643],[0.4091,0.6922],[0.4069,0.6196],[0.4034,0.5467],[0.3984,0.4736],[0.3925,0.4006],[0.3864,0.3277],[0.3864,0.3277],[0.383,0.3272],[0.3855,0.3266],[0.3908,0.3262],[0.3971,0.3258],[0.4037,0.3255],[0.4106,0.3252],[0.4106,0.3252],[0.3901,0.3962],[0.3787,0.4676],[0.3758,0.5394],[0.3767,0.6109],[0.3779,0.6819],[0.3786,0.7523]],"fine":[[0.4695,0.7454],[0.4977,0.7429],[0.5238,0.7395],[0.5483,0.7354],[0.5713,0.7311],[0.5922,0.7263],[0.6097,0.7208],[0.6097,0.7208],[0.6097,0.7168],[0.6096,0.7127],[0.6096,0.7086],[0.6096,0.7045],[0.6095,0.7004],[0.6095,0.6964],[0.6095,0.6964],[0.5921,0.7015],[0.5713,0.7061],[0.5483,0.7103],[0.5238,0.7141],[0.4976,0.7174],[0.4693,0.7197],[0.4693,0.7197],[0.4693,0.724],[0.4694,0.7283],[0.4694,0.7326],[0.4694,0.7369],[0.4694,0.7412],[0.4695,0.7454]],"tear":[[0.3973,0.2197],[0.4332,0.22],[0.468,0.2203],[0.5019,0.2207],[0.535,0.221],[0.5672,0.2213],[0.5983,0.2216],[0.5983,0.2216],[0.5983,0.2163],[0.5983,0.2111],[0.5984,0.2058],[0.5984,0.2005],[0.5984,0.1953],[0.5984,0.19],[0.5984,0.19],[0.5672,0.1893],[0.535,0.1886],[0.5019,0.1879],[0.468,0.1872],[0.4332,0.1865],[0.3972,0.1858],[0.3972,0.1858],[0.3972,0.1914],[0.3972,0.1971],[0.3973,0.2027],[0.3973,0.2084],[0.3973,0.214],[0.3973,0.2197]]},"label":[[0.4615,0.7507],[0.4927,0.7483],[0.5215,0.7446],[0.5482,0.7401],[0.5732,0.7353],[0.5957,0.73],[0.6136,0.7238],[0.6136,0.7238],[0.6127,0.6576],[0.6107,0.5909],[0.6075,0.5239],[0.603,0.4567],[0.5972,0.3896],[0.5898,0.3229],[0.5898,0.3229],[0.5677,0.3236],[0.5437,0.3243],[0.5184,0.3251],[0.492,0.3258],[0.4645,0.3265],[0.4354,0.3272],[0.4354,0.3272],[0.4433,0.3977],[0.4497,0.4686],[0.4548,0.5395],[0.4584,0.6103],[0.4606,0.6807],[0.4615,0.7507]]};
+  var A = D.anchors, X = function (p, dx, dy) { return [Math.round((p[0] + (dx || 0)) * 1000), Math.round((p[1] + (dy || 0)) * 625)]; };
+  // [x, y, duración ms] en orden de lectura real de un packaging
+  var F = [X(A.origin).concat(440), X(A.logo).concat(300), X(A.notes).concat(260), X(A.valve).concat(190),
+           X(A.weight).concat(340), X(A.beans).concat(230), X(A.logo, .03, .01).concat(210), X(A.origin, -.02, .01).concat(380)];
   var g = sec.querySelector('.ng-gaze__fix');
   var fixEls = F.map(function (f, i) {
     var gg = document.createElementNS(NS, 'g');
-    var r = 10 + f[2] / 18;
+    var r = 8 + f[2] / 22;
     gg.innerHTML = '<circle cx="' + f[0] + '" cy="' + f[1] + '" r="' + r + '"/>' +
-      '<rect class="ng-gaze__fx" x="' + (f[0] + r * .62) + '" y="' + (f[1] - r - 12) + '" width="26" height="20" rx="2"/>' +
-      '<text class="ng-gaze__fn" x="' + (f[0] + r * .62 + 4) + '" y="' + (f[1] - r + 3) + '">' + String(i + 1).padStart(2, '0') + '</text>';
+      '<rect class="ng-gaze__fx" x="' + (f[0] + r * .7) + '" y="' + (f[1] - r - 16) + '" width="28" height="20" rx="2"/>' +
+      '<text class="ng-gaze__fn" x="' + (f[0] + r * .7 + 5) + '" y="' + (f[1] - r - 1) + '">' + String(i + 1).padStart(2, '0') + '</text>';
     gg.setAttribute('data-o', f[0] + ' ' + f[1]);
     g.appendChild(gg);
     return gg;
   });
+  var ptsStr = F.map(function (f) { return f[0] + ',' + f[1]; }).join(' ');
+  sec.querySelectorAll('.ng-gaze__path,.ng-gaze__path2').forEach(function (pl) { pl.setAttribute('points', ptsStr); });
+  var gb = sec.querySelector('.ng-gaze__blind');
+  ['side', 'fine', 'tear'].forEach(function (k) {
+    var poly = D.blind[k].map(function (p) { return X(p); });
+    var minx = Math.min.apply(null, poly.map(function (p) { return p[0]; })), miny = Math.min.apply(null, poly.map(function (p) { return p[1]; }));
+    var maxx = Math.max.apply(null, poly.map(function (p) { return p[0]; }));
+    var lx = k === 'side' ? minx - 118 : k === 'fine' ? maxx + 10 : maxx + 10, ly = k === 'side' ? miny + 6 : miny - 4;
+    var e = document.createElementNS(NS, 'g');
+    e.innerHTML = '<polygon points="' + poly.map(function (p) { return p.join(','); }).join(' ') + '"/>' +
+      '<rect class="ng-gaze__bl" x="' + lx + '" y="' + ly + '" width="108" height="20" rx="2"/><text x="' + (lx + 8) + '" y="' + (ly + 15) + '" style="fill:#0A0B0D">ZONA CIEGA</text>';
+    gb.appendChild(e);
+  });
   var heat = sec.querySelector('.ng-gaze__heat');
   var drawHeat = function () {
-    var pts = F.map(function (f) { return [f[0] / 1000, f[1] / 625, .05 + f[2] / 5000, .55 + f[2] / 900]; });
-    pts.push([.74, .44, .1, .7], [.22, .29, .08, .45]);
-    NG.heat(heat, pts, { gain: .6 });
+    var pts = F.map(function (f) { return [f[0] / 1000, f[1] / 625, .035 + f[2] / 9000, .5 + f[2] / 900]; });
+    pts.push([A.origin[0], A.origin[1], .07, .9], [A.logo[0], A.logo[1], .05, .5]);
+    NG.heat(heat, pts, { gain: .62 });
   };
   drawHeat();
   if ('ResizeObserver' in window) { var to; new ResizeObserver(function () { clearTimeout(to); to = setTimeout(drawHeat, 120); }).observe(heat); }
@@ -1246,7 +1260,7 @@ NG.boot('[data-ng="gaze"]', function (sec) {
     tl.to(fixEls, { scale: 1, autoAlpha: 1, ease: 'back.out(2)', stagger: .12, duration: .3 }, 0)
       .to(main, { strokeDashoffset: 0, duration: 1 }, 1.05)
       .to(paths[1], { autoAlpha: 1, duration: .3 }, 1.6)
-      .to(heat, { autoAlpha: .92, duration: .8 }, 2.15)
+      .to(heat, { autoAlpha: .82, duration: .8 }, 2.15)
       .to(fixEls, { autoAlpha: .35, duration: .6 }, 2.2)
       .to([main, paths[1]], { autoAlpha: .25, duration: .6 }, 2.2)
       .to(blind, { autoAlpha: 1, stagger: .2, duration: .5 }, 3.15)
@@ -1258,14 +1272,14 @@ NG.boot('[data-ng="gaze"]', function (sec) {
   <div class="ng-wrap">
     <div class="ng-pack__grid">
       <div class="ng-pack__copy">
-        <p class="ng-mono ng-eyebrow">Inteligencia biométrica</p>
+        <p class="ng-mono ng-eyebrow">04 · Inteligencia biométrica</p>
         <h2 class="ng-h2 ng-pack__t" id="ng-pack-title" data-ng-split>Tu packaging tiene <span class="ng-hl">una mirada</span> para ganar.</h2>
         <p class="ng-pack__p" data-ng-reveal>Mira lo que tus compradores realmente observan antes de comprar.</p>
         <p class="ng-mono ng-pack__demo" data-ng-reveal=".1">Lectura de demostración · eye tracking sobre packaging</p>
       </div>
       <div class="ng-pack__stage">
         <figure class="ng-pack__fig">
-          <div class="ng-media" data-ph="/img/ref-can"><picture><source type="image/avif" srcset="img/ref-can-570.avif"><img src="img/ref-can-570.webp" width="570" height="1590" alt="Lata negra con gotas de condensación y un mapa de calor de eye tracking pixelado sobre su superficie: la atención se concentra en el centro, la parte superior y la base" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
+          <div class="ng-media" data-ph="/img/ref-can"><picture><source type="image/avif" srcset="img/ref-can-570.avif"><source type="image/webp" srcset="img/ref-can-570.webp"><img src="img/ref-can-570.webp" width="570" height="1590" alt="Lata negra con gotas de condensación y un mapa de calor de eye tracking pixelado sobre su superficie: la atención se concentra en el centro, la parte superior y la base" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
           <div class="ng-pack__scan" aria-hidden="true"><i></i></div>
           <div class="ng-co" style="top:13.3%" aria-hidden="true"><span class="ng-co__ln"></span><span class="ng-co__txt"><span>Atención % / <b data-to="88.4">88.4</b>%</span><span>Fijación / <b data-to="1150">1150</b>ms</span></span></div>
           <div class="ng-co" style="top:39.6%" aria-hidden="true"><span class="ng-co__ln"></span><span class="ng-co__txt"><span>Atención % / <b data-to="93.1">93.1</b>%</span><span>Fijación / <b data-to="1720">1720</b>ms</span></span></div>
@@ -1302,7 +1316,7 @@ NG.boot('[data-ng="pack"]', function (sec) {
 <section class="ng-sec ng-stat" aria-labelledby="ng-stat-title" data-ng="stat">
   <canvas class="ng-stat__sig" aria-hidden="true"></canvas>
   <div class="ng-wrap ng-stat__grid">
-    <div class="ng-stat__lbl ng-mono" aria-hidden="true"><span>03 · Dato de impacto</span><span>Proceso no consciente</span></div>
+    <div class="ng-stat__lbl ng-mono" aria-hidden="true"><span>05 · Dato de impacto</span><span>Proceso no consciente</span></div>
     <h2 class="ng-sr" id="ng-stat-title">El 95 % de las decisiones de compra se procesan de forma no consciente</h2>
     <p class="ng-stat__num" aria-hidden="true">
       <span class="ng-stat__o"><span class="ng-stat__d">95</span><span class="ng-stat__pc">%</span></span>
@@ -1369,7 +1383,7 @@ NG.boot('[data-ng="stat"]', function (sec) {
   <div class="ng-wrap">
     <div class="ng-case__head">
       <div class="ng-head">
-        <p class="ng-mono ng-eyebrow">08 · Caso</p>
+        <p class="ng-mono ng-eyebrow">06 · Caso</p>
         <h2 class="ng-h2" id="ng-case-title" data-ng-split>Un packaging, tres versiones, <span class="ng-hl">una respuesta clara.</span></h2>
       </div>
       <p class="ng-mono">Marca anonimizada.<br>Representación ilustrativa.</p>
@@ -1381,21 +1395,14 @@ NG.boot('[data-ng="stat"]', function (sec) {
         <figure class="ng-pk" data-v="a">
           <figcaption class="ng-pk__top ng-mono"><span>Versión A</span><span>Panel · PDV simulado</span></figcaption>
           <div class="ng-pk__stage" role="img" aria-label="Versión A: logotipo grande en la parte superior y nombre del producto pequeño.">
-            <svg viewBox="0 0 300 380" aria-hidden="true"><rect x="60" y="34" width="180" height="300" rx="4" fill="#1B1E22"/><rect x="60" y="34" width="180" height="300" rx="4" fill="none" stroke="#2A2E33"/>
-              <text x="150" y="110" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="40" letter-spacing="2" fill="#ECEAE4">BRISA</text>
-              <line x1="90" y1="132" x2="210" y2="132" stroke="#5A5F66"/><text x="150" y="290" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="2" fill="#8A8F98">TÉ VERDE · 20 SOBRES</text>
-              <ellipse cx="150" cy="350" rx="100" ry="8" fill="#D2CEC5"/></svg>
+            <div class="ng-media" data-ph="/img/ng-box-a"><picture><source type="image/avif" srcset="img/ng-box-a-600.avif 600w, img/ng-box-a-1200.avif 1200w" sizes="(min-width:640px) 31vw, 100vw"><source type="image/webp" srcset="img/ng-box-a-600.webp 600w, img/ng-box-a-1200.webp 1200w" sizes="(min-width:640px) 31vw, 100vw"><img src="img/ng-box-a-1200.webp" width="1200" height="1520" alt="Versión A: caja de té negra con el logotipo BRISA grande en la parte superior" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
             <canvas aria-hidden="true"></canvas>
           </div>
         </figure>
         <figure class="ng-pk ng-is-win" data-v="b">
           <figcaption class="ng-pk__top ng-mono"><span>Versión B</span><span>Ganadora</span></figcaption>
           <div class="ng-pk__stage" role="img" aria-label="Versión B: ilustración central de hojas con la marca en la base; es la versión ganadora.">
-            <svg viewBox="0 0 300 380" aria-hidden="true"><rect x="60" y="34" width="180" height="300" rx="4" fill="#ECEAE4" stroke="#C9C5BC"/>
-              <circle cx="150" cy="160" r="62" fill="#C8F542"/><path d="M150 112 C120 140 120 180 150 210 C180 180 180 140 150 112Z" fill="#1B1E22"/><path d="M150 120 V204" stroke="#C8F542" stroke-width="2"/>
-              <text x="150" y="268" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="28" letter-spacing="3" fill="#14161A">BRISA</text>
-              <text x="150" y="292" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="10" letter-spacing="2" fill="#4A4D52">TÉ VERDE · 20 SOBRES</text>
-              <ellipse cx="150" cy="350" rx="100" ry="8" fill="#D2CEC5"/></svg>
+            <div class="ng-media" data-ph="/img/ng-box-b"><picture><source type="image/avif" srcset="img/ng-box-b-600.avif 600w, img/ng-box-b-1200.avif 1200w" sizes="(min-width:640px) 31vw, 100vw"><source type="image/webp" srcset="img/ng-box-b-600.webp 600w, img/ng-box-b-1200.webp 1200w" sizes="(min-width:640px) 31vw, 100vw"><img src="img/ng-box-b-1200.webp" width="1200" height="1520" alt="Versión B: caja de té clara con una hoja negra dentro de un círculo verde lima y la marca BRISA debajo" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
             <canvas aria-hidden="true"></canvas>
             <span class="ng-pk__tag">Mayor atención sostenida<br>+ respuesta emocional positiva</span>
           </div>
@@ -1403,10 +1410,7 @@ NG.boot('[data-ng="stat"]', function (sec) {
         <figure class="ng-pk" data-v="c">
           <figcaption class="ng-pk__top ng-mono"><span>Versión C</span><span>Panel · PDV simulado</span></figcaption>
           <div class="ng-pk__stage" role="img" aria-label="Versión C: diseño minimalista tipográfico con la marca en vertical.">
-            <svg viewBox="0 0 300 380" aria-hidden="true"><rect x="60" y="34" width="180" height="300" rx="4" fill="#F6F5F1" stroke="#C9C5BC"/>
-              <text transform="translate(108 300) rotate(-90)" font-family="Space Grotesk,sans-serif" font-weight="300" font-size="44" letter-spacing="6" fill="#14161A">BRISA</text>
-              <rect x="150" y="60" width="70" height="4" fill="#14161A"/><text x="150" y="92" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="1.5" fill="#4A4D52">TÉ VERDE</text><text x="150" y="106" font-family="IBM Plex Mono,monospace" font-size="9" letter-spacing="1.5" fill="#4A4D52">20 SOBRES</text>
-              <ellipse cx="150" cy="350" rx="100" ry="8" fill="#D2CEC5"/></svg>
+            <div class="ng-media" data-ph="/img/ng-box-c"><picture><source type="image/avif" srcset="img/ng-box-c-600.avif 600w, img/ng-box-c-1200.avif 1200w" sizes="(min-width:640px) 31vw, 100vw"><source type="image/webp" srcset="img/ng-box-c-600.webp 600w, img/ng-box-c-1200.webp 1200w" sizes="(min-width:640px) 31vw, 100vw"><img src="img/ng-box-c-1200.webp" width="1200" height="1520" alt="Versión C: caja de té blanca minimalista con la marca BRISA en vertical" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
             <canvas aria-hidden="true"></canvas>
           </div>
         </figure>
@@ -1429,10 +1433,12 @@ NG.boot('[data-ng="case"]', function (sec) {
   var cvs = cards.map(function (c) { return c.querySelector('canvas'); });
   var tag = sec.querySelector('.ng-pk__tag');
   // Distribución ilustrativa de atención por versión (x, y, radio, peso) sobre 300×380
+  // Atención proyectada desde la escena 3D de cada caja (0–1 sobre la foto): [x, y, radio, peso]
+  var B = {"a":{"logo":[0.5813,0.3655],"name":[0.58,0.7893],"mid":[0.49,0.572]},"b":{"logo":[0.581,0.4702],"brand":[0.5804,0.6872],"name":[0.5802,0.7486],"leaf":[0.5631,0.429]},"c":{"logo":[0.467,0.5732],"name":[0.6489,0.3311],"low":[0.5801,0.7601]}};
   var H = {
-    a: [[.5, .27, .14, .9], [.5, .76, .07, .25], [.3, .5, .1, .2]],
-    b: [[.5, .42, .2, 1], [.5, .7, .12, .8], [.5, .77, .08, .5], [.45, .36, .1, .6]],
-    c: [[.33, .55, .1, .45], [.62, .2, .08, .3], [.5, .85, .1, .15]]
+    a: [B.a.logo.concat([.13, .95]), B.a.name.concat([.06, .25]), B.a.mid.concat([.08, .18])],
+    b: [B.b.logo.concat([.17, 1]), B.b.leaf.concat([.09, .6]), B.b.brand.concat([.1, .85]), B.b.name.concat([.07, .45])],
+    c: [B.c.logo.concat([.09, .42]), B.c.name.concat([.07, .3]), B.c.low.concat([.08, .15])]
   };
   var draw = function () { cards.forEach(function (c, i) { NG.heat(cvs[i], H[c.getAttribute('data-v')], { gain: 1 }); }); };
   draw();
@@ -1467,7 +1473,7 @@ NG.boot('[data-ng="case"]', function (sec) {
   <div class="ng-wrap">
     <div class="ng-eth__head">
       <div class="ng-head">
-        <p class="ng-mono ng-eyebrow">09 · Ética y datos</p>
+        <p class="ng-mono ng-eyebrow">07 · Ética y datos</p>
         <h2 class="ng-h2" id="ng-eth-title">Medimos cerebros. <span class="ng-hl">Por eso las reglas son más estrictas.</span></h2>
       </div>
       <p class="ng-body" data-ng-reveal>Una respuesta pupilar o una señal biométrica dice más de una persona que cualquier encuesta. Tratamos cada registro como lo que es: dato sensible bajo la Ley 21.719, con cadena de custodia auditable de principio a fin.</p>
@@ -1527,7 +1533,7 @@ NG.boot('[data-ng="ethics"]', function (sec) {
 </script>
 <section class="ng-sec ng-cta" id="contacto-cta" aria-labelledby="ng-cta-title" data-ng="cta">
   <div class="ng-cta__dog">
-    <div class="ng-cta__frame"><div class="ng-media" data-ph="/img/ref-dog"><picture><source type="image/avif" srcset="img/ref-dog-655.avif"><img src="img/ref-dog-655.webp" width="655" height="1200" alt="Primer plano del ojo del perro con la pupila marcada por un anillo verde lima" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div></div>
+    <div class="ng-cta__frame"><div class="ng-media" data-ph="/img/ref-dog"><picture><source type="image/avif" srcset="img/ref-dog-655.avif"><source type="image/webp" srcset="img/ref-dog-655.webp"><img src="img/ref-dog-655.webp" width="655" height="1200" alt="Primer plano del ojo del perro con la pupila marcada por un anillo verde lima" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div></div>
     <svg class="ng-cta__ring" viewBox="0 0 200 200" aria-hidden="true">
       <circle class="ng-cta__r1" cx="100" cy="100" r="90"/><circle class="ng-cta__r2" cx="100" cy="100" r="98"/>
       <text x="100" y="-4" text-anchor="middle">PUPILA · Ø ↓</text>
@@ -1535,7 +1541,7 @@ NG.boot('[data-ng="ethics"]', function (sec) {
   </div>
   <div class="ng-wrap">
     <div class="ng-cta__in">
-      <p class="ng-mono ng-eyebrow">10 · Diagnóstico</p>
+      <p class="ng-mono ng-eyebrow">08 · Diagnóstico</p>
       <h2 class="ng-cta__t" id="ng-cta-title" data-ng-split>¿Construimos tu próxima decisión <span class="ng-hl">con evidencia?</span></h2>
       <p class="ng-cta__p" data-ng-reveal>Cuéntanos qué servicio necesitas hoy. El diagnóstico inicial es la base de todo lo que viene después.</p>
       <a class="ng-btn ng-btn--volt ng-cta__btn" href="contacto.html" data-ng-magnet><span class="ng-btn__t">Agendar diagnóstico <span class="ng-btn__i" aria-hidden="true">↗</span></span></a>
