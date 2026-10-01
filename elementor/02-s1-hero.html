@@ -1,10 +1,11 @@
 <!-- NEUROGENOMIC · Bloque Elementor «02-s1-hero»
      Pegar completo en un widget HTML de Elementor (ancho completo, sin padding).
      Incluye tokens + núcleo NG (idempotentes: pueden repetirse en varios bloques).
+     Nota: Usa img/ref-dog-655.(avif|webp).
      Imágenes: reemplaza /img/ por la URL de la Biblioteca de medios. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
 <style>
 :root{
 --ng-bg:#0A0B0D;
@@ -17,6 +18,7 @@
 --ng-volt:#C8F542;
 --ng-lime:#C8FF00;
 --ng-ff:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+--ng-disp:'Anton','Bebas Neue',Impact,'Arial Narrow Bold',sans-serif;
 --ng-mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
 --ng-ease:cubic-bezier(.16,1,.3,1);
 --ng-gut:clamp(16px,4.4vw,72px);
@@ -46,13 +48,23 @@ font-size:16px;line-height:1.55;font-weight:400;
 .ng-mono{font-family:var(--ng-mono);font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;line-height:1.4}
 .ng-eyebrow{color:var(--ng-volt);display:inline-flex;align-items:center;gap:10px}
 .ng-eyebrow::before{content:"";width:18px;height:1px;background:currentColor}
-.ng-h2{font-size:clamp(36px,5.6vw,96px);line-height:.95;letter-spacing:-.03em;font-weight:500;text-wrap:balance}
+.ng-disp,.ng-h2{font-family:var(--ng-disp);font-weight:400;text-transform:uppercase;letter-spacing:-.005em;line-height:.9}
+.ng-h2{font-size:clamp(46px,6.6vw,124px);text-wrap:balance}
+.ng-hl{color:var(--ng-lime)}
+.ng-strip{display:flex;align-items:center;gap:clamp(12px,2vw,28px);font:500 clamp(11px,1vw,14px)/1.3 var(--ng-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ng-lime)}
+.ng-strip::before,.ng-strip::after{content:"";flex:1 1 40px;min-width:24px;height:1px;background:var(--ng-lime)}
+.ng-strip i{font-style:normal;opacity:.7}
+@media (max-width:599px){.ng-strip{flex-wrap:wrap;justify-content:center;gap:8px 12px}.ng-strip::before,.ng-strip::after{flex-basis:100%;order:0}.ng-strip::after{order:9}}
+.ng-co{position:absolute;display:flex;align-items:center;gap:12px;pointer-events:none;font:500 clamp(10px,.95vw,13px)/1.5 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-lime);white-space:nowrap}
+.ng-co__dot{flex:0 0 auto;width:12px;height:12px;border-radius:50%;background:var(--ng-lime);box-shadow:0 0 0 4px rgba(200,255,0,.18),0 0 18px rgba(200,255,0,.8)}
+.ng-co__ln{flex:0 0 auto;width:var(--ng-co-w,90px);height:1px;background:var(--ng-lime);transform-origin:0 50%}
+.ng-co b{font-weight:500;color:var(--ng-tx)}
 .ng-h3{font-size:clamp(26px,2.8vw,44px);line-height:1;letter-spacing:-.025em;font-weight:500}
 .ng-lead{font-size:clamp(18px,1.5vw,22px);line-height:1.45;color:var(--ng-tx);font-weight:300;max-width:46ch}
 .ng-body{color:var(--ng-tx2);max-width:60ch}
 .ng-volt{color:var(--ng-volt)}
 .ng-sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.ng-w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.ng-w{display:inline-block;overflow:hidden;vertical-align:top;padding:.16em .02em .1em;margin:-.16em -.02em -.1em}
 .ng-w>span{display:inline-block;will-change:transform}
 .ng-btn{
 --_bg:transparent;--_fg:var(--ng-tx);--_bd:var(--ng-line2);
@@ -100,36 +112,44 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-sec *,.ng-nav *,.ng-foot *,.ng-menu *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
 .ng-js .ng-sec[data-ng-bg]{--ng-bgo:1}
 }
-.ng-hero{min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;padding:calc(var(--ng-nav-h) + 40px) 0 clamp(40px,6vw,80px)}
-.ng-hero__media{position:absolute;inset:0;z-index:-2;border-radius:0}
-.ng-hero__media img{transform-origin:var(--ng-pupil,64% 46%);will-change:transform}
-.ng-hero__shade{position:absolute;inset:auto auto 0 0;width:min(100%,980px);height:78%;z-index:-1;pointer-events:none;
-background:radial-gradient(120% 90% at 0% 100%,rgba(10,11,13,.86) 0%,rgba(10,11,13,.55) 42%,rgba(10,11,13,0) 72%)}
+.ng-hero{--ng-dogw:min(calc(100svh * .546),46vw);min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;padding:calc(var(--ng-nav-h) + 40px) 0 clamp(40px,5vw,72px);background:#000}
+.ng-hero__dog{position:absolute;top:0;right:0;bottom:0;width:var(--ng-dogw);overflow:hidden;background:#8b8b8b;z-index:-2}
+.ng-hero__frame{position:absolute;top:0;left:50%;height:100%;aspect-ratio:655/1200;translate:-44.3% 0;transform-origin:44.3% 50.8%;will-change:transform}
+.ng-hero__frame .ng-media{position:absolute;inset:0;border-radius:0;background:#8b8b8b}
+.ng-hero__ring{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ng-hero__ring circle{fill:none;stroke:var(--ng-lime);vector-effect:non-scaling-stroke}
+.ng-hero__ring .ng-hero__r1{stroke-width:3}
+.ng-hero__ring .ng-hero__r2{stroke-width:1;stroke-dasharray:3 7;opacity:.8}
+.ng-hero__ring line{stroke:var(--ng-lime);stroke-width:1;vector-effect:non-scaling-stroke}
+.ng-hero__ring text{font-family:var(--ng-mono);font-size:13px;letter-spacing:1px;fill:var(--ng-lime)}
+.ng-hero__quote{position:absolute;left:clamp(16px,2.4vw,32px);bottom:clamp(20px,4vh,48px);display:flex;gap:16px;align-items:stretch}
+.ng-hero__quote::before{content:"";flex:0 0 6px;background:var(--ng-tx)}
+.ng-hero__quote p{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(26px,2.6vw,46px);line-height:.95;color:var(--ng-lime);text-shadow:0 2px 24px rgba(0,0,0,.35)}
 .ng-hero__trail{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
 .ng-hero__hud{position:absolute;inset:calc(var(--ng-nav-h) + 12px) var(--ng-gut) 18px;pointer-events:none;font:500 11px/1.5 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx)}
-.ng-hero__hud>span{position:absolute;display:flex;gap:14px;align-items:center;text-shadow:0 1px 8px rgba(10,11,13,.6)}
+.ng-hero__hud>span{position:absolute;display:flex;gap:14px;align-items:center;text-shadow:0 1px 8px rgba(0,0,0,.6)}
 .ng-hero__hud .ng-hero__tl{top:0;left:0}.ng-hero__hud .ng-hero__tr{top:0;right:0}.ng-hero__hud .ng-hero__br{bottom:0;right:0}
 .ng-rec{display:inline-flex;align-items:center;gap:8px}
 .ng-rec::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--ng-lime);animation:ng-blink 1.2s steps(2,start) infinite}
 @keyframes ng-blink{to{visibility:hidden}}
 .ng-hero__hud b{font-weight:500;color:var(--ng-lime);font-variant-numeric:tabular-nums}
-.ng-hero__content{position:relative}
-.ng-hero__eyebrow{margin-bottom:clamp(20px,2.4vw,32px)}
-.ng-hero__title{font-size:clamp(52px,9vw,168px);line-height:.95;letter-spacing:-.045em;font-weight:500;max-width:11ch;will-change:transform}
-.ng-hero__row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end;margin-top:clamp(28px,3.4vw,48px)}
-.ng-hero__sub{font-size:clamp(19px,1.7vw,26px);line-height:1.25;letter-spacing:-.015em;font-weight:500;max-width:30ch}
-.ng-hero__text{margin-top:12px;color:var(--ng-tx);opacity:.82;max-width:52ch;font-weight:300}
-.ng-hero__ctas{display:flex;gap:12px;flex-wrap:wrap}
-.ng-hero__ctas .ng-btn:not(.ng-btn--volt){background:rgba(10,11,13,.35)}
+.ng-hero__content{position:relative;padding-right:calc(var(--ng-dogw) + var(--ng-gut))}
+.ng-hero__eyebrow{margin-bottom:clamp(18px,2vw,28px);font-size:clamp(12px,1.05vw,15px)}
+.ng-hero__title{font-family:var(--ng-disp);font-weight:400;text-transform:uppercase;font-size:clamp(64px,9.4vw,188px);line-height:.96;letter-spacing:-.005em;will-change:transform}
+.ng-hero__sub{margin-top:clamp(22px,2.6vw,36px);font-size:clamp(19px,1.6vw,26px);line-height:1.25;letter-spacing:-.015em;font-weight:500;max-width:30ch}
+.ng-hero__text{margin-top:10px;color:var(--ng-tx);opacity:.8;max-width:50ch;font-weight:300}
+.ng-hero__ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:clamp(24px,2.6vw,36px)}
+.ng-hero__strip{margin-top:clamp(28px,3.4vw,48px);max-width:640px}
 @media (max-width:899px){
-.ng-hero__row{grid-template-columns:1fr}
-.ng-hero__hud .ng-hero__tr{display:none}
-.ng-hero__shade{width:100%;height:85%;background:linear-gradient(0deg,rgba(10,11,13,.9) 0%,rgba(10,11,13,.6) 45%,rgba(10,11,13,0) 80%)}
+.ng-hero{flex-direction:column;align-items:stretch;padding-top:var(--ng-nav-h)}
+.ng-hero__dog{position:relative;width:100%;height:56svh;min-height:340px;z-index:0}
+.ng-hero__frame{left:0;width:100%;height:auto;top:50%;translate:0 -50.8%}
+.ng-hero__content{padding-right:var(--ng-gut);margin-top:28px}
+.ng-hero__hud{inset:calc(var(--ng-nav-h) + 12px) var(--ng-gut) auto}
+.ng-hero__hud .ng-hero__tr,.ng-hero__hud .ng-hero__br{display:none}
+.ng-hero__trail{z-index:1}
 }
-@media (max-width:480px){
-.ng-hero__ctas .ng-btn{flex:1 1 100%}
-.ng-hero__hud .ng-hero__br{display:none}
-}
+@media (max-width:480px){.ng-hero__ctas .ng-btn{flex:1 1 100%}}
 </style>
 <script>
 /* ==========================================================
@@ -311,37 +331,48 @@ background:radial-gradient(120% 90% at 0% 100%,rgba(10,11,13,.86) 0%,rgba(10,11,
     return o;
   };
 
-  /* --- Heatmap monocromático dentro de la paleta (volt → lima → blanco) */
+  /* --- Heatmap térmico pixelado (estilo campaña: lima → amarillo → naranja → rojo) ---
+     pts: [x, y, radio, peso] normalizados 0–1. opts.cell = tamaño de celda en px CSS. */
+  var RAMP = [[0, [200, 255, 0, 0]], [0.16, [200, 255, 0, 0.45]], [0.4, [200, 255, 0, 0.85]],
+              [0.62, [255, 214, 0, 0.92]], [0.8, [255, 122, 0, 0.95]], [1, [255, 42, 0, 1]]];
+  NG.thermal = function (v) {
+    v = NG.clamp(v, 0, 1);
+    for (var k = 1; k < RAMP.length; k++) if (v <= RAMP[k][0]) {
+      var lo = RAMP[k - 1], hi = RAMP[k], t = (v - lo[0]) / (hi[0] - lo[0]), c = [];
+      for (var j = 0; j < 4; j++) c[j] = lo[1][j] + (hi[1][j] - lo[1][j]) * t;
+      return 'rgba(' + (c[0] | 0) + ',' + (c[1] | 0) + ',' + (c[2] | 0) + ',' + c[3].toFixed(3) + ')';
+    }
+    return 'rgba(255,42,0,1)';
+  };
   NG.heat = function (cv, pts, opts) {
     opts = opts || {};
     var r = cv.getBoundingClientRect();
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var W = Math.max(1, Math.round(r.width * dpr)), H = Math.max(1, Math.round(r.height * dpr));
-    cv.width = W; cv.height = H;
-    var ctx = cv.getContext('2d', { willReadFrequently: true });
-    var base = Math.min(W, H);
-    ctx.clearRect(0, 0, W, H);
+    var w = Math.max(1, r.width), h = Math.max(1, r.height);
+    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+    var ctx = cv.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    var base = Math.min(w, h), cell = opts.cell || Math.max(5, Math.round(base / 46)), gap = Math.max(1, cell * .18);
+    var gain = opts.gain || 1;
+    // brillo suave bajo los píxeles
     pts.forEach(function (p) {
-      var rad = (p[2] || 0.12) * base, x = p[0] * W, y = p[1] * H, w = p[3] == null ? 1 : p[3];
+      var rad = (p[2] || .12) * base * 1.25, x = p[0] * w, y = p[1] * h;
       var g = ctx.createRadialGradient(x, y, 0, x, y, rad);
-      g.addColorStop(0, 'rgba(0,0,0,' + 0.55 * w + ')'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      g.addColorStop(0, 'rgba(200,255,0,' + (.22 * (p[3] == null ? 1 : p[3])) + ')'); g.addColorStop(1, 'rgba(200,255,0,0)');
       ctx.fillStyle = g; ctx.fillRect(x - rad, y - rad, rad * 2, rad * 2);
     });
-    var img = ctx.getImageData(0, 0, W, H), px = img.data;
-    var ramp = [[0, [200, 245, 66, 0]], [0.18, [200, 245, 66, 70]], [0.55, [200, 255, 0, 170]], [1, [242, 243, 240, 225]]];
-    for (var i = 0; i < px.length; i += 4) {
-      var a = px[i + 3] / 255; if (!a) continue;
-      a = Math.min(1, a * (opts.gain || 1.25));
-      for (var k = 1; k < ramp.length; k++) {
-        if (a <= ramp[k][0]) {
-          var lo = ramp[k - 1], hi = ramp[k], t = (a - lo[0]) / (hi[0] - lo[0]);
-          px[i] = lo[1][0] + (hi[1][0] - lo[1][0]) * t; px[i + 1] = lo[1][1] + (hi[1][1] - lo[1][1]) * t;
-          px[i + 2] = lo[1][2] + (hi[1][2] - lo[1][2]) * t; px[i + 3] = lo[1][3] + (hi[1][3] - lo[1][3]) * t;
-          break;
-        }
+    for (var y = 0; y < h; y += cell) for (var x = 0; x < w; x += cell) {
+      var cx = x + cell / 2, cy = y + cell / 2, v = 0;
+      for (var i = 0; i < pts.length; i++) {
+        var p = pts[i], s = (p[2] || .12) * base, dx = cx - p[0] * w, dy = cy - p[1] * h;
+        v += (p[3] == null ? 1 : p[3]) * Math.exp(-(dx * dx + dy * dy) / (2 * s * s * .45));
       }
+      v *= gain;
+      if (v < .08) continue;
+      ctx.fillStyle = NG.thermal(Math.min(1, v));
+      ctx.fillRect(x + gap / 2, y + gap / 2, cell - gap, cell - gap);
     }
-    ctx.putImageData(img, 0, 0);
   };
 
   /* --- Contador ----------------------------------------------------- */
@@ -411,12 +442,19 @@ background:radial-gradient(120% 90% at 0% 100%,rgba(10,11,13,.86) 0%,rgba(10,11,
 })();
 </script>
 <section class="ng-sec ng-hero" id="inicio" aria-labelledby="ng-hero-title" data-ng="hero">
-  <div class="ng-hero__media ng-media" data-ph="/img/hero-eye · 16:9 / 9:16">
-    <!-- IMAGEN 01 · hero-eye · 16:9 (desktop) + 9:16 (móvil: hero-eye-portrait)
-     PROMPT: "Macro photograph of a human eye, extreme close-up, iris in sharp focus, a thin volt-green (#C8F542) laser crosshair reflected on the cornea, dark charcoal background, cinematic low-key lighting, hyper-realistic, 8K, shallow depth of field, editorial tech campaign" -->
-<picture><source media="(max-width:767px)" type="image/avif" srcset="/img/hero-eye-portrait-768.avif 768w, /img/hero-eye-portrait-1280.avif 1280w" sizes="100vw"><source media="(max-width:767px)" type="image/webp" srcset="/img/hero-eye-portrait-768.webp 768w, /img/hero-eye-portrait-1280.webp 1280w" sizes="100vw"><source type="image/avif" srcset="/img/hero-eye-768.avif 768w, /img/hero-eye-1280.avif 1280w, /img/hero-eye-1920.avif 1920w, /img/hero-eye-2560.avif 2560w" sizes="100vw"><source type="image/webp" srcset="/img/hero-eye-768.webp 768w, /img/hero-eye-1280.webp 1280w, /img/hero-eye-1920.webp 1920w, /img/hero-eye-2560.webp 2560w" sizes="100vw"><img src="/img/hero-eye-1280.webp" width="2560" height="1440" alt="Macrofotografía de un ojo humano con el iris en foco y una fina mira láser verde reflejada en la córnea" loading="eager" fetchpriority="high" onerror="this.classList.add('ng-is-missing')"></picture>
+  <div class="ng-hero__dog">
+    <div class="ng-hero__frame">
+      <div class="ng-media" data-ph="/img/ref-dog"><picture><source type="image/avif" srcset="/img/ref-dog-655.avif"><img src="/img/ref-dog-655.webp" width="655" height="1200" alt="Retrato en blanco y negro de un perro que asoma tras una pared; un anillo verde lima marca la fijación sobre su ojo" loading="eager" fetchpriority="high" onerror="this.classList.add('ng-is-missing')"></picture></div>
+      <svg class="ng-hero__ring" viewBox="0 0 655 1200" preserveAspectRatio="none" aria-hidden="true">
+        <circle class="ng-hero__r1" cx="290" cy="610" r="50"/>
+        <circle class="ng-hero__r2" cx="290" cy="610" r="74"/>
+        <line x1="290" y1="520" x2="290" y2="548"/><line x1="290" y1="672" x2="290" y2="700"/>
+        <line x1="200" y1="610" x2="228" y2="610"/><line x1="352" y1="610" x2="380" y2="610"/>
+        <text x="372" y="540">FIX · <tspan class="ng-hero__fix2">214</tspan>MS</text>
+      </svg>
+    </div>
+    <div class="ng-hero__quote"><p>Todos miran.<br>Nosotros medimos.</p></div>
   </div>
-  <div class="ng-hero__shade" aria-hidden="true"></div>
   <canvas class="ng-hero__trail" aria-hidden="true"></canvas>
   <div class="ng-hero__hud" aria-hidden="true">
     <span class="ng-hero__tl"><span class="ng-rec">REC</span><span class="ng-hero__ts">00:00:00.000</span></span>
@@ -425,23 +463,22 @@ background:radial-gradient(120% 90% at 0% 100%,rgba(10,11,13,.86) 0%,rgba(10,11,
   </div>
   <div class="ng-wrap ng-hero__content">
     <p class="ng-mono ng-eyebrow ng-hero__eyebrow">Neuroscience-Driven Marketing Optimization</p>
-    <h1 class="ng-hero__title" id="ng-hero-title">El marketing digital cambió.</h1>
-    <div class="ng-hero__row">
-      <div class="ng-hero__copy">
-        <p class="ng-hero__sub">Neuromarketing potenciado por inteligencia artificial.</p>
-        <p class="ng-hero__text">Analizamos procesos cerebrales subconscientes y los potenciamos con modelos predictivos para maximizar la conversión.</p>
-      </div>
-      <div class="ng-hero__ctas">
-        <a class="ng-btn ng-btn--volt" href="/contacto/" data-ng-magnet>Empieza hoy <span class="ng-btn__i" aria-hidden="true">↗</span></a>
-        <a class="ng-btn" href="#asi-mira">Así mira tu cliente <span class="ng-btn__i" aria-hidden="true">↓</span></a>
-      </div>
+    <h1 class="ng-hero__title" id="ng-hero-title">El marketing<br>digital <span class="ng-hl">cambió.</span></h1>
+    <div class="ng-hero__copy">
+      <p class="ng-hero__sub">Neuromarketing potenciado por inteligencia artificial.</p>
+      <p class="ng-hero__text">Analizamos procesos cerebrales subconscientes y los potenciamos con modelos predictivos para maximizar la conversión.</p>
     </div>
+    <div class="ng-hero__ctas">
+      <a class="ng-btn ng-btn--volt" href="/contacto/" data-ng-magnet>Empieza hoy <span class="ng-btn__i" aria-hidden="true">↗</span></a>
+      <a class="ng-btn" href="#asi-mira">Así mira tu cliente <span class="ng-btn__i" aria-hidden="true">↓</span></a>
+    </div>
+    <p class="ng-strip ng-hero__strip" aria-label="Eye tracking, respuesta galvánica y facial coding"><span>Eye tracking</span><i>·</i><span>GSR</span><i>·</i><span>Facial coding</span></p>
   </div>
 </section>
 
 <script>
 NG.boot('[data-ng="hero"]', function (sec) {
-  var img = sec.querySelector('.ng-hero__media img');
+  var frame = sec.querySelector('.ng-hero__frame'), ring = sec.querySelector('.ng-hero__ring'), fix2 = sec.querySelector('.ng-hero__fix2');
   var title = sec.querySelector('.ng-hero__title');
   var ts = sec.querySelector('.ng-hero__ts'), fix = sec.querySelector('.ng-hero__fix'), xy = sec.querySelector('.ng-hero__xy');
   var cv = NG.canvas(sec.querySelector('.ng-hero__trail'));
@@ -460,7 +497,7 @@ NG.boot('[data-ng="hero"]', function (sec) {
     if (last && Math.hypot(x - last.x, y - last.y) < 38) { last.d = Math.min(last.d + 16, 600); last.t = t; return; }
     last = { x: x, y: y, t: t, b: t, d: 120 }; fixes.push(last);
     if (fixes.length > 24) fixes.shift();
-    fix.textContent = (180 + Math.round(Math.random() * 90)) + 'ms';
+    var v = 180 + Math.round(Math.random() * 90); fix.textContent = v + 'ms'; fix2.textContent = v;
   };
   if (!auto) {
     sec.addEventListener('pointermove', function (e) {
@@ -471,12 +508,17 @@ NG.boot('[data-ng="hero"]', function (sec) {
     }, { passive: true });
   }
   /* Estela autónoma (móvil / sin puntero fino): sacadas entre zonas de interés */
-  var aoi = [[.64, .46], [.58, .40], [.72, .52], [.66, .58], [.52, .30], [.80, .38], [.62, .48]], ai = 0, nextAuto = 0;
+  // Zonas de interés en coordenadas de la foto (ojos, hocico, oreja) → se proyectan a la sección
+  var aoi = [[.443, .508], [.12, .42], [.175, .617], [.443, .508], [.30, .55], [.145, .16], [.12, .42], [.443, .508]], ai = 0, nextAuto = 0;
+  var toSec = function (a) {
+    var fr = frame.getBoundingClientRect(), sr = sec.getBoundingClientRect();
+    return [fr.left - sr.left + a[0] * fr.width, fr.top - sr.top + a[1] * fr.height];
+  };
   var draw = function (t) {
     var c = cv.ctx, w = cv.w, h = cv.h;
     if (auto && t > nextAuto) {
-      var a = aoi[ai++ % aoi.length];
-      var x = (a[0] + (Math.random() - .5) * .06) * w, y = (a[1] + (Math.random() - .5) * .08) * h;
+      var a = toSec(aoi[ai++ % aoi.length]);
+      var x = a[0] + (Math.random() - .5) * 18, y = a[1] + (Math.random() - .5) * 18;
       addFix(x, y, t); last.d = 140 + Math.random() * 260;
       nextAuto = t + 260 + Math.random() * 420;
       xy.textContent = 'X ' + (x / w).toFixed(3) + ' · Y ' + (y / h).toFixed(3);
@@ -500,7 +542,7 @@ NG.boot('[data-ng="hero"]', function (sec) {
     });
   };
   if (NG.rm) {
-    aoi.forEach(function (a, i) { fixes.push({ x: a[0] * cv.w, y: a[1] * cv.h, t: 0, d: 180 + i * 30 }); });
+    aoi.forEach(function (a, i) { var p = toSec(a); fixes.push({ x: p[0], y: p[1], t: 0, d: 180 + i * 30 }); });
     LIFE = Infinity; draw(1);
   } else {
     NG.loop(sec, draw);
@@ -511,15 +553,22 @@ NG.boot('[data-ng="hero"]', function (sec) {
     if (!gsap || NG.rm) return;
     var words = NG.split(title);
     gsap.set(words, { yPercent: 115 });
-    var rest = sec.querySelectorAll('.ng-hero__eyebrow,.ng-hero__copy>*,.ng-hero__ctas>*');
+    var rest = sec.querySelectorAll('.ng-hero__eyebrow,.ng-hero__copy>*,.ng-hero__ctas>*,.ng-hero__strip,.ng-hero__quote');
+    var r1 = ring.querySelector('.ng-hero__r1'), r2 = ring.querySelector('.ng-hero__r2');
+    var L = 2 * Math.PI * 50;
+    gsap.set(r1, { strokeDasharray: L, strokeDashoffset: L });
+    gsap.set(ring.querySelectorAll('line,text,.ng-hero__r2'), { autoAlpha: 0 });
+    gsap.to(r2, { rotation: 360, svgOrigin: '290 610', duration: 18, repeat: -1, ease: 'none' });
     gsap.set(rest, { autoAlpha: 0, y: 20 });
     NG.afterPreload(function () {
       var tl = gsap.timeline({ delay: .05 });
       tl.to(words, { yPercent: 0, duration: 1.2, ease: 'expo.out', stagger: .07 })
         .to(rest, { autoAlpha: 1, y: 0, duration: .9, stagger: .06 }, .35);
-      gsap.fromTo(sec.querySelector('.ng-hero__media'), { scale: 1.08 }, { scale: 1, duration: 2.2, ease: 'expo.out' });
+      gsap.fromTo(sec.querySelector('.ng-hero__dog'), { autoAlpha: 0 }, { autoAlpha: 1, duration: 1.2, ease: 'power2.out' });
+      tl.to(r1, { strokeDashoffset: 0, duration: 1.1, ease: 'expo.inOut' }, .6)
+        .to(ring.querySelectorAll('line,text,.ng-hero__r2'), { autoAlpha: 1, duration: .5, stagger: .05 }, 1.2);
     });
-    gsap.to(img, { scale: 1.32, ease: 'none', scrollTrigger: { trigger: sec, start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.to(frame, { scale: 1.5, ease: 'none', scrollTrigger: { trigger: sec, start: 'top top', end: 'bottom top', scrub: true } });
     gsap.to(title, { yPercent: -38, ease: 'none', scrollTrigger: { trigger: sec, start: 'top top', end: 'bottom top', scrub: true } });
   });
 });

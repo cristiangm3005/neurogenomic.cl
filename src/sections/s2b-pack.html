@@ -1,0 +1,75 @@
+<style>
+/* ---------- S2b · PACKAGING · "Tu packaging tiene una mirada para ganar" (lata + callouts) ---------- */
+.ng-pack{padding:clamp(96px,11vw,170px) 0 clamp(56px,6vw,96px);background:#000}
+.ng-pack__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:center}
+.ng-pack__copy{grid-column:1/span 6}
+.ng-pack__t{font-size:clamp(64px,9vw,176px);line-height:.86;margin:clamp(20px,2.4vw,32px) 0 clamp(24px,3vw,40px)}
+.ng-pack__p{font-size:clamp(20px,1.9vw,30px);line-height:1.25;font-weight:400;max-width:20ch}
+.ng-pack__demo{margin-top:clamp(24px,3vw,40px);color:var(--ng-tx2)}
+.ng-pack__stage{grid-column:7/span 6;position:relative;display:flex;justify-content:flex-start;padding-left:clamp(0px,4vw,64px)}
+.ng-pack__fig{position:relative;height:min(84vh,820px);aspect-ratio:570/1590;margin:0}
+.ng-pack__fig .ng-media{position:absolute;inset:0;border-radius:0;background:#000}
+.ng-pack__scan{position:absolute;inset:3% 6% 8%;pointer-events:none;overflow:hidden;mix-blend-mode:screen}
+.ng-pack__scan i{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--ng-lime);box-shadow:0 0 16px 2px rgba(200,255,0,.7);animation:ng-scan 3.6s cubic-bezier(.65,0,.35,1) infinite alternate}
+@keyframes ng-scan{from{transform:translateY(calc(-1 * var(--ng-scan-h,700px)))}to{transform:translateY(0)}}
+.ng-pack .ng-co{left:100%;transform:translateY(-50%)}
+.ng-pack .ng-co__txt{display:grid;gap:2px}
+.ng-pack__strip{margin-top:clamp(48px,6vw,96px)}
+@media (max-width:1023px){
+  .ng-pack__copy,.ng-pack__stage{grid-column:1/-1}
+  .ng-pack__stage{padding-left:0;margin-top:24px}
+  .ng-pack__fig{height:min(72svh,620px)}
+}
+@media (max-width:599px){
+  .ng-pack__fig{height:min(64svh,500px)}
+  .ng-pack .ng-co{gap:6px;font-size:9.5px;letter-spacing:.06em}
+  .ng-pack .ng-co__ln{--ng-co-w:18px}
+}
+@media (prefers-reduced-motion:reduce){.ng-pack__scan{display:none}}
+</style>
+
+<section class="ng-sec ng-pack" id="packaging" aria-labelledby="ng-pack-title" data-ng="pack">
+  <div class="ng-wrap">
+    <div class="ng-pack__grid">
+      <div class="ng-pack__copy">
+        <p class="ng-mono ng-eyebrow">Inteligencia biométrica</p>
+        <h2 class="ng-h2 ng-pack__t" id="ng-pack-title" data-ng-split>Tu packaging tiene <span class="ng-hl">una mirada</span> para ganar.</h2>
+        <p class="ng-pack__p" data-ng-reveal>Mira lo que tus compradores realmente observan antes de comprar.</p>
+        <p class="ng-mono ng-pack__demo" data-ng-reveal=".1">Lectura de demostración · eye tracking sobre packaging</p>
+      </div>
+      <div class="ng-pack__stage">
+        <figure class="ng-pack__fig">
+          <div class="ng-media" data-ph="/img/ref-can">{{img:can}}</div>
+          <div class="ng-pack__scan" aria-hidden="true"><i></i></div>
+          <div class="ng-co" style="top:13.3%" aria-hidden="true"><span class="ng-co__ln"></span><span class="ng-co__txt"><span>Atención % / <b data-to="88.4">88.4</b>%</span><span>Fijación / <b data-to="1150">1150</b>ms</span></span></div>
+          <div class="ng-co" style="top:39.6%" aria-hidden="true"><span class="ng-co__ln"></span><span class="ng-co__txt"><span>Atención % / <b data-to="93.1">93.1</b>%</span><span>Fijación / <b data-to="1720">1720</b>ms</span></span></div>
+          <div class="ng-co" style="top:69.5%" aria-hidden="true"><span class="ng-co__ln"></span><span class="ng-co__txt"><span>Atención % / <b data-to="76.9">76.9</b>%</span><span>Fijación / <b data-to="940">940</b>ms</span></span></div>
+          <figcaption class="ng-sr">Zonas de mayor atención en la lata: parte superior (88,4 % de atención, fijación de 1150 ms), centro (93,1 %, 1720 ms) y base (76,9 %, 940 ms). Datos de demostración.</figcaption>
+        </figure>
+      </div>
+    </div>
+    <p class="ng-strip ng-pack__strip"><span>Eye tracking</span><i>·</i><span>Respuesta GSR</span><i>·</i><span>Facial coding</span></p>
+  </div>
+</section>
+
+<script>
+NG.boot('[data-ng="pack"]', function (sec) {
+  var fig = sec.querySelector('.ng-pack__fig'), scan = sec.querySelector('.ng-pack__scan');
+  var cos = [].slice.call(sec.querySelectorAll('.ng-co'));
+  var setScan = function () { scan.style.setProperty('--ng-scan-h', (scan.clientHeight - 2) + 'px'); };
+  setScan(); window.addEventListener('resize', setScan);
+  NG.reveals(sec);
+  NG.ready().then(function (gsap) {
+    if (!gsap || NG.rm) return;
+    gsap.fromTo(fig, { y: 80, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: fig, start: 'top 85%', once: true } });
+    gsap.to(fig, { yPercent: -6, ease: 'none', scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: true } });
+    var tl = gsap.timeline({ scrollTrigger: { trigger: fig, start: 'top 55%', once: true } });
+    cos.forEach(function (c, i) {
+      var ln = c.querySelector('.ng-co__ln'), txt = c.querySelector('.ng-co__txt'), nums = c.querySelectorAll('[data-to]');
+      tl.fromTo(ln, { scaleX: 0 }, { scaleX: 1, duration: .5, ease: 'power3.inOut' }, i * .35)
+        .fromTo(txt, { autoAlpha: 0, x: -8 }, { autoAlpha: 1, x: 0, duration: .5,
+          onStart: function () { nums.forEach(function (n) { var to = +n.getAttribute('data-to'); NG.count(n, to, { dur: 1.2, dec: to % 1 ? 1 : 0 }); }); } }, i * .35 + .35);
+    });
+  });
+});
+</script>

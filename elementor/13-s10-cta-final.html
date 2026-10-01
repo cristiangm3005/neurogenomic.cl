@@ -1,10 +1,11 @@
-<!-- NEUROGENOMIC · Bloque Elementor «05-s4-tecnologia»
+<!-- NEUROGENOMIC · Bloque Elementor «13-s10-cta-final»
      Pegar completo en un widget HTML de Elementor (ancho completo, sin padding).
      Incluye tokens + núcleo NG (idempotentes: pueden repetirse en varios bloques).
+     Nota: Usa img/ref-dog-655.(avif|webp).
      Imágenes: reemplaza /img/ por la URL de la Biblioteca de medios. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
 <style>
 :root{
 --ng-bg:#0A0B0D;
@@ -17,6 +18,7 @@
 --ng-volt:#C8F542;
 --ng-lime:#C8FF00;
 --ng-ff:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+--ng-disp:'Anton','Bebas Neue',Impact,'Arial Narrow Bold',sans-serif;
 --ng-mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
 --ng-ease:cubic-bezier(.16,1,.3,1);
 --ng-gut:clamp(16px,4.4vw,72px);
@@ -46,13 +48,23 @@ font-size:16px;line-height:1.55;font-weight:400;
 .ng-mono{font-family:var(--ng-mono);font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;line-height:1.4}
 .ng-eyebrow{color:var(--ng-volt);display:inline-flex;align-items:center;gap:10px}
 .ng-eyebrow::before{content:"";width:18px;height:1px;background:currentColor}
-.ng-h2{font-size:clamp(36px,5.6vw,96px);line-height:.95;letter-spacing:-.03em;font-weight:500;text-wrap:balance}
+.ng-disp,.ng-h2{font-family:var(--ng-disp);font-weight:400;text-transform:uppercase;letter-spacing:-.005em;line-height:.9}
+.ng-h2{font-size:clamp(46px,6.6vw,124px);text-wrap:balance}
+.ng-hl{color:var(--ng-lime)}
+.ng-strip{display:flex;align-items:center;gap:clamp(12px,2vw,28px);font:500 clamp(11px,1vw,14px)/1.3 var(--ng-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ng-lime)}
+.ng-strip::before,.ng-strip::after{content:"";flex:1 1 40px;min-width:24px;height:1px;background:var(--ng-lime)}
+.ng-strip i{font-style:normal;opacity:.7}
+@media (max-width:599px){.ng-strip{flex-wrap:wrap;justify-content:center;gap:8px 12px}.ng-strip::before,.ng-strip::after{flex-basis:100%;order:0}.ng-strip::after{order:9}}
+.ng-co{position:absolute;display:flex;align-items:center;gap:12px;pointer-events:none;font:500 clamp(10px,.95vw,13px)/1.5 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-lime);white-space:nowrap}
+.ng-co__dot{flex:0 0 auto;width:12px;height:12px;border-radius:50%;background:var(--ng-lime);box-shadow:0 0 0 4px rgba(200,255,0,.18),0 0 18px rgba(200,255,0,.8)}
+.ng-co__ln{flex:0 0 auto;width:var(--ng-co-w,90px);height:1px;background:var(--ng-lime);transform-origin:0 50%}
+.ng-co b{font-weight:500;color:var(--ng-tx)}
 .ng-h3{font-size:clamp(26px,2.8vw,44px);line-height:1;letter-spacing:-.025em;font-weight:500}
 .ng-lead{font-size:clamp(18px,1.5vw,22px);line-height:1.45;color:var(--ng-tx);font-weight:300;max-width:46ch}
 .ng-body{color:var(--ng-tx2);max-width:60ch}
 .ng-volt{color:var(--ng-volt)}
 .ng-sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.ng-w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.ng-w{display:inline-block;overflow:hidden;vertical-align:top;padding:.16em .02em .1em;margin:-.16em -.02em -.1em}
 .ng-w>span{display:inline-block;will-change:transform}
 .ng-btn{
 --_bg:transparent;--_fg:var(--ng-tx);--_bd:var(--ng-line2);
@@ -100,38 +112,27 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-sec *,.ng-nav *,.ng-foot *,.ng-menu *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
 .ng-js .ng-sec[data-ng-bg]{--ng-bgo:1}
 }
-.ng-sig{padding:clamp(96px,12vw,180px) 0}
-.ng-sig__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:clamp(40px,5vw,80px)}
-.ng-sig__head .ng-head{grid-column:1/span 8;margin:0}
-.ng-sig__head .ng-body{grid-column:9/span 4}
-.ng-sig__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.4vw,20px)}
-.ng-mon{position:relative;display:flex;flex-direction:column;background:var(--ng-s1);border:1px solid var(--ng-line);border-radius:8px;padding:14px;text-align:left;color:inherit;font:inherit;cursor:pointer;transition:border-color .4s}
-.ng-sig__grid.ng-is-ready .ng-mon{transition:opacity .5s var(--ng-ease),transform .6s var(--ng-ease),border-color .4s}
-.ng-mon:hover,.ng-mon.ng-is-active{border-color:rgba(200,245,66,.5)}
-.ng-sig__grid.ng-has-active .ng-mon:not(.ng-is-active){opacity:.38}
-.ng-sig__grid.ng-has-active .ng-mon.ng-is-active{transform:scale(1.025);z-index:2}
-.ng-mon__top{display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--ng-tx2);margin-bottom:12px}
-.ng-mon__live{color:var(--ng-lime);display:inline-flex;align-items:center;gap:6px}
-.ng-mon__screen{position:relative;aspect-ratio:4/3;border-radius:4px;overflow:hidden;background:var(--ng-bg);border:1px solid var(--ng-line)}
-.ng-mon__screen canvas{position:absolute;inset:0;width:100%;height:100%}
-.ng-mon__screen .ng-media{position:absolute;inset:0;border-radius:0}
-.ng-mon__screen .ng-media::before{align-items:flex-start;justify-content:flex-end;padding:10px 12px}
-.ng-mon__screen::after{content:"";position:absolute;inset:0;background:var(--ng-tx);opacity:0;pointer-events:none}
-.ng-mon.ng-is-flash .ng-mon__screen::after{animation:ng-on .7s steps(1) forwards}
-@keyframes ng-on{0%{opacity:.5}12%{opacity:0}22%{opacity:.25}34%,100%{opacity:0}}
-.ng-mon__read{position:absolute;left:10px;bottom:10px;font:500 12px/1 var(--ng-mono);letter-spacing:.08em;color:var(--ng-lime);background:rgba(10,11,13,.82);padding:7px 9px;border-radius:3px;font-variant-numeric:tabular-nums}
-.ng-mon__body{padding:18px 4px 4px;display:grid;gap:8px}
-.ng-mon__k{color:var(--ng-tx2)}
-.ng-mon__t{font-size:clamp(26px,2.4vw,38px);line-height:1;letter-spacing:-.03em;font-weight:500}
-.ng-mon__d{color:var(--ng-tx2);font-size:15px;max-width:34ch}
-.ng-mon__hint{margin-top:auto;padding-top:14px;color:var(--ng-tx2);display:flex;justify-content:space-between}
-@media (max-width:1023px){
-.ng-sig__head .ng-head,.ng-sig__head .ng-body{grid-column:1/-1}
-.ng-sig__grid{grid-template-columns:1fr}
-.ng-sig__grid.ng-has-active .ng-mon.ng-is-active{transform:none}
-.ng-sig__grid.ng-has-active .ng-mon:not(.ng-is-active){opacity:.6}
+.ng-cta{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:clamp(96px,10vw,160px) 0}
+.ng-cta{--ng-dogw:min(calc(100svh * .62),50vw);background:#000}
+.ng-cta__dog{position:absolute;top:0;right:0;bottom:0;width:var(--ng-dogw);overflow:hidden;background:#8b8b8b;z-index:-2}
+.ng-cta__frame{position:absolute;top:50%;left:50%;width:220%;aspect-ratio:655/1200;translate:-44.3% -50.8%;transform-origin:44.3% 50.8%}
+.ng-cta__frame .ng-media{position:absolute;inset:0;border-radius:0;background:#8b8b8b}
+.ng-cta__ring{overflow:visible;position:absolute;left:50%;top:50%;width:min(44vw,520px);aspect-ratio:1;translate:-50% -50%;pointer-events:none}
+.ng-cta__ring circle{fill:none;stroke:var(--ng-lime);stroke-width:1;vector-effect:non-scaling-stroke}
+.ng-cta__ring .ng-cta__r2{stroke:rgba(200,255,0,.35);stroke-dasharray:2 6}
+.ng-cta__ring text{font-family:var(--ng-mono);font-size:4.2px;font-weight:500;letter-spacing:.6px;fill:var(--ng-lime)}
+.ng-cta__in{max-width:900px;padding-right:calc(var(--ng-dogw) - var(--ng-gut))}
+.ng-cta__t{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(50px,6.2vw,122px);line-height:.88;letter-spacing:0;font-weight:400;margin:22px 0 28px;text-wrap:balance}
+.ng-cta__p{font-size:clamp(18px,1.5vw,22px);font-weight:300;max-width:44ch;color:var(--ng-tx)}
+.ng-cta__btn{margin-top:clamp(32px,4vw,56px);min-height:clamp(64px,7vw,96px);padding:0 clamp(28px,3vw,48px);font-size:clamp(17px,1.4vw,22px);border-radius:999px}
+.ng-cta__btn .ng-btn__t{display:inline-flex;gap:14px;align-items:center}
+@media (max-width:899px){
+.ng-cta{flex-direction:column;align-items:stretch;padding-top:0}
+.ng-cta__dog{position:relative;width:100%;height:52svh;min-height:300px;z-index:0;margin-bottom:32px}
+.ng-cta__ring{width:70vw}
+.ng-cta__in{padding-right:0}
+.ng-cta__btn{width:100%}
 }
-@media (min-width:640px) and (max-width:1023px){.ng-mon{display:grid;grid-template-columns:1.1fr 1fr;gap:0 18px}.ng-mon__top{grid-column:1/-1}.ng-mon__body{padding-top:0}}
 </style>
 <script>
 /* ==========================================================
@@ -313,37 +314,48 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
     return o;
   };
 
-  /* --- Heatmap monocromático dentro de la paleta (volt → lima → blanco) */
+  /* --- Heatmap térmico pixelado (estilo campaña: lima → amarillo → naranja → rojo) ---
+     pts: [x, y, radio, peso] normalizados 0–1. opts.cell = tamaño de celda en px CSS. */
+  var RAMP = [[0, [200, 255, 0, 0]], [0.16, [200, 255, 0, 0.45]], [0.4, [200, 255, 0, 0.85]],
+              [0.62, [255, 214, 0, 0.92]], [0.8, [255, 122, 0, 0.95]], [1, [255, 42, 0, 1]]];
+  NG.thermal = function (v) {
+    v = NG.clamp(v, 0, 1);
+    for (var k = 1; k < RAMP.length; k++) if (v <= RAMP[k][0]) {
+      var lo = RAMP[k - 1], hi = RAMP[k], t = (v - lo[0]) / (hi[0] - lo[0]), c = [];
+      for (var j = 0; j < 4; j++) c[j] = lo[1][j] + (hi[1][j] - lo[1][j]) * t;
+      return 'rgba(' + (c[0] | 0) + ',' + (c[1] | 0) + ',' + (c[2] | 0) + ',' + c[3].toFixed(3) + ')';
+    }
+    return 'rgba(255,42,0,1)';
+  };
   NG.heat = function (cv, pts, opts) {
     opts = opts || {};
     var r = cv.getBoundingClientRect();
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var W = Math.max(1, Math.round(r.width * dpr)), H = Math.max(1, Math.round(r.height * dpr));
-    cv.width = W; cv.height = H;
-    var ctx = cv.getContext('2d', { willReadFrequently: true });
-    var base = Math.min(W, H);
-    ctx.clearRect(0, 0, W, H);
+    var w = Math.max(1, r.width), h = Math.max(1, r.height);
+    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+    var ctx = cv.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    var base = Math.min(w, h), cell = opts.cell || Math.max(5, Math.round(base / 46)), gap = Math.max(1, cell * .18);
+    var gain = opts.gain || 1;
+    // brillo suave bajo los píxeles
     pts.forEach(function (p) {
-      var rad = (p[2] || 0.12) * base, x = p[0] * W, y = p[1] * H, w = p[3] == null ? 1 : p[3];
+      var rad = (p[2] || .12) * base * 1.25, x = p[0] * w, y = p[1] * h;
       var g = ctx.createRadialGradient(x, y, 0, x, y, rad);
-      g.addColorStop(0, 'rgba(0,0,0,' + 0.55 * w + ')'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      g.addColorStop(0, 'rgba(200,255,0,' + (.22 * (p[3] == null ? 1 : p[3])) + ')'); g.addColorStop(1, 'rgba(200,255,0,0)');
       ctx.fillStyle = g; ctx.fillRect(x - rad, y - rad, rad * 2, rad * 2);
     });
-    var img = ctx.getImageData(0, 0, W, H), px = img.data;
-    var ramp = [[0, [200, 245, 66, 0]], [0.18, [200, 245, 66, 70]], [0.55, [200, 255, 0, 170]], [1, [242, 243, 240, 225]]];
-    for (var i = 0; i < px.length; i += 4) {
-      var a = px[i + 3] / 255; if (!a) continue;
-      a = Math.min(1, a * (opts.gain || 1.25));
-      for (var k = 1; k < ramp.length; k++) {
-        if (a <= ramp[k][0]) {
-          var lo = ramp[k - 1], hi = ramp[k], t = (a - lo[0]) / (hi[0] - lo[0]);
-          px[i] = lo[1][0] + (hi[1][0] - lo[1][0]) * t; px[i + 1] = lo[1][1] + (hi[1][1] - lo[1][1]) * t;
-          px[i + 2] = lo[1][2] + (hi[1][2] - lo[1][2]) * t; px[i + 3] = lo[1][3] + (hi[1][3] - lo[1][3]) * t;
-          break;
-        }
+    for (var y = 0; y < h; y += cell) for (var x = 0; x < w; x += cell) {
+      var cx = x + cell / 2, cy = y + cell / 2, v = 0;
+      for (var i = 0; i < pts.length; i++) {
+        var p = pts[i], s = (p[2] || .12) * base, dx = cx - p[0] * w, dy = cy - p[1] * h;
+        v += (p[3] == null ? 1 : p[3]) * Math.exp(-(dx * dx + dy * dy) / (2 * s * s * .45));
       }
+      v *= gain;
+      if (v < .08) continue;
+      ctx.fillStyle = NG.thermal(Math.min(1, v));
+      ctx.fillRect(x + gap / 2, y + gap / 2, cell - gap, cell - gap);
     }
-    ctx.putImageData(img, 0, 0);
   };
 
   /* --- Contador ----------------------------------------------------- */
@@ -412,178 +424,35 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
   });
 })();
 </script>
-<section class="ng-sec ng-sig" id="tecnologia" aria-labelledby="ng-sig-title" data-ng="signals" data-ng-bg>
+<section class="ng-sec ng-cta" id="contacto-cta" aria-labelledby="ng-cta-title" data-ng="cta">
+  <div class="ng-cta__dog">
+    <div class="ng-cta__frame"><div class="ng-media" data-ph="/img/ref-dog"><picture><source type="image/avif" srcset="/img/ref-dog-655.avif"><img src="/img/ref-dog-655.webp" width="655" height="1200" alt="Primer plano del ojo del perro con la pupila marcada por un anillo verde lima" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div></div>
+    <svg class="ng-cta__ring" viewBox="0 0 200 200" aria-hidden="true">
+      <circle class="ng-cta__r1" cx="100" cy="100" r="90"/><circle class="ng-cta__r2" cx="100" cy="100" r="98"/>
+      <text x="100" y="-4" text-anchor="middle">PUPILA · Ø ↓</text>
+    </svg>
+  </div>
   <div class="ng-wrap">
-    <div class="ng-sig__head">
-      <div class="ng-head">
-        <p class="ng-mono ng-eyebrow">04 · Tecnología</p>
-        <h2 class="ng-h2" id="ng-sig-title" data-ng-split>Biometría real. Tres señales involuntarias. Cero opiniones.</h2>
-      </div>
-      <p class="ng-body" data-ng-reveal>Eye tracking, facial coding y respuesta galvánica, cruzados con modelos de IA propios, para convertir reacciones no conscientes en una decisión validada antes de construir.</p>
-    </div>
-    <div class="ng-sig__grid">
-      <button type="button" class="ng-mon" data-k="eye" aria-pressed="false" aria-label="Eye tracking, atención: dónde mira, en qué orden y qué ignora por completo. Ampliar panel.">
-        <span class="ng-mon__top ng-mono"><span>C·01 · Eye tracking</span><span class="ng-mon__live">● señal en vivo</span></span>
-        <span class="ng-mon__screen"><canvas aria-hidden="true"></canvas><span class="ng-mon__read">fijación <span data-r>214</span> ms</span><span class="ng-marks" aria-hidden="true"><i></i></span></span>
-        <span class="ng-mon__body"><span class="ng-mon__k ng-mono">Señal 01</span><span class="ng-mon__t">Atención</span><span class="ng-mon__d">Dónde mira, en qué orden y qué ignora por completo.</span></span>
-      </button>
-      <button type="button" class="ng-mon" data-k="face" aria-pressed="false" aria-label="Facial coding, emoción: la microexpresión que aparece antes de que piense la respuesta. Ampliar panel.">
-        <span class="ng-mon__top ng-mono"><span>C·02 · Facial coding</span><span class="ng-mon__live">● señal en vivo</span></span>
-        <span class="ng-mon__screen">
-          <span class="ng-media" data-ph="/img/facial-coding · 4:5"><!-- IMAGEN 04 · facial-coding · 4:5
-     PROMPT: "Close-up portrait of a person's face with subtle micro-expression, precise thin white facial landmark points overlaid, dark studio, Rembrandt lighting, hyper-realistic skin texture" -->
-<picture><source type="image/avif" srcset="/img/facial-coding-768.avif 768w, /img/facial-coding-1280.avif 1280w, /img/facial-coding-1920.avif 1920w, /img/facial-coding-2560.avif 2560w" sizes="(min-width:1024px) 30vw, 100vw"><source type="image/webp" srcset="/img/facial-coding-768.webp 768w, /img/facial-coding-1280.webp 1280w, /img/facial-coding-1920.webp 1920w, /img/facial-coding-2560.webp 2560w" sizes="(min-width:1024px) 30vw, 100vw"><img src="/img/facial-coding-1280.webp" width="1600" height="2000" alt="Retrato de cerca de un rostro con una microexpresión sutil, iluminación Rembrandt en estudio oscuro" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></span>
-          <canvas aria-hidden="true"></canvas><span class="ng-mon__read">valencia <span data-r>+0.42</span></span><span class="ng-marks" aria-hidden="true"><i></i></span>
-        </span>
-        <span class="ng-mon__body"><span class="ng-mon__k ng-mono">Señal 02</span><span class="ng-mon__t">Emoción</span><span class="ng-mon__d">La microexpresión que aparece antes de que piense la respuesta.</span></span>
-      </button>
-      <button type="button" class="ng-mon" data-k="gsr" aria-pressed="false" aria-label="Respuesta galvánica, activación: la intensidad de la reacción, aunque el rostro se mantenga neutro. Ampliar panel.">
-        <span class="ng-mon__top ng-mono"><span>C·03 · Respuesta galvánica</span><span class="ng-mon__live">● señal en vivo</span></span>
-        <span class="ng-mon__screen">
-          <span class="ng-media" data-ph="/img/gsr-sensor · 1:1"><!-- IMAGEN 05 · gsr-sensor · 1:1
-     PROMPT: "Fingertips resting on minimal biometric sensor electrodes with thin cables, black matte surface, single green rim light, macro photography, hyper-realistic" -->
-<picture><source type="image/avif" srcset="/img/gsr-sensor-768.avif 768w, /img/gsr-sensor-1280.avif 1280w, /img/gsr-sensor-1920.avif 1920w, /img/gsr-sensor-2560.avif 2560w" sizes="(min-width:1024px) 30vw, 100vw"><source type="image/webp" srcset="/img/gsr-sensor-768.webp 768w, /img/gsr-sensor-1280.webp 1280w, /img/gsr-sensor-1920.webp 1920w, /img/gsr-sensor-2560.webp 2560w" sizes="(min-width:1024px) 30vw, 100vw"><img src="/img/gsr-sensor-1280.webp" width="2000" height="2000" alt="Yemas de los dedos apoyadas sobre electrodos biométricos mínimos con cables finos, con luz de contorno verde" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></span>
-          <canvas aria-hidden="true"></canvas><span class="ng-mon__read"><span data-r>0.00</span> μS</span><span class="ng-marks" aria-hidden="true"><i></i></span></span>
-        <span class="ng-mon__body"><span class="ng-mon__k ng-mono">Señal 03</span><span class="ng-mon__t">Activación</span><span class="ng-mon__d">La intensidad de la reacción, aunque el rostro se mantenga neutro.</span></span>
-      </button>
+    <div class="ng-cta__in">
+      <p class="ng-mono ng-eyebrow">10 · Diagnóstico</p>
+      <h2 class="ng-cta__t" id="ng-cta-title" data-ng-split>¿Construimos tu próxima decisión <span class="ng-hl">con evidencia?</span></h2>
+      <p class="ng-cta__p" data-ng-reveal>Cuéntanos qué servicio necesitas hoy. El diagnóstico inicial es la base de todo lo que viene después.</p>
+      <a class="ng-btn ng-btn--volt ng-cta__btn" href="/contacto/" data-ng-magnet><span class="ng-btn__t">Agendar diagnóstico <span class="ng-btn__i" aria-hidden="true">↗</span></span></a>
     </div>
   </div>
 </section>
 
 <script>
-NG.boot('[data-ng="signals"]', function (sec) {
-  var grid = sec.querySelector('.ng-sig__grid');
-  var mons = [].slice.call(sec.querySelectorAll('.ng-mon'));
-  var on = !NG.rm ? false : true;
-
-  /* Expandir uno, atenuar los otros (hover en desktop, tap/teclado en todos) */
-  var activate = function (m) {
-    mons.forEach(function (x) { x.classList.toggle('ng-is-active', x === m); x.setAttribute('aria-pressed', x === m); });
-    grid.classList.toggle('ng-has-active', !!m);
-  };
-  mons.forEach(function (m) {
-    if (NG.fine) { m.addEventListener('pointerenter', function () { activate(m); }); }
-    m.addEventListener('click', function () { activate(m.classList.contains('ng-is-active') && !NG.fine ? null : m); });
-    m.addEventListener('focus', function () { activate(m); });
-  });
-  grid.addEventListener('pointerleave', function () { if (NG.fine) activate(null); });
-  grid.addEventListener('focusout', function (e) { if (!grid.contains(e.relatedTarget)) activate(null); });
-
-  /* --- C·01 Eye tracking: sacadas entre fijaciones --- */
-  (function (m) {
-    var cv = NG.canvas(m.querySelector('canvas')), r = m.querySelector('[data-r]');
-    var pts = [], cur = { x: .5, y: .5 }, tgt = { x: .5, y: .5 }, next = 0, dwell = 0;
-    var draw = function (t) {
-      var c = cv.ctx, w = cv.w, h = cv.h;
-      if (t > next) {
-        pts.push({ x: tgt.x, y: tgt.y, d: dwell }); if (pts.length > 7) pts.shift();
-        tgt = { x: .12 + Math.random() * .76, y: .14 + Math.random() * .62 };
-        dwell = 140 + Math.random() * 260; next = t + dwell + 90;
-        r.textContent = Math.round(dwell);
-      }
-      cur.x = NG.lerp(cur.x, tgt.x, .35); cur.y = NG.lerp(cur.y, tgt.y, .35);
-      c.clearRect(0, 0, w, h);
-      c.strokeStyle = 'rgba(255,255,255,.06)'; c.lineWidth = 1;
-      for (var i = 1; i < 6; i++) { c.beginPath(); c.moveTo(i * w / 6, 0); c.lineTo(i * w / 6, h); c.stroke(); c.beginPath(); c.moveTo(0, i * h / 6); c.lineTo(w, i * h / 6); c.stroke(); }
-      c.strokeStyle = 'rgba(200,245,66,.45)'; c.beginPath();
-      pts.forEach(function (p, i) { i ? c.lineTo(p.x * w, p.y * h) : c.moveTo(p.x * w, p.y * h); });
-      c.lineTo(cur.x * w, cur.y * h); c.stroke();
-      pts.forEach(function (p, i) {
-        var a = (i + 1) / pts.length;
-        c.strokeStyle = 'rgba(200,245,66,' + a * .8 + ')'; c.beginPath(); c.arc(p.x * w, p.y * h, 4 + p.d / 40, 0, 6.283); c.stroke();
-      });
-      c.fillStyle = '#C8FF00'; c.beginPath(); c.arc(cur.x * w, cur.y * h, 5, 0, 6.283); c.fill();
-      c.strokeStyle = 'rgba(200,255,0,.5)'; c.beginPath(); c.arc(cur.x * w, cur.y * h, 16 + Math.sin(t / 160) * 2, 0, 6.283); c.stroke();
-    };
-    m._draw = draw;
-  })(mons[0]);
-
-  /* --- C·02 Facial coding: landmarks + barras de valencia --- */
-  (function (m) {
-    var cv = NG.canvas(m.querySelector('canvas')), r = m.querySelector('[data-r]');
-    var L = [];
-    for (var i = 0; i <= 16; i++) { var a = Math.PI * (1.05 - i / 16 * 1.1); L.push([.5 + Math.cos(a) * .2, .44 + Math.sin(a) * .26 * (i > 3 && i < 13 ? 1 : .9)]); }
-    [[.36, .3], [.39, .285], [.42, .283], [.45, .29], [.55, .29], [.58, .283], [.61, .285], [.64, .3]].forEach(function (p) { L.push(p); });
-    [[.38, .36], [.41, .35], [.44, .36], [.41, .37], [.56, .36], [.59, .35], [.62, .36], [.59, .37]].forEach(function (p) { L.push(p); });
-    [[.5, .37], [.5, .42], [.5, .47], [.47, .5], [.5, .51], [.53, .5]].forEach(function (p) { L.push(p); });
-    var mouth = [[.43, .58], [.46, .565], [.5, .56], [.54, .565], [.57, .58], [.54, .6], [.5, .605], [.46, .6]];
-    var bars = [['VAL', .42], ['JOY', .31], ['SUR', .12], ['NEU', .48], ['NEG', .06]], v = .42;
-    var draw = function (t) {
-      var c = cv.ctx, w = cv.w, h = cv.h, s = Math.sin(t / 900) * .5 + .5;
-      c.clearRect(0, 0, w, h);
-      var ox = -.06 * w;
-      c.fillStyle = 'rgba(242,243,240,.92)';
-      L.forEach(function (p, i) { c.beginPath(); c.arc(ox + p[0] * w + Math.sin(t / 700 + i) * .6, p[1] * h, 1.6, 0, 6.283); c.fill(); });
-      mouth.forEach(function (p, i) {
-        var lift = (i === 0 || i === 4) ? -s * .018 : 0;
-        c.fillStyle = (i === 0 || i === 4) ? '#C8FF00' : 'rgba(242,243,240,.92)';
-        c.beginPath(); c.arc(ox + p[0] * w, (p[1] + lift) * h, (i === 0 || i === 4) ? 2.6 : 1.6, 0, 6.283); c.fill();
-      });
-      c.strokeStyle = 'rgba(242,243,240,.18)'; c.lineWidth = 1; c.beginPath();
-      L.slice(0, 17).forEach(function (p, i) { i ? c.lineTo(ox + p[0] * w, p[1] * h) : c.moveTo(ox + p[0] * w, p[1] * h); }); c.stroke();
-      var bx = w - 88, by = 14;
-      c.fillStyle = 'rgba(10,11,13,.78)'; c.fillRect(bx - 8, by - 6, 84, bars.length * 16 + 10);
-      c.font = '500 9px "IBM Plex Mono", monospace';
-      bars.forEach(function (b, i) {
-        var val = Math.max(.02, b[1] + Math.sin(t / 600 + i * 1.7) * .06);
-        if (i === 0) v = val;
-        c.fillStyle = 'rgba(138,143,152,1)'; c.fillText(b[0], bx, by + i * 16 + 7);
-        c.fillStyle = 'rgba(255,255,255,.08)'; c.fillRect(bx + 26, by + i * 16, 44, 6);
-        c.fillStyle = i === 0 ? '#C8FF00' : '#C8F542'; c.fillRect(bx + 26, by + i * 16, 44 * Math.min(1, val), 6);
-      });
-      if (Math.floor(t / 300) % 2 === 0) r.textContent = (v >= 0 ? '+' : '') + v.toFixed(2);
-    };
-    m._draw = draw;
-  })(mons[1]);
-
-  /* --- C·03 GSR: conductancia con picos SCR --- */
-  (function (m) {
-    var cv = NG.canvas(m.querySelector('canvas')), r = m.querySelector('[data-r]');
-    var buf = [], base = 2.1, peaks = [], x = 0;
-    var draw = function (t, dt) {
-      var c = cv.ctx, w = cv.w, h = cv.h;
-      var steps = Math.max(1, Math.round((dt || 16) / 16));
-      for (var s = 0; s < steps; s++) {
-        x++;
-        if (Math.random() < .012) peaks.push({ t0: x, a: .6 + Math.random() * 1.6 });
-        var val = base + Math.sin(x / 90) * .08;
-        peaks = peaks.filter(function (p) { return x - p.t0 < 260; });
-        peaks.forEach(function (p) { var k = (x - p.t0); val += p.a * (1 - Math.exp(-k / 14)) * Math.exp(-k / 70); });
-        buf.push(val); if (buf.length > w) buf.shift();
-      }
-      c.clearRect(0, 0, w, h);
-      c.strokeStyle = 'rgba(255,255,255,.06)'; c.lineWidth = 1;
-      for (var i = 1; i < 4; i++) { c.beginPath(); c.moveTo(0, i * h / 4); c.lineTo(w, i * h / 4); c.stroke(); }
-      c.strokeStyle = '#C8F542'; c.lineWidth = 1.4; c.beginPath();
-      var off = w - buf.length;
-      buf.forEach(function (v, i) { var y = h * .82 - (v - 1.6) / 2.6 * h * .7; i ? c.lineTo(off + i, y) : c.moveTo(off + i, y); });
-      c.stroke();
-      var lv = buf[buf.length - 1] || base, ly = h * .82 - (lv - 1.6) / 2.6 * h * .7;
-      c.fillStyle = '#C8FF00'; c.beginPath(); c.arc(w - 2, ly, 3.5, 0, 6.283); c.fill();
-      if (Math.floor(t / 120) % 2 === 0) r.textContent = lv.toFixed(2);
-    };
-    m._draw = draw;
-  })(mons[2]);
-
-  /* Un solo bucle; se pausa fuera de viewport */
-  var start = function () {
-    on = true;
-    if (NG.rm) { mons.forEach(function (m) { m._draw(1000, 16); }); return; }
-    NG.loop(grid, function (t, dt) { mons.forEach(function (m) { m._draw(t, dt); }); });
-  };
-
+NG.boot('[data-ng="cta"]', function (sec) {
+  var ring = sec.querySelector('.ng-cta__ring'), img = sec.querySelector('.ng-cta__frame');
   NG.reveals(sec);
+  sec.querySelectorAll('[data-ng-magnet]').forEach(function (b) { NG.magnet(b, .35); });
   NG.ready().then(function (gsap) {
-    if (!gsap || NG.rm) { grid.classList.add('ng-is-ready'); start(); return; }
-    gsap.from(mons, {
-      autoAlpha: 0, y: 48, duration: 1, ease: 'power3.out', stagger: .14,
-      scrollTrigger: { trigger: grid, start: 'top 80%', once: true },
-      onStart: function () { start(); },
-      onComplete: function () { gsap.set(mons, { clearProps: 'transform,opacity,visibility' }); grid.classList.add('ng-is-ready'); }
-    });
-    ScrollTrigger.create({ trigger: grid, start: 'top 80%', once: true, onEnter: function () {
-      mons.forEach(function (m, i) { setTimeout(function () { m.classList.add('ng-is-flash'); }, 220 + i * 140); });
-    } });
+    if (!gsap || NG.rm) return;
+    var tl = gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top 85%', end: 'center 55%', scrub: true } });
+    tl.fromTo(ring, { scale: 1.6, autoAlpha: 0 }, { scale: .55, autoAlpha: 1, ease: 'none' }, 0);
+    if (img) tl.fromTo(img, { scale: .6 }, { scale: 1, ease: 'none' }, 0);
+    gsap.to(ring.querySelector('.ng-cta__r2'), { rotation: 360, transformOrigin: '50% 50%', duration: 40, repeat: -1, ease: 'none' });
   });
 });
 </script>

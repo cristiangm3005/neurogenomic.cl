@@ -30,12 +30,15 @@ URLS_WP = {
     "contacto": "/contacto/", "etica": "/#etica",
     "privacidad": "/privacidad/", "terminos": "/terminos/",
 }
+# Formulario de contacto → FormSubmit reenvía cada solicitud a este correo
+FORM_EMAIL = "cristiangm3005@gmail.com"
+FORM_ENDPOINT = f"https://formsubmit.co/ajax/{FORM_EMAIL}"
 IMG_STATIC = "img/"
 IMG_WP = "/img/"  # reemplazar por la ruta de la Biblioteca de medios al subir las imágenes
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
          '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">')
+         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">')
 
 # ---------------------------------------------------------------- Imágenes
 # key: (n, archivo, ancho, alto, proporción, alt, prompt, sizes, eager, retrato_movil)
@@ -94,7 +97,22 @@ OG = ("og-neurogenomic.jpg", "1200×630", "Composición del hero (ojo macro) con
 WIDTHS = [768, 1280, 1920, 2560]
 
 
+# Fotografías reales ya incluidas en img/ (recortes de las piezas de campaña de Neurogenomic)
+REAL = {
+    "dog": ("ref-dog", 655, 1200, "Retrato en blanco y negro de un perro que asoma tras una pared; un anillo verde lima marca la fijación sobre su ojo", True),
+    "dog-cta": ("ref-dog", 655, 1200, "Primer plano del ojo del perro con la pupila marcada por un anillo verde lima", False),
+    "can": ("ref-can", 570, 1590, "Lata negra con gotas de condensación y un mapa de calor de eye tracking pixelado sobre su superficie: la atención se concentra en el centro, la parte superior y la base", False),
+    "bottle": ("ref-bottle", 520, 1350, "Botella de vino oscura bajo un foco, con puntos de fijación verdes brillando sobre la etiqueta blanca y un eye tracker detrás", False),
+}
+
+
 def picture(key, base):
+    if key in REAL:
+        name, w, h, alt, eager = REAL[key]
+        load = 'loading="eager" fetchpriority="high"' if eager else 'loading="lazy" decoding="async"'
+        return (f'<picture><source type="image/avif" srcset="{base}{name}-{w}.avif">'
+                f'<img src="{base}{name}-{w}.webp" width="{w}" height="{h}" alt="{html.escape(alt)}" {load} '
+                f'onerror="this.classList.add(\'ng-is-missing\')"></picture>')
     n, name, w, h, ratio, alt, prompt, sizes, eager, portrait = IMAGES[key]
     def ss(nm, ext, widths=WIDTHS):
         return ", ".join(f"{base}{nm}-{x}.{ext} {x}w" for x in widths)
@@ -114,7 +132,7 @@ def picture(key, base):
 
 # ---------------------------------------------------------------- Servicios
 SERVICES = [
-    dict(id="svc-branding", key="branding", name="Branding", img="svc-branding", ratio="4/5",
+    dict(id="svc-branding", key="branding", name="Branding", img="can", ratio="4/5", pos="50% 42%",
          title="Identidad calibrada contra el cerebro del consumidor.",
          desc="Construimos identidades de marca probando cada decisión —nombre, color, tono, símbolo— contra respuesta emocional y atencional real, antes de salir al mercado.",
          chips=["Eye Tracking", "Facial Coding", "Naming", "Sistema Visual", "Brand Voice + IA"],
@@ -123,7 +141,7 @@ SERVICES = [
          stages=[("Auditoría biométrica", "Testeamos marca actual y referentes de categoría con eye tracking y codificación facial para mapear el terreno emocional disponible."),
                  ("Arquitectura de marca + IA", "Generamos y filtramos variantes de naming, paleta y tono con modelos de lenguaje, reduciendo a un set corto validado por hallazgos biométricos."),
                  ("Validación final", "El sistema ganador se testea de nuevo antes de producción, confirmando activación emocional y memorabilidad superiores al benchmark de categoría.")]),
-    dict(id="svc-bi", key="business-intelligence", name="Business Intelligence", img="svc-bi", ratio="16/9",
+    dict(id="svc-bi", key="business-intelligence", name="Business Intelligence", img="spec:bi", ratio="4/5",
          title="Datos biométricos y de negocio en un solo tablero.",
          desc="Integramos datos biométricos, de negocio y de comportamiento digital en un sistema único de decisión, con modelos predictivos que anticipan la respuesta del consumidor.",
          chips=["Dashboards", "Modelos Predictivos", "Data Biométrica", "Machine Learning"],
@@ -132,7 +150,7 @@ SERVICES = [
          stages=[("Unificación de fuentes", "Conectamos CRM, e-commerce, analítica web y data biométrica de estudios previos en una capa de datos común."),
                  ("Modelado predictivo", "Entrenamos modelos de IA sobre esa data unificada para anticipar churn, propensión de compra y respuesta a campañas antes de ejecutarlas."),
                  ("Dashboards accionables", "Construimos dashboards ejecutivos que traducen los modelos en alertas y recomendaciones de acción, no solo gráficos.")]),
-    dict(id="svc-ecommerce", key="ecommerce", name="E-commerce", img="svc-ecommerce", ratio="4/5",
+    dict(id="svc-ecommerce", key="ecommerce", name="E-commerce", img="spec:ecommerce", ratio="4/5",
          title="Arquitecturas de conversión basadas en fricción cognitiva.",
          desc="Diseñamos tiendas y catálogos donde cada fricción del recorrido de compra fue eliminada con base en eye tracking real sobre el flujo de checkout.",
          chips=["UX de Conversión", "Eye Tracking de Checkout", "Shopify / Headless", "Personalización con IA"],
@@ -141,7 +159,7 @@ SERVICES = [
          stages=[("Diagnóstico de fricción", "Eye tracking y grabación de sesiones reales sobre el flujo de checkout actual para ubicar los puntos exactos de abandono."),
                  ("Rediseño del flujo", "Reconstrucción de fichas de producto, carrito y checkout priorizando jerarquía visual validada biométricamente."),
                  ("Personalización con IA", "Motor de recomendación y búsqueda asistido por IA que adapta el catálogo mostrado al perfil de comportamiento de cada visitante.")]),
-    dict(id="svc-marketing", key="marketing-digital", name="Marketing Digital", img="svc-marketing", ratio="4/5",
+    dict(id="svc-marketing", key="marketing-digital", name="Marketing Digital", img="bottle", ratio="4/5", pos="50% 66%",
          title="Campañas pre-validadas con biometría, no con intuición.",
          desc="Diseñamos y operamos campañas que ya fueron probadas contra reacción emocional y atencional real antes de invertir un solo peso en medios.",
          chips=["Paid Media", "Pre-testing Biométrico", "Copy con IA", "CRO"],
@@ -150,7 +168,7 @@ SERVICES = [
          stages=[("Pre-testing biométrico", "Cada concepto creativo se testea con codificación facial y eye tracking en panel reducido antes de invertir en medios pagados."),
                  ("Producción asistida por IA", "Generamos variantes de copy y creativo con modelos de lenguaje e imagen, filtradas por los hallazgos del pre-testing."),
                  ("Optimización continua", "Operamos las campañas con testing A/B permanente, retroalimentando el modelo de audiencia con cada ciclo.")]),
-    dict(id="svc-seo", key="seo", name="SEO técnico y de contenido", img="svc-seo", ratio="4/5",
+    dict(id="svc-seo", key="seo", name="SEO técnico y de contenido", img="spec:seo", ratio="4/5",
          title="Visibilidad orgánica diseñada para motores e IA generativa.",
          desc="Posicionamos marcas en buscadores tradicionales y en los motores de respuesta de IA generativa, con contenido estructurado para ambos.",
          chips=["SEO Técnico", "AEO / GEO", "Contenido E-E-A-T", "Schema Markup"],
@@ -159,7 +177,7 @@ SERVICES = [
          stages=[("Auditoría técnica", "Revisión completa de arquitectura, velocidad, indexación y señales E-E-A-T sobre el sitio actual."),
                  ("Estrategia de contenido", "Mapa de intención de búsqueda cruzado con los dominios de atención y memoria, priorizando temas con mayor potencial de codificación de marca."),
                  ("Optimización para IA", "Estructuración de contenido y datos estructurados para maximizar la citabilidad en motores de respuesta generativa.")]),
-    dict(id="svc-software", key="software", name="Desarrollo de Software", img="svc-software", ratio="4/5",
+    dict(id="svc-software", key="software", name="Desarrollo de Software", img="spec:software", ratio="4/5",
          title="Producto digital con IA integrada de punta a punta.",
          desc="Construimos productos digitales a medida —desde landing pages hasta plataformas internas— con inteligencia artificial integrada desde la arquitectura, no añadida después.",
          chips=["Web & Apps", "Integración de IA", "WordPress / Elementor", "Automatización"],
@@ -169,6 +187,64 @@ SERVICES = [
                  ("Desarrollo iterativo", "Construcción en ciclos cortos con entregas funcionales tempranas, validadas con usuarios reales en cada iteración."),
                  ("IA nativa al producto", "Modelos de lenguaje y automatización conectados directamente a los datos de negocio: recomendación, soporte, generación de contenido o análisis.")]),
 ]
+
+
+# Ilustraciones de servicio dibujadas en código (estilo campaña: objeto en negro + heatmap térmico pixelado)
+_G = 'fill="none" stroke="#3A3F46" stroke-width="2"'
+SPECS = {
+    "ecommerce": dict(label="Zona crítica · Checkout", co=(.5, .80), heat=[[.5, .80, .07, 1], [.5, .35, .12, .75], [.42, .57, .06, .45]], svg=f"""
+      <rect x="128" y="50" width="144" height="300" rx="22" {_G}/><rect x="186" y="62" width="28" height="6" rx="3" fill="#3A3F46"/>
+      <rect x="144" y="86" width="112" height="96" rx="6" fill="#16191D"/><path d="M178 160 l22 -34 l22 34 Z" fill="#2A2E33"/>
+      <rect x="144" y="196" width="84" height="8" rx="4" fill="#3A3F46"/><rect x="144" y="212" width="60" height="6" rx="3" fill="#2A2E33"/>
+      <rect x="144" y="232" width="48" height="12" rx="3" fill="#F2F3F0" opacity=".7"/>
+      <rect x="144" y="256" width="112" height="6" rx="3" fill="#2A2E33"/><rect x="144" y="268" width="90" height="6" rx="3" fill="#2A2E33"/>
+      <rect x="144" y="296" width="112" height="30" rx="6" fill="#C8F542"/><text x="200" y="316" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" font-weight="600" fill="#0A0B0D">PAGAR</text>"""),
+    "bi": dict(label="Predicción · Señal", co=(.62, .37), heat=[[.62, .37, .1, 1], [.3, .2, .07, .5], [.5, .7, .08, .45]], svg=f"""
+      <rect x="40" y="60" width="320" height="300" rx="10" {_G}/>
+      <rect x="60" y="80" width="88" height="44" rx="4" fill="#16191D"/><rect x="156" y="80" width="88" height="44" rx="4" fill="#16191D"/><rect x="252" y="80" width="88" height="44" rx="4" fill="#16191D"/>
+      <rect x="70" y="92" width="40" height="6" rx="3" fill="#3A3F46"/><rect x="70" y="104" width="56" height="10" rx="3" fill="#F2F3F0" opacity=".6"/>
+      <rect x="166" y="92" width="40" height="6" rx="3" fill="#3A3F46"/><rect x="166" y="104" width="48" height="10" rx="3" fill="#F2F3F0" opacity=".6"/>
+      <rect x="262" y="92" width="40" height="6" rx="3" fill="#3A3F46"/><rect x="262" y="104" width="60" height="10" rx="3" fill="#C8F542"/>
+      <path d="M60 230 H340 M60 190 H340 M60 150 H340" stroke="#1F2328"/>
+      <polyline points="60,220 100,210 140,215 180,190 220,196 250,170" fill="none" stroke="#F2F3F0" stroke-width="2" opacity=".7"/>
+      <polyline points="250,170 280,150 310,158 340,132" fill="none" stroke="#C8F542" stroke-width="2.5" stroke-dasharray="6 5"/>
+      <g fill="#2A2E33"><rect x="70" y="290" width="22" height="50"/><rect x="104" y="270" width="22" height="70"/><rect x="138" y="300" width="22" height="40"/><rect x="172" y="262" width="22" height="78"/><rect x="206" y="282" width="22" height="58"/></g>
+      <rect x="240" y="252" width="22" height="88" fill="#C8F542"/><rect x="274" y="276" width="22" height="64" fill="#2A2E33"/><rect x="308" y="268" width="22" height="72" fill="#2A2E33"/>"""),
+    "seo": dict(label="Respuesta IA · Citada", co=(.5, .36), heat=[[.5, .36, .12, 1], [.35, .15, .06, .5], [.4, .62, .06, .35]], svg=f"""
+      <rect x="40" y="50" width="320" height="320" rx="10" {_G}/>
+      <rect x="64" y="72" width="272" height="30" rx="15" fill="#16191D" stroke="#3A3F46"/><circle cx="84" cy="87" r="6" fill="none" stroke="#8A8F98" stroke-width="2"/>
+      <rect x="100" y="83" width="110" height="8" rx="4" fill="#3A3F46"/>
+      <rect x="64" y="120" width="272" height="112" rx="8" fill="#111316" stroke="#C8F542" stroke-width="2"/>
+      <rect x="80" y="134" width="60" height="10" rx="3" fill="#C8F542"/>
+      <rect x="80" y="154" width="236" height="7" rx="3" fill="#F2F3F0" opacity=".55"/><rect x="80" y="168" width="220" height="7" rx="3" fill="#F2F3F0" opacity=".55"/><rect x="80" y="182" width="180" height="7" rx="3" fill="#F2F3F0" opacity=".55"/>
+      <rect x="80" y="204" width="88" height="14" rx="7" fill="none" stroke="#C8F542"/>
+      <g fill="#2A2E33"><rect x="64" y="252" width="150" height="9" rx="4"/><rect x="64" y="268" width="240" height="6" rx="3"/><rect x="64" y="280" width="200" height="6" rx="3"/>
+      <rect x="64" y="304" width="130" height="9" rx="4"/><rect x="64" y="320" width="250" height="6" rx="3"/><rect x="64" y="332" width="210" height="6" rx="3"/></g>"""),
+    "software": dict(label="IA nativa · Integrada", co=(.5, .48), heat=[[.5, .48, .11, 1], [.3, .27, .06, .45], [.45, .74, .06, .35]], svg=f"""
+      <rect x="40" y="60" width="320" height="300" rx="10" {_G}/><path d="M40 90 H360" stroke="#3A3F46" stroke-width="2"/>
+      <circle cx="58" cy="75" r="4" fill="#3A3F46"/><circle cx="72" cy="75" r="4" fill="#3A3F46"/><circle cx="86" cy="75" r="4" fill="#3A3F46"/>
+      <g font-family="IBM Plex Mono,monospace" font-size="11" fill="#5A5F66"><text x="56" y="118">01</text><text x="56" y="140">02</text><text x="56" y="162">03</text><text x="56" y="184">04</text><text x="56" y="206">05</text><text x="56" y="228">06</text><text x="56" y="250">07</text><text x="56" y="272">08</text><text x="56" y="294">09</text><text x="56" y="316">10</text></g>
+      <g><rect x="84" y="110" width="70" height="8" rx="3" fill="#8A8F98"/><rect x="160" y="110" width="90" height="8" rx="3" fill="#3A3F46"/>
+      <rect x="100" y="132" width="110" height="8" rx="3" fill="#3A3F46"/><rect x="100" y="154" width="60" height="8" rx="3" fill="#8A8F98"/><rect x="166" y="154" width="120" height="8" rx="3" fill="#3A3F46"/>
+      <rect x="84" y="186" width="250" height="56" rx="4" fill="rgba(200,245,66,.06)" stroke="#C8F542"/>
+      <rect x="100" y="198" width="54" height="8" rx="3" fill="#C8F542"/><rect x="160" y="198" width="140" height="8" rx="3" fill="#F2F3F0" opacity=".55"/>
+      <rect x="116" y="220" width="170" height="8" rx="3" fill="#F2F3F0" opacity=".55"/>
+      <rect x="100" y="264" width="90" height="8" rx="3" fill="#3A3F46"/><rect x="100" y="286" width="150" height="8" rx="3" fill="#3A3F46"/><rect x="84" y="308" width="40" height="8" rx="3" fill="#8A8F98"/>
+      <rect x="130" y="306" width="2" height="12" fill="#C8FF00"/></g>"""),
+}
+
+
+def svc_visual(s):
+    k = s["img"]
+    if k.startswith("spec:"):
+        sp = SPECS[k[5:]]
+        return (f'<div class="ng-spec" style="aspect-ratio:{s["ratio"]}" data-heat=\'{json.dumps(sp["heat"])}\'>'
+                f'<svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Ilustración de {html.escape(s["name"])} con mapa de calor de atención">{sp["svg"]}</svg>'
+                f'<canvas class="ng-spec__heat" aria-hidden="true"></canvas>'
+                f'<span class="ng-co ng-spec__co" style="left:{sp["co"][0]*100:.0f}%;top:{sp["co"][1]*100:.0f}%" aria-hidden="true"><span class="ng-co__dot"></span><span class="ng-co__ln" style="--ng-co-w:28px"></span><span>{html.escape(sp["label"])}</span></span>'
+                f'<span class="ng-marks" aria-hidden="true"><i></i></span></div>')
+    pos = s.get("pos", "50% 50%")
+    return (f'<div class="ng-media ng-svc__photo" style="aspect-ratio:{s["ratio"]};--ng-pos:{pos}" data-ph="/img/{REAL[k][0]}">{{{{img:{k}}}}}</div>')
 
 
 def services_html():
@@ -190,7 +266,7 @@ def services_html():
             <a class="ng-btn ng-btn--volt ng-svc__cta" href="{{{{u:contacto}}}}?servicio={s["key"]}">Solicitar diagnóstico <span class="ng-sr">de {html.escape(s["name"])}</span><span class="ng-btn__i" aria-hidden="true">↗</span></a>
           </div>
           <figure class="ng-svc__fig">
-            <div class="ng-media" style="aspect-ratio:{s["ratio"]}" data-ph="/img/{IMAGES[s["img"]][1]} · {IMAGES[s["img"]][4]}">{{{{img:{s["img"]}}}}}</div>
+            {svc_visual(s)}
             <figcaption class="ng-mono" aria-hidden="true"><span>S·{i:02d}</span><span>{html.escape(s["name"])}</span></figcaption>
           </figure>
         </div>
@@ -207,7 +283,7 @@ PAGEHEADS = {
     "tecnologia": dict(eyebrow="Registro en vivo — sesión de medición biométrica",
                        title="La intuición no se mide. La atención, sí.",
                        text="Eye tracking, facial coding y respuesta galvánica, cruzados con modelos de IA propios, para convertir reacciones no conscientes en una decisión validada antes de construir.",
-                       meta="03 señales · IA propia", media="lab"),
+                       meta="03 señales · IA propia", media=None),
     "contacto": dict(eyebrow="Contacto · Formulario de cotización",
                      title="Empieza hoy.",
                      text="Cuéntanos qué servicio necesitas hoy. El diagnóstico inicial es la base de todo lo que viene después.",
@@ -219,7 +295,7 @@ PAGES = {
     "index": dict(file="index.html", path="/",
                   title="Neurogenomic · Neuromarketing e IA para decisiones de marca con evidencia",
                   desc="Agencia chilena de neuromarketing e inteligencia biométrica: eye tracking, facial coding y respuesta galvánica cruzados con IA para optimizar marca, campañas, e-commerce y software.",
-                  sections=["nav", "s0-preloader", "s1-hero", "s2-gaze", "s3-stat", "s4-signals", "s5-services",
+                  sections=["nav", "s0-preloader", "s1-hero", "s2-gaze", "s2b-pack", "s3-stat", "s3b-said", "s4-signals", "s5-services",
                             "s6-method", "s7-why", "s8-case", "s9-ethics", "s10-cta", "footer"]),
     "servicios": dict(file="servicios.html", path="/servicios/",
                       title="Servicios · Neurogenomic — Seis servicios, un framework de evidencia",
@@ -228,7 +304,7 @@ PAGES = {
     "tecnologia": dict(file="tecnologia.html", path="/tecnologia/",
                        title="Tecnología · Neurogenomic — Eye tracking, facial coding y GSR con IA",
                        desc="Biometría real: tres señales involuntarias (atención, emoción y activación) cruzadas con modelos de IA propios, bajo la Ley 21.719.",
-                       sections=["nav", "pagehead", "s4-signals", "s2-gaze", "s3-stat", "s8-case", "s9-ethics", "s10-cta", "footer"]),
+                       sections=["nav", "pagehead", "s3b-said", "s4-signals", "s2-gaze", "s2b-pack", "s3-stat", "s8-case", "s9-ethics", "s10-cta", "footer"]),
     "contacto": dict(file="contacto.html", path="/contacto/",
                      title="Contacto · Neurogenomic — Solicita tu diagnóstico",
                      desc="Formulario de cotización: cuéntanos qué servicio necesitas y agenda el diagnóstico inicial con Neurogenomic.",
@@ -274,6 +350,7 @@ def render(text, urls, imgbase, page=None):
         for k in ("eyebrow", "title", "text", "meta"):
             text = text.replace("{{ph:%s}}" % k, html.escape(ph[k]))
         text = text.replace("{{ph:media}}", media)
+    text = text.replace("{{form_endpoint}}", FORM_ENDPOINT)
     text = re.sub(r"\{\{img:([\w-]+)\}\}", lambda m: picture(m.group(1), imgbase), text)
     text = re.sub(r"\{\{u:(\w+)\}\}", lambda m: urls[m.group(1)], text)
     assert "{{" not in text, re.findall(r"\{\{[^}]*\}\}", text)[:3]
@@ -363,27 +440,31 @@ def build_page(key):
 ELEMENTOR = [
     ("00-global-nav", "nav", "index", "Header fijo, barra de progreso, menú móvil, cursor de fijación y grano. Pégalo en el header (Theme Builder) o al inicio de cada página."),
     ("01-s0-preloader", "s0-preloader", "index", "Solo en la página de inicio, justo después del header."),
-    ("02-s1-hero", "s1-hero", "index", ""),
+    ("02-s1-hero", "s1-hero", "index", "Usa img/ref-dog-655.(avif|webp)."),
     ("03-s2-asi-mira", "s2-gaze", "index", ""),
-    ("04-s3-dato-95", "s3-stat", "index", ""),
-    ("05-s4-tecnologia", "s4-signals", "index", ""),
-    ("06-s5-servicios", "s5-services", "index", ""),
-    ("07-s6-metodo", "s6-method", "index", ""),
-    ("08-s7-por-que", "s7-why", "index", ""),
-    ("09-s8-caso", "s8-case", "index", ""),
-    ("10-s9-etica", "s9-ethics", "index", ""),
-    ("11-s10-cta-final", "s10-cta", "index", ""),
-    ("12-footer", "footer", "index", "Pégalo en el footer (Theme Builder)."),
-    ("13-pagehead-servicios", "pagehead", "servicios", "Cabecera con H1 de /servicios/."),
-    ("14-pagehead-tecnologia", "pagehead", "tecnologia", "Cabecera con H1 de /tecnologia/."),
-    ("15-pagehead-contacto", "pagehead", "contacto", "Cabecera con H1 de /contacto/."),
-    ("16-contacto-formulario", "contact-form", "contacto", "Formulario en 4 pasos. Conecta el envío en data-endpoint."),
+    ("04-s2b-packaging", "s2b-pack", "index", "Usa img/ref-can-570.(avif|webp)."),
+    ("05-s3-dato-95", "s3-stat", "index", ""),
+    ("06-s3b-no-se-dice", "s3b-said", "index", "Usa img/ref-bottle-520.(avif|webp)."),
+    ("07-s4-tecnologia", "s4-signals", "index", ""),
+    ("08-s5-servicios", "s5-services", "index", "Usa ref-can y ref-bottle; el resto de ilustraciones va dibujado en SVG."),
+    ("09-s6-metodo", "s6-method", "index", ""),
+    ("10-s7-por-que", "s7-why", "index", ""),
+    ("11-s8-caso", "s8-case", "index", ""),
+    ("12-s9-etica", "s9-ethics", "index", ""),
+    ("13-s10-cta-final", "s10-cta", "index", "Usa img/ref-dog-655.(avif|webp)."),
+    ("14-footer", "footer", "index", "Pégalo en el footer (Theme Builder)."),
+    ("15-pagehead-servicios", "pagehead", "servicios", "Cabecera con H1 de /servicios/."),
+    ("16-pagehead-tecnologia", "pagehead", "tecnologia", "Cabecera con H1 de /tecnologia/."),
+    ("17-pagehead-contacto", "pagehead", "contacto", "Cabecera con H1 de /contacto/."),
+    ("18-contacto-formulario", "contact-form", "contacto", "Formulario en 4 pasos. Envía a FORM_EMAIL vía FormSubmit (ver README)."),
 ]
 
 
 def build_elementor():
     out = ROOT / "elementor"
     out.mkdir(exist_ok=True)
+    for old in out.glob("*.html"):
+        old.unlink()
     tokens = min_css(read("core/tokens.css"))
     core = read("core/core.js").strip()
     for fname, sec, page, note in ELEMENTOR:
@@ -400,24 +481,22 @@ def build_elementor():
 
 
 def build_images_md():
-    rows = ["# Imágenes necesarias · Neurogenomic 2026", "",
-            "Todas en AVIF + WebP, nítidas (sin blur ni velos), color grading hacia negros profundos con toques de verde volt `#C8F542`.",
-            "Exporta cada imagen en **768 / 1280 / 1920 / 2560 px** de ancho con el patrón `nombre-ANCHO.avif` y `nombre-ANCHO.webp`",
-            "(p. ej. `hero-eye-1920.avif`). Las variantes `-portrait` (9:16) solo necesitan 768 y 1280.", "",
-            "Mientras una imagen no exista, el sitio muestra un placeholder técnico con el nombre del archivo (no una imagen rota).", "",
-            "| # | Archivo base | Proporción | Dónde se usa | Prompt de generación |", "|---|---|---|---|---|"]
-    where = {"hero": "S1 Hero", "svc-branding": "S5 Servicio 01 Branding", "svc-bi": "S5 Servicio 02 BI",
-             "facial": "S4 panel C·02 Facial coding", "gsr": "S4 panel C·03 GSR", "lab": "S6 Método + cabecera Tecnología",
-             "ethics": "S9 Ética", "cta": "S10 CTA final (cierre narrativo)", "svc-ecommerce": "S5 Servicio 03 E-commerce",
-             "svc-marketing": "S5 Servicio 04 Marketing", "svc-seo": "S5 Servicio 05 SEO", "svc-software": "S5 Servicio 06 Software"}
-    for k, v in sorted(IMAGES.items(), key=lambda kv: kv[1][0]):
-        n, name, w, h, ratio, alt, prompt, *_ = v
-        extra = " *(añadida: el brief no traía prompt para este servicio)*" if n >= 9 else ""
-        extra = " *(variante del hero, pupila contraída)*" if k == "cta" else extra
-        rows.append(f"| {n:02d} | `{name}` | {ratio} | {where[k]}{extra} | {prompt} |")
-    rows += ["", f"| OG | `{OG[0]}` | 1200×630 | Open Graph / redes | {OG[2]} |", "",
-             "Para la variante móvil del hero y del CTA, genera el mismo prompt en **9:16** y nómbralo `hero-eye-portrait` / `cta-eye-contracted-portrait`.",
-             "", "Ajusta la variable CSS `--ng-pupil` (por defecto `64% 46%`) en `.ng-hero__media img` y `.ng-cta__media img` para que el zoom de scroll apunte exactamente a la pupila de tu foto."]
+    rows = ["# Imágenes · Neurogenomic 2026", "",
+            "## Incluidas (ya en `img/`)", "",
+            "Recortes de las piezas de campaña de Neurogenomic, sin el texto incrustado. Se sirven en AVIF con respaldo WebP.", "",
+            "| Archivo | Tamaño | Dónde se usa |", "|---|---|---|",
+            "| `ref-dog-655.avif / .webp` | 655×1200 | Hero (panel derecho, anillo de fijación sobre el ojo) y CTA final (primer plano del ojo) |",
+            "| `ref-can-570.avif / .webp` | 570×1590 | Sección «Tu packaging tiene una mirada para ganar» y Servicio 01 · Branding |",
+            "| `ref-bottle-520.avif / .webp` | 520×1350 | Sección «Lo que no se dice sí se mide» y Servicio 04 · Marketing Digital |", "",
+            "Business Intelligence, E-commerce, SEO y Software usan ilustraciones dibujadas en SVG con mapa de calor térmico pixelado (no necesitan archivo).", "",
+            "## Opcionales (para subir la resolución o reemplazar ilustraciones)", "",
+            "Los originales miden entre 1080 y 1500 px. Para pantallas grandes conviene regenerarlos a ≥ 2000 px de alto con el mismo estilo:",
+            "negro puro, un solo foco, objeto hiperrealista y heatmap térmico pixelado (lima → amarillo → naranja → rojo). Prompts sugeridos:", "",
+            "| Uso | Prompt |", "|---|---|"]
+    for k in ("svc-ecommerce", "svc-bi", "svc-seo", "svc-software", "hero"):
+        v = IMAGES[k]
+        rows.append(f"| {v[1]} ({v[4]}) | {v[6]} |")
+    rows += ["", f"| OG | `{OG[0]}` 1200×630 · {OG[2]} |"]
     (ROOT / "IMAGENES.md").write_text("\n".join(rows) + "\n", encoding="utf-8")
 
 

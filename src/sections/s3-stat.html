@@ -4,8 +4,8 @@
 .ng-stat__sig{position:absolute;left:0;right:0;top:50%;height:220px;margin-top:-110px;width:100%;z-index:-1;pointer-events:none}
 .ng-stat__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end}
 .ng-stat__lbl{grid-column:1/-1;display:flex;justify-content:space-between;gap:16px;color:var(--ng-tx2);margin-bottom:12px}
-.ng-stat__num{grid-column:1/span 7;position:relative;font-size:clamp(150px,30vw,520px);line-height:.8;letter-spacing:-.06em;font-weight:500;font-variant-numeric:tabular-nums;white-space:nowrap}
-.ng-stat__o{color:transparent;-webkit-text-stroke:1px rgba(242,243,240,.35)}
+.ng-stat__num{grid-column:1/span 7;position:relative;font-size:clamp(150px,30vw,520px);line-height:.82;letter-spacing:0;font-family:var(--ng-disp);font-weight:400;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ng-stat__o{color:rgba(242,243,240,.07)}
 .ng-stat__f{position:absolute;inset:0;overflow:hidden}
 .ng-stat__f>span{display:block;color:var(--ng-volt)}
 .ng-stat__d{display:inline-block;min-width:2ch;text-align:right}
@@ -14,7 +14,7 @@
 .ng-stat__copy p:first-child{font-size:clamp(20px,1.9vw,30px);line-height:1.2;letter-spacing:-.015em}
 .ng-stat__src{margin-top:20px;color:var(--ng-tx2)}
 .ng-stat__end{grid-column:1/-1;margin-top:clamp(40px,6vw,96px);padding-top:24px;border-top:1px solid var(--ng-line);display:flex;justify-content:space-between;align-items:baseline;gap:24px;flex-wrap:wrap}
-.ng-stat__end p{font-size:clamp(26px,3.4vw,56px);line-height:1;letter-spacing:-.03em;font-weight:500;max-width:22ch}
+.ng-stat__end p{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(34px,4.4vw,76px);line-height:.92;letter-spacing:0;font-weight:400;max-width:22ch}
 @media (max-width:899px){
   .ng-stat__num,.ng-stat__copy{grid-column:1/-1}
   .ng-stat__num{font-size:clamp(130px,44vw,300px)}

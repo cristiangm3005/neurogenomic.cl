@@ -20,7 +20,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
 
 <style>
 :root{
@@ -34,6 +34,7 @@
 --ng-volt:#C8F542;
 --ng-lime:#C8FF00;
 --ng-ff:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+--ng-disp:'Anton','Bebas Neue',Impact,'Arial Narrow Bold',sans-serif;
 --ng-mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
 --ng-ease:cubic-bezier(.16,1,.3,1);
 --ng-gut:clamp(16px,4.4vw,72px);
@@ -63,13 +64,23 @@ font-size:16px;line-height:1.55;font-weight:400;
 .ng-mono{font-family:var(--ng-mono);font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;line-height:1.4}
 .ng-eyebrow{color:var(--ng-volt);display:inline-flex;align-items:center;gap:10px}
 .ng-eyebrow::before{content:"";width:18px;height:1px;background:currentColor}
-.ng-h2{font-size:clamp(36px,5.6vw,96px);line-height:.95;letter-spacing:-.03em;font-weight:500;text-wrap:balance}
+.ng-disp,.ng-h2{font-family:var(--ng-disp);font-weight:400;text-transform:uppercase;letter-spacing:-.005em;line-height:.9}
+.ng-h2{font-size:clamp(46px,6.6vw,124px);text-wrap:balance}
+.ng-hl{color:var(--ng-lime)}
+.ng-strip{display:flex;align-items:center;gap:clamp(12px,2vw,28px);font:500 clamp(11px,1vw,14px)/1.3 var(--ng-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ng-lime)}
+.ng-strip::before,.ng-strip::after{content:"";flex:1 1 40px;min-width:24px;height:1px;background:var(--ng-lime)}
+.ng-strip i{font-style:normal;opacity:.7}
+@media (max-width:599px){.ng-strip{flex-wrap:wrap;justify-content:center;gap:8px 12px}.ng-strip::before,.ng-strip::after{flex-basis:100%;order:0}.ng-strip::after{order:9}}
+.ng-co{position:absolute;display:flex;align-items:center;gap:12px;pointer-events:none;font:500 clamp(10px,.95vw,13px)/1.5 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-lime);white-space:nowrap}
+.ng-co__dot{flex:0 0 auto;width:12px;height:12px;border-radius:50%;background:var(--ng-lime);box-shadow:0 0 0 4px rgba(200,255,0,.18),0 0 18px rgba(200,255,0,.8)}
+.ng-co__ln{flex:0 0 auto;width:var(--ng-co-w,90px);height:1px;background:var(--ng-lime);transform-origin:0 50%}
+.ng-co b{font-weight:500;color:var(--ng-tx)}
 .ng-h3{font-size:clamp(26px,2.8vw,44px);line-height:1;letter-spacing:-.025em;font-weight:500}
 .ng-lead{font-size:clamp(18px,1.5vw,22px);line-height:1.45;color:var(--ng-tx);font-weight:300;max-width:46ch}
 .ng-body{color:var(--ng-tx2);max-width:60ch}
 .ng-volt{color:var(--ng-volt)}
 .ng-sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.ng-w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.ng-w{display:inline-block;overflow:hidden;vertical-align:top;padding:.16em .02em .1em;margin:-.16em -.02em -.1em}
 .ng-w>span{display:inline-block;will-change:transform}
 .ng-btn{
 --_bg:transparent;--_fg:var(--ng-tx);--_bd:var(--ng-line2);
@@ -162,7 +173,7 @@ html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{c
 }
 .ng-ph{padding:calc(var(--ng-nav-h) + clamp(64px,10vw,160px)) 0 clamp(56px,7vw,112px)}
 .ng-ph__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end}
-.ng-ph__t{grid-column:1/span 10;font-size:clamp(46px,7.6vw,140px);line-height:.95;letter-spacing:-.045em;font-weight:500;margin-top:24px;text-wrap:balance}
+.ng-ph__t{grid-column:1/span 11;font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(56px,9vw,170px);line-height:.88;letter-spacing:0;font-weight:400;margin-top:24px;text-wrap:balance}
 .ng-ph__p{grid-column:1/span 6;margin-top:clamp(20px,2.4vw,36px);font-size:clamp(18px,1.5vw,22px);font-weight:300;line-height:1.45}
 .ng-ph__meta{grid-column:9/span 4;justify-self:end;color:var(--ng-tx2);text-align:right}
 .ng-ph__meta b{color:var(--ng-lime);font-weight:500}
@@ -173,6 +184,27 @@ html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{c
 .ng-ph__meta{grid-column:1/-1;justify-self:start;text-align:left}
 .ng-ph__media{aspect-ratio:4/3}
 }
+.ng-said{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:clamp(80px,9vw,140px) 0;background:#000}
+.ng-said__beam{position:absolute;left:-10%;top:-20%;width:60%;height:130%;z-index:-1;pointer-events:none;transform-origin:0 0;
+background:linear-gradient(118deg,rgba(242,243,240,.13) 0%,rgba(242,243,240,.05) 32%,rgba(242,243,240,0) 58%);
+clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out infinite alternate}
+@keyframes ng-beam{from{transform:rotate(-2deg)}to{transform:rotate(2.5deg)}}
+.ng-said__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:center}
+.ng-said__copy{grid-column:1/span 6}
+.ng-said__t{font-size:clamp(66px,9.6vw,184px);line-height:.88}
+.ng-said__brand{margin-top:clamp(20px,2.4vw,32px);font:500 clamp(14px,1.3vw,20px)/1 var(--ng-mono);letter-spacing:.14em;color:var(--ng-lime);text-shadow:0 0 14px rgba(200,255,0,.55)}
+.ng-said__p{margin-top:clamp(28px,3vw,44px);color:var(--ng-tx2);max-width:44ch}
+.ng-said__stage{grid-column:8/span 5;display:flex;justify-content:center}
+.ng-said__fig{position:relative;height:min(86vh,820px);aspect-ratio:520/1350;margin:0}
+.ng-said__fig .ng-media{position:absolute;inset:0;border-radius:0;background:#000}
+.ng-said__fix{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.ng-said__fix circle{fill:none;stroke:var(--ng-lime);stroke-width:1.5;vector-effect:non-scaling-stroke}
+@media (max-width:1023px){
+.ng-said__copy,.ng-said__stage{grid-column:1/-1}
+.ng-said__fig{height:min(70svh,600px)}
+.ng-said__beam{width:110%}
+}
+@media (prefers-reduced-motion:reduce){.ng-said__beam{animation:none}}
 .ng-sig{padding:clamp(96px,12vw,180px) 0}
 .ng-sig__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:clamp(40px,5vw,80px)}
 .ng-sig__head .ng-head{grid-column:1/span 8;margin:0}
@@ -195,7 +227,7 @@ html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{c
 .ng-mon__read{position:absolute;left:10px;bottom:10px;font:500 12px/1 var(--ng-mono);letter-spacing:.08em;color:var(--ng-lime);background:rgba(10,11,13,.82);padding:7px 9px;border-radius:3px;font-variant-numeric:tabular-nums}
 .ng-mon__body{padding:18px 4px 4px;display:grid;gap:8px}
 .ng-mon__k{color:var(--ng-tx2)}
-.ng-mon__t{font-size:clamp(26px,2.4vw,38px);line-height:1;letter-spacing:-.03em;font-weight:500}
+.ng-mon__t{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(32px,2.8vw,46px);line-height:.95;font-weight:400}
 .ng-mon__d{color:var(--ng-tx2);font-size:15px;max-width:34ch}
 .ng-mon__hint{margin-top:auto;padding-top:14px;color:var(--ng-tx2);display:flex;justify-content:space-between}
 @media (max-width:1023px){
@@ -260,12 +292,38 @@ html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{c
 .ng-gaze__stagewrap{grid-column:1/-1}
 }
 @media (max-width:420px){.ng-gaze__meta span:last-child{display:none}}
+.ng-pack{padding:clamp(96px,11vw,170px) 0 clamp(56px,6vw,96px);background:#000}
+.ng-pack__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:center}
+.ng-pack__copy{grid-column:1/span 6}
+.ng-pack__t{font-size:clamp(64px,9vw,176px);line-height:.86;margin:clamp(20px,2.4vw,32px) 0 clamp(24px,3vw,40px)}
+.ng-pack__p{font-size:clamp(20px,1.9vw,30px);line-height:1.25;font-weight:400;max-width:20ch}
+.ng-pack__demo{margin-top:clamp(24px,3vw,40px);color:var(--ng-tx2)}
+.ng-pack__stage{grid-column:7/span 6;position:relative;display:flex;justify-content:flex-start;padding-left:clamp(0px,4vw,64px)}
+.ng-pack__fig{position:relative;height:min(84vh,820px);aspect-ratio:570/1590;margin:0}
+.ng-pack__fig .ng-media{position:absolute;inset:0;border-radius:0;background:#000}
+.ng-pack__scan{position:absolute;inset:3% 6% 8%;pointer-events:none;overflow:hidden;mix-blend-mode:screen}
+.ng-pack__scan i{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--ng-lime);box-shadow:0 0 16px 2px rgba(200,255,0,.7);animation:ng-scan 3.6s cubic-bezier(.65,0,.35,1) infinite alternate}
+@keyframes ng-scan{from{transform:translateY(calc(-1 * var(--ng-scan-h,700px)))}to{transform:translateY(0)}}
+.ng-pack .ng-co{left:100%;transform:translateY(-50%)}
+.ng-pack .ng-co__txt{display:grid;gap:2px}
+.ng-pack__strip{margin-top:clamp(48px,6vw,96px)}
+@media (max-width:1023px){
+.ng-pack__copy,.ng-pack__stage{grid-column:1/-1}
+.ng-pack__stage{padding-left:0;margin-top:24px}
+.ng-pack__fig{height:min(72svh,620px)}
+}
+@media (max-width:599px){
+.ng-pack__fig{height:min(64svh,500px)}
+.ng-pack .ng-co{gap:6px;font-size:9.5px;letter-spacing:.06em}
+.ng-pack .ng-co__ln{--ng-co-w:18px}
+}
+@media (prefers-reduced-motion:reduce){.ng-pack__scan{display:none}}
 .ng-stat{padding:clamp(96px,12vw,200px) 0}
 .ng-stat__sig{position:absolute;left:0;right:0;top:50%;height:220px;margin-top:-110px;width:100%;z-index:-1;pointer-events:none}
 .ng-stat__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end}
 .ng-stat__lbl{grid-column:1/-1;display:flex;justify-content:space-between;gap:16px;color:var(--ng-tx2);margin-bottom:12px}
-.ng-stat__num{grid-column:1/span 7;position:relative;font-size:clamp(150px,30vw,520px);line-height:.8;letter-spacing:-.06em;font-weight:500;font-variant-numeric:tabular-nums;white-space:nowrap}
-.ng-stat__o{color:transparent;-webkit-text-stroke:1px rgba(242,243,240,.35)}
+.ng-stat__num{grid-column:1/span 7;position:relative;font-size:clamp(150px,30vw,520px);line-height:.82;letter-spacing:0;font-family:var(--ng-disp);font-weight:400;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ng-stat__o{color:rgba(242,243,240,.07)}
 .ng-stat__f{position:absolute;inset:0;overflow:hidden}
 .ng-stat__f>span{display:block;color:var(--ng-volt)}
 .ng-stat__d{display:inline-block;min-width:2ch;text-align:right}
@@ -274,7 +332,7 @@ html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{c
 .ng-stat__copy p:first-child{font-size:clamp(20px,1.9vw,30px);line-height:1.2;letter-spacing:-.015em}
 .ng-stat__src{margin-top:20px;color:var(--ng-tx2)}
 .ng-stat__end{grid-column:1/-1;margin-top:clamp(40px,6vw,96px);padding-top:24px;border-top:1px solid var(--ng-line);display:flex;justify-content:space-between;align-items:baseline;gap:24px;flex-wrap:wrap}
-.ng-stat__end p{font-size:clamp(26px,3.4vw,56px);line-height:1;letter-spacing:-.03em;font-weight:500;max-width:22ch}
+.ng-stat__end p{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(34px,4.4vw,76px);line-height:.92;letter-spacing:0;font-weight:400;max-width:22ch}
 @media (max-width:899px){
 .ng-stat__num,.ng-stat__copy{grid-column:1/-1}
 .ng-stat__num{font-size:clamp(130px,44vw,300px)}
@@ -311,7 +369,7 @@ html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{c
 .ng-eth{padding:clamp(96px,12vw,180px) 0}
 .ng-eth__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:start;margin-bottom:clamp(40px,5vw,72px)}
 .ng-eth__head .ng-head{grid-column:1/span 7;margin:0}
-.ng-eth__head .ng-body{grid-column:1/span 6;color:var(--ng-tx);font-weight:300;font-size:clamp(17px,1.3vw,20px)}
+.ng-eth__head .ng-body{grid-column:8/span 5;align-self:end;color:var(--ng-tx);font-weight:300;font-size:clamp(17px,1.3vw,20px)}
 .ng-eth__head .ng-media{grid-column:8/span 5;grid-row:1/span 2;aspect-ratio:16/9;align-self:end}
 .ng-eth__doc{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ng-line);border-radius:8px;background:var(--ng-bg)}
 .ng-eth__col{padding:clamp(20px,2.4vw,36px)}
@@ -332,21 +390,24 @@ html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{c
 }
 @media (max-width:479px){.ng-log li{grid-template-columns:auto 1fr}.ng-log__st{display:none}}
 .ng-cta{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:clamp(96px,10vw,160px) 0}
-.ng-cta__media{position:absolute;inset:0;z-index:-2;border-radius:0}
-.ng-cta__media img{transform-origin:var(--ng-pupil,64% 46%)}
-.ng-cta__shade{position:absolute;inset:0 auto 0 0;width:min(100%,900px);z-index:-1;pointer-events:none;background:radial-gradient(100% 80% at 0% 50%,rgba(10,11,13,.85) 0%,rgba(10,11,13,.5) 45%,rgba(10,11,13,0) 75%)}
-.ng-cta__ring{overflow:visible;position:absolute;left:var(--ng-px,64%);top:var(--ng-py,46%);width:min(60vw,640px);aspect-ratio:1;translate:-50% -50%;z-index:-1;pointer-events:none}
+.ng-cta{--ng-dogw:min(calc(100svh * .62),50vw);background:#000}
+.ng-cta__dog{position:absolute;top:0;right:0;bottom:0;width:var(--ng-dogw);overflow:hidden;background:#8b8b8b;z-index:-2}
+.ng-cta__frame{position:absolute;top:50%;left:50%;width:220%;aspect-ratio:655/1200;translate:-44.3% -50.8%;transform-origin:44.3% 50.8%}
+.ng-cta__frame .ng-media{position:absolute;inset:0;border-radius:0;background:#8b8b8b}
+.ng-cta__ring{overflow:visible;position:absolute;left:50%;top:50%;width:min(44vw,520px);aspect-ratio:1;translate:-50% -50%;pointer-events:none}
 .ng-cta__ring circle{fill:none;stroke:var(--ng-lime);stroke-width:1;vector-effect:non-scaling-stroke}
 .ng-cta__ring .ng-cta__r2{stroke:rgba(200,255,0,.35);stroke-dasharray:2 6}
 .ng-cta__ring text{font-family:var(--ng-mono);font-size:4.2px;font-weight:500;letter-spacing:.6px;fill:var(--ng-lime)}
-.ng-cta__in{max-width:900px}
-.ng-cta__t{font-size:clamp(44px,7vw,128px);line-height:.95;letter-spacing:-.045em;font-weight:500;margin:22px 0 28px;text-wrap:balance}
+.ng-cta__in{max-width:900px;padding-right:calc(var(--ng-dogw) - var(--ng-gut))}
+.ng-cta__t{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(50px,6.2vw,122px);line-height:.88;letter-spacing:0;font-weight:400;margin:22px 0 28px;text-wrap:balance}
 .ng-cta__p{font-size:clamp(18px,1.5vw,22px);font-weight:300;max-width:44ch;color:var(--ng-tx)}
 .ng-cta__btn{margin-top:clamp(32px,4vw,56px);min-height:clamp(64px,7vw,96px);padding:0 clamp(28px,3vw,48px);font-size:clamp(17px,1.4vw,22px);border-radius:999px}
 .ng-cta__btn .ng-btn__t{display:inline-flex;gap:14px;align-items:center}
 @media (max-width:899px){
-.ng-cta{align-items:flex-end}
-.ng-cta__shade{width:100%;background:linear-gradient(0deg,rgba(10,11,13,.9) 0%,rgba(10,11,13,.65) 50%,rgba(10,11,13,0) 85%)}
+.ng-cta{flex-direction:column;align-items:stretch;padding-top:0}
+.ng-cta__dog{position:relative;width:100%;height:52svh;min-height:300px;z-index:0;margin-bottom:32px}
+.ng-cta__ring{width:70vw}
+.ng-cta__in{padding-right:0}
 .ng-cta__btn{width:100%}
 }
 .ng-foot{position:relative;background:var(--ng-bg);border-top:1px solid var(--ng-line);overflow:hidden;padding-top:clamp(64px,8vw,120px)}
@@ -363,7 +424,7 @@ html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{c
 .ng-foot__col a{display:inline-flex;align-items:center;min-height:36px;color:var(--ng-tx);font-size:15px;transition:color .3s}
 .ng-foot__col a:hover{color:var(--ng-volt)}
 .ng-foot__bot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:clamp(48px,6vw,96px);padding:20px 0;border-top:1px solid var(--ng-line);color:var(--ng-tx2)}
-.ng-foot__mark{display:block;width:max-content;font-size:clamp(44px,12.4vw,240px);line-height:.8;font-weight:700;letter-spacing:-.06em;color:var(--ng-tx);white-space:nowrap;margin-bottom:-.18em;margin-left:max(0px,calc((100% - var(--ng-max)) / 2));padding-left:var(--ng-gut);user-select:none}
+.ng-foot__mark{display:block;width:max-content;font-size:clamp(44px,12.4vw,240px);line-height:.8;font-family:var(--ng-disp);font-weight:400;letter-spacing:.02em;color:var(--ng-tx);white-space:nowrap;margin-bottom:-.18em;margin-left:max(0px,calc((100% - var(--ng-max)) / 2));padding-left:var(--ng-gut);user-select:none}
 .ng-foot__mark span{display:inline-block;color:var(--ng-volt)}
 @media (max-width:1023px){
 .ng-foot__brand{grid-column:1/-1}
@@ -554,37 +615,48 @@ html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{c
     return o;
   };
 
-  /* --- Heatmap monocromático dentro de la paleta (volt → lima → blanco) */
+  /* --- Heatmap térmico pixelado (estilo campaña: lima → amarillo → naranja → rojo) ---
+     pts: [x, y, radio, peso] normalizados 0–1. opts.cell = tamaño de celda en px CSS. */
+  var RAMP = [[0, [200, 255, 0, 0]], [0.16, [200, 255, 0, 0.45]], [0.4, [200, 255, 0, 0.85]],
+              [0.62, [255, 214, 0, 0.92]], [0.8, [255, 122, 0, 0.95]], [1, [255, 42, 0, 1]]];
+  NG.thermal = function (v) {
+    v = NG.clamp(v, 0, 1);
+    for (var k = 1; k < RAMP.length; k++) if (v <= RAMP[k][0]) {
+      var lo = RAMP[k - 1], hi = RAMP[k], t = (v - lo[0]) / (hi[0] - lo[0]), c = [];
+      for (var j = 0; j < 4; j++) c[j] = lo[1][j] + (hi[1][j] - lo[1][j]) * t;
+      return 'rgba(' + (c[0] | 0) + ',' + (c[1] | 0) + ',' + (c[2] | 0) + ',' + c[3].toFixed(3) + ')';
+    }
+    return 'rgba(255,42,0,1)';
+  };
   NG.heat = function (cv, pts, opts) {
     opts = opts || {};
     var r = cv.getBoundingClientRect();
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var W = Math.max(1, Math.round(r.width * dpr)), H = Math.max(1, Math.round(r.height * dpr));
-    cv.width = W; cv.height = H;
-    var ctx = cv.getContext('2d', { willReadFrequently: true });
-    var base = Math.min(W, H);
-    ctx.clearRect(0, 0, W, H);
+    var w = Math.max(1, r.width), h = Math.max(1, r.height);
+    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+    var ctx = cv.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    var base = Math.min(w, h), cell = opts.cell || Math.max(5, Math.round(base / 46)), gap = Math.max(1, cell * .18);
+    var gain = opts.gain || 1;
+    // brillo suave bajo los píxeles
     pts.forEach(function (p) {
-      var rad = (p[2] || 0.12) * base, x = p[0] * W, y = p[1] * H, w = p[3] == null ? 1 : p[3];
+      var rad = (p[2] || .12) * base * 1.25, x = p[0] * w, y = p[1] * h;
       var g = ctx.createRadialGradient(x, y, 0, x, y, rad);
-      g.addColorStop(0, 'rgba(0,0,0,' + 0.55 * w + ')'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      g.addColorStop(0, 'rgba(200,255,0,' + (.22 * (p[3] == null ? 1 : p[3])) + ')'); g.addColorStop(1, 'rgba(200,255,0,0)');
       ctx.fillStyle = g; ctx.fillRect(x - rad, y - rad, rad * 2, rad * 2);
     });
-    var img = ctx.getImageData(0, 0, W, H), px = img.data;
-    var ramp = [[0, [200, 245, 66, 0]], [0.18, [200, 245, 66, 70]], [0.55, [200, 255, 0, 170]], [1, [242, 243, 240, 225]]];
-    for (var i = 0; i < px.length; i += 4) {
-      var a = px[i + 3] / 255; if (!a) continue;
-      a = Math.min(1, a * (opts.gain || 1.25));
-      for (var k = 1; k < ramp.length; k++) {
-        if (a <= ramp[k][0]) {
-          var lo = ramp[k - 1], hi = ramp[k], t = (a - lo[0]) / (hi[0] - lo[0]);
-          px[i] = lo[1][0] + (hi[1][0] - lo[1][0]) * t; px[i + 1] = lo[1][1] + (hi[1][1] - lo[1][1]) * t;
-          px[i + 2] = lo[1][2] + (hi[1][2] - lo[1][2]) * t; px[i + 3] = lo[1][3] + (hi[1][3] - lo[1][3]) * t;
-          break;
-        }
+    for (var y = 0; y < h; y += cell) for (var x = 0; x < w; x += cell) {
+      var cx = x + cell / 2, cy = y + cell / 2, v = 0;
+      for (var i = 0; i < pts.length; i++) {
+        var p = pts[i], s = (p[2] || .12) * base, dx = cx - p[0] * w, dy = cy - p[1] * h;
+        v += (p[3] == null ? 1 : p[3]) * Math.exp(-(dx * dx + dy * dy) / (2 * s * s * .45));
       }
+      v *= gain;
+      if (v < .08) continue;
+      ctx.fillStyle = NG.thermal(Math.min(1, v));
+      ctx.fillRect(x + gap / 2, y + gap / 2, cell - gap, cell - gap);
     }
-    ctx.putImageData(img, 0, 0);
   };
 
   /* --- Contador ----------------------------------------------------- */
@@ -819,9 +891,7 @@ NG.boot('[data-ng="nav"]', function (nav) {
       <p class="ng-ph__p" data-ng-reveal=".2">Eye tracking, facial coding y respuesta galvánica, cruzados con modelos de IA propios, para convertir reacciones no conscientes en una decisión validada antes de construir.</p>
       <p class="ng-ph__meta ng-mono" aria-hidden="true">REC <b>●</b> <span class="ng-ph__ts">00:00:00</span><br>03 señales · IA propia</p>
     </div>
-    <div class="ng-media ng-ph__media" data-ph="/img/lab-session · 21:9" data-ng-reveal><!-- IMAGEN 06 · lab-session · 21:9
-     PROMPT: "Modern neuromarketing lab, participant seated in front of a monitor with a slim eye tracker bar, operator in soft focus behind, dark interior, green monitor glow, documentary photography, hyper-realistic" -->
-<picture><source type="image/avif" srcset="img/lab-session-768.avif 768w, img/lab-session-1280.avif 1280w, img/lab-session-1920.avif 1920w, img/lab-session-2560.avif 2560w" sizes="(min-width:1024px) 42vw, 100vw"><source type="image/webp" srcset="img/lab-session-768.webp 768w, img/lab-session-1280.webp 1280w, img/lab-session-1920.webp 1920w, img/lab-session-2560.webp 2560w" sizes="(min-width:1024px) 42vw, 100vw"><img src="img/lab-session-1280.webp" width="2560" height="1097" alt="Laboratorio de neuromarketing: participante frente a un monitor con una barra de eye tracking y un operador desenfocado al fondo" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
+    
   </div>
 </section>
 
@@ -841,12 +911,51 @@ NG.boot('[data-ng="pagehead"]', function (sec) {
   });
 });
 </script>
+<section class="ng-sec ng-said" aria-labelledby="ng-said-title" data-ng="said">
+  <div class="ng-said__beam" aria-hidden="true"></div>
+  <div class="ng-wrap">
+    <div class="ng-said__grid">
+      <div class="ng-said__copy">
+        <h2 class="ng-h2 ng-said__t" id="ng-said-title" data-ng-split>Lo que<br>no se dice<br><span class="ng-hl">sí se mide.</span></h2>
+        <p class="ng-said__brand" aria-hidden="true">NEUROGENOMIC</p>
+        <p class="ng-said__p" data-ng-reveal>Una encuesta recoge lo que la persona cree que siente. La mirada, el gesto y la piel registran lo que realmente pasa, antes de que lo pueda explicar.</p>
+      </div>
+      <div class="ng-said__stage">
+        <figure class="ng-said__fig">
+          <div class="ng-media" data-ph="/img/ref-bottle"><picture><source type="image/avif" srcset="img/ref-bottle-520.avif"><img src="img/ref-bottle-520.webp" width="520" height="1350" alt="Botella de vino oscura bajo un foco, con puntos de fijación verdes brillando sobre la etiqueta blanca y un eye tracker detrás" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
+          <svg class="ng-said__fix" viewBox="0 0 520 1350" preserveAspectRatio="none" aria-hidden="true">
+            <circle cx="230" cy="650" r="34"/><circle cx="265" cy="757" r="36"/><circle cx="202" cy="830" r="44"/><circle cx="266" cy="965" r="34"/><circle cx="225" cy="1015" r="36"/>
+          </svg>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+NG.boot('[data-ng="said"]', function (sec) {
+  var fig = sec.querySelector('.ng-said__fig'), rings = [].slice.call(sec.querySelectorAll('.ng-said__fix circle'));
+  NG.reveals(sec);
+  NG.ready().then(function (gsap) {
+    if (!gsap || NG.rm) return;
+    gsap.fromTo(fig, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 1.6, ease: 'expo.out', scrollTrigger: { trigger: fig, start: 'top 85%', once: true } });
+    // Fijaciones que "laten" en orden, como una lectura en vivo
+    rings.forEach(function (c) { gsap.set(c, { svgOrigin: c.getAttribute('cx') + ' ' + c.getAttribute('cy'), scale: .4, autoAlpha: 0 }); });
+    var tl = gsap.timeline({ repeat: -1, repeatDelay: .6, paused: true });
+    rings.forEach(function (c, i) {
+      tl.to(c, { scale: 1.5, autoAlpha: 1, duration: .35, ease: 'power2.out' }, i * .45)
+        .to(c, { scale: 2.1, autoAlpha: 0, duration: .7, ease: 'power1.in' }, i * .45 + .35);
+    });
+    ScrollTrigger.create({ trigger: sec, start: 'top 80%', end: 'bottom 20%', onToggle: function (s) { s.isActive ? tl.play() : tl.pause(); } });
+  });
+});
+</script>
 <section class="ng-sec ng-sig" id="tecnologia" aria-labelledby="ng-sig-title" data-ng="signals" data-ng-bg>
   <div class="ng-wrap">
     <div class="ng-sig__head">
       <div class="ng-head">
         <p class="ng-mono ng-eyebrow">04 · Tecnología</p>
-        <h2 class="ng-h2" id="ng-sig-title" data-ng-split>Biometría real. Tres señales involuntarias. Cero opiniones.</h2>
+        <h2 class="ng-h2" id="ng-sig-title" data-ng-split>Biometría real. Tres señales involuntarias. <span class="ng-hl">Cero opiniones.</span></h2>
       </div>
       <p class="ng-body" data-ng-reveal>Eye tracking, facial coding y respuesta galvánica, cruzados con modelos de IA propios, para convertir reacciones no conscientes en una decisión validada antes de construir.</p>
     </div>
@@ -859,9 +968,6 @@ NG.boot('[data-ng="pagehead"]', function (sec) {
       <button type="button" class="ng-mon" data-k="face" aria-pressed="false" aria-label="Facial coding, emoción: la microexpresión que aparece antes de que piense la respuesta. Ampliar panel.">
         <span class="ng-mon__top ng-mono"><span>C·02 · Facial coding</span><span class="ng-mon__live">● señal en vivo</span></span>
         <span class="ng-mon__screen">
-          <span class="ng-media" data-ph="/img/facial-coding · 4:5"><!-- IMAGEN 04 · facial-coding · 4:5
-     PROMPT: "Close-up portrait of a person's face with subtle micro-expression, precise thin white facial landmark points overlaid, dark studio, Rembrandt lighting, hyper-realistic skin texture" -->
-<picture><source type="image/avif" srcset="img/facial-coding-768.avif 768w, img/facial-coding-1280.avif 1280w, img/facial-coding-1920.avif 1920w, img/facial-coding-2560.avif 2560w" sizes="(min-width:1024px) 30vw, 100vw"><source type="image/webp" srcset="img/facial-coding-768.webp 768w, img/facial-coding-1280.webp 1280w, img/facial-coding-1920.webp 1920w, img/facial-coding-2560.webp 2560w" sizes="(min-width:1024px) 30vw, 100vw"><img src="img/facial-coding-1280.webp" width="1600" height="2000" alt="Retrato de cerca de un rostro con una microexpresión sutil, iluminación Rembrandt en estudio oscuro" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></span>
           <canvas aria-hidden="true"></canvas><span class="ng-mon__read">valencia <span data-r>+0.42</span></span><span class="ng-marks" aria-hidden="true"><i></i></span>
         </span>
         <span class="ng-mon__body"><span class="ng-mon__k ng-mono">Señal 02</span><span class="ng-mon__t">Emoción</span><span class="ng-mon__d">La microexpresión que aparece antes de que piense la respuesta.</span></span>
@@ -869,9 +975,6 @@ NG.boot('[data-ng="pagehead"]', function (sec) {
       <button type="button" class="ng-mon" data-k="gsr" aria-pressed="false" aria-label="Respuesta galvánica, activación: la intensidad de la reacción, aunque el rostro se mantenga neutro. Ampliar panel.">
         <span class="ng-mon__top ng-mono"><span>C·03 · Respuesta galvánica</span><span class="ng-mon__live">● señal en vivo</span></span>
         <span class="ng-mon__screen">
-          <span class="ng-media" data-ph="/img/gsr-sensor · 1:1"><!-- IMAGEN 05 · gsr-sensor · 1:1
-     PROMPT: "Fingertips resting on minimal biometric sensor electrodes with thin cables, black matte surface, single green rim light, macro photography, hyper-realistic" -->
-<picture><source type="image/avif" srcset="img/gsr-sensor-768.avif 768w, img/gsr-sensor-1280.avif 1280w, img/gsr-sensor-1920.avif 1920w, img/gsr-sensor-2560.avif 2560w" sizes="(min-width:1024px) 30vw, 100vw"><source type="image/webp" srcset="img/gsr-sensor-768.webp 768w, img/gsr-sensor-1280.webp 1280w, img/gsr-sensor-1920.webp 1920w, img/gsr-sensor-2560.webp 2560w" sizes="(min-width:1024px) 30vw, 100vw"><img src="img/gsr-sensor-1280.webp" width="2000" height="2000" alt="Yemas de los dedos apoyadas sobre electrodos biométricos mínimos con cables finos, con luz de contorno verde" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></span>
           <canvas aria-hidden="true"></canvas><span class="ng-mon__read"><span data-r>0.00</span> μS</span><span class="ng-marks" aria-hidden="true"><i></i></span></span>
         <span class="ng-mon__body"><span class="ng-mon__k ng-mono">Señal 03</span><span class="ng-mon__t">Activación</span><span class="ng-mon__d">La intensidad de la reacción, aunque el rostro se mantenga neutro.</span></span>
       </button>
@@ -1021,7 +1124,7 @@ NG.boot('[data-ng="signals"]', function (sec) {
     <div class="ng-gaze__intro">
       <div class="ng-head">
         <p class="ng-mono ng-eyebrow">02 · Eye tracking + IA</p>
-        <h2 class="ng-h2" id="ng-gaze-title" data-ng-split>Así mira tu cliente</h2>
+        <h2 class="ng-h2" id="ng-gaze-title" data-ng-split>Así mira <span class="ng-hl">tu cliente</span></h2>
       </div>
       <p class="ng-body" data-ng-reveal>Combinamos eye tracking e IA para revelar qué capta la mirada, cuánto tiempo la retiene y qué pasa desapercibido. Los consumidores deciden en segundos, y la mayoría de esas decisiones ocurre antes de que puedan explicarlas. Por eso no preguntamos qué les gusta: medimos cómo reaccionan.</p>
     </div>
@@ -1107,9 +1210,9 @@ NG.boot('[data-ng="gaze"]', function (sec) {
   });
   var heat = sec.querySelector('.ng-gaze__heat');
   var drawHeat = function () {
-    var pts = F.map(function (f) { return [f[0] / 1000, f[1] / 625, .08 + f[2] / 3600, .7 + f[2] / 900]; });
-    pts.push([.73, .42, .16, .8], [.2, .27, .14, .55]);
-    NG.heat(heat, pts, { gain: 1.3 });
+    var pts = F.map(function (f) { return [f[0] / 1000, f[1] / 625, .05 + f[2] / 5000, .55 + f[2] / 900]; });
+    pts.push([.74, .44, .1, .7], [.22, .29, .08, .45]);
+    NG.heat(heat, pts, { gain: .6 });
   };
   drawHeat();
   if ('ResizeObserver' in window) { var to; new ResizeObserver(function () { clearTimeout(to); to = setTimeout(drawHeat, 120); }).observe(heat); }
@@ -1148,6 +1251,51 @@ NG.boot('[data-ng="gaze"]', function (sec) {
       .to([main, paths[1]], { autoAlpha: .25, duration: .6 }, 2.2)
       .to(blind, { autoAlpha: 1, stagger: .2, duration: .5 }, 3.15)
       .to({}, { duration: .35 });
+  });
+});
+</script>
+<section class="ng-sec ng-pack" id="packaging" aria-labelledby="ng-pack-title" data-ng="pack">
+  <div class="ng-wrap">
+    <div class="ng-pack__grid">
+      <div class="ng-pack__copy">
+        <p class="ng-mono ng-eyebrow">Inteligencia biométrica</p>
+        <h2 class="ng-h2 ng-pack__t" id="ng-pack-title" data-ng-split>Tu packaging tiene <span class="ng-hl">una mirada</span> para ganar.</h2>
+        <p class="ng-pack__p" data-ng-reveal>Mira lo que tus compradores realmente observan antes de comprar.</p>
+        <p class="ng-mono ng-pack__demo" data-ng-reveal=".1">Lectura de demostración · eye tracking sobre packaging</p>
+      </div>
+      <div class="ng-pack__stage">
+        <figure class="ng-pack__fig">
+          <div class="ng-media" data-ph="/img/ref-can"><picture><source type="image/avif" srcset="img/ref-can-570.avif"><img src="img/ref-can-570.webp" width="570" height="1590" alt="Lata negra con gotas de condensación y un mapa de calor de eye tracking pixelado sobre su superficie: la atención se concentra en el centro, la parte superior y la base" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
+          <div class="ng-pack__scan" aria-hidden="true"><i></i></div>
+          <div class="ng-co" style="top:13.3%" aria-hidden="true"><span class="ng-co__ln"></span><span class="ng-co__txt"><span>Atención % / <b data-to="88.4">88.4</b>%</span><span>Fijación / <b data-to="1150">1150</b>ms</span></span></div>
+          <div class="ng-co" style="top:39.6%" aria-hidden="true"><span class="ng-co__ln"></span><span class="ng-co__txt"><span>Atención % / <b data-to="93.1">93.1</b>%</span><span>Fijación / <b data-to="1720">1720</b>ms</span></span></div>
+          <div class="ng-co" style="top:69.5%" aria-hidden="true"><span class="ng-co__ln"></span><span class="ng-co__txt"><span>Atención % / <b data-to="76.9">76.9</b>%</span><span>Fijación / <b data-to="940">940</b>ms</span></span></div>
+          <figcaption class="ng-sr">Zonas de mayor atención en la lata: parte superior (88,4 % de atención, fijación de 1150 ms), centro (93,1 %, 1720 ms) y base (76,9 %, 940 ms). Datos de demostración.</figcaption>
+        </figure>
+      </div>
+    </div>
+    <p class="ng-strip ng-pack__strip"><span>Eye tracking</span><i>·</i><span>Respuesta GSR</span><i>·</i><span>Facial coding</span></p>
+  </div>
+</section>
+
+<script>
+NG.boot('[data-ng="pack"]', function (sec) {
+  var fig = sec.querySelector('.ng-pack__fig'), scan = sec.querySelector('.ng-pack__scan');
+  var cos = [].slice.call(sec.querySelectorAll('.ng-co'));
+  var setScan = function () { scan.style.setProperty('--ng-scan-h', (scan.clientHeight - 2) + 'px'); };
+  setScan(); window.addEventListener('resize', setScan);
+  NG.reveals(sec);
+  NG.ready().then(function (gsap) {
+    if (!gsap || NG.rm) return;
+    gsap.fromTo(fig, { y: 80, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: fig, start: 'top 85%', once: true } });
+    gsap.to(fig, { yPercent: -6, ease: 'none', scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: true } });
+    var tl = gsap.timeline({ scrollTrigger: { trigger: fig, start: 'top 55%', once: true } });
+    cos.forEach(function (c, i) {
+      var ln = c.querySelector('.ng-co__ln'), txt = c.querySelector('.ng-co__txt'), nums = c.querySelectorAll('[data-to]');
+      tl.fromTo(ln, { scaleX: 0 }, { scaleX: 1, duration: .5, ease: 'power3.inOut' }, i * .35)
+        .fromTo(txt, { autoAlpha: 0, x: -8 }, { autoAlpha: 1, x: 0, duration: .5,
+          onStart: function () { nums.forEach(function (n) { var to = +n.getAttribute('data-to'); NG.count(n, to, { dur: 1.2, dec: to % 1 ? 1 : 0 }); }); } }, i * .35 + .35);
+    });
   });
 });
 </script>
@@ -1222,7 +1370,7 @@ NG.boot('[data-ng="stat"]', function (sec) {
     <div class="ng-case__head">
       <div class="ng-head">
         <p class="ng-mono ng-eyebrow">08 · Caso</p>
-        <h2 class="ng-h2" id="ng-case-title" data-ng-split>Un packaging, tres versiones, una respuesta clara.</h2>
+        <h2 class="ng-h2" id="ng-case-title" data-ng-split>Un packaging, tres versiones, <span class="ng-hl">una respuesta clara.</span></h2>
       </div>
       <p class="ng-mono">Marca anonimizada.<br>Representación ilustrativa.</p>
     </div>
@@ -1286,7 +1434,7 @@ NG.boot('[data-ng="case"]', function (sec) {
     b: [[.5, .42, .2, 1], [.5, .7, .12, .8], [.5, .77, .08, .5], [.45, .36, .1, .6]],
     c: [[.33, .55, .1, .45], [.62, .2, .08, .3], [.5, .85, .1, .15]]
   };
-  var draw = function () { cards.forEach(function (c, i) { NG.heat(cvs[i], H[c.getAttribute('data-v')], { gain: 1.6 }); }); };
+  var draw = function () { cards.forEach(function (c, i) { NG.heat(cvs[i], H[c.getAttribute('data-v')], { gain: 1 }); }); };
   draw();
   if ('ResizeObserver' in window) { var to; new ResizeObserver(function () { clearTimeout(to); to = setTimeout(draw, 150); }).observe(row); }
 
@@ -1320,12 +1468,9 @@ NG.boot('[data-ng="case"]', function (sec) {
     <div class="ng-eth__head">
       <div class="ng-head">
         <p class="ng-mono ng-eyebrow">09 · Ética y datos</p>
-        <h2 class="ng-h2" id="ng-eth-title">Medimos cerebros. Por eso las reglas son más estrictas.</h2>
+        <h2 class="ng-h2" id="ng-eth-title">Medimos cerebros. <span class="ng-hl">Por eso las reglas son más estrictas.</span></h2>
       </div>
       <p class="ng-body" data-ng-reveal>Una respuesta pupilar o una señal biométrica dice más de una persona que cualquier encuesta. Tratamos cada registro como lo que es: dato sensible bajo la Ley 21.719, con cadena de custodia auditable de principio a fin.</p>
-      <div class="ng-media" data-ph="/img/ethics-fingerprint · 16:9"><!-- IMAGEN 07 · ethics-fingerprint · 16:9
-     PROMPT: "Abstract macro of a fingerprint pattern dissolving into encrypted data particles, black background, volt-green highlights, hyper-realistic" -->
-<picture><source type="image/avif" srcset="img/ethics-fingerprint-768.avif 768w, img/ethics-fingerprint-1280.avif 1280w, img/ethics-fingerprint-1920.avif 1920w, img/ethics-fingerprint-2560.avif 2560w" sizes="(min-width:1024px) 42vw, 100vw"><source type="image/webp" srcset="img/ethics-fingerprint-768.webp 768w, img/ethics-fingerprint-1280.webp 1280w, img/ethics-fingerprint-1920.webp 1920w, img/ethics-fingerprint-2560.webp 2560w" sizes="(min-width:1024px) 42vw, 100vw"><img src="img/ethics-fingerprint-1280.webp" width="2560" height="1440" alt="Macro abstracta de una huella dactilar que se disuelve en partículas de datos cifrados" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
     </div>
     <div class="ng-eth__doc">
       <div class="ng-eth__col">
@@ -1381,18 +1526,17 @@ NG.boot('[data-ng="ethics"]', function (sec) {
 });
 </script>
 <section class="ng-sec ng-cta" id="contacto-cta" aria-labelledby="ng-cta-title" data-ng="cta">
-  <div class="ng-cta__media ng-media" data-ph="/img/cta-eye-contracted · 16:9 / 9:16"><!-- IMAGEN 08 · cta-eye-contracted · 16:9 (desktop) + 9:16 (móvil: cta-eye-contracted-portrait)
-     PROMPT: "Same framing as the hero: macro photograph of the same human eye, extreme close-up, pupil strongly contracted (miosis), iris in sharp focus, thin volt-green (#C8F542) crosshair reflected on the cornea, dark charcoal background, cinematic low-key lighting, hyper-realistic, 8K, editorial tech campaign" -->
-<picture><source media="(max-width:767px)" type="image/avif" srcset="img/cta-eye-contracted-portrait-768.avif 768w, img/cta-eye-contracted-portrait-1280.avif 1280w" sizes="100vw"><source media="(max-width:767px)" type="image/webp" srcset="img/cta-eye-contracted-portrait-768.webp 768w, img/cta-eye-contracted-portrait-1280.webp 1280w" sizes="100vw"><source type="image/avif" srcset="img/cta-eye-contracted-768.avif 768w, img/cta-eye-contracted-1280.avif 1280w, img/cta-eye-contracted-1920.avif 1920w, img/cta-eye-contracted-2560.avif 2560w" sizes="100vw"><source type="image/webp" srcset="img/cta-eye-contracted-768.webp 768w, img/cta-eye-contracted-1280.webp 1280w, img/cta-eye-contracted-1920.webp 1920w, img/cta-eye-contracted-2560.webp 2560w" sizes="100vw"><img src="img/cta-eye-contracted-1280.webp" width="2560" height="1440" alt="El mismo ojo del inicio, ahora con la pupila contraída" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
-  <div class="ng-cta__shade" aria-hidden="true"></div>
-  <svg class="ng-cta__ring" viewBox="0 0 200 200" aria-hidden="true">
-    <circle class="ng-cta__r1" cx="100" cy="100" r="90"/><circle class="ng-cta__r2" cx="100" cy="100" r="98"/>
-    <text x="100" y="-4" text-anchor="middle">PUPILA · Ø ↓</text>
-  </svg>
+  <div class="ng-cta__dog">
+    <div class="ng-cta__frame"><div class="ng-media" data-ph="/img/ref-dog"><picture><source type="image/avif" srcset="img/ref-dog-655.avif"><img src="img/ref-dog-655.webp" width="655" height="1200" alt="Primer plano del ojo del perro con la pupila marcada por un anillo verde lima" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div></div>
+    <svg class="ng-cta__ring" viewBox="0 0 200 200" aria-hidden="true">
+      <circle class="ng-cta__r1" cx="100" cy="100" r="90"/><circle class="ng-cta__r2" cx="100" cy="100" r="98"/>
+      <text x="100" y="-4" text-anchor="middle">PUPILA · Ø ↓</text>
+    </svg>
+  </div>
   <div class="ng-wrap">
     <div class="ng-cta__in">
       <p class="ng-mono ng-eyebrow">10 · Diagnóstico</p>
-      <h2 class="ng-cta__t" id="ng-cta-title" data-ng-split>¿Construimos tu próxima decisión con evidencia?</h2>
+      <h2 class="ng-cta__t" id="ng-cta-title" data-ng-split>¿Construimos tu próxima decisión <span class="ng-hl">con evidencia?</span></h2>
       <p class="ng-cta__p" data-ng-reveal>Cuéntanos qué servicio necesitas hoy. El diagnóstico inicial es la base de todo lo que viene después.</p>
       <a class="ng-btn ng-btn--volt ng-cta__btn" href="contacto.html" data-ng-magnet><span class="ng-btn__t">Agendar diagnóstico <span class="ng-btn__i" aria-hidden="true">↗</span></span></a>
     </div>
@@ -1401,14 +1545,14 @@ NG.boot('[data-ng="ethics"]', function (sec) {
 
 <script>
 NG.boot('[data-ng="cta"]', function (sec) {
-  var ring = sec.querySelector('.ng-cta__ring'), img = sec.querySelector('.ng-cta__media img');
+  var ring = sec.querySelector('.ng-cta__ring'), img = sec.querySelector('.ng-cta__frame');
   NG.reveals(sec);
   sec.querySelectorAll('[data-ng-magnet]').forEach(function (b) { NG.magnet(b, .35); });
   NG.ready().then(function (gsap) {
     if (!gsap || NG.rm) return;
     var tl = gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top 85%', end: 'center 55%', scrub: true } });
     tl.fromTo(ring, { scale: 1.6, autoAlpha: 0 }, { scale: .55, autoAlpha: 1, ease: 'none' }, 0);
-    if (img) tl.fromTo(img, { scale: 1.18 }, { scale: 1, ease: 'none' }, 0);
+    if (img) tl.fromTo(img, { scale: .6 }, { scale: 1, ease: 'none' }, 0);
     gsap.to(ring.querySelector('.ng-cta__r2'), { rotation: 360, transformOrigin: '50% 50%', duration: 40, repeat: -1, ease: 'none' });
   });
 });

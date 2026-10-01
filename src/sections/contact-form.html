@@ -16,7 +16,7 @@
 .ng-form__bar i{position:absolute;inset:0;background:var(--ng-volt);transform-origin:0 50%;transform:scaleX(.25);transition:transform .6s var(--ng-ease)}
 .ng-step{border:0;margin:0;padding:0;min-width:0}
 .ng-step[hidden]{display:none}
-.ng-step legend{font-size:clamp(26px,2.6vw,40px);line-height:1.05;letter-spacing:-.03em;font-weight:500;margin-bottom:8px;padding:0}
+.ng-step legend{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(34px,3.4vw,56px);line-height:.95;letter-spacing:0;font-weight:400;margin-bottom:8px;padding:0}
 .ng-step__hint{color:var(--ng-tx2);margin-bottom:28px;font-size:15px}
 .ng-pick{display:flex;flex-wrap:wrap;gap:10px}
 .ng-pick label{position:relative;cursor:pointer}
@@ -57,7 +57,7 @@
 .ng-ok .ng-ok__c2{stroke:var(--ng-lime);stroke-dasharray:252;stroke-dashoffset:252;transition:stroke-dashoffset 1.1s var(--ng-ease)}
 .ng-ok path{fill:none;stroke:var(--ng-lime);stroke-width:2;stroke-dasharray:60;stroke-dashoffset:60;transition:stroke-dashoffset .6s var(--ng-ease) .7s}
 .ng-ok.ng-is-in .ng-ok__c2,.ng-ok.ng-is-in path{stroke-dashoffset:0}
-.ng-ok h2{font-size:clamp(30px,3.4vw,52px);letter-spacing:-.035em;line-height:1;font-weight:500;margin-bottom:16px}
+.ng-ok h2{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(40px,4.4vw,72px);letter-spacing:0;line-height:.92;font-weight:400;margin-bottom:16px}
 .ng-ok p{color:var(--ng-tx2);max-width:44ch}
 .ng-ok .ng-mono{color:var(--ng-volt);margin-top:24px}
 @media (max-width:1023px){
@@ -80,15 +80,16 @@
       <ol aria-hidden="true">
         <li class="ng-is-cur"><b>01</b><span>Servicio de interés</span></li>
         <li><b>02</b><span>Empresa y rol</span></li>
-        <li><b>03</b><span>Objetivo y plazo</span></li>
+        <li><b>03</b><span>Mensaje y plazo</span></li>
         <li><b>04</b><span>Datos de contacto</span></li>
       </ol>
       <p class="ng-body">El diagnóstico inicial es la base de todo lo que viene después. Respondemos cada solicitud de forma personal.</p>
     </aside>
 
-    <!-- Para conectar el envío: data-endpoint="https://..." (Formspree, webhook, admin-ajax de WordPress, etc.).
-         Si queda vacío, el formulario valida y muestra el mensaje de éxito sin enviar datos. -->
-    <form class="ng-form" novalidate data-endpoint="" aria-describedby="ng-form-status">
+    <!-- Envío: FormSubmit reenvía cada solicitud al correo configurado en build.py (FORM_ENDPOINT).
+         La PRIMERA vez que alguien envíe el formulario, FormSubmit manda un correo de activación a esa casilla:
+         hay que abrirlo y pulsar "Activate Form". Desde ahí, todas las solicitudes llegan directo al correo. -->
+    <form class="ng-form" novalidate data-endpoint="{{form_endpoint}}" aria-describedby="ng-form-status">
       <div class="ng-form__prog ng-mono" aria-hidden="true"><span>Paso <b class="ng-form__n">1</b> / 4</span><span class="ng-form__bar"><i></i></span><span class="ng-form__lbl">Servicio</span></div>
       <p class="ng-sr" id="ng-form-status" aria-live="polite"></p>
 
@@ -118,10 +119,10 @@
       </fieldset>
 
       <fieldset class="ng-step" data-step="3" hidden>
-        <legend>Objetivo y plazo</legend>
+        <legend>Tu mensaje y plazo</legend>
         <p class="ng-step__hint">¿Qué decisión necesitas tomar con evidencia?</p>
         <div class="ng-fields">
-          <div class="ng-field ng-field--full"><label for="ng-f-obj">Objetivo <em>*</em></label><textarea id="ng-f-obj" name="objetivo" required minlength="20" aria-describedby="ng-e-obj" placeholder="Ej.: elegir entre dos propuestas de packaging antes del lanzamiento."></textarea><p class="ng-err" id="ng-e-obj"></p></div>
+          <div class="ng-field ng-field--full"><label for="ng-f-obj">Mensaje <em>*</em></label><textarea id="ng-f-obj" name="mensaje" required minlength="20" maxlength="3000" aria-describedby="ng-e-obj" placeholder="Ej.: elegir entre dos propuestas de packaging antes del lanzamiento."></textarea><p class="ng-err" id="ng-e-obj"></p></div>
           <div class="ng-field ng-field--full"><span class="ng-field__l" id="ng-l-plazo">Plazo <em class="ng-volt">*</em></span>
             <div class="ng-pick" role="radiogroup" aria-labelledby="ng-l-plazo" aria-describedby="ng-e-plazo">
               <label><input type="radio" name="plazo" value="este-mes"><span>Este mes</span></label>
@@ -140,6 +141,7 @@
           <div class="ng-field"><label for="ng-f-mail">Correo <em>*</em></label><input id="ng-f-mail" name="email" type="email" inputmode="email" autocomplete="email" required aria-describedby="ng-e-mail"><p class="ng-err" id="ng-e-mail"></p></div>
           <div class="ng-field ng-field--full"><label for="ng-f-tel">Teléfono</label><input id="ng-f-tel" name="telefono" type="tel" inputmode="tel" autocomplete="tel" placeholder="+56 9" aria-describedby="ng-e-tel"><p class="ng-err" id="ng-e-tel"></p></div>
         </div>
+        <div class="ng-sr" aria-hidden="true"><label for="ng-f-hp">No completar</label><input id="ng-f-hp" name="_honey" type="text" tabindex="-1" autocomplete="off"></div>
         <label class="ng-consent"><input type="checkbox" name="consentimiento" required aria-describedby="ng-e-ok"><span>Acepto que Neurogenomic trate estos datos para responder mi solicitud, según la <a href="{{u:privacidad}}">política de privacidad y ética</a>.</span></label>
         <p class="ng-err" id="ng-e-ok"></p>
       </fieldset>
@@ -153,7 +155,7 @@
       <div class="ng-ok" hidden tabindex="-1">
         <svg viewBox="0 0 88 88" aria-hidden="true"><circle cx="44" cy="44" r="40"/><circle class="ng-ok__c2" cx="44" cy="44" r="40" transform="rotate(-90 44 44)"/><path d="M28 45 l11 11 l21 -23"/></svg>
         <h2>Solicitud recibida.</h2>
-        <p>Gracias. Revisaremos tu objetivo y te contactaremos para coordinar el diagnóstico inicial.</p>
+        <p>Gracias. Recibimos tu mensaje y te contactaremos para coordinar el diagnóstico inicial.</p>
         <p class="ng-mono">● Registro guardado · <span class="ng-ok__ts"></span></p>
       </div>
     </form>
@@ -168,7 +170,7 @@ NG.boot('[data-ng="form"]', function (sec) {
   var back = form.querySelector('.ng-form__back'), next = form.querySelector('.ng-form__next'), send = form.querySelector('.ng-form__send');
   var nEl = form.querySelector('.ng-form__n'), bar = form.querySelector('.ng-form__bar i'), lbl = form.querySelector('.ng-form__lbl');
   var status = form.querySelector('#ng-form-status');
-  var labels = ['Servicio', 'Empresa', 'Objetivo', 'Contacto'];
+  var labels = ['Servicio', 'Empresa', 'Mensaje', 'Contacto'];
   var cur = 0;
 
   // Preselección desde ?servicio=
@@ -187,12 +189,12 @@ NG.boot('[data-ng="form"]', function (sec) {
     empresa: function (v) { return v.trim().length < 2 ? 'Indica el nombre de tu empresa.' : ''; },
     rol: function (v) { return v.trim().length < 2 ? 'Indica tu cargo o rol.' : ''; },
     web: function (v) { return v && !/^https?:\/\/[^\s.]+\.[^\s]+$/i.test(v.trim()) ? 'Revisa la URL (debe empezar con https://).' : ''; },
-    objetivo: function (v) { return v.trim().length < 20 ? 'Cuéntanos un poco más (mínimo 20 caracteres).' : ''; },
-    nombre: function (v) { return v.trim().length < 2 ? 'Indica tu nombre.' : ''; },
-    email: function (v) { return !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? 'Ingresa un correo válido.' : ''; },
+    mensaje: function (v) { v = v.trim(); return !v ? 'Escribe tu mensaje.' : v.length < 20 ? 'Cuéntanos un poco más (mínimo 20 caracteres).' : ''; },
+    nombre: function (v) { v = v.trim(); return !v ? 'Indica tu nombre.' : v.length < 2 || !/[a-záéíóúñü]/i.test(v) ? 'Revisa tu nombre.' : ''; },
+    email: function (v) { v = v.trim(); return !v ? 'Indica tu correo.' : !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? 'Ingresa un correo válido (ej.: nombre@empresa.cl).' : ''; },
     telefono: function (v) { return v && !/^[+\d][\d\s()-]{7,}$/.test(v.trim()) ? 'Revisa el número de teléfono.' : ''; }
   };
-  var errIds = { empresa: 'ng-e-emp', rol: 'ng-e-rol', web: 'ng-e-web', objetivo: 'ng-e-obj', nombre: 'ng-e-nom', email: 'ng-e-mail', telefono: 'ng-e-tel' };
+  var errIds = { empresa: 'ng-e-emp', rol: 'ng-e-rol', web: 'ng-e-web', mensaje: 'ng-e-obj', nombre: 'ng-e-nom', email: 'ng-e-mail', telefono: 'ng-e-tel' };
   var checkField = function (input) { return setErr(input, errIds[input.name], rules[input.name](input.value)); };
 
   // Validación en línea: al salir del campo, y en vivo una vez marcado como inválido
@@ -240,12 +242,24 @@ NG.boot('[data-ng="form"]', function (sec) {
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (!validate(3)) return;
-    var data = {};
-    new FormData(form).forEach(function (v, k) { data[k] = data[k] ? [].concat(data[k], v) : v; });
+    var fd = new FormData(form), data = {};
+    if (fd.get('_honey')) return; // bot
+    fd.forEach(function (v, k) { if (k !== '_honey' && k !== 'consentimiento') data[k] = data[k] ? data[k] + ', ' + v : v; });
+    var txt = function (n) { return [].map.call(form.querySelectorAll('input[name="' + n + '"]:checked'), function (i) { return i.nextElementSibling.textContent.trim(); }).join(', '); };
+    var payload = {
+      _subject: 'Nueva solicitud de diagnóstico · ' + (data.nombre || '') + (data.empresa ? ' (' + data.empresa + ')' : ''),
+      _template: 'table', _captcha: 'false', _replyto: data.email,
+      Nombre: data.nombre, Correo: data.email, 'Teléfono': data.telefono || '—',
+      Empresa: data.empresa, Cargo: data.rol, 'Sitio web': data.web || '—',
+      Servicios: txt('servicio'), Plazo: txt('plazo'), Mensaje: data.mensaje,
+      Consentimiento: 'Sí', 'Página': location.href
+    };
     var ep = form.getAttribute('data-endpoint');
     send.disabled = true; send.firstChild.nodeValue = 'Enviando… ';
-    var p = ep ? fetch(ep, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(data) })
-      .then(function (r) { if (!r.ok) throw new Error(r.status); }) : new Promise(function (r) { setTimeout(r, 600); });
+    var p = ep ? fetch(ep, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) {
+        if (!r.ok || String(j.success) === 'false') throw new Error(j.message || r.status);
+      }); }) : new Promise(function (r) { setTimeout(r, 600); });
     p.then(function () {
       steps.forEach(function (s) { s.hidden = true; });
       form.querySelector('.ng-form__nav').hidden = true;

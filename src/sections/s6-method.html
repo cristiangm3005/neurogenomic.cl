@@ -2,7 +2,7 @@
 /* ---------- S6 · MÉTODO · línea de señal que se dibuja con el scroll ---------- */
 .ng-met{padding:clamp(96px,12vw,180px) 0}
 .ng-met__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:clamp(40px,5vw,72px)}
-.ng-met__head .ng-head{grid-column:1/span 7;margin:0}
+.ng-met__head .ng-head{grid-column:1/-1;margin:0}
 .ng-met__head .ng-media{grid-column:8/span 5;aspect-ratio:21/9}
 .ng-met__flow{position:relative}
 .ng-met__svg{display:block;width:100%;height:120px;overflow:visible}
@@ -15,7 +15,7 @@
 .ng-met__st.ng-is-on .ng-met__dot{background:var(--ng-lime);border-color:var(--ng-lime);box-shadow:0 0 0 6px rgba(200,255,0,.12)}
 .ng-met__n{font:500 clamp(48px,5vw,84px)/1 var(--ng-mono);letter-spacing:-.04em;color:var(--ng-tx2);transition:color .4s}
 .ng-met__st.ng-is-on .ng-met__n{color:var(--ng-volt)}
-.ng-met__st h3{font-size:clamp(24px,2.2vw,34px);line-height:1;letter-spacing:-.03em;font-weight:500;margin:18px 0 12px}
+.ng-met__st h3{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(30px,2.8vw,46px);line-height:.95;letter-spacing:0;font-weight:400;margin:18px 0 12px}
 .ng-met__st p{color:var(--ng-tx2);font-size:15px;max-width:34ch}
 .ng-js .ng-met__st:not(.ng-is-on){opacity:.55}
 @media (max-width:1023px){
@@ -35,9 +35,8 @@
     <div class="ng-met__head">
       <div class="ng-head">
         <p class="ng-mono ng-eyebrow">06 · Método</p>
-        <h2 class="ng-h2" id="ng-met-title" data-ng-split>Un proceso, seis aplicaciones.</h2>
+        <h2 class="ng-h2" id="ng-met-title" data-ng-split>Un proceso, <span class="ng-hl">seis aplicaciones.</span></h2>
       </div>
-      <div class="ng-media" data-ph="/img/lab-session · 21:9" data-ng-reveal>{{img:lab}}</div>
     </div>
     <div class="ng-met__flow">
       <svg class="ng-met__svg" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">

@@ -22,7 +22,7 @@
 .ng-mon__read{position:absolute;left:10px;bottom:10px;font:500 12px/1 var(--ng-mono);letter-spacing:.08em;color:var(--ng-lime);background:rgba(10,11,13,.82);padding:7px 9px;border-radius:3px;font-variant-numeric:tabular-nums}
 .ng-mon__body{padding:18px 4px 4px;display:grid;gap:8px}
 .ng-mon__k{color:var(--ng-tx2)}
-.ng-mon__t{font-size:clamp(26px,2.4vw,38px);line-height:1;letter-spacing:-.03em;font-weight:500}
+.ng-mon__t{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(32px,2.8vw,46px);line-height:.95;font-weight:400}
 .ng-mon__d{color:var(--ng-tx2);font-size:15px;max-width:34ch}
 .ng-mon__hint{margin-top:auto;padding-top:14px;color:var(--ng-tx2);display:flex;justify-content:space-between}
 @media (max-width:1023px){
@@ -39,7 +39,7 @@
     <div class="ng-sig__head">
       <div class="ng-head">
         <p class="ng-mono ng-eyebrow">04 · Tecnología</p>
-        <h2 class="ng-h2" id="ng-sig-title" data-ng-split>Biometría real. Tres señales involuntarias. Cero opiniones.</h2>
+        <h2 class="ng-h2" id="ng-sig-title" data-ng-split>Biometría real. Tres señales involuntarias. <span class="ng-hl">Cero opiniones.</span></h2>
       </div>
       <p class="ng-body" data-ng-reveal>Eye tracking, facial coding y respuesta galvánica, cruzados con modelos de IA propios, para convertir reacciones no conscientes en una decisión validada antes de construir.</p>
     </div>
@@ -52,7 +52,6 @@
       <button type="button" class="ng-mon" data-k="face" aria-pressed="false" aria-label="Facial coding, emoción: la microexpresión que aparece antes de que piense la respuesta. Ampliar panel.">
         <span class="ng-mon__top ng-mono"><span>C·02 · Facial coding</span><span class="ng-mon__live">● señal en vivo</span></span>
         <span class="ng-mon__screen">
-          <span class="ng-media" data-ph="/img/facial-coding · 4:5">{{img:facial}}</span>
           <canvas aria-hidden="true"></canvas><span class="ng-mon__read">valencia <span data-r>+0.42</span></span><span class="ng-marks" aria-hidden="true"><i></i></span>
         </span>
         <span class="ng-mon__body"><span class="ng-mon__k ng-mono">Señal 02</span><span class="ng-mon__t">Emoción</span><span class="ng-mon__d">La microexpresión que aparece antes de que piense la respuesta.</span></span>
@@ -60,7 +59,6 @@
       <button type="button" class="ng-mon" data-k="gsr" aria-pressed="false" aria-label="Respuesta galvánica, activación: la intensidad de la reacción, aunque el rostro se mantenga neutro. Ampliar panel.">
         <span class="ng-mon__top ng-mono"><span>C·03 · Respuesta galvánica</span><span class="ng-mon__live">● señal en vivo</span></span>
         <span class="ng-mon__screen">
-          <span class="ng-media" data-ph="/img/gsr-sensor · 1:1">{{img:gsr}}</span>
           <canvas aria-hidden="true"></canvas><span class="ng-mon__read"><span data-r>0.00</span> μS</span><span class="ng-marks" aria-hidden="true"><i></i></span></span>
         <span class="ng-mon__body"><span class="ng-mon__k ng-mono">Señal 03</span><span class="ng-mon__t">Activación</span><span class="ng-mon__d">La intensidad de la reacción, aunque el rostro se mantenga neutro.</span></span>
       </button>

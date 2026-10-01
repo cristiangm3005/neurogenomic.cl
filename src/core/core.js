@@ -177,37 +177,48 @@
     return o;
   };
 
-  /* --- Heatmap monocromático dentro de la paleta (volt → lima → blanco) */
+  /* --- Heatmap térmico pixelado (estilo campaña: lima → amarillo → naranja → rojo) ---
+     pts: [x, y, radio, peso] normalizados 0–1. opts.cell = tamaño de celda en px CSS. */
+  var RAMP = [[0, [200, 255, 0, 0]], [0.16, [200, 255, 0, 0.45]], [0.4, [200, 255, 0, 0.85]],
+              [0.62, [255, 214, 0, 0.92]], [0.8, [255, 122, 0, 0.95]], [1, [255, 42, 0, 1]]];
+  NG.thermal = function (v) {
+    v = NG.clamp(v, 0, 1);
+    for (var k = 1; k < RAMP.length; k++) if (v <= RAMP[k][0]) {
+      var lo = RAMP[k - 1], hi = RAMP[k], t = (v - lo[0]) / (hi[0] - lo[0]), c = [];
+      for (var j = 0; j < 4; j++) c[j] = lo[1][j] + (hi[1][j] - lo[1][j]) * t;
+      return 'rgba(' + (c[0] | 0) + ',' + (c[1] | 0) + ',' + (c[2] | 0) + ',' + c[3].toFixed(3) + ')';
+    }
+    return 'rgba(255,42,0,1)';
+  };
   NG.heat = function (cv, pts, opts) {
     opts = opts || {};
     var r = cv.getBoundingClientRect();
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var W = Math.max(1, Math.round(r.width * dpr)), H = Math.max(1, Math.round(r.height * dpr));
-    cv.width = W; cv.height = H;
-    var ctx = cv.getContext('2d', { willReadFrequently: true });
-    var base = Math.min(W, H);
-    ctx.clearRect(0, 0, W, H);
+    var w = Math.max(1, r.width), h = Math.max(1, r.height);
+    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+    var ctx = cv.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    var base = Math.min(w, h), cell = opts.cell || Math.max(5, Math.round(base / 46)), gap = Math.max(1, cell * .18);
+    var gain = opts.gain || 1;
+    // brillo suave bajo los píxeles
     pts.forEach(function (p) {
-      var rad = (p[2] || 0.12) * base, x = p[0] * W, y = p[1] * H, w = p[3] == null ? 1 : p[3];
+      var rad = (p[2] || .12) * base * 1.25, x = p[0] * w, y = p[1] * h;
       var g = ctx.createRadialGradient(x, y, 0, x, y, rad);
-      g.addColorStop(0, 'rgba(0,0,0,' + 0.55 * w + ')'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      g.addColorStop(0, 'rgba(200,255,0,' + (.22 * (p[3] == null ? 1 : p[3])) + ')'); g.addColorStop(1, 'rgba(200,255,0,0)');
       ctx.fillStyle = g; ctx.fillRect(x - rad, y - rad, rad * 2, rad * 2);
     });
-    var img = ctx.getImageData(0, 0, W, H), px = img.data;
-    var ramp = [[0, [200, 245, 66, 0]], [0.18, [200, 245, 66, 70]], [0.55, [200, 255, 0, 170]], [1, [242, 243, 240, 225]]];
-    for (var i = 0; i < px.length; i += 4) {
-      var a = px[i + 3] / 255; if (!a) continue;
-      a = Math.min(1, a * (opts.gain || 1.25));
-      for (var k = 1; k < ramp.length; k++) {
-        if (a <= ramp[k][0]) {
-          var lo = ramp[k - 1], hi = ramp[k], t = (a - lo[0]) / (hi[0] - lo[0]);
-          px[i] = lo[1][0] + (hi[1][0] - lo[1][0]) * t; px[i + 1] = lo[1][1] + (hi[1][1] - lo[1][1]) * t;
-          px[i + 2] = lo[1][2] + (hi[1][2] - lo[1][2]) * t; px[i + 3] = lo[1][3] + (hi[1][3] - lo[1][3]) * t;
-          break;
-        }
+    for (var y = 0; y < h; y += cell) for (var x = 0; x < w; x += cell) {
+      var cx = x + cell / 2, cy = y + cell / 2, v = 0;
+      for (var i = 0; i < pts.length; i++) {
+        var p = pts[i], s = (p[2] || .12) * base, dx = cx - p[0] * w, dy = cy - p[1] * h;
+        v += (p[3] == null ? 1 : p[3]) * Math.exp(-(dx * dx + dy * dy) / (2 * s * s * .45));
       }
+      v *= gain;
+      if (v < .08) continue;
+      ctx.fillStyle = NG.thermal(Math.min(1, v));
+      ctx.fillRect(x + gap / 2, y + gap / 2, cell - gap, cell - gap);
     }
-    ctx.putImageData(img, 0, 0);
   };
 
   /* --- Contador ----------------------------------------------------- */

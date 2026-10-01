@@ -63,7 +63,7 @@
     <div class="ng-gaze__intro">
       <div class="ng-head">
         <p class="ng-mono ng-eyebrow">02 · Eye tracking + IA</p>
-        <h2 class="ng-h2" id="ng-gaze-title" data-ng-split>Así mira tu cliente</h2>
+        <h2 class="ng-h2" id="ng-gaze-title" data-ng-split>Así mira <span class="ng-hl">tu cliente</span></h2>
       </div>
       <p class="ng-body" data-ng-reveal>Combinamos eye tracking e IA para revelar qué capta la mirada, cuánto tiempo la retiene y qué pasa desapercibido. Los consumidores deciden en segundos, y la mayoría de esas decisiones ocurre antes de que puedan explicarlas. Por eso no preguntamos qué les gusta: medimos cómo reaccionan.</p>
     </div>
@@ -149,9 +149,9 @@ NG.boot('[data-ng="gaze"]', function (sec) {
   });
   var heat = sec.querySelector('.ng-gaze__heat');
   var drawHeat = function () {
-    var pts = F.map(function (f) { return [f[0] / 1000, f[1] / 625, .08 + f[2] / 3600, .7 + f[2] / 900]; });
-    pts.push([.73, .42, .16, .8], [.2, .27, .14, .55]);
-    NG.heat(heat, pts, { gain: 1.3 });
+    var pts = F.map(function (f) { return [f[0] / 1000, f[1] / 625, .05 + f[2] / 5000, .55 + f[2] / 900]; });
+    pts.push([.74, .44, .1, .7], [.22, .29, .08, .45]);
+    NG.heat(heat, pts, { gain: .6 });
   };
   drawHeat();
   if ('ResizeObserver' in window) { var to; new ResizeObserver(function () { clearTimeout(to); to = setTimeout(drawHeat, 120); }).observe(heat); }

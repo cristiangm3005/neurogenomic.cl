@@ -1,10 +1,10 @@
-<!-- NEUROGENOMIC · Bloque Elementor «11-s10-cta-final»
+<!-- NEUROGENOMIC · Bloque Elementor «09-s6-metodo»
      Pegar completo en un widget HTML de Elementor (ancho completo, sin padding).
      Incluye tokens + núcleo NG (idempotentes: pueden repetirse en varios bloques).
      Imágenes: reemplaza /img/ por la URL de la Biblioteca de medios. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
 <style>
 :root{
 --ng-bg:#0A0B0D;
@@ -17,6 +17,7 @@
 --ng-volt:#C8F542;
 --ng-lime:#C8FF00;
 --ng-ff:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+--ng-disp:'Anton','Bebas Neue',Impact,'Arial Narrow Bold',sans-serif;
 --ng-mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
 --ng-ease:cubic-bezier(.16,1,.3,1);
 --ng-gut:clamp(16px,4.4vw,72px);
@@ -46,13 +47,23 @@ font-size:16px;line-height:1.55;font-weight:400;
 .ng-mono{font-family:var(--ng-mono);font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;line-height:1.4}
 .ng-eyebrow{color:var(--ng-volt);display:inline-flex;align-items:center;gap:10px}
 .ng-eyebrow::before{content:"";width:18px;height:1px;background:currentColor}
-.ng-h2{font-size:clamp(36px,5.6vw,96px);line-height:.95;letter-spacing:-.03em;font-weight:500;text-wrap:balance}
+.ng-disp,.ng-h2{font-family:var(--ng-disp);font-weight:400;text-transform:uppercase;letter-spacing:-.005em;line-height:.9}
+.ng-h2{font-size:clamp(46px,6.6vw,124px);text-wrap:balance}
+.ng-hl{color:var(--ng-lime)}
+.ng-strip{display:flex;align-items:center;gap:clamp(12px,2vw,28px);font:500 clamp(11px,1vw,14px)/1.3 var(--ng-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ng-lime)}
+.ng-strip::before,.ng-strip::after{content:"";flex:1 1 40px;min-width:24px;height:1px;background:var(--ng-lime)}
+.ng-strip i{font-style:normal;opacity:.7}
+@media (max-width:599px){.ng-strip{flex-wrap:wrap;justify-content:center;gap:8px 12px}.ng-strip::before,.ng-strip::after{flex-basis:100%;order:0}.ng-strip::after{order:9}}
+.ng-co{position:absolute;display:flex;align-items:center;gap:12px;pointer-events:none;font:500 clamp(10px,.95vw,13px)/1.5 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-lime);white-space:nowrap}
+.ng-co__dot{flex:0 0 auto;width:12px;height:12px;border-radius:50%;background:var(--ng-lime);box-shadow:0 0 0 4px rgba(200,255,0,.18),0 0 18px rgba(200,255,0,.8)}
+.ng-co__ln{flex:0 0 auto;width:var(--ng-co-w,90px);height:1px;background:var(--ng-lime);transform-origin:0 50%}
+.ng-co b{font-weight:500;color:var(--ng-tx)}
 .ng-h3{font-size:clamp(26px,2.8vw,44px);line-height:1;letter-spacing:-.025em;font-weight:500}
 .ng-lead{font-size:clamp(18px,1.5vw,22px);line-height:1.45;color:var(--ng-tx);font-weight:300;max-width:46ch}
 .ng-body{color:var(--ng-tx2);max-width:60ch}
 .ng-volt{color:var(--ng-volt)}
 .ng-sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
-.ng-w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.ng-w{display:inline-block;overflow:hidden;vertical-align:top;padding:.16em .02em .1em;margin:-.16em -.02em -.1em}
 .ng-w>span{display:inline-block;will-change:transform}
 .ng-btn{
 --_bg:transparent;--_fg:var(--ng-tx);--_bd:var(--ng-line2);
@@ -100,24 +111,34 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-sec *,.ng-nav *,.ng-foot *,.ng-menu *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
 .ng-js .ng-sec[data-ng-bg]{--ng-bgo:1}
 }
-.ng-cta{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:clamp(96px,10vw,160px) 0}
-.ng-cta__media{position:absolute;inset:0;z-index:-2;border-radius:0}
-.ng-cta__media img{transform-origin:var(--ng-pupil,64% 46%)}
-.ng-cta__shade{position:absolute;inset:0 auto 0 0;width:min(100%,900px);z-index:-1;pointer-events:none;background:radial-gradient(100% 80% at 0% 50%,rgba(10,11,13,.85) 0%,rgba(10,11,13,.5) 45%,rgba(10,11,13,0) 75%)}
-.ng-cta__ring{overflow:visible;position:absolute;left:var(--ng-px,64%);top:var(--ng-py,46%);width:min(60vw,640px);aspect-ratio:1;translate:-50% -50%;z-index:-1;pointer-events:none}
-.ng-cta__ring circle{fill:none;stroke:var(--ng-lime);stroke-width:1;vector-effect:non-scaling-stroke}
-.ng-cta__ring .ng-cta__r2{stroke:rgba(200,255,0,.35);stroke-dasharray:2 6}
-.ng-cta__ring text{font-family:var(--ng-mono);font-size:4.2px;font-weight:500;letter-spacing:.6px;fill:var(--ng-lime)}
-.ng-cta__in{max-width:900px}
-.ng-cta__t{font-size:clamp(44px,7vw,128px);line-height:.95;letter-spacing:-.045em;font-weight:500;margin:22px 0 28px;text-wrap:balance}
-.ng-cta__p{font-size:clamp(18px,1.5vw,22px);font-weight:300;max-width:44ch;color:var(--ng-tx)}
-.ng-cta__btn{margin-top:clamp(32px,4vw,56px);min-height:clamp(64px,7vw,96px);padding:0 clamp(28px,3vw,48px);font-size:clamp(17px,1.4vw,22px);border-radius:999px}
-.ng-cta__btn .ng-btn__t{display:inline-flex;gap:14px;align-items:center}
-@media (max-width:899px){
-.ng-cta{align-items:flex-end}
-.ng-cta__shade{width:100%;background:linear-gradient(0deg,rgba(10,11,13,.9) 0%,rgba(10,11,13,.65) 50%,rgba(10,11,13,0) 85%)}
-.ng-cta__btn{width:100%}
+.ng-met{padding:clamp(96px,12vw,180px) 0}
+.ng-met__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:clamp(40px,5vw,72px)}
+.ng-met__head .ng-head{grid-column:1/-1;margin:0}
+.ng-met__head .ng-media{grid-column:8/span 5;aspect-ratio:21/9}
+.ng-met__flow{position:relative}
+.ng-met__svg{display:block;width:100%;height:120px;overflow:visible}
+.ng-met__svg path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ng-met__base{stroke:var(--ng-line2);stroke-width:1}
+.ng-met__sig{stroke:var(--ng-volt);stroke-width:1.6}
+.ng-met__steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,2vw,32px);margin-top:8px}
+.ng-met__st{position:relative;padding-top:28px;border-top:1px solid var(--ng-line);transition:opacity .5s}
+.ng-met__dot{position:absolute;left:0;top:-6px;width:11px;height:11px;border-radius:50%;background:var(--ng-bg);border:1px solid var(--ng-tx2);transition:background .4s,border-color .4s,box-shadow .4s}
+.ng-met__st.ng-is-on .ng-met__dot{background:var(--ng-lime);border-color:var(--ng-lime);box-shadow:0 0 0 6px rgba(200,255,0,.12)}
+.ng-met__n{font:500 clamp(48px,5vw,84px)/1 var(--ng-mono);letter-spacing:-.04em;color:var(--ng-tx2);transition:color .4s}
+.ng-met__st.ng-is-on .ng-met__n{color:var(--ng-volt)}
+.ng-met__st h3{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(30px,2.8vw,46px);line-height:.95;letter-spacing:0;font-weight:400;margin:18px 0 12px}
+.ng-met__st p{color:var(--ng-tx2);font-size:15px;max-width:34ch}
+.ng-js .ng-met__st:not(.ng-is-on){opacity:.55}
+@media (max-width:1023px){
+.ng-met__head .ng-head,.ng-met__head .ng-media{grid-column:1/-1}
+.ng-met__svg{display:none}
+.ng-met__steps{grid-template-columns:1fr;gap:0;margin-top:0;padding-left:28px;position:relative}
+.ng-met__steps::before{content:"";position:absolute;left:5px;top:0;bottom:0;width:1px;background:var(--ng-line2)}
+.ng-met__vline{position:absolute;left:5px;top:0;bottom:40px;width:1px;background:var(--ng-volt);transform-origin:50% 0}
+.ng-met__st{border-top:0;padding:0 0 40px}
+.ng-met__dot{left:-28px;top:6px}
 }
+@media (min-width:1024px){.ng-met__vline{display:none}}
 </style>
 <script>
 /* ==========================================================
@@ -299,37 +320,48 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
     return o;
   };
 
-  /* --- Heatmap monocromático dentro de la paleta (volt → lima → blanco) */
+  /* --- Heatmap térmico pixelado (estilo campaña: lima → amarillo → naranja → rojo) ---
+     pts: [x, y, radio, peso] normalizados 0–1. opts.cell = tamaño de celda en px CSS. */
+  var RAMP = [[0, [200, 255, 0, 0]], [0.16, [200, 255, 0, 0.45]], [0.4, [200, 255, 0, 0.85]],
+              [0.62, [255, 214, 0, 0.92]], [0.8, [255, 122, 0, 0.95]], [1, [255, 42, 0, 1]]];
+  NG.thermal = function (v) {
+    v = NG.clamp(v, 0, 1);
+    for (var k = 1; k < RAMP.length; k++) if (v <= RAMP[k][0]) {
+      var lo = RAMP[k - 1], hi = RAMP[k], t = (v - lo[0]) / (hi[0] - lo[0]), c = [];
+      for (var j = 0; j < 4; j++) c[j] = lo[1][j] + (hi[1][j] - lo[1][j]) * t;
+      return 'rgba(' + (c[0] | 0) + ',' + (c[1] | 0) + ',' + (c[2] | 0) + ',' + c[3].toFixed(3) + ')';
+    }
+    return 'rgba(255,42,0,1)';
+  };
   NG.heat = function (cv, pts, opts) {
     opts = opts || {};
     var r = cv.getBoundingClientRect();
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var W = Math.max(1, Math.round(r.width * dpr)), H = Math.max(1, Math.round(r.height * dpr));
-    cv.width = W; cv.height = H;
-    var ctx = cv.getContext('2d', { willReadFrequently: true });
-    var base = Math.min(W, H);
-    ctx.clearRect(0, 0, W, H);
+    var w = Math.max(1, r.width), h = Math.max(1, r.height);
+    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+    var ctx = cv.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    var base = Math.min(w, h), cell = opts.cell || Math.max(5, Math.round(base / 46)), gap = Math.max(1, cell * .18);
+    var gain = opts.gain || 1;
+    // brillo suave bajo los píxeles
     pts.forEach(function (p) {
-      var rad = (p[2] || 0.12) * base, x = p[0] * W, y = p[1] * H, w = p[3] == null ? 1 : p[3];
+      var rad = (p[2] || .12) * base * 1.25, x = p[0] * w, y = p[1] * h;
       var g = ctx.createRadialGradient(x, y, 0, x, y, rad);
-      g.addColorStop(0, 'rgba(0,0,0,' + 0.55 * w + ')'); g.addColorStop(1, 'rgba(0,0,0,0)');
+      g.addColorStop(0, 'rgba(200,255,0,' + (.22 * (p[3] == null ? 1 : p[3])) + ')'); g.addColorStop(1, 'rgba(200,255,0,0)');
       ctx.fillStyle = g; ctx.fillRect(x - rad, y - rad, rad * 2, rad * 2);
     });
-    var img = ctx.getImageData(0, 0, W, H), px = img.data;
-    var ramp = [[0, [200, 245, 66, 0]], [0.18, [200, 245, 66, 70]], [0.55, [200, 255, 0, 170]], [1, [242, 243, 240, 225]]];
-    for (var i = 0; i < px.length; i += 4) {
-      var a = px[i + 3] / 255; if (!a) continue;
-      a = Math.min(1, a * (opts.gain || 1.25));
-      for (var k = 1; k < ramp.length; k++) {
-        if (a <= ramp[k][0]) {
-          var lo = ramp[k - 1], hi = ramp[k], t = (a - lo[0]) / (hi[0] - lo[0]);
-          px[i] = lo[1][0] + (hi[1][0] - lo[1][0]) * t; px[i + 1] = lo[1][1] + (hi[1][1] - lo[1][1]) * t;
-          px[i + 2] = lo[1][2] + (hi[1][2] - lo[1][2]) * t; px[i + 3] = lo[1][3] + (hi[1][3] - lo[1][3]) * t;
-          break;
-        }
+    for (var y = 0; y < h; y += cell) for (var x = 0; x < w; x += cell) {
+      var cx = x + cell / 2, cy = y + cell / 2, v = 0;
+      for (var i = 0; i < pts.length; i++) {
+        var p = pts[i], s = (p[2] || .12) * base, dx = cx - p[0] * w, dy = cy - p[1] * h;
+        v += (p[3] == null ? 1 : p[3]) * Math.exp(-(dx * dx + dy * dy) / (2 * s * s * .45));
       }
+      v *= gain;
+      if (v < .08) continue;
+      ctx.fillStyle = NG.thermal(Math.min(1, v));
+      ctx.fillRect(x + gap / 2, y + gap / 2, cell - gap, cell - gap);
     }
-    ctx.putImageData(img, 0, 0);
   };
 
   /* --- Contador ----------------------------------------------------- */
@@ -398,36 +430,46 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
   });
 })();
 </script>
-<section class="ng-sec ng-cta" id="contacto-cta" aria-labelledby="ng-cta-title" data-ng="cta">
-  <div class="ng-cta__media ng-media" data-ph="/img/cta-eye-contracted · 16:9 / 9:16"><!-- IMAGEN 08 · cta-eye-contracted · 16:9 (desktop) + 9:16 (móvil: cta-eye-contracted-portrait)
-     PROMPT: "Same framing as the hero: macro photograph of the same human eye, extreme close-up, pupil strongly contracted (miosis), iris in sharp focus, thin volt-green (#C8F542) crosshair reflected on the cornea, dark charcoal background, cinematic low-key lighting, hyper-realistic, 8K, editorial tech campaign" -->
-<picture><source media="(max-width:767px)" type="image/avif" srcset="/img/cta-eye-contracted-portrait-768.avif 768w, /img/cta-eye-contracted-portrait-1280.avif 1280w" sizes="100vw"><source media="(max-width:767px)" type="image/webp" srcset="/img/cta-eye-contracted-portrait-768.webp 768w, /img/cta-eye-contracted-portrait-1280.webp 1280w" sizes="100vw"><source type="image/avif" srcset="/img/cta-eye-contracted-768.avif 768w, /img/cta-eye-contracted-1280.avif 1280w, /img/cta-eye-contracted-1920.avif 1920w, /img/cta-eye-contracted-2560.avif 2560w" sizes="100vw"><source type="image/webp" srcset="/img/cta-eye-contracted-768.webp 768w, /img/cta-eye-contracted-1280.webp 1280w, /img/cta-eye-contracted-1920.webp 1920w, /img/cta-eye-contracted-2560.webp 2560w" sizes="100vw"><img src="/img/cta-eye-contracted-1280.webp" width="2560" height="1440" alt="El mismo ojo del inicio, ahora con la pupila contraída" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
-  <div class="ng-cta__shade" aria-hidden="true"></div>
-  <svg class="ng-cta__ring" viewBox="0 0 200 200" aria-hidden="true">
-    <circle class="ng-cta__r1" cx="100" cy="100" r="90"/><circle class="ng-cta__r2" cx="100" cy="100" r="98"/>
-    <text x="100" y="-4" text-anchor="middle">PUPILA · Ø ↓</text>
-  </svg>
+<section class="ng-sec ng-met" id="metodo" aria-labelledby="ng-met-title" data-ng="method">
   <div class="ng-wrap">
-    <div class="ng-cta__in">
-      <p class="ng-mono ng-eyebrow">10 · Diagnóstico</p>
-      <h2 class="ng-cta__t" id="ng-cta-title" data-ng-split>¿Construimos tu próxima decisión con evidencia?</h2>
-      <p class="ng-cta__p" data-ng-reveal>Cuéntanos qué servicio necesitas hoy. El diagnóstico inicial es la base de todo lo que viene después.</p>
-      <a class="ng-btn ng-btn--volt ng-cta__btn" href="/contacto/" data-ng-magnet><span class="ng-btn__t">Agendar diagnóstico <span class="ng-btn__i" aria-hidden="true">↗</span></span></a>
+    <div class="ng-met__head">
+      <div class="ng-head">
+        <p class="ng-mono ng-eyebrow">06 · Método</p>
+        <h2 class="ng-h2" id="ng-met-title" data-ng-split>Un proceso, <span class="ng-hl">seis aplicaciones.</span></h2>
+      </div>
+    </div>
+    <div class="ng-met__flow">
+      <svg class="ng-met__svg" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+        <path class="ng-met__base" d="M0 60 H1200"/>
+        <path class="ng-met__sig" d="M0 60 H120 l10 -6 l8 10 l10 -40 l12 70 l10 -40 l8 6 H420 l10 -8 l8 14 l10 -46 l12 76 l10 -44 l8 8 H720 l10 -6 l8 12 l10 -50 l12 80 l10 -42 l8 6 H1020 l10 -8 l8 10 l10 -44 l12 74 l10 -38 l8 6 H1200"/>
+      </svg>
+      <span class="ng-met__vline" aria-hidden="true"></span>
+      <ol class="ng-met__steps">
+        <li class="ng-met__st"><span class="ng-met__dot" aria-hidden="true"></span><span class="ng-met__n">01</span><h3>Medir</h3><p>Biometría aplicada sobre el estímulo, la marca o el flujo actual: eye tracking, codificación facial, respuesta galvánica.</p></li>
+        <li class="ng-met__st"><span class="ng-met__dot" aria-hidden="true"></span><span class="ng-met__n">02</span><h3>Modelar</h3><p>La IA cruza mirada, gesto y piel con datos de negocio para identificar patrones y anticipar la respuesta del consumidor.</p></li>
+        <li class="ng-met__st"><span class="ng-met__dot" aria-hidden="true"></span><span class="ng-met__n">03</span><h3>Construir</h3><p>Diseño, contenido o producto se ejecutan sobre las opciones ya validadas, no sobre la primera idea que pareció correcta.</p></li>
+        <li class="ng-met__st"><span class="ng-met__dot" aria-hidden="true"></span><span class="ng-met__n">04</span><h3>Verificar</h3><p>Cada entregable se vuelve a testear contra el comportamiento real antes y después de salir a producción.</p></li>
+      </ol>
     </div>
   </div>
 </section>
 
 <script>
-NG.boot('[data-ng="cta"]', function (sec) {
-  var ring = sec.querySelector('.ng-cta__ring'), img = sec.querySelector('.ng-cta__media img');
+NG.boot('[data-ng="method"]', function (sec) {
+  var sig = sec.querySelector('.ng-met__sig'), vline = sec.querySelector('.ng-met__vline');
+  var steps = [].slice.call(sec.querySelectorAll('.ng-met__st'));
+  var light = function (p) { steps.forEach(function (s, i) { s.classList.toggle('ng-is-on', p >= i * .25 + .04); }); };
   NG.reveals(sec);
-  sec.querySelectorAll('[data-ng-magnet]').forEach(function (b) { NG.magnet(b, .35); });
   NG.ready().then(function (gsap) {
-    if (!gsap || NG.rm) return;
-    var tl = gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top 85%', end: 'center 55%', scrub: true } });
-    tl.fromTo(ring, { scale: 1.6, autoAlpha: 0 }, { scale: .55, autoAlpha: 1, ease: 'none' }, 0);
-    if (img) tl.fromTo(img, { scale: 1.18 }, { scale: 1, ease: 'none' }, 0);
-    gsap.to(ring.querySelector('.ng-cta__r2'), { rotation: 360, transformOrigin: '50% 50%', duration: 40, repeat: -1, ease: 'none' });
+    if (!gsap || NG.rm) { light(1); return; }
+    var len = sig.getTotalLength();
+    sig.style.strokeDasharray = len;
+    gsap.fromTo(sig, { strokeDashoffset: len }, { strokeDashoffset: 0, ease: 'none',
+      scrollTrigger: { trigger: sec.querySelector('.ng-met__flow'), start: 'top 75%', end: 'bottom 55%', scrub: true,
+        onUpdate: function (s) { if (window.innerWidth >= 1024) light(s.progress); } } });
+    gsap.fromTo(vline, { scaleY: 0 }, { scaleY: 1, ease: 'none',
+      scrollTrigger: { trigger: sec.querySelector('.ng-met__steps'), start: 'top 70%', end: 'bottom 60%', scrub: true,
+        onUpdate: function (s) { if (window.innerWidth < 1024) light(s.progress); } } });
   });
 });
 </script>

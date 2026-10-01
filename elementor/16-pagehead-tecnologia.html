@@ -1,7 +1,7 @@
-<!-- NEUROGENOMIC · Bloque Elementor «01-s0-preloader»
+<!-- NEUROGENOMIC · Bloque Elementor «16-pagehead-tecnologia»
      Pegar completo en un widget HTML de Elementor (ancho completo, sin padding).
      Incluye tokens + núcleo NG (idempotentes: pueden repetirse en varios bloques).
-     Nota: Solo en la página de inicio, justo después del header.
+     Nota: Cabecera con H1 de /tecnologia/.
      Imágenes: reemplaza /img/ por la URL de la Biblioteca de medios. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -112,28 +112,19 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-sec *,.ng-nav *,.ng-foot *,.ng-menu *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
 .ng-js .ng-sec[data-ng-bg]{--ng-bgo:1}
 }
-.ng-pre{display:none}
-.ng-pre-on .ng-pre{display:block;position:fixed;inset:0;z-index:10003;pointer-events:auto}
-.ng-pre__panel{position:absolute;left:0;right:0;height:50.5%;background:var(--ng-bg);transition:transform .75s cubic-bezier(.76,0,.24,1)}
-.ng-pre__panel--t{top:0}.ng-pre__panel--b{bottom:0}
-.ng-pre__stage{position:absolute;inset:clamp(24px,6vw,72px);transition:opacity .3s}
-.ng-pre__grid{position:absolute;inset:0;border:1px solid var(--ng-line);background:
-linear-gradient(var(--ng-line) 1px,transparent 1px) 50% 50%/25% 25%,
-linear-gradient(90deg,var(--ng-line) 1px,transparent 1px) 50% 50%/25% 25%}
-.ng-pre__pt{position:absolute;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;border:1px solid var(--ng-tx2);transition:background .2s,border-color .2s,transform .3s}
-.ng-pre__pt.ng-is-ok{background:var(--ng-lime);border-color:var(--ng-lime);transform:scale(.6)}
-.ng-pre__x{position:absolute;left:0;top:0;width:56px;height:56px;margin:-28px 0 0 -28px;transition:transform .26s cubic-bezier(.65,0,.35,1)}
-.ng-pre__x::before,.ng-pre__x::after{content:"";position:absolute;background:var(--ng-lime)}
-.ng-pre__x::before{left:50%;top:0;bottom:0;width:1px}
-.ng-pre__x::after{top:50%;left:0;right:0;height:1px}
-.ng-pre__x i{position:absolute;inset:14px;border:1px solid var(--ng-lime);border-radius:50%}
-.ng-pre__hud{position:absolute;left:clamp(24px,6vw,72px);right:clamp(24px,6vw,72px);bottom:clamp(24px,4vw,40px);display:flex;justify-content:space-between;align-items:flex-end;gap:16px;font:500 12px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2)}
-.ng-pre__n{color:var(--ng-tx);font-variant-numeric:tabular-nums}
-.ng-pre__skip{appearance:none;background:transparent;border:1px solid var(--ng-line2);color:var(--ng-tx);font:inherit;letter-spacing:inherit;text-transform:inherit;min-height:44px;padding:0 16px;border-radius:4px;cursor:pointer}
-.ng-pre__skip:focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px}
-.ng-pre.ng-is-out .ng-pre__stage,.ng-pre.ng-is-out .ng-pre__hud{opacity:0}
-.ng-pre.ng-is-out .ng-pre__panel--t{transform:translateY(-100%)}
-.ng-pre.ng-is-out .ng-pre__panel--b{transform:translateY(100%)}
+.ng-ph{padding:calc(var(--ng-nav-h) + clamp(64px,10vw,160px)) 0 clamp(56px,7vw,112px)}
+.ng-ph__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end}
+.ng-ph__t{grid-column:1/span 11;font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(56px,9vw,170px);line-height:.88;letter-spacing:0;font-weight:400;margin-top:24px;text-wrap:balance}
+.ng-ph__p{grid-column:1/span 6;margin-top:clamp(20px,2.4vw,36px);font-size:clamp(18px,1.5vw,22px);font-weight:300;line-height:1.45}
+.ng-ph__meta{grid-column:9/span 4;justify-self:end;color:var(--ng-tx2);text-align:right}
+.ng-ph__meta b{color:var(--ng-lime);font-weight:500}
+.ng-ph__media{margin-top:clamp(48px,6vw,96px);aspect-ratio:21/9}
+.ng-ph__media img{transform-origin:50% 50%}
+@media (max-width:899px){
+.ng-ph__t,.ng-ph__p{grid-column:1/-1}
+.ng-ph__meta{grid-column:1/-1;justify-self:start;text-align:left}
+.ng-ph__media{aspect-ratio:4/3}
+}
 </style>
 <script>
 /* ==========================================================
@@ -425,66 +416,31 @@ linear-gradient(90deg,var(--ng-line) 1px,transparent 1px) 50% 50%/25% 25%}
   });
 })();
 </script>
-<div class="ng-pre" data-ng="pre" role="status" aria-live="polite" aria-label="Calibrando">
-  <div class="ng-pre__panel ng-pre__panel--t"></div>
-  <div class="ng-pre__panel ng-pre__panel--b"></div>
-  <div class="ng-pre__stage" aria-hidden="true">
-    <div class="ng-pre__grid"></div>
-    <span class="ng-pre__pt" style="left:50%;top:50%"></span>
-    <span class="ng-pre__pt" style="left:8%;top:10%"></span>
-    <span class="ng-pre__pt" style="left:92%;top:10%"></span>
-    <span class="ng-pre__pt" style="left:8%;top:90%"></span>
-    <span class="ng-pre__pt" style="left:92%;top:90%"></span>
-    <span class="ng-pre__x"><i></i></span>
+<section class="ng-sec ng-ph" aria-labelledby="ng-ph-title" data-ng="pagehead">
+  <div class="ng-wrap">
+    <div class="ng-ph__grid">
+      <p class="ng-mono ng-eyebrow" style="grid-column:1/-1">Registro en vivo — sesión de medición biométrica</p>
+      <h1 class="ng-ph__t" id="ng-ph-title">La intuición no se mide. La atención, sí.</h1>
+      <p class="ng-ph__p" data-ng-reveal=".2">Eye tracking, facial coding y respuesta galvánica, cruzados con modelos de IA propios, para convertir reacciones no conscientes en una decisión validada antes de construir.</p>
+      <p class="ng-ph__meta ng-mono" aria-hidden="true">REC <b>●</b> <span class="ng-ph__ts">00:00:00</span><br>03 señales · IA propia</p>
+    </div>
+    
   </div>
-  <div class="ng-pre__hud">
-    <span>Calibrando <span class="ng-pre__n">0</span> %<br><span class="ng-pre__p">Punto 0 / 5</span></span>
-    <button type="button" class="ng-pre__skip">Saltar</button>
-  </div>
-</div>
+</section>
+
 <script>
-/* Se activa antes del primer pintado: sin JS el preloader nunca cubre el contenido. */
-(function () {
-  var de = document.documentElement, seen = false;
-  try { seen = sessionStorage.getItem('ng-pre') === '1'; } catch (e) {}
-  var rm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!seen && !rm && !de.classList.contains('ng-pre-done')) de.classList.add('ng-pre-on');
-})();
-NG.boot('[data-ng="pre"]', function (pre) {
-  var de = document.documentElement;
-  if (!de.classList.contains('ng-pre-on')) { pre.remove(); return; }
-  var stage = pre.querySelector('.ng-pre__stage'), x = pre.querySelector('.ng-pre__x');
-  var pts = [].slice.call(pre.querySelectorAll('.ng-pre__pt'));
-  var n = pre.querySelector('.ng-pre__n'), p = pre.querySelector('.ng-pre__p');
-  var DUR = 1400, t0 = performance.now(), done = false, step = -1;
-  var place = function (i) {
-    var r = stage.getBoundingClientRect(), el = pts[i];
-    x.style.transform = 'translate(' + (parseFloat(el.style.left) / 100 * r.width) + 'px,' + (parseFloat(el.style.top) / 100 * r.height) + 'px)';
-  };
-  place(0);
-  var finish = function () {
-    if (done) return; done = true;
-    try { sessionStorage.setItem('ng-pre', '1'); } catch (e) {}
-    n.textContent = '100'; pre.classList.add('ng-is-out');
-    de.classList.add('ng-pre-done');
-    window.dispatchEvent(new Event('ng:preloaded'));
-    setTimeout(function () { de.classList.remove('ng-pre-on'); pre.remove(); }, 800);
-  };
-  (function tick(t) {
-    if (done) return;
-    var k = Math.max(0, Math.min(1, (t - t0) / DUR));
-    n.textContent = Math.round(k * 100);
-    var s = Math.min(4, Math.floor(k * 5));
-    if (s !== step) {
-      if (step >= 0) pts[step].classList.add('ng-is-ok');
-      step = s; place(s); p.textContent = 'Punto ' + (s + 1) + ' / 5';
-    }
-    if (k >= 1) { pts[4].classList.add('ng-is-ok'); setTimeout(finish, 160); return; }
-    requestAnimationFrame(tick);
-  })(t0);
-  pre.querySelector('.ng-pre__skip').addEventListener('click', finish);
-  pre.addEventListener('click', function (e) { if (e.target === pre || e.target.closest('.ng-pre__stage')) finish(); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' || e.key === 'Enter') finish(); }, { once: true });
-  setTimeout(finish, 2200); // salvavidas
+NG.boot('[data-ng="pagehead"]', function (sec) {
+  var ts = sec.querySelector('.ng-ph__ts'), t0 = Date.now();
+  var p = function (n) { return (n < 10 ? '0' : '') + n; };
+  setInterval(function () { var s = Math.floor((Date.now() - t0) / 1000); ts.textContent = p(Math.floor(s / 3600)) + ':' + p(Math.floor(s / 60) % 60) + ':' + p(s % 60); }, 1000);
+  NG.reveals(sec);
+  NG.ready().then(function (gsap) {
+    if (!gsap || NG.rm) return;
+    var w = NG.split(sec.querySelector('.ng-ph__t'));
+    gsap.set(w, { yPercent: 115 });
+    NG.afterPreload(function () { gsap.to(w, { yPercent: 0, duration: 1.2, ease: 'expo.out', stagger: .06, delay: .1 }); });
+    var img = sec.querySelector('.ng-ph__media img');
+    if (img) gsap.fromTo(img, { scale: 1.15, yPercent: -4 }, { scale: 1.15, yPercent: 4, ease: 'none', scrollTrigger: { trigger: img.parentNode, start: 'top bottom', end: 'bottom top', scrub: true } });
+  });
 });
 </script>

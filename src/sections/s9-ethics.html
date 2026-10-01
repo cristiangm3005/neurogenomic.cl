@@ -3,7 +3,7 @@
 .ng-eth{padding:clamp(96px,12vw,180px) 0}
 .ng-eth__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:start;margin-bottom:clamp(40px,5vw,72px)}
 .ng-eth__head .ng-head{grid-column:1/span 7;margin:0}
-.ng-eth__head .ng-body{grid-column:1/span 6;color:var(--ng-tx);font-weight:300;font-size:clamp(17px,1.3vw,20px)}
+.ng-eth__head .ng-body{grid-column:8/span 5;align-self:end;color:var(--ng-tx);font-weight:300;font-size:clamp(17px,1.3vw,20px)}
 .ng-eth__head .ng-media{grid-column:8/span 5;grid-row:1/span 2;aspect-ratio:16/9;align-self:end}
 .ng-eth__doc{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ng-line);border-radius:8px;background:var(--ng-bg)}
 .ng-eth__col{padding:clamp(20px,2.4vw,36px)}
@@ -30,10 +30,9 @@
     <div class="ng-eth__head">
       <div class="ng-head">
         <p class="ng-mono ng-eyebrow">09 · Ética y datos</p>
-        <h2 class="ng-h2" id="ng-eth-title">Medimos cerebros. Por eso las reglas son más estrictas.</h2>
+        <h2 class="ng-h2" id="ng-eth-title">Medimos cerebros. <span class="ng-hl">Por eso las reglas son más estrictas.</span></h2>
       </div>
       <p class="ng-body" data-ng-reveal>Una respuesta pupilar o una señal biométrica dice más de una persona que cualquier encuesta. Tratamos cada registro como lo que es: dato sensible bajo la Ley 21.719, con cadena de custodia auditable de principio a fin.</p>
-      <div class="ng-media" data-ph="/img/ethics-fingerprint · 16:9">{{img:ethics}}</div>
     </div>
     <div class="ng-eth__doc">
       <div class="ng-eth__col">

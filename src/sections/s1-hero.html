@@ -1,43 +1,59 @@
 <style>
-/* ---------- S1 · HERO · ojo macro + cursor de fijación + scanpath ---------- */
-.ng-hero{min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;padding:calc(var(--ng-nav-h) + 40px) 0 clamp(40px,6vw,80px)}
-.ng-hero__media{position:absolute;inset:0;z-index:-2;border-radius:0}
-.ng-hero__media img{transform-origin:var(--ng-pupil,64% 46%);will-change:transform}
-/* Degradado localizado SOLO bajo el bloque de texto (abajo-izquierda), no un velo general */
-.ng-hero__shade{position:absolute;inset:auto auto 0 0;width:min(100%,980px);height:78%;z-index:-1;pointer-events:none;
-  background:radial-gradient(120% 90% at 0% 100%,rgba(10,11,13,.86) 0%,rgba(10,11,13,.55) 42%,rgba(10,11,13,0) 72%)}
+/* ---------- S1 · HERO · "Todos miran. Nosotros medimos." · fijación sobre el ojo + scanpath ---------- */
+.ng-hero{--ng-dogw:min(calc(100svh * .546),46vw);min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;padding:calc(var(--ng-nav-h) + 40px) 0 clamp(40px,5vw,72px);background:#000}
+.ng-hero__dog{position:absolute;top:0;right:0;bottom:0;width:var(--ng-dogw);overflow:hidden;background:#8b8b8b;z-index:-2}
+.ng-hero__frame{position:absolute;top:0;left:50%;height:100%;aspect-ratio:655/1200;translate:-44.3% 0;transform-origin:44.3% 50.8%;will-change:transform}
+.ng-hero__frame .ng-media{position:absolute;inset:0;border-radius:0;background:#8b8b8b}
+.ng-hero__ring{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ng-hero__ring circle{fill:none;stroke:var(--ng-lime);vector-effect:non-scaling-stroke}
+.ng-hero__ring .ng-hero__r1{stroke-width:3}
+.ng-hero__ring .ng-hero__r2{stroke-width:1;stroke-dasharray:3 7;opacity:.8}
+.ng-hero__ring line{stroke:var(--ng-lime);stroke-width:1;vector-effect:non-scaling-stroke}
+.ng-hero__ring text{font-family:var(--ng-mono);font-size:13px;letter-spacing:1px;fill:var(--ng-lime)}
+.ng-hero__quote{position:absolute;left:clamp(16px,2.4vw,32px);bottom:clamp(20px,4vh,48px);display:flex;gap:16px;align-items:stretch}
+.ng-hero__quote::before{content:"";flex:0 0 6px;background:var(--ng-tx)}
+.ng-hero__quote p{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(26px,2.6vw,46px);line-height:.95;color:var(--ng-lime);text-shadow:0 2px 24px rgba(0,0,0,.35)}
 .ng-hero__trail{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
 .ng-hero__hud{position:absolute;inset:calc(var(--ng-nav-h) + 12px) var(--ng-gut) 18px;pointer-events:none;font:500 11px/1.5 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx)}
-.ng-hero__hud>span{position:absolute;display:flex;gap:14px;align-items:center;text-shadow:0 1px 8px rgba(10,11,13,.6)}
+.ng-hero__hud>span{position:absolute;display:flex;gap:14px;align-items:center;text-shadow:0 1px 8px rgba(0,0,0,.6)}
 .ng-hero__hud .ng-hero__tl{top:0;left:0}.ng-hero__hud .ng-hero__tr{top:0;right:0}.ng-hero__hud .ng-hero__br{bottom:0;right:0}
 .ng-rec{display:inline-flex;align-items:center;gap:8px}
 .ng-rec::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--ng-lime);animation:ng-blink 1.2s steps(2,start) infinite}
 @keyframes ng-blink{to{visibility:hidden}}
 .ng-hero__hud b{font-weight:500;color:var(--ng-lime);font-variant-numeric:tabular-nums}
-.ng-hero__content{position:relative}
-.ng-hero__eyebrow{margin-bottom:clamp(20px,2.4vw,32px)}
-.ng-hero__title{font-size:clamp(52px,9vw,168px);line-height:.95;letter-spacing:-.045em;font-weight:500;max-width:11ch;will-change:transform}
-.ng-hero__row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px;align-items:end;margin-top:clamp(28px,3.4vw,48px)}
-.ng-hero__sub{font-size:clamp(19px,1.7vw,26px);line-height:1.25;letter-spacing:-.015em;font-weight:500;max-width:30ch}
-.ng-hero__text{margin-top:12px;color:var(--ng-tx);opacity:.82;max-width:52ch;font-weight:300}
-.ng-hero__ctas{display:flex;gap:12px;flex-wrap:wrap}
-.ng-hero__ctas .ng-btn:not(.ng-btn--volt){background:rgba(10,11,13,.35)}
+.ng-hero__content{position:relative;padding-right:calc(var(--ng-dogw) + var(--ng-gut))}
+.ng-hero__eyebrow{margin-bottom:clamp(18px,2vw,28px);font-size:clamp(12px,1.05vw,15px)}
+.ng-hero__title{font-family:var(--ng-disp);font-weight:400;text-transform:uppercase;font-size:clamp(64px,9.4vw,188px);line-height:.96;letter-spacing:-.005em;will-change:transform}
+.ng-hero__sub{margin-top:clamp(22px,2.6vw,36px);font-size:clamp(19px,1.6vw,26px);line-height:1.25;letter-spacing:-.015em;font-weight:500;max-width:30ch}
+.ng-hero__text{margin-top:10px;color:var(--ng-tx);opacity:.8;max-width:50ch;font-weight:300}
+.ng-hero__ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:clamp(24px,2.6vw,36px)}
+.ng-hero__strip{margin-top:clamp(28px,3.4vw,48px);max-width:640px}
 @media (max-width:899px){
-  .ng-hero__row{grid-template-columns:1fr}
-  .ng-hero__hud .ng-hero__tr{display:none}
-  .ng-hero__shade{width:100%;height:85%;background:linear-gradient(0deg,rgba(10,11,13,.9) 0%,rgba(10,11,13,.6) 45%,rgba(10,11,13,0) 80%)}
+  .ng-hero{flex-direction:column;align-items:stretch;padding-top:var(--ng-nav-h)}
+  .ng-hero__dog{position:relative;width:100%;height:56svh;min-height:340px;z-index:0}
+  .ng-hero__frame{left:0;width:100%;height:auto;top:50%;translate:0 -50.8%}
+  .ng-hero__content{padding-right:var(--ng-gut);margin-top:28px}
+  .ng-hero__hud{inset:calc(var(--ng-nav-h) + 12px) var(--ng-gut) auto}
+  .ng-hero__hud .ng-hero__tr,.ng-hero__hud .ng-hero__br{display:none}
+  .ng-hero__trail{z-index:1}
 }
-@media (max-width:480px){
-  .ng-hero__ctas .ng-btn{flex:1 1 100%}
-  .ng-hero__hud .ng-hero__br{display:none}
-}
+@media (max-width:480px){.ng-hero__ctas .ng-btn{flex:1 1 100%}}
 </style>
 
 <section class="ng-sec ng-hero" id="inicio" aria-labelledby="ng-hero-title" data-ng="hero">
-  <div class="ng-hero__media ng-media" data-ph="/img/hero-eye · 16:9 / 9:16">
-    {{img:hero}}
+  <div class="ng-hero__dog">
+    <div class="ng-hero__frame">
+      <div class="ng-media" data-ph="/img/ref-dog">{{img:dog}}</div>
+      <svg class="ng-hero__ring" viewBox="0 0 655 1200" preserveAspectRatio="none" aria-hidden="true">
+        <circle class="ng-hero__r1" cx="290" cy="610" r="50"/>
+        <circle class="ng-hero__r2" cx="290" cy="610" r="74"/>
+        <line x1="290" y1="520" x2="290" y2="548"/><line x1="290" y1="672" x2="290" y2="700"/>
+        <line x1="200" y1="610" x2="228" y2="610"/><line x1="352" y1="610" x2="380" y2="610"/>
+        <text x="372" y="540">FIX · <tspan class="ng-hero__fix2">214</tspan>MS</text>
+      </svg>
+    </div>
+    <div class="ng-hero__quote"><p>Todos miran.<br>Nosotros medimos.</p></div>
   </div>
-  <div class="ng-hero__shade" aria-hidden="true"></div>
   <canvas class="ng-hero__trail" aria-hidden="true"></canvas>
   <div class="ng-hero__hud" aria-hidden="true">
     <span class="ng-hero__tl"><span class="ng-rec">REC</span><span class="ng-hero__ts">00:00:00.000</span></span>
@@ -46,23 +62,22 @@
   </div>
   <div class="ng-wrap ng-hero__content">
     <p class="ng-mono ng-eyebrow ng-hero__eyebrow">Neuroscience-Driven Marketing Optimization</p>
-    <h1 class="ng-hero__title" id="ng-hero-title">El marketing digital cambió.</h1>
-    <div class="ng-hero__row">
-      <div class="ng-hero__copy">
-        <p class="ng-hero__sub">Neuromarketing potenciado por inteligencia artificial.</p>
-        <p class="ng-hero__text">Analizamos procesos cerebrales subconscientes y los potenciamos con modelos predictivos para maximizar la conversión.</p>
-      </div>
-      <div class="ng-hero__ctas">
-        <a class="ng-btn ng-btn--volt" href="{{u:contacto}}" data-ng-magnet>Empieza hoy <span class="ng-btn__i" aria-hidden="true">↗</span></a>
-        <a class="ng-btn" href="#asi-mira">Así mira tu cliente <span class="ng-btn__i" aria-hidden="true">↓</span></a>
-      </div>
+    <h1 class="ng-hero__title" id="ng-hero-title">El marketing<br>digital <span class="ng-hl">cambió.</span></h1>
+    <div class="ng-hero__copy">
+      <p class="ng-hero__sub">Neuromarketing potenciado por inteligencia artificial.</p>
+      <p class="ng-hero__text">Analizamos procesos cerebrales subconscientes y los potenciamos con modelos predictivos para maximizar la conversión.</p>
     </div>
+    <div class="ng-hero__ctas">
+      <a class="ng-btn ng-btn--volt" href="{{u:contacto}}" data-ng-magnet>Empieza hoy <span class="ng-btn__i" aria-hidden="true">↗</span></a>
+      <a class="ng-btn" href="#asi-mira">Así mira tu cliente <span class="ng-btn__i" aria-hidden="true">↓</span></a>
+    </div>
+    <p class="ng-strip ng-hero__strip" aria-label="Eye tracking, respuesta galvánica y facial coding"><span>Eye tracking</span><i>·</i><span>GSR</span><i>·</i><span>Facial coding</span></p>
   </div>
 </section>
 
 <script>
 NG.boot('[data-ng="hero"]', function (sec) {
-  var img = sec.querySelector('.ng-hero__media img');
+  var frame = sec.querySelector('.ng-hero__frame'), ring = sec.querySelector('.ng-hero__ring'), fix2 = sec.querySelector('.ng-hero__fix2');
   var title = sec.querySelector('.ng-hero__title');
   var ts = sec.querySelector('.ng-hero__ts'), fix = sec.querySelector('.ng-hero__fix'), xy = sec.querySelector('.ng-hero__xy');
   var cv = NG.canvas(sec.querySelector('.ng-hero__trail'));
@@ -81,7 +96,7 @@ NG.boot('[data-ng="hero"]', function (sec) {
     if (last && Math.hypot(x - last.x, y - last.y) < 38) { last.d = Math.min(last.d + 16, 600); last.t = t; return; }
     last = { x: x, y: y, t: t, b: t, d: 120 }; fixes.push(last);
     if (fixes.length > 24) fixes.shift();
-    fix.textContent = (180 + Math.round(Math.random() * 90)) + 'ms';
+    var v = 180 + Math.round(Math.random() * 90); fix.textContent = v + 'ms'; fix2.textContent = v;
   };
   if (!auto) {
     sec.addEventListener('pointermove', function (e) {
@@ -92,12 +107,17 @@ NG.boot('[data-ng="hero"]', function (sec) {
     }, { passive: true });
   }
   /* Estela autónoma (móvil / sin puntero fino): sacadas entre zonas de interés */
-  var aoi = [[.64, .46], [.58, .40], [.72, .52], [.66, .58], [.52, .30], [.80, .38], [.62, .48]], ai = 0, nextAuto = 0;
+  // Zonas de interés en coordenadas de la foto (ojos, hocico, oreja) → se proyectan a la sección
+  var aoi = [[.443, .508], [.12, .42], [.175, .617], [.443, .508], [.30, .55], [.145, .16], [.12, .42], [.443, .508]], ai = 0, nextAuto = 0;
+  var toSec = function (a) {
+    var fr = frame.getBoundingClientRect(), sr = sec.getBoundingClientRect();
+    return [fr.left - sr.left + a[0] * fr.width, fr.top - sr.top + a[1] * fr.height];
+  };
   var draw = function (t) {
     var c = cv.ctx, w = cv.w, h = cv.h;
     if (auto && t > nextAuto) {
-      var a = aoi[ai++ % aoi.length];
-      var x = (a[0] + (Math.random() - .5) * .06) * w, y = (a[1] + (Math.random() - .5) * .08) * h;
+      var a = toSec(aoi[ai++ % aoi.length]);
+      var x = a[0] + (Math.random() - .5) * 18, y = a[1] + (Math.random() - .5) * 18;
       addFix(x, y, t); last.d = 140 + Math.random() * 260;
       nextAuto = t + 260 + Math.random() * 420;
       xy.textContent = 'X ' + (x / w).toFixed(3) + ' · Y ' + (y / h).toFixed(3);
@@ -121,7 +141,7 @@ NG.boot('[data-ng="hero"]', function (sec) {
     });
   };
   if (NG.rm) {
-    aoi.forEach(function (a, i) { fixes.push({ x: a[0] * cv.w, y: a[1] * cv.h, t: 0, d: 180 + i * 30 }); });
+    aoi.forEach(function (a, i) { var p = toSec(a); fixes.push({ x: p[0], y: p[1], t: 0, d: 180 + i * 30 }); });
     LIFE = Infinity; draw(1);
   } else {
     NG.loop(sec, draw);
@@ -132,15 +152,22 @@ NG.boot('[data-ng="hero"]', function (sec) {
     if (!gsap || NG.rm) return;
     var words = NG.split(title);
     gsap.set(words, { yPercent: 115 });
-    var rest = sec.querySelectorAll('.ng-hero__eyebrow,.ng-hero__copy>*,.ng-hero__ctas>*');
+    var rest = sec.querySelectorAll('.ng-hero__eyebrow,.ng-hero__copy>*,.ng-hero__ctas>*,.ng-hero__strip,.ng-hero__quote');
+    var r1 = ring.querySelector('.ng-hero__r1'), r2 = ring.querySelector('.ng-hero__r2');
+    var L = 2 * Math.PI * 50;
+    gsap.set(r1, { strokeDasharray: L, strokeDashoffset: L });
+    gsap.set(ring.querySelectorAll('line,text,.ng-hero__r2'), { autoAlpha: 0 });
+    gsap.to(r2, { rotation: 360, svgOrigin: '290 610', duration: 18, repeat: -1, ease: 'none' });
     gsap.set(rest, { autoAlpha: 0, y: 20 });
     NG.afterPreload(function () {
       var tl = gsap.timeline({ delay: .05 });
       tl.to(words, { yPercent: 0, duration: 1.2, ease: 'expo.out', stagger: .07 })
         .to(rest, { autoAlpha: 1, y: 0, duration: .9, stagger: .06 }, .35);
-      gsap.fromTo(sec.querySelector('.ng-hero__media'), { scale: 1.08 }, { scale: 1, duration: 2.2, ease: 'expo.out' });
+      gsap.fromTo(sec.querySelector('.ng-hero__dog'), { autoAlpha: 0 }, { autoAlpha: 1, duration: 1.2, ease: 'power2.out' });
+      tl.to(r1, { strokeDashoffset: 0, duration: 1.1, ease: 'expo.inOut' }, .6)
+        .to(ring.querySelectorAll('line,text,.ng-hero__r2'), { autoAlpha: 1, duration: .5, stagger: .05 }, 1.2);
     });
-    gsap.to(img, { scale: 1.32, ease: 'none', scrollTrigger: { trigger: sec, start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.to(frame, { scale: 1.5, ease: 'none', scrollTrigger: { trigger: sec, start: 'top top', end: 'bottom top', scrub: true } });
     gsap.to(title, { yPercent: -38, ease: 'none', scrollTrigger: { trigger: sec, start: 'top top', end: 'bottom top', scrub: true } });
   });
 });
