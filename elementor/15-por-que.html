@@ -1,7 +1,6 @@
-<!-- NEUROGENOMIC · Bloque Elementor «17-pagehead-contacto»
+<!-- NEUROGENOMIC · Bloque Elementor «15-por-que»
      Pegar completo en un widget HTML de Elementor (ancho completo, sin padding).
      Incluye tokens + núcleo NG (idempotentes: pueden repetirse en varios bloques).
-     Nota: Cabecera con H1 de /contacto/.
      Imágenes: reemplaza /img/ por la URL de la Biblioteca de medios. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -112,19 +111,38 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-sec *,.ng-nav *,.ng-foot *,.ng-menu *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
 .ng-js .ng-sec[data-ng-bg]{--ng-bgo:1}
 }
-.ng-ph{padding:calc(var(--ng-nav-h) + clamp(64px,10vw,160px)) 0 clamp(56px,7vw,112px)}
-.ng-ph__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end}
-.ng-ph__t{grid-column:1/span 11;font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(56px,9vw,170px);line-height:.88;letter-spacing:0;font-weight:400;margin-top:24px;text-wrap:balance}
-.ng-ph__p{grid-column:1/span 6;margin-top:clamp(20px,2.4vw,36px);font-size:clamp(18px,1.5vw,22px);font-weight:300;line-height:1.45}
-.ng-ph__meta{grid-column:9/span 4;justify-self:end;color:var(--ng-tx2);text-align:right}
-.ng-ph__meta b{color:var(--ng-lime);font-weight:500}
-.ng-ph__media{margin-top:clamp(48px,6vw,96px);aspect-ratio:21/9}
-.ng-ph__media img{transform-origin:50% 50%}
-@media (max-width:899px){
-.ng-ph__t,.ng-ph__p{grid-column:1/-1}
-.ng-ph__meta{grid-column:1/-1;justify-self:start;text-align:left}
-.ng-ph__media{aspect-ratio:4/3}
+.ng-why{padding:clamp(96px,12vw,180px) 0 clamp(56px,6vw,96px)}
+.ng-why__head{margin-bottom:clamp(48px,6vw,96px)}
+.ng-why__head .ng-lead{color:var(--ng-tx2)}
+.ng-why__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--ng-line)}
+.ng-why__m{padding:28px clamp(12px,1.6vw,28px) 32px 0;border-right:1px solid var(--ng-line);display:flex;flex-direction:column;gap:20px}
+.ng-why__m+.ng-why__m{padding-left:clamp(12px,1.6vw,28px)}
+.ng-why__m:last-child{border-right:0}
+.ng-why__lbl{color:var(--ng-tx2);display:flex;justify-content:space-between}
+.ng-why__lbl i{font-style:normal;color:var(--ng-lime)}
+.ng-why__v{font:500 clamp(64px,7.6vw,148px)/.9 var(--ng-mono);letter-spacing:-.06em;color:var(--ng-tx);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ng-why__v small{font-size:.42em;letter-spacing:-.02em;color:var(--ng-volt);margin-left:.06em}
+.ng-why__m p{color:var(--ng-tx2);font-size:15px;max-width:30ch}
+.ng-why__m p strong{color:var(--ng-tx);font-weight:500}
+.ng-mq{margin-top:clamp(64px,8vw,128px);border-block:1px solid var(--ng-line);overflow:hidden;padding:clamp(18px,2vw,28px) 0}
+.ng-mq__t{display:flex;width:max-content;animation:ng-mq 60s linear infinite}
+.ng-mq:hover .ng-mq__t{animation-play-state:paused}
+.ng-mq__g{display:flex;align-items:center;flex-shrink:0}
+.ng-mq__g span{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(34px,4.4vw,76px);font-weight:400;letter-spacing:0;white-space:nowrap;padding:0 clamp(18px,2vw,36px)}
+.ng-mq__g i{font-style:normal;color:var(--ng-volt);font-size:.5em}
+@keyframes ng-mq{to{transform:translateX(-50%)}}
+@media (max-width:1023px){
+.ng-why__grid{grid-template-columns:1fr 1fr}
+.ng-why__m:nth-child(2){border-right:0}
+.ng-why__m:nth-child(3){padding-left:0}
+.ng-why__m:nth-child(n+3){border-top:1px solid var(--ng-line)}
 }
+@media (max-width:539px){
+.ng-why__grid{grid-template-columns:1fr}
+.ng-why__m,.ng-why__m+.ng-why__m{border-right:0;padding-left:0;border-top:1px solid var(--ng-line)}
+.ng-why__m:first-child{border-top:0}
+}
+@media (prefers-reduced-motion:reduce){.ng-mq__t{animation:none}}
 </style>
 <script>
 /* ==========================================================
@@ -416,31 +434,38 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
   });
 })();
 </script>
-<section class="ng-sec ng-ph" aria-labelledby="ng-ph-title" data-ng="pagehead">
+<section class="ng-sec ng-why" aria-labelledby="ng-why-title" data-ng="why" data-ng-bg>
   <div class="ng-wrap">
-    <div class="ng-ph__grid">
-      <p class="ng-mono ng-eyebrow" style="grid-column:1/-1">Contacto · Formulario de cotización</p>
-      <h1 class="ng-ph__t" id="ng-ph-title">Empieza hoy.</h1>
-      <p class="ng-ph__p" data-ng-reveal=".2">Cuéntanos qué servicio necesitas hoy. El diagnóstico inicial es la base de todo lo que viene después.</p>
-      <p class="ng-ph__meta ng-mono" aria-hidden="true">REC <b>●</b> <span class="ng-ph__ts">00:00:00</span><br>Diagnóstico inicial</p>
+    <div class="ng-head ng-why__head">
+      <p class="ng-mono ng-eyebrow">03 · Evidencia</p>
+      <h2 class="ng-h2" id="ng-why-title" data-ng-split>Por qué neurociencia <span class="ng-hl">+ IA</span></h2>
+      <p class="ng-lead" data-ng-reveal>Neurogenomic es diferente.</p>
     </div>
-    
+    <div class="ng-why__grid">
+      <div class="ng-why__m"><span class="ng-why__lbl ng-mono"><span>M·01</span><i>●</i></span><span class="ng-why__v"><span data-to="3">3</span></span><p><strong>señales biométricas</strong> combinadas: mirada, expresión facial y respuesta galvánica.</p></div>
+      <div class="ng-why__m"><span class="ng-why__lbl ng-mono"><span>M·02</span><i>●</i></span><span class="ng-why__v"><span data-to="4">4</span></span><p><strong>etapas de trabajo:</strong> diagnosticar, medir, analizar y recomendar.</p></div>
+      <div class="ng-why__m"><span class="ng-why__lbl ng-mono"><span>M·03</span><i>●</i></span><span class="ng-why__v"><span data-to="6">6</span></span><p><strong>líneas de servicio</strong> que se pueden contratar solas o integradas.</p></div>
+      <div class="ng-why__m"><span class="ng-why__lbl ng-mono"><span>M·04</span><i>●</i></span><span class="ng-why__v"><span data-to="1">1</span></span><p><strong>marco de evidencia</strong> común, en lugar de proveedores sin coordinación.</p></div>
+    </div>
+  </div>
+  <div class="ng-mq" aria-label="Servicios: Branding, Business Intelligence, E-commerce, Marketing Digital, SEO técnico y de contenido, Desarrollo de Software" role="region">
+    <div class="ng-mq__t" aria-hidden="true">
+      <div class="ng-mq__g"><span>Branding</span><i>◆</i><span>Business Intelligence</span><i>◆</i><span>E-commerce</span><i>◆</i><span>Marketing Digital</span><i>◆</i><span>SEO técnico y de contenido</span><i>◆</i><span>Desarrollo de Software</span><i>◆</i></div>
+      <div class="ng-mq__g"><span>Branding</span><i>◆</i><span>Business Intelligence</span><i>◆</i><span>E-commerce</span><i>◆</i><span>Marketing Digital</span><i>◆</i><span>SEO técnico y de contenido</span><i>◆</i><span>Desarrollo de Software</span><i>◆</i></div>
+    </div>
   </div>
 </section>
 
 <script>
-NG.boot('[data-ng="pagehead"]', function (sec) {
-  var ts = sec.querySelector('.ng-ph__ts'), t0 = Date.now();
-  var p = function (n) { return (n < 10 ? '0' : '') + n; };
-  setInterval(function () { var s = Math.floor((Date.now() - t0) / 1000); ts.textContent = p(Math.floor(s / 3600)) + ':' + p(Math.floor(s / 60) % 60) + ':' + p(s % 60); }, 1000);
+NG.boot('[data-ng="why"]', function (sec) {
+  var nums = [].slice.call(sec.querySelectorAll('[data-to]'));
   NG.reveals(sec);
   NG.ready().then(function (gsap) {
     if (!gsap || NG.rm) return;
-    var w = NG.split(sec.querySelector('.ng-ph__t'));
-    gsap.set(w, { yPercent: 115 });
-    NG.afterPreload(function () { gsap.to(w, { yPercent: 0, duration: 1.2, ease: 'expo.out', stagger: .06, delay: .1 }); });
-    var img = sec.querySelector('.ng-ph__media img');
-    if (img) gsap.fromTo(img, { scale: 1.15, yPercent: -4 }, { scale: 1.15, yPercent: 4, ease: 'none', scrollTrigger: { trigger: img.parentNode, start: 'top bottom', end: 'bottom top', scrub: true } });
+    nums.forEach(function (el) { el.textContent = '0'; });
+    gsap.from(sec.querySelectorAll('.ng-why__m'), { autoAlpha: 0, y: 40, stagger: .1, duration: 1,
+      scrollTrigger: { trigger: sec.querySelector('.ng-why__grid'), start: 'top 82%', once: true,
+        onEnter: function () { nums.forEach(function (el, i) { NG.count(el, +el.getAttribute('data-to'), { dur: 2, delay: i * .1 }); }); } } });
   });
 });
 </script>

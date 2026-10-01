@@ -413,11 +413,7 @@ def build_page(key):
     foot = [b for s, b in zip(pg["sections"], body_parts) if s == "footer"]
     main = [b for s, b in zip(pg["sections"], body_parts) if s not in ("nav", "s0-preloader", "footer")]
     url = SITE + pg["path"]
-    hero_preload = ""
-    if key == "index":
-        hero_preload = ('<link rel="preload" as="image" type="image/avif" imagesrcset="'
-                        + ", ".join(f"{IMG_STATIC}hero-eye-{w}.avif {w}w" for w in WIDTHS)
-                        + '" imagesizes="100vw" media="(min-width:768px)" fetchpriority="high">')
+    hero_preload = ""  # el hero ya no usa imagen: no hay nada que precargar
     doc = f"""<!doctype html>
 <html lang="es-CL" data-ng-page="{key}">
 <head>
@@ -466,23 +462,24 @@ def build_page(key):
 ELEMENTOR = [
     ("00-global-nav", "nav", "index", "Header fijo, barra de progreso, menú móvil, cursor de fijación y grano. Pégalo en el header (Theme Builder) o al inicio de cada página."),
     ("01-s0-preloader", "s0-preloader", "index", "Solo en la página de inicio, justo después del header."),
-    ("02-hero", "s1-hero", "index", "Usa img/ref-dog-655.(avif|webp)."),
-    ("03-asi-mira", "s2-gaze", "index", "Usa img/ng-pouch-*.(avif|webp) (render calibrado con src/data/pouch.json)."),
+    ("02-hero", "s1-hero", "index", "Sin imagen: la estela de mirada recorre el propio titular."),
+    ("03-asi-mira", "s2-demo", "index", "Demo scroll-driven de 80 cuadros: sube img/seq/f_000…079.webp (calibración en src/data/seq.json)."),
     ("04-packaging", "s2b-pack", "index", "Usa img/ref-can-570.(avif|webp)."),
-    ("05-dato-95", "s3-stat", "index", ""),
-    ("06-no-se-dice", "s3b-said", "index", "Usa img/ref-bottle-520.(avif|webp)."),
-    ("07-tecnologia", "s4-signals", "index", ""),
+    ("05-no-se-dice", "s3b-said", "index", "Registro sincronizado ilustrativo dibujado en canvas (sin imagen)."),
+    ("06-tecnologia", "s4-signals", "index", "Tres monitores de señal + stack de herramientas (sin imagen)."),
+    ("07-servicios-resumen", "s5-summary", "index", ""),
     ("08-metodo", "s6-method", "index", ""),
-    ("09-por-que", "s7-why", "index", ""),
-    ("10-caso", "s8-case", "index", "Usa img/ng-box-a|b|c-*.(avif|webp) (render calibrado con src/data/boxes.json)."),
-    ("11-etica", "s9-ethics", "index", ""),
-    ("12-cta-final", "s10-cta", "index", "Usa img/ref-dog-655.(avif|webp)."),
-    ("13-footer", "footer", "index", "Pégalo en el footer (Theme Builder)."),
-    ("14-pagehead-servicios", "pagehead", "servicios", "Cabecera con H1 de /servicios/."),
-    ("15-servicios", "s5-services", "servicios", "Solo en /servicios/ (scroll horizontal de los seis servicios)."),
+    ("09-caso", "s8-case", "index", "Usa img/ng-box-a|b|c-*.(avif|webp) (render calibrado con src/data/boxes.json)."),
+    ("10-etica", "s9-ethics", "index", ""),
+    ("11-cta-final", "s10-cta", "index", "Usa img/ng-phone-*.(avif|webp) (render calibrado con src/data/phone.json)."),
+    ("12-footer", "footer", "index", "Pégalo en el footer (Theme Builder)."),
+    ("13-pagehead-servicios", "pagehead", "servicios", "Cabecera con H1 de /servicios/."),
+    ("14-servicios", "s5-services", "servicios", "Solo en /servicios/ (scroll horizontal de los seis servicios)."),
+    ("15-por-que", "s7-why", "servicios", ""),
     ("16-pagehead-tecnologia", "pagehead", "tecnologia", "Cabecera con H1 de /tecnologia/."),
-    ("17-pagehead-contacto", "pagehead", "contacto", "Cabecera con H1 de /contacto/."),
-    ("18-contacto-formulario", "contact-form", "contacto", "Formulario en 4 pasos. Envía a FORM_EMAIL vía FormSubmit (ver README)."),
+    ("17-asi-mira-bolsa", "s2-gaze", "tecnologia", "Usa img/ng-pouch-*.(avif|webp) (render calibrado con src/data/pouch.json)."),
+    ("18-pagehead-contacto", "pagehead", "contacto", "Cabecera con H1 de /contacto/."),
+    ("19-contacto-formulario", "contact-form", "contacto", "Formulario en 4 pasos. Envía a FORM_EMAIL vía FormSubmit (ver README)."),
 ]
 
 
@@ -511,12 +508,12 @@ def build_images_md():
             "## Incluidas (ya en `img/`)", "",
             "Recortes de las piezas de campaña de Neurogenomic, sin el texto incrustado. Se sirven en AVIF con respaldo WebP.", "",
             "| Archivo | Tamaño | Dónde se usa |", "|---|---|---|",
-            "| `ref-dog-655.avif / .webp` | 655×1200 | Hero (panel derecho, anillo de fijación sobre el ojo) y CTA final (primer plano del ojo) |",
             "| `ref-can-570.avif / .webp` | 570×1590 | Sección «Tu packaging tiene una mirada para ganar» y Servicio 01 · Branding |",
-            "| `ref-bottle-520.avif / .webp` | 520×1350 | Sección «Lo que no se dice sí se mide» y Servicio 04 · Marketing Digital |",
+            "| `ref-bottle-520.avif / .webp` | 520×1350 | Servicio 04 · Marketing Digital (página Servicios) |",
             "| `ng-pouch-960/1600/2400` | 2400×1500 | «Así mira tu cliente» (bolsa de café kraft, render fotográfico) y monitor C·01 de Tecnología |",
             "| `ng-box-a/b/c-600/1200` | 1200×1520 | Caso: tres versiones de packaging (render fotográfico) |",
-            "| `ng-tracker-1260/2520` | 2520×1080 | Tecnología: barra de eye tracking bajo el monitor (render fotográfico) |", "",
+            "| `ng-phone-600/920` | 920×1070 | CTA final: tienda ficticia en un teléfono (render fotográfico) |",
+            "| `seq/f_000…079.webp` | 80 cuadros | «Así mira tu cliente»: demo scroll-driven |", "",
             "Los renders `ng-*` se generan con Blender/Cycles a partir de `render/`. Las capas de eye tracking se ubican con las coordenadas proyectadas que guarda `src/data/*.json`: si cambias un render, vuelve a copiar su JSON.", "",
             "Business Intelligence, E-commerce, SEO y Software usan ilustraciones dibujadas en SVG con mapa de calor térmico pixelado (no necesitan archivo).", "",
             "## Opcionales (para subir la resolución o reemplazar ilustraciones)", "",

@@ -1,6 +1,7 @@
-<!-- NEUROGENOMIC · Bloque Elementor «11-etica»
+<!-- NEUROGENOMIC · Bloque Elementor «13-pagehead-servicios»
      Pegar completo en un widget HTML de Elementor (ancho completo, sin padding).
      Incluye tokens + núcleo NG (idempotentes: pueden repetirse en varios bloques).
+     Nota: Cabecera con H1 de /servicios/.
      Imágenes: reemplaza /img/ por la URL de la Biblioteca de medios. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -111,30 +112,19 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-sec *,.ng-nav *,.ng-foot *,.ng-menu *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
 .ng-js .ng-sec[data-ng-bg]{--ng-bgo:1}
 }
-.ng-eth{padding:clamp(96px,12vw,180px) 0}
-.ng-eth__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:start;margin-bottom:clamp(40px,5vw,72px)}
-.ng-eth__head .ng-head{grid-column:1/span 7;margin:0}
-.ng-eth__head .ng-body{grid-column:8/span 5;align-self:end;color:var(--ng-tx);font-weight:300;font-size:clamp(17px,1.3vw,20px)}
-.ng-eth__head .ng-media{grid-column:8/span 5;grid-row:1/span 2;aspect-ratio:16/9;align-self:end}
-.ng-eth__doc{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ng-line);border-radius:8px;background:var(--ng-bg)}
-.ng-eth__col{padding:clamp(20px,2.4vw,36px)}
-.ng-eth__col+.ng-eth__col{border-left:1px solid var(--ng-line)}
-.ng-eth__col h3{display:flex;justify-content:space-between;gap:12px;align-items:baseline;font-size:clamp(22px,2vw,30px);letter-spacing:-.025em;font-weight:500;line-height:1.1;padding-bottom:18px;margin-bottom:8px;border-bottom:1px solid var(--ng-line)}
-.ng-eth__col h3 small{font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);white-space:nowrap}
-.ng-log li{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:baseline;padding:16px 0;border-bottom:1px dashed var(--ng-line);font-family:var(--ng-mono);font-size:14px;letter-spacing:.02em}
-.ng-log li:last-child{border-bottom:0}
-.ng-log__id{color:var(--ng-volt);font-weight:500;font-size:12px;letter-spacing:.12em}
-.ng-log__tx{position:relative;color:var(--ng-tx);font-family:var(--ng-ff);font-size:clamp(16px,1.3vw,19px);letter-spacing:-.01em;justify-self:start}
-.ng-log__st{font-size:11px;letter-spacing:.12em;color:var(--ng-tx2)}
-.ng-log--no .ng-log__tx::after{content:"";position:absolute;left:-2px;right:-2px;top:54%;height:2px;background:var(--ng-volt);transform-origin:0 50%;transform:scaleX(var(--ng-strike,1))}
-.ng-log__caret{display:inline-block;width:.55em;height:1em;vertical-align:-.12em;background:var(--ng-lime);margin-left:2px;opacity:0}
-@media (max-width:1023px){
-.ng-eth__head .ng-head,.ng-eth__head .ng-body,.ng-eth__head .ng-media{grid-column:1/-1;grid-row:auto}
-.ng-eth__doc{grid-template-columns:1fr}
-.ng-eth__col+.ng-eth__col{border-left:0;border-top:1px solid var(--ng-line)}
+.ng-ph{padding:calc(var(--ng-nav-h) + clamp(64px,10vw,160px)) 0 clamp(56px,7vw,112px)}
+.ng-ph__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end}
+.ng-ph__t{grid-column:1/span 11;font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(56px,9vw,170px);line-height:.88;letter-spacing:0;font-weight:400;margin-top:24px;text-wrap:balance}
+.ng-ph__p{grid-column:1/span 6;margin-top:clamp(20px,2.4vw,36px);font-size:clamp(18px,1.5vw,22px);font-weight:300;line-height:1.45}
+.ng-ph__meta{grid-column:9/span 4;justify-self:end;color:var(--ng-tx2);text-align:right}
+.ng-ph__meta b{color:var(--ng-lime);font-weight:500}
+.ng-ph__media{margin-top:clamp(48px,6vw,96px);aspect-ratio:21/9}
+.ng-ph__media img{transform-origin:50% 50%}
+@media (max-width:899px){
+.ng-ph__t,.ng-ph__p{grid-column:1/-1}
+.ng-ph__meta{grid-column:1/-1;justify-self:start;text-align:left}
+.ng-ph__media{aspect-ratio:4/3}
 }
-@media (max-width:479px){.ng-log li{grid-template-columns:auto 1fr}.ng-log__st{display:none}}
-.ng-eth__legal{margin-top:24px;border-left:2px solid var(--ng-lime);padding:6px 0 6px 18px;color:var(--ng-tx2);font-size:15px;max-width:84ch}
 </style>
 <script>
 /* ==========================================================
@@ -426,66 +416,31 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
   });
 })();
 </script>
-<section class="ng-sec ng-eth" id="etica" aria-labelledby="ng-eth-title" data-ng="ethics" data-ng-bg>
+<section class="ng-sec ng-ph" aria-labelledby="ng-ph-title" data-ng="pagehead">
   <div class="ng-wrap">
-    <div class="ng-eth__head">
-      <div class="ng-head">
-        <p class="ng-mono ng-eyebrow">08 · Ética y datos</p>
-        <h2 class="ng-h2" id="ng-eth-title">Medimos reacciones. <span class="ng-hl">Con reglas claras.</span></h2>
-      </div>
-      <p class="ng-body" data-ng-reveal>Una señal biométrica es un dato sensible. Por eso cada estudio parte con consentimiento informado, usa solo los datos necesarios y entrega resultados agregados, no perfiles individuales.</p>
+    <div class="ng-ph__grid">
+      <p class="ng-mono ng-eyebrow" style="grid-column:1/-1">Servicios · Neuroscience-Driven Marketing Optimization</p>
+      <h1 class="ng-ph__t" id="ng-ph-title">Decisiones de marca basadas en evidencia, no en intuición.</h1>
+      <p class="ng-ph__p" data-ng-reveal=".2">Neurogenomic traduce neurociencia del consumidor e inteligencia artificial en sistemas de marca, contenido y crecimiento que funcionan porque están diseñados sobre cómo el cerebro realmente decide.</p>
+      <p class="ng-ph__meta ng-mono" aria-hidden="true">REC <b>●</b> <span class="ng-ph__ts">00:00:00</span><br>06 servicios · 01 framework</p>
     </div>
-    <div class="ng-eth__doc">
-      <div class="ng-eth__col">
-        <h3>Protocolo <small>Lo que cumplimos</small></h3>
-        <ol class="ng-log">
-          <li><span class="ng-log__id">C·01</span><span class="ng-log__tx">Consentimiento que se entiende</span><span class="ng-log__st">OK</span></li>
-          <li><span class="ng-log__id">C·02</span><span class="ng-log__tx">Acceso restringido y datos separados de la identidad</span><span class="ng-log__st">OK</span></li>
-          <li><span class="ng-log__id">C·03</span><span class="ng-log__tx">Revisión legal de cada proyecto según su jurisdicción</span><span class="ng-log__st">OK</span></li>
-          <li><span class="ng-log__id">C·04</span><span class="ng-log__tx">Derecho a salir, siempre</span><span class="ng-log__st">OK</span></li>
-        </ol>
-      </div>
-      <div class="ng-eth__col">
-        <h3>Líneas rojas <small>Lo que no hacemos</small></h3>
-        <ol class="ng-log ng-log--no">
-          <li><span class="ng-log__id">R·01</span><span class="ng-log__tx">No vendemos datos</span><span class="ng-log__st">Bloqueado</span></li>
-          <li><span class="ng-log__id">R·02</span><span class="ng-log__tx">No perfilamos individuos</span><span class="ng-log__st">Bloqueado</span></li>
-          <li><span class="ng-log__id">R·03</span><span class="ng-log__tx">No diseñamos manipulación</span><span class="ng-log__st">Bloqueado</span></li>
-          <li><span class="ng-log__id">R·04</span><span class="ng-log__tx">No medimos a menores sin resguardo</span><span class="ng-log__st">Bloqueado</span></li>
-        </ol>
-      </div>
-    </div>
-    <p class="ng-eth__legal">Las obligaciones legales dependen del tipo de estudio, los datos tratados, la ubicación de los participantes y la jurisdicción aplicable. Recomendamos revisar cada proyecto con asesoría legal especializada. Mencionar la Ley 21.719 no constituye una certificación de cumplimiento.</p>
+    
   </div>
 </section>
 
 <script>
-NG.boot('[data-ng="ethics"]', function (sec) {
+NG.boot('[data-ng="pagehead"]', function (sec) {
+  var ts = sec.querySelector('.ng-ph__ts'), t0 = Date.now();
+  var p = function (n) { return (n < 10 ? '0' : '') + n; };
+  setInterval(function () { var s = Math.floor((Date.now() - t0) / 1000); ts.textContent = p(Math.floor(s / 3600)) + ':' + p(Math.floor(s / 60) % 60) + ':' + p(s % 60); }, 1000);
   NG.reveals(sec);
   NG.ready().then(function (gsap) {
     if (!gsap || NG.rm) return;
-    gsap.from(sec.querySelector('.ng-h2'), { autoAlpha: 0, y: 20, duration: 1.2, scrollTrigger: { trigger: sec, start: 'top 75%', once: true } });
-    sec.querySelectorAll('.ng-log').forEach(function (log) {
-      var no = log.classList.contains('ng-log--no');
-      var items = [].slice.call(log.children);
-      var tl = gsap.timeline({ paused: true });
-      items.forEach(function (li) {
-        var tx = li.querySelector('.ng-log__tx');
-        var chars = NG.split(tx, 'chars');
-        var caret = document.createElement('span'); caret.className = 'ng-log__caret'; caret.setAttribute('aria-hidden', 'true');
-        tx.lastElementChild.appendChild(caret);
-        gsap.set(chars, { opacity: 0 });
-        gsap.set(li.querySelectorAll('.ng-log__id,.ng-log__st'), { opacity: 0 });
-        if (no) gsap.set(tx, { '--ng-strike': 0 });
-        tl.to(li.querySelector('.ng-log__id'), { opacity: 1, duration: .2, ease: 'none' })
-          .set(caret, { opacity: 1 })
-          .to(chars, { opacity: 1, duration: .01, stagger: .01, ease: 'none' })
-          .set(caret, { opacity: 0 })
-          .to(li.querySelector('.ng-log__st'), { opacity: 1, duration: .25, ease: 'none' });
-        if (no) tl.to(tx, { '--ng-strike': 1, duration: .45, ease: 'power2.inOut' }, '-=.1');
-      });
-      ScrollTrigger.create({ trigger: log, start: 'top 88%', once: true, onEnter: function () { tl.play(); } });
-    });
+    var w = NG.split(sec.querySelector('.ng-ph__t'));
+    gsap.set(w, { yPercent: 115 });
+    NG.afterPreload(function () { gsap.to(w, { yPercent: 0, duration: 1.2, ease: 'expo.out', stagger: .06, delay: .1 }); });
+    var img = sec.querySelector('.ng-ph__media img');
+    if (img) gsap.fromTo(img, { scale: 1.15, yPercent: -4 }, { scale: 1.15, yPercent: 4, ease: 'none', scrollTrigger: { trigger: img.parentNode, start: 'top bottom', end: 'bottom top', scrub: true } });
   });
 });
 </script>

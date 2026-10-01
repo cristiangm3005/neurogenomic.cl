@@ -6,12 +6,12 @@ Recortes de las piezas de campaña de Neurogenomic, sin el texto incrustado. Se 
 
 | Archivo | Tamaño | Dónde se usa |
 |---|---|---|
-| `ref-dog-655.avif / .webp` | 655×1200 | Hero (panel derecho, anillo de fijación sobre el ojo) y CTA final (primer plano del ojo) |
 | `ref-can-570.avif / .webp` | 570×1590 | Sección «Tu packaging tiene una mirada para ganar» y Servicio 01 · Branding |
-| `ref-bottle-520.avif / .webp` | 520×1350 | Sección «Lo que no se dice sí se mide» y Servicio 04 · Marketing Digital |
+| `ref-bottle-520.avif / .webp` | 520×1350 | Servicio 04 · Marketing Digital (página Servicios) |
 | `ng-pouch-960/1600/2400` | 2400×1500 | «Así mira tu cliente» (bolsa de café kraft, render fotográfico) y monitor C·01 de Tecnología |
 | `ng-box-a/b/c-600/1200` | 1200×1520 | Caso: tres versiones de packaging (render fotográfico) |
-| `ng-tracker-1260/2520` | 2520×1080 | Tecnología: barra de eye tracking bajo el monitor (render fotográfico) |
+| `ng-phone-600/920` | 920×1070 | CTA final: tienda ficticia en un teléfono (render fotográfico) |
+| `seq/f_000…079.webp` | 80 cuadros | «Así mira tu cliente»: demo scroll-driven |
 
 Los renders `ng-*` se generan con Blender/Cycles a partir de `render/`. Las capas de eye tracking se ubican con las coordenadas proyectadas que guarda `src/data/*.json`: si cambias un render, vuelve a copiar su JSON.
 
