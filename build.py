@@ -528,8 +528,44 @@ def build_images_md():
     (ROOT / "IMAGENES.md").write_text("\n".join(rows) + "\n", encoding="utf-8")
 
 
+def build_standalone(src="index.html", out="neurogenomic-index.html"):
+    """Versión de un solo archivo: imágenes incrustadas (WebP ≤1600 px) para abrir sin la carpeta img/."""
+    import base64
+    s = (ROOT / src).read_text(encoding="utf-8")
+    cache = {}
+
+    def pick(srcset, fallback):
+        c = []
+        for part in srcset.split(","):
+            bits = part.split()
+            if bits:
+                c.append((int(bits[1][:-1]) if len(bits) > 1 else 0, bits[0]))
+        if not c:
+            return fallback
+        c.sort()
+        return ([x for x in c if x[0] <= 1600] or c[:1])[-1][1]
+
+    def repl(m):
+        pic = m.group(0)
+        img = re.search(r"<img [^>]*>", pic).group(0)
+        webp = re.search(r'<source type="image/webp"[^>]*srcset="([^"]+)"', pic)
+        path = pick(webp.group(1), re.search(r'src="([^"]+)"', img).group(1)) if webp else re.search(r'src="([^"]+)"', img).group(1)
+        f = ROOT / path
+        if not f.exists():
+            return pic
+        if path not in cache:
+            cache[path] = "data:image/webp;base64," + base64.b64encode(f.read_bytes()).decode()
+        return "<picture>" + re.sub(r'src="[^"]+"', f'src="{cache[path]}"', img) + "</picture>"
+
+    s = re.sub(r"<picture>.*?</picture>", repl, s, flags=re.S)
+    s = re.sub(r'<link rel="preload" as="image"[^>]*>', "", s)
+    (ROOT / out).write_text(s, encoding="utf-8")
+    return out
+
+
 if __name__ == "__main__":
     files = [build_page(k) for k in PAGES]
     build_elementor()
     build_images_md()
+    files.append(build_standalone())
     print("OK:", ", ".join(files), "+ elementor/ + IMAGENES.md")
