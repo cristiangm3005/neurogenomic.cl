@@ -1,57 +1,91 @@
 <style>
-/* ---------- S10 · CTA FINAL · pupila contraída (cierre del hero) ---------- */
-.ng-cta{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:clamp(96px,10vw,160px) 0}
-.ng-cta{--ng-dogw:min(calc(100svh * .62),50vw);background:#000}
-.ng-cta__dog{position:absolute;top:0;right:0;bottom:0;width:var(--ng-dogw);overflow:hidden;background:#8b8b8b;z-index:-2}
-.ng-cta__frame{position:absolute;top:50%;left:50%;width:220%;aspect-ratio:655/1200;translate:-44.3% -50.8%;transform-origin:44.3% 50.8%}
-.ng-cta__frame .ng-media{position:absolute;inset:0;border-radius:0;background:#8b8b8b}
-.ng-cta__ring{overflow:visible;position:absolute;left:50%;top:50%;width:min(44vw,520px);aspect-ratio:1;translate:-50% -50%;pointer-events:none}
-.ng-cta__ring circle{fill:none;stroke:var(--ng-lime);stroke-width:1;vector-effect:non-scaling-stroke}
-.ng-cta__ring .ng-cta__r2{stroke:rgba(200,255,0,.35);stroke-dasharray:2 6}
-.ng-cta__ring text{font-family:var(--ng-mono);font-size:4.2px;font-weight:500;letter-spacing:.6px;fill:var(--ng-lime)}
-.ng-cta__in{max-width:900px;padding-right:calc(var(--ng-dogw) - var(--ng-gut))}
-.ng-cta__t{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(50px,6.2vw,122px);line-height:.88;letter-spacing:0;font-weight:400;margin:22px 0 28px;text-wrap:balance}
+/* ---------- S10 · CTA FINAL · teléfono: la mirada llega al botón «Pagar» y se hace el toque ---------- */
+.ng-cta{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:clamp(96px,10vw,160px) 0;background:#000}
+.ng-cta__grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,4vw,72px);align-items:center;width:100%}
+.ng-cta__fig{position:relative;margin:0;aspect-ratio:920/1070;max-height:82svh;justify-self:end;width:100%;perspective:1200px}
+.ng-cta__tilt{position:absolute;inset:0;transform:rotateY(var(--ty,0deg)) rotateX(var(--tx,0deg));transform-style:preserve-3d;will-change:transform}
+.ng-cta__fig .ng-media{position:absolute;inset:0;border-radius:8px;background:#000}
+.ng-cta__ov{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.ng-cta__gaze{fill:#C8FF00}
+.ng-cta__halo{fill:none;stroke:rgba(200,255,0,.6);stroke-width:1.5}
+.ng-cta__trail{fill:none;stroke:rgba(200,255,0,.5);stroke-width:1.5;stroke-linecap:round;stroke-dasharray:3 5}
+.ng-cta__rip{fill:none;stroke:#C8FF00;stroke-width:2}
+.ng-cta__tag{position:absolute;left:12px;bottom:12px;border:1px solid rgba(200,255,0,.5);background:rgba(10,11,13,.78);color:var(--ng-lime);border-radius:4px;padding:6px 10px;font:500 10.5px/1.3 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase}
+.ng-cta__t{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(50px,6vw,118px);line-height:.88;letter-spacing:0;font-weight:400;margin:22px 0 28px;text-wrap:balance}
 .ng-cta__p{font-size:clamp(18px,1.5vw,22px);font-weight:300;max-width:44ch;color:var(--ng-tx)}
 .ng-cta__btn{margin-top:clamp(32px,4vw,56px);min-height:clamp(64px,7vw,96px);padding:0 clamp(28px,3vw,48px);font-size:clamp(17px,1.4vw,22px);border-radius:999px}
 .ng-cta__btn .ng-btn__t{display:inline-flex;gap:14px;align-items:center}
 @media (max-width:899px){
-  .ng-cta{flex-direction:column;align-items:stretch;padding-top:0}
-  .ng-cta__dog{position:relative;width:100%;height:52svh;min-height:300px;z-index:0;margin-bottom:32px}
-  .ng-cta__ring{width:70vw}
-  .ng-cta__in{padding-right:0}
+  .ng-cta{align-items:flex-start}
+  .ng-cta__grid{grid-template-columns:1fr}
+  .ng-cta__fig{order:-1;justify-self:center;max-height:none;max-width:460px}
   .ng-cta__btn{width:100%}
 }
 </style>
 
 <section class="ng-sec ng-cta" id="contacto-cta" aria-labelledby="ng-cta-title" data-ng="cta">
-  <div class="ng-cta__dog">
-    <div class="ng-cta__frame"><div class="ng-media" data-ph="/img/ref-dog">{{img:dog-cta}}</div></div>
-    <svg class="ng-cta__ring" viewBox="0 0 200 200" aria-hidden="true">
-      <circle class="ng-cta__r1" cx="100" cy="100" r="90"/><circle class="ng-cta__r2" cx="100" cy="100" r="98"/>
-      <text x="100" y="-4" text-anchor="middle">PUPILA · Ø ↓</text>
-    </svg>
-  </div>
-  <div class="ng-wrap">
+  <div class="ng-wrap ng-cta__grid">
     <div class="ng-cta__in">
       <p class="ng-mono ng-eyebrow">{{n}} · Diagnóstico</p>
       <h2 class="ng-cta__t" id="ng-cta-title" data-ng-split>¿Construimos tu próxima decisión <span class="ng-hl">con evidencia?</span></h2>
-      <p class="ng-cta__p" data-ng-reveal>Cuéntanos qué servicio necesitas hoy. El diagnóstico inicial es la base de todo lo que viene después.</p>
+      <p class="ng-cta__p" data-ng-reveal>Cuéntanos qué quieres evaluar: una marca, una campaña, un packaging o un sitio web. Revisamos el desafío y te proponemos el método adecuado.</p>
       <a class="ng-btn ng-btn--volt ng-cta__btn" href="{{u:contacto}}" data-ng-magnet><span class="ng-btn__t">Agendar diagnóstico <span class="ng-btn__i" aria-hidden="true">↗</span></span></a>
     </div>
+    <figure class="ng-cta__fig">
+      <div class="ng-cta__tilt">
+        <div class="ng-media" data-ph="/img/ng-phone">{{img:phone}}</div>
+        <svg class="ng-cta__ov" viewBox="0 0 920 1070" preserveAspectRatio="none" aria-hidden="true">
+          <path class="ng-cta__trail"/>
+          <circle class="ng-cta__rip" r="0"/><circle class="ng-cta__rip" r="0"/>
+          <circle class="ng-cta__halo" r="16"/><circle class="ng-cta__gaze" r="7"/>
+        </svg>
+      </div>
+      <figcaption class="ng-cta__tag">Ilustrativo · tienda ficticia</figcaption>
+    </figure>
   </div>
 </section>
 
 <script>
 NG.boot('[data-ng="cta"]', function (sec) {
-  var ring = sec.querySelector('.ng-cta__ring'), img = sec.querySelector('.ng-cta__frame');
+  var D = {{json:phone}}, P = function (k) { return [D[k][0] * 920, D[k][1] * 1070]; };
+  var fig = sec.querySelector('.ng-cta__fig'), tilt = sec.querySelector('.ng-cta__tilt');
+  var gaze = sec.querySelector('.ng-cta__gaze'), halo = sec.querySelector('.ng-cta__halo'), trail = sec.querySelector('.ng-cta__trail');
+  var rips = [].slice.call(sec.querySelectorAll('.ng-cta__rip'));
+  /* Recorrido de la mirada: título → total → botón, con sacadas (curva rápida) y pausas */
+  var stops = [P('title'), P('total'), [P('total')[0] + 90, P('total')[1] + 18], P('btn')];
+  var dwell = .55; // fracción de cada tramo en que la mirada está quieta (fijación)
+  var place = function (p) {
+    p = Math.max(0, Math.min(1, p));
+    var seg = Math.min(stops.length - 2, Math.floor(p * (stops.length - 1))), k = p * (stops.length - 1) - seg;
+    var m = k < dwell ? 0 : (k - dwell) / (1 - dwell); m = m * m * (3 - 2 * m);
+    var a = stops[seg], b = stops[seg + 1], x = a[0] + (b[0] - a[0]) * m, y = a[1] + (b[1] - a[1]) * m - Math.sin(m * Math.PI) * 26;
+    gaze.setAttribute('cx', x); gaze.setAttribute('cy', y); halo.setAttribute('cx', x); halo.setAttribute('cy', y);
+    halo.setAttribute('r', 10 + (k < dwell ? k / dwell : 0) * 14);
+    var d = 'M' + stops[0].join(' ');
+    for (var i = 1; i <= seg; i++) d += ' L' + stops[i].join(' ');
+    trail.setAttribute('d', d + ' L' + x.toFixed(1) + ' ' + y.toFixed(1));
+  };
+  var tap = function (q) {
+    var b = P('btn');
+    rips.forEach(function (c, i) {
+      var t = Math.max(0, Math.min(1, q * 1.4 - i * .35));
+      c.setAttribute('cx', b[0]); c.setAttribute('cy', b[1]);
+      c.setAttribute('r', (t * 150).toFixed(1)); c.style.opacity = t > 0 ? (1 - t).toFixed(3) : 0;
+    });
+  };
   NG.reveals(sec);
   sec.querySelectorAll('[data-ng-magnet]').forEach(function (b) { NG.magnet(b, .35); });
+  if (NG.rm) { place(1); tap(0); return; }
+  place(0); tap(0);
   NG.ready().then(function (gsap) {
-    if (!gsap || NG.rm) return;
-    var tl = gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top 85%', end: 'center 55%', scrub: true } });
-    tl.fromTo(ring, { scale: 1.6, autoAlpha: 0 }, { scale: .55, autoAlpha: 1, ease: 'none' }, 0);
-    if (img) tl.fromTo(img, { scale: .6 }, { scale: 1, ease: 'none' }, 0);
-    gsap.to(ring.querySelector('.ng-cta__r2'), { rotation: 360, transformOrigin: '50% 50%', duration: 40, repeat: -1, ease: 'none' });
+    if (!gsap) { place(1); return; }
+    var st = { p: 0, q: 0 };
+    gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top 70%', end: 'bottom 70%', scrub: .6 } })
+      .to(st, { p: 1, ease: 'none', duration: 1, onUpdate: function () { place(st.p); } })
+      .to(st, { q: 1, ease: 'power1.out', duration: .45, onUpdate: function () { tap(st.q); } });
+    /* Inclinación leve del teléfono según el scroll (profundidad) */
+    gsap.fromTo(tilt, { '--ty': '-10deg', '--tx': '6deg' }, { '--ty': '6deg', '--tx': '-3deg', ease: 'none',
+      scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: true } });
   });
 });
 </script>

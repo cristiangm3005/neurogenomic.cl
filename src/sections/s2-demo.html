@@ -1,0 +1,244 @@
+<style>
+/* ---------- S2 · EYE TRACKING + IA · demostración cuadro a cuadro sincronizada con el scroll ---------- */
+.ng-demo{height:520vh;background:#000;overflow:visible}
+.ng-demo__pin{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;overflow:hidden}
+.ng-demo__grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(20px,3vw,48px);align-items:center;width:100%}
+.ng-demo__t{font-size:clamp(40px,4.4vw,80px);margin:18px 0 22px}
+.ng-demo__keys{display:grid;gap:14px}
+.ng-demo__keys div{border-top:1px solid var(--ng-line);padding-top:12px}
+.ng-demo__keys dt{font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-lime);margin-bottom:4px}
+.ng-demo__keys dd{margin:0;color:var(--ng-tx2);font-size:15.5px;line-height:1.45}
+.ng-demo__ph{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:22px;list-style:none;padding:0}
+.ng-demo__ph li{height:3px;border-radius:2px;background:var(--ng-line2);position:relative;overflow:hidden}
+.ng-demo__ph i{position:absolute;inset:0;background:var(--ng-lime);transform-origin:0 50%;transform:scaleX(var(--f,0))}
+.ng-demo__pn{margin-top:12px;color:var(--ng-tx);min-height:1.45em}
+.ng-demo__pn b{color:var(--ng-lime);font-weight:500}
+.ng-demo__viz{display:grid;gap:12px}
+.ng-demo__stage{position:relative;aspect-ratio:16/10;border-radius:8px;overflow:hidden;border:1px solid var(--ng-line2);background:#050506;box-shadow:0 50px 140px -50px #000}
+.ng-demo__stage canvas,.ng-demo__gsr canvas{position:absolute;inset:0;width:100%;height:100%}
+.ng-demo__hud{position:absolute;inset:12px 14px auto;display:flex;justify-content:space-between;gap:12px;pointer-events:none;font:500 10.5px/1.4 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-tx);text-shadow:0 1px 6px #000}
+.ng-demo__hud b{color:var(--ng-lime);font-weight:500;font-variant-numeric:tabular-nums}
+.ng-demo__lbl{position:absolute;left:12px;bottom:12px;max-width:calc(100% - 24px);border:1px solid rgba(200,255,0,.5);background:rgba(10,11,13,.78);color:var(--ng-lime);border-radius:4px;padding:6px 10px;font:500 10.5px/1.3 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase;pointer-events:none}
+.ng-demo__load{position:absolute;right:14px;top:32px;color:var(--ng-tx2);font:500 10.5px/1 var(--ng-mono);letter-spacing:.1em}
+.ng-demo__gsr{position:relative;height:84px;border:1px solid var(--ng-line);border-radius:8px;background:var(--ng-s1);overflow:hidden}
+.ng-demo__gsr span{position:absolute;left:12px;top:8px;color:var(--ng-tx2);pointer-events:none}
+.ng-demo__gsr b{color:var(--ng-lime);font-weight:500;font-variant-numeric:tabular-nums}
+.ng-demo__m{display:none}
+@media (max-width:1023px){
+  .ng-demo{height:420vh}
+  .ng-demo__grid{grid-template-columns:1fr;gap:14px}
+  .ng-demo__copy{order:2}
+  .ng-demo__copy .ng-h2,.ng-demo__copy .ng-demo__keys,.ng-demo__copy .ng-eyebrow{display:none}
+  .ng-demo__ph{margin-top:0}
+  .ng-demo__m{display:block;background:#000;padding:48px 0 clamp(72px,10vw,120px)}
+}
+@media (max-width:767px){.ng-demo__stage{aspect-ratio:4/5}.ng-demo__gsr{height:64px}.ng-demo__lbl{font-size:9.5px;padding:5px 8px}}
+@media (prefers-reduced-motion:reduce){
+  .ng-demo{height:auto}
+  .ng-demo__pin{position:relative;height:auto;padding:clamp(80px,10vw,140px) 0}
+  .ng-demo__copy .ng-h2,.ng-demo__copy .ng-demo__keys,.ng-demo__copy .ng-eyebrow{display:block}
+  .ng-demo__m{display:none}
+}
+</style>
+
+<section class="ng-sec ng-demo" id="asi-mira" aria-labelledby="ng-demo-title" data-ng="demo">
+  <div class="ng-demo__pin">
+    <div class="ng-wrap ng-demo__grid">
+      <div class="ng-demo__copy">
+        <p class="ng-mono ng-eyebrow">{{n}} · Eye tracking + IA</p>
+        <h2 class="ng-h2 ng-demo__t" id="ng-demo-title">Así mira <span class="ng-hl">tu cliente</span></h2>
+        <dl class="ng-demo__keys">
+          <div><dt>Qué se mide</dt><dd>Dónde se detiene la mirada, en qué orden y cómo varía la activación.</dd></div>
+          <div><dt>Qué revela</dt><dd>Qué elementos captan atención, cuáles se ignoran y dónde sube la activación.</dd></div>
+          <div><dt>Qué decisión permite</dt><dd>Priorizar, ajustar o descartar elementos antes de producir.</dd></div>
+        </dl>
+        <ol class="ng-demo__ph" aria-hidden="true"><li><i></i></li><li><i></i></li><li><i></i></li><li><i></i></li><li><i></i></li></ol>
+        <p class="ng-mono ng-demo__pn" aria-hidden="true"><b data-r="n">01</b> · <span data-r="l">Estímulo</span></p>
+      </div>
+      <div class="ng-demo__viz">
+        <div class="ng-demo__stage" role="img" aria-label="Demostración visual con datos simulados: una bolsa de café de marca ficticia se ilumina y la cámara se acerca. Aparecen, una por una, fijaciones de mirada sobre el origen, la marca, las notas de cata y el peso; luego el recorrido de la mirada, un mapa de calor y tres zonas que casi nadie miró. Abajo, una curva de respuesta galvánica avanza con el scroll.">
+          <canvas data-r="cv" aria-hidden="true"></canvas>
+          <div class="ng-demo__hud" aria-hidden="true"><span>Cuadro <b data-r="f">001</b> / 080</span><span>Fijaciones <b data-r="x">0</b></span></div>
+          <span class="ng-demo__load" data-r="load" aria-hidden="true"></span>
+          <span class="ng-demo__lbl">Demostración visual. No corresponde a datos de un estudio real.</span>
+        </div>
+        <div class="ng-demo__gsr" aria-hidden="true"><canvas data-r="g"></canvas><span class="ng-mono">Respuesta galvánica · <b data-r="v">0,00</b> μS · simulada</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="ng-sec ng-demo__m">
+  <div class="ng-wrap">
+    <p class="ng-mono ng-eyebrow">{{n}} · Eye tracking + IA</p>
+    <p class="ng-h2" style="font-size:clamp(36px,9vw,56px);margin:16px 0 24px" aria-hidden="true">Así mira <span class="ng-hl">tu cliente</span></p>
+    <dl class="ng-demo__keys">
+      <div><dt>Qué se mide</dt><dd>Dónde se detiene la mirada, en qué orden y cómo varía la activación.</dd></div>
+      <div><dt>Qué revela</dt><dd>Qué elementos captan atención, cuáles se ignoran y dónde sube la activación.</dd></div>
+      <div><dt>Qué decisión permite</dt><dd>Priorizar, ajustar o descartar elementos antes de producir.</dd></div>
+    </dl>
+  </div>
+</div>
+
+<script>
+/* Datos simulados: posición proyectada (0–1) de cada zona del packaging en cada uno de los 80 cuadros (render/seq_scene.py) */
+window.NG_SEQ = window.NG_SEQ || {{json:seq}};
+NG.boot('[data-ng="demo"]', function (sec) {
+  var SEQ = window.NG_SEQ, R = function (k) { return sec.querySelector('[data-r="' + k + '"]'); };
+  var cv = R('cv'), ctx = cv.getContext('2d'), gcv = R('g'), gctx = gcv.getContext('2d');
+  var N = SEQ.frames, imgs = [], ok = [], nOk = 0, BASE = '{{IMGBASE}}seq/f_';
+  var bars = [].slice.call(sec.querySelectorAll('.ng-demo__ph i')), PH = ['Estímulo', 'Fijaciones', 'Recorrido', 'Mapa de calor', 'Zonas ciegas'];
+  var CUT = [0, .16, .36, .56, .78, 1], clamp01 = function (v) { return v < 0 ? 0 : v > 1 ? 1 : v; };
+
+  /* Carga progresiva: 1 de cada 8 → 4 → 2 → 1, así se puede recorrer desde el primer momento */
+  var load = function (i) {
+    if (imgs[i]) return;
+    var im = new Image(); im.decoding = 'async'; imgs[i] = im;
+    im.onload = function () { ok[i] = true; nOk++; R('load').textContent = nOk < N ? 'Cargando ' + Math.round(nOk / N * 100) + ' %' : ''; dirty = true; kick(); };
+    im.src = window.NG_FRAMES ? window.NG_FRAMES[i] : BASE + ('00' + i).slice(-3) + '.webp';  // NG_FRAMES: versión de un solo archivo
+  };
+  var started = false, startLoad = function () {
+    if (started) return; started = true;
+    [8, 4, 2, 1].forEach(function (st, k) { setTimeout(function () { for (var i = 0; i < N; i += st) load(i); }, k * 150); });
+  };
+  load(0);
+  NG.vis(sec, startLoad, null, '150% 0px');
+  var nearest = function (i) { for (var d = 0; d < N; d++) { if (ok[i - d]) return i - d; if (ok[i + d]) return i + d; } return -1; };
+
+  var W = 0, H = 0, GW = 0, GH = 0, dirty = true;
+  var fit = function () {
+    var d = Math.min(devicePixelRatio || 1, 2), r = cv.getBoundingClientRect(), g = gcv.getBoundingClientRect();
+    W = r.width; H = r.height; cv.width = Math.round(W * d); cv.height = Math.round(H * d); ctx.setTransform(d, 0, 0, d, 0, 0);
+    GW = g.width; GH = g.height; gcv.width = Math.round(GW * d); gcv.height = Math.round(GH * d); gctx.setTransform(d, 0, 0, d, 0, 0);
+    dirty = true;
+  };
+
+  /* Fijaciones simuladas en orden de lectura: [zona, dx, dy, duración ms] */
+  var FIX = [['origin', 0, 0, 440], ['logo', 0, 0, 300], ['notes', 0, 0, 260], ['valve', 0, 0, 190], ['weight', 0, 0, 340], ['beans', 0, 0, 230], ['logo', .03, .01, 210], ['origin', -.02, .01, 380]];
+  /* Curva de respuesta galvánica simulada: deriva lenta + respuestas fásicas (subida rápida, bajada lenta) */
+  var GSR = (function () {
+    var out = [], peaks = [[.24, .9], [.31, .5], [.47, .7], [.63, 1], [.74, .45], [.86, .6]];
+    for (var i = 0; i < 400; i++) {
+      var t = i / 399, v = .22 + .1 * t + .015 * Math.sin(t * 40) + .01 * Math.sin(t * 97);
+      peaks.forEach(function (p) { var k = t - p[0]; if (k > 0) v += p[1] * .28 * (1 - Math.exp(-k / .012)) * Math.exp(-k / .06); });
+      out.push(v);
+    }
+    return out;
+  })();
+  /* Heatmap térmico pixelado dibujado sobre el cuadro */
+  var heat = function (pts, gain, alpha) {
+    var base = Math.min(W, H), cell = Math.max(5, Math.round(base / 48)), gap = Math.max(1, cell * .18);
+    ctx.save(); ctx.globalAlpha = alpha;
+    for (var y = 0; y < H; y += cell) for (var x = 0; x < W; x += cell) {
+      var cx = x + cell / 2, cy = y + cell / 2, v = 0;
+      for (var i = 0; i < pts.length; i++) { var p = pts[i], s = p[2] * base, dx = cx - p[0], dy = cy - p[1]; v += p[3] * Math.exp(-(dx * dx + dy * dy) / (s * s * .9)); }
+      v *= gain; if (v < .08) continue;
+      ctx.fillStyle = NG.thermal(Math.min(1, v)); ctx.fillRect(x + gap / 2, y + gap / 2, cell - gap, cell - gap);
+    }
+    ctx.restore();
+  };
+  var drawGSR = function (p) {
+    gctx.clearRect(0, 0, GW, GH);
+    var top = 26, h = GH - top - 8, n = Math.max(2, Math.round(p * (GSR.length - 1)));
+    gctx.strokeStyle = 'rgba(255,255,255,.06)'; gctx.lineWidth = 1;
+    for (var k = 1; k < 4; k++) { var yy = top + h * k / 4; gctx.beginPath(); gctx.moveTo(0, yy); gctx.lineTo(GW, yy); gctx.stroke(); }
+    gctx.beginPath();
+    for (var i = 0; i < n; i++) { var x = i / (GSR.length - 1) * GW, y = top + h * (1 - Math.min(1, GSR[i] / 1.05)); i ? gctx.lineTo(x, y) : gctx.moveTo(x, y); }
+    gctx.strokeStyle = '#C8F542'; gctx.lineWidth = 1.6; gctx.stroke();
+    var lx = (n - 1) / (GSR.length - 1) * GW, ly = top + h * (1 - Math.min(1, GSR[n - 1] / 1.05));
+    gctx.fillStyle = '#C8FF00'; gctx.beginPath(); gctx.arc(lx, ly, 3.5, 0, 6.2832); gctx.fill();
+    R('v').textContent = (GSR[n - 1] * 5).toFixed(2).replace('.', ',');
+  };
+
+  var target = NG.rm ? 1 : 0, shown = target, lastF = -1, typed = '', typeTarget = PH[0], typeT = 0;
+  var draw = function () {
+    var p = shown, f = Math.round(p * (N - 1)), idx = nearest(f);
+    if (idx < 0) return;
+    ctx.clearRect(0, 0, W, H);
+    var iw = SEQ.size[0], ih = SEQ.size[1], s = Math.max(W / iw, H / ih), dw = iw * s, dh = ih * s, ox = (W - dw) / 2, oy = (H - dh) / 2;
+    ctx.drawImage(imgs[idx], ox, oy, dw, dh);
+    var at = function (n, dx, dy) { var a = SEQ.anchors[n][f]; return [ox + (a[0] + (dx || 0)) * dw, oy + (a[1] + (dy || 0)) * dh]; };
+    var u = Math.max(.55, dw / 1000);
+    var pFix = clamp01((p - CUT[1]) / (CUT[2] - CUT[1])), pPath = clamp01((p - CUT[2]) / (CUT[3] - CUT[2]));
+    var pHeat = clamp01((p - CUT[3]) / (CUT[4] - CUT[3])), pBlind = clamp01((p - CUT[4]) / (CUT[5] - CUT[4]));
+    var phase = 0; for (var q = 1; q < 5; q++) if (p >= CUT[q]) phase = q;
+    if (pHeat > 0) {
+      var hp = FIX.map(function (z) { var a = at(z[0], z[1], z[2]); return [a[0], a[1], .028 + z[3] / 12000, .45 + z[3] / 900]; });
+      var o = at('origin'); hp.push([o[0], o[1], .055, .9]);
+      heat(hp, .35 + pHeat * .35, Math.min(.85, pHeat * 1.1));
+    }
+    var pts = FIX.map(function (z) { return at(z[0], z[1], z[2]).concat(z[3]); });
+    var nFix = Math.min(FIX.length, Math.ceil(pFix * FIX.length - 1e-6)), dim = 1 - pHeat * .5;
+    if (pPath > 0 && nFix > 1) {
+      var segs = (nFix - 1) * pPath;
+      ctx.save(); ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.globalAlpha = dim;
+      [['rgba(0,0,0,.55)', 4 * u + 1], ['#C8FF00', 1.6 * u + .5]].forEach(function (st) {
+        ctx.strokeStyle = st[0]; ctx.lineWidth = st[1]; ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+        for (var i = 1; i <= Math.ceil(segs); i++) { var k = Math.min(1, segs - (i - 1)); ctx.lineTo(pts[i - 1][0] + (pts[i][0] - pts[i - 1][0]) * k, pts[i - 1][1] + (pts[i][1] - pts[i - 1][1]) * k); }
+        ctx.stroke();
+      });
+      ctx.restore();
+    }
+    for (var i = 0; i < nFix; i++) {
+      var pt = pts[i], ap = clamp01(pFix * FIX.length - i), ease = 1 - Math.pow(1 - ap, 3), r = (7 + pt[2] / 24) * u * (.55 + .45 * ease);
+      ctx.save(); ctx.globalAlpha = ease * dim;
+      ctx.fillStyle = 'rgba(200,255,0,.15)'; ctx.strokeStyle = '#C8FF00'; ctx.lineWidth = Math.max(1.2, 1.8 * u);
+      ctx.beginPath(); ctx.arc(pt[0], pt[1], r, 0, 6.2832); ctx.fill(); ctx.stroke();
+      var fs = Math.max(10, 12 * u), bw = fs * 2.1, bh = fs * 1.5, bx = pt[0] + r * .7, by = pt[1] - r - bh;
+      ctx.fillStyle = '#0A0B0D'; ctx.fillRect(bx, by, bw, bh);
+      ctx.fillStyle = '#C8FF00'; ctx.font = '500 ' + fs + 'px "IBM Plex Mono", monospace'; ctx.textBaseline = 'middle';
+      ctx.fillText(('0' + (i + 1)).slice(-2), bx + fs * .3, by + bh / 2 + 1);
+      ctx.restore();
+    }
+    if (pBlind > 0) ['side', 'fine', 'tear'].forEach(function (b, j) {
+      var a = clamp01(pBlind * 3 - j); if (!a) return;
+      var poly = SEQ.blind[b][f].map(function (q) { return [ox + q[0] * dw, oy + q[1] * dh]; });
+      var bb = poly.reduce(function (m, q) { return [Math.min(m[0], q[0]), Math.min(m[1], q[1]), Math.max(m[2], q[0]), Math.max(m[3], q[1])]; }, [1e9, 1e9, -1e9, -1e9]);
+      ctx.save(); ctx.globalAlpha = a;
+      ctx.beginPath(); poly.forEach(function (q, k) { k ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); }); ctx.closePath();
+      ctx.fillStyle = 'rgba(10,11,13,.55)'; ctx.fill();
+      ctx.save(); ctx.clip(); ctx.strokeStyle = 'rgba(242,243,240,.45)'; ctx.lineWidth = 1.2;
+      for (var x = bb[0] - (bb[3] - bb[1]); x < bb[2]; x += 7) { ctx.beginPath(); ctx.moveTo(x, bb[3]); ctx.lineTo(x + (bb[3] - bb[1]), bb[1]); ctx.stroke(); }
+      ctx.restore();
+      ctx.setLineDash([6, 4]); ctx.strokeStyle = '#F2F3F0'; ctx.lineWidth = 1.2; ctx.stroke(); ctx.setLineDash([]);
+      var lw = 92, lx = b === 'side' ? bb[0] - lw - 6 : bb[2] + 8, ly = b === 'side' ? bb[1] + 4 : bb[1] - 4;
+      lx = Math.max(6, Math.min(W - lw - 6, lx)); ly = Math.max(28, ly);
+      ctx.fillStyle = '#F2F3F0'; ctx.fillRect(lx, ly, lw, 18);
+      ctx.fillStyle = '#0A0B0D'; ctx.font = '500 10.5px "IBM Plex Mono", monospace'; ctx.textBaseline = 'middle'; ctx.fillText('ZONA CIEGA', lx + 7, ly + 9.5);
+      ctx.restore();
+    });
+    drawGSR(p);
+    R('f').textContent = ('00' + (f + 1)).slice(-3); R('x').textContent = nFix;
+    bars.forEach(function (b, k) { b.style.setProperty('--f', clamp01((p - CUT[k]) / (CUT[k + 1] - CUT[k])).toFixed(3)); });
+    R('n').textContent = '0' + (phase + 1);
+    if (typeTarget !== PH[phase]) { typeTarget = PH[phase]; typed = ''; typeT = 0; }
+  };
+  /* Nombre de fase con efecto máquina de escribir (palabras cortas) */
+  var typeStep = function (now) {
+    if (typed === typeTarget) return false;
+    if (NG.rm) { typed = typeTarget; R('l').textContent = typed; return false; }
+    if (now - typeT > 28) { typed = typeTarget.slice(0, typed.length + 1); R('l').textContent = typed; typeT = now; }
+    return true;
+  };
+  /* Un solo rAF con interpolación (efecto «scrub» suave); se detiene cuando llega al destino */
+  var raf = 0, loop = function (now) {
+    raf = 0;
+    var d = target - shown;
+    shown = Math.abs(d) < .0004 ? target : shown + d * .18;
+    var f = Math.round(shown * (N - 1));
+    if (dirty || f !== lastF || Math.abs(d) > .0001) { draw(); lastF = f; dirty = false; }
+    var typing = typeStep(now || 0);
+    if (shown !== target || typing) raf = requestAnimationFrame(loop);
+  };
+  var kick = function () { if (!raf) raf = requestAnimationFrame(loop); };
+  var onScroll = function () {
+    var r = sec.getBoundingClientRect(), vh = innerHeight, total = r.height - vh;
+    if (r.bottom < -vh || r.top > vh * 2) return;
+    var p = clamp01(-r.top / total);
+    if (p !== target) { target = p; kick(); }
+  };
+  if (!NG.rm) { addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', onScroll); onScroll(); }
+  else startLoad();
+  if ('ResizeObserver' in window) new ResizeObserver(function () { fit(); kick(); }).observe(cv); else addEventListener('resize', function () { fit(); kick(); });
+  fit(); kick();
+});
+</script>

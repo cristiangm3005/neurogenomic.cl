@@ -10,7 +10,8 @@ Experiencia de scroll inmersiva para **Neurogenomic** (Genomic Industries SpA) �
 
 ```
 index.html · servicios.html · tecnologia.html · contacto.html   ← sitio listo (generado)
-neurogenomic-index.html  ← inicio en un solo archivo (imágenes incrustadas): se abre sin la carpeta img/
+neurogenomic-index.html  ← inicio en un solo archivo (imágenes y 80 cuadros de la demo incrustados): se abre sin la carpeta img/
+neurogenomic-sitio.zip   ← las 4 páginas + img/ listas para subir a un hosting
 landing.html             ← landing B2B con demo scroll-driven (fuente: landing/src; build: landing/build_landing.py). Ver LANDING.md
 neurogenomic-landing.html ← la misma landing en un solo archivo
 elementor/00…18-*.html   ← cada sección como bloque autocontenido para el widget HTML de Elementor

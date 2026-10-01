@@ -96,6 +96,8 @@ NG.boot('[data-ng="case"]', function (sec) {
   draw();
   if ('ResizeObserver' in window) { var to; new ResizeObserver(function () { clearTimeout(to); to = setTimeout(draw, 150); }).observe(row); }
 
+  /* La atención se revela como un círculo que crece desde la primera fijación de cada versión */
+  var clip = function (i, r) { var o = H[cards[i].getAttribute('data-v')][0]; return 'circle(' + r + '% at ' + (o[0] * 100).toFixed(1) + '% ' + (o[1] * 100).toFixed(1) + '%)'; };
   var finish = function () { row.classList.add('ng-is-done'); };
   NG.reveals(sec);
   NG.ready().then(function (gsap) {
@@ -110,9 +112,9 @@ NG.boot('[data-ng="case"]', function (sec) {
           : { trigger: row, start: 'top 75%', end: 'bottom 35%', scrub: .6 }
       });
       tl.from(cards, { autoAlpha: 0, y: 40, stagger: .15, duration: .5, ease: 'power2.out' })
-        .to(cvs[0], { opacity: .88, duration: .5 })
-        .to(cvs[1], { opacity: .88, duration: .5 })
-        .to(cvs[2], { opacity: .88, duration: .5 })
+        .fromTo(cvs[0], { opacity: .9, clipPath: clip(0, 0) }, { clipPath: clip(0, 150), duration: .6 })
+        .fromTo(cvs[1], { opacity: .9, clipPath: clip(1, 0) }, { clipPath: clip(1, 150), duration: .6 }, '-=.25')
+        .fromTo(cvs[2], { opacity: .9, clipPath: clip(2, 0) }, { clipPath: clip(2, 150), duration: .6 }, '-=.25')
         .to(tag, { opacity: 1, y: 0, duration: .4 })
         .to({}, { duration: .3 });
       tl.eventCallback('onUpdate', function () { row.classList.toggle('ng-is-done', tl.progress() > .78); });

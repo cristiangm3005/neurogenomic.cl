@@ -448,8 +448,8 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
   <div class="ng-wrap">
     <div class="ng-sig__head">
       <div class="ng-head">
-        <p class="ng-mono ng-eyebrow">05 · Tecnología</p>
-        <h2 class="ng-h2" id="ng-sig-title" data-ng-split>Biometría real. Tres señales involuntarias. <span class="ng-hl">Cero opiniones.</span></h2>
+        <p class="ng-mono ng-eyebrow">04 · Tecnología</p>
+        <h2 class="ng-h2" id="ng-sig-title" data-ng-split>Tres señales que <span class="ng-hl">no dependen de lo que se declara.</span></h2>
       </div>
       <p class="ng-body" data-ng-reveal>Eye tracking, facial coding y respuesta galvánica, cruzados con modelos de IA propios, para convertir reacciones no conscientes en una decisión validada antes de construir.</p>
     </div>
@@ -463,7 +463,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
     <div class="ng-sig__grid">
       <button type="button" class="ng-mon" data-k="eye" aria-pressed="false" aria-label="Eye tracking, atención: dónde mira, en qué orden y qué ignora por completo. Ampliar panel.">
         <span class="ng-mon__top ng-mono"><span>C·01 · Eye tracking</span><span class="ng-mon__live">● señal en vivo</span></span>
-        <span class="ng-mon__screen"><span class="ng-media ng-mon__photo" data-ph="/img/ng-pouch"><picture><source type="image/avif" srcset="/img/ng-pouch-960.avif 960w, /img/ng-pouch-1600.avif 1600w" sizes="(min-width:1024px) 30vw, 100vw"><source type="image/webp" srcset="/img/ng-pouch-960.webp 960w, /img/ng-pouch-1600.webp 1600w" sizes="(min-width:1024px) 30vw, 100vw"><img src="/img/ng-pouch-1600.webp" width="2400" height="1500" alt="Bolsa de café usada como estímulo en la lectura de eye tracking" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></span><canvas aria-hidden="true"></canvas><span class="ng-mon__read">fijación <span data-r>214</span> ms</span><span class="ng-marks" aria-hidden="true"><i></i></span></span>
+        <span class="ng-mon__screen"><canvas aria-hidden="true"></canvas><span class="ng-mon__read">fijación <span data-r>214</span> ms</span><span class="ng-marks" aria-hidden="true"><i></i></span></span>
         <span class="ng-mon__body"><span class="ng-mon__k ng-mono">Señal 01</span><span class="ng-mon__t">Atención</span><span class="ng-mon__d">Dónde mira, en qué orden y qué ignora por completo.</span></span>
       </button>
       <button type="button" class="ng-mon" data-k="face" aria-pressed="false" aria-label="Facial coding, emoción: la microexpresión que aparece antes de que piense la respuesta. Ampliar panel.">
@@ -502,31 +502,54 @@ NG.boot('[data-ng="signals"]', function (sec) {
   grid.addEventListener('pointerleave', function () { if (NG.fine) activate(null); });
   grid.addEventListener('focusout', function (e) { if (!grid.contains(e.relatedTarget)) activate(null); });
 
-  /* --- C·01 Eye tracking: sacadas entre fijaciones --- */
+  /* --- C·01 Eye tracking: lectura de una página (patrón en F) ---
+     Realismo: fijaciones de 180–320 ms con micro-temblor, sacadas balísticas (~40 ms)
+     de izquierda a derecha, regresiones ocasionales y barrido de retorno al inicio de línea. */
   (function (m) {
     var cv = NG.canvas(m.querySelector('canvas')), r = m.querySelector('[data-r]');
-    var pts = [], cur = { x: .5, y: .5 }, tgt = { x: .5, y: .5 }, next = 0, dwell = 0;
+    // Wireframe de una página: [x, y, ancho, alto] normalizados
+    var PAGE = [[.1, .1, .5, .07, 1], [.1, .24, .78, .025], [.1, .31, .72, .025], [.1, .38, .6, .025], [.1, .5, .34, .2, 2], [.5, .52, .38, .025], [.5, .58, .3, .025], [.5, .64, .34, .025], [.1, .8, .22, .08, 3]];
+    // Plan de lectura: muchas fijaciones arriba, decae hacia abajo (patrón F)
+    var plan = [], build = function () {
+      plan = [];
+      [[.13, .135], [.3, .135], [.47, .135]].forEach(function (p) { plan.push(p); });
+      [[.24, 5], [.31, 4], [.38, 2], [.52, 2], [.58, 1]].forEach(function (L) {
+        var n = L[1];
+        for (var k = 0; k < n; k++) plan.push([(L[0] > .5 ? .53 : .13) + k * .15 + (Math.random() - .5) * .03, L[0] + .012]);
+        if (Math.random() < .35 && n > 2) plan.push([plan[plan.length - 2][0], L[0] + .012]); // regresión
+      });
+      plan.push([.26, .6]); plan.push([.2, .84]);
+    };
+    build();
+    var idx = 0, from = { x: .13, y: .135 }, to = { x: .13, y: .135 }, t0 = 0, dwell = 240, trail = [];
+    var SACC = 42;
     var draw = function (t) {
       var c = cv.ctx, w = cv.w, h = cv.h;
-      if (t > next) {
-        pts.push({ x: tgt.x, y: tgt.y, d: dwell }); if (pts.length > 7) pts.shift();
-        tgt = { x: .36 + Math.random() * .3, y: .2 + Math.random() * .56 };
-        dwell = 140 + Math.random() * 260; next = t + dwell + 90;
-        r.textContent = Math.round(dwell);
+      if (t - t0 > SACC + dwell) {
+        trail.push({ x: to.x, y: to.y, d: dwell }); if (trail.length > 9) trail.shift();
+        idx++; if (idx >= plan.length) { idx = 0; build(); trail = []; }
+        from = { x: to.x, y: to.y }; to = { x: plan[idx][0], y: plan[idx][1] };
+        dwell = 180 + Math.random() * 140; t0 = t; r.textContent = Math.round(dwell);
       }
-      cur.x = NG.lerp(cur.x, tgt.x, .35); cur.y = NG.lerp(cur.y, tgt.y, .35);
+      var k = Math.min(1, (t - t0) / SACC), e = 1 - Math.pow(1 - k, 3);
+      var jx = k >= 1 ? (Math.random() - .5) * .004 : 0, jy = k >= 1 ? (Math.random() - .5) * .004 : 0;
+      var gx = (from.x + (to.x - from.x) * e + jx) * w, gy = (from.y + (to.y - from.y) * e + jy) * h;
       c.clearRect(0, 0, w, h);
-      c.strokeStyle = 'rgba(255,255,255,.05)'; c.lineWidth = 1;
-      for (var i = 1; i < 6; i++) { c.beginPath(); c.moveTo(i * w / 6, 0); c.lineTo(i * w / 6, h); c.stroke(); c.beginPath(); c.moveTo(0, i * h / 6); c.lineTo(w, i * h / 6); c.stroke(); }
-      c.strokeStyle = 'rgba(200,245,66,.45)'; c.beginPath();
-      pts.forEach(function (p, i) { i ? c.lineTo(p.x * w, p.y * h) : c.moveTo(p.x * w, p.y * h); });
-      c.lineTo(cur.x * w, cur.y * h); c.stroke();
-      pts.forEach(function (p, i) {
-        var a = (i + 1) / pts.length;
-        c.strokeStyle = 'rgba(200,245,66,' + a * .8 + ')'; c.beginPath(); c.arc(p.x * w, p.y * h, 4 + p.d / 40, 0, 6.283); c.stroke();
+      PAGE.forEach(function (b) {
+        c.fillStyle = b[4] === 1 ? 'rgba(242,243,240,.22)' : b[4] === 2 ? 'rgba(255,255,255,.07)' : b[4] === 3 ? 'rgba(200,245,66,.28)' : 'rgba(255,255,255,.11)';
+        c.fillRect(b[0] * w, b[1] * h, b[2] * w, b[3] * h);
       });
-      c.fillStyle = '#C8FF00'; c.beginPath(); c.arc(cur.x * w, cur.y * h, 5, 0, 6.283); c.fill();
-      c.strokeStyle = 'rgba(200,255,0,.5)'; c.beginPath(); c.arc(cur.x * w, cur.y * h, 16 + Math.sin(t / 160) * 2, 0, 6.283); c.stroke();
+      c.lineWidth = 1; c.strokeStyle = 'rgba(200,245,66,.35)'; c.beginPath();
+      trail.forEach(function (p, i) { i ? c.lineTo(p.x * w, p.y * h) : c.moveTo(p.x * w, p.y * h); });
+      if (trail.length) c.lineTo(gx, gy); c.stroke();
+      trail.forEach(function (p, i) {
+        var a = (i + 1) / trail.length;
+        c.fillStyle = 'rgba(200,255,0,' + (a * .12).toFixed(3) + ')'; c.strokeStyle = 'rgba(200,245,66,' + (a * .7).toFixed(3) + ')';
+        c.beginPath(); c.arc(p.x * w, p.y * h, 3 + p.d / 45, 0, 6.283); c.fill(); c.stroke();
+      });
+      c.fillStyle = '#C8FF00'; c.beginPath(); c.arc(gx, gy, 4, 0, 6.283); c.fill();
+      var grow = k >= 1 ? Math.min(1, (t - t0 - SACC) / dwell) : 0;
+      c.strokeStyle = 'rgba(200,255,0,.55)'; c.beginPath(); c.arc(gx, gy, 6 + grow * 9, 0, 6.283); c.stroke();
     };
     m._draw = draw;
   })(mons[0]);
@@ -569,31 +592,41 @@ NG.boot('[data-ng="signals"]', function (sec) {
     m._draw = draw;
   })(mons[1]);
 
-  /* --- C·03 GSR: conductancia con picos SCR --- */
+  /* --- C·03 GSR: medidor de aguja con inercia (resorte amortiguado) ---
+     La conductancia tiene un nivel basal lento y respuestas fásicas: subida en ~1 s y bajada lenta.
+     La aguja sigue ese valor con física de resorte, como un instrumento analógico. */
   (function (m) {
     var cv = NG.canvas(m.querySelector('canvas')), r = m.querySelector('[data-r]');
-    var buf = [], base = 2.1, peaks = [], x = 0;
+    var level = 2.1, phasic = [], needle = 2.1, vel = 0, clock = 0, peak = 0;
     var draw = function (t, dt) {
-      var c = cv.ctx, w = cv.w, h = cv.h;
-      var steps = Math.max(1, Math.round((dt || 16) / 16));
-      for (var s = 0; s < steps; s++) {
-        x++;
-        if (Math.random() < .012) peaks.push({ t0: x, a: .6 + Math.random() * 1.6 });
-        var val = base + Math.sin(x / 90) * .08;
-        peaks = peaks.filter(function (p) { return x - p.t0 < 260; });
-        peaks.forEach(function (p) { var k = (x - p.t0); val += p.a * (1 - Math.exp(-k / 14)) * Math.exp(-k / 70); });
-        buf.push(val); if (buf.length > w) buf.shift();
-      }
+      var c = cv.ctx, w = cv.w, h = cv.h, s = Math.min(.05, (dt || 16) / 1000);
+      clock += s;
+      if (Math.random() < s * .45) phasic.push({ t0: clock, a: .5 + Math.random() * 1.3 });
+      phasic = phasic.filter(function (p) { return clock - p.t0 < 12; });
+      var target = level + Math.sin(clock / 6) * .08;
+      phasic.forEach(function (p) { var k = clock - p.t0; target += p.a * (1 - Math.exp(-k / .45)) * Math.exp(-k / 3.2); });
+      vel += ((target - needle) * 38 - vel * 9) * s; needle += vel * s;      // resorte amortiguado
+      peak = Math.max(peak * Math.exp(-s / 2.5), needle);
+      var cx = w / 2, cy = h * .82, R = Math.min(w * .42, h * .7), MIN = 1.5, MAX = 5, A0 = Math.PI * 1.1, A1 = Math.PI * 1.9;
+      var ang = function (v) { return A0 + (A1 - A0) * Math.max(0, Math.min(1, (v - MIN) / (MAX - MIN))); };
       c.clearRect(0, 0, w, h);
-      c.strokeStyle = 'rgba(255,255,255,.06)'; c.lineWidth = 1;
-      for (var i = 1; i < 4; i++) { c.beginPath(); c.moveTo(0, i * h / 4); c.lineTo(w, i * h / 4); c.stroke(); }
-      c.strokeStyle = '#C8F542'; c.lineWidth = 1.4; c.beginPath();
-      var off = w - buf.length;
-      buf.forEach(function (v, i) { var y = h * .82 - (v - 1.6) / 2.6 * h * .7; i ? c.lineTo(off + i, y) : c.moveTo(off + i, y); });
-      c.stroke();
-      var lv = buf[buf.length - 1] || base, ly = h * .82 - (lv - 1.6) / 2.6 * h * .7;
-      c.fillStyle = '#C8FF00'; c.beginPath(); c.arc(w - 2, ly, 3.5, 0, 6.283); c.fill();
-      if (Math.floor(t / 120) % 2 === 0) r.textContent = lv.toFixed(2);
+      c.lineWidth = 6; c.lineCap = 'round';
+      c.strokeStyle = 'rgba(255,255,255,.07)'; c.beginPath(); c.arc(cx, cy, R, A0, A1); c.stroke();
+      c.strokeStyle = 'rgba(200,245,66,.55)'; c.beginPath(); c.arc(cx, cy, R, A0, ang(needle)); c.stroke();
+      c.lineWidth = 1; c.lineCap = 'butt';
+      for (var i = 0; i <= 14; i++) {
+        var a = A0 + (A1 - A0) * i / 14, big = i % 2 === 0;
+        c.strokeStyle = big ? 'rgba(242,243,240,.45)' : 'rgba(242,243,240,.2)';
+        c.beginPath(); c.moveTo(cx + Math.cos(a) * (R - 12), cy + Math.sin(a) * (R - 12)); c.lineTo(cx + Math.cos(a) * (R - (big ? 22 : 17)), cy + Math.sin(a) * (R - (big ? 22 : 17))); c.stroke();
+      }
+      var pa = ang(peak); c.fillStyle = '#C8FF00';
+      c.beginPath(); c.arc(cx + Math.cos(pa) * R, cy + Math.sin(pa) * R, 3, 0, 6.283); c.fill();
+      var na = ang(needle);
+      c.strokeStyle = '#F2F3F0'; c.lineWidth = 2; c.beginPath(); c.moveTo(cx - Math.cos(na) * 10, cy - Math.sin(na) * 10); c.lineTo(cx + Math.cos(na) * (R - 26), cy + Math.sin(na) * (R - 26)); c.stroke();
+      c.fillStyle = '#16191D'; c.strokeStyle = 'rgba(242,243,240,.5)'; c.lineWidth = 1; c.beginPath(); c.arc(cx, cy, 6, 0, 6.283); c.fill(); c.stroke();
+      c.fillStyle = 'rgba(138,143,152,1)'; c.font = '500 9px "IBM Plex Mono", monospace'; c.textAlign = 'center';
+      c.fillText('μS', cx, cy - R * .38); c.textAlign = 'start';
+      if (Math.floor(t / 120) % 2 === 0) r.textContent = needle.toFixed(2);
     };
     m._draw = draw;
   })(mons[2]);

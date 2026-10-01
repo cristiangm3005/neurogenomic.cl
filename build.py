@@ -107,6 +107,7 @@ REAL = {
     "pouch": ("ng-pouch", 2400, 1500, "Bolsa de café de especialidad de papel kraft con etiqueta MESTA · HUILA, válvula desgasificadora y granos tostados sobre pizarra oscura, con contraluz verde lima", False, [960, 1600, 2400], "(min-width:1024px) 70vw, 100vw"),
     "pouch-sm": ("ng-pouch", 2400, 1500, "Bolsa de café usada como estímulo en la lectura de eye tracking", False, [960, 1600], "(min-width:1024px) 30vw, 100vw"),
     "tracker": ("ng-tracker", 2520, 1080, "Barra de eye tracking negra montada bajo un monitor, con emisores infrarrojos encendidos y una lectura de mirada en pantalla", False, [1260, 2520], "(min-width:1680px) 1600px, 100vw"),
+    "phone": ("ng-phone", 920, 1070, "Teléfono apoyado en un soporte mostrando el checkout de una tienda ficticia, con el botón Pagar en verde lima. Imagen ilustrativa", False, [600, 920], "(min-width:900px) 40vw, 100vw"),
     "box-a": ("ng-box-a", 1200, 1520, "Versión A: caja de té negra con el logotipo BRISA grande en la parte superior", False, [600, 1200], "(min-width:640px) 31vw, 100vw"),
     "box-b": ("ng-box-b", 1200, 1520, "Versión B: caja de té clara con una hoja negra dentro de un círculo verde lima y la marca BRISA debajo", False, [600, 1200], "(min-width:640px) 31vw, 100vw"),
     "box-c": ("ng-box-c", 1200, 1520, "Versión C: caja de té blanca minimalista con la marca BRISA en vertical", False, [600, 1200], "(min-width:640px) 31vw, 100vw"),
@@ -306,8 +307,8 @@ PAGES = {
     "index": dict(file="index.html", path="/",
                   title="Neurogenomic · Neuromarketing e IA para decisiones de marca con evidencia",
                   desc="Agencia chilena de neuromarketing e inteligencia biométrica: eye tracking, facial coding y respuesta galvánica cruzados con IA para optimizar marca, campañas, e-commerce y software.",
-                  sections=["nav", "s0-preloader", "s1-hero", "s2-gaze", "s2b-pack", "s3-stat", "s3b-said", "s4-signals",
-                            "s6-method", "s7-why", "s8-case", "s9-ethics", "s10-cta", "footer"]),
+                  sections=["nav", "s0-preloader", "s1-hero", "s2-demo", "s2b-pack", "s3b-said", "s4-signals", "s5-summary",
+                            "s6-method", "s8-case", "s9-ethics", "s10-cta", "footer"]),
     "servicios": dict(file="servicios.html", path="/servicios/",
                       title="Servicios · Neurogenomic — Seis servicios, un framework de evidencia",
                       desc="Branding, Business Intelligence, E-commerce, Marketing Digital, SEO y Desarrollo de Software validados con biometría y modelos de IA.",
@@ -315,7 +316,7 @@ PAGES = {
     "tecnologia": dict(file="tecnologia.html", path="/tecnologia/",
                        title="Tecnología · Neurogenomic — Eye tracking, facial coding y GSR con IA",
                        desc="Biometría real: tres señales involuntarias (atención, emoción y activación) cruzadas con modelos de IA propios, bajo la Ley 21.719.",
-                       sections=["nav", "pagehead", "s3b-said", "s4-signals", "s2-gaze", "s2b-pack", "s3-stat", "s8-case", "s9-ethics", "s10-cta", "footer"]),
+                       sections=["nav", "pagehead", "s3b-said", "s4-signals", "s2-gaze", "s2b-pack", "s8-case", "s9-ethics", "s10-cta", "footer"]),
     "contacto": dict(file="contacto.html", path="/contacto/",
                      title="Contacto · Neurogenomic — Solicita tu diagnóstico",
                      desc="Formulario de cotización: cuéntanos qué servicio necesitas y agenda el diagnóstico inicial con Neurogenomic.",
@@ -373,6 +374,7 @@ def render(text, urls, imgbase, page=None, n=None):
             text = text.replace("{{ph:%s}}" % k, html.escape(ph[k]))
         text = text.replace("{{ph:media}}", media)
     text = text.replace("{{form_endpoint}}", FORM_ENDPOINT)
+    text = text.replace("{{IMGBASE}}", imgbase)
     text = text.replace("{{n}}", f"{n:02d}" if n else "")
     text = re.sub(r"\{\{json:(\w+)\}\}", lambda m: (SRC / "data" / f"{m.group(1)}.json").read_text(encoding="utf-8").strip(), text)
     text = re.sub(r"\{\{img:([\w-]+)\}\}", lambda m: picture(m.group(1), imgbase), text)
@@ -559,6 +561,11 @@ def build_standalone(src="index.html", out="neurogenomic-index.html"):
 
     s = re.sub(r"<picture>.*?</picture>", repl, s, flags=re.S)
     s = re.sub(r'<link rel="preload" as="image"[^>]*>', "", s)
+    # Cuadros de la demostración scroll-driven incrustados (si la página la usa)
+    if 'data-ng="demo"' in s:
+        frames = sorted((ROOT / "img" / "seq").glob("f_*.webp"))
+        uris = ["data:image/webp;base64," + base64.b64encode(f.read_bytes()).decode() for f in frames]
+        s = s.replace('<section class="ng-sec ng-demo"', '<script>window.NG_FRAMES=' + json.dumps(uris) + ';</script>\n<section class="ng-sec ng-demo"', 1)
     (ROOT / out).write_text(s, encoding="utf-8")
     return out
 
