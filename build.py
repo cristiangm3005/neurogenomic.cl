@@ -568,14 +568,29 @@ def build_elementor_json():
     # Ajustes para el DOM de Elementor: sin espacios entre widgets ni contenedores
     el_css = (".ng-el-section.e-con{--padding-top:0px;--padding-right:0px;--padding-bottom:0px;--padding-left:0px;--gap:0px;--row-gap:0px;--column-gap:0px;padding:0}"
               ".ng-el-section>.elementor-widget-html,.ng-el-block,.ng-el-block>.elementor-widget-container{margin:0;padding:0}")
-    nucleo = FONTS + "\n<style>\n" + tokens + "\n" + el_css + "\n</style>\n<script>\n" + core + "\n</script>"
+    # Autónomo, igual que neurogenomic-index.html: fuentes y librerías van DENTRO del JSON.
+    # Así las animaciones no dependen de CDNs externos (que plugins de caché, CSP o el hosting pueden bloquear).
+    import base64
+    vend = ROOT / "vendor"
+    js = lambda f: (vend / f).read_text(encoding="utf-8").replace("</script", "<\\/script")
+    faces = "".join(
+        f"@font-face{{font-family:'{fam}';font-style:normal;font-weight:{wt};font-display:swap;"
+        f"src:url(data:font/woff2;base64,{base64.b64encode((vend / 'fonts' / (fn + '.woff2')).read_bytes()).decode()}) format('woff2')}}"
+        for fam, fn, wt in [("Anton", "anton-latin-400-normal", 400),
+                            ("Space Grotesk", "space-grotesk-latin-300-normal", 300), ("Space Grotesk", "space-grotesk-latin-400-normal", 400),
+                            ("Space Grotesk", "space-grotesk-latin-500-normal", 500), ("Space Grotesk", "space-grotesk-latin-600-normal", 600),
+                            ("Space Grotesk", "space-grotesk-latin-700-normal", 700),
+                            ("IBM Plex Mono", "ibm-plex-mono-latin-400-normal", 400), ("IBM Plex Mono", "ibm-plex-mono-latin-500-normal", 500)])
+    libs = "".join(f"<script>{js(f)}</script>\n" for f in ("gsap.min.js", "ScrollTrigger.min.js", "lenis.min.js"))
+    nucleo = ("<style>" + faces + "</style>\n" + libs + "<style>\n" + tokens + "\n" + el_css + "\n</style>\n<script>\n" + core + "\n</script>")
     files = []
     for key, pg in PAGES.items():
         content = [block("Núcleo Neurogenomic (no borrar)", nucleo)]
         for sec in pg["sections"]:
             css, body = split_block(render(read(f"sections/{sec}.html"), URLS_WP, IMG_WP, key, section_number(key, sec)))
             n = section_number(key, sec)
-            content.append(block((f"{n:02d} · " if n else "") + TITLES.get(sec, sec), "<style>\n" + min_css(css) + "\n</style>\n" + body))
+            pre = f"<script>{js('three.min.js')}</script>\n" if sec == "x-story" else ""  # Three.js va con la capa 3D
+            content.append(block((f"{n:02d} · " if n else "") + TITLES.get(sec, sec), pre + "<style>\n" + min_css(css) + "\n</style>\n" + body))
         tpl = {"title": "Neurogenomic · " + {"index": "Inicio", "servicios": "Servicios", "tecnologia": "Tecnología", "contacto": "Contacto"}[key],
                "type": "page", "version": "0.4",
                "page_settings": {"template": "elementor_canvas", "hide_title": "yes",
