@@ -127,26 +127,35 @@ radial-gradient(30% 25% at 50% 110%,rgba(0,190,255,.10),transparent 70%)}
 .ng-story__lbl::before{content:"";width:7px;height:7px;border-radius:50%;background:#6FE3FF;box-shadow:0 0 10px #6FE3FF}
 .ng-story__lbl span{padding:5px 7px;border:1px solid rgba(111,227,255,.45);border-radius:3px;background:rgba(4,8,20,.72)}
 .ng-story__lbl.is-on{opacity:1}
-.ng-rail{position:fixed;left:clamp(10px,1.4vw,22px);top:50%;translate:0 -50%;z-index:30;display:flex;flex-direction:column;gap:4px;opacity:0;visibility:hidden;transition:opacity .5s,visibility 0s linear .5s}
+.ng-rail{position:fixed;right:clamp(10px,1.4vw,22px);top:50%;translate:0 -50%;z-index:30;display:flex;flex-direction:column;align-items:flex-end;gap:2px;opacity:0;visibility:hidden;transition:opacity .5s,visibility 0s linear .5s}
 .ng-rail.is-on{opacity:1;visibility:visible;transition:opacity .5s}
-.ng-rail a{position:relative;display:flex;align-items:center;gap:10px;min-height:30px;padding:0 6px;font:500 10px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:rgba(232,244,255,.55);text-decoration:none}
-.ng-rail a i{width:8px;height:8px;border-radius:50%;border:1px solid rgba(232,244,255,.5);transition:background .3s,border-color .3s,box-shadow .3s,transform .3s}
-.ng-rail a span{opacity:0;transform:translateX(-4px);transition:opacity .3s,transform .3s}
-.ng-rail:hover a span,.ng-rail a:focus-visible span{opacity:1;transform:none}
-.ng-rail:hover{background:linear-gradient(90deg,rgba(4,6,13,.85),rgba(4,6,13,0));border-radius:6px}
-.ng-rail a.is-cur{color:#E8F4FF}
-.ng-rail a.is-cur i{background:var(--ng-lime);border-color:var(--ng-lime);box-shadow:0 0 10px rgba(200,255,0,.8);transform:scale(1.25)}
-.ng-rail a:focus-visible{outline:2px solid var(--ng-lime);outline-offset:2px;border-radius:3px}
-.ng-motion{position:fixed;right:clamp(10px,1.4vw,22px);bottom:clamp(10px,1.4vw,22px);z-index:30;display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 12px;border-radius:999px;border:1px solid rgba(232,244,255,.25);background:rgba(4,8,20,.75);color:#E8F4FF;font:500 10.5px/1 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .5s,border-color .3s}
+.ng-rail a{position:relative;display:flex;flex-direction:row-reverse;align-items:center;gap:10px;min-height:30px;padding:0 4px 0 8px;font:500 10px/1 var(--ng-mono);letter-spacing:.16em;text-transform:uppercase;color:rgba(232,244,255,.6);text-decoration:none;border-radius:4px}
+.ng-rail a i{position:relative;width:8px;height:8px;border-radius:50%;border:1px solid rgba(232,244,255,.5);transition:background .3s,border-color .3s,box-shadow .3s,transform .3s}
+.ng-rail a:not(:last-child) i::after{content:"";position:absolute;left:50%;top:calc(100% + 4px);width:1px;height:16px;margin-left:-.5px;background:rgba(232,244,255,.18)}
+.ng-rail a span{opacity:0;transform:translateX(6px);transition:opacity .3s,transform .3s;white-space:nowrap}
+.ng-rail a span::before{content:"["}.ng-rail a span::after{content:"]"}
+.ng-rail:hover a span,.ng-rail a:focus-visible span,.ng-rail.is-story a.is-cur span{opacity:1;transform:none}
+.ng-rail:hover{background:linear-gradient(270deg,rgba(4,6,13,.88),rgba(4,6,13,0))}
+.ng-rail a.is-cur{color:var(--ng-lime);text-shadow:0 0 12px rgba(200,255,0,.6)}
+.ng-rail a.is-cur i{background:var(--ng-lime);border-color:var(--ng-lime);box-shadow:0 0 0 3px rgba(200,255,0,.18),0 0 14px rgba(200,255,0,.9);transform:scale(1.2)}
+.ng-rail a:hover{color:#fff}
+.ng-rail a:focus-visible{outline:2px solid var(--ng-lime);outline-offset:2px}
+.ng-story__load{position:absolute;right:22%;top:50%;translate:50% -50%;display:flex;flex-direction:column;align-items:center;gap:14px;font:500 10px/1 var(--ng-mono);letter-spacing:.16em;text-transform:uppercase;color:rgba(232,244,255,.7);transition:opacity .6s}
+.ng-story__load i{position:relative;width:46px;height:46px;border-radius:50%;border:1px solid rgba(111,227,255,.35)}
+.ng-story__load i::before,.ng-story__load i::after{content:"";position:absolute;inset:-1px;border-radius:50%;border:1px solid #6FE3FF;animation:ng-load 1.6s cubic-bezier(.2,.6,.3,1) infinite}
+.ng-story__load i::after{animation-delay:.8s;border-color:var(--ng-lime)}
+@keyframes ng-load{from{transform:scale(.4);opacity:1}to{transform:scale(1.6);opacity:0}}
+.ng-story.is-on .ng-story__load,html.ng-no3d .ng-story__load{opacity:0;pointer-events:none}
+.ng-motion{position:fixed;left:clamp(10px,1.4vw,22px);bottom:clamp(10px,1.4vw,22px);z-index:30;display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 12px;border-radius:999px;border:1px solid rgba(232,244,255,.25);background:rgba(4,8,20,.75);color:#E8F4FF;font:500 10.5px/1 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .5s,border-color .3s}
 .ng-motion.is-on{opacity:1;visibility:visible}
 .ng-motion:hover{border-color:var(--ng-lime)}
 .ng-motion:focus-visible{outline:2px solid var(--ng-lime);outline-offset:2px}
 .ng-motion i{width:8px;height:8px;border-radius:50%;background:var(--ng-lime);box-shadow:0 0 8px rgba(200,255,0,.8)}
 .ng-motion[aria-pressed="true"] i{background:transparent;border:1px solid rgba(232,244,255,.6);box-shadow:none}
 .ng-ch{position:relative;min-height:150vh;min-height:150svh;padding:18vh 0 22vh;background:transparent}
-.ng-ch__txt{position:sticky;top:20vh;max-width:540px;padding:clamp(20px,2.4vw,32px);border-radius:10px;background:linear-gradient(135deg,rgba(4,7,18,.72),rgba(4,7,18,.38));border:1px solid rgba(140,170,255,.14);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-.ng-ch[data-side="right"] .ng-ch__txt{margin-left:auto}
-.ng-ch__k{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;font:500 11px/1.4 var(--ng-mono);letter-spacing:.14em;text-transform:uppercase;color:#8FE9FF}
+.ng-ch__txt{position:sticky;top:18vh;max-width:540px;padding:clamp(22px,2.4vw,34px);border-radius:12px;background:rgba(10,10,15,.65);border:1px solid rgba(255,255,255,.08);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 30px 80px -30px rgba(0,0,0,.8)}
+.ng-ch[data-side="right"] .ng-ch__txt{margin-left:auto;margin-right:clamp(0px,6vw,104px)}
+.ng-ch__k{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;font:500 11px/1.4 var(--ng-mono);letter-spacing:.18em;text-transform:uppercase;color:#8FE9FF}
 .ng-ch__k b{font-weight:500;color:var(--ng-lime);white-space:nowrap}
 .ng-ch__t{margin:18px 0 18px;font-size:clamp(44px,5.4vw,96px);line-height:.9}
 .ng-ch__p{font-size:clamp(17px,1.35vw,20px);line-height:1.5;color:#E3E8F2;font-weight:300}
@@ -159,11 +168,16 @@ radial-gradient(30% 25% at 50% 110%,rgba(0,190,255,.10),transparent 70%)}
 .ng-ch__chips li{font:500 10.5px/1 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase;padding:8px 9px;border-radius:4px;border:1px solid rgba(143,233,255,.35);color:#E8F4FF;background:rgba(10,30,60,.35)}
 .ng-ch__note{margin-top:16px;font:400 11px/1.5 var(--ng-mono);letter-spacing:.05em;color:#A9B6CC}
 .ng-ch__ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.ng-btn--grad{--_fg:#0A0B0D;--_bd:transparent;position:relative;isolation:isolate;overflow:hidden;min-height:56px;padding:0 26px;font-weight:600;background:linear-gradient(110deg,#C8FF00 0%,#E9FF8A 22%,#7DF9FF 46%,#C8FF00 70%,#E9FF8A 100%);background-size:260% 100%;animation:ng-grad 5s linear infinite;box-shadow:0 12px 40px -12px rgba(200,255,0,.65),0 0 0 1px rgba(200,255,0,.4)}
+.ng-btn--grad:hover{animation-duration:1.8s;box-shadow:0 0 0 4px rgba(200,255,0,.18),0 16px 46px -10px rgba(125,249,255,.6)}
+@keyframes ng-grad{to{background-position:-260% 0}}
+@media (prefers-reduced-motion:reduce){.ng-btn--grad{animation:none}}
 .ng-ch__poster{display:none}
 html.ng-no3d .ng-ch__poster{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;z-index:-1}
 @media (max-width:767px){
 .ng-ch{min-height:0;padding:72svh 0 18svh}
-.ng-ch__txt{position:relative;top:auto;background:linear-gradient(180deg,rgba(4,7,18,.82),rgba(4,7,18,.7))}
+.ng-ch__txt{position:relative;top:auto;background:rgba(10,10,15,.72)}
+.ng-ch[data-side="right"] .ng-ch__txt{margin-right:0}
 .ng-motion{padding:0;width:40px;justify-content:center}
 .ng-motion span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .ng-ch__t{font-size:clamp(40px,11vw,60px)}
@@ -172,7 +186,7 @@ html.ng-has-story main>.ng-sec:not(.ng-ch):not(.ng-hero){background:rgba(5,7,14,
 html.ng-has-story .ng-hero{background:transparent}
 html.ng-has-story .ng-foot,html.ng-has-story .ng-mast{position:relative;z-index:2}
 html.ng-no3d .ng-story__cv,html.ng-no3d .ng-motion{display:none}
-@media (max-width:767px){.ng-rail{display:none}.ng-story__lbl{font-size:9.5px}}
+@media (max-width:767px){.ng-rail{display:none}.ng-story__lbl{font-size:9.5px}.ng-story__load{right:50%;top:auto;bottom:22%}}
 @media (prefers-reduced-motion:reduce){.ng-story__cv{transition:none}}
 </style>
 <script>
@@ -473,13 +487,14 @@ html.ng-no3d .ng-story__cv,html.ng-no3d .ng-motion{display:none}
   <canvas class="ng-story__cv"></canvas>
   <div class="ng-story__vig"></div>
   <div class="ng-story__lbls"></div>
+  <div class="ng-story__load"><i></i><span>Inicializando escena 3D</span></div>
 </div>
 <nav class="ng-rail" aria-label="Capítulos de la historia">
   <a href="#cap-neurona"><i></i><span>01 Neurona</span></a>
   <a href="#cap-senales"><i></i><span>02 Señales</span></a>
-  <a href="#cap-datos"><i></i><span>03 Datos + IA</span></a>
+  <a href="#cap-datos"><i></i><span>03 Servidores</span></a>
   <a href="#cap-estrategia"><i></i><span>04 Estrategia</span></a>
-  <a href="#cap-consumidor"><i></i><span>05 Consumidor</span></a>
+  <a href="#cap-consumidor"><i></i><span>05 Impacto</span></a>
 </nav>
 <button class="ng-motion" type="button" aria-pressed="false"><i aria-hidden="true"></i><span>Pausar animación 3D</span></button>
 
@@ -495,7 +510,7 @@ NG.boot('[data-ng="story"]', function (layer) {
   var hero = d.querySelector('.ng-hero');
 
   /* ---------- Estado de scroll: etapa (0–4), foco narrativo y lado del texto ---------- */
-  var S = { stage: 0, focus: 1, side: 1, cur: 0 };
+  var S = { stage: 0, focus: 1, side: 1, cur: 0, text: true, end: 0 };
   var measure = function () {
     var vh = innerHeight, list = chs(), st = 0, best = 0, side = 0, cur = 0;
     list.forEach(function (el) {
@@ -509,7 +524,12 @@ NG.boot('[data-ng="story"]', function (layer) {
       var hr = hero.getBoundingClientRect(), hv = Math.max(0, Math.min(hr.bottom, vh) - Math.max(hr.top, 0)) / vh;
       if (hv > best) { best = hv; side = 1.15; }
     }
-    S.stage = Math.min(4, st); S.focus = best; S.side = side; S.cur = cur;
+    var txt = false;
+    [].forEach.call(d.querySelectorAll('[data-ng-chtxt],.ng-hero__content'), function (t) { var r = t.getBoundingClientRect(); if (r.top < vh * .85 && r.bottom > vh * .15) txt = true; });
+    // Fundido final: al dejar el capítulo 05 la escena se apaga y entra la propuesta comercial
+    var last = list[list.length - 1], end = 0;
+    if (last) { var lr = last.getBoundingClientRect(); end = NG.clamp((vh * .75 - lr.bottom) / (vh * .55), 0, 1); }
+    S.stage = Math.min(4, st); S.focus = best; S.side = side; S.cur = cur; S.text = txt; S.end = end;
   };
 
   /* ---------- Riel y botón de movimiento ---------- */
@@ -524,8 +544,8 @@ NG.boot('[data-ng="story"]', function (layer) {
   if (motionBtn) motionBtn.addEventListener('click', function () { setPaused(!paused); });
   railA.forEach(function (a) { a.addEventListener('click', function (e) { var t = d.querySelector(a.getAttribute('href')); if (t) { e.preventDefault(); NG.scrollTo(t); t.setAttribute('tabindex', '-1'); t.focus({ preventScroll: true }); } }); });
   var ui = function () {
-    var on = S.cur > 0;
-    if (rail) rail.classList.toggle('is-on', on);
+    var on = S.cur > 0 && S.end < .9;
+    if (rail) { rail.classList.toggle('is-on', on); rail.classList.toggle('is-story', S.focus > .35); }
     railA.forEach(function (a, i) { var c = Math.round(S.stage) === i && on; a.classList.toggle('is-cur', c); if (c) a.setAttribute('aria-current', 'step'); else a.removeAttribute('aria-current'); });
     if (motionBtn) motionBtn.classList.toggle('is-on', true);
   };
@@ -541,7 +561,12 @@ NG.boot('[data-ng="story"]', function (layer) {
   };
 
   var kick = function () {};
-  var tick = function () { measure(); ui(); atm(S.stage); };
+  var cta = d.querySelector('.ng-cta .ng-wrap');
+  var fade = function () {
+    layer.style.opacity = (1 - S.end).toFixed(3);
+    if (cta && !NG.rm) { cta.style.opacity = (.15 + .85 * NG.clamp(S.end * 1.4, 0, 1)).toFixed(3); cta.style.transform = 'translateY(' + ((1 - NG.clamp(S.end * 1.4, 0, 1)) * 36).toFixed(1) + 'px)'; }
+  };
+  var tick = function () { measure(); ui(); atm(S.stage); fade(); };
   addEventListener('scroll', function () { tick(); kick(); }, { passive: true });
   addEventListener('resize', function () { tick(); kick(); });
   tick();
@@ -562,7 +587,7 @@ NG.boot('[data-ng="story"]', function (layer) {
     catch (e) { de.classList.add('ng-no3d'); return; }
     var DPR = Math.min(window.devicePixelRatio || 1, mobile ? 1.25 : 1.6);
     renderer.setPixelRatio(DPR);
-    var scene = new T.Scene(), camera = new T.PerspectiveCamera(50, 1, .1, 80);
+    var scene = new T.Scene(), camera = new T.PerspectiveCamera(52, 1, .1, 90);
     camera.position.set(0, 0, 8);
     var group = new T.Group(); scene.add(group);
 
@@ -604,7 +629,7 @@ NG.boot('[data-ng="story"]', function (layer) {
     for (var k = 0; k < 70; k++) { ad = norm(add(ad, [G() * .4, G() * .4 + .02, G() * .3], .12)); ap = add(ap, ad, .055); axon.push({ p: ap.slice(), b: 400, t: k / 70 * .8, r: .035 }); }
     var term = ap.slice(), boutons = [];
     for (var k = 0; k < 6; k++) { var tl = []; bidN = 0; var end = grow(term, norm(add(ad, sph(), .9)), .45, 3, .8, .2, .03, 410 + k, tl); axon = axon.concat(tl); boutons.push(end); }
-    var somaB = add(term, norm([-1.1, -1, -.55]), 1.7), dendB = [], toA = norm([term[0] - somaB[0], term[1] - somaB[1], term[2] - somaB[2]]);
+    var somaB = add(term, norm([-1.6, -.75, -.45]), 2.1), dendB = [], toA = norm([term[0] - somaB[0], term[1] - somaB[1], term[2] - somaB[2]]);
     bidN = 1;
     for (var k = 0; k < 6; k++) { var dv2 = k === 0 ? toA : norm(add(sph(), toA, -.3)); grow(add(somaB, dv2, .32), dv2, k === 0 ? 1.25 : 1 + R() * .6, 1, 0, .6, .05, 200, dendB); }
     var gap = norm([somaB[0] - term[0], somaB[1] - term[1], somaB[2] - term[2]]);
@@ -621,13 +646,13 @@ NG.boot('[data-ng="story"]', function (layer) {
     }
 
     /* 1 · Señales: corrientes de datos, nodos de comportamiento y un mapa de calor de atención */
-    var HOT = [[2.35, .85, 1], [3.45, -.2, .7], [1.75, -.95, .45]];
-    var nodes = []; for (var k = 0; k < 12; k++) nodes.push([-4.4 + R() * 2.8, -1.6 + R() * 3.2, -1 + R() * 2]);
+    var HOT = [[4.55, .85, 1], [5.95, -.2, .7], [4.05, -.95, .45]];
+    var nodes = []; for (var k = 0; k < 12; k++) nodes.push([-8.2 + R() * 3.8, -1.7 + R() * 3.4, -1 + R() * 2]);
     for (var i = 0; i < N; i++) {
       var u = R(), o = i * 4;
-      if (u < .45) { var lane = Math.floor(R() * 7); put(1, i, [-6.5 + R() * 13, -1.9 + lane * .63 + G() * .05, -1 + (lane % 3) * .7 + G() * .05]); aK[o] = 0; aD[o + 2] = .25 + R() * .55; }
+      if (u < .45) { var lane = Math.floor(R() * 7); put(1, i, [-9 + R() * 18, -1.9 + lane * .63 + G() * .05, -1 + (lane % 3) * .7 + G() * .05]); aK[o] = 0; aD[o + 2] = .25 + R() * .55; }
       else if (u < .72) {
-        var gx = Math.floor(R() * 34), gy = Math.floor(R() * 26), x = 1.15 + gx * .1, y = -1.5 + gy * .125, h = 0;
+        var gx = Math.floor(R() * 34), gy = Math.floor(R() * 26), x = 3.4 + gx * .1, y = -1.5 + gy * .125, h = 0;
         HOT.forEach(function (hh) { h += hh[2] * Math.exp(-((x - hh[0]) * (x - hh[0]) + (y - hh[1]) * (y - hh[1])) / .32); });
         put(1, i, [x, y, .35]); aK[o] = 1; aD[o + 3] = Math.min(1, h);
       }
@@ -636,7 +661,7 @@ NG.boot('[data-ng="story"]', function (layer) {
     }
 
     /* 2 · Centro de datos: pasillo de servidores y un núcleo de IA */
-    var racks = []; for (var z = -7; z <= 1; z += 2) { racks.push([-2.35, z]); racks.push([2.35, z]); }
+    var racks = []; for (var z = -7; z <= 1; z += 2) { racks.push([-4.2, z]); racks.push([4.2, z]); }
     var core = [0, .15, -3];
     for (var i = 0; i < N; i++) {
       var u = R(), o = i * 4;
@@ -651,12 +676,12 @@ NG.boot('[data-ng="story"]', function (layer) {
       } else if (u < .88) {
         var v = sph(), shell = R() < .7; put(2, i, add(core, v, shell ? 1 : Math.pow(R(), .6) * .9)); aK[o + 1] = 2;
       } else if (u < .95) {
-        var a = R() < .5; put(2, i, a ? [-3 + Math.floor(R() * 13) * .5, -1.45, -8 + R() * 10] : [-3 + R() * 6, -1.45, -8 + Math.floor(R() * 21) * .5]); aK[o + 1] = 3;
+        var a = R() < .5; put(2, i, a ? [-5 + Math.floor(R() * 21) * .5, -1.45, -8 + R() * 10] : [-5 + R() * 10, -1.45, -8 + Math.floor(R() * 21) * .5]); aK[o + 1] = 3;
       } else { put(2, i, dust(7, 4.5, 6)); aK[o + 1] = 3; }
     }
 
     /* 3 · Estrategia: cinco nodos (datos, emociones, mensajes, productos, segmentos) unidos por rutas */
-    var CL = []; for (var k = 0; k < 5; k++) { var an = k / 5 * 6.2832 + 1.5708; CL.push([2.7 * Math.cos(an), 1.15 * Math.sin(an), 1.3 * Math.sin(an)]); }
+    var CL = []; for (var k = 0; k < 5; k++) { var an = k / 5 * 6.2832 + 1.5708; CL.push([4.5 * Math.cos(an), 1.6 * Math.sin(an), 2.1 * Math.sin(an)]); }
     var center = [0, 0, 0];
     for (var i = 0; i < N; i++) {
       var u = R(), o = i * 4;
@@ -671,7 +696,7 @@ NG.boot('[data-ng="story"]', function (layer) {
 
     /* 4 · Consumidor: silueta abstracta con productos, mensajes y canales que lo orbitan */
     var CARDS = [];
-    for (var k = 0; k < 4; k++) { var an = k / 4 * 6.2832 + .5; CARDS.push([2.15 * Math.cos(an), .45 + .55 * Math.sin(an * 1.3), 2.15 * Math.sin(an)]); }
+    for (var k = 0; k < 4; k++) { var an = k / 4 * 6.2832 + .5; CARDS.push([3.8 * Math.cos(an), .45 + .55 * Math.sin(an * 1.3), 3.8 * Math.sin(an)]); }
     var onEll = function (c, rx, ry, rz) { var v = sph(); return [c[0] + v[0] * rx, c[1] + v[1] * ry, c[2] + v[2] * rz]; };
     for (var i = 0; i < N; i++) {
       var u = R(), o = i * 4, p;
@@ -683,7 +708,7 @@ NG.boot('[data-ng="story"]', function (layer) {
         else { var sd = R() < .5 ? -1 : 1, t = R(), a1 = [sd * .6, .82, 0], a2 = [sd * .78, -.3, .12]; p = add(lerp3(a1, a2, t), sph(), .12); }
         put(4, i, p); aK[o + 3] = 0;
       } else if (u < .84) {
-        var ring = Math.floor(R() * 3), rr = [1.7, 2.15, 2.6][ring], an = R() * 6.2832, tilt = [.25, -.18, .4][ring];
+        var ring = Math.floor(R() * 3), rr = [2.4, 3.1, 3.8][ring], an = R() * 6.2832, tilt = [.25, -.18, .4][ring];
         var x = rr * Math.cos(an), z = rr * Math.sin(an), y = .45 + z * Math.sin(tilt); put(4, i, [x, y, z * Math.cos(tilt)]); aK[o + 3] = 1;
       } else if (u < .95) {
         var cd = CARDS[Math.floor(R() * 4)], e2 = R() < .7, t2 = R(), side = Math.floor(R() * 4), wv = .28, hv = .18, q;
@@ -700,19 +725,19 @@ NG.boot('[data-ng="story"]', function (layer) {
     geo.setAttribute('aK', new T.BufferAttribute(aK, 4));
     geo.boundingSphere = new T.Sphere(new T.Vector3(), 30);
 
-    var U = { uStage: { value: 0 }, uTime: { value: 0 }, uSize: { value: mobile ? 0.085 : 0.07 }, uPix: { value: 400 }, uAlpha: { value: 1 }, uGap: { value: new T.Vector3(gap[0], gap[1], gap[2]) } };
+    var U = { uStage: { value: 0 }, uTime: { value: 0 }, uSize: { value: mobile ? 0.1 : 0.078 }, uPix: { value: 400 }, uAlpha: { value: 1 }, uMouse: { value: new T.Vector3(99, 99, 0) }, uMouseOn: { value: 0 }, uFocus: { value: 12.5 }, uGap: { value: new T.Vector3(gap[0], gap[1], gap[2]) } };
     var mat = new T.ShaderMaterial({
       uniforms: U, transparent: true, depthWrite: false, blending: T.AdditiveBlending,
       vertexShader: [
         'attribute vec3 p0;attribute vec3 p1;attribute vec3 p2;attribute vec3 p3;attribute vec3 p4;attribute vec4 aD;attribute vec4 aK;',
-        'uniform float uStage;uniform float uTime;uniform float uSize;uniform float uPix;uniform float uAlpha;uniform vec3 uGap;',
+        'uniform float uStage;uniform float uTime;uniform float uSize;uniform float uPix;uniform float uAlpha;uniform vec3 uGap;uniform vec3 uMouse;uniform float uMouseOn;uniform float uFocus;',
         'varying vec3 vC;varying float vA;float gPulse;',
         'float h1(float n){return fract(sin(n*12.9898)*43758.5453);}',
         'vec3 thermal(float v){vec3 a=vec3(.12,.3,.95),b=vec3(.2,.9,1.),c=vec3(.8,1.,.1),d=vec3(1.,.6,.12),e=vec3(1.,.2,.12);',
         ' if(v<.25)return mix(a,b,v/.25);if(v<.5)return mix(b,c,(v-.25)/.25);if(v<.75)return mix(c,d,(v-.5)/.25);return mix(d,e,(v-.75)/.25);}',
         'vec3 POS(int i){',
         ' if(i==0){vec3 q=p0;if(aD.y>500.){q+=uGap*fract(uTime*.45+aD.x*7.)*.9;q+=vec3(sin(uTime*2.+aD.x*30.),cos(uTime*1.7+aD.x*20.),0.)*.03;}return q;}',
-        ' if(i==1){vec3 q=p1;if(aK.x<.5){q.x=mod(p1.x+uTime*aD.z+6.5,13.)-6.5;q.y=p1.y+.3*sin(q.x*1.05+p1.z*3.+uTime*.6);}return q;}',
+        ' if(i==1){vec3 q=p1;if(aK.x<.5){q.x=mod(p1.x+uTime*aD.z+9.,18.)-9.;q.y=p1.y+.3*sin(q.x*1.05+p1.z*3.+uTime*.6);}return q;}',
         ' if(i==2)return p2; if(i==3)return p3; return p4;}',
         'vec3 COL(int i,out float a){',
         ' if(i==0){',
@@ -751,9 +776,15 @@ NG.boot('[data-ng="story"]', function (layer) {
         ' vec3 pos=mix(POS(i0),POS(i1),ff);',
         ' float sw=sin(ff*3.14159);pos+=vec3(sin(aD.x*40.),cos(aD.x*23.),sin(aD.x*13.))*sw*.6;',
         ' vC=mix(cA,cB,ff);vA=mix(aA,aB,ff)*uAlpha;',
+        /* Cursor: las partículas cercanas se apartan y brillan en lima */
+        ' vec2 dv=pos.xy-uMouse.xy;float md=length(dv);float inf=exp(-md*md/.8)*uMouseOn;',
+        ' pos.xy+=dv/(md+.001)*inf*.38;vC+=vec3(.55,1.,.15)*inf*.9;vA+=inf*.25*uAlpha;',
         ' vec4 mv=modelViewMatrix*vec4(pos,1.);gl_Position=projectionMatrix*mv;',
+        /* Niebla exp² (equivalente a FogExp2 .025) + bokeh: fuera del plano de foco, punto más grande y tenue */
+        ' float dist=-mv.z;float fog=exp(-pow(dist*.025,2.));float blur=clamp(abs(dist-uFocus)/7.,0.,1.);',
+        ' vA*=fog*(1.-blur*.55);',
         ' float pl=pA*(1.-ff);',
-        ' gl_PointSize=uSize*(.55+aD.x*.9)*(1.+pl*1.8)*uPix/max(.5,-mv.z);}'
+        ' gl_PointSize=uSize*(.55+aD.x*.9)*(1.+pl*1.8)*(1.+blur*1.4)*uPix/max(.5,dist);}'
       ].join('\n'),
       fragmentShader: [
         'varying vec3 vC;varying float vA;',
@@ -774,10 +805,10 @@ NG.boot('[data-ng="story"]', function (layer) {
 
     /* --- Etiquetas HTML ancladas a la escena --- */
     var LBL = [
-      [2, 'Ingesta de señales', [-2.35, 1.75, 1]], [2, 'Sincronización', [2.35, 1.75, -1]], [2, 'Modelos de IA', [0, 1.4, -3]], [2, 'Patrones de consumo', [0, -1.05, -3]],
+      [2, 'Ingesta de señales', [-4.2, 1.75, 1]], [2, 'Sincronización', [4.2, 1.75, -1]], [2, 'Modelos de IA', [0, 1.4, -3]], [2, 'Patrones de consumo', [0, -1.05, -3]],
       [3, 'Datos', CL[0]], [3, 'Emociones', CL[1]], [3, 'Mensajes', CL[2]], [3, 'Productos', CL[3]], [3, 'Segmentos', CL[4]],
       [4, 'Producto', CARDS[0]], [4, 'Mensaje', CARDS[1]], [4, 'Canal', CARDS[2]], [4, 'Contexto', CARDS[3]],
-      [1, 'Atención', [2.35, 1.9, .35]], [1, 'Patrones de comportamiento', [-3, 1.95, 0]],
+      [1, 'Atención', [5.1, 1.9, .35]], [1, 'Patrones de comportamiento', [-6.3, 1.95, 0]],
       [0, 'Sinapsis', term], [0, 'Soma', [somaA[0], somaA[1] + .6, 0]]
     ].map(function (l) {
       var el = d.createElement('div'); el.className = 'ng-story__lbl'; el.innerHTML = '<span></span>'; el.firstChild.textContent = l[1]; lblBox.appendChild(el);
@@ -786,9 +817,20 @@ NG.boot('[data-ng="story"]', function (layer) {
     var tmp = new T.Vector3();
 
     /* --- Cámara y composición por etapa --- */
-    var CAMZ = [10.8, 10.2, 10.4, 10, 9.4], ROTX = [.08, .02, .06, .28, .12], CAMY = [0, 0, .1, .25, .35];
-    var cur = { stage: 0, alpha: 1, off: 0, z: 10.8 }, mx = 0, my = 0, tmx = 0, tmy = 0;
-    if (NG.fine) addEventListener('pointermove', function (e) { tmx = e.clientX / innerWidth - .5; tmy = e.clientY / innerHeight - .5; }, { passive: true });
+    var CAMZ = [12.5, 12.6, 12.8, 13, 12.2], OFFS = [3.2, 2.8, 3.1, 3.0, 3.3], ROTX = [.08, .02, .06, .28, .12], CAMY = [0, 0, .1, .25, .35];
+    var cur = { stage: S.stage, alpha: mobile && S.text ? .35 : 1, off: 0, z: 12.5 }, mx = 0, my = 0, tmx = 0, tmy = 0;
+    var ray = new T.Raycaster(), ndc = new T.Vector2(), plane = new T.Plane(), hit = new T.Vector3(), nrm = new T.Vector3(), mouseIn = 0, mouseT = 0;
+    if (NG.fine) {
+      addEventListener('pointermove', function (e) { tmx = e.clientX / innerWidth - .5; tmy = e.clientY / innerHeight - .5; ndc.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1); mouseIn = 1; kick(); }, { passive: true });
+      d.addEventListener('pointerleave', function () { mouseIn = 0; });
+    }
+    var mousePick = function () {
+      if (!mouseIn) return;
+      ray.setFromCamera(ndc, camera);
+      nrm.set(0, 0, 1).applyQuaternion(group.quaternion);
+      plane.setFromNormalAndCoplanarPoint(nrm, group.position);
+      if (ray.ray.intersectPlane(plane, hit)) { group.worldToLocal(hit); U.uMouse.value.lerp(hit, .25); }
+    };
     var size = function () {
       var w = innerWidth, h = innerHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
       U.uPix.value = h * DPR * .5 / Math.tan(camera.fov * Math.PI / 360);
@@ -802,17 +844,19 @@ NG.boot('[data-ng="story"]', function (layer) {
       var dt = last ? Math.min(.05, (now - last) / 1000) : .016; last = now;
       if (!paused) time += dt;
       var ip = function (arr, s) { var i = Math.min(arr.length - 2, Math.floor(s)), f = s - i; return arr[i] + (arr[i + 1] - arr[i]) * f; };
-      var k = paused ? 1 : .085;
+      var k = paused ? 1 : 1 - Math.pow(1 - .085, dt * 60); // suavizado independiente de los FPS
       cur.stage += (S.stage - cur.stage) * k;
       var tgtAlpha = .28 + .72 * NG.clamp((S.focus - .12) / .45, 0, 1);
-      if (mobile && S.side > 1.1) tgtAlpha = Math.min(tgtAlpha, .5); // en el inicio móvil la neurona queda detrás del texto
+      if (mobile && S.text) tgtAlpha = Math.min(tgtAlpha, .35); // en móvil, el texto manda: la escena baja a 35 %
       cur.alpha += (tgtAlpha - cur.alpha) * k;
-      var tgtOff = mobile ? 0 : S.side * (cur.stage < .5 ? 1.9 : 1.7);
+      var tgtOff = mobile ? 0 : S.side * ip(OFFS, cur.stage);
       cur.off += (tgtOff - cur.off) * k * .8;
-      var tz = ip(CAMZ, cur.stage) + (mobile ? 4 : 0);
+      var tz = ip(CAMZ, cur.stage);
+      group.scale.setScalar(mobile ? .62 : 1);
       cur.z += (tz - cur.z) * k;
       mx += (tmx - mx) * .05; my += (tmy - my) * .05;
-      U.uStage.value = cur.stage; U.uTime.value = time; U.uAlpha.value = cur.alpha;
+      U.uStage.value = cur.stage; U.uTime.value = time; U.uAlpha.value = cur.alpha; U.uFocus.value = cur.z;
+      mouseT += ((mouseIn && cur.alpha > .6 ? 1 : 0) - mouseT) * .08; U.uMouseOn.value = mouseT;
       group.position.x = cur.off;
       group.rotation.y = Math.sin(time * .12) * .35 + mx * .25;
       if (cur.stage > 1.4 && cur.stage < 2.6) group.rotation.y *= .25; // el pasillo de servidores se mira de frente
@@ -820,6 +864,7 @@ NG.boot('[data-ng="story"]', function (layer) {
       stars.rotation.y = time * .01;
       camera.position.set(mx * .4, ip(CAMY, cur.stage) - my * .3, cur.z);
       camera.lookAt(group.position.x * .25, ip(CAMY, cur.stage) * .6, 0);
+      group.updateMatrixWorld(); mousePick();
       renderer.render(scene, camera);
       // Etiquetas: visibles solo cerca de su etapa y cuando la escena tiene el foco
       group.updateMatrixWorld();
@@ -833,13 +878,24 @@ NG.boot('[data-ng="story"]', function (layer) {
         }
         if (l.on !== on) { l.on = on; l.el.classList.toggle('is-on', on); }
       });
-      var moving = Math.abs(S.stage - cur.stage) > .002 || Math.abs(tgtAlpha - cur.alpha) > .002 || Math.abs(tgtOff - cur.off) > .002;
-      if (running && (!paused || moving)) raf = requestAnimationFrame(frame);
+      var moving = Math.abs(S.stage - cur.stage) > .002 || Math.abs(tgtAlpha - cur.alpha) > .002 || Math.abs(tgtOff - cur.off) > .002 || mouseT > .01;
+      // Fuera de la historia (o tras el fundido final) se congela el último cuadro: sin rAF, GPU libre
+      if (running && (storyVis || moving) && S.end < .999 && (!paused || moving)) raf = requestAnimationFrame(frame);
     };
     kick = function () { if (!raf && running) { last = 0; raf = requestAnimationFrame(frame); } };
     d.addEventListener('visibilitychange', function () { running = !d.hidden; kick(); });
-    layer.classList.add('is-on');
-    kick();
+    var storyVis = true;
+    if ('IntersectionObserver' in window) {
+      var seen = new Map(), io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { seen.set(e.target, e.isIntersecting); });
+        storyVis = false; seen.forEach(function (v) { if (v) storyVis = true; });
+        kick();
+      }, { rootMargin: '20% 0px' });
+      chs().concat(hero ? [hero] : []).forEach(function (el) { io.observe(el); });
+    }
+    // Compila los shaders antes del primer cuadro y recién ahí retira el indicador de carga
+    try { renderer.compile(scene, camera); } catch (e) {}
+    requestAnimationFrame(function (t) { frame(t); layer.classList.add('is-on'); });
   }
 });
 </script>

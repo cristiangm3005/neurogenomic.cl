@@ -16,7 +16,16 @@ El inicio se recorre como una historia continua sobre una sola escena WebGL (Thr
 4. **Estrategia** (capítulo 04): cinco nodos (datos, emociones, mensajes, productos y segmentos) unidos por rutas.
 5. **Consumidor** (capítulo 05): silueta abstracta con productos, mensajes y canales que lo orbitan.
 
-Las secciones existentes quedan entre los capítulos, con fondo translúcido sobre la escena. Hay un riel de capítulos navegable con teclado y un botón para pausar la animación, que se recuerda en el navegador. Con `prefers-reduced-motion` la escena queda quieta y solo cambia con el scroll. En móvil se usan menos partículas y menor resolución. Sin WebGL se muestran `img/story/cap-1…5.webp`, que son capturas de la propia escena. El azul, violeta, cian y dorado se usan solo en la atmósfera 3D: la interfaz mantiene el negro y el lima de la marca.
+Las secciones existentes quedan entre los capítulos, con fondo translúcido sobre la escena.
+
+Composición y rendimiento:
+- **Composición:** la escena se desplaza hacia el lado contrario al texto (offset 2,8–3,3), con cámara a z≈12,5 y FOV 52°. Lleva niebla exponencial y un desenfoque de profundidad que agranda y atenúa las partículas fuera de foco.
+- **Cursor:** las partículas cercanas al cursor se apartan y brillan en lima.
+- **Textos:** van en paneles con `backdrop-filter: blur(12px)` sobre `rgba(10,10,15,.65)`.
+- **Navegación:** a la derecha hay un dock de capítulos ([01 NEURONA] → [05 IMPACTO]) que se navega con teclado y hace scroll suave. Abajo a la izquierda hay un botón para pausar la animación, que el navegador recuerda.
+- **Rendimiento:** un IntersectionObserver congela el render cuando la historia no está en pantalla. Mientras se compilan los shaders se muestra un indicador de carga.
+- **Cierre:** al terminar el capítulo 05 la escena se funde y entra la sección de contacto.
+- **Móvil:** 6 000 partículas (16 000 en escritorio), escena centrada y escalada, y opacidad de 35 % mientras hay texto encima. Con `prefers-reduced-motion` la escena queda quieta y solo cambia con el scroll. En móvil se usan menos partículas y menor resolución. Sin WebGL se muestran `img/story/cap-1…5.webp`, que son capturas de la propia escena. El azul, violeta, cian y dorado se usan solo en la atmósfera 3D: la interfaz mantiene el negro y el lima de la marca.
 
 ## Estructura
 
