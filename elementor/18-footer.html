@@ -135,8 +135,15 @@ html.ng-has-story .ng-noise{display:none}
 .ng-foot__col,.ng-foot__col:nth-of-type(1){grid-column:span 4}
 }
 @media (max-width:599px){
-.ng-foot__col,.ng-foot__col:nth-of-type(1){grid-column:1/-1}
-.ng-foot__col a{min-height:44px}
+.ng-foot{padding-top:56px}
+.ng-foot__top{grid-template-columns:1fr 1fr;gap:28px 16px}
+.ng-foot__brand{grid-column:1/-1}
+.ng-foot__col,.ng-foot__col:nth-of-type(1){grid-column:auto}
+.ng-foot__col:nth-of-type(1){order:1}.ng-foot__col:nth-of-type(3){order:2}
+.ng-foot__col:nth-of-type(2){order:3;grid-column:1/-1}
+.ng-foot__col:nth-of-type(2) ul{display:grid;grid-template-columns:1fr 1fr;column-gap:16px}
+.ng-foot__col a{font-size:14.5px;line-height:1.25}
+.ng-foot__bot{flex-direction:column;gap:6px;margin-top:36px}
 }
 </style>
 <script>

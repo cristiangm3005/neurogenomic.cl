@@ -39,7 +39,7 @@ Breakpoints: ≤575 (teléfono), 576–767 (tablet vertical), 768–991 (tablet 
 
 ```
 index.html · servicios.html · tecnologia.html · contacto.html   ← sitio listo (generado)
-neurogenomic-index.html  ← inicio en un solo archivo (imágenes y 80 cuadros de la demo incrustados): se abre sin la carpeta img/
+neurogenomic-index.html  ← inicio en un solo archivo, autónomo: imágenes, 80 cuadros de la demo, fuentes y librerías (GSAP, ScrollTrigger, Lenis, Three.js desde vendor/) incrustados. Funciona sin conexión
 neurogenomic-sitio.zip   ← las 4 páginas + img/ listas para subir a un hosting
 landing.html             ← landing B2B con demo scroll-driven (fuente: landing/src; build: landing/build_landing.py). Ver LANDING.md
 neurogenomic-landing.html ← la misma landing en un solo archivo

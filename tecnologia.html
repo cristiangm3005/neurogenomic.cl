@@ -174,13 +174,20 @@ html.ng-has-story .ng-noise{display:none}
 .ng-burger i:first-child{top:19px}.ng-burger i:last-child{top:27px}
 .ng-burger[aria-expanded="true"] i:first-child{transform:translateY(4px) rotate(45deg)}
 .ng-burger[aria-expanded="true"] i:last-child{transform:translateY(-4px) rotate(-45deg)}
-.ng-menu{position:fixed;inset:0;z-index:1;background:var(--ng-bg);padding:calc(var(--ng-nav-h) + 24px) var(--ng-gut) 32px;display:flex;flex-direction:column;justify-content:space-between;visibility:hidden;opacity:0;transition:opacity .4s var(--ng-ease),visibility 0s linear .4s}
+.ng-menu{position:fixed;inset:0;z-index:1;background:var(--ng-bg);padding:calc(var(--ng-nav-h) + 20px) var(--ng-gut) 28px;display:flex;flex-direction:column;justify-content:space-between;gap:24px;overflow-y:auto;overscroll-behavior:contain;visibility:hidden;opacity:0;transition:opacity .4s var(--ng-ease),visibility 0s linear .4s}
 .ng-menu.ng-is-open{visibility:visible;opacity:1;transition:opacity .4s var(--ng-ease)}
 .ng-menu ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--ng-line)}
 .ng-menu li{border-bottom:1px solid var(--ng-line);overflow:hidden}
-.ng-menu li a{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:14px 0;font-size:clamp(38px,11vw,72px);font-weight:500;letter-spacing:-.04em;line-height:1;transform:translateY(105%);transition:transform .8s var(--ng-ease);transition-delay:calc(var(--i)*60ms + 80ms)}
+.ng-menu li a{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:12px 0;font-size:clamp(32px,9vw,64px);font-weight:500;letter-spacing:-.04em;line-height:1;transform:translateY(105%);transition:transform .8s var(--ng-ease);transition-delay:calc(var(--i)*60ms + 80ms)}
 .ng-menu li a small{font:500 11px/1 var(--ng-mono);letter-spacing:.12em;color:var(--ng-tx2)}
 .ng-menu.ng-is-open li a{transform:none}
+.ng-menu__more{display:grid;gap:10px}
+.ng-menu__k{font:500 11px/1.4 var(--ng-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ng-tx2);margin:6px 0 0}
+.ng-menu__links,.ng-menu__tags{display:flex;flex-wrap:wrap;gap:8px}
+.ng-menu__links a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1.5px solid rgba(242,243,240,.7);font:500 13px/1 var(--ng-ff);text-transform:uppercase;letter-spacing:.04em;color:var(--ng-tx)}
+.ng-menu__tags a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border:1px solid var(--ng-line2);border-radius:4px;font:500 11px/1 var(--ng-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ng-tx2)}
+.ng-menu__links a:hover,.ng-menu__links a:focus-visible,.ng-menu__tags a:hover,.ng-menu__tags a:focus-visible{border-color:var(--ng-lime);color:var(--ng-lime)}
+@media (min-width:992px){.ng-menu__more{display:none}}
 .ng-menu__meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--ng-tx2)}
 .ng-cursor{position:fixed;left:0;top:0;z-index:10002;pointer-events:none;display:none}
 .ng-cursor__dot,.ng-cursor__ring{position:absolute;left:0;top:0;border-radius:50%;will-change:transform}
@@ -191,6 +198,17 @@ html.ng-has-story .ng-noise{display:none}
 html.ng-has-cursor .ng-cursor{display:block}
 html.ng-has-cursor,html.ng-has-cursor a,html.ng-has-cursor button{cursor:none}
 html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{cursor:text}
+@media (max-width:575px){
+.ng-mast{padding:16px 0 10px}
+.ng-mast__head{gap:8px;margin-bottom:12px}
+.ng-mast__tag{font-size:15px}
+.ng-mast__sec,.ng-mast__tags{display:none}
+.ng-mast__row{min-height:54px;padding:0 4px 0 2px;margin:0}
+.ng-mast__main a:not(.ng-mast__cta){padding:0 10px}
+.ng-mast__main .ng-mast__cta{padding:0 12px;font-size:13px;min-height:44px}
+.ng-mast__burger{padding:0 8px;min-width:44px;justify-content:center}
+}
+@media (max-width:374px){.ng-mast__burger span.ng-mast__bl{display:none}.ng-mast__main .ng-mast__cta{padding:0 10px}}
 @media (min-width:992px) and (max-width:1199px){
 .ng-nav__bar{gap:16px}
 .ng-nav__links a,.ng-mast__main a:not(.ng-mast__cta){padding:0 9px;font-size:13px}
@@ -203,8 +221,9 @@ html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{c
 :root{--ng-nav-h:64px}
 .ng-mast__head{flex-direction:column;align-items:flex-start;gap:12px}
 .ng-mast__tag br{display:none}
-.ng-mast__main ul,.ng-mast__main .ng-mast__cta{display:none}
-.ng-mast__burger{display:inline-flex;align-items:center;gap:10px;margin-left:auto;min-height:44px;padding:0 6px 0 12px;background:none;border:0;color:var(--ng-tx);font:500 14px/1 var(--ng-ff);text-transform:uppercase;letter-spacing:.04em;cursor:pointer}
+.ng-mast__main ul{display:none}
+.ng-mast__main .ng-mast__cta{margin-left:auto;min-height:40px}
+.ng-mast__burger{display:inline-flex;align-items:center;gap:10px;margin-left:6px;min-height:44px;padding:0 6px 0 12px;background:none;border:0;color:var(--ng-tx);font:500 14px/1 var(--ng-ff);text-transform:uppercase;letter-spacing:.04em;cursor:pointer}
 .ng-mast__burger i{display:block;width:18px;height:1.5px;background:currentColor;box-shadow:0 -5px 0 currentColor,0 5px 0 currentColor}
 .ng-mast__sec,.ng-mast__tags{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;justify-content:flex-start}
 .ng-mast__sec::-webkit-scrollbar,.ng-mast__tags::-webkit-scrollbar{display:none}
@@ -527,8 +546,15 @@ clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out
 .ng-foot__col,.ng-foot__col:nth-of-type(1){grid-column:span 4}
 }
 @media (max-width:599px){
-.ng-foot__col,.ng-foot__col:nth-of-type(1){grid-column:1/-1}
-.ng-foot__col a{min-height:44px}
+.ng-foot{padding-top:56px}
+.ng-foot__top{grid-template-columns:1fr 1fr;gap:28px 16px}
+.ng-foot__brand{grid-column:1/-1}
+.ng-foot__col,.ng-foot__col:nth-of-type(1){grid-column:auto}
+.ng-foot__col:nth-of-type(1){order:1}.ng-foot__col:nth-of-type(3){order:2}
+.ng-foot__col:nth-of-type(2){order:3;grid-column:1/-1}
+.ng-foot__col:nth-of-type(2) ul{display:grid;grid-template-columns:1fr 1fr;column-gap:16px}
+.ng-foot__col a{font-size:14.5px;line-height:1.25}
+.ng-foot__bot{flex-direction:column;gap:6px;margin-top:36px}
 }
 </style>
 <script>
@@ -884,7 +910,7 @@ clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out
         <li><a href="contacto.html" data-ng-page="contacto">Contacto</a></li>
       </ul>
       <a class="ng-mast__cta" href="contacto.html">Empieza hoy <span aria-hidden="true">↗</span></a>
-      <button class="ng-mast__burger" type="button" aria-expanded="false" aria-controls="ng-menu">Menú <i aria-hidden="true"></i></button>
+      <button class="ng-mast__burger" type="button" aria-expanded="false" aria-controls="ng-menu" aria-label="Abrir menú"><span class="ng-mast__bl" aria-hidden="true">Menú</span> <i aria-hidden="true"></i></button>
     </nav>
     <nav class="ng-mast__row ng-mast__sec" aria-label="Secciones">
       <a href="index.html#asi-mira">Así mira tu cliente <i aria-hidden="true">↘</i></a>
@@ -932,6 +958,16 @@ clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out
         <li><a href="contacto.html" style="--i:4">Contacto <small>05</small></a></li>
       </ul>
     </nav>
+    <div class="ng-menu__more">
+      <p class="ng-menu__k ng-mono">Secciones</p>
+      <div class="ng-menu__links">
+        <a href="index.html#asi-mira">Así mira tu cliente ↘</a><a href="index.html#packaging">Packaging ↘</a><a href="index.html#tecnologia">Señales y herramientas ↘</a><a href="index.html#caso">Caso ↘</a>
+      </div>
+      <p class="ng-menu__k ng-mono">Disciplinas</p>
+      <div class="ng-menu__tags">
+        <a href="tecnologia.html">Eye tracking</a><a href="tecnologia.html">Facial coding</a><a href="tecnologia.html">GSR</a><a href="servicios.html">Branding</a><a href="servicios.html">Business Intelligence</a><a href="servicios.html">E-commerce</a><a href="servicios.html">Marketing digital</a><a href="servicios.html">SEO</a><a href="servicios.html">Software</a><a href="tecnologia.html">Python · SQL · IA</a>
+      </div>
+    </div>
     <div class="ng-menu__meta">
       <a class="ng-btn ng-btn--volt" href="contacto.html">Empieza hoy <span class="ng-btn__i" aria-hidden="true">↗</span></a>
       <p class="ng-mono">Neuroscience-Driven<br>Marketing Optimization</p>
@@ -991,7 +1027,7 @@ NG.boot('[data-ng="nav"]', function (nav) {
     menu.classList.toggle('ng-is-open', open);
     burger.setAttribute('aria-expanded', open);
     burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
-    if (mastBurger) mastBurger.setAttribute('aria-expanded', open);
+    if (mastBurger) { mastBurger.setAttribute('aria-expanded', open); mastBurger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú'); }
     nav.classList.toggle('ng-is-open', open);
     if (NG.lenis) open ? NG.lenis.stop() : NG.lenis.start();
     de.style.overflow = open ? 'hidden' : '';

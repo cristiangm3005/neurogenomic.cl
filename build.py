@@ -581,6 +581,23 @@ def build_standalone(src="index.html", out="neurogenomic-index.html"):
         frames = sorted((ROOT / "img" / "seq").glob("f_*.webp"))
         uris = ["data:image/webp;base64," + base64.b64encode(f.read_bytes()).decode() for f in frames]
         s = s.replace('<section class="ng-sec ng-demo"', '<script>window.NG_FRAMES=' + json.dumps(uris) + ';</script>\n<section class="ng-sec ng-demo"', 1)
+    # Autónomo: fuentes y librerías incrustadas (funciona sin conexión y en visores que bloquean CDNs)
+    vend = ROOT / "vendor"
+    if vend.exists():
+        faces = []
+        for fam, fn, wt in [("Anton", "anton-latin-400-normal", 400),
+                            ("Space Grotesk", "space-grotesk-latin-300-normal", 300), ("Space Grotesk", "space-grotesk-latin-400-normal", 400),
+                            ("Space Grotesk", "space-grotesk-latin-500-normal", 500), ("Space Grotesk", "space-grotesk-latin-600-normal", 600),
+                            ("Space Grotesk", "space-grotesk-latin-700-normal", 700),
+                            ("IBM Plex Mono", "ibm-plex-mono-latin-400-normal", 400), ("IBM Plex Mono", "ibm-plex-mono-latin-500-normal", 500)]:
+            b64 = base64.b64encode((vend / "fonts" / f"{fn}.woff2").read_bytes()).decode()
+            faces.append(f"@font-face{{font-family:'{fam}';font-style:normal;font-weight:{wt};font-display:swap;src:url(data:font/woff2;base64,{b64}) format('woff2')}}")
+        s = s.replace(FONTS, "<style>" + "".join(faces) + "</style>", 1)
+        js = lambda f: (vend / f).read_text(encoding="utf-8").replace("</script", "<\\/script")
+        libs = "".join(f"<script>{js(f)}</script>\n" for f in ("gsap.min.js", "ScrollTrigger.min.js", "lenis.min.js"))
+        s = s.replace("<script>", libs + "<script>", 1)  # antes del núcleo NG
+        if 'data-ng="story"' in s:  # Three.js al final: no retrasa el primer renderizado
+            s = s.replace("</body>", f"<script>{js('three.min.js')}</script>\n</body>", 1)
     (ROOT / out).write_text(s, encoding="utf-8")
     return out
 
