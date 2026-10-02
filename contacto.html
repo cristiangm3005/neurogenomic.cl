@@ -111,15 +111,16 @@ text-decoration:none;white-space:nowrap;
 .ng-media img.ng-is-missing{opacity:0}
 .ng-media[data-ph]::before{
 content:attr(data-ph);position:absolute;inset:0;display:flex;align-items:flex-end;padding:14px 16px;
-font:500 10px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);
+font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);
 background:
 linear-gradient(var(--ng-line) 1px,transparent 1px) 0 0/40px 40px,
 linear-gradient(90deg,var(--ng-line) 1px,transparent 1px) 0 0/40px 40px,
 radial-gradient(60% 60% at 60% 45%,rgba(200,245,66,.07),transparent 70%),var(--ng-s1);
 }
 .ng-media[data-ph]:has(img:not(.ng-is-missing))::before{opacity:0}
-.ng-noise{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:9997;opacity:.035;
+.ng-noise{position:fixed;inset:0;pointer-events:none;z-index:9997;opacity:.035;
 background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+html.ng-has-story .ng-noise{display:none}
 .ng-sec[data-ng-bg]::before{content:"";position:absolute;inset:0;background:var(--ng-s1);opacity:var(--ng-bgo,1);z-index:-1;pointer-events:none}
 .ng-sec[data-ng-bg]{background:var(--ng-bg)}
 .ng-js .ng-sec[data-ng-bg]{--ng-bgo:0}
@@ -163,8 +164,8 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-mast__sec a[target] i,.ng-mast__sec a.is-ext i{transform:none}
 .ng-mast__sec a.is-ext:hover i{transform:translate(2px,-2px)}
 .ng-mast__tags{gap:6px;padding:7px 8px;flex-wrap:wrap}
-.ng-mast__tags a{display:inline-flex;align-items:center;gap:5px;min-height:28px;padding:0 7px;border:1px solid rgba(242,243,240,.7);font:500 10.5px/1 var(--ng-mono);letter-spacing:.03em;text-transform:uppercase;transition:background .25s,color .25s,border-color .25s}
-.ng-mast__tags a small{font-size:10px;color:var(--ng-tx2)}
+.ng-mast__tags a{display:inline-flex;align-items:center;gap:5px;min-height:28px;padding:0 7px;border:1px solid rgba(242,243,240,.7);font:500 11px/1 var(--ng-mono);letter-spacing:.03em;text-transform:uppercase;transition:background .25s,color .25s,border-color .25s}
+.ng-mast__tags a small{font-size:11px;color:var(--ng-tx2)}
 .ng-mast__tags a:hover{background:var(--ng-lime);border-color:var(--ng-lime);color:#0A0B0D}
 .ng-mast__tags a:hover small{color:#0A0B0D}
 .ng-mast__burger{display:none}
@@ -186,11 +187,17 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-cursor__dot{width:8px;height:8px;margin:-4px 0 0 -4px;background:var(--ng-lime)}
 .ng-cursor__ring{width:40px;height:40px;margin:-20px 0 0 -20px;border:1px solid rgba(200,255,0,.55);transition:width .35s var(--ng-ease),height .35s var(--ng-ease),margin .35s var(--ng-ease),opacity .3s}
 .ng-cursor.ng-is-hover .ng-cursor__ring{width:64px;height:64px;margin:-32px 0 0 -32px;border-color:var(--ng-lime)}
-.ng-cursor__lbl{position:absolute;left:18px;top:14px;font:500 9px/1 var(--ng-mono);letter-spacing:.12em;color:var(--ng-lime);white-space:nowrap;opacity:.8}
+.ng-cursor__lbl{position:absolute;left:18px;top:14px;font:500 11px/1 var(--ng-mono);letter-spacing:.12em;color:var(--ng-lime);white-space:nowrap;opacity:.8}
 html.ng-has-cursor .ng-cursor{display:block}
 html.ng-has-cursor,html.ng-has-cursor a,html.ng-has-cursor button{cursor:none}
 html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{cursor:text}
-@media (max-width:1023px){
+@media (min-width:992px) and (max-width:1199px){
+.ng-nav__bar{gap:16px}
+.ng-nav__links a,.ng-mast__main a:not(.ng-mast__cta){padding:0 9px;font-size:13px}
+.ng-mast__sec{flex-wrap:wrap;justify-content:flex-start}
+.ng-mast__sec a{padding:0 9px;font-size:13px}
+}
+@media (max-width:991px){
 .ng-nav__links,.ng-nav__cta{display:none}
 .ng-burger{display:block}
 :root{--ng-nav-h:64px}
@@ -299,7 +306,7 @@ html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{c
 .ng-foot__col{grid-column:span 2}
 .ng-foot__col:nth-of-type(1){grid-column:7/span 2}
 .ng-foot__col h2{font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);margin-bottom:14px}
-.ng-foot__col a{display:inline-flex;align-items:center;min-height:36px;color:var(--ng-tx);font-size:15px;transition:color .3s}
+.ng-foot__col a{display:inline-flex;align-items:center;min-height:44px;color:var(--ng-tx);font-size:15px;transition:color .3s}
 .ng-foot__col a:hover{color:var(--ng-volt)}
 .ng-foot__bot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:clamp(48px,6vw,96px);padding:20px 0;border-top:1px solid var(--ng-line);color:var(--ng-tx2)}
 .ng-foot__mark{display:block;width:max-content;font-size:clamp(44px,12.4vw,240px);line-height:.8;font-family:var(--ng-disp);font-weight:400;letter-spacing:.02em;color:var(--ng-tx);white-space:nowrap;margin-bottom:-.18em;margin-left:max(0px,calc((100% - var(--ng-max)) / 2));padding-left:var(--ng-gut);user-select:none}
@@ -779,19 +786,20 @@ NG.boot('[data-ng="nav"]', function (nav) {
     de.style.overflow = open ? 'hidden' : '';
     if (open) setTimeout(function () { var a = menu.querySelector('a'); a && a.focus(); }, 60);
   };
-  burger.addEventListener('click', function () { setOpen(!menu.classList.contains('ng-is-open')); });
-  if (mastBurger) mastBurger.addEventListener('click', function () { setOpen(true); });
+  var opener = burger; // al cerrar, el foco vuelve al botón que abrió el menú
+  burger.addEventListener('click', function () { opener = burger; setOpen(!menu.classList.contains('ng-is-open')); });
+  if (mastBurger) mastBurger.addEventListener('click', function () { opener = mastBurger; setOpen(true); });
   menu.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
   d.addEventListener('keydown', function (e) {
     if (!menu.classList.contains('ng-is-open')) return;
-    if (e.key === 'Escape') { setOpen(false); burger.focus(); }
+    if (e.key === 'Escape') { setOpen(false); (opener || burger).focus(); }
     if (e.key === 'Tab') {
       var f = focusables(), i = f.indexOf(d.activeElement);
       if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
       else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
     }
   });
-  window.addEventListener('resize', function () { if (window.innerWidth >= 1024 && menu.classList.contains('ng-is-open')) setOpen(false); });
+  window.addEventListener('resize', function () { if (window.innerWidth >= 992 && menu.classList.contains('ng-is-open')) setOpen(false); });
 
   // Botones magnéticos de todo el documento
   d.querySelectorAll('[data-ng-magnet]').forEach(function (b) { NG.magnet(b); });

@@ -95,15 +95,16 @@ text-decoration:none;white-space:nowrap;
 .ng-media img.ng-is-missing{opacity:0}
 .ng-media[data-ph]::before{
 content:attr(data-ph);position:absolute;inset:0;display:flex;align-items:flex-end;padding:14px 16px;
-font:500 10px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);
+font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);
 background:
 linear-gradient(var(--ng-line) 1px,transparent 1px) 0 0/40px 40px,
 linear-gradient(90deg,var(--ng-line) 1px,transparent 1px) 0 0/40px 40px,
 radial-gradient(60% 60% at 60% 45%,rgba(200,245,66,.07),transparent 70%),var(--ng-s1);
 }
 .ng-media[data-ph]:has(img:not(.ng-is-missing))::before{opacity:0}
-.ng-noise{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:9997;opacity:.035;
+.ng-noise{position:fixed;inset:0;pointer-events:none;z-index:9997;opacity:.035;
 background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+html.ng-has-story .ng-noise{display:none}
 .ng-sec[data-ng-bg]::before{content:"";position:absolute;inset:0;background:var(--ng-s1);opacity:var(--ng-bgo,1);z-index:-1;pointer-events:none}
 .ng-sec[data-ng-bg]{background:var(--ng-bg)}
 .ng-js .ng-sec[data-ng-bg]{--ng-bgo:0}
@@ -123,13 +124,13 @@ radial-gradient(30% 25% at 50% 110%,rgba(0,190,255,.10),transparent 70%)}
 .ng-story.is-on .ng-story__cv{opacity:1}
 .ng-story__vig{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 50%,transparent 55%,rgba(2,3,8,.75))}
 .ng-story__lbls{position:absolute;inset:0}
-.ng-story__lbl{position:absolute;left:0;top:0;display:flex;align-items:center;gap:8px;font:500 10.5px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:#E8F4FF;white-space:nowrap;opacity:0;transition:opacity .4s;will-change:transform}
+.ng-story__lbl{position:absolute;left:0;top:0;display:flex;align-items:center;gap:8px;font:500 11px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:#E8F4FF;white-space:nowrap;opacity:0;transition:opacity .4s;will-change:transform}
 .ng-story__lbl::before{content:"";width:7px;height:7px;border-radius:50%;background:#6FE3FF;box-shadow:0 0 10px #6FE3FF}
 .ng-story__lbl span{padding:5px 7px;border:1px solid rgba(111,227,255,.45);border-radius:3px;background:rgba(4,8,20,.72)}
 .ng-story__lbl.is-on{opacity:1}
 .ng-rail{position:fixed;right:clamp(10px,1.4vw,22px);top:50%;translate:0 -50%;z-index:30;display:flex;flex-direction:column;align-items:flex-end;gap:2px;opacity:0;visibility:hidden;transition:opacity .5s,visibility 0s linear .5s}
 .ng-rail.is-on{opacity:1;visibility:visible;transition:opacity .5s}
-.ng-rail a{position:relative;display:flex;flex-direction:row-reverse;align-items:center;gap:10px;min-height:30px;padding:0 4px 0 8px;font:500 10px/1 var(--ng-mono);letter-spacing:.16em;text-transform:uppercase;color:rgba(232,244,255,.6);text-decoration:none;border-radius:4px}
+.ng-rail a{position:relative;display:flex;flex-direction:row-reverse;align-items:center;gap:10px;min-height:30px;padding:0 4px 0 8px;font:500 11px/1 var(--ng-mono);letter-spacing:.16em;text-transform:uppercase;color:rgba(232,244,255,.6);text-decoration:none;border-radius:4px}
 .ng-rail a i{position:relative;width:8px;height:8px;border-radius:50%;border:1px solid rgba(232,244,255,.5);transition:background .3s,border-color .3s,box-shadow .3s,transform .3s}
 .ng-rail a:not(:last-child) i::after{content:"";position:absolute;left:50%;top:calc(100% + 4px);width:1px;height:16px;margin-left:-.5px;background:rgba(232,244,255,.18)}
 .ng-rail a span{opacity:0;transform:translateX(6px);transition:opacity .3s,transform .3s;white-space:nowrap}
@@ -140,13 +141,13 @@ radial-gradient(30% 25% at 50% 110%,rgba(0,190,255,.10),transparent 70%)}
 .ng-rail a.is-cur i{background:var(--ng-lime);border-color:var(--ng-lime);box-shadow:0 0 0 3px rgba(200,255,0,.18),0 0 14px rgba(200,255,0,.9);transform:scale(1.2)}
 .ng-rail a:hover{color:#fff}
 .ng-rail a:focus-visible{outline:2px solid var(--ng-lime);outline-offset:2px}
-.ng-story__load{position:absolute;right:22%;top:50%;translate:50% -50%;display:flex;flex-direction:column;align-items:center;gap:14px;font:500 10px/1 var(--ng-mono);letter-spacing:.16em;text-transform:uppercase;color:rgba(232,244,255,.7);transition:opacity .6s}
+.ng-story__load{position:absolute;right:22%;top:50%;translate:50% -50%;display:flex;flex-direction:column;align-items:center;gap:14px;font:500 11px/1 var(--ng-mono);letter-spacing:.16em;text-transform:uppercase;color:rgba(232,244,255,.7);transition:opacity .6s}
 .ng-story__load i{position:relative;width:46px;height:46px;border-radius:50%;border:1px solid rgba(111,227,255,.35)}
 .ng-story__load i::before,.ng-story__load i::after{content:"";position:absolute;inset:-1px;border-radius:50%;border:1px solid #6FE3FF;animation:ng-load 1.6s cubic-bezier(.2,.6,.3,1) infinite}
 .ng-story__load i::after{animation-delay:.8s;border-color:var(--ng-lime)}
 @keyframes ng-load{from{transform:scale(.4);opacity:1}to{transform:scale(1.6);opacity:0}}
 .ng-story.is-on .ng-story__load,html.ng-no3d .ng-story__load{opacity:0;pointer-events:none}
-.ng-motion{position:fixed;left:clamp(10px,1.4vw,22px);bottom:clamp(10px,1.4vw,22px);z-index:30;display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 12px;border-radius:999px;border:1px solid rgba(232,244,255,.25);background:rgba(4,8,20,.75);color:#E8F4FF;font:500 10.5px/1 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .5s,border-color .3s}
+.ng-motion{position:fixed;left:clamp(10px,1.4vw,22px);bottom:clamp(10px,1.4vw,22px);z-index:30;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:999px;border:1px solid rgba(232,244,255,.25);background:rgba(4,8,20,.75);color:#E8F4FF;font:500 11px/1 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .5s,border-color .3s}
 .ng-motion.is-on{opacity:1;visibility:visible}
 .ng-motion:hover{border-color:var(--ng-lime)}
 .ng-motion:focus-visible{outline:2px solid var(--ng-lime);outline-offset:2px}
@@ -162,10 +163,10 @@ radial-gradient(30% 25% at 50% 110%,rgba(0,190,255,.10),transparent 70%)}
 .ng-ch__p strong{font-weight:500;color:#fff}
 .ng-ch__list{margin-top:22px;display:grid;gap:0;border-top:1px solid rgba(140,170,255,.18)}
 .ng-ch__list li{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:baseline;padding:11px 0;border-bottom:1px solid rgba(140,170,255,.12);font-size:15.5px;color:#E3E8F2}
-.ng-ch__list li b{font:500 10.5px/1 var(--ng-mono);letter-spacing:.1em;color:#8FE9FF}
+.ng-ch__list li b{font:500 11px/1 var(--ng-mono);letter-spacing:.1em;color:#8FE9FF}
 .ng-ch__list li span strong{color:#fff;font-weight:500}
 .ng-ch__chips{margin-top:20px;display:flex;flex-wrap:wrap;gap:6px}
-.ng-ch__chips li{font:500 10.5px/1 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase;padding:8px 9px;border-radius:4px;border:1px solid rgba(143,233,255,.35);color:#E8F4FF;background:rgba(10,30,60,.35)}
+.ng-ch__chips li{font:500 11px/1 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase;padding:8px 9px;border-radius:4px;border:1px solid rgba(143,233,255,.35);color:#E8F4FF;background:rgba(10,30,60,.35)}
 .ng-ch__note{margin-top:16px;font:400 11px/1.5 var(--ng-mono);letter-spacing:.05em;color:#A9B6CC}
 .ng-ch__ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
 .ng-btn--grad{--_fg:#0A0B0D;--_bd:transparent;position:relative;isolation:isolate;overflow:hidden;min-height:56px;padding:0 26px;font-weight:600;background:linear-gradient(110deg,#C8FF00 0%,#E9FF8A 22%,#7DF9FF 46%,#C8FF00 70%,#E9FF8A 100%);background-size:260% 100%;animation:ng-grad 5s linear infinite;box-shadow:0 12px 40px -12px rgba(200,255,0,.65),0 0 0 1px rgba(200,255,0,.4)}
@@ -178,7 +179,7 @@ html.ng-no3d .ng-ch__poster{display:block;position:absolute;inset:0;width:100%;h
 .ng-ch{min-height:0;padding:72svh 0 18svh}
 .ng-ch__txt{position:relative;top:auto;background:rgba(10,10,15,.72)}
 .ng-ch[data-side="right"] .ng-ch__txt{margin-right:0}
-.ng-motion{padding:0;width:40px;justify-content:center}
+.ng-motion{padding:0;width:44px;justify-content:center}
 .ng-motion span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .ng-ch__t{font-size:clamp(40px,11vw,60px)}
 }
@@ -186,7 +187,7 @@ html.ng-has-story main>.ng-sec:not(.ng-ch):not(.ng-hero){background:rgba(5,7,14,
 html.ng-has-story .ng-hero{background:transparent}
 html.ng-has-story .ng-foot,html.ng-has-story .ng-mast{position:relative;z-index:2}
 html.ng-no3d .ng-story__cv,html.ng-no3d .ng-motion{display:none}
-@media (max-width:767px){.ng-rail{display:none}.ng-story__lbl{font-size:9.5px}.ng-story__load{right:50%;top:auto;bottom:22%}}
+@media (max-width:767px){.ng-rail{display:none}.ng-story__lbl{font-size:11px}.ng-story__load{right:50%;top:auto;bottom:22%}}
 @media (prefers-reduced-motion:reduce){.ng-story__cv{transition:none}}
 </style>
 <script>
@@ -547,7 +548,7 @@ NG.boot('[data-ng="story"]', function (layer) {
     var on = S.cur > 0 && S.end < .9;
     if (rail) { rail.classList.toggle('is-on', on); rail.classList.toggle('is-story', S.focus > .35); }
     railA.forEach(function (a, i) { var c = Math.round(S.stage) === i && on; a.classList.toggle('is-cur', c); if (c) a.setAttribute('aria-current', 'step'); else a.removeAttribute('aria-current'); });
-    if (motionBtn) motionBtn.classList.toggle('is-on', true);
+    if (motionBtn) motionBtn.classList.toggle('is-on', S.focus > .3 && S.end < .9);
   };
 
   /* ---------- Atmósfera CSS (también es el respaldo sin WebGL) ---------- */
@@ -847,7 +848,8 @@ NG.boot('[data-ng="story"]', function (layer) {
       var k = paused ? 1 : 1 - Math.pow(1 - .085, dt * 60); // suavizado independiente de los FPS
       cur.stage += (S.stage - cur.stage) * k;
       var tgtAlpha = .28 + .72 * NG.clamp((S.focus - .12) / .45, 0, 1);
-      if (mobile && S.text) tgtAlpha = Math.min(tgtAlpha, .35); // en móvil, el texto manda: la escena baja a 35 %
+      if (mobile && S.text) tgtAlpha = Math.min(tgtAlpha, .35);
+      if (!mobile && S.side > 1.1 && innerWidth < 1200) tgtAlpha = Math.min(tgtAlpha, .6); // laptop: el titular del hero manda // en móvil, el texto manda: la escena baja a 35 %
       cur.alpha += (tgtAlpha - cur.alpha) * k;
       var tgtOff = mobile ? 0 : S.side * ip(OFFS, cur.stage);
       cur.off += (tgtOff - cur.off) * k * .8;

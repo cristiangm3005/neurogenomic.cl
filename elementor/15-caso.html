@@ -95,15 +95,16 @@ text-decoration:none;white-space:nowrap;
 .ng-media img.ng-is-missing{opacity:0}
 .ng-media[data-ph]::before{
 content:attr(data-ph);position:absolute;inset:0;display:flex;align-items:flex-end;padding:14px 16px;
-font:500 10px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);
+font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);
 background:
 linear-gradient(var(--ng-line) 1px,transparent 1px) 0 0/40px 40px,
 linear-gradient(90deg,var(--ng-line) 1px,transparent 1px) 0 0/40px 40px,
 radial-gradient(60% 60% at 60% 45%,rgba(200,245,66,.07),transparent 70%),var(--ng-s1);
 }
 .ng-media[data-ph]:has(img:not(.ng-is-missing))::before{opacity:0}
-.ng-noise{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:9997;opacity:.035;
+.ng-noise{position:fixed;inset:0;pointer-events:none;z-index:9997;opacity:.035;
 background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+html.ng-has-story .ng-noise{display:none}
 .ng-sec[data-ng-bg]::before{content:"";position:absolute;inset:0;background:var(--ng-s1);opacity:var(--ng-bgo,1);z-index:-1;pointer-events:none}
 .ng-sec[data-ng-bg]{background:var(--ng-bg)}
 .ng-js .ng-sec[data-ng-bg]{--ng-bgo:0}
@@ -123,12 +124,12 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-case__bh h3{font:inherit;color:var(--ng-volt)}
 .ng-case__viz{position:relative;margin:16px 0 18px;aspect-ratio:16/9;border:1px solid var(--ng-line);border-radius:4px;background:var(--ng-bg);overflow:hidden}
 .ng-case__viz svg{position:absolute;inset:0;width:100%;height:100%}
-.ng-case__viz text{font-family:var(--ng-mono);font-size:9px;letter-spacing:.08em;fill:var(--ng-tx2)}
+.ng-case__viz text{font-family:var(--ng-mono);font-size:11px;letter-spacing:.08em;fill:var(--ng-tx2)}
 .ng-case__b h4{font-size:clamp(20px,1.6vw,26px);line-height:1.15;font-weight:500;letter-spacing:-.02em;margin-bottom:10px}
 .ng-case__b p{color:var(--ng-tx2);font-size:15px;line-height:1.5}
 .ng-case__b p strong{color:var(--ng-tx);font-weight:500}
 .ng-case__out{margin-top:auto;padding-top:16px;display:flex;flex-wrap:wrap;gap:6px}
-.ng-case__out li{font:500 10px/1 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ng-tx);border:1px solid var(--ng-line2);border-radius:4px;padding:7px 8px}
+.ng-case__out li{font:500 11px/1 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ng-tx);border:1px solid var(--ng-line2);border-radius:4px;padding:7px 8px}
 .ng-cv__dot{transition:transform 1s cubic-bezier(.65,0,.35,1)}
 .ng-cg__b{fill:rgba(255,255,255,.08);stroke:rgba(255,255,255,.14)}
 .ng-cg__t{fill:rgba(200,245,66,.12);stroke:rgba(200,245,66,.6)}
@@ -139,6 +140,11 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 @media (max-width:1023px){
 .ng-case__head .ng-head,.ng-case__head>.ng-mono{grid-column:1/-1;text-align:left}
 .ng-case__blocks{grid-template-columns:1fr;max-width:640px}
+}
+@media (min-width:768px) and (max-width:1023px){
+.ng-case__blocks{grid-template-columns:1fr 1fr;max-width:none}
+.ng-case__b:last-child{grid-column:1/-1}
+.ng-case__b:last-child .ng-case__viz{max-width:560px}
 }
 </style>
 <script>

@@ -94,15 +94,16 @@ text-decoration:none;white-space:nowrap;
 .ng-media img.ng-is-missing{opacity:0}
 .ng-media[data-ph]::before{
 content:attr(data-ph);position:absolute;inset:0;display:flex;align-items:flex-end;padding:14px 16px;
-font:500 10px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);
+font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);
 background:
 linear-gradient(var(--ng-line) 1px,transparent 1px) 0 0/40px 40px,
 linear-gradient(90deg,var(--ng-line) 1px,transparent 1px) 0 0/40px 40px,
 radial-gradient(60% 60% at 60% 45%,rgba(200,245,66,.07),transparent 70%),var(--ng-s1);
 }
 .ng-media[data-ph]:has(img:not(.ng-is-missing))::before{opacity:0}
-.ng-noise{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:9997;opacity:.035;
+.ng-noise{position:fixed;inset:0;pointer-events:none;z-index:9997;opacity:.035;
 background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+html.ng-has-story .ng-noise{display:none}
 .ng-sec[data-ng-bg]::before{content:"";position:absolute;inset:0;background:var(--ng-s1);opacity:var(--ng-bgo,1);z-index:-1;pointer-events:none}
 .ng-sec[data-ng-bg]{background:var(--ng-bg)}
 .ng-js .ng-sec[data-ng-bg]{--ng-bgo:0}
@@ -514,6 +515,8 @@ NG.boot('[data-ng="ethics"]', function (sec) {
       ttl.to(shapes, { strokeDashoffset: 0, duration: .9, stagger: .12, ease: 'power2.inOut' }, i * .18)
          .from(t.querySelectorAll('h4,p'), { autoAlpha: 0, y: 10, duration: .6, stagger: .08 }, i * .18 + .2);
     });
+    // Al terminar, se quitan los guiones del trazo: íconos estáticos y sin repintados costosos
+    ttl.eventCallback('onComplete', function () { gsap.set(sec.querySelectorAll('.ng-trust__i svg *'), { clearProps: 'strokeDasharray,strokeDashoffset' }); });
     ScrollTrigger.create({ trigger: sec.querySelector('.ng-trust'), start: 'top 85%', once: true, onEnter: function () { ttl.play(); } });
     sec.querySelectorAll('.ng-log').forEach(function (log) {
       var no = log.classList.contains('ng-log--no');

@@ -111,15 +111,16 @@ text-decoration:none;white-space:nowrap;
 .ng-media img.ng-is-missing{opacity:0}
 .ng-media[data-ph]::before{
 content:attr(data-ph);position:absolute;inset:0;display:flex;align-items:flex-end;padding:14px 16px;
-font:500 10px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);
+font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);
 background:
 linear-gradient(var(--ng-line) 1px,transparent 1px) 0 0/40px 40px,
 linear-gradient(90deg,var(--ng-line) 1px,transparent 1px) 0 0/40px 40px,
 radial-gradient(60% 60% at 60% 45%,rgba(200,245,66,.07),transparent 70%),var(--ng-s1);
 }
 .ng-media[data-ph]:has(img:not(.ng-is-missing))::before{opacity:0}
-.ng-noise{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:9997;opacity:.035;
+.ng-noise{position:fixed;inset:0;pointer-events:none;z-index:9997;opacity:.035;
 background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+html.ng-has-story .ng-noise{display:none}
 .ng-sec[data-ng-bg]::before{content:"";position:absolute;inset:0;background:var(--ng-s1);opacity:var(--ng-bgo,1);z-index:-1;pointer-events:none}
 .ng-sec[data-ng-bg]{background:var(--ng-bg)}
 .ng-js .ng-sec[data-ng-bg]{--ng-bgo:0}
@@ -163,8 +164,8 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-mast__sec a[target] i,.ng-mast__sec a.is-ext i{transform:none}
 .ng-mast__sec a.is-ext:hover i{transform:translate(2px,-2px)}
 .ng-mast__tags{gap:6px;padding:7px 8px;flex-wrap:wrap}
-.ng-mast__tags a{display:inline-flex;align-items:center;gap:5px;min-height:28px;padding:0 7px;border:1px solid rgba(242,243,240,.7);font:500 10.5px/1 var(--ng-mono);letter-spacing:.03em;text-transform:uppercase;transition:background .25s,color .25s,border-color .25s}
-.ng-mast__tags a small{font-size:10px;color:var(--ng-tx2)}
+.ng-mast__tags a{display:inline-flex;align-items:center;gap:5px;min-height:28px;padding:0 7px;border:1px solid rgba(242,243,240,.7);font:500 11px/1 var(--ng-mono);letter-spacing:.03em;text-transform:uppercase;transition:background .25s,color .25s,border-color .25s}
+.ng-mast__tags a small{font-size:11px;color:var(--ng-tx2)}
 .ng-mast__tags a:hover{background:var(--ng-lime);border-color:var(--ng-lime);color:#0A0B0D}
 .ng-mast__tags a:hover small{color:#0A0B0D}
 .ng-mast__burger{display:none}
@@ -186,11 +187,17 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-cursor__dot{width:8px;height:8px;margin:-4px 0 0 -4px;background:var(--ng-lime)}
 .ng-cursor__ring{width:40px;height:40px;margin:-20px 0 0 -20px;border:1px solid rgba(200,255,0,.55);transition:width .35s var(--ng-ease),height .35s var(--ng-ease),margin .35s var(--ng-ease),opacity .3s}
 .ng-cursor.ng-is-hover .ng-cursor__ring{width:64px;height:64px;margin:-32px 0 0 -32px;border-color:var(--ng-lime)}
-.ng-cursor__lbl{position:absolute;left:18px;top:14px;font:500 9px/1 var(--ng-mono);letter-spacing:.12em;color:var(--ng-lime);white-space:nowrap;opacity:.8}
+.ng-cursor__lbl{position:absolute;left:18px;top:14px;font:500 11px/1 var(--ng-mono);letter-spacing:.12em;color:var(--ng-lime);white-space:nowrap;opacity:.8}
 html.ng-has-cursor .ng-cursor{display:block}
 html.ng-has-cursor,html.ng-has-cursor a,html.ng-has-cursor button{cursor:none}
 html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{cursor:text}
-@media (max-width:1023px){
+@media (min-width:992px) and (max-width:1199px){
+.ng-nav__bar{gap:16px}
+.ng-nav__links a,.ng-mast__main a:not(.ng-mast__cta){padding:0 9px;font-size:13px}
+.ng-mast__sec{flex-wrap:wrap;justify-content:flex-start}
+.ng-mast__sec a{padding:0 9px;font-size:13px}
+}
+@media (max-width:991px){
 .ng-nav__links,.ng-nav__cta{display:none}
 .ng-burger{display:block}
 :root{--ng-nav-h:64px}
@@ -288,7 +295,7 @@ clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out
 .ng-stk__chips li.is-hot{color:#0A0B0D;background:var(--ng-lime);border-color:var(--ng-lime)}
 .ng-stk__chips li.is-lit{color:var(--ng-tx);border-color:rgba(200,245,66,.45)}
 .ng-stk__term{margin-top:clamp(28px,3vw,40px);display:flex;gap:14px;align-items:center;border:1px solid var(--ng-line);border-radius:6px;background:var(--ng-s1);padding:14px 16px;font:400 clamp(11px,1vw,13px)/1.5 var(--ng-mono);color:var(--ng-tx);overflow:hidden;white-space:nowrap}
-.ng-stk__term b{flex:0 0 auto;font-weight:500;color:var(--ng-lime);letter-spacing:.1em;font-size:10px;text-transform:uppercase;border:1px solid rgba(200,245,66,.4);border-radius:3px;padding:4px 6px}
+.ng-stk__term b{flex:0 0 auto;font-weight:500;color:var(--ng-lime);letter-spacing:.1em;font-size:11px;text-transform:uppercase;border:1px solid rgba(200,245,66,.4);border-radius:3px;padding:4px 6px}
 .ng-stk__code{overflow:hidden;text-overflow:clip}
 .ng-stk__code::after{content:"▍";color:var(--ng-lime);animation:ng-stk-b 1s steps(2,start) infinite}
 @keyframes ng-stk-b{to{visibility:hidden}}
@@ -349,7 +356,7 @@ clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out
 .ng-gaze__phases{grid-column:1/-1;order:2;grid-template-columns:repeat(4,minmax(0,1fr));border-top:0;gap:6px}
 .ng-gaze__ph{grid-template-columns:1fr;border:1px solid var(--ng-line);border-radius:4px;padding:10px;gap:4px}
 .ng-gaze__ph span{display:none}
-.ng-gaze__ph strong{font-size:10px;letter-spacing:.06em}
+.ng-gaze__ph strong{font-size:11px;letter-spacing:.06em}
 .ng-gaze__stagewrap{grid-column:1/-1}
 }
 @media (max-width:420px){.ng-gaze__meta span:last-child{display:none}}
@@ -363,11 +370,11 @@ clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out
 .ng-pack__list li{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--ng-line);transition:color .4s}
 .ng-pack__list b{font:500 11px/1 var(--ng-mono);letter-spacing:.12em;color:var(--ng-tx2)}
 .ng-pack__list span{font-size:16px}
-.ng-pack__list i{font:500 10px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;font-style:normal;color:var(--ng-tx2)}
+.ng-pack__list i{font:500 11px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;font-style:normal;color:var(--ng-tx2)}
 .ng-pack__list li.is-on b,.ng-pack__list li.is-on i{color:var(--ng-lime)}
 .ng-pack__stage{grid-column:7/span 6}
 .ng-pack__card{position:relative;margin:0 0 0 auto;max-width:min(100%,calc((100svh - 190px) * 30 / 38 + 26px));border:1px solid var(--ng-line2);border-radius:8px;background:var(--ng-s1);padding:12px}
-.ng-pack__top,.ng-pack__foot{display:flex;justify-content:space-between;gap:12px;font:500 10.5px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2)}
+.ng-pack__top,.ng-pack__foot{display:flex;justify-content:space-between;gap:12px;font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2)}
 .ng-pack__top{padding:2px 2px 12px}
 .ng-pack__top b{font-weight:500;color:var(--ng-lime)}
 .ng-pack__foot{padding:12px 2px 2px}
@@ -379,11 +386,11 @@ clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out
 .ng-pack__hd{position:absolute;top:0;bottom:0;left:var(--ng-split,100%);width:0;pointer-events:none}
 .ng-pack__hd::before{content:"";position:absolute;top:0;bottom:0;left:-1px;width:2px;background:var(--ng-lime);box-shadow:0 0 14px rgba(200,255,0,.7)}
 .ng-pack__hd span{position:absolute;top:50%;left:0;translate:-50% -50%;width:44px;height:44px;border-radius:50%;background:var(--ng-lime);color:#0A0B0D;display:grid;place-items:center;font:600 14px/1 var(--ng-mono);box-shadow:0 6px 24px rgba(0,0,0,.5)}
-.ng-pack__lbl{position:absolute;top:12px;font:500 10px/1 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;padding:7px 8px;border-radius:3px;background:rgba(10,11,13,.78);color:var(--ng-tx);pointer-events:none}
+.ng-pack__lbl{position:absolute;top:12px;font:500 11px/1 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;padding:7px 8px;border-radius:3px;background:rgba(10,11,13,.78);color:var(--ng-tx);pointer-events:none}
 .ng-pack__lbl--l{left:12px}.ng-pack__lbl--r{right:12px;color:var(--ng-lime)}
 .ng-pack__aoi{position:absolute;width:0;height:0;pointer-events:none}
 .ng-pack__aoi::before{content:"";position:absolute;left:-15px;top:-15px;width:28px;height:28px;border:1.5px solid var(--ng-lime);border-radius:50%;opacity:0;transform:scale(.4);transition:opacity .4s,transform .6s var(--ng-ease)}
-.ng-pack__aoi em{position:absolute;left:20px;top:-9px;font:500 10px/1 var(--ng-mono);font-style:normal;letter-spacing:.1em;color:#0A0B0D;background:var(--ng-lime);padding:4px 5px;border-radius:2px;opacity:0;transition:opacity .4s}
+.ng-pack__aoi em{position:absolute;left:20px;top:-9px;font:500 11px/1 var(--ng-mono);font-style:normal;letter-spacing:.1em;color:#0A0B0D;background:var(--ng-lime);padding:4px 5px;border-radius:2px;opacity:0;transition:opacity .4s}
 .ng-pack__aoi--l em{left:auto;right:20px}
 .ng-pack__aoi.is-on::before{opacity:1;transform:none}
 .ng-pack__aoi.is-on em{opacity:1}
@@ -403,12 +410,12 @@ clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out
 .ng-case__bh h3{font:inherit;color:var(--ng-volt)}
 .ng-case__viz{position:relative;margin:16px 0 18px;aspect-ratio:16/9;border:1px solid var(--ng-line);border-radius:4px;background:var(--ng-bg);overflow:hidden}
 .ng-case__viz svg{position:absolute;inset:0;width:100%;height:100%}
-.ng-case__viz text{font-family:var(--ng-mono);font-size:9px;letter-spacing:.08em;fill:var(--ng-tx2)}
+.ng-case__viz text{font-family:var(--ng-mono);font-size:11px;letter-spacing:.08em;fill:var(--ng-tx2)}
 .ng-case__b h4{font-size:clamp(20px,1.6vw,26px);line-height:1.15;font-weight:500;letter-spacing:-.02em;margin-bottom:10px}
 .ng-case__b p{color:var(--ng-tx2);font-size:15px;line-height:1.5}
 .ng-case__b p strong{color:var(--ng-tx);font-weight:500}
 .ng-case__out{margin-top:auto;padding-top:16px;display:flex;flex-wrap:wrap;gap:6px}
-.ng-case__out li{font:500 10px/1 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ng-tx);border:1px solid var(--ng-line2);border-radius:4px;padding:7px 8px}
+.ng-case__out li{font:500 11px/1 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ng-tx);border:1px solid var(--ng-line2);border-radius:4px;padding:7px 8px}
 .ng-cv__dot{transition:transform 1s cubic-bezier(.65,0,.35,1)}
 .ng-cg__b{fill:rgba(255,255,255,.08);stroke:rgba(255,255,255,.14)}
 .ng-cg__t{fill:rgba(200,245,66,.12);stroke:rgba(200,245,66,.6)}
@@ -419,6 +426,11 @@ clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out
 @media (max-width:1023px){
 .ng-case__head .ng-head,.ng-case__head>.ng-mono{grid-column:1/-1;text-align:left}
 .ng-case__blocks{grid-template-columns:1fr;max-width:640px}
+}
+@media (min-width:768px) and (max-width:1023px){
+.ng-case__blocks{grid-template-columns:1fr 1fr;max-width:none}
+.ng-case__b:last-child{grid-column:1/-1}
+.ng-case__b:last-child .ng-case__viz{max-width:560px}
 }
 .ng-eth{padding:clamp(96px,12vw,180px) 0}
 .ng-eth__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:start;margin-bottom:clamp(40px,5vw,72px)}
@@ -466,7 +478,7 @@ clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out
 .ng-cta__halo{fill:none;stroke:rgba(200,255,0,.6);stroke-width:1.5}
 .ng-cta__trail{fill:none;stroke:rgba(200,255,0,.5);stroke-width:1.5;stroke-linecap:round;stroke-dasharray:3 5}
 .ng-cta__rip{fill:none;stroke:#C8FF00;stroke-width:2}
-.ng-cta__tag{position:absolute;left:12px;bottom:12px;border:1px solid rgba(200,255,0,.5);background:rgba(10,11,13,.78);color:var(--ng-lime);border-radius:4px;padding:6px 10px;font:500 10.5px/1.3 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase}
+.ng-cta__tag{position:absolute;left:12px;bottom:12px;border:1px solid rgba(200,255,0,.5);background:rgba(10,11,13,.78);color:var(--ng-lime);border-radius:4px;padding:6px 10px;font:500 11px/1.3 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase}
 .ng-cta__t{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(50px,6vw,118px);line-height:.88;letter-spacing:0;font-weight:400;margin:22px 0 28px;text-wrap:balance}
 .ng-cta__p{font-size:clamp(18px,1.5vw,22px);font-weight:300;max-width:44ch;color:var(--ng-tx)}
 .ng-cta__btn{margin-top:clamp(32px,4vw,56px);min-height:clamp(64px,7vw,96px);padding:0 clamp(28px,3vw,48px);font-size:clamp(17px,1.4vw,22px);border-radius:999px}
@@ -483,7 +495,7 @@ clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out
 .ng-qf button[disabled]{opacity:.6;cursor:progress}
 .ng-qf__ck{display:flex;gap:10px;align-items:flex-start;margin-top:12px;color:var(--ng-tx2);font-size:13.5px;line-height:1.45;cursor:pointer}
 .ng-qf__ck input{flex:0 0 auto;width:18px;height:18px;margin:1px 0 0;accent-color:#C8FF00}
-.ng-qf__ck a{color:var(--ng-tx);text-decoration:underline;text-underline-offset:2px}
+.ng-qf__ck a{display:inline-block;padding:12px 2px;margin:-12px 0;color:var(--ng-tx);text-decoration:underline;text-underline-offset:2px}
 .ng-qf__st{min-height:1.4em;margin-top:10px;font:500 12px/1.4 var(--ng-mono);letter-spacing:.04em;color:var(--ng-tx2)}
 .ng-qf__st.is-err{color:#FF8A7A}.ng-qf__st.is-ok{color:var(--ng-lime)}
 .ng-qf.is-sent .ng-qf__row,.ng-qf.is-sent .ng-qf__ck{display:none}
@@ -505,7 +517,7 @@ clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out
 .ng-foot__col{grid-column:span 2}
 .ng-foot__col:nth-of-type(1){grid-column:7/span 2}
 .ng-foot__col h2{font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);margin-bottom:14px}
-.ng-foot__col a{display:inline-flex;align-items:center;min-height:36px;color:var(--ng-tx);font-size:15px;transition:color .3s}
+.ng-foot__col a{display:inline-flex;align-items:center;min-height:44px;color:var(--ng-tx);font-size:15px;transition:color .3s}
 .ng-foot__col a:hover{color:var(--ng-volt)}
 .ng-foot__bot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:clamp(48px,6vw,96px);padding:20px 0;border-top:1px solid var(--ng-line);color:var(--ng-tx2)}
 .ng-foot__mark{display:block;width:max-content;font-size:clamp(44px,12.4vw,240px);line-height:.8;font-family:var(--ng-disp);font-weight:400;letter-spacing:.02em;color:var(--ng-tx);white-space:nowrap;margin-bottom:-.18em;margin-left:max(0px,calc((100% - var(--ng-max)) / 2));padding-left:var(--ng-gut);user-select:none}
@@ -985,19 +997,20 @@ NG.boot('[data-ng="nav"]', function (nav) {
     de.style.overflow = open ? 'hidden' : '';
     if (open) setTimeout(function () { var a = menu.querySelector('a'); a && a.focus(); }, 60);
   };
-  burger.addEventListener('click', function () { setOpen(!menu.classList.contains('ng-is-open')); });
-  if (mastBurger) mastBurger.addEventListener('click', function () { setOpen(true); });
+  var opener = burger; // al cerrar, el foco vuelve al botón que abrió el menú
+  burger.addEventListener('click', function () { opener = burger; setOpen(!menu.classList.contains('ng-is-open')); });
+  if (mastBurger) mastBurger.addEventListener('click', function () { opener = mastBurger; setOpen(true); });
   menu.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
   d.addEventListener('keydown', function (e) {
     if (!menu.classList.contains('ng-is-open')) return;
-    if (e.key === 'Escape') { setOpen(false); burger.focus(); }
+    if (e.key === 'Escape') { setOpen(false); (opener || burger).focus(); }
     if (e.key === 'Tab') {
       var f = focusables(), i = f.indexOf(d.activeElement);
       if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
       else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
     }
   });
-  window.addEventListener('resize', function () { if (window.innerWidth >= 1024 && menu.classList.contains('ng-is-open')) setOpen(false); });
+  window.addEventListener('resize', function () { if (window.innerWidth >= 992 && menu.classList.contains('ng-is-open')) setOpen(false); });
 
   // Botones magnéticos de todo el documento
   d.querySelectorAll('[data-ng-magnet]').forEach(function (b) { NG.magnet(b); });
@@ -1895,6 +1908,8 @@ NG.boot('[data-ng="ethics"]', function (sec) {
       ttl.to(shapes, { strokeDashoffset: 0, duration: .9, stagger: .12, ease: 'power2.inOut' }, i * .18)
          .from(t.querySelectorAll('h4,p'), { autoAlpha: 0, y: 10, duration: .6, stagger: .08 }, i * .18 + .2);
     });
+    // Al terminar, se quitan los guiones del trazo: íconos estáticos y sin repintados costosos
+    ttl.eventCallback('onComplete', function () { gsap.set(sec.querySelectorAll('.ng-trust__i svg *'), { clearProps: 'strokeDasharray,strokeDashoffset' }); });
     ScrollTrigger.create({ trigger: sec.querySelector('.ng-trust'), start: 'top 85%', once: true, onEnter: function () { ttl.play(); } });
     sec.querySelectorAll('.ng-log').forEach(function (log) {
       var no = log.classList.contains('ng-log--no');

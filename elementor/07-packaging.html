@@ -95,15 +95,16 @@ text-decoration:none;white-space:nowrap;
 .ng-media img.ng-is-missing{opacity:0}
 .ng-media[data-ph]::before{
 content:attr(data-ph);position:absolute;inset:0;display:flex;align-items:flex-end;padding:14px 16px;
-font:500 10px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);
+font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);
 background:
 linear-gradient(var(--ng-line) 1px,transparent 1px) 0 0/40px 40px,
 linear-gradient(90deg,var(--ng-line) 1px,transparent 1px) 0 0/40px 40px,
 radial-gradient(60% 60% at 60% 45%,rgba(200,245,66,.07),transparent 70%),var(--ng-s1);
 }
 .ng-media[data-ph]:has(img:not(.ng-is-missing))::before{opacity:0}
-.ng-noise{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:9997;opacity:.035;
+.ng-noise{position:fixed;inset:0;pointer-events:none;z-index:9997;opacity:.035;
 background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+html.ng-has-story .ng-noise{display:none}
 .ng-sec[data-ng-bg]::before{content:"";position:absolute;inset:0;background:var(--ng-s1);opacity:var(--ng-bgo,1);z-index:-1;pointer-events:none}
 .ng-sec[data-ng-bg]{background:var(--ng-bg)}
 .ng-js .ng-sec[data-ng-bg]{--ng-bgo:0}
@@ -122,11 +123,11 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-pack__list li{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--ng-line);transition:color .4s}
 .ng-pack__list b{font:500 11px/1 var(--ng-mono);letter-spacing:.12em;color:var(--ng-tx2)}
 .ng-pack__list span{font-size:16px}
-.ng-pack__list i{font:500 10px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;font-style:normal;color:var(--ng-tx2)}
+.ng-pack__list i{font:500 11px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;font-style:normal;color:var(--ng-tx2)}
 .ng-pack__list li.is-on b,.ng-pack__list li.is-on i{color:var(--ng-lime)}
 .ng-pack__stage{grid-column:7/span 6}
 .ng-pack__card{position:relative;margin:0 0 0 auto;max-width:min(100%,calc((100svh - 190px) * 30 / 38 + 26px));border:1px solid var(--ng-line2);border-radius:8px;background:var(--ng-s1);padding:12px}
-.ng-pack__top,.ng-pack__foot{display:flex;justify-content:space-between;gap:12px;font:500 10.5px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2)}
+.ng-pack__top,.ng-pack__foot{display:flex;justify-content:space-between;gap:12px;font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2)}
 .ng-pack__top{padding:2px 2px 12px}
 .ng-pack__top b{font-weight:500;color:var(--ng-lime)}
 .ng-pack__foot{padding:12px 2px 2px}
@@ -138,11 +139,11 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-pack__hd{position:absolute;top:0;bottom:0;left:var(--ng-split,100%);width:0;pointer-events:none}
 .ng-pack__hd::before{content:"";position:absolute;top:0;bottom:0;left:-1px;width:2px;background:var(--ng-lime);box-shadow:0 0 14px rgba(200,255,0,.7)}
 .ng-pack__hd span{position:absolute;top:50%;left:0;translate:-50% -50%;width:44px;height:44px;border-radius:50%;background:var(--ng-lime);color:#0A0B0D;display:grid;place-items:center;font:600 14px/1 var(--ng-mono);box-shadow:0 6px 24px rgba(0,0,0,.5)}
-.ng-pack__lbl{position:absolute;top:12px;font:500 10px/1 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;padding:7px 8px;border-radius:3px;background:rgba(10,11,13,.78);color:var(--ng-tx);pointer-events:none}
+.ng-pack__lbl{position:absolute;top:12px;font:500 11px/1 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;padding:7px 8px;border-radius:3px;background:rgba(10,11,13,.78);color:var(--ng-tx);pointer-events:none}
 .ng-pack__lbl--l{left:12px}.ng-pack__lbl--r{right:12px;color:var(--ng-lime)}
 .ng-pack__aoi{position:absolute;width:0;height:0;pointer-events:none}
 .ng-pack__aoi::before{content:"";position:absolute;left:-15px;top:-15px;width:28px;height:28px;border:1.5px solid var(--ng-lime);border-radius:50%;opacity:0;transform:scale(.4);transition:opacity .4s,transform .6s var(--ng-ease)}
-.ng-pack__aoi em{position:absolute;left:20px;top:-9px;font:500 10px/1 var(--ng-mono);font-style:normal;letter-spacing:.1em;color:#0A0B0D;background:var(--ng-lime);padding:4px 5px;border-radius:2px;opacity:0;transition:opacity .4s}
+.ng-pack__aoi em{position:absolute;left:20px;top:-9px;font:500 11px/1 var(--ng-mono);font-style:normal;letter-spacing:.1em;color:#0A0B0D;background:var(--ng-lime);padding:4px 5px;border-radius:2px;opacity:0;transition:opacity .4s}
 .ng-pack__aoi--l em{left:auto;right:20px}
 .ng-pack__aoi.is-on::before{opacity:1;transform:none}
 .ng-pack__aoi.is-on em{opacity:1}

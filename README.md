@@ -27,6 +27,14 @@ Composición y rendimiento:
 - **Cierre:** al terminar el capítulo 05 la escena se funde y entra la sección de contacto.
 - **Móvil:** 6 000 partículas (16 000 en escritorio), escena centrada y escalada, y opacidad de 35 % mientras hay texto encima. Con `prefers-reduced-motion` la escena queda quieta y solo cambia con el scroll. En móvil se usan menos partículas y menor resolución. Sin WebGL se muestran `img/story/cap-1…5.webp`, que son capturas de la propia escena. El azul, violeta, cian y dorado se usan solo en la atmósfera 3D: la interfaz mantiene el negro y el lima de la marca.
 
+## Responsive
+
+Breakpoints: ≤575 (teléfono), 576–767 (tablet vertical), 768–991 (tablet horizontal), 992–1199 (laptop) y ≥1200 (escritorio).
+- **Navegación:** horizontal desde 992 px. Por debajo hay un menú hamburguesa accesible: `aria-expanded`/`aria-controls`, foco atrapado, cierre con Escape y el foco vuelve al botón que lo abrió. La barra fija mide 64 px en teléfonos y se oculta al bajar.
+- **Grillas:** las de 3 o más columnas pasan a 2 en tablet y a 1 en teléfono.
+- **Tamaños:** los textos mínimos son de 11 px y todas las áreas táctiles miden al menos 44 × 44 px.
+- **Revisión:** se revisa sin scroll horizontal en 320, 360, 390, 414, 768, 820, 1024, 1280, 1440 y 1920 px de ancho, en las 4 páginas y en el archivo único.
+
 ## Estructura
 
 ```

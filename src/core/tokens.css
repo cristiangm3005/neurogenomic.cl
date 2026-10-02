@@ -109,7 +109,7 @@ html.lenis,html.lenis body{height:auto}
 .ng-media img.ng-is-missing{opacity:0}
 .ng-media[data-ph]::before{
   content:attr(data-ph);position:absolute;inset:0;display:flex;align-items:flex-end;padding:14px 16px;
-  font:500 10px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);
+  font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);
   background:
     linear-gradient(var(--ng-line) 1px,transparent 1px) 0 0/40px 40px,
     linear-gradient(90deg,var(--ng-line) 1px,transparent 1px) 0 0/40px 40px,
@@ -118,8 +118,11 @@ html.lenis,html.lenis body{height:auto}
 .ng-media[data-ph]:has(img:not(.ng-is-missing))::before{opacity:0}
 
 /* Grano fotográfico */
-.ng-noise{position:fixed;inset:-50%;width:200%;height:200%;pointer-events:none;z-index:9997;opacity:.035;
+.ng-noise{position:fixed;inset:0;pointer-events:none;z-index:9997;opacity:.035;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* Con la escena WebGL el grano no aporta y suma una capa de composición a pantalla completa */
+html.ng-has-story .ng-noise{display:none}
 
 /* Sección con transición de fondo (opacidad de una capa de superficie) */
 .ng-sec[data-ng-bg]::before{content:"";position:absolute;inset:0;background:var(--ng-s1);opacity:var(--ng-bgo,1);z-index:-1;pointer-events:none}

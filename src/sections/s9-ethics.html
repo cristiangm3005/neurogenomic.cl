@@ -110,6 +110,8 @@ NG.boot('[data-ng="ethics"]', function (sec) {
       ttl.to(shapes, { strokeDashoffset: 0, duration: .9, stagger: .12, ease: 'power2.inOut' }, i * .18)
          .from(t.querySelectorAll('h4,p'), { autoAlpha: 0, y: 10, duration: .6, stagger: .08 }, i * .18 + .2);
     });
+    // Al terminar, se quitan los guiones del trazo: íconos estáticos y sin repintados costosos
+    ttl.eventCallback('onComplete', function () { gsap.set(sec.querySelectorAll('.ng-trust__i svg *'), { clearProps: 'strokeDasharray,strokeDashoffset' }); });
     ScrollTrigger.create({ trigger: sec.querySelector('.ng-trust'), start: 'top 85%', once: true, onEnter: function () { ttl.play(); } });
     sec.querySelectorAll('.ng-log').forEach(function (log) {
       var no = log.classList.contains('ng-log--no');
