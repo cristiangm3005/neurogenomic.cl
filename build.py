@@ -590,7 +590,7 @@ def build_elementor_json():
     for key, pg in PAGES.items():
         content = [block("Núcleo Neurogenomic (no borrar)", nucleo)]
         for sec in pg["sections"]:
-            css, body = split_block(render(read(f"sections/{sec}.html"), URLS_WP, IMG_CDN, key, section_number(key, sec)))
+            css, body = split_block(inline_posters(render(read(f"sections/{sec}.html"), URLS_WP, IMG_CDN, key, section_number(key, sec)), IMG_CDN))
             n = section_number(key, sec)
             pre = f"<script>{js('three.min.js')}</script>\n" if sec == "x-story" else ""  # Three.js va con la capa 3D
             content.append(block((f"{n:02d} · " if n else "") + TITLES.get(sec, sec), pre + "<style>\n" + min_css(css) + "\n</style>\n" + body))
@@ -631,6 +631,16 @@ def build_images_md():
     (ROOT / "IMAGENES.md").write_text("\n".join(rows) + "\n", encoding="utf-8")
 
 
+def inline_posters(s, prefix):
+    """Incrusta como data URI las imágenes de respaldo de la historia 3D (capítulos y hero, escritorio y móvil).
+    Así aparecen siempre: sin WebGL, en el editor de Elementor o si la CDN no responde."""
+    import base64
+    def rep(m):
+        f = ROOT / "img" / m.group(2)
+        return f'{m.group(1)}="data:image/webp;base64,{base64.b64encode(f.read_bytes()).decode()}"' if f.exists() else m.group(0)
+    return re.sub(r'(src|srcset)="' + re.escape(prefix) + r'((?:story/cap-\d|el/el-(?:cap\d|hero)(?:-movil)?)\.webp)"', rep, s)
+
+
 def build_standalone(src="index.html", out="neurogenomic-index.html"):
     """Versión de un solo archivo: imágenes incrustadas (WebP ≤1600 px) para abrir sin la carpeta img/."""
     import base64
@@ -663,10 +673,7 @@ def build_standalone(src="index.html", out="neurogenomic-index.html"):
     s = re.sub(r"<picture>.*?</picture>", repl, s, flags=re.S)
     s = re.sub(r'<link rel="preload" as="image"[^>]*>', "", s)
     # Imágenes de respaldo de la historia 3D (solo se ven sin WebGL)
-    def poster(m):
-        f = ROOT / m.group(1)
-        return f'src="data:image/webp;base64,{base64.b64encode(f.read_bytes()).decode()}"' if f.exists() else m.group(0)
-    s = re.sub(r'src="(img/story/[^"]+)"', poster, s)
+    s = inline_posters(s, "img/")
     # Cuadros de la demostración scroll-driven incrustados (si la página la usa)
     if 'data-ng="demo"' in s:
         frames = sorted((ROOT / "img" / "seq").glob("f_*.webp"))

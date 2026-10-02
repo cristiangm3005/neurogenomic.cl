@@ -323,7 +323,9 @@ radial-gradient(30% 25% at 50% 110%,rgba(0,190,255,.10),transparent 70%)}
 @keyframes ng-grad{to{background-position:-260% 0}}
 @media (prefers-reduced-motion:reduce){.ng-btn--grad{animation:none}}
 .ng-ch__poster{display:none}
-html.ng-no3d .ng-ch__poster{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;z-index:-1}
+html.ng-no3d .ng-ch__poster{display:block;position:absolute;inset:0 0 auto 0;width:100%;height:100vh;height:100svh;max-height:100%;object-fit:cover;opacity:.75;z-index:-1;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
+html.ng-no3d .ng-hero__poster{opacity:.5}
+html.ng-no3d .ng-ch,html.ng-no3d .ng-hero{position:relative;isolation:isolate}
 @media (max-width:767px){
 .ng-ch{min-height:0;padding:72svh 0 18svh}
 .ng-ch__txt{position:relative;top:auto;background:rgba(10,10,15,.72)}
@@ -1423,7 +1425,7 @@ NG.boot('[data-ng="story"]', function (layer) {
     var vh = innerHeight, list = chs(), st = 0, best = 0, side = 0, cur = 0;
     list.forEach(function (el) {
       var k = +el.getAttribute('data-ng-ch'), r = el.getBoundingClientRect();
-      if (k >= 2) st += NG.clamp((vh * .95 - r.top) / (vh * .9), 0, 1);
+      if (k >= 2) st += NG.clamp((vh * 1.05 - r.top) / (vh * .6), 0, 1); // la figura ya está formada cuando el capítulo entra en pantalla
       var vis = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0)) / vh;
       if (vis > best) { best = vis; side = el.getAttribute('data-side') === 'right' ? -1 : 1; }
       if (r.top < vh * .6) cur = k;
@@ -1809,6 +1811,7 @@ NG.boot('[data-ng="story"]', function (layer) {
 });
 </script>
 <section class="ng-sec ng-hero" id="inicio" aria-labelledby="ng-hero-title" data-ng="hero">
+  <picture><source media="(max-width:767px)" srcset="img/el/el-hero-movil.webp"><img class="ng-ch__poster ng-hero__poster" src="img/el/el-hero.webp" alt="" decoding="async" aria-hidden="true"></picture>
   <div class="ng-hero__quote"><p>Todos miran.<br>Nosotros medimos.</p></div>
   <div class="ng-hero__hud" aria-hidden="true">
     <span class="ng-hero__tl"><span class="ng-rec">REC</span><span class="ng-hero__ts">00:00:00.000</span></span>
@@ -1859,7 +1862,7 @@ NG.boot('[data-ng="hero"]', function (sec) {
 });
 </script>
 <section class="ng-sec ng-ch" id="cap-neurona" data-ng-ch="1" data-side="right" aria-labelledby="cap-neurona-t">
-  <img class="ng-ch__poster" src="img/story/cap-1.webp" alt="" loading="lazy" decoding="async" aria-hidden="true">
+  <picture><source media="(max-width:767px)" srcset="img/el/el-cap1-movil.webp"><img class="ng-ch__poster" src="img/story/cap-1.webp" alt="" decoding="async" aria-hidden="true"></picture>
   <div class="ng-wrap">
     <div class="ng-ch__txt" data-ng-chtxt>
       <p class="ng-ch__k"><b>Capítulo 01 / 05</b><span>Origen neuronal</span></p>
@@ -1882,7 +1885,7 @@ NG.boot('[data-ng-ch="1"]', function () {
 });
 </script>
 <section class="ng-sec ng-ch" id="cap-senales" data-ng-ch="2" data-side="left" aria-labelledby="cap-senales-t">
-  <img class="ng-ch__poster" src="img/story/cap-2.webp" alt="" loading="lazy" decoding="async" aria-hidden="true">
+  <picture><source media="(max-width:767px)" srcset="img/el/el-cap2-movil.webp"><img class="ng-ch__poster" src="img/story/cap-2.webp" alt="" decoding="async" aria-hidden="true"></picture>
   <div class="ng-wrap">
     <div class="ng-ch__txt" data-ng-chtxt>
       <p class="ng-ch__k"><b>Capítulo 02 / 05</b><span>Señales y comportamiento</span></p>
@@ -2304,7 +2307,7 @@ NG.boot('[data-ng="said"]', function (sec) {
 });
 </script>
 <section class="ng-sec ng-ch" id="cap-datos" data-ng-ch="3" data-side="right" aria-labelledby="cap-datos-t">
-  <img class="ng-ch__poster" src="img/story/cap-3.webp" alt="" loading="lazy" decoding="async" aria-hidden="true">
+  <picture><source media="(max-width:767px)" srcset="img/el/el-cap3-movil.webp"><img class="ng-ch__poster" src="img/story/cap-3.webp" alt="" decoding="async" aria-hidden="true"></picture>
   <div class="ng-wrap">
     <div class="ng-ch__txt" data-ng-chtxt>
       <p class="ng-ch__k"><b>Capítulo 03 / 05</b><span>Centro de datos e IA</span></p>
@@ -2712,7 +2715,7 @@ NG.boot('[data-ng="ethics"]', function (sec) {
 });
 </script>
 <section class="ng-sec ng-ch" id="cap-estrategia" data-ng-ch="4" data-side="left" aria-labelledby="cap-estrategia-t">
-  <img class="ng-ch__poster" src="img/story/cap-4.webp" alt="" loading="lazy" decoding="async" aria-hidden="true">
+  <picture><source media="(max-width:767px)" srcset="img/el/el-cap4-movil.webp"><img class="ng-ch__poster" src="img/story/cap-4.webp" alt="" decoding="async" aria-hidden="true"></picture>
   <div class="ng-wrap">
     <div class="ng-ch__txt" data-ng-chtxt>
       <p class="ng-ch__k"><b>Capítulo 04 / 05</b><span>Del insight a la estrategia</span></p>
@@ -2962,7 +2965,7 @@ NG.boot('[data-ng="case"]', function (sec) {
 });
 </script>
 <section class="ng-sec ng-ch" id="cap-consumidor" data-ng-ch="5" data-side="right" aria-labelledby="cap-consumidor-t">
-  <img class="ng-ch__poster" src="img/story/cap-5.webp" alt="" loading="lazy" decoding="async" aria-hidden="true">
+  <picture><source media="(max-width:767px)" srcset="img/el/el-cap5-movil.webp"><img class="ng-ch__poster" src="img/story/cap-5.webp" alt="" decoding="async" aria-hidden="true"></picture>
   <div class="ng-wrap">
     <div class="ng-ch__txt" data-ng-chtxt>
       <p class="ng-ch__k"><b>Capítulo 05 / 05</b><span>Consumidor y experiencia</span></p>

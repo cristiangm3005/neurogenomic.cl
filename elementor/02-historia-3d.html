@@ -186,7 +186,9 @@ radial-gradient(30% 25% at 50% 110%,rgba(0,190,255,.10),transparent 70%)}
 @keyframes ng-grad{to{background-position:-260% 0}}
 @media (prefers-reduced-motion:reduce){.ng-btn--grad{animation:none}}
 .ng-ch__poster{display:none}
-html.ng-no3d .ng-ch__poster{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;z-index:-1}
+html.ng-no3d .ng-ch__poster{display:block;position:absolute;inset:0 0 auto 0;width:100%;height:100vh;height:100svh;max-height:100%;object-fit:cover;opacity:.75;z-index:-1;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
+html.ng-no3d .ng-hero__poster{opacity:.5}
+html.ng-no3d .ng-ch,html.ng-no3d .ng-hero{position:relative;isolation:isolate}
 @media (max-width:767px){
 .ng-ch{min-height:0;padding:72svh 0 18svh}
 .ng-ch__txt{position:relative;top:auto;background:rgba(10,10,15,.72)}
@@ -528,7 +530,7 @@ NG.boot('[data-ng="story"]', function (layer) {
     var vh = innerHeight, list = chs(), st = 0, best = 0, side = 0, cur = 0;
     list.forEach(function (el) {
       var k = +el.getAttribute('data-ng-ch'), r = el.getBoundingClientRect();
-      if (k >= 2) st += NG.clamp((vh * .95 - r.top) / (vh * .9), 0, 1);
+      if (k >= 2) st += NG.clamp((vh * 1.05 - r.top) / (vh * .6), 0, 1); // la figura ya está formada cuando el capítulo entra en pantalla
       var vis = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0)) / vh;
       if (vis > best) { best = vis; side = el.getAttribute('data-side') === 'right' ? -1 : 1; }
       if (r.top < vh * .6) cur = k;
