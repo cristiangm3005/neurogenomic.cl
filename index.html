@@ -328,11 +328,11 @@ opacity:.92;transform-origin:65% 45%;animation:ng-poster 22s ease-in-out infinit
 @keyframes ng-poster{0%{transform:scale(1.02) translate3d(0,0,0);filter:brightness(.95) saturate(1.05)}50%{filter:brightness(1.12) saturate(1.15)}100%{transform:scale(1.09) translate3d(-1.2%,-1%,0);filter:brightness(1) saturate(1.1)}}
 .ng-hero__poster{opacity:.85}
 html.ng-3d-live .ng-ch__poster{opacity:0;visibility:hidden}
-@media (max-width:767px){.ng-hero__poster{opacity:.3}}
+@media (max-width:767px), (max-width:1023px) and (orientation:portrait){.ng-hero__poster{opacity:.45}}
 html:not(.ng-js) .ng-story__load{display:none}
 @media (prefers-reduced-motion:reduce){.ng-ch__poster{animation:none}}
 html.ng-no3d .ng-ch,html.ng-no3d .ng-hero{position:relative;isolation:isolate}
-@media (max-width:767px){
+@media (max-width:767px), (max-width:1023px) and (orientation:portrait){
 .ng-ch{min-height:0;padding:72svh 0 18svh}
 .ng-ch__txt{position:relative;top:auto;background:rgba(10,10,15,.72)}
 .ng-ch[data-side="right"] .ng-ch__txt{margin-right:0}
@@ -1448,6 +1448,9 @@ NG.boot('[data-ng="story"]', function (layer) {
   var rail = d.querySelector('.ng-rail'), railA = rail ? [].slice.call(rail.querySelectorAll('a')) : [];
   var motionBtn = d.querySelector('.ng-motion');
   var mobile = !NG.fine || window.innerWidth < 768;
+  // «stack»: celular, o tablet en vertical → escena arriba y tarjeta del capítulo abajo
+  var isStack = function () { var w = innerWidth, h = innerHeight; return w < 768 || (w < 1024 && h > w); };
+  var stack = isStack();
   var chs = function () { return [].slice.call(d.querySelectorAll('[data-ng-ch]')); };
   var hero = d.querySelector('.ng-hero');
 
@@ -1535,11 +1538,12 @@ NG.boot('[data-ng="story"]', function (layer) {
   if ('requestIdleCallback' in window) requestIdleCallback(start, { timeout: 1500 }); else setTimeout(start, 300);
 
   function init() {
-    var T = window.THREE, N = mobile ? 6000 : 16000;
+    var T = window.THREE, N = innerWidth < 768 ? 9000 : (mobile ? 12000 : 16000);
     var renderer;
     try { renderer = new T.WebGLRenderer({ canvas: cv, antialias: false, alpha: true, powerPreference: 'high-performance' }); }
     catch (e) { de.classList.add('ng-no3d'); return; }
-    var DPR = Math.min(window.devicePixelRatio || 1, mobile ? 1.25 : 1.6);
+    // Nitidez: en pantallas táctiles de alta densidad se dibuja a 2× (antes 1,25×, por eso se veía borroso)
+    var DPR = Math.min(window.devicePixelRatio || 1, mobile ? 2 : 1.75);
     renderer.setPixelRatio(DPR);
     var scene = new T.Scene(), camera = new T.PerspectiveCamera(52, 1, .1, 90);
     camera.position.set(0, 0, 8);
@@ -1679,12 +1683,12 @@ NG.boot('[data-ng="story"]', function (layer) {
     geo.setAttribute('aK', new T.BufferAttribute(aK, 4));
     geo.boundingSphere = new T.Sphere(new T.Vector3(), 30);
 
-    var U = { uStage: { value: 0 }, uTime: { value: 0 }, uSize: { value: mobile ? 0.1 : 0.078 }, uPix: { value: 400 }, uAlpha: { value: 1 }, uMouse: { value: new T.Vector3(99, 99, 0) }, uMouseOn: { value: 0 }, uFocus: { value: 12.5 }, uGap: { value: new T.Vector3(gap[0], gap[1], gap[2]) } };
+    var U = { uStage: { value: 0 }, uTime: { value: 0 }, uSize: { value: mobile ? 0.085 : 0.078 }, uSharp: { value: mobile ? 1.05 : 1.7 }, uBokeh: { value: mobile ? .3 : 1 }, uPix: { value: 400 }, uAlpha: { value: 1 }, uMouse: { value: new T.Vector3(99, 99, 0) }, uMouseOn: { value: 0 }, uFocus: { value: 12.5 }, uGap: { value: new T.Vector3(gap[0], gap[1], gap[2]) } };
     var mat = new T.ShaderMaterial({
       uniforms: U, transparent: true, depthWrite: false, blending: T.AdditiveBlending,
       vertexShader: [
         'attribute vec3 p0;attribute vec3 p1;attribute vec3 p2;attribute vec3 p3;attribute vec3 p4;attribute vec4 aD;attribute vec4 aK;',
-        'uniform float uStage;uniform float uTime;uniform float uSize;uniform float uPix;uniform float uAlpha;uniform vec3 uGap;uniform vec3 uMouse;uniform float uMouseOn;uniform float uFocus;',
+        'uniform float uStage;uniform float uTime;uniform float uSize;uniform float uBokeh;uniform float uPix;uniform float uAlpha;uniform vec3 uGap;uniform vec3 uMouse;uniform float uMouseOn;uniform float uFocus;',
         'varying vec3 vC;varying float vA;float gPulse;',
         'float h1(float n){return fract(sin(n*12.9898)*43758.5453);}',
         'vec3 thermal(float v){vec3 a=vec3(.12,.3,.95),b=vec3(.2,.9,1.),c=vec3(.8,1.,.1),d=vec3(1.,.6,.12),e=vec3(1.,.2,.12);',
@@ -1735,14 +1739,14 @@ NG.boot('[data-ng="story"]', function (layer) {
         ' pos.xy+=dv/(md+.001)*inf*.38;vC+=vec3(.55,1.,.15)*inf*.9;vA+=inf*.25*uAlpha;',
         ' vec4 mv=modelViewMatrix*vec4(pos,1.);gl_Position=projectionMatrix*mv;',
         /* Niebla exp² (equivalente a FogExp2 .025) + bokeh: fuera del plano de foco, punto más grande y tenue */
-        ' float dist=-mv.z;float fog=exp(-pow(dist*.025,2.));float blur=clamp(abs(dist-uFocus)/7.,0.,1.);',
+        ' float dist=-mv.z;float fog=exp(-pow(dist*.025,2.));float blur=clamp(abs(dist-uFocus)/7.,0.,1.)*uBokeh;',
         ' vA*=fog*(1.-blur*.55);',
         ' float pl=pA*(1.-ff);',
         ' gl_PointSize=uSize*(.55+aD.x*.9)*(1.+pl*1.8)*(1.+blur*1.4)*uPix/max(.5,dist);}'
       ].join('\n'),
       fragmentShader: [
-        'varying vec3 vC;varying float vA;',
-        'void main(){vec2 c=gl_PointCoord-.5;float d=length(c);if(d>.5)discard;float a=pow(1.-d*2.,1.7)*vA;gl_FragColor=vec4(vC,a);}'
+        'uniform float uSharp;varying vec3 vC;varying float vA;',
+        'void main(){vec2 c=gl_PointCoord-.5;float d=length(c);if(d>.5)discard;float a=pow(1.-d*2.,uSharp)*vA;gl_FragColor=vec4(vC,a);}'
       ].join('\n')
     });
     var pts = new T.Points(geo, mat); group.add(pts);
@@ -1772,7 +1776,9 @@ NG.boot('[data-ng="story"]', function (layer) {
 
     /* --- Cámara y composición por etapa --- */
     var CAMZ = [12.5, 12.6, 12.8, 13, 12.2], OFFS = [3.2, 2.8, 3.1, 3.0, 3.3], ROTX = [.08, .02, .06, .28, .12], CAMY = [0, 0, .1, .25, .35];
-    var cur = { stage: S.stage, alpha: mobile && S.text ? .24 : 1, off: 0, z: 12.5 }, mx = 0, my = 0, tmx = 0, tmy = 0;
+    // Encuadre vertical (celular y tablet en vertical): desplazamiento X, escala y altura por etapa para que cada figura quede entera y centrada
+    var MOFF = [1.8, 0, 0, 0, 0], MSC = [.5, .6, .55, .5, .5], MY = [1.7, 1.5, 1.4, 1.2, 1.3];
+    var cur = { stage: S.stage, alpha: 1, off: 0, z: 12.5 }, mx = 0, my = 0, tmx = 0, tmy = 0;
     var ray = new T.Raycaster(), ndc = new T.Vector2(), plane = new T.Plane(), hit = new T.Vector3(), nrm = new T.Vector3(), mouseIn = 0, mouseT = 0;
     if (NG.fine) {
       addEventListener('pointermove', function (e) { tmx = e.clientX / innerWidth - .5; tmy = e.clientY / innerHeight - .5; ndc.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1); mouseIn = 1; kick(); }, { passive: true });
@@ -1788,7 +1794,7 @@ NG.boot('[data-ng="story"]', function (layer) {
     var size = function () {
       var w = innerWidth, h = innerHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
       U.uPix.value = h * DPR * .5 / Math.tan(camera.fov * Math.PI / 360);
-      mobile = !NG.fine || w < 768;
+      mobile = !NG.fine || w < 768; stack = isStack();
     };
     size(); addEventListener('resize', size);
 
@@ -1801,13 +1807,17 @@ NG.boot('[data-ng="story"]', function (layer) {
       var k = paused ? 1 : 1 - Math.pow(1 - .085, dt * 60); // suavizado independiente de los FPS
       cur.stage += (S.stage - cur.stage) * k;
       var tgtAlpha = .28 + .72 * NG.clamp((S.focus - .12) / .45, 0, 1);
-      if (mobile && S.text) tgtAlpha = Math.min(tgtAlpha, S.side > 1.1 ? .14 : .24); // en el hero móvil el titular ocupa toda la pantalla
-      if (!mobile && S.side > 1.1 && innerWidth < 1200) tgtAlpha = Math.min(tgtAlpha, .6); // laptop: el titular del hero manda // en móvil, el texto manda: la escena baja a 35 %
+      // Celular/tablet vertical: en los capítulos la escena va arriba y el texto abajo, así que no se atenúa; en el hero baja un poco para que el titular se lea
+      if (stack && S.text && S.side > 1.1) tgtAlpha = Math.min(tgtAlpha, .42);
+      if (!stack && S.side > 1.1 && innerWidth < 1200) tgtAlpha = Math.min(tgtAlpha, .6); // laptop: el titular del hero manda // en móvil, el texto manda: la escena baja a 35 %
       cur.alpha += (tgtAlpha - cur.alpha) * k;
-      var tgtOff = mobile ? 0 : S.side * ip(OFFS, cur.stage);
+      // Encuadre por dispositivo: horizontal = escena al lado de la tarjeta; vertical = escena centrada en la parte de arriba
+      var aspK = NG.clamp(camera.aspect / 1.78, .55, 1);
+      var tgtOff = stack ? ip(MOFF, cur.stage) : S.side * ip(OFFS, cur.stage) * aspK;
       cur.off += (tgtOff - cur.off) * k * .8;
       var tz = ip(CAMZ, cur.stage);
-      group.scale.setScalar(mobile ? .62 : 1);
+      group.scale.setScalar(stack ? ip(MSC, cur.stage) * (innerWidth < 768 ? 1 : 1.25) : .82 + .18 * aspK);
+      group.position.y = stack ? ip(MY, cur.stage) : 0;
       cur.z += (tz - cur.z) * k;
       mx += (tmx - mx) * .05; my += (tmy - my) * .05;
       U.uStage.value = cur.stage; U.uTime.value = time; U.uAlpha.value = cur.alpha; U.uFocus.value = cur.z;
@@ -1855,7 +1865,7 @@ NG.boot('[data-ng="story"]', function (layer) {
 });
 </script>
 <section class="ng-sec ng-hero" id="inicio" aria-labelledby="ng-hero-title" data-ng="hero">
-  <picture><source media="(max-width:767px)" srcset="img/story/p-hero-movil.webp"><img class="ng-ch__poster ng-hero__poster" src="img/story/p-hero.webp" alt="" decoding="async" aria-hidden="true"></picture>
+  <picture><source media="(max-width:767px), (max-width:1023px) and (orientation:portrait)" srcset="img/story/p-hero-movil.webp"><img class="ng-ch__poster ng-hero__poster" src="img/story/p-hero.webp" alt="" decoding="async" aria-hidden="true"></picture>
   <div class="ng-hero__quote"><p>Todos miran.<br>Nosotros medimos.</p></div>
   <div class="ng-hero__hud" aria-hidden="true">
     <span class="ng-hero__tl"><span class="ng-rec">REC</span><span class="ng-hero__ts">00:00:00.000</span></span>
@@ -1906,7 +1916,7 @@ NG.boot('[data-ng="hero"]', function (sec) {
 });
 </script>
 <section class="ng-sec ng-ch" id="cap-neurona" data-ng-ch="1" data-side="right" aria-labelledby="cap-neurona-t">
-  <picture><source media="(max-width:767px)" srcset="img/story/p-cap1-movil.webp"><img class="ng-ch__poster" src="img/story/p-cap1.webp" alt="" decoding="async" aria-hidden="true"></picture>
+  <picture><source media="(max-width:767px), (max-width:1023px) and (orientation:portrait)" srcset="img/story/p-cap1-movil.webp"><img class="ng-ch__poster" src="img/story/p-cap1.webp" alt="" decoding="async" aria-hidden="true"></picture>
   <div class="ng-wrap">
     <div class="ng-ch__txt" data-ng-chtxt>
       <p class="ng-ch__k"><b>Capítulo 01 / 05</b><span>Origen neuronal</span></p>
@@ -1922,7 +1932,7 @@ NG.boot('[data-ng="hero"]', function (sec) {
 NG.boot('[data-ng-ch="1"]', NG.chReveal);
 </script>
 <section class="ng-sec ng-ch" id="cap-senales" data-ng-ch="2" data-side="left" aria-labelledby="cap-senales-t">
-  <picture><source media="(max-width:767px)" srcset="img/story/p-cap2-movil.webp"><img class="ng-ch__poster" src="img/story/p-cap2.webp" alt="" decoding="async" aria-hidden="true"></picture>
+  <picture><source media="(max-width:767px), (max-width:1023px) and (orientation:portrait)" srcset="img/story/p-cap2-movil.webp"><img class="ng-ch__poster" src="img/story/p-cap2.webp" alt="" decoding="async" aria-hidden="true"></picture>
   <div class="ng-wrap">
     <div class="ng-ch__txt" data-ng-chtxt>
       <p class="ng-ch__k"><b>Capítulo 02 / 05</b><span>Señales y comportamiento</span></p>
@@ -2349,7 +2359,7 @@ NG.boot('[data-ng="said"]', function (sec) {
 });
 </script>
 <section class="ng-sec ng-ch" id="cap-datos" data-ng-ch="3" data-side="right" aria-labelledby="cap-datos-t">
-  <picture><source media="(max-width:767px)" srcset="img/story/p-cap3-movil.webp"><img class="ng-ch__poster" src="img/story/p-cap3.webp" alt="" decoding="async" aria-hidden="true"></picture>
+  <picture><source media="(max-width:767px), (max-width:1023px) and (orientation:portrait)" srcset="img/story/p-cap3-movil.webp"><img class="ng-ch__poster" src="img/story/p-cap3.webp" alt="" decoding="async" aria-hidden="true"></picture>
   <div class="ng-wrap">
     <div class="ng-ch__txt" data-ng-chtxt>
       <p class="ng-ch__k"><b>Capítulo 03 / 05</b><span>Centro de datos e IA</span></p>
@@ -2762,7 +2772,7 @@ NG.boot('[data-ng="ethics"]', function (sec) {
 });
 </script>
 <section class="ng-sec ng-ch" id="cap-estrategia" data-ng-ch="4" data-side="left" aria-labelledby="cap-estrategia-t">
-  <picture><source media="(max-width:767px)" srcset="img/story/p-cap4-movil.webp"><img class="ng-ch__poster" src="img/story/p-cap4.webp" alt="" decoding="async" aria-hidden="true"></picture>
+  <picture><source media="(max-width:767px), (max-width:1023px) and (orientation:portrait)" srcset="img/story/p-cap4-movil.webp"><img class="ng-ch__poster" src="img/story/p-cap4.webp" alt="" decoding="async" aria-hidden="true"></picture>
   <div class="ng-wrap">
     <div class="ng-ch__txt" data-ng-chtxt>
       <p class="ng-ch__k"><b>Capítulo 04 / 05</b><span>Del insight a la estrategia</span></p>
@@ -3017,7 +3027,7 @@ NG.boot('[data-ng="case"]', function (sec) {
 });
 </script>
 <section class="ng-sec ng-ch" id="cap-consumidor" data-ng-ch="5" data-side="right" aria-labelledby="cap-consumidor-t">
-  <picture><source media="(max-width:767px)" srcset="img/story/p-cap5-movil.webp"><img class="ng-ch__poster" src="img/story/p-cap5.webp" alt="" decoding="async" aria-hidden="true"></picture>
+  <picture><source media="(max-width:767px), (max-width:1023px) and (orientation:portrait)" srcset="img/story/p-cap5-movil.webp"><img class="ng-ch__poster" src="img/story/p-cap5.webp" alt="" decoding="async" aria-hidden="true"></picture>
   <div class="ng-wrap">
     <div class="ng-ch__txt" data-ng-chtxt>
       <p class="ng-ch__k"><b>Capítulo 05 / 05</b><span>Consumidor y experiencia</span></p>
