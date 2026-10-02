@@ -19,7 +19,8 @@
   var CDN = {
     gsap: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',
     st: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',
-    lenis: 'https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js'
+    lenis: 'https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js',
+    three: 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'
   };
   function load(src) {
     return new Promise(function (res, rej) {
@@ -37,6 +38,8 @@
       d.head.appendChild(s);
     });
   }
+
+  NG.load = load; NG.CDN = CDN;
 
   /* --- Carga de librerías + Lenis ------------------------------------ */
   var readyP = null;

@@ -12,6 +12,7 @@ Recortes de las piezas de campaña de Neurogenomic, sin el texto incrustado. Se 
 | `ng-box-b-600/1200` | 1200×1520 | «Tu packaging tiene una mirada para ganar»: comparador foto ⇄ mapa de calor (render fotográfico) |
 | `ng-phone-600/920` | 920×1070 | CTA final: tienda ficticia en un teléfono (render fotográfico) |
 | `seq/f_000…079.webp` | 80 cuadros | «Así mira tu cliente»: demo scroll-driven |
+| `story/cap-1…5.webp` | 1280×800 | Respaldo de la historia 3D cuando el navegador no tiene WebGL (capturas de la propia escena) |
 
 Los renders `ng-*` se generan con Blender/Cycles a partir de `render/`. Las capas de eye tracking se ubican con las coordenadas proyectadas que guarda `src/data/*.json`: si cambias un render, vuelve a copiar su JSON.
 

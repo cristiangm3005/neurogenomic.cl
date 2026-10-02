@@ -1,14 +1,9 @@
 <style>
-/* ---------- S1 · HERO · "Todos miran. Nosotros medimos." · fijación sobre el ojo + scanpath ---------- */
-.ng-hero{min-height:78vh;min-height:78svh;display:flex;align-items:flex-end;padding:96px 0 clamp(40px,5vw,72px);background:#000;border-top:1px solid var(--ng-line)}
-.ng-hero__quote{position:absolute;right:var(--ng-gut);top:50%;translate:0 -50%;display:flex;gap:16px;align-items:stretch;z-index:1}
+/* ---------- S1 · HERO · "Todos miran. Nosotros medimos." · texto sobre la neurona 3D (capa de la historia) ---------- */
+.ng-hero{min-height:88vh;min-height:88svh;display:flex;align-items:flex-end;padding:96px 0 clamp(40px,5vw,72px);background:#000;border-top:1px solid var(--ng-line)}
+.ng-hero__quote{position:absolute;right:var(--ng-gut);bottom:clamp(48px,7vh,88px);display:flex;gap:16px;align-items:stretch;z-index:1}
 .ng-hero__quote::before{content:"";flex:0 0 6px;background:var(--ng-tx)}
 .ng-hero__quote p{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(26px,2.6vw,46px);line-height:.95;color:var(--ng-lime)}
-.ng-hero__reticle{position:absolute;left:0;top:0;width:120px;height:120px;margin:-60px 0 0 -60px;pointer-events:none;z-index:2;opacity:0;will-change:transform}
-.ng-hero__reticle circle{fill:none;stroke:var(--ng-lime);vector-effect:non-scaling-stroke}
-.ng-hero__reticle line{stroke:var(--ng-lime);stroke-width:1}
-.ng-hero__reticle text{font-family:var(--ng-mono);font-size:10px;letter-spacing:1px;fill:var(--ng-lime)}
-.ng-hero__trail{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
 .ng-hero__hud{position:absolute;inset:18px var(--ng-gut) 18px;pointer-events:none;font:500 11px/1.5 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx)}
 .ng-hero__hud>span{position:absolute;display:flex;gap:14px;align-items:center;text-shadow:0 1px 8px rgba(0,0,0,.6)}
 .ng-hero__hud .ng-hero__tl{top:0;left:0}.ng-hero__hud .ng-hero__tr{top:0;right:0}.ng-hero__hud .ng-hero__br{bottom:0;right:0}
@@ -31,23 +26,14 @@
   .ng-hero__hud .ng-hero__tr,.ng-hero__hud .ng-hero__br{display:none}
 }
 @media (max-width:480px){.ng-hero__ctas .ng-btn{flex:1 1 100%}}
-/* Táctil: sin retícula y con menos fijaciones por segundo (ahorra batería y FPS en equipos modestos) */
-@media (hover:none),(pointer:coarse){.ng-hero__reticle{display:none}}
 </style>
 
 <section class="ng-sec ng-hero" id="inicio" aria-labelledby="ng-hero-title" data-ng="hero">
   <div class="ng-hero__quote"><p>Todos miran.<br>Nosotros medimos.</p></div>
-  <canvas class="ng-hero__trail" aria-hidden="true"></canvas>
-  <svg class="ng-hero__reticle" viewBox="0 0 120 120" aria-hidden="true">
-    <circle class="ng-hero__r1" cx="60" cy="60" r="26" stroke-width="2"/>
-    <circle class="ng-hero__r2" cx="60" cy="60" r="40" stroke-width="1" stroke-dasharray="3 7" opacity=".8"/>
-    <line x1="60" y1="8" x2="60" y2="24"/><line x1="60" y1="96" x2="60" y2="112"/><line x1="8" y1="60" x2="24" y2="60"/><line x1="96" y1="60" x2="112" y2="60"/>
-    <text x="78" y="20">FIX·<tspan class="ng-hero__fix2">214</tspan></text>
-  </svg>
   <div class="ng-hero__hud" aria-hidden="true">
     <span class="ng-hero__tl"><span class="ng-rec">REC</span><span class="ng-hero__ts">00:00:00.000</span></span>
     <span class="ng-hero__tr">FIX <b class="ng-hero__fix">214ms</b><span>SAMPLE <b>120Hz</b></span></span>
-    <span class="ng-hero__br"><span class="ng-hero__xy">X 0.000 · Y 0.000</span></span>
+    <span class="ng-hero__br">Neurona · sinapsis activa</span>
   </div>
   <div class="ng-wrap ng-hero__content">
     <p class="ng-mono ng-eyebrow ng-hero__eyebrow">Neuroscience-Driven Marketing Optimization</p>
@@ -66,95 +52,15 @@
 
 <script>
 NG.boot('[data-ng="hero"]', function (sec) {
-  var ret = sec.querySelector('.ng-hero__reticle'), fix2 = sec.querySelector('.ng-hero__fix2');
-  var title = sec.querySelector('.ng-hero__title');
-  var ts = sec.querySelector('.ng-hero__ts'), fix = sec.querySelector('.ng-hero__fix'), xy = sec.querySelector('.ng-hero__xy');
-  var cv = NG.canvas(sec.querySelector('.ng-hero__trail'));
+  var title = sec.querySelector('.ng-hero__title'), ts = sec.querySelector('.ng-hero__ts'), fix = sec.querySelector('.ng-hero__fix');
   var t0 = performance.now();
-
-  /* Lecturas "en vivo" */
+  /* Lecturas "en vivo" del HUD (la neurona 3D vive en la capa de la historia, detrás) */
   var pad = function (n, l) { n = String(n); while (n.length < l) n = '0' + n; return n; };
   setInterval(function () {
     var ms = Math.floor(performance.now() - t0);
     ts.textContent = pad(Math.floor(ms / 3600000), 2) + ':' + pad(Math.floor(ms / 60000) % 60, 2) + ':' + pad(Math.floor(ms / 1000) % 60, 2) + '.' + pad(ms % 1000, 3);
   }, NG.rm ? 1000 : 67);
-
-  /* Scanpath: fijaciones que se desvanecen */
-  var fixes = [], LIFE = 2600, last = null, lastMouse = -1e9;
-  var addFix = function (x, y, t) {
-    if (last && Math.hypot(x - last.x, y - last.y) < 38) { last.d = Math.min(last.d + 16, 600); last.t = t; return; }
-    last = { x: x, y: y, t: t, b: t, d: 120 }; fixes.push(last);
-    if (fixes.length > 24) fixes.shift();
-    var v = 180 + Math.round(Math.random() * 90); fix.textContent = v + 'ms'; fix2.textContent = v;
-  };
-  if (NG.fine && !NG.rm) {
-    sec.addEventListener('pointermove', function (e) {
-      if (e.pointerType !== 'mouse') return;
-      var r = sec.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
-      lastMouse = performance.now();
-      addFix(x, y, lastMouse);
-      xy.textContent = 'X ' + (x / r.width).toFixed(3) + ' · Y ' + (y / r.height).toFixed(3);
-    }, { passive: true });
-  }
-  /* Lectura autónoma (sin mouse o en reposo): la mirada recorre el propio titular,
-     como una lectura real: palabra clave → inicio → subtítulo → llamado a la acción */
-  // Selectores (no nodos): el titular se divide en palabras y sus nodos se reemplazan
-  var aoiEls = [
-    ['.ng-hl', .5, .5], ['.ng-hero__title', .12, .25], ['.ng-hero__title', .55, .25], ['.ng-hl', .35, .55],
-    ['.ng-hero__sub', .2, .5], ['.ng-hero__quote', .4, .3], ['.ng-hero__ctas .ng-btn', .4, .5], ['.ng-hero__strip', .3, .5]
-  ];
-  var ai = 0, nextAuto = 0;
-  var toSec = function (a) {
-    var el = sec.querySelector(a[0]) || title, r = el.getBoundingClientRect(), sr = sec.getBoundingClientRect();
-    return [r.left - sr.left + a[1] * r.width, r.top - sr.top + a[2] * r.height];
-  };
-  /* Retícula que sigue la fijación actual con inercia (sacada rápida + asentamiento) */
-  var rx = -200, ry = -200, rs = 1, fn = 0;
-  var draw = function (t) {
-    if (!NG.fine && !NG.rm && (fn++ & 1)) return; // táctil: 30 fps bastan para una estela que se desvanece
-    var c = cv.ctx, w = cv.w, h = cv.h;
-    if (t - lastMouse > 1800 && t > nextAuto) {
-      var a = toSec(aoiEls[ai++ % aoiEls.length]);
-      var x = a[0] + (Math.random() - .5) * 14, y = a[1] + (Math.random() - .5) * 14;
-      addFix(x, y, t); last.d = 140 + Math.random() * 260;
-      nextAuto = t + (NG.fine ? 320 + Math.random() * 520 : 700 + Math.random() * 700);
-      xy.textContent = 'X ' + (x / w).toFixed(3) + ' · Y ' + (y / h).toFixed(3);
-    }
-    if (last && NG.fine) {
-      var k = Math.hypot(last.x - rx, last.y - ry) > 300 ? 1 : .22;
-      rx += (last.x - rx) * k; ry += (last.y - ry) * k;
-      rs += ((.85 + last.d / 900) - rs) * .1;
-      ret.style.transform = 'translate(' + rx.toFixed(1) + 'px,' + ry.toFixed(1) + 'px) scale(' + rs.toFixed(3) + ')';
-      ret.style.opacity = 1;
-    }
-    c.clearRect(0, 0, w, h);
-    var live = fixes.filter(function (f) { return t - f.t < LIFE; });
-    c.lineWidth = 1;
-    for (var i = 1; i < live.length; i++) {
-      var a1 = 1 - (t - live[i].t) / LIFE;
-      c.strokeStyle = 'rgba(200,255,0,' + (a1 * .55).toFixed(3) + ')';
-      c.beginPath(); c.moveTo(live[i - 1].x, live[i - 1].y); c.lineTo(live[i].x, live[i].y); c.stroke();
-    }
-    live.forEach(function (f, i) {
-      var a2 = 1 - (t - f.t) / LIFE, r = 6 + f.d / 22;
-      c.strokeStyle = 'rgba(200,255,0,' + (a2 * .9).toFixed(3) + ')';
-      c.fillStyle = 'rgba(200,255,0,' + (a2 * .12).toFixed(3) + ')';
-      c.beginPath(); c.arc(f.x, f.y, r, 0, 6.283); c.fill(); c.stroke();
-      c.fillStyle = 'rgba(242,243,240,' + (a2 * .8).toFixed(3) + ')';
-      c.font = '500 9px "IBM Plex Mono", monospace';
-      c.fillText(String(i + 1).padStart(2, '0'), f.x + r + 4, f.y - r);
-    });
-  };
-  if (NG.rm) {
-    var place = function () {
-      fixes = []; last = null;
-      aoiEls.forEach(function (a, i) { var p = toSec(a); fixes.push({ x: p[0], y: p[1], t: 0, d: 180 + i * 30 }); });
-      LIFE = Infinity; draw(1);
-    };
-    place(); window.addEventListener('load', place);
-  } else {
-    NG.loop(sec, draw);
-  }
+  if (!NG.rm) setInterval(function () { fix.textContent = (180 + Math.round(Math.random() * 90)) + 'ms'; }, 900);
 
   /* Reveal + parallax del titular */
   NG.ready().then(function (gsap) {
@@ -162,7 +68,6 @@ NG.boot('[data-ng="hero"]', function (sec) {
     var words = NG.split(title);
     gsap.set(words, { yPercent: 115 });
     var rest = sec.querySelectorAll('.ng-hero__eyebrow,.ng-hero__copy>*,.ng-hero__ctas>*,.ng-hero__strip,.ng-hero__quote');
-    gsap.to(ret.querySelector('.ng-hero__r2'), { rotation: 360, svgOrigin: '60 60', duration: 14, repeat: -1, ease: 'none' });
     gsap.set(rest, { autoAlpha: 0, y: 20 });
     NG.afterPreload(function () {
       var tl = gsap.timeline({ delay: .05 });
@@ -170,7 +75,6 @@ NG.boot('[data-ng="hero"]', function (sec) {
         .to(rest, { autoAlpha: 1, y: 0, duration: .9, stagger: .06 }, .35);
     });
     gsap.to(title, { yPercent: -38, ease: 'none', scrollTrigger: { trigger: sec, start: 'top top', end: 'bottom top', scrub: true } });
-    gsap.to(sec.querySelector('.ng-hero__quote'), { yPercent: -60, ease: 'none', scrollTrigger: { trigger: sec, start: 'top top', end: 'bottom top', scrub: true } });
   });
 });
 </script>

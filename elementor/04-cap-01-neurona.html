@@ -1,6 +1,7 @@
-<!-- NEUROGENOMIC · Bloque Elementor «08-metodo»
+<!-- NEUROGENOMIC · Bloque Elementor «04-cap-01-neurona»
      Pegar completo en un widget HTML de Elementor (ancho completo, sin padding).
      Incluye tokens + núcleo NG (idempotentes: pueden repetirse en varios bloques).
+     Nota: Capítulo 01 · Origen neuronal.
      Imágenes: reemplaza /img/ por la URL de la Biblioteca de medios. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -112,35 +113,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-sec *,.ng-nav *,.ng-foot *,.ng-menu *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
 .ng-js .ng-sec[data-ng-bg]{--ng-bgo:1}
 }
-.ng-met{padding:clamp(96px,12vw,180px) 0}
-.ng-met__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:clamp(40px,5vw,72px)}
-.ng-met__head .ng-head{grid-column:1/-1;margin:0}
-.ng-met__head .ng-media{grid-column:8/span 5;aspect-ratio:21/9}
-.ng-met__flow{position:relative}
-.ng-met__more{margin-top:clamp(20px,2.4vw,32px)}
-.ng-met__svg{display:block;width:100%;height:120px;overflow:visible}
-.ng-met__svg path{fill:none;stroke-linecap:round;stroke-linejoin:round}
-.ng-met__base{stroke:var(--ng-line2);stroke-width:1}
-.ng-met__sig{stroke:var(--ng-volt);stroke-width:1.6}
-.ng-met__steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,2vw,32px);margin-top:8px}
-.ng-met__st{position:relative;padding-top:28px;border-top:1px solid var(--ng-line);transition:opacity .5s}
-.ng-met__dot{position:absolute;left:0;top:-6px;width:11px;height:11px;border-radius:50%;background:var(--ng-bg);border:1px solid var(--ng-tx2);transition:background .4s,border-color .4s,box-shadow .4s}
-.ng-met__st.ng-is-on .ng-met__dot{background:var(--ng-lime);border-color:var(--ng-lime);box-shadow:0 0 0 6px rgba(200,255,0,.12)}
-.ng-met__n{font:500 clamp(48px,5vw,84px)/1 var(--ng-mono);letter-spacing:-.04em;color:var(--ng-tx2);transition:color .4s}
-.ng-met__st.ng-is-on .ng-met__n{color:var(--ng-volt)}
-.ng-met__st h3{font-family:var(--ng-ff);font-size:clamp(22px,2vw,30px);line-height:1.1;letter-spacing:-.02em;font-weight:600;margin:18px 0 12px}
-.ng-met__st p{color:var(--ng-tx2);font-size:15px;max-width:34ch}
-.ng-js .ng-met__st:not(.ng-is-on){opacity:.55}
-@media (max-width:1023px){
-.ng-met__head .ng-head,.ng-met__head .ng-media{grid-column:1/-1}
-.ng-met__svg{display:none}
-.ng-met__steps{grid-template-columns:1fr;gap:0;margin-top:0;padding-left:28px;position:relative}
-.ng-met__steps::before{content:"";position:absolute;left:5px;top:0;bottom:0;width:1px;background:var(--ng-line2)}
-.ng-met__vline{position:absolute;left:5px;top:0;bottom:40px;width:1px;background:var(--ng-volt);transform-origin:50% 0}
-.ng-met__st{border-top:0;padding:0 0 40px}
-.ng-met__dot{left:-28px;top:6px}
-}
-@media (min-width:1024px){.ng-met__vline{display:none}}
+
 </style>
 <script>
 /* ==========================================================
@@ -164,7 +137,8 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
   var CDN = {
     gsap: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',
     st: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',
-    lenis: 'https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js'
+    lenis: 'https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js',
+    three: 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'
   };
   function load(src) {
     return new Promise(function (res, rej) {
@@ -182,6 +156,8 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
       d.head.appendChild(s);
     });
   }
+
+  NG.load = load; NG.CDN = CDN;
 
   /* --- Carga de librerías + Lenis ------------------------------------ */
   var readyP = null;
@@ -432,47 +408,26 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
   });
 })();
 </script>
-<section class="ng-sec ng-met" id="metodo" aria-labelledby="ng-met-title" data-ng="method">
+<section class="ng-sec ng-ch" id="cap-neurona" data-ng-ch="1" data-side="right" aria-labelledby="cap-neurona-t">
+  <img class="ng-ch__poster" src="/img/story/cap-1.webp" alt="" loading="lazy" decoding="async" aria-hidden="true">
   <div class="ng-wrap">
-    <div class="ng-met__head">
-      <div class="ng-head">
-        <p class="ng-mono ng-eyebrow">06 · Método</p>
-        <h2 class="ng-h2" id="ng-met-title" data-ng-split>Un proceso, <span class="ng-hl">seis aplicaciones.</span></h2>
-        <p class="ng-met__more" data-ng-reveal><a class="ng-btn" href="/servicios/">Ver los seis servicios <span class="ng-btn__i" aria-hidden="true">→</span></a></p>
-      </div>
-    </div>
-    <div class="ng-met__flow">
-      <svg class="ng-met__svg" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
-        <path class="ng-met__base" d="M0 60 H1200"/>
-        <path class="ng-met__sig" d="M0 60 H120 l10 -6 l8 10 l10 -40 l12 70 l10 -40 l8 6 H420 l10 -8 l8 14 l10 -46 l12 76 l10 -44 l8 8 H720 l10 -6 l8 12 l10 -50 l12 80 l10 -42 l8 6 H1020 l10 -8 l8 10 l10 -44 l12 74 l10 -38 l8 6 H1200"/>
-      </svg>
-      <span class="ng-met__vline" aria-hidden="true"></span>
-      <ol class="ng-met__steps">
-        <li class="ng-met__st"><span class="ng-met__dot" aria-hidden="true"></span><span class="ng-met__n">01</span><h3>Medir</h3><p>Biometría aplicada sobre el estímulo, la marca o el flujo actual: eye tracking, codificación facial, respuesta galvánica.</p></li>
-        <li class="ng-met__st"><span class="ng-met__dot" aria-hidden="true"></span><span class="ng-met__n">02</span><h3>Modelar</h3><p>La IA cruza mirada, gesto y piel con datos de negocio para identificar patrones y anticipar la respuesta del consumidor.</p></li>
-        <li class="ng-met__st"><span class="ng-met__dot" aria-hidden="true"></span><span class="ng-met__n">03</span><h3>Construir</h3><p>Diseño, contenido o producto se ejecutan sobre las opciones ya validadas, no sobre la primera idea que pareció correcta.</p></li>
-        <li class="ng-met__st"><span class="ng-met__dot" aria-hidden="true"></span><span class="ng-met__n">04</span><h3>Verificar</h3><p>Cada entregable se vuelve a testear contra el comportamiento real antes y después de salir a producción.</p></li>
-      </ol>
+    <div class="ng-ch__txt" data-ng-chtxt>
+      <p class="ng-ch__k"><b>Capítulo 01 / 05</b><span>Origen neuronal</span></p>
+      <h2 class="ng-h2 ng-ch__t" id="cap-neurona-t">Cada decisión empieza <span class="ng-hl">antes de las palabras.</span></h2>
+      <p class="ng-ch__p">Percepción, atención y emoción se activan en milisegundos, muchas veces antes de que una persona pueda explicar por qué prefiere algo. Las decisiones de compra nacen de esos procesos cognitivos y emocionales. Ahí comienza nuestro trabajo.</p>
+        <ul class="ng-ch__list"><li><b>01</b><span><strong>Percepción</strong> · qué se detecta primero</span></li><li><b>02</b><span><strong>Atención</strong> · dónde se queda la mirada</span></li><li><b>03</b><span><strong>Emoción</strong> · qué genera una reacción</span></li><li><b>04</b><span><strong>Decisión</strong> · qué inclina la elección</span></li></ul>
     </div>
   </div>
 </section>
 
 <script>
-NG.boot('[data-ng="method"]', function (sec) {
-  var sig = sec.querySelector('.ng-met__sig'), vline = sec.querySelector('.ng-met__vline');
-  var steps = [].slice.call(sec.querySelectorAll('.ng-met__st'));
-  var light = function (p) { steps.forEach(function (s, i) { s.classList.toggle('ng-is-on', p >= i * .25 + .04); }); };
-  NG.reveals(sec);
+/* Capítulos: el texto entra con suavidad cuando la escena 3D ya cambió de forma */
+NG.boot('[data-ng-ch="1"]', function () {
   NG.ready().then(function (gsap) {
-    if (!gsap || NG.rm) { light(1); return; }
-    var len = sig.getTotalLength();
-    sig.style.strokeDasharray = len;
-    gsap.fromTo(sig, { strokeDashoffset: len }, { strokeDashoffset: 0, ease: 'none',
-      scrollTrigger: { trigger: sec.querySelector('.ng-met__flow'), start: 'top 75%', end: 'bottom 55%', scrub: true,
-        onUpdate: function (s) { if (window.innerWidth >= 1024) light(s.progress); } } });
-    gsap.fromTo(vline, { scaleY: 0 }, { scaleY: 1, ease: 'none',
-      scrollTrigger: { trigger: sec.querySelector('.ng-met__steps'), start: 'top 70%', end: 'bottom 60%', scrub: true,
-        onUpdate: function (s) { if (window.innerWidth < 1024) light(s.progress); } } });
+    if (!gsap || NG.rm) return;
+    document.querySelectorAll('[data-ng-chtxt]').forEach(function (t) {
+      gsap.from(t.children, { autoAlpha: 0, y: 26, duration: 1.1, ease: 'expo.out', stagger: .08, scrollTrigger: { trigger: t.parentNode.parentNode, start: 'top 55%', once: true } });
+    });
   });
 });
 </script>

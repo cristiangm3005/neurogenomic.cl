@@ -1,7 +1,6 @@
-<!-- NEUROGENOMIC · Bloque Elementor «11-cta-final»
+<!-- NEUROGENOMIC · Bloque Elementor «13-servicios-resumen»
      Pegar completo en un widget HTML de Elementor (ancho completo, sin padding).
      Incluye tokens + núcleo NG (idempotentes: pueden repetirse en varios bloques).
-     Nota: Usa img/ng-phone-*.(avif|webp) (render calibrado con src/data/phone.json).
      Imágenes: reemplaza /img/ por la URL de la Biblioteca de medios. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -113,44 +112,32 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-sec *,.ng-nav *,.ng-foot *,.ng-menu *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
 .ng-js .ng-sec[data-ng-bg]{--ng-bgo:1}
 }
-.ng-cta{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:clamp(96px,10vw,160px) 0;background:#000}
-.ng-cta__grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,4vw,72px);align-items:center;width:100%}
-.ng-cta__fig{position:relative;margin:0;aspect-ratio:920/1070;max-height:82svh;justify-self:end;width:100%;perspective:1200px}
-.ng-cta__tilt{position:absolute;inset:0;transform:rotateY(var(--ty,0deg)) rotateX(var(--tx,0deg));transform-style:preserve-3d;will-change:transform}
-.ng-cta__fig .ng-media{position:absolute;inset:0;border-radius:8px;background:#000}
-.ng-cta__ov{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
-.ng-cta__gaze{fill:#C8FF00}
-.ng-cta__halo{fill:none;stroke:rgba(200,255,0,.6);stroke-width:1.5}
-.ng-cta__trail{fill:none;stroke:rgba(200,255,0,.5);stroke-width:1.5;stroke-linecap:round;stroke-dasharray:3 5}
-.ng-cta__rip{fill:none;stroke:#C8FF00;stroke-width:2}
-.ng-cta__tag{position:absolute;left:12px;bottom:12px;border:1px solid rgba(200,255,0,.5);background:rgba(10,11,13,.78);color:var(--ng-lime);border-radius:4px;padding:6px 10px;font:500 10.5px/1.3 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase}
-.ng-cta__t{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(50px,6vw,118px);line-height:.88;letter-spacing:0;font-weight:400;margin:22px 0 28px;text-wrap:balance}
-.ng-cta__p{font-size:clamp(18px,1.5vw,22px);font-weight:300;max-width:44ch;color:var(--ng-tx)}
-.ng-cta__btn{margin-top:clamp(32px,4vw,56px);min-height:clamp(64px,7vw,96px);padding:0 clamp(28px,3vw,48px);font-size:clamp(17px,1.4vw,22px);border-radius:999px}
-.ng-cta__btn .ng-btn__t{display:inline-flex;gap:14px;align-items:center}
-.ng-qf{margin-top:clamp(28px,3vw,40px);max-width:560px;border-top:1px solid var(--ng-line);padding-top:clamp(20px,2vw,28px)}
-.ng-qf__l{display:block;font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);margin-bottom:12px}
-.ng-qf__row{display:flex;border:1.5px solid rgba(242,243,240,.7);border-radius:var(--ng-r);overflow:hidden;transition:border-color .3s,box-shadow .3s;background:var(--ng-s1)}
-.ng-qf__row:focus-within{border-color:var(--ng-lime);box-shadow:0 0 0 4px rgba(200,255,0,.12)}
-.ng-qf__row.is-err{border-color:#FF6B57}
-.ng-qf input[type=email]{flex:1 1 auto;min-width:0;min-height:56px;padding:0 16px;border:0;background:transparent;color:var(--ng-tx);font:400 16px/1 var(--ng-ff);outline:0}
-.ng-qf input[type=email]::placeholder{color:var(--ng-tx2)}
-.ng-qf button{flex:0 0 auto;display:inline-flex;align-items:center;gap:10px;padding:0 20px;border:0;background:var(--ng-lime);color:#0A0B0D;font:600 15px/1 var(--ng-ff);cursor:pointer;transition:background .3s}
-.ng-qf button:hover{background:#D9FF4D}
-.ng-qf button[disabled]{opacity:.6;cursor:progress}
-.ng-qf__ck{display:flex;gap:10px;align-items:flex-start;margin-top:12px;color:var(--ng-tx2);font-size:13.5px;line-height:1.45;cursor:pointer}
-.ng-qf__ck input{flex:0 0 auto;width:18px;height:18px;margin:1px 0 0;accent-color:#C8FF00}
-.ng-qf__ck a{color:var(--ng-tx);text-decoration:underline;text-underline-offset:2px}
-.ng-qf__st{min-height:1.4em;margin-top:10px;font:500 12px/1.4 var(--ng-mono);letter-spacing:.04em;color:var(--ng-tx2)}
-.ng-qf__st.is-err{color:#FF8A7A}.ng-qf__st.is-ok{color:var(--ng-lime)}
-.ng-qf.is-sent .ng-qf__row,.ng-qf.is-sent .ng-qf__ck{display:none}
-@media (max-width:479px){.ng-qf__row{flex-direction:column}.ng-qf button{min-height:52px;justify-content:center}}
-@media (max-width:899px){
-.ng-cta{align-items:flex-start}
-.ng-cta__grid{grid-template-columns:1fr}
-.ng-cta__fig{order:-1;justify-self:center;max-height:none;max-width:460px}
-.ng-cta__btn{width:100%}
-}
+.ng-sum{padding:clamp(96px,11vw,170px) 0 clamp(56px,6vw,96px)}
+.ng-sum__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:clamp(40px,5vw,72px)}
+.ng-sum__head .ng-head{grid-column:1/span 7;margin:0}
+.ng-sum__head .ng-body{grid-column:9/span 4}
+.ng-sum__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,1.2vw,16px);perspective:1400px}
+.ng-sc{position:relative;display:flex;flex-direction:column;gap:12px;min-height:280px;padding:clamp(20px,2vw,28px);border:1px solid var(--ng-line);border-radius:10px;background:linear-gradient(160deg,var(--ng-s2),var(--ng-s1) 60%);transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .5s var(--ng-ease),border-color .4s;will-change:transform;overflow:hidden;text-decoration:none;color:inherit}
+.ng-sc::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(420px circle at var(--gx,50%) var(--gy,0%),rgba(200,255,0,.10),transparent 45%);opacity:var(--go,0);transition:opacity .4s}
+.ng-sc:hover,.ng-sc:focus-visible{border-color:rgba(200,255,0,.45)}
+.ng-sc__n{display:flex;justify-content:space-between;color:var(--ng-tx2)}
+.ng-sc__n b{color:var(--ng-lime);font-weight:500}
+.ng-sc h3{font:600 clamp(22px,1.8vw,30px)/1.1 var(--ng-ff);letter-spacing:-.02em}
+.ng-sc p{color:var(--ng-tx2);font-size:15.5px;line-height:1.45}
+.ng-sc__dec{margin-top:auto;padding-top:14px;border-top:1px solid var(--ng-line);font-size:14.5px;color:var(--ng-tx)}
+.ng-sc__dec span{display:block;font:500 10.5px/1.4 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-tx2);margin-bottom:4px}
+.ng-sum__more{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;margin-top:clamp(28px,3vw,44px)}
+.ng-sum__tech{display:flex;flex-wrap:wrap;gap:8px}
+.ng-mq{margin-top:clamp(56px,7vw,112px);border-block:1px solid var(--ng-line);overflow:hidden;padding:clamp(18px,2vw,28px) 0}
+.ng-mq__t{display:flex;width:max-content;animation:ng-mq 60s linear infinite}
+.ng-mq:hover .ng-mq__t{animation-play-state:paused}
+.ng-mq__g{display:flex;align-items:center;flex-shrink:0}
+.ng-mq__g span{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(34px,4.4vw,76px);white-space:nowrap;padding:0 clamp(18px,2vw,36px)}
+.ng-mq__g i{font-style:normal;color:var(--ng-lime);font-size:clamp(17px,2.2vw,38px)}
+@keyframes ng-mq{to{transform:translateX(-50%)}}
+@media (max-width:1023px){.ng-sum__head .ng-head,.ng-sum__head .ng-body{grid-column:1/-1}.ng-sum__grid{grid-template-columns:1fr 1fr}}
+@media (max-width:599px){.ng-sum__grid{grid-template-columns:1fr}.ng-sc{min-height:0}}
+@media (prefers-reduced-motion:reduce){.ng-mq__t{animation:none}.ng-sc{transform:none!important}}
 </style>
 <script>
 /* ==========================================================
@@ -174,7 +161,8 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
   var CDN = {
     gsap: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',
     st: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',
-    lenis: 'https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js'
+    lenis: 'https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js',
+    three: 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'
   };
   function load(src) {
     return new Promise(function (res, rej) {
@@ -192,6 +180,8 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
       d.head.appendChild(s);
     });
   }
+
+  NG.load = load; NG.CDN = CDN;
 
   /* --- Carga de librerías + Lenis ------------------------------------ */
   var readyP = null;
@@ -442,103 +432,59 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
   });
 })();
 </script>
-<section class="ng-sec ng-cta" id="contacto-cta" aria-labelledby="ng-cta-title" data-ng="cta">
-  <div class="ng-wrap ng-cta__grid">
-    <div class="ng-cta__in">
-      <p class="ng-mono ng-eyebrow">09 · Diagnóstico</p>
-      <h2 class="ng-cta__t" id="ng-cta-title" data-ng-split>¿Construimos tu próxima decisión <span class="ng-hl">con evidencia?</span></h2>
-      <p class="ng-cta__p" data-ng-reveal>Cuéntanos qué quieres evaluar: una marca, una campaña, un packaging o un sitio web. Revisamos el desafío y te proponemos el método adecuado.</p>
-      <a class="ng-btn ng-btn--volt ng-cta__btn" href="/contacto/" data-ng-magnet><span class="ng-btn__t">Agendar diagnóstico <span class="ng-btn__i" aria-hidden="true">↗</span></span></a>
-      <form class="ng-qf" novalidate data-endpoint="https://formsubmit.co/ajax/cristiangm3005@gmail.com" aria-describedby="ng-qf-st">
-        <label class="ng-qf__l" for="ng-qf-email">¿Sin tiempo? Déjanos tu correo y te escribimos</label>
-        <div class="ng-qf__row">
-          <input id="ng-qf-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="tu@empresa.cl" required>
-          <button type="submit">Agendar demo <span aria-hidden="true">→</span></button>
-        </div>
-        <label class="ng-qf__ck"><input type="checkbox" name="consentimiento" required> <span>Acepto que Neurogenomic use este correo solo para responder mi solicitud (<a href="/privacidad/">privacidad</a>).</span></label>
-        <div class="ng-sr" aria-hidden="true"><label for="ng-qf-hp">No completar</label><input id="ng-qf-hp" name="_honey" type="text" tabindex="-1" autocomplete="off"></div>
-        <p class="ng-qf__st" id="ng-qf-st" role="status" aria-live="polite"></p>
-      </form>
-    </div>
-    <figure class="ng-cta__fig">
-      <div class="ng-cta__tilt">
-        <div class="ng-media" data-ph="/img/ng-phone"><picture><source type="image/avif" srcset="/img/ng-phone-600.avif 600w, /img/ng-phone-920.avif 920w" sizes="(min-width:900px) 40vw, 100vw"><source type="image/webp" srcset="/img/ng-phone-600.webp 600w, /img/ng-phone-920.webp 920w" sizes="(min-width:900px) 40vw, 100vw"><img src="/img/ng-phone-920.webp" width="920" height="1070" alt="Teléfono apoyado en un soporte mostrando el checkout de una tienda ficticia, con el botón Pagar en verde lima. Imagen ilustrativa" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
-        <svg class="ng-cta__ov" viewBox="0 0 920 1070" preserveAspectRatio="none" aria-hidden="true">
-          <path class="ng-cta__trail"/>
-          <circle class="ng-cta__rip" r="0"/><circle class="ng-cta__rip" r="0"/>
-          <circle class="ng-cta__halo" r="16"/><circle class="ng-cta__gaze" r="7"/>
-        </svg>
+<section class="ng-sec ng-sum" id="servicios" aria-labelledby="ng-sum-title" data-ng="summary" data-ng-bg>
+  <div class="ng-wrap">
+    <div class="ng-sum__head">
+      <div class="ng-head">
+        <p class="ng-mono ng-eyebrow">06 · Servicios</p>
+        <h2 class="ng-h2" id="ng-sum-title" data-ng-split>Seis servicios. <span class="ng-hl">Un framework.</span></h2>
       </div>
-      <figcaption class="ng-cta__tag">Ilustrativo · tienda ficticia</figcaption>
-    </figure>
+      <p class="ng-body" data-ng-reveal>Cada línea se puede contratar sola o integrada. La medición biométrica y el análisis con IA conectan todas.</p>
+    </div>
+    <div class="ng-sum__grid">
+      <a class="ng-sc" href="/servicios/#svc-branding"><span class="ng-sc__n ng-mono"><b>S·01</b><span>→</span></span><h3>Branding</h3><p>Nombre, color, tono y símbolo probados contra la reacción del público antes de lanzar.</p><p class="ng-sc__dec"><span>Decisión que valida</span>Qué propuesta de marca desarrollar.</p></a>
+      <a class="ng-sc" href="/servicios/#svc-bi"><span class="ng-sc__n ng-mono"><b>S·02</b><span>→</span></span><h3>Business Intelligence</h3><p>Datos biométricos, de negocio y de comportamiento digital en un solo tablero.</p><p class="ng-sc__dec"><span>Decisión que valida</span>Qué hallazgos priorizar.</p></a>
+      <a class="ng-sc" href="/servicios/#svc-ecommerce"><span class="ng-sc__n ng-mono"><b>S·03</b><span>→</span></span><h3>E-commerce</h3><p>Fichas, carrito y checkout rediseñados a partir de dónde se traba la mirada del usuario.</p><p class="ng-sc__dec"><span>Decisión que valida</span>Qué fricción resolver primero.</p></a>
+      <a class="ng-sc" href="/servicios/#svc-marketing"><span class="ng-sc__n ng-mono"><b>S·04</b><span>→</span></span><h3>Marketing digital</h3><p>Pre-test biométrico de avisos y videos antes de invertir en medios.</p><p class="ng-sc__dec"><span>Decisión que valida</span>Qué pieza pautar y qué editar.</p></a>
+      <a class="ng-sc" href="/servicios/#svc-seo"><span class="ng-sc__n ng-mono"><b>S·05</b><span>→</span></span><h3>SEO técnico y de contenido</h3><p>Visibilidad en buscadores y en motores de respuesta con IA.</p><p class="ng-sc__dec"><span>Decisión que valida</span>Qué contenido estructurar primero.</p></a>
+      <a class="ng-sc" href="/servicios/#svc-software"><span class="ng-sc__n ng-mono"><b>S·06</b><span>→</span></span><h3>Desarrollo de software</h3><p>Sitios, apps y automatizaciones con la IA integrada desde la arquitectura.</p><p class="ng-sc__dec"><span>Decisión que valida</span>Qué flujo construir y cómo.</p></a>
+    </div>
+    <div class="ng-sum__more">
+      <ul class="ng-sum__tech" aria-label="Técnicas de medición"><li class="ng-chip">Eye tracking</li><li class="ng-chip">Facial coding</li><li class="ng-chip">Respuesta galvánica</li><li class="ng-chip">Análisis con IA</li></ul>
+      <a class="ng-btn" href="/servicios/">Ver el detalle de cada servicio <span class="ng-btn__i" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+  <div class="ng-mq" role="region" aria-label="Servicios: Branding, Business Intelligence, E-commerce, Marketing digital, SEO técnico y de contenido, Desarrollo de software">
+    <div class="ng-mq__t" aria-hidden="true">
+      <div class="ng-mq__g"><span>Branding</span><i>◆</i><span>Business Intelligence</span><i>◆</i><span>E-commerce</span><i>◆</i><span>Marketing digital</span><i>◆</i><span>SEO</span><i>◆</i><span>Desarrollo de software</span><i>◆</i></div>
+      <div class="ng-mq__g"><span>Branding</span><i>◆</i><span>Business Intelligence</span><i>◆</i><span>E-commerce</span><i>◆</i><span>Marketing digital</span><i>◆</i><span>SEO</span><i>◆</i><span>Desarrollo de software</span><i>◆</i></div>
+    </div>
   </div>
 </section>
 
 <script>
-NG.boot('[data-ng="cta"]', function (sec) {
-  /* Micro-formulario: solo correo + consentimiento → FormSubmit (mismo destino que el formulario de contacto) */
-  (function (f) {
-    if (!f) return;
-    var em = f.querySelector('input[type=email]'), ck = f.querySelector('input[name=consentimiento]'), st = f.querySelector('.ng-qf__st'), bt = f.querySelector('button'), row = f.querySelector('.ng-qf__row');
-    var say = function (m, cls) { st.textContent = m; st.className = 'ng-qf__st' + (cls ? ' ' + cls : ''); };
-    em.addEventListener('input', function () { row.classList.remove('is-err'); em.removeAttribute('aria-invalid'); if (st.classList.contains('is-err')) say(''); });
-    f.addEventListener('submit', function (e) {
-      e.preventDefault();
-      if (f.querySelector('[name=_honey]').value) return;
-      var v = em.value.trim();
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) { row.classList.add('is-err'); em.setAttribute('aria-invalid', 'true'); say('Escribe un correo válido, por ejemplo nombre@empresa.cl.', 'is-err'); em.focus(); return; }
-      if (!ck.checked) { say('Necesitamos tu autorización para responderte.', 'is-err'); ck.focus(); return; }
-      bt.disabled = true; say('Enviando…');
-      var ep = f.getAttribute('data-endpoint');
-      var payload = { _subject: 'Solicitud rápida de demo · ' + v, _template: 'table', _captcha: 'false', _replyto: v,
-        Correo: v, Origen: 'Micro-formulario del CTA final', Consentimiento: 'Sí', 'Página': location.href };
-      var p = ep ? fetch(ep, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) })
-        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) === 'false') throw new Error(j.message || r.status); }); })
-        : new Promise(function (r) { setTimeout(r, 600); });
-      p.then(function () { f.classList.add('is-sent'); say('Listo. Te escribiremos a ' + v + ' para coordinar la demo.', 'is-ok'); })
-       .catch(function () { bt.disabled = false; say('No pudimos enviar tu correo. Inténtalo de nuevo o usa el formulario completo.', 'is-err'); });
+NG.boot('[data-ng="summary"]', function (sec) {
+  var cards = [].slice.call(sec.querySelectorAll('.ng-sc'));
+  /* Inclinación 3D con reflejo de luz que sigue al puntero (solo puntero fino) */
+  if (NG.fine && !NG.rm) cards.forEach(function (c) {
+    var raf = 0, ev = null;
+    c.addEventListener('pointermove', function (e) {
+      ev = e; if (raf) return;
+      raf = requestAnimationFrame(function () {
+        raf = 0; var r = c.getBoundingClientRect(), x = (ev.clientX - r.left) / r.width, y = (ev.clientY - r.top) / r.height;
+        c.style.setProperty('--ry', ((x - .5) * 10).toFixed(2) + 'deg'); c.style.setProperty('--rx', ((.5 - y) * 8).toFixed(2) + 'deg');
+        c.style.setProperty('--gx', (x * 100).toFixed(1) + '%'); c.style.setProperty('--gy', (y * 100).toFixed(1) + '%'); c.style.setProperty('--go', 1);
+      });
     });
-  })(sec.querySelector('.ng-qf'));
-
-  var D = {"btn":[0.4497,0.7093],"btn_l":[0.3163,0.6956],"btn_r":[0.5879,0.7236],"title":[0.4497,0.2894],"total":[0.4712,0.5179],"screen":[[0.3566,0.1575],[0.6721,0.1681],[0.5992,0.8256],[0.2844,0.7893]]}, P = function (k) { return [D[k][0] * 920, D[k][1] * 1070]; };
-  var fig = sec.querySelector('.ng-cta__fig'), tilt = sec.querySelector('.ng-cta__tilt');
-  var gaze = sec.querySelector('.ng-cta__gaze'), halo = sec.querySelector('.ng-cta__halo'), trail = sec.querySelector('.ng-cta__trail');
-  var rips = [].slice.call(sec.querySelectorAll('.ng-cta__rip'));
-  /* Recorrido de la mirada: título → total → botón, con sacadas (curva rápida) y pausas */
-  var stops = [P('title'), P('total'), [P('total')[0] + 90, P('total')[1] + 18], P('btn')];
-  var dwell = .55; // fracción de cada tramo en que la mirada está quieta (fijación)
-  var place = function (p) {
-    p = Math.max(0, Math.min(1, p));
-    var seg = Math.min(stops.length - 2, Math.floor(p * (stops.length - 1))), k = p * (stops.length - 1) - seg;
-    var m = k < dwell ? 0 : (k - dwell) / (1 - dwell); m = m * m * (3 - 2 * m);
-    var a = stops[seg], b = stops[seg + 1], x = a[0] + (b[0] - a[0]) * m, y = a[1] + (b[1] - a[1]) * m - Math.sin(m * Math.PI) * 26;
-    gaze.setAttribute('cx', x); gaze.setAttribute('cy', y); halo.setAttribute('cx', x); halo.setAttribute('cy', y);
-    halo.setAttribute('r', 10 + (k < dwell ? k / dwell : 0) * 14);
-    var d = 'M' + stops[0].join(' ');
-    for (var i = 1; i <= seg; i++) d += ' L' + stops[i].join(' ');
-    trail.setAttribute('d', d + ' L' + x.toFixed(1) + ' ' + y.toFixed(1));
-  };
-  var tap = function (q) {
-    var b = P('btn');
-    rips.forEach(function (c, i) {
-      var t = Math.max(0, Math.min(1, q * 1.4 - i * .35));
-      c.setAttribute('cx', b[0]); c.setAttribute('cy', b[1]);
-      c.setAttribute('r', (t * 150).toFixed(1)); c.style.opacity = t > 0 ? (1 - t).toFixed(3) : 0;
-    });
-  };
+    c.addEventListener('pointerleave', function () { c.style.setProperty('--rx', '0deg'); c.style.setProperty('--ry', '0deg'); c.style.setProperty('--go', 0); });
+  });
   NG.reveals(sec);
-  sec.querySelectorAll('[data-ng-magnet]').forEach(function (b) { NG.magnet(b, .35); });
-  if (NG.rm) { place(1); tap(0); return; }
-  place(0); tap(0);
   NG.ready().then(function (gsap) {
-    if (!gsap) { place(1); return; }
-    var st = { p: 0, q: 0 };
-    gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top 70%', end: 'bottom 70%', scrub: .6 } })
-      .to(st, { p: 1, ease: 'none', duration: 1, onUpdate: function () { place(st.p); } })
-      .to(st, { q: 1, ease: 'power1.out', duration: .45, onUpdate: function () { tap(st.q); } });
-    /* Inclinación leve del teléfono según el scroll (profundidad) */
-    gsap.fromTo(tilt, { '--ty': '-10deg', '--tx': '6deg' }, { '--ty': '6deg', '--tx': '-3deg', ease: 'none',
-      scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: true } });
+    if (!gsap || NG.rm) return;
+    /* Entrada: las tarjetas «se levantan» desde atrás con perspectiva, como cartas sobre una mesa */
+    gsap.from(cards, { rotationX: -38, y: 90, z: -120, autoAlpha: 0, transformOrigin: '50% 100%', duration: 1.2, ease: 'expo.out', stagger: { each: .09, grid: 'auto', from: 'start' },
+      scrollTrigger: { trigger: sec.querySelector('.ng-sum__grid'), start: 'top 82%', once: true },
+      onComplete: function () { gsap.set(cards, { clearProps: 'transform,opacity,visibility' }); } });
   });
 });
 </script>

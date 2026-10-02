@@ -1,7 +1,7 @@
-<!-- NEUROGENOMIC · Bloque Elementor «01-s0-preloader»
+<!-- NEUROGENOMIC · Bloque Elementor «15-caso»
      Pegar completo en un widget HTML de Elementor (ancho completo, sin padding).
      Incluye tokens + núcleo NG (idempotentes: pueden repetirse en varios bloques).
-     Nota: Solo en la página de inicio, justo después del header.
+     Nota: Tres bloques con mini-visualizaciones en SVG (sin imagen).
      Imágenes: reemplaza /img/ por la URL de la Biblioteca de medios. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -113,28 +113,33 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-sec *,.ng-nav *,.ng-foot *,.ng-menu *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
 .ng-js .ng-sec[data-ng-bg]{--ng-bgo:1}
 }
-.ng-pre{display:none}
-.ng-pre-on .ng-pre{display:block;position:fixed;inset:0;z-index:10003;pointer-events:auto}
-.ng-pre__panel{position:absolute;left:0;right:0;height:50.5%;background:var(--ng-bg);transition:transform .75s cubic-bezier(.76,0,.24,1)}
-.ng-pre__panel--t{top:0}.ng-pre__panel--b{bottom:0}
-.ng-pre__stage{position:absolute;inset:clamp(24px,6vw,72px);transition:opacity .3s}
-.ng-pre__grid{position:absolute;inset:0;border:1px solid var(--ng-line);background:
-linear-gradient(var(--ng-line) 1px,transparent 1px) 50% 50%/25% 25%,
-linear-gradient(90deg,var(--ng-line) 1px,transparent 1px) 50% 50%/25% 25%}
-.ng-pre__pt{position:absolute;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;border:1px solid var(--ng-tx2);transition:background .2s,border-color .2s,transform .3s}
-.ng-pre__pt.ng-is-ok{background:var(--ng-lime);border-color:var(--ng-lime);transform:scale(.6)}
-.ng-pre__x{position:absolute;left:0;top:0;width:56px;height:56px;margin:-28px 0 0 -28px;transition:transform .26s cubic-bezier(.65,0,.35,1)}
-.ng-pre__x::before,.ng-pre__x::after{content:"";position:absolute;background:var(--ng-lime)}
-.ng-pre__x::before{left:50%;top:0;bottom:0;width:1px}
-.ng-pre__x::after{top:50%;left:0;right:0;height:1px}
-.ng-pre__x i{position:absolute;inset:14px;border:1px solid var(--ng-lime);border-radius:50%}
-.ng-pre__hud{position:absolute;left:clamp(24px,6vw,72px);right:clamp(24px,6vw,72px);bottom:clamp(24px,4vw,40px);display:flex;justify-content:space-between;align-items:flex-end;gap:16px;font:500 12px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2)}
-.ng-pre__n{color:var(--ng-tx);font-variant-numeric:tabular-nums}
-.ng-pre__skip{appearance:none;background:transparent;border:1px solid var(--ng-line2);color:var(--ng-tx);font:inherit;letter-spacing:inherit;text-transform:inherit;min-height:44px;padding:0 16px;border-radius:4px;cursor:pointer}
-.ng-pre__skip:focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px}
-.ng-pre.ng-is-out .ng-pre__stage,.ng-pre.ng-is-out .ng-pre__hud{opacity:0}
-.ng-pre.ng-is-out .ng-pre__panel--t{transform:translateY(-100%)}
-.ng-pre.ng-is-out .ng-pre__panel--b{transform:translateY(100%)}
+.ng-case{padding:clamp(96px,12vw,180px) 0}
+.ng-case__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:clamp(32px,4vw,56px)}
+.ng-case__head .ng-head{grid-column:1/span 8;margin:0}
+.ng-case__head>.ng-mono{grid-column:10/span 3;color:var(--ng-tx2);text-align:right}
+.ng-case__blocks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,24px);margin-top:clamp(40px,5vw,72px)}
+.ng-case__b{display:flex;flex-direction:column;border:1px solid var(--ng-line);border-radius:8px;background:var(--ng-s1);padding:clamp(16px,1.4vw,22px)}
+.ng-case__bh{display:flex;justify-content:space-between;align-items:center;gap:10px;font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2)}
+.ng-case__bh h3{font:inherit;color:var(--ng-volt)}
+.ng-case__viz{position:relative;margin:16px 0 18px;aspect-ratio:16/9;border:1px solid var(--ng-line);border-radius:4px;background:var(--ng-bg);overflow:hidden}
+.ng-case__viz svg{position:absolute;inset:0;width:100%;height:100%}
+.ng-case__viz text{font-family:var(--ng-mono);font-size:9px;letter-spacing:.08em;fill:var(--ng-tx2)}
+.ng-case__b h4{font-size:clamp(20px,1.6vw,26px);line-height:1.15;font-weight:500;letter-spacing:-.02em;margin-bottom:10px}
+.ng-case__b p{color:var(--ng-tx2);font-size:15px;line-height:1.5}
+.ng-case__b p strong{color:var(--ng-tx);font-weight:500}
+.ng-case__out{margin-top:auto;padding-top:16px;display:flex;flex-wrap:wrap;gap:6px}
+.ng-case__out li{font:500 10px/1 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ng-tx);border:1px solid var(--ng-line2);border-radius:4px;padding:7px 8px}
+.ng-cv__dot{transition:transform 1s cubic-bezier(.65,0,.35,1)}
+.ng-cg__b{fill:rgba(255,255,255,.08);stroke:rgba(255,255,255,.14)}
+.ng-cg__t{fill:rgba(200,245,66,.12);stroke:rgba(200,245,66,.6)}
+.ng-cg__ring{fill:none;stroke:var(--ng-lime);stroke-width:1.5}
+.ng-cr__bar{fill:rgba(242,243,240,.28)}
+.ng-cr__bar.is-win{fill:var(--ng-volt)}
+.ng-cr__track{fill:rgba(255,255,255,.05)}
+@media (max-width:1023px){
+.ng-case__head .ng-head,.ng-case__head>.ng-mono{grid-column:1/-1;text-align:left}
+.ng-case__blocks{grid-template-columns:1fr;max-width:640px}
+}
 </style>
 <script>
 /* ==========================================================
@@ -429,66 +434,142 @@ linear-gradient(90deg,var(--ng-line) 1px,transparent 1px) 50% 50%/25% 25%}
   });
 })();
 </script>
-<div class="ng-pre" data-ng="pre" role="status" aria-live="polite" aria-label="Calibrando">
-  <div class="ng-pre__panel ng-pre__panel--t"></div>
-  <div class="ng-pre__panel ng-pre__panel--b"></div>
-  <div class="ng-pre__stage" aria-hidden="true">
-    <div class="ng-pre__grid"></div>
-    <span class="ng-pre__pt" style="left:50%;top:50%"></span>
-    <span class="ng-pre__pt" style="left:8%;top:10%"></span>
-    <span class="ng-pre__pt" style="left:92%;top:10%"></span>
-    <span class="ng-pre__pt" style="left:8%;top:90%"></span>
-    <span class="ng-pre__pt" style="left:92%;top:90%"></span>
-    <span class="ng-pre__x"><i></i></span>
+<section class="ng-sec ng-case" id="caso" aria-labelledby="ng-case-title" data-ng="case">
+  <div class="ng-wrap">
+    <div class="ng-case__head">
+      <div class="ng-head">
+        <p class="ng-mono ng-eyebrow">08 · Caso</p>
+        <h2 class="ng-h2" id="ng-case-title" data-ng-split>Un packaging, tres versiones, <span class="ng-hl">una respuesta clara.</span></h2>
+      </div>
+      <p class="ng-mono">Marca anonimizada.<br>Representación ilustrativa.</p>
+    </div>
   </div>
-  <div class="ng-pre__hud">
-    <span>Calibrando <span class="ng-pre__n">0</span> %<br><span class="ng-pre__p">Punto 0 / 5</span></span>
-    <button type="button" class="ng-pre__skip">Saltar</button>
+  <div class="ng-wrap">
+    <div class="ng-case__blocks">
+      <article class="ng-case__b" data-ng-reveal>
+        <div class="ng-case__bh"><h3>01 · Desafío</h3><span>Antes</span></div>
+        <div class="ng-case__viz ng-cv" aria-hidden="true">
+          <svg viewBox="0 0 320 180">
+            <g class="ng-cv__cols"><rect x="30" y="40" width="70" height="96" rx="3" class="ng-cg__b"/><rect x="125" y="40" width="70" height="96" rx="3" class="ng-cg__b"/><rect x="220" y="40" width="70" height="96" rx="3" class="ng-cg__b"/></g>
+            <text x="58" y="30">A</text><text x="153" y="30">B</text><text x="248" y="30">C</text>
+            <g fill="#F2F3F0"><circle class="ng-cv__dot" cx="0" cy="0" r="5" data-i="0"/><circle class="ng-cv__dot" cx="0" cy="0" r="5" data-i="1"/><circle class="ng-cv__dot" cx="0" cy="0" r="5" data-i="2"/><circle class="ng-cv__dot" cx="0" cy="0" r="5" data-i="3"/><circle class="ng-cv__dot" cx="0" cy="0" r="5" data-i="4"/><circle class="ng-cv__dot" cx="0" cy="0" r="5" data-i="5"/><circle class="ng-cv__dot" cx="0" cy="0" r="5" data-i="6"/><circle class="ng-cv__dot" cx="0" cy="0" r="5" data-i="7"/><circle class="ng-cv__dot" cx="0" cy="0" r="5" data-i="8"/></g>
+            <text x="30" y="162" class="ng-cv__lbl">VOTOS INTERNOS · SIN MAYORÍA</text>
+          </svg>
+        </div>
+        <h4>Tres propuestas y un equipo dividido.</h4>
+        <p>Marketing, ventas y diseño defendían versiones distintas. Cada opinión era razonable, pero <strong>no había un criterio común</strong> para decidir antes de imprimir.</p>
+        <ul class="ng-case__out"><li>3 versiones</li><li>Sin consenso</li><li>Riesgo de reimpresión</li></ul>
+      </article>
+      <article class="ng-case__b" data-ng-reveal=".08">
+        <div class="ng-case__bh"><h3>02 · Aplicación</h3><span>Medición</span></div>
+        <div class="ng-case__viz ng-cg" aria-hidden="true">
+          <svg viewBox="0 0 320 180">
+            <rect x="8" y="52" width="304" height="3" fill="rgba(255,255,255,.18)"/><rect class="ng-cg__b" x="18" y="18" width="34" height="34" rx="2"/><rect class="ng-cg__b" x="68" y="24" width="34" height="28" rx="2"/><rect class="ng-cg__b" x="118" y="20" width="34" height="32" rx="2"/><rect class="ng-cg__b" x="168" y="28" width="34" height="24" rx="2"/><rect class="ng-cg__b" x="218" y="22" width="34" height="30" rx="2"/><rect class="ng-cg__b" x="268" y="26" width="34" height="26" rx="2"/><rect x="8" y="102" width="304" height="3" fill="rgba(255,255,255,.18)"/><rect class="ng-cg__b" x="18" y="70" width="34" height="32" rx="2"/><rect class="ng-cg__t" x="68" y="68" width="34" height="34" rx="2"/><text x="81" y="64" style="fill:var(--ng-volt)">A</text><rect class="ng-cg__b" x="118" y="72" width="34" height="30" rx="2"/><rect class="ng-cg__t" x="168" y="68" width="34" height="34" rx="2"/><text x="181" y="64" style="fill:var(--ng-volt)">B</text><rect class="ng-cg__t" x="218" y="68" width="34" height="34" rx="2"/><text x="231" y="64" style="fill:var(--ng-volt)">C</text><rect class="ng-cg__b" x="268" y="74" width="34" height="28" rx="2"/><rect x="8" y="152" width="304" height="3" fill="rgba(255,255,255,.18)"/><rect class="ng-cg__b" x="18" y="122" width="34" height="30" rx="2"/><rect class="ng-cg__b" x="68" y="126" width="34" height="26" rx="2"/><rect class="ng-cg__b" x="118" y="118" width="34" height="34" rx="2"/><rect class="ng-cg__b" x="168" y="124" width="34" height="28" rx="2"/><rect class="ng-cg__b" x="218" y="120" width="34" height="32" rx="2"/><rect class="ng-cg__b" x="268" y="128" width="34" height="24" rx="2"/>
+            <polyline class="ng-cg__path" fill="none" stroke="rgba(200,255,0,.5)" stroke-width="1" points=""/>
+            <circle class="ng-cg__ring" r="10" cx="-20" cy="-20"/>
+            <circle class="ng-cg__dot" r="3" cx="-20" cy="-20" fill="#C8FF00"/>
+          </svg>
+        </div>
+        <h4>Una góndola simulada, junto a la competencia.</h4>
+        <p>Las tres versiones se mostraron <strong>en su contexto real de compra</strong>, rodeadas de otros productos. Cada participante buscó el producto mientras registrábamos su mirada y su expresión facial.</p>
+        <ul class="ng-case__out"><li>Eye tracking</li><li>Facial coding</li><li>Orden aleatorio</li></ul>
+      </article>
+      <article class="ng-case__b" data-ng-reveal=".16">
+        <div class="ng-case__bh"><h3>03 · Resultado</h3><span>Ilustrativo</span></div>
+        <div class="ng-case__viz ng-cr" aria-hidden="true">
+          <svg viewBox="0 0 320 180">
+            <text x="14" y="22">ATENCIÓN SOSTENIDA</text><text x="168" y="22">RESPUESTA EMOCIONAL</text>
+            <g class="ng-cr__g" data-m="0"></g><g class="ng-cr__g" data-m="1"></g>
+            <text x="14" y="168" class="ng-cr__lbl">COMPARACIÓN RELATIVA · SIN ESCALA</text>
+          </svg>
+        </div>
+        <h4>Una versión ganó en las dos señales.</h4>
+        <p>La versión B concentró <strong>más atención sostenida</strong> y una <strong>respuesta emocional más positiva</strong>. El debate se cerró con evidencia compartida, no con jerarquía, y A y C dejaron ideas para ajustar B.</p>
+        <ul class="ng-case__out"><li>Ranking por versión</li><li>Heatmaps</li><li>Ajustes recomendados</li></ul>
+      </article>
+    </div>
   </div>
-</div>
+</section>
+
 <script>
-/* Se activa antes del primer pintado: sin JS el preloader nunca cubre el contenido. */
-(function () {
-  var de = document.documentElement, seen = false;
-  try { seen = sessionStorage.getItem('ng-pre') === '1'; } catch (e) {}
-  var rm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!seen && !rm && !de.classList.contains('ng-pre-done')) de.classList.add('ng-pre-on');
-})();
-NG.boot('[data-ng="pre"]', function (pre) {
-  var de = document.documentElement;
-  if (!de.classList.contains('ng-pre-on')) { pre.remove(); return; }
-  var stage = pre.querySelector('.ng-pre__stage'), x = pre.querySelector('.ng-pre__x');
-  var pts = [].slice.call(pre.querySelectorAll('.ng-pre__pt'));
-  var n = pre.querySelector('.ng-pre__n'), p = pre.querySelector('.ng-pre__p');
-  var DUR = 1400, t0 = performance.now(), done = false, step = -1;
-  var place = function (i) {
-    var r = stage.getBoundingClientRect(), el = pts[i];
-    x.style.transform = 'translate(' + (parseFloat(el.style.left) / 100 * r.width) + 'px,' + (parseFloat(el.style.top) / 100 * r.height) + 'px)';
-  };
-  place(0);
-  var finish = function () {
-    if (done) return; done = true;
-    try { sessionStorage.setItem('ng-pre', '1'); } catch (e) {}
-    n.textContent = '100'; pre.classList.add('ng-is-out');
-    de.classList.add('ng-pre-done');
-    window.dispatchEvent(new Event('ng:preloaded'));
-    setTimeout(function () { de.classList.remove('ng-pre-on'); pre.remove(); }, 800);
-  };
-  (function tick(t) {
-    if (done) return;
-    var k = Math.max(0, Math.min(1, (t - t0) / DUR));
-    n.textContent = Math.round(k * 100);
-    var s = Math.min(4, Math.floor(k * 5));
-    if (s !== step) {
-      if (step >= 0) pts[step].classList.add('ng-is-ok');
-      step = s; place(s); p.textContent = 'Punto ' + (s + 1) + ' / 5';
-    }
-    if (k >= 1) { pts[4].classList.add('ng-is-ok'); setTimeout(finish, 160); return; }
-    requestAnimationFrame(tick);
-  })(t0);
-  pre.querySelector('.ng-pre__skip').addEventListener('click', finish);
-  pre.addEventListener('click', function (e) { if (e.target === pre || e.target.closest('.ng-pre__stage')) finish(); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' || e.key === 'Enter') finish(); }, { once: true });
-  setTimeout(finish, 2200); // salvavidas
+NG.boot('[data-ng="case"]', function (sec) {
+  /* --- Bloques: tres mini-visualizaciones, cada una con su propio movimiento --- */
+  var vis = function (el, fn) { var on = false; NG.vis(el, function () { if (!on) { on = true; fn(true); } }, function () { if (on) { on = false; fn(false); } }, '0px'); };
+  // 01 · Votos internos que se reparten sin mayoría (3/3/3 que nunca se rompen a favor de nadie)
+  (function () {
+    var dots = [].slice.call(sec.querySelectorAll('.ng-cv__dot')), COLS = [65, 160, 255], int = 0;
+    var place = function (assign) {
+      var cnt = [0, 0, 0];
+      dots.forEach(function (d, i) { var c = assign[i], k = cnt[c]++; d.style.transform = 'translate(' + (COLS[c] - 16 + (k % 3) * 16) + 'px,' + (64 + Math.floor(k / 3) * 18) + 'px)'; });
+    };
+    var base = [0, 0, 0, 1, 1, 1, 2, 2, 2], cur = base.slice();
+    place(cur);
+    if (NG.rm) return;
+    vis(sec.querySelector('.ng-cv'), function (on) {
+      clearInterval(int);
+      if (on) int = setInterval(function () {
+        // dos personas cambian de opinión en direcciones opuestas: el empate persiste
+        var a = Math.floor(Math.random() * 9), b;
+        do { b = Math.floor(Math.random() * 9); } while (cur[b] === cur[a]);
+        var t = cur[a]; cur[a] = cur[b]; cur[b] = t; place(cur);
+      }, 1400);
+    });
+  })();
+  // 02 · Recorrido de mirada por la góndola: busca, compara y se detiene en las versiones
+  (function () {
+    var svg = sec.querySelector('.ng-cg svg'), dot = svg.querySelector('.ng-cg__dot'), ring = svg.querySelector('.ng-cg__ring'), path = svg.querySelector('.ng-cg__path');
+    var P = [[35, 34], [135, 36], [235, 32], [85, 84], [185, 84], [235, 86], [185, 82], [285, 136], [35, 134], [185, 85], [85, 86]];
+    var i = 0, pts = [], raf = 0, from = P[0], to = P[0], t0 = 0, dwell = 300;
+    var paint = function (x, y, r) {
+      dot.setAttribute('cx', x); dot.setAttribute('cy', y);
+      ring.setAttribute('cx', x); ring.setAttribute('cy', y); ring.setAttribute('r', r);
+    };
+    if (NG.rm) { path.setAttribute('points', P.map(function (p) { return p.join(','); }).join(' ')); paint(185, 84, 12); return; }
+    var loop = function (t) {
+      raf = requestAnimationFrame(loop);
+      if (t - t0 > 60 + dwell) {
+        pts.push(to.join(',')); if (pts.length > 6) pts.shift(); path.setAttribute('points', pts.join(' '));
+        i = (i + 1) % P.length; from = to; to = P[i]; t0 = t;
+        var target = to[1] > 60 && to[1] < 100 && (to[0] === 85 || to[0] === 185 || to[0] === 235);
+        dwell = target ? (to[0] === 185 ? 900 : 480) : 200 + Math.random() * 120;
+      }
+      var k = Math.min(1, (t - t0) / 60), e = 1 - Math.pow(1 - k, 3);
+      var r = k < 1 ? 6 : 6 + Math.min(1, (t - t0 - 60) / dwell) * (dwell / 60);
+      paint(from[0] + (to[0] - from[0]) * e, from[1] + (to[1] - from[1]) * e, r);
+    };
+    vis(svg, function (on) { cancelAnimationFrame(raf); if (on) raf = requestAnimationFrame(loop); });
+  })();
+  // 03 · Barras relativas (sin cifras): B lidera en ambas señales
+  (function () {
+    var V = [[.42, .9, .55], [.38, .82, .3]], gs = sec.querySelectorAll('.ng-cr__g'), NS = 'http://www.w3.org/2000/svg', bars = [];
+    [].forEach.call(gs, function (g, m) {
+      var x0 = 14 + m * 154;
+      ['A', 'B', 'C'].forEach(function (v, j) {
+        var y = 40 + j * 36;
+        var mk = function (tag, at) { var e = document.createElementNS(NS, tag); for (var k in at) e.setAttribute(k, at[k]); g.appendChild(e); return e; };
+        mk('text', { x: x0, y: y + 13 }).textContent = v;
+        mk('rect', { class: 'ng-cr__track', x: x0 + 14, y: y, width: 124, height: 18, rx: 2 });
+        var b = mk('rect', { class: 'ng-cr__bar' + (j === 1 ? ' is-win' : ''), x: x0 + 14, y: y, width: NG.rm ? 124 * V[m][j] : 0, height: 18, rx: 2 });
+        bars.push([b, 124 * V[m][j]]);
+      });
+    });
+    if (NG.rm) return;
+    vis(sec.querySelector('.ng-cr'), function (on) {
+      if (!on) return;
+      bars.forEach(function (b, k) {
+        var w = 0, t0 = performance.now() + (k % 3) * 120 + Math.floor(k / 3) * 300, D = 1300;
+        var st = function (t) {
+          var p = Math.max(0, Math.min(1, (t - t0) / D)), e = 1 - Math.pow(1 - p, 4);
+          // pequeño sobreimpulso y asentamiento, como una medición que converge
+          var wob = p < 1 ? Math.sin(p * Math.PI * 2) * (1 - p) * .06 : 0;
+          b[0].setAttribute('width', Math.max(0, b[1] * (e + wob)).toFixed(1));
+          if (p < 1) requestAnimationFrame(st);
+        };
+        b[0].setAttribute('width', 0); requestAnimationFrame(st);
+      });
+    });
+  })();
+
+  NG.reveals(sec);
 });
 </script>

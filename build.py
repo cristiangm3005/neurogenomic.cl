@@ -310,8 +310,11 @@ PAGES = {
     "index": dict(file="index.html", path="/",
                   title="Neurogenomic · Neuromarketing e IA para decisiones de marca con evidencia",
                   desc="Agencia chilena de neuromarketing e inteligencia biométrica: eye tracking, facial coding y respuesta galvánica cruzados con IA para optimizar marca, campañas, e-commerce y software.",
-                  sections=["nav", "s0-preloader", "s1-hero", "s2-demo", "s2b-pack", "s3b-said", "s4-signals", "s5-summary",
-                            "s6-method", "s8-case", "s9-ethics", "s10-cta", "footer"]),
+                  sections=["nav", "s0-preloader", "x-story", "s1-hero", "x-ch1",
+                            "x-ch2", "s2-demo", "s2b-pack", "s3b-said",
+                            "x-ch3", "s4-signals", "s9-ethics",
+                            "x-ch4", "s5-summary", "s6-method", "s8-case",
+                            "x-ch5", "s10-cta", "footer"]),
     "servicios": dict(file="servicios.html", path="/servicios/",
                       title="Servicios · Neurogenomic — Seis servicios, un framework de evidencia",
                       desc="Branding, Business Intelligence, E-commerce, Marketing Digital, SEO y Desarrollo de Software validados con biometría y modelos de IA.",
@@ -465,24 +468,30 @@ def build_page(key):
 ELEMENTOR = [
     ("00-global-nav", "nav", "index", "Masthead editorial (wordmark + 3 filas enmarcadas), barra fija compacta, progreso, menú móvil, cursor de fijación y grano. Pégalo en el header (Theme Builder) o al inicio de cada página."),
     ("01-s0-preloader", "s0-preloader", "index", "Solo en la página de inicio, justo después del header."),
-    ("02-hero", "s1-hero", "index", "Sin imagen: la estela de mirada recorre el propio titular."),
-    ("03-asi-mira", "s2-demo", "index", "Demo scroll-driven de 80 cuadros: sube img/seq/f_000…079.webp (calibración en src/data/seq.json)."),
-    ("04-packaging", "s2b-pack", "index", "Comparador foto ⇄ mapa de calor. Usa img/ng-box-b-*.(avif|webp) (calibración en src/data/boxes.json)."),
-    ("05-no-se-dice", "s3b-said", "index", "Registro sincronizado ilustrativo dibujado en canvas (sin imagen)."),
-    ("06-tecnologia", "s4-signals", "index", "Tres monitores de señal + stack de herramientas (sin imagen)."),
-    ("07-servicios-resumen", "s5-summary", "index", ""),
-    ("08-metodo", "s6-method", "index", ""),
-    ("09-caso", "s8-case", "index", "Tres bloques con mini-visualizaciones en SVG (sin imagen)."),
-    ("10-etica", "s9-ethics", "index", ""),
-    ("11-cta-final", "s10-cta", "index", "Usa img/ng-phone-*.(avif|webp) (render calibrado con src/data/phone.json)."),
-    ("12-footer", "footer", "index", "Pégalo en el footer (Theme Builder)."),
-    ("13-pagehead-servicios", "pagehead", "servicios", "Cabecera con H1 de /servicios/."),
-    ("14-servicios", "s5-services", "servicios", "Solo en /servicios/ (scroll horizontal de los seis servicios)."),
-    ("15-por-que", "s7-why", "servicios", ""),
-    ("16-pagehead-tecnologia", "pagehead", "tecnologia", "Cabecera con H1 de /tecnologia/."),
-    ("17-asi-mira-bolsa", "s2-gaze", "tecnologia", "Usa img/ng-pouch-*.(avif|webp) (render calibrado con src/data/pouch.json)."),
-    ("18-pagehead-contacto", "pagehead", "contacto", "Cabecera con H1 de /contacto/."),
-    ("19-contacto-formulario", "contact-form", "contacto", "Formulario en 4 pasos. Envía a FORM_EMAIL vía FormSubmit (ver README)."),
+    ("02-historia-3d", "x-story", "index", "Capa 3D fija (Three.js) «de la neurona al consumidor» + riel de capítulos + botón para pausar. Va una sola vez, antes del hero. Sin WebGL usa img/story/cap-*.webp."),
+    ("03-hero", "s1-hero", "index", "Texto del inicio sobre la neurona 3D."),
+    ("04-cap-01-neurona", "x-ch1", "index", "Capítulo 01 · Origen neuronal."),
+    ("05-cap-02-senales", "x-ch2", "index", "Capítulo 02 · Señales y comportamiento."),
+    ("06-asi-mira", "s2-demo", "index", "Demo scroll-driven de 80 cuadros: sube img/seq/f_000…079.webp (calibración en src/data/seq.json)."),
+    ("07-packaging", "s2b-pack", "index", "Comparador foto ⇄ mapa de calor. Usa img/ng-box-b-*.(avif|webp) (calibración en src/data/boxes.json)."),
+    ("08-no-se-dice", "s3b-said", "index", "Registro sincronizado ilustrativo dibujado en canvas (sin imagen)."),
+    ("09-cap-03-datos-ia", "x-ch3", "index", "Capítulo 03 · Centro de datos e IA."),
+    ("10-tecnologia", "s4-signals", "index", "Tres monitores de señal + stack de herramientas (sin imagen)."),
+    ("11-etica", "s9-ethics", "index", ""),
+    ("12-cap-04-estrategia", "x-ch4", "index", "Capítulo 04 · Del insight a la estrategia."),
+    ("13-servicios-resumen", "s5-summary", "index", ""),
+    ("14-metodo", "s6-method", "index", ""),
+    ("15-caso", "s8-case", "index", "Tres bloques con mini-visualizaciones en SVG (sin imagen)."),
+    ("16-cap-05-consumidor", "x-ch5", "index", "Capítulo 05 · Consumidor y experiencia personalizada."),
+    ("17-cta-final", "s10-cta", "index", "Usa img/ng-phone-*.(avif|webp) (render calibrado con src/data/phone.json)."),
+    ("18-footer", "footer", "index", "Pégalo en el footer (Theme Builder)."),
+    ("19-pagehead-servicios", "pagehead", "servicios", "Cabecera con H1 de /servicios/."),
+    ("20-servicios", "s5-services", "servicios", "Solo en /servicios/ (scroll horizontal de los seis servicios)."),
+    ("21-por-que", "s7-why", "servicios", ""),
+    ("22-pagehead-tecnologia", "pagehead", "tecnologia", "Cabecera con H1 de /tecnologia/."),
+    ("23-asi-mira-bolsa", "s2-gaze", "tecnologia", "Usa img/ng-pouch-*.(avif|webp) (render calibrado con src/data/pouch.json)."),
+    ("24-pagehead-contacto", "pagehead", "contacto", "Cabecera con H1 de /contacto/."),
+    ("25-contacto-formulario", "contact-form", "contacto", "Formulario en 4 pasos. Envía a FORM_EMAIL vía FormSubmit (ver README)."),
 ]
 
 
@@ -516,7 +525,8 @@ def build_images_md():
             "| `ng-pouch-960/1600/2400` | 2400×1500 | «Así mira tu cliente» (bolsa de café kraft, render fotográfico) y monitor C·01 de Tecnología |",
             "| `ng-box-b-600/1200` | 1200×1520 | «Tu packaging tiene una mirada para ganar»: comparador foto ⇄ mapa de calor (render fotográfico) |",
             "| `ng-phone-600/920` | 920×1070 | CTA final: tienda ficticia en un teléfono (render fotográfico) |",
-            "| `seq/f_000…079.webp` | 80 cuadros | «Así mira tu cliente»: demo scroll-driven |", "",
+            "| `seq/f_000…079.webp` | 80 cuadros | «Así mira tu cliente»: demo scroll-driven |",
+            "| `story/cap-1…5.webp` | 1280×800 | Respaldo de la historia 3D cuando el navegador no tiene WebGL (capturas de la propia escena) |", "",
             "Los renders `ng-*` se generan con Blender/Cycles a partir de `render/`. Las capas de eye tracking se ubican con las coordenadas proyectadas que guarda `src/data/*.json`: si cambias un render, vuelve a copiar su JSON.", "",
             "Business Intelligence, E-commerce, SEO y Software usan ilustraciones dibujadas en SVG con mapa de calor térmico pixelado (no necesitan archivo).", "",
             "## Opcionales (para subir la resolución o reemplazar ilustraciones)", "",
@@ -561,6 +571,11 @@ def build_standalone(src="index.html", out="neurogenomic-index.html"):
 
     s = re.sub(r"<picture>.*?</picture>", repl, s, flags=re.S)
     s = re.sub(r'<link rel="preload" as="image"[^>]*>', "", s)
+    # Imágenes de respaldo de la historia 3D (solo se ven sin WebGL)
+    def poster(m):
+        f = ROOT / m.group(1)
+        return f'src="data:image/webp;base64,{base64.b64encode(f.read_bytes()).decode()}"' if f.exists() else m.group(0)
+    s = re.sub(r'src="(img/story/[^"]+)"', poster, s)
     # Cuadros de la demostración scroll-driven incrustados (si la página la usa)
     if 'data-ng="demo"' in s:
         frames = sorted((ROOT / "img" / "seq").glob("f_*.webp"))
