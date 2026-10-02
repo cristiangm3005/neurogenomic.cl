@@ -388,6 +388,32 @@ html.ng-has-story .ng-noise{display:none}
   };
 
   /* --- Botones magnéticos ------------------------------------------- */
+  /* Capítulos: el texto (y sus chips o lista) entra cuando la tarjeta aparece en pantalla.
+     Usa IntersectionObserver, no posiciones calculadas: funciona aunque Elementor, el tema o
+     las imágenes cambien la altura de la página después de cargar. Cada capítulo se anima solo. */
+  NG.chReveal = function (sec) {
+    var t = sec.querySelector('[data-ng-chtxt]');
+    if (!t) return;
+    NG.ready().then(function (gsap) {
+      if (!gsap || NG.rm || !('IntersectionObserver' in window)) return;
+      var items = [].slice.call(t.children), subs = t.querySelectorAll('.ng-ch__chips li,.ng-ch__list li,.ng-ch__ctas > *');
+      gsap.set(items, { autoAlpha: 0, y: 26 });
+      if (subs.length) gsap.set(subs, { autoAlpha: 0, y: 12 });
+      var done = false, io, safety;
+      var play = function () {
+        if (done) return; done = true;
+        if (io) io.disconnect(); clearTimeout(safety);
+        var tl = gsap.timeline();
+        tl.to(items, { autoAlpha: 1, y: 0, duration: 1.1, ease: 'expo.out', stagger: .08 });
+        if (subs.length) tl.to(subs, { autoAlpha: 1, y: 0, duration: .7, ease: 'back.out(1.6)', stagger: .06 }, .35);
+      };
+      io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) play(); }); }, { rootMargin: '0px 0px -18% 0px' });
+      io.observe(t);
+      // Red de seguridad: si la tarjeta ya está a la vista y el observador no avisó, se muestra igual
+      safety = setTimeout(function () { var r = t.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) play(); }, 2500);
+    });
+  };
+
   NG.magnet = function (el, k) {
     if (!NG.fine || NG.rm || el._ngMag) return;
     el._ngMag = 1; k = k || 0.3;
@@ -432,3 +458,8 @@ html.ng-has-story .ng-noise{display:none}
     </div>
   </div>
 </section>
+
+<script>
+/* Capítulo 03: animación propia, no depende de otros bloques */
+NG.boot('[data-ng-ch="3"]', NG.chReveal);
+</script>

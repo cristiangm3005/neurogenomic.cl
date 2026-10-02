@@ -15,13 +15,6 @@
 </section>
 
 <script>
-/* Capítulos: el texto entra con suavidad cuando la escena 3D ya cambió de forma */
-NG.boot('[data-ng-ch="1"]', function () {
-  NG.ready().then(function (gsap) {
-    if (!gsap || NG.rm) return;
-    document.querySelectorAll('[data-ng-chtxt]').forEach(function (t) {
-      gsap.from(t.children, { autoAlpha: 0, y: 26, duration: 1.1, ease: 'expo.out', stagger: .08, scrollTrigger: { trigger: t.parentNode.parentNode, start: 'top 55%', once: true } });
-    });
-  });
-});
+/* Capítulo 01: el texto entra cuando la tarjeta aparece (cada capítulo lleva su propia animación) */
+NG.boot('[data-ng-ch="1"]', NG.chReveal);
 </script>
