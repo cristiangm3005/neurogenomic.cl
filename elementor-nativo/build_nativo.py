@@ -1,8 +1,8 @@
 """Plantilla NATIVA de Elementor Pro (sin widgets HTML) de la página de inicio de Neurogenomic,
 con los recursos animados generados en Higgsfield referenciados por marcadores.
 
-Uso: python3 elementor-higgsfield/build_nativo.py
-Salida: elementor-higgsfield/neurogenomic-inicio-nativo-higgsfield.json
+Uso: python3 elementor-nativo/build_nativo.py
+Salida: elementor-nativo/neurogenomic-inicio-nativo-higgsfield.json
 
 Claves de Motion Effects y Sticky verificadas contra el código de Elementor Pro
 (modules/motion-fx/controls-group.php, modules/sticky/module.php); video y fondo de video
@@ -10,7 +10,7 @@ contra elementor/elementor (includes/widgets/video.php, includes/controls/groups
 """
 import hashlib, json, os
 
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "neurogenomic-inicio-nativo-higgsfield.json")
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "neurogenomic-inicio-elementor-pro.json")
 
 # ---------------------------------------------------------------- Marca (tokens de src/core/tokens.css)
 BG, S1, TX, TX2, LIME = "#0A0B0D", "#111316", "#F2F3F0", "#A0A5B0", "#C8FF00"
@@ -180,30 +180,56 @@ def section(sid, label, elements, pad=(120, 120), bg=BG, extra=None, inner_gap=4
     return c(s, elements, inner=False)
 
 
-def video_bg(video, poster, poster_movil, overlay=0.62):
-    """Fondo de video del contenedor: MP4 de Higgsfield, mudo y en loop (comportamiento nativo del fondo de video).
-    En móvil no se reproduce (play_on_mobile vacío) y se ve el poster 9:16 vía Custom CSS."""
-    return {"background_background": "video", "background_video_link": video, "background_play_once": "",
-            "background_play_on_mobile": "", "background_video_fallback": media(poster),
-            "background_overlay_background": "gradient", "background_overlay_color": "rgba(10,11,13,0.35)",
-            "background_overlay_color_stop": sz(0, "%"), "background_overlay_color_b": BG,
-            "background_overlay_color_b_stop": sz(100, "%"), "background_overlay_gradient_angle": {"unit": "deg", "size": 180, "sizes": []},
+IMG = "https://raw.githubusercontent.com/cristiangm3005/neurogenomic.cl/8b3e2a5c17b57e69194a56346bd894c6b3d7f52d/img/"
+
+
+def img(name):
+    return IMG + name
+
+
+def bg_scroll(name, name_m, overlay=0.82, pos="center center"):
+    """Fondo de imagen del contenedor (escritorio + móvil) con Motion Effects de fondo:
+    parallax vertical y zoom al hacer scroll, y un leve seguimiento del mouse. El degradado deja legible el texto."""
+    return {"overflow": "hidden", "background_background": "classic", "background_image": media(img(name)), "background_image_mobile": media(img(name_m)),
+            "background_position": pos, "background_position_mobile": "center center", "background_size": "cover",
+            "background_repeat": "no-repeat",
+            "background_overlay_background": "gradient", "background_overlay_color": BG, "background_overlay_color_stop": sz(0, "%"),
+            "background_overlay_color_b": "rgba(10,11,13,0.25)", "background_overlay_color_b_stop": sz(75, "%"),
+            "background_overlay_gradient_angle": {"unit": "deg", "size": 90, "sizes": []},
             "background_overlay_opacity": {"unit": "px", "size": overlay, "sizes": []},
-            "custom_css": "@media (max-width:767px){selector{background-image:url(\"%s\")!important;background-size:cover!important;background-position:center!important}}" % poster_movil}
+            "background_motion_fx_motion_fx_scrolling": "yes",
+            "background_motion_fx_translateY_effect": "yes", "background_motion_fx_translateY_direction": "",
+            "background_motion_fx_translateY_speed": {"unit": "px", "size": 3, "sizes": []},
+            "background_motion_fx_translateY_affectedRange": {"unit": "%", "size": "", "sizes": {"start": 0, "end": 100}},
+            "background_motion_fx_scale_effect": "yes", "background_motion_fx_scale_direction": "out-in",
+            "background_motion_fx_scale_speed": {"unit": "px", "size": 3, "sizes": []},
+            "background_motion_fx_scale_range": {"unit": "%", "size": "", "sizes": {"start": 0, "end": 100}},
+            "background_motion_fx_devices": ["desktop", "tablet", "mobile"],
+            "background_motion_fx_motion_fx_mouse": "yes", "background_motion_fx_mouseTrack_effect": "yes",
+            "background_motion_fx_mouseTrack_direction": "negative",
+            "background_motion_fx_mouseTrack_speed": {"unit": "px", "size": 0.6, "sizes": []},
+            # En móvil el texto ocupa todo el ancho: oscurecido vertical parejo en vez del degradado lateral
+            # La capa del parallax de fondo se pinta encima del degradado: se reordena para que el texto siempre sea legible
+            "custom_css": "selector::before,selector>.elementor-background-overlay{z-index:1!important}selector>.e-con-inner{position:relative;z-index:2}"
+                          "@media (max-width:767px){selector::before,selector>.elementor-background-overlay{background-image:linear-gradient(180deg,rgba(10,11,13,.4) 0%,rgba(10,11,13,.85) 100%)!important;opacity:1!important}}"}
 
 
-def video_media(video, poster, poster_movil, alt, extra=None):
-    """Recurso destacado: widget Video (hosted por URL) en autoplay, mudo, loop, sin controles.
-    En escritorio/tablet el video; en móvil una imagen (el poster 9:16) para no descargar el MP4."""
-    v = w("video", {"video_type": "hosted", "insert_url": "yes", "external_url": link(video), "autoplay": "yes", "mute": "yes",
-                    "loop": "yes", "controls": "", "play_on_mobile": "", "preload": "metadata", "poster": media(poster, alt),
-                    "aspect_ratio": "169", "hide_mobile": "hidden-mobile", "_css_classes": "ng-vid",
-                    "_background_background": "classic", "_background_image": media(poster, alt), "_background_size": "cover",
-                    "_border_border": "solid", "_border_width": dim(1), "_border_color": LINE, "_border_radius": dim(6),
-                    **(extra or {})})
-    img = w("image", {"image": media(poster_movil, alt), "image_size": "full", "width": sz(100, "%"),
-                      "image_border_radius": dim(6), "hide_desktop": "hidden-desktop", "hide_tablet": "hidden-tablet"})
-    return [v, img]
+def reveal(base, top, alt_base, alt_top, extra=None):
+    """Dos imágenes alineadas: la foto y, encima, la misma foto con el mapa de calor, que aparece con el scroll
+    (Motion Effects › Transparency › Fade In). Es la versión nativa del comparador del sitio."""
+    under = w("image", {"image": media(img(base), alt_base), "image_size": "full", "width": sz(100, "%"),
+                        "image_border_radius": dim(6)})
+    over = w("image", {"image": media(img(top), alt_top), "image_size": "full", "width": sz(100, "%"), "image_border_radius": dim(6),
+                       "_position": "absolute", "_offset_orientation_h": "start", "_offset_x": sz(0), "_offset_orientation_v": "start",
+                       "_offset_y": sz(0), "_element_width": "initial", "_element_custom_width": sz(100, "%"), "_z_index": 2,
+                       "motion_fx_motion_fx_scrolling": "yes", "motion_fx_opacity_effect": "yes", "motion_fx_opacity_direction": "out-in",
+                       "motion_fx_opacity_level": {"unit": "px", "size": 10, "sizes": []},
+                       "motion_fx_opacity_range": {"unit": "%", "size": "", "sizes": {"start": 15, "end": 55}},
+                       "motion_fx_devices": ["desktop", "tablet", "mobile"]})
+    s = {"flex_direction": "column", "overflow": "hidden", "border_border": "solid", "border_width": dim(1), "border_color": LINE,
+         "border_radius": dim(6), "animation": "fadeInUp"}
+    s.update(extra or {})
+    return c(s, [under, over])
 
 
 def steps(items, delay0=0):
@@ -219,7 +245,7 @@ def steps(items, delay0=0):
     return c({"flex_direction": "row", "flex_wrap": "wrap", "flex_gap": gap(24), "flex_align_items": "stretch"}, cards)
 
 
-def chapter(sid, label, kicker, h, text, after, vid, poster, poster_m):
+def chapter(sid, label, kicker, h, text, after, bgimg, bgimg_m):
     return section(sid, label, [
         mono(kicker, **enter(0)),
         display(h, size=104, size_t=68, size_m=42, **enter(100), _element_width="initial", _element_custom_width=sz(1100),
@@ -227,7 +253,7 @@ def chapter(sid, label, kicker, h, text, after, vid, poster, poster_m):
         para(f"<p>{text}</p>", color=TX, size=20, size_m=17, **enter(200), _element_width="initial", _element_custom_width=sz(760),
              _element_custom_width_mobile=sz(100, "%")),
         *after,
-    ], pad=(160, 160), min_h=100, extra={**video_bg(vid, poster, poster_m), "flex_justify_content": "center"})
+    ], pad=(160, 160), min_h=100, extra={**bg_scroll(bgimg, bgimg_m), "flex_justify_content": "center"})
 
 
 def card(children, wd=31, wd_t=48, delay=0, href=None):
@@ -273,9 +299,9 @@ def checklist(items, icon, icon_color, tag_text, tag_color):
                        "padding": dim(14, 0, 14, 0), "border_border": "solid", "border_width": dim(0, 0, 1, 0), "border_color": LINE},
                       [w("icon", {"selected_icon": {"value": icon, "library": "fa-solid"}, "primary_color": icon_color, "size": sz(14),
                                   "_element_width": "auto"}),
-                       mono(code, color=TX2, _element_width="auto"),
+                       mono(code, color=TX2, _element_width="auto", hide_mobile="hidden-mobile"),
                        w("heading", {"title": t, "header_size": "p", "title_color": TX, **typo(BODY, 16, None, 15, "400", 1.35),
-                                     "_flex_size": "grow"}),
+                                     "_flex_size": "custom", "_flex_grow": 1, "_flex_shrink": 1}),
                        mono(tag_text, color=tag_color, align="right", _element_width="auto")]))
     return rows
 
@@ -316,7 +342,7 @@ content.append(c({
 ], inner=False))
 
 # ---- 01 Hero (video V01)
-content.append(section("inicio", "Hero · video V01", [
+content.append(section("inicio", "Hero · imagen 1", [
     c({"flex_direction": "row", "flex_wrap": "nowrap", "flex_justify_content": "space-between", "flex_direction_mobile": "column",
        "flex_gap": gap(16)},
       [mono("REC · Neurona · sinapsis activa", color=TX, _element_width="auto"),
@@ -341,41 +367,41 @@ content.append(section("inicio", "Hero · video V01", [
           [display("Todos miran.<br>Nosotros medimos.", tag="p", size=46, size_t=40, size_m=30, color=LIME,
                    **enter(700, "fadeIn"), **mouse_track(0.6))]),
     ]),
-], pad=(140, 72), min_h=92, extra={**video_bg("VIDEO_HERO_URL", "POSTER_HERO_URL", "POSTER_HERO_MOVIL_URL", 0.55),
+], pad=(140, 72), min_h=92, extra={**bg_scroll("el/el-hero.webp", "el/el-hero-movil.webp", 0.7),
                                    "flex_justify_content": "space-between", "border_width": dim(0)}))
 
 # ---- Capítulo 01 (video V02)
-content.append(chapter("cap-neurona", "Capítulo 01 · video V02", "Capítulo 01 / 05 · Origen neuronal",
+content.append(chapter("cap-neurona", "Capítulo 01 · imagen 2", "Capítulo 01 / 05 · Origen neuronal",
                        "Cada decisión empieza antes de las palabras.",
                        "Percepción, atención y emoción se activan en milisegundos, muchas veces antes de que una persona pueda explicar por qué prefiere algo. Las decisiones de compra nacen de esos procesos cognitivos y emocionales. Ahí comienza nuestro trabajo.",
                        [steps([("01 Percepción", "Qué se detecta primero"), ("02 Atención", "Dónde se queda la mirada"),
                                ("03 Emoción", "Qué genera una reacción"), ("04 Decisión", "Qué inclina la elección")], 300)],
-                       "VIDEO_CAP1_URL", "POSTER_CAP1_URL", "POSTER_CAP1_MOVIL_URL"))
+                       "el/el-cap1.webp", "el/el-cap1-movil.webp"))
 
 # ---- Capítulo 02 (video V03)
-content.append(chapter("cap-senales", "Capítulo 02 · video V03", "Capítulo 02 / 05 · Señales y comportamiento",
+content.append(chapter("cap-senales", "Capítulo 02 · imagen 3", "Capítulo 02 / 05 · Señales y comportamiento",
                        "De impulsos a señales medibles.",
                        "Con consentimiento informado, registramos mirada, expresión facial y respuesta electrodérmica. Neurogenomic interpreta esos datos neuroconductuales para reconocer señales asociadas a atención, emoción, motivación, preferencia e intención de compra.",
                        [pills(["Atención", "Emoción", "Motivación", "Preferencia", "Intención de compra"], animation="fadeInUp", animation_delay=300),
                         note("Las señales describen reacciones del grupo estudiado; no leen pensamientos ni identifican a personas.")],
-                       "VIDEO_CAP2_URL", "POSTER_CAP2_URL", "POSTER_CAP2_MOVIL_URL"))
+                       "el/el-cap2.webp", "el/el-cap2-movil.webp"))
 
 # ---- 01 Así mira tu cliente (video destacado V04)
 cols = [("Qué se mide", "Dónde se detiene la mirada, en qué orden y cómo varía la activación."),
         ("Qué revela", "Qué elementos captan atención, cuáles se ignoran y dónde sube la activación."),
         ("Qué decisión permite", "Priorizar, ajustar o descartar elementos antes de producir.")]
-content.append(section("asi-mira", "01 · Así mira tu cliente · video V04", [
+content.append(section("asi-mira", "01 · Así mira tu cliente · imagen 4", [
     *head("01 · Eye tracking + IA", "Así mira tu cliente"),
     grid([card([mono(a, color=TX2), para(f"<p>{b}</p>", color=TX, size=17, size_m=16, weight="400")], 31, 100, i * 120)
           for i, (a, b) in enumerate(cols)], fixed=True),
-    *video_media("VIDEO_DEMO_MIRADA_URL", "POSTER_DEMO_MIRADA_URL", "POSTER_DEMO_MIRADA_MOVIL_URL",
-                 "Demostración de un mapa de calor de mirada que se acumula sobre una maqueta sin textos"),
+    reveal("el/el-demo-clean.webp", "el/el-demo-heat.webp", "Bolsa de café de una marca ficticia sobre una mesa oscura",
+           "La misma bolsa con fijaciones de mirada, recorrido y mapa de calor simulados sobre la marca y el origen"),
     note("Demostración visual. No corresponde a datos de un estudio real."),
 ]))
 
 # ---- 02 Packaging (video destacado V05)
 zones = [("01 Tapa", "Primera fijación"), ("02 Etiqueta", "Permanencia alta"), ("03 Hombro y cuello", "Revisitas"), ("04 Base", "Mirada breve")]
-content.append(section("packaging", "02 · Packaging · video V05", [
+content.append(section("packaging", "02 · Packaging · imagen 5", [
     two([*head("02 · Inteligencia biométrica", "Tu packaging tiene una mirada para ganar.",
                "Mira lo que tus compradores realmente observan antes de comprar.", 80),
          *[c({"flex_direction": "row", "flex_wrap": "nowrap", "flex_direction_mobile": "column", "flex_justify_content": "space-between",
@@ -386,8 +412,8 @@ content.append(section("packaging", "02 · Packaging · video V05", [
            for i, (a, b) in enumerate(zones)],
          mono("Eye tracking · Respuesta GSR · Facial coding", color=TX2)],
         [mono("Eye tracking · packaging · Ilustrativo", color=TX2),
-         *video_media("VIDEO_PACKAGING_URL", "POSTER_PACKAGING_URL", "POSTER_PACKAGING_MOVIL_URL",
-                      "Botella de bebida sin marca con un mapa de calor de mirada sobre la etiqueta y la tapa", tilt(2)),
+         reveal("el/el-botella-foto.webp", "el/el-botella-heat.webp", "Botella de bebida sin marca con etiqueta negra",
+                "La misma botella con un mapa de calor de mirada: más atención en la etiqueta, luego la tapa y el hombro"),
          note("Demostración visual. No corresponde a datos de un estudio real.")], 46, 50),
 ]))
 
@@ -398,12 +424,12 @@ content.append(section("lo-que-no-se-dice", "03 · Señal no consciente", [
 ]))
 
 # ---- Capítulo 03 (video V06)
-content.append(chapter("cap-datos", "Capítulo 03 · video V06", "Capítulo 03 / 05 · Centro de datos e IA",
+content.append(chapter("cap-datos", "Capítulo 03 · imagen 6", "Capítulo 03 / 05 · Centro de datos e IA",
                        "La IA encuentra patrones en los datos.",
                        "Los flujos de datos llegan a una arquitectura donde modelos de inteligencia artificial sincronizan señales, las depuran y las cruzan con información de negocio para detectar patrones de consumo, segmentar audiencias y anticipar qué alternativa tiene más probabilidad de funcionar.",
                        [steps([("01 Precisión", "Señales sincronizadas y depuradas"), ("02 Análisis predictivo", "Escenarios antes de invertir"),
                                ("03 Automatización", "Reportes y dashboards al día"), ("04 Ética", "Resultados agregados, nunca perfiles individuales")], 300)],
-                       "VIDEO_CAP3_URL", "POSTER_CAP3_URL", "POSTER_CAP3_MOVIL_URL"))
+                       "el/el-cap3.webp", "el/el-cap3-movil.webp"))
 
 # ---- 04 Tecnología
 signals = [("C·01 · Eye tracking", "Señal 01", "Atención", "Dónde mira, en qué orden y qué ignora por completo."),
@@ -460,12 +486,12 @@ content.append(section("etica", "05 · Ética y datos", [
 ]))
 
 # ---- Capítulo 04 (video V07)
-content.append(chapter("cap-estrategia", "Capítulo 04 · video V07", "Capítulo 04 / 05 · Del insight a la estrategia",
+content.append(chapter("cap-estrategia", "Capítulo 04 · imagen 7", "Capítulo 04 / 05 · Del insight a la estrategia",
                        "Del insight a la estrategia.",
                        "La IA convierte los datos en rutas y mapas de decisión: qué mensaje priorizar, qué diseño producir, a qué segmento hablarle y qué experiencia ajustar. Así el conocimiento científico y tecnológico se transforma en decisiones de marketing.",
                        [pills(["Neuromarketing", "Branding", "Comunicación", "Experiencia de usuario", "Optimización comercial", "Personalización"],
                               animation="fadeInUp", animation_delay=300)],
-                       "VIDEO_CAP4_URL", "POSTER_CAP4_URL", "POSTER_CAP4_MOVIL_URL"))
+                       "el/el-cap4.webp", "el/el-cap4-movil.webp"))
 
 # ---- 06 Servicios
 svcs = [("S·01", "Branding", "Nombre, color, tono y símbolo probados contra la reacción del público antes de lanzar.", "Qué propuesta de marca desarrollar.", "svc-branding"),
@@ -516,14 +542,14 @@ content.append(section("caso", "08 · Caso", [
 ]))
 
 # ---- Capítulo 05 (video V08)
-content.append(chapter("cap-consumidor", "Capítulo 05 · video V08", "Capítulo 05 / 05 · Consumidor y experiencia",
+content.append(chapter("cap-consumidor", "Capítulo 05 · imagen 8", "Capítulo 05 / 05 · Consumidor y experiencia",
                        "Convierte datos en decisiones que conectan.",
                        "Al final del recorrido está una persona. Comprender mejor sus necesidades, intereses y contexto permite ofrecer productos, mensajes y experiencias más relevantes: mejor experiencia de cliente, más conexión entre marca y audiencia y una conversión que se sostiene, sin manipular a nadie.",
                        [steps([("01 Relevancia", "Ofertas que responden a una necesidad real"), ("02 Experiencia", "Menos fricción en cada canal"),
                                ("03 Conexión", "Mensajes que la audiencia reconoce como propios"), ("04 Conversión", "Crecimiento medido con evidencia")], 300),
                         c({"flex_direction": "row", "flex_wrap": "wrap", "flex_gap": gap(12), "flex_direction_mobile": "column"},
                           [btn("Agendar demostración ↗", CONTACTO, True), btn("Solicita una evaluación estratégica →", CONTACTO, False)])],
-                       "VIDEO_CAP5_URL", "POSTER_CAP5_URL", "POSTER_CAP5_MOVIL_URL"))
+                       "el/el-cap5.webp", "el/el-cap5-movil.webp"))
 
 # ---- 09 Diagnóstico (CTA + formulario rápido nativo)
 form = w("form", {
@@ -553,7 +579,12 @@ content.append(section("contacto-cta", "09 · Diagnóstico + formulario", [
         [c({"flex_direction": "column", "flex_gap": gap(16), "padding": dim(28), "padding_mobile": dim(20), "background_background": "classic",
             "background_color": S1, "border_border": "solid", "border_width": dim(1), "border_color": LINE, "border_radius": dim(6),
             "animation": "fadeInUp", "animation_delay": 200},
-           [title("¿Sin tiempo? Déjanos tu correo y te escribimos", "h3", 22, 19), form])], 58, 38, "flex-end"),
+           [title("¿Sin tiempo? Déjanos tu correo y te escribimos", "h3", 22, 19), form]),
+         w("image", {"image": media(img("ng-phone-920.webp"), "Teléfono con una tienda online ficticia y un mapa de atención sobre la ficha de producto"),
+                     "image_size": "full", "width": sz(70, "%"), "width_mobile": sz(90, "%"), "align": "center",
+                     "caption_source": "custom", "caption": "Ilustrativo · tienda ficticia", "caption_color": TX2,
+                     **typo(MONO, 11, None, None, "500", 1.4, 0.1, "uppercase", p="caption_typography"),
+                     **enter(300), **scroll_y(2, "negative"), "motion_fx_devices": ["desktop", "tablet"]})], 58, 38, "flex-end"),
 ]))
 
 # ---- Pie de página
@@ -593,20 +624,17 @@ content.append(c({
 PAGE_CSS = """/* Neurogenomic · ajustes globales de la página (Custom CSS de Elementor Pro) */
 body{background:#0A0B0D}
 html{scroll-behavior:smooth}
-.elementor-widget-video.ng-vid video{object-fit:cover}
 a:focus-visible,.elementor-button:focus-visible{outline:2px solid #C8FF00;outline-offset:3px}
-/* prefers-reduced-motion: sin videos, sin entradas ni parallax; quedan los posters */
+/* prefers-reduced-motion: sin entradas ni parallax; el mapa de calor queda visible */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .elementor-background-video-container{display:none!important}
-  .elementor-widget-video.ng-vid video{visibility:hidden}
   .elementor-invisible{visibility:visible!important}
   .animated{animation:none!important}
   .elementor-motion-effects-element,.elementor-motion-effects-layer{transform:none!important;opacity:1!important}
   .elementor-button{transition:none!important}
 }"""
 
-tpl = {"title": "Neurogenomic · Inicio (nativo + Higgsfield)", "type": "page", "version": "0.4",
+tpl = {"title": "Neurogenomic · Inicio (Elementor Pro nativo)", "type": "page", "version": "0.4",
        "page_settings": {"template": "elementor_canvas", "hide_title": "yes", "background_background": "classic",
                          "background_color": BG, "custom_css": PAGE_CSS},
        "content": content}

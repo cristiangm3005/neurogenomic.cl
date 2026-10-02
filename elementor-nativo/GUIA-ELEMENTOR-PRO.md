@@ -1,34 +1,62 @@
-# Neurogenomic · Animaciones con Higgsfield + Elementor Pro
+# Neurogenomic · Página de inicio nativa para Elementor Pro
 
-Versión **nativa** de la página de inicio: sin widgets HTML, sin GSAP ni Three.js. El movimiento de fondo
-lo ponen 8 clips generados en Higgsfield y la interfaz se anima solo con funciones de Elementor Pro:
-Motion Effects, Entrance Animations, Sticky y hover.
+**Archivo para importar:** `neurogenomic-inicio-elementor-pro.json`. Se regenera con `python3 elementor-nativo/build_nativo.py`.
 
-- Plantilla: `neurogenomic-inicio-nativo-higgsfield.json` (se regenera con `python3 elementor-higgsfield/build_nativo.py`).
-- La versión anterior (`elementor-json/neurogenomic-inicio.json`) sigue disponible si prefieres conservar la escena 3D y
-  las demos interactivas tal como están en el sitio estático.
+Es la página de inicio completa hecha solo con widgets nativos (sin widgets HTML). Al importarla, las imágenes se
+descargan solas a la Biblioteca de Medios y todo el movimiento usa funciones de Elementor Pro: Motion Effects,
+Entrance Animations, Sticky y hover.
 
-## 1 · Recursos animados
+## 1 · Probado en
 
-| # | Sección | Animación | Herramienta | Marcador de video | Posters (escritorio · móvil) |
-|---|---|---|---|---|---|
-| V01 | Hero «El marketing digital cambió.» | Fondo en loop: neurona y sinapsis de partículas | Higgsfield + fondo de video | `VIDEO_HERO_URL` | `POSTER_HERO_URL` · `POSTER_HERO_MOVIL_URL` |
-| V02 | Capítulo 01 · Origen neuronal | Fondo en loop: macro de sinapsis | Higgsfield + fondo de video | `VIDEO_CAP1_URL` | `POSTER_CAP1_URL` · `POSTER_CAP1_MOVIL_URL` |
-| V03 | Capítulo 02 · Señales y comportamiento | Fondo en loop: ondas de señal | Higgsfield + fondo de video | `VIDEO_CAP2_URL` | `POSTER_CAP2_URL` · `POSTER_CAP2_MOVIL_URL` |
-| V04 | 01 · Así mira tu cliente | Destacado: mapa de calor de mirada que se acumula | Higgsfield + widget Video | `VIDEO_DEMO_MIRADA_URL` | `POSTER_DEMO_MIRADA_URL` · `POSTER_DEMO_MIRADA_MOVIL_URL` |
-| V05 | 02 · Packaging | Destacado: botella sin marca con mapa de calor | Higgsfield + widget Video (+ 3D Tilt) | `VIDEO_PACKAGING_URL` | `POSTER_PACKAGING_URL` · `POSTER_PACKAGING_MOVIL_URL` |
-| V06 | Capítulo 03 · Centro de datos e IA | Fondo en loop: racks y flujos de datos | Higgsfield + fondo de video | `VIDEO_CAP3_URL` | `POSTER_CAP3_URL` · `POSTER_CAP3_MOVIL_URL` |
-| V07 | Capítulo 04 · Del insight a la estrategia | Fondo en loop: mapa de rutas de decisión | Higgsfield + fondo de video | `VIDEO_CAP4_URL` | `POSTER_CAP4_URL` · `POSTER_CAP4_MOVIL_URL` |
-| V08 | Capítulo 05 · Consumidor y experiencia | Fondo en loop: partículas que forman una silueta | Higgsfield + fondo de video | `VIDEO_CAP5_URL` | `POSTER_CAP5_URL` · `POSTER_CAP5_MOVIL_URL` |
-| — | Encabezado | Sticky; fondo sólido después de 80 px de scroll | Elementor (Sticky + Custom CSS) | — | — |
-| — | Titular del hero | Entrada fadeInUp + parallax vertical + fade out al bajar | Elementor (Entrance + Motion Effects) | — | — |
-| — | Cita «Todos miran. Nosotros medimos.» | Mouse Track sutil (escritorio) | Elementor (Motion Effects › Mouse) | — | — |
-| — | Titulares de capítulo | Parallax vertical lento | Elementor (Motion Effects › Scroll) | — | — |
-| — | Tarjetas y pasos | Entrada escalonada + borde lima al pasar el cursor | Elementor (Entrance + hover del contenedor) | — | — |
-| — | Botones primarios | Hover «Float» + cambio de color | Elementor (hover) | — | — |
-| — | Franja de disciplinas y logotipo del pie | Desplazamiento horizontal con el scroll | Elementor (Motion Effects › Horizontal) | — | — |
+- WordPress 7.1.2.
+- Elementor 3.33.
+- Elementor Pro 3.33.1, probado con la compilación GPL equivalente de la misma versión.
 
-## 2 · Prompts de Higgsfield
+Se importó con el mismo proceso de importación de plantillas que usa el editor y se revisó en un navegador a 1440 px
+y a 390 px:
+- **Errores:** ninguno en la consola y ninguna imagen sin cargar.
+- **Desborde:** sin scroll horizontal.
+- **Imágenes:** 11 imágenes importadas a la Biblioteca de Medios.
+- **Fondos:** 6 capas con parallax y zoom que cambian con el scroll.
+- **Entradas:** 99 animaciones de entrada que se activan al bajar.
+- **Encabezado:** el sticky cambia de fondo después de 80 px.
+- **Mapa de calor:** pasa de opacidad 0 a 1 al hacer scroll.
+
+## 2 · Qué se anima y cómo
+
+| Sección | Imagen | Animación (nativa de Elementor Pro) |
+|---|---|---|
+| Hero | Escena 3D de la neurona | Fondo con parallax, zoom y seguimiento del mouse; titular con entrada, parallax y fundido |
+| Capítulos 01 a 05 | Escenas 3D: neurona, señales, servidores, estrategia, consumidor | Mismo fondo con parallax y zoom; titulares con parallax lento; pasos con entrada escalonada |
+| 01 · Así mira tu cliente | Bolsa de café y la misma foto con el mapa de calor | El mapa de calor aparece con el scroll (Transparency › Fade In) |
+| 02 · Packaging | Botella y la misma botella con el mapa de calor | El mapa de calor aparece con el scroll |
+| 09 · Diagnóstico | Teléfono con una tienda ficticia | Parallax vertical |
+| Encabezado | — | Sticky; fondo sólido después de 80 px |
+| Tarjetas, pasos y botones | — | Entrada escalonada; borde lima y «Float» al pasar el cursor |
+| Franja de disciplinas y logotipo del pie | — | Desplazamiento horizontal con el scroll |
+
+**Imágenes de escritorio:** se importan a tu Biblioteca de Medios.
+
+**Imágenes de móvil (fondos 9:16):** Elementor no importa las imágenes de fondo responsivas, así que quedan enlazadas
+al repositorio público de GitHub, con una URL fija que no cambia. Si prefieres tenerlas en tu sitio:
+1. Sube `img/el/el-*-movil.webp` a Medios.
+2. En cada sección, ve a Estilo › Fondo, cambia a la vista móvil y elige la imagen.
+
+## 3 · Cómo importar
+
+1. **Elementor › Ajustes:** deja activada la carga de Google Fonts.
+2. **Plantillas › Plantillas guardadas › Importar plantillas:** elige `neurogenomic-inicio-elementor-pro.json` y pulsa
+   Importar.
+3. **Crear la página:** Páginas › Añadir nueva › Editar con Elementor › ícono de carpeta › Mis plantillas › Insertar.
+   Cuando pregunte si quieres aplicar los ajustes de la plantilla, responde **Sí**. Eso trae la plantilla Canvas, el
+   fondo negro y el CSS de la página.
+4. **Publicar** y revisar la página en una ventana privada.
+
+Si tienes un plugin de caché u optimización (WP Rocket, LiteSpeed, Autoptimize, SiteGround Optimizer…), excluye los
+scripts de Elementor de «Retrasar JavaScript» y de «Combinar JS». Si no, las animaciones de entrada y de scroll no
+arrancan hasta que el visitante interactúa.
+
+## 5 · Opcional: cambiar las imágenes por videos de Higgsfield
 
 **Cómo se consigue el loop sin corte.** Higgsfield no tiene un interruptor de loop. El loop se logra así:
 
@@ -228,69 +256,22 @@ Drifting particles in a near-black void (#0A0B0D) slowly gather into an anonymou
 Frase 9:16: The figure sits in the upper half of the vertical frame and the lower half stays dark.
 ```
 
-## 3 · Plantilla JSON
+Para usar un clip:
+1. En la sección, ve a Estilo › Fondo › Tipo: Video y pega la URL del MP4.
+2. Desactiva el Motion Effect del fondo, porque Elementor no lo combina con video.
 
-Archivo: `neurogenomic-inicio-nativo-higgsfield.json` (type `page`, version `0.4`, contenedores Flexbox, plantilla
-Canvas).
-
-- **Fondos de video:** usan el fondo de video nativo del contenedor. Va mudo y en loop por defecto, y Elementor no lo
-  reproduce en móvil.
-- **Poster de escritorio:** `background_video_fallback`.
-- **Poster de móvil:** Custom CSS del contenedor.
-- **Destacados:** widget Video tipo «Autoalojado» con URL externa: `autoplay`, `mute` y `loop` activados, sin
-  controles, `preload=metadata` y poster. En móvil se oculta y aparece una imagen con el poster 9:16, así el MP4 no se
-  descarga.
-- **prefers-reduced-motion:** Elementor no tiene un ajuste nativo. Se resuelve con el Custom CSS de la página (Pro),
-  que oculta los videos (quedan los posters) y anula las entradas y el parallax.
-- **Formulario rápido:** widget Formulario de Pro con la acción Email a `cristiangm3005@gmail.com`, en lugar de
-  FormSubmit.
-
-## 4 · Montaje paso a paso
-
-### 4.1 Exportar de Higgsfield
-Descarga cada clip en MP4 a la máxima calidad disponible. Guarda también los fotogramas clave en PNG: son los posters.
-
-### 4.2 Comprimir (menos de 5 MB, sin audio, H.264)
-```bash
-# Escritorio 16:9 (hero, demo, packaging a 1920; capítulos a 1280)
-ffmpeg -i V01.mp4 -an -c:v libx264 -preset slow -crf 26 -pix_fmt yuv420p -vf "scale=1920:-2,fps=30" -movflags +faststart VIDEO_HERO.mp4
-ffmpeg -i V02.mp4 -an -c:v libx264 -preset slow -crf 27 -pix_fmt yuv420p -vf "scale=1280:-2,fps=30" -movflags +faststart VIDEO_CAP1.mp4
-# Si pesa más de 5 MB, sube el CRF de a 2 (28, 30…). Opcional WebM:
-ffmpeg -i V01.mp4 -an -c:v libvpx-vp9 -crf 36 -b:v 0 -row-mt 1 -vf "scale=1920:-2,fps=30" VIDEO_HERO.webm
-# Si el loop salta: fundido cruzado de 0,5 s entre el final y el inicio (clip de 8 s)
-ffmpeg -i V01.mp4 -filter_complex "[0]split[a][b];[a]trim=0.5:8,setpts=PTS-STARTPTS[main];[b]trim=0:0.5,setpts=PTS-STARTPTS[head];[main][head]xfade=transition=fade:duration=0.5:offset=7[v]" -map "[v]" -an -c:v libx264 -crf 26 -pix_fmt yuv420p -movflags +faststart VIDEO_HERO_loop.mp4
-# Posters: el fotograma clave en WebP/JPG (escritorio 1920 px; móvil 1080 px de ancho)
-ffmpeg -i key_V01_16x9.png -vf scale=1920:-2 -q:v 3 POSTER_HERO.jpg
-ffmpeg -i key_V01_9x16.png -vf scale=1080:-2 -q:v 3 POSTER_HERO_MOVIL.jpg
-```
-
-### 4.3 Subir a la Biblioteca de Medios
-WordPress › Medios › Añadir nuevo: sube los 8 MP4 y los 16 posters. Copia la «URL del archivo» de cada uno.
-
-### 4.4 Reemplazar los marcadores
-Abre el JSON en un editor de texto (VS Code, Sublime o Notepad++) y usa «Buscar y reemplazar» con cada marcador
-(`VIDEO_HERO_URL`, `POSTER_HERO_URL`, `POSTER_HERO_MOVIL_URL`, etc.) por su URL. Son 24 marcadores en total:
-8 videos y 16 posters. Hazlo **antes** de importar, para que Elementor encuentre los posters. Si importas sin
-reemplazar, los posters quedan como imagen gris y los videos vacíos; se corrigen desde el panel de cada elemento.
-
-### 4.5 Importar
-Plantillas › Plantillas guardadas › Importar plantillas › elige el `.json` › Importar. Luego Páginas › Añadir nueva ›
-Editar con Elementor › ícono de carpeta › Mis plantillas › Insertar. En Ajustes de página, confirma «Diseño: Elementor
-Canvas».
-
-## 5 · Lo que no es nativo y cómo se resolvió
+## 6 · Lo que no es nativo y cómo se resolvió
 
 | Elemento del sitio original | Resolución en esta versión |
 |---|---|
-| Escena 3D de partículas (Three.js) que cambia en 5 etapas | 5 fondos de video (V01, V02/V03, V06, V07, V08) |
-| Demo «Así mira tu cliente» guiada por el scroll (secuencia de cuadros) | Clip V04 en loop |
-| Comparador de botella foto/mapa de calor que se arrastra | Clip V05 en loop + 3D Tilt con el mouse |
-| Monitores de señal «en vivo» (eye tracking, facial coding, GSR) | Tarjetas estáticas con el mismo texto |
-| Gráfico «Declarado» de la sección 03 | Se omite (era un dibujo en canvas) |
-| Preloader de calibración | Se omite (no aporta en una versión nativa y retrasa la carga) |
-| Mockup de teléfono junto al formulario | Se omite |
-| Formulario con FormSubmit | Formulario de Elementor Pro (acción Email). Se recomienda un plugin SMTP para la entrega |
-| Menú con panel animado | Widget Toggle nativo en tablet y móvil. El widget Menú de Pro necesita un menú de WordPress, que no viaja en el JSON |
-| prefers-reduced-motion | Custom CSS de la página (Pro) |
-| Un video distinto por dispositivo | El fondo de video admite una sola URL: en móvil se usa el poster 9:16 |
-| Carga diferida de videos de fondo | Elementor no la hace: por eso los capítulos van a 720p y menos de 3 MB |
+| Escena 3D de partículas (Three.js) | Capturas de la propia escena como fondos con parallax y zoom de scroll |
+| Demo «Así mira tu cliente» guiada por el scroll | Foto y mapa de calor alineados; el mapa de calor aparece con el scroll |
+| Comparador de la botella que se arrastra | Mismo efecto: el mapa de calor aparece con el scroll |
+| Monitores de señal «en vivo» | Tarjetas estáticas con el mismo texto |
+| Gráfico «Declarado», preloader | Se omiten |
+| Formulario con FormSubmit | Formulario de Elementor Pro (acción Email a cristiangm3005@gmail.com); se recomienda un plugin SMTP |
+| Menú con panel animado | Widget Toggle nativo en tablet y móvil |
+| prefers-reduced-motion | Custom CSS de la página: sin entradas ni parallax, el mapa de calor queda visible |
+
+Si quieres conservar la escena 3D y las demos interactivas tal cual, sigue disponible la versión con widgets HTML:
+`elementor-json/neurogenomic-inicio.json`.
