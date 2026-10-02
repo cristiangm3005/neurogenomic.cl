@@ -1,0 +1,653 @@
+{
+ "title": "Neurogenomic · Servicios",
+ "type": "page",
+ "version": "0.4",
+ "page_settings": {
+  "template": "elementor_canvas",
+  "hide_title": "yes",
+  "background_background": "classic",
+  "background_color": "#0A0B0D"
+ },
+ "content": [
+  {
+   "id": "6c583f2c",
+   "elType": "container",
+   "isInner": false,
+   "elements": [
+    {
+     "id": "2634f124",
+     "elType": "widget",
+     "widgetType": "html",
+     "isInner": false,
+     "elements": [],
+     "settings": {
+      "html": "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap\">\n<style>\n:root{\n--ng-bg:#0A0B0D;\n--ng-s1:#111316;\n--ng-s2:#16191D;\n--ng-line:rgba(255,255,255,.08);\n--ng-line2:rgba(255,255,255,.16);\n--ng-tx:#F2F3F0;\n--ng-tx2:#A0A5B0;\n--ng-volt:#C8F542;\n--ng-lime:#C8FF00;\n--ng-ff:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;\n--ng-disp:'Anton','Bebas Neue',Impact,'Arial Narrow Bold',sans-serif;\n--ng-mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;\n--ng-ease:cubic-bezier(.16,1,.3,1);\n--ng-gut:clamp(16px,4.4vw,72px);\n--ng-max:1680px;\n--ng-r:6px;\n--ng-nav-h:72px;\n}\nbody:has(.ng-sec){background:var(--ng-bg);margin:0}\nhtml:has(.ng-sec){scroll-behavior:auto;-webkit-text-size-adjust:100%}\nhtml.lenis,html.lenis body{height:auto}\n.lenis.lenis-smooth{scroll-behavior:auto!important}\n.lenis.lenis-stopped{overflow:hidden}\n.ng-sec,.ng-nav,.ng-mast,.ng-pre,.ng-foot,.ng-menu{\nfont-family:var(--ng-ff);color:var(--ng-tx);\n-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;\nfont-size:16px;line-height:1.55;font-weight:400;\n}\n.ng-sec,.ng-nav,.ng-mast,.ng-pre,.ng-foot,.ng-menu,.ng-sec *,.ng-nav *,.ng-mast *,.ng-pre *,.ng-foot *,.ng-menu *{box-sizing:border-box}\n.ng-sec{position:relative;background:var(--ng-bg);overflow:clip;isolation:isolate}\n:is(.ng-sec,.ng-nav,.ng-mast,.ng-foot,.ng-menu,.ng-pre) :where(h1,h2,h3,h4,h5,h6,p,ul,ol,figure,blockquote){margin:0;padding:0}\n.ng-sec :where(ul,ol){list-style:none}\n.ng-sec :where(img,svg,canvas,picture){display:block;max-width:100%}\n.ng-sec :where(a),.ng-foot :where(a),.ng-nav :where(a),.ng-mast :where(a),.ng-menu :where(a){color:inherit;text-decoration:none}\n:where(.ng-sec,.ng-nav,.ng-mast,.ng-foot,.ng-menu,.ng-pre) :is(button,[type=button],[type=submit]){display:revert;font-weight:revert;color:revert;text-align:revert;white-space:revert;user-select:revert;background-color:revert;border:revert;padding:revert;font-size:revert;border-radius:revert;transition:revert;line-height:revert;margin:revert}\n:where(.ng-sec,.ng-nav,.ng-mast,.ng-foot,.ng-menu,.ng-pre) :is(button,[type=button],[type=submit]):is(:hover,:focus){color:var(--ng-bc,inherit);background-color:var(--ng-bbg,transparent);text-decoration:none}\n:where(.ng-sec,.ng-nav,.ng-mast,.ng-foot,.ng-menu,.ng-pre) a:is(:hover,:active){color:var(--ng-ac,inherit)}\n:where(.ng-sec,.ng-nav,.ng-mast,.ng-foot,.ng-menu,.ng-pre) figcaption{font-style:normal;font-size:inherit;color:inherit;line-height:inherit;font-weight:inherit}\n:where(.ng-sec,.ng-nav,.ng-mast,.ng-foot,.ng-menu,.ng-pre) label{display:revert;line-height:inherit;vertical-align:baseline}\n:where(.ng-sec,.ng-nav,.ng-mast,.ng-foot,.ng-menu,.ng-pre) :is(button,input,select,textarea){font-size:revert;line-height:normal}\n:where(.ng-sec,.ng-nav,.ng-mast,.ng-foot,.ng-menu,.ng-pre) :is(h1,h2,h3,h4,h5,h6){font-size:revert;font-weight:revert;line-height:revert;font-family:revert;color:revert}\n:where(.ng-sec,.ng-nav,.ng-mast,.ng-foot,.ng-menu,.ng-pre) :is(dl,dt,dd,li){margin-block:revert;font-size:revert;vertical-align:revert;background:revert;border:revert;outline:revert}\n:where(.ng-sec,.ng-nav,.ng-mast,.ng-foot,.ng-menu,.ng-pre) small{font-size:revert}\n:where(.ng-sec,.ng-nav,.ng-mast,.ng-foot,.ng-menu,.ng-pre,.ng-rail) :is(a,button,input,select,textarea,[tabindex]):focus-visible{box-shadow:revert}\n:where(.ng-sec,.ng-nav,.ng-mast,.ng-foot,.ng-menu,.ng-pre) :is(input[type=text],input[type=email],input[type=tel],input[type=url],input[type=number],input[type=search],select,textarea){width:revert;border:revert;border-radius:revert;padding:revert;transition:revert}\n.ng-sec ::selection,.ng-foot ::selection{background:var(--ng-volt);color:var(--ng-bg)}\n.ng-wrap{width:100%;max-width:var(--ng-max);margin-inline:auto;padding-inline:var(--ng-gut)}\n.ng-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,1.6vw,24px)}\n.ng-mono{font-family:var(--ng-mono);font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;line-height:1.4}\n.ng-eyebrow{color:var(--ng-volt);display:inline-flex;align-items:center;gap:10px}\n.ng-eyebrow::before{content:\"\";width:18px;height:1px;background:currentColor}\n.ng-disp,.ng-h2{font-family:var(--ng-disp);font-weight:400;text-transform:uppercase;letter-spacing:-.005em;line-height:.9}\n.ng-h2{font-size:clamp(46px,6.6vw,124px);text-wrap:balance}\n.ng-hl{color:var(--ng-lime)}\n.ng-strip{display:flex;align-items:center;gap:clamp(12px,2vw,28px);font:500 clamp(11px,1vw,14px)/1.3 var(--ng-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ng-lime)}\n.ng-strip::before,.ng-strip::after{content:\"\";flex:1 1 40px;min-width:24px;height:1px;background:var(--ng-lime)}\n.ng-strip i{font-style:normal;opacity:.7}\n@media (max-width:599px){.ng-strip{flex-wrap:wrap;justify-content:center;gap:8px 12px}.ng-strip::before,.ng-strip::after{flex-basis:100%;order:0}.ng-strip::after{order:9}}\n.ng-co{position:absolute;display:flex;align-items:center;gap:12px;pointer-events:none;font:500 clamp(10px,.95vw,13px)/1.5 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-lime);white-space:nowrap}\n.ng-co__dot{flex:0 0 auto;width:12px;height:12px;border-radius:50%;background:var(--ng-lime);box-shadow:0 0 0 4px rgba(200,255,0,.18),0 0 18px rgba(200,255,0,.8)}\n.ng-co__ln{flex:0 0 auto;width:var(--ng-co-w,90px);height:1px;background:var(--ng-lime);transform-origin:0 50%}\n.ng-co b{font-weight:500;color:var(--ng-tx)}\n.ng-h3{font-size:clamp(26px,2.8vw,44px);line-height:1;letter-spacing:-.025em;font-weight:500}\n.ng-lead{font-size:clamp(18px,1.5vw,22px);line-height:1.45;color:var(--ng-tx);font-weight:300;max-width:46ch}\n.ng-body{color:var(--ng-tx2);max-width:60ch}\n.ng-volt{color:var(--ng-volt)}\n.ng-sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}\n.ng-w{display:inline-block;overflow:hidden;vertical-align:top;padding:.16em .02em .1em;margin:-.16em -.02em -.1em}\n.ng-w>span{display:inline-block;will-change:transform}\n.ng-btn{\n--_bg:transparent;--_fg:var(--ng-tx);--_bd:var(--ng-line2);\nposition:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;\nmin-height:48px;padding:0 22px;border-radius:var(--ng-r);border:1px solid var(--_bd);\nbackground:var(--_bg);color:var(--_fg)!important;font:500 15px/1 var(--ng-ff);letter-spacing:-.005em;\ncursor:pointer;transition:background .35s var(--ng-ease),border-color .35s var(--ng-ease),color .35s var(--ng-ease);\ntext-decoration:none;white-space:nowrap;\n}\n.ng-btn{--_bd:rgba(255,255,255,.12)}\n.ng-btn:hover{--_bd:rgba(255,255,255,.4);--_bg:rgba(255,255,255,.04)}\n.ng-btn--volt{--_bg:var(--ng-lime);--_fg:#0A0B0D;--_bd:var(--ng-lime);font-weight:600;box-shadow:0 0 0 0 rgba(200,255,0,0),0 10px 34px -12px rgba(200,255,0,.55);transition:background .35s var(--ng-ease),border-color .35s var(--ng-ease),color .35s var(--ng-ease),box-shadow .45s var(--ng-ease)}\n.ng-btn--volt:hover{--_bg:#D9FF4D;--_bd:#D9FF4D;box-shadow:0 0 0 4px rgba(200,255,0,.16),0 14px 40px -10px rgba(200,255,0,.7)}\n.ng-btn__i{display:inline-block;transition:transform .45s var(--ng-ease)}\n.ng-btn:hover .ng-btn__i{transform:translate(3px,-1px)}\n.ng-btn:is(button,[type=button],[type=submit]):is(:hover,:focus){background-color:var(--_bg);color:var(--_fg)}\n.ng-sec :focus-visible,.ng-nav :focus-visible,.ng-mast :focus-visible,.ng-foot :focus-visible,.ng-menu :focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px;border-radius:2px}\n.ng-chips{display:flex;flex-wrap:wrap;gap:8px}\n.ng-chip{font:500 11px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-tx);border:1px solid var(--ng-line2);border-radius:4px;padding:8px 10px}\n.ng-marks{position:absolute;inset:0;pointer-events:none}\n.ng-marks::before,.ng-marks::after,.ng-marks>i::before,.ng-marks>i::after{content:\"\";position:absolute;width:14px;height:14px;border:0 solid var(--ng-tx);opacity:.55}\n.ng-marks::before{top:10px;left:10px;border-top-width:1px;border-left-width:1px}\n.ng-marks::after{top:10px;right:10px;border-top-width:1px;border-right-width:1px}\n.ng-marks>i::before{bottom:10px;left:10px;border-bottom-width:1px;border-left-width:1px}\n.ng-marks>i::after{bottom:10px;right:10px;border-bottom-width:1px;border-right-width:1px}\n.ng-media{position:relative;overflow:hidden;background:var(--ng-s1);border-radius:var(--ng-r)}\n.ng-media picture{display:block;width:100%;height:100%}\n.ng-media img{width:100%;height:100%;object-fit:cover}\n.ng-media img.ng-is-missing{opacity:0}\n.ng-media[data-ph]::before{\ncontent:attr(data-ph);position:absolute;inset:0;display:flex;align-items:flex-end;padding:14px 16px;\nfont:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);\nbackground:\nlinear-gradient(var(--ng-line) 1px,transparent 1px) 0 0/40px 40px,\nlinear-gradient(90deg,var(--ng-line) 1px,transparent 1px) 0 0/40px 40px,\nradial-gradient(60% 60% at 60% 45%,rgba(200,245,66,.07),transparent 70%),var(--ng-s1);\n}\n.ng-media[data-ph]:has(img:not(.ng-is-missing))::before{opacity:0}\n.ng-noise{position:fixed;inset:0;pointer-events:none;z-index:9997;opacity:.035;\nbackground-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\");}\nhtml.ng-has-story .ng-noise{display:none}\n.ng-sec[data-ng-bg]::before{content:\"\";position:absolute;inset:0;background:var(--ng-s1);opacity:var(--ng-bgo,1);z-index:-1;pointer-events:none}\n.ng-sec[data-ng-bg]{background:var(--ng-bg)}\n.ng-js .ng-sec[data-ng-bg]{--ng-bgo:0}\n.ng-head{display:grid;gap:22px;margin-bottom:clamp(40px,6vw,96px)}\n.ng-idx{color:var(--ng-tx2)}\n@media (prefers-reduced-motion:reduce){\n.ng-sec *,.ng-nav *,.ng-foot *,.ng-menu *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}\n.ng-js .ng-sec[data-ng-bg]{--ng-bgo:1}\n}\n.ng-el-section.e-con{--padding-top:0px;--padding-right:0px;--padding-bottom:0px;--padding-left:0px;--gap:0px;--row-gap:0px;--column-gap:0px;padding:0}.ng-el-section>.elementor-widget-html,.ng-el-block,.ng-el-block>.elementor-widget-container{margin:0;padding:0}\n</style>\n<script>\n/* ==========================================================\n   NEUROGENOMIC · Núcleo JS compartido (window.NG)\n   Idempotente: puede venir repetido en varios bloques Elementor.\n   Carga GSAP + ScrollTrigger (cdnjs) y Lenis (jsDelivr) una sola vez.\n   ========================================================== */\n(function () {\n  if (window.NG) return;\n  var NG = (window.NG = {});\n  var d = document, de = d.documentElement;\n  de.classList.add('ng-js');\n\n  var mq = function (q) { return window.matchMedia ? window.matchMedia(q).matches : false; };\n  NG.rm = mq('(prefers-reduced-motion: reduce)');\n  NG.fine = mq('(hover: hover) and (pointer: fine)');\n  NG.edit = function () { return d.body && d.body.classList.contains('elementor-editor-active'); };\n  NG.lerp = function (a, b, t) { return a + (b - a) * t; };\n  NG.clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };\n\n  var CDN = {\n    gsap: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',\n    st: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',\n    lenis: 'https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js',\n    three: 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'\n  };\n  function load(src) {\n    return new Promise(function (res, rej) {\n      var ex = d.querySelector('script[src=\"' + src + '\"]');\n      if (ex) {\n        if (ex.getAttribute('data-ng-loaded')) return res();\n        ex.addEventListener('load', function () { res(); });\n        ex.addEventListener('error', rej);\n        return;\n      }\n      var s = d.createElement('script');\n      s.src = src; s.async = true; s.crossOrigin = 'anonymous';\n      s.onload = function () { s.setAttribute('data-ng-loaded', '1'); res(); };\n      s.onerror = rej;\n      d.head.appendChild(s);\n    });\n  }\n\n  NG.load = load; NG.CDN = CDN;\n\n  /* --- Carga de librerías + Lenis ------------------------------------ */\n  var readyP = null;\n  NG.ready = function () {\n    if (readyP) return readyP;\n    readyP = (window.gsap ? Promise.resolve() : load(CDN.gsap))\n      .then(function () { return window.ScrollTrigger ? null : load(CDN.st); })\n      .then(function () {\n        gsap.registerPlugin(ScrollTrigger);\n        gsap.defaults({ ease: 'power3.out', duration: 0.9 });\n        if (NG.rm || NG.edit()) return;\n        return (window.Lenis ? Promise.resolve() : load(CDN.lenis)).then(initLenis, function () {});\n      })\n      .then(function () { return window.gsap; })\n      .catch(function () { de.classList.add('ng-nolib'); return null; });\n    return readyP;\n  };\n  function initLenis() {\n    if (NG.lenis || !window.Lenis) return;\n    var lenis = (NG.lenis = new Lenis({ duration: 1.15, easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); }, smoothWheel: true }));\n    lenis.on('scroll', ScrollTrigger.update);\n    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });\n    gsap.ticker.lagSmoothing(0);\n  }\n  NG.scrollTo = function (target) {\n    var el = typeof target === 'string' ? d.querySelector(target) : target;\n    if (!el) return;\n    if (NG.lenis) NG.lenis.scrollTo(el, { offset: 0, duration: 1.4 });\n    else el.scrollIntoView({ behavior: NG.rm ? 'auto' : 'smooth' });\n  };\n\n  /* --- Arranque con guardas data-init y múltiples entradas ----------- */\n  NG.boot = function (selector, init) {\n    var run = function () {\n      var els = d.querySelectorAll(selector);\n      for (var i = 0; i < els.length; i++) {\n        var el = els[i];\n        if (el.getAttribute('data-init')) continue;\n        el.setAttribute('data-init', '1');\n        try { init(el); } catch (e) { if (window.console) console.error('[NG]', selector, e); }\n      }\n    };\n    if (d.readyState !== 'loading') run(); else d.addEventListener('DOMContentLoaded', run);\n    window.addEventListener('load', run);\n    var hook = function () {\n      if (window.elementorFrontend && elementorFrontend.hooks) elementorFrontend.hooks.addAction('frontend/element_ready/global', run);\n    };\n    if (window.elementorFrontend && window.elementorFrontend.hooks) hook();\n    else window.addEventListener('elementor/frontend/init', hook);\n  };\n\n  /* --- Preloader → secciones esperan este evento --------------------- */\n  NG.afterPreload = function (cb) {\n    if (!de.classList.contains('ng-pre-on') || de.classList.contains('ng-pre-done')) return cb();\n    window.addEventListener('ng:preloaded', function f() { window.removeEventListener('ng:preloaded', f); cb(); });\n  };\n\n  /* --- Split de texto accesible (copia sr + spans aria-hidden) ------- */\n  NG.split = function (el, mode) {\n    if (el._ngSplit) return el._ngSplit;\n    var text = el.textContent.replace(/\\s+/g, ' ').trim();\n    var out = [];\n    el.setAttribute('aria-label', text);\n    var frag = d.createDocumentFragment();\n    var sr = d.createElement('span'); sr.className = 'ng-sr'; sr.textContent = text; frag.appendChild(sr);\n    var vis = d.createElement('span'); vis.setAttribute('aria-hidden', 'true');\n    // conserva <br> y <em> simples: trabajamos sobre los nodos hijos\n    var walk = function (node, parent) {\n      [].slice.call(node.childNodes).forEach(function (n) {\n        if (n.nodeType === 3) {\n          var parts = n.textContent.split(/(\\s+)/);\n          parts.forEach(function (p) {\n            if (!p) return;\n            if (/^\\s+$/.test(p)) { parent.appendChild(d.createTextNode(' ')); return; }\n            if (mode === 'chars') {\n              var w = d.createElement('span'); w.style.display = 'inline-block'; w.style.whiteSpace = 'nowrap';\n              p.split('').forEach(function (c) { var s = d.createElement('span'); s.textContent = c; s.style.display = 'inline-block'; w.appendChild(s); out.push(s); });\n              parent.appendChild(w);\n            } else {\n              var m = d.createElement('span'); m.className = 'ng-w';\n              var i = d.createElement('span'); i.textContent = p; m.appendChild(i); parent.appendChild(m); out.push(i);\n            }\n          });\n        } else if (n.nodeType === 1) {\n          if (n.tagName === 'BR') { parent.appendChild(d.createElement('br')); return; }\n          var c = n.cloneNode(false); c.removeAttribute('id'); parent.appendChild(c); walk(n, c);\n        }\n      });\n    };\n    walk(el, vis);\n    frag.appendChild(vis);\n    el.textContent = ''; el.appendChild(frag);\n    el.removeAttribute('aria-label');\n    el._ngSplit = out;\n    return out;\n  };\n\n  /* --- Visibilidad + bucles rAF que se pausan fuera de viewport ------ */\n  NG.vis = function (el, onIn, onOut, margin) {\n    if (!('IntersectionObserver' in window)) { onIn && onIn(); return; }\n    var io = new IntersectionObserver(function (es) {\n      es.forEach(function (e) { if (e.isIntersecting) onIn && onIn(e); else onOut && onOut(e); });\n    }, { rootMargin: margin || '0px' });\n    io.observe(el);\n    return io;\n  };\n  NG.loop = function (el, fn) {\n    var on = false, raf = 0, last = 0, docVis = !d.hidden;\n    var tick = function (t) {\n      raf = 0;\n      if (!on || !docVis) return;\n      var dt = last ? Math.min(64, t - last) : 16; last = t;\n      fn(t, dt);\n      raf = requestAnimationFrame(tick);\n    };\n    var start = function () { if (!raf && on && docVis) { last = 0; raf = requestAnimationFrame(tick); } };\n    NG.vis(el, function () { on = true; start(); }, function () { on = false; }, '80px');\n    d.addEventListener('visibilitychange', function () { docVis = !d.hidden; start(); });\n    return { kick: start };\n  };\n\n  /* --- Canvas con DPR y ResizeObserver ------------------------------ */\n  NG.canvas = function (cv, onResize) {\n    var ctx = cv.getContext('2d');\n    var o = { cv: cv, ctx: ctx, w: 0, h: 0, dpr: 1 };\n    var fit = function () {\n      var r = cv.getBoundingClientRect();\n      var dpr = Math.min(window.devicePixelRatio || 1, 2);\n      var w = Math.max(1, Math.round(r.width)), h = Math.max(1, Math.round(r.height));\n      if (w === o.w && h === o.h && dpr === o.dpr) return;\n      o.w = w; o.h = h; o.dpr = dpr;\n      cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);\n      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);\n      onResize && onResize(o);\n    };\n    fit();\n    if ('ResizeObserver' in window) new ResizeObserver(fit).observe(cv); else window.addEventListener('resize', fit);\n    return o;\n  };\n\n  /* --- Heatmap térmico pixelado (estilo campaña: lima → amarillo → naranja → rojo) ---\n     pts: [x, y, radio, peso] normalizados 0–1. opts.cell = tamaño de celda en px CSS. */\n  var RAMP = [[0, [200, 255, 0, 0]], [0.16, [200, 255, 0, 0.45]], [0.4, [200, 255, 0, 0.85]],\n              [0.62, [255, 214, 0, 0.92]], [0.8, [255, 122, 0, 0.95]], [1, [255, 42, 0, 1]]];\n  NG.thermal = function (v) {\n    v = NG.clamp(v, 0, 1);\n    for (var k = 1; k < RAMP.length; k++) if (v <= RAMP[k][0]) {\n      var lo = RAMP[k - 1], hi = RAMP[k], t = (v - lo[0]) / (hi[0] - lo[0]), c = [];\n      for (var j = 0; j < 4; j++) c[j] = lo[1][j] + (hi[1][j] - lo[1][j]) * t;\n      return 'rgba(' + (c[0] | 0) + ',' + (c[1] | 0) + ',' + (c[2] | 0) + ',' + c[3].toFixed(3) + ')';\n    }\n    return 'rgba(255,42,0,1)';\n  };\n  NG.heat = function (cv, pts, opts) {\n    opts = opts || {};\n    var r = cv.getBoundingClientRect();\n    var dpr = Math.min(window.devicePixelRatio || 1, 2);\n    var w = Math.max(1, r.width), h = Math.max(1, r.height);\n    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);\n    var ctx = cv.getContext('2d');\n    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);\n    ctx.clearRect(0, 0, w, h);\n    var base = Math.min(w, h), cell = opts.cell || Math.max(5, Math.round(base / 46)), gap = Math.max(1, cell * .18);\n    var gain = opts.gain || 1;\n    // brillo suave bajo los píxeles\n    pts.forEach(function (p) {\n      var rad = (p[2] || .12) * base * 1.25, x = p[0] * w, y = p[1] * h;\n      var g = ctx.createRadialGradient(x, y, 0, x, y, rad);\n      g.addColorStop(0, 'rgba(200,255,0,' + (.22 * (p[3] == null ? 1 : p[3])) + ')'); g.addColorStop(1, 'rgba(200,255,0,0)');\n      ctx.fillStyle = g; ctx.fillRect(x - rad, y - rad, rad * 2, rad * 2);\n    });\n    for (var y = 0; y < h; y += cell) for (var x = 0; x < w; x += cell) {\n      var cx = x + cell / 2, cy = y + cell / 2, v = 0;\n      for (var i = 0; i < pts.length; i++) {\n        var p = pts[i], s = (p[2] || .12) * base, dx = cx - p[0] * w, dy = cy - p[1] * h;\n        v += (p[3] == null ? 1 : p[3]) * Math.exp(-(dx * dx + dy * dy) / (2 * s * s * .45));\n      }\n      v *= gain;\n      if (v < .08) continue;\n      ctx.fillStyle = NG.thermal(Math.min(1, v));\n      ctx.fillRect(x + gap / 2, y + gap / 2, cell - gap, cell - gap);\n    }\n  };\n\n  /* --- Contador ----------------------------------------------------- */\n  NG.count = function (el, to, o) {\n    o = o || {};\n    var dec = o.dec || 0, fmt = function (v) { return (o.pre || '') + v.toFixed(dec) + (o.suf || ''); };\n    if (NG.rm || !window.gsap) { el.textContent = fmt(to); o.done && o.done(); return; }\n    var st = { v: o.from || 0 };\n    el.textContent = fmt(st.v);\n    return gsap.to(st, { v: to, duration: o.dur || 1.8, ease: o.ease || 'expo.out', delay: o.delay || 0,\n      onUpdate: function () { el.textContent = fmt(st.v); o.update && o.update(st.v / to); },\n      onComplete: function () { el.textContent = fmt(to); o.done && o.done(); } });\n  };\n\n  /* --- Reveals genéricos dentro de una sección ----------------------- */\n  NG.reveals = function (root) {\n    if (!window.gsap || NG.rm) return;\n    root.querySelectorAll('[data-ng-split]').forEach(function (el) {\n      var w = NG.split(el);\n      gsap.from(w, { yPercent: 110, duration: 1.1, ease: 'expo.out', stagger: 0.05,\n        scrollTrigger: { trigger: el, start: 'top 88%', once: true } });\n    });\n    root.querySelectorAll('[data-ng-reveal]').forEach(function (el) {\n      gsap.from(el, { autoAlpha: 0, y: 28, duration: 1, ease: 'power3.out', delay: parseFloat(el.getAttribute('data-ng-reveal')) || 0,\n        scrollTrigger: { trigger: el, start: 'top 90%', once: true } });\n    });\n    if (root.hasAttribute('data-ng-bg')) {\n      gsap.timeline({ scrollTrigger: { trigger: root, start: 'top 75%', end: 'bottom 25%', scrub: true } })\n        .fromTo(root, { '--ng-bgo': 0 }, { '--ng-bgo': 1, ease: 'none', duration: 0.25 })\n        .to(root, { '--ng-bgo': 1, duration: 0.5 })\n        .to(root, { '--ng-bgo': 0, ease: 'none', duration: 0.25 });\n    }\n  };\n\n  /* --- Botones magnéticos ------------------------------------------- */\n  NG.magnet = function (el, k) {\n    if (!NG.fine || NG.rm || el._ngMag) return;\n    el._ngMag = 1; k = k || 0.3;\n    var inner = el.querySelector('.ng-btn__t') || el;\n    el.addEventListener('pointermove', function (e) {\n      var r = el.getBoundingClientRect();\n      var x = (e.clientX - r.left - r.width / 2) * k, y = (e.clientY - r.top - r.height / 2) * k;\n      el.style.transform = 'translate(' + x + 'px,' + y + 'px)';\n      if (inner !== el) inner.style.transform = 'translate(' + x * 0.35 + 'px,' + y * 0.35 + 'px)';\n    });\n    el.addEventListener('pointerleave', function () {\n      el.style.transition = 'transform .6s cubic-bezier(.16,1,.3,1)';\n      el.style.transform = ''; if (inner !== el) { inner.style.transition = el.style.transition; inner.style.transform = ''; }\n      setTimeout(function () { el.style.transition = ''; inner.style.transition = ''; }, 600);\n    });\n  };\n\n  /* --- Anclas internas con Lenis ------------------------------------ */\n  d.addEventListener('click', function (e) {\n    var a = e.target.closest && e.target.closest('a[href*=\"#\"]');\n    if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey) return;\n    var url = new URL(a.href, location.href);\n    if (url.pathname !== location.pathname || !url.hash || url.hash.length < 2) return;\n    var t = d.getElementById(decodeURIComponent(url.hash.slice(1)));\n    if (!t) return;\n    e.preventDefault();\n    NG.scrollTo(t);\n    if (t.tabIndex < 0 && !/^(A|BUTTON|INPUT|SELECT|TEXTAREA)$/.test(t.tagName)) t.setAttribute('tabindex', '-1');\n    t.focus({ preventScroll: true });\n    history.replaceState(null, '', url.hash);\n  });\n})();\n</script>",
+      "_margin": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": true
+      },
+      "_padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": true
+      },
+      "_css_classes": "ng-el-block"
+     }
+    }
+   ],
+   "settings": {
+    "container_type": "flex",
+    "content_width": "full",
+    "flex_direction": "column",
+    "flex_gap": {
+     "column": "0",
+     "row": "0",
+     "isLinked": true,
+     "unit": "px",
+     "size": 0
+    },
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "padding_tablet": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "_title": "Núcleo Neurogenomic (no borrar)",
+    "css_classes": "ng-el-section"
+   }
+  },
+  {
+   "id": "704c0136",
+   "elType": "container",
+   "isInner": false,
+   "elements": [
+    {
+     "id": "6c6b4c2d",
+     "elType": "widget",
+     "widgetType": "html",
+     "isInner": false,
+     "elements": [],
+     "settings": {
+      "html": "<style>\n.ng-skip{position:fixed;left:16px;top:-80px;z-index:10001;background:var(--ng-volt);color:var(--ng-bg)!important;font:500 14px/1 var(--ng-ff);padding:14px 16px;border-radius:4px;transition:top .2s}\n.ng-skip:focus{top:12px}\n.ng-progress{position:fixed;inset:0 0 auto 0;height:2px;z-index:10000;pointer-events:none}\n.ng-progress span{display:block;height:100%;background:var(--ng-volt);transform:scaleX(0);transform-origin:0 50%}\n.ng-nav{position:fixed;inset:0 0 auto 0;z-index:9990;height:var(--ng-nav-h);background:var(--ng-bg);border-bottom:1.5px solid rgba(242,243,240,.85);transition:transform .5s var(--ng-ease)}\n.ng-nav.ng-is-hidden,.ng-nav.ng-is-off{transform:translateY(-105%)}\n.ng-nav.ng-is-open{transform:none}\n.ng-nav__bar{height:100%;display:flex;align-items:center;gap:28px}\n.ng-logo{display:inline-flex;align-items:center;min-height:44px;position:relative;z-index:2;font:400 28px/1 var(--ng-disp);text-transform:uppercase;letter-spacing:.005em}\n.ng-nav__bar>nav{margin-left:auto}\n.ng-nav__links{display:flex;gap:2px;margin:0;padding:0;list-style:none}\n.ng-nav__links a,.ng-mast__main a:not(.ng-mast__cta){display:inline-flex;align-items:center;min-height:44px;padding:0 12px;font:500 14px/1 var(--ng-ff);text-transform:uppercase;letter-spacing:.04em;color:var(--ng-tx);position:relative}\n.ng-nav__links a::after,.ng-mast__main a:not(.ng-mast__cta)::after{content:\"\";position:absolute;left:12px;right:12px;bottom:10px;height:1.5px;background:var(--ng-lime);transform:scaleX(0);transform-origin:0 50%;transition:transform .45s var(--ng-ease)}\n.ng-nav__links a:hover::after,.ng-nav__links a[aria-current=\"page\"]::after,.ng-mast__main a:not(.ng-mast__cta):hover::after,.ng-mast__main a[aria-current=\"page\"]::after{transform:scaleX(1)}\n.ng-nav__links a[aria-current=\"page\"],.ng-mast__main a[aria-current=\"page\"]{color:var(--ng-lime)}\n.ng-nav__cta{min-height:40px;padding:0 16px}\n.ng-mast{position:relative;z-index:5;background:var(--ng-bg);color:var(--ng-tx);padding:clamp(20px,2.2vw,36px) 0 clamp(14px,1.4vw,20px)}\n.ng-mast__head{display:flex;align-items:flex-end;justify-content:space-between;gap:clamp(16px,2vw,32px);margin-bottom:clamp(14px,1.6vw,24px)}\n.ng-mast__logo{display:block;font:400 clamp(64px,12.4vw,224px)/.8 var(--ng-disp);text-transform:uppercase;letter-spacing:-.005em;white-space:nowrap;margin-bottom:-.04em}\n.ng-mast__logo span{color:var(--ng-lime)}\n.ng-mast__tag{font:400 clamp(18px,2.05vw,38px)/.92 var(--ng-disp);text-transform:uppercase;letter-spacing:.005em;flex:0 0 auto;padding-bottom:.1em}\n.ng-mast__tag em{font-style:normal;color:var(--ng-lime)}\n.ng-mast__row{display:flex;align-items:center;gap:4px;border:1.5px solid rgba(242,243,240,.85);min-height:46px;padding:0 6px;margin:0 0 8px;list-style:none}\n.ng-mast__main ul{display:flex;margin:0 0 0 auto;padding:0;list-style:none}\n.ng-mast__cta{display:inline-flex;align-items:center;gap:8px;min-height:34px;margin-left:8px;padding:0 14px;background:var(--ng-lime);color:#0A0B0D!important;font:600 14px/1 var(--ng-ff);text-transform:uppercase;letter-spacing:.03em;transition:background .3s}\n.ng-mast__cta:hover{background:#D9FF4D}\n.ng-mast__sec{justify-content:flex-end}\n.ng-mast__sec a{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 12px;font:500 14px/1 var(--ng-ff);text-transform:uppercase;letter-spacing:.04em;transition:color .3s}\n.ng-mast__sec a:hover{color:var(--ng-lime)}\n.ng-mast__sec a i{font-style:normal;display:inline-block;transition:transform .35s var(--ng-ease)}\n.ng-mast__sec a:hover i{transform:translate(2px,2px)}\n.ng-mast__sec a[target] i,.ng-mast__sec a.is-ext i{transform:none}\n.ng-mast__sec a.is-ext:hover i{transform:translate(2px,-2px)}\n.ng-mast__tags{gap:6px;padding:7px 8px;flex-wrap:wrap}\n.ng-mast__tags a{display:inline-flex;align-items:center;gap:5px;min-height:28px;padding:0 7px;border:1px solid rgba(242,243,240,.7);font:500 11px/1 var(--ng-mono);letter-spacing:.03em;text-transform:uppercase;transition:background .25s,color .25s,border-color .25s}\n.ng-mast__tags a small{font-size:11px;color:var(--ng-tx2)}\n.ng-mast__tags a:hover{background:var(--ng-lime);border-color:var(--ng-lime);color:#0A0B0D}\n.ng-mast__tags a:hover small{color:#0A0B0D}\n.ng-mast__burger{display:none}\n.ng-burger{display:none;position:relative;z-index:2;width:48px;height:48px;margin-left:auto;border:1px solid var(--ng-line2);border-radius:var(--ng-r);background:transparent;cursor:pointer;color:var(--ng-tx)}\n.ng-burger i{position:absolute;left:14px;right:14px;height:1px;background:currentColor;transition:transform .5s var(--ng-ease)}\n.ng-burger i:first-child{top:19px}.ng-burger i:last-child{top:27px}\n.ng-burger[aria-expanded=\"true\"] i:first-child{transform:translateY(4px) rotate(45deg)}\n.ng-burger[aria-expanded=\"true\"] i:last-child{transform:translateY(-4px) rotate(-45deg)}\n.ng-menu{position:fixed;inset:0;z-index:1;background:var(--ng-bg);padding:calc(var(--ng-nav-h) + 20px) var(--ng-gut) 28px;display:flex;flex-direction:column;justify-content:space-between;gap:24px;overflow-y:auto;overscroll-behavior:contain;visibility:hidden;opacity:0;transition:opacity .4s var(--ng-ease),visibility 0s linear .4s}\n.ng-menu.ng-is-open{visibility:visible;opacity:1;transition:opacity .4s var(--ng-ease)}\n.ng-menu ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--ng-line)}\n.ng-menu li{border-bottom:1px solid var(--ng-line);overflow:hidden}\n.ng-menu li a{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:12px 0;font-size:clamp(32px,9vw,64px);font-weight:500;letter-spacing:-.04em;line-height:1;transform:translateY(105%);transition:transform .8s var(--ng-ease);transition-delay:calc(var(--i)*60ms + 80ms)}\n.ng-menu li a small{font:500 11px/1 var(--ng-mono);letter-spacing:.12em;color:var(--ng-tx2)}\n.ng-menu.ng-is-open li a{transform:none}\n.ng-menu__more{display:grid;gap:10px}\n.ng-menu__k{font:500 11px/1.4 var(--ng-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ng-tx2);margin:6px 0 0}\n.ng-menu__links,.ng-menu__tags{display:flex;flex-wrap:wrap;gap:8px}\n.ng-menu__links a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border:1.5px solid rgba(242,243,240,.7);font:500 13px/1 var(--ng-ff);text-transform:uppercase;letter-spacing:.04em;color:var(--ng-tx)}\n.ng-menu__tags a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;border:1px solid var(--ng-line2);border-radius:4px;font:500 11px/1 var(--ng-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ng-tx2)}\n.ng-menu__links a:hover,.ng-menu__links a:focus-visible,.ng-menu__tags a:hover,.ng-menu__tags a:focus-visible{border-color:var(--ng-lime);color:var(--ng-lime)}\n@media (min-width:992px){.ng-menu__more{display:none}}\n.ng-menu__meta{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--ng-tx2)}\n.ng-cursor{position:fixed;left:0;top:0;z-index:10002;pointer-events:none;display:none}\n.ng-cursor__dot,.ng-cursor__ring{position:absolute;left:0;top:0;border-radius:50%;will-change:transform}\n.ng-cursor__dot{width:8px;height:8px;margin:-4px 0 0 -4px;background:var(--ng-lime)}\n.ng-cursor__ring{width:40px;height:40px;margin:-20px 0 0 -20px;border:1px solid rgba(200,255,0,.55);transition:width .35s var(--ng-ease),height .35s var(--ng-ease),margin .35s var(--ng-ease),opacity .3s}\n.ng-cursor.ng-is-hover .ng-cursor__ring{width:64px;height:64px;margin:-32px 0 0 -32px;border-color:var(--ng-lime)}\n.ng-cursor__lbl{position:absolute;left:18px;top:14px;font:500 11px/1 var(--ng-mono);letter-spacing:.12em;color:var(--ng-lime);white-space:nowrap;opacity:.8}\nhtml.ng-has-cursor .ng-cursor{display:block}\nhtml.ng-has-cursor,html.ng-has-cursor a,html.ng-has-cursor button{cursor:none}\nhtml.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{cursor:text}\n@media (max-width:575px){\n.ng-mast{padding:16px 0 10px}\n.ng-mast__head{gap:8px;margin-bottom:12px}\n.ng-mast__tag{font-size:15px}\n.ng-mast__sec,.ng-mast__tags{display:none}\n.ng-mast__row{min-height:54px;padding:0 4px 0 2px;margin:0}\n.ng-mast__main a:not(.ng-mast__cta){padding:0 10px}\n.ng-mast__main .ng-mast__cta{padding:0 12px;font-size:13px;min-height:44px}\n.ng-mast__burger{padding:0 8px;min-width:44px;justify-content:center}\n}\n@media (max-width:374px){.ng-mast__burger span.ng-mast__bl{display:none}.ng-mast__main .ng-mast__cta{padding:0 10px}}\n@media (min-width:992px) and (max-width:1199px){\n.ng-nav__bar{gap:16px}\n.ng-nav__links a,.ng-mast__main a:not(.ng-mast__cta){padding:0 9px;font-size:13px}\n.ng-mast__sec{flex-wrap:wrap;justify-content:flex-start}\n.ng-mast__sec a{padding:0 9px;font-size:13px}\n}\n@media (max-width:991px){\n.ng-nav__links,.ng-nav__cta{display:none}\n.ng-burger{display:block}\n:root{--ng-nav-h:64px}\n.ng-mast__head{flex-direction:column;align-items:flex-start;gap:12px}\n.ng-mast__tag br{display:none}\n.ng-mast__main ul{display:none}\n.ng-mast__main .ng-mast__cta{margin-left:auto;min-height:40px}\n.ng-mast__burger{display:inline-flex;align-items:center;gap:10px;margin-left:6px;min-height:44px;padding:0 6px 0 12px;background:none;border:0;color:var(--ng-tx);font:500 14px/1 var(--ng-ff);text-transform:uppercase;letter-spacing:.04em;cursor:pointer}\n.ng-mast__burger i{display:block;width:18px;height:1.5px;background:currentColor;box-shadow:0 -5px 0 currentColor,0 5px 0 currentColor}\n.ng-mast__sec,.ng-mast__tags{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;justify-content:flex-start}\n.ng-mast__sec::-webkit-scrollbar,.ng-mast__tags::-webkit-scrollbar{display:none}\n.ng-mast__sec a,.ng-mast__tags a{flex:0 0 auto;white-space:nowrap}\n}\n</style>\n<a class=\"ng-skip\" href=\"#ng-main\">Saltar al contenido</a>\n<div class=\"ng-progress\" aria-hidden=\"true\"><span></span></div>\n<div class=\"ng-mast\" data-ng-mast>\n  <div class=\"ng-wrap\">\n    <div class=\"ng-mast__head\">\n      <a class=\"ng-mast__logo\" href=\"/\" aria-label=\"Neurogenomic, ir al inicio\">Neuro<span>genomic</span></a>\n      <p class=\"ng-mast__tag\">Neurociencia <br>+ IA para <br>decidir con <br><em>evidencia</em></p>\n    </div>\n    <nav class=\"ng-mast__row ng-mast__main\" aria-label=\"Principal\">\n      <a href=\"/\" data-ng-page=\"index\">Inicio</a>\n      <ul>\n        <li><a href=\"/servicios/\" data-ng-page=\"servicios\">Servicios</a></li>\n        <li><a href=\"/tecnologia/\" data-ng-page=\"tecnologia\">Tecnología</a></li>\n        <li><a href=\"/#etica\" data-ng-page=\"etica\">Ética</a></li>\n        <li><a href=\"/contacto/\" data-ng-page=\"contacto\">Contacto</a></li>\n      </ul>\n      <a class=\"ng-mast__cta\" href=\"/contacto/\">Empieza hoy <span aria-hidden=\"true\">↗</span></a>\n      <button class=\"ng-mast__burger\" type=\"button\" aria-expanded=\"false\" aria-controls=\"ng-menu\" aria-label=\"Abrir menú\"><span class=\"ng-mast__bl\" aria-hidden=\"true\">Menú</span> <i aria-hidden=\"true\"></i></button>\n    </nav>\n    <nav class=\"ng-mast__row ng-mast__sec\" aria-label=\"Secciones\">\n      <a href=\"/#asi-mira\">Así mira tu cliente <i aria-hidden=\"true\">↘</i></a>\n      <a href=\"/#packaging\">Packaging <i aria-hidden=\"true\">↘</i></a>\n      <a href=\"/#tecnologia\">Señales y herramientas <i aria-hidden=\"true\">↘</i></a>\n      <a href=\"/#caso\">Caso <i aria-hidden=\"true\">↘</i></a>\n      <a class=\"is-ext\" href=\"/contacto/\">Agenda un diagnóstico <i aria-hidden=\"true\">↗</i></a>\n    </nav>\n    <ul class=\"ng-mast__row ng-mast__tags\" aria-label=\"Disciplinas\">\n      <li><a href=\"/tecnologia/\">Eye tracking <small>(C·01)</small></a></li>\n      <li><a href=\"/tecnologia/\">Facial coding <small>(C·02)</small></a></li>\n      <li><a href=\"/tecnologia/\">GSR <small>(C·03)</small></a></li>\n      <li><a href=\"/servicios/\">Branding <small>(01)</small></a></li>\n      <li><a href=\"/servicios/\">Business Intelligence <small>(02)</small></a></li>\n      <li><a href=\"/servicios/\">E-commerce <small>(03)</small></a></li>\n      <li><a href=\"/servicios/\">Marketing digital <small>(04)</small></a></li>\n      <li><a href=\"/servicios/\">SEO <small>(05)</small></a></li>\n      <li><a href=\"/servicios/\">Software <small>(06)</small></a></li>\n      <li><a href=\"/tecnologia/\">Python · SQL · IA <small>(stack)</small></a></li>\n    </ul>\n  </div>\n</div>\n<header class=\"ng-nav ng-is-off\" data-ng=\"nav\">\n  <div class=\"ng-wrap ng-nav__bar\">\n    <a class=\"ng-logo\" href=\"/\" aria-label=\"Neurogenomic, ir al inicio\">Neurogenomic</a>\n    <nav aria-label=\"Principal (barra fija)\">\n      <ul class=\"ng-nav__links\">\n        <li><a href=\"/\" data-ng-page=\"index\">Inicio</a></li>\n        <li><a href=\"/servicios/\" data-ng-page=\"servicios\">Servicios</a></li>\n        <li><a href=\"/tecnologia/\" data-ng-page=\"tecnologia\">Tecnología</a></li>\n        <li><a href=\"/#etica\" data-ng-page=\"etica\">Ética</a></li>\n        <li><a href=\"/contacto/\" data-ng-page=\"contacto\">Contacto</a></li>\n      </ul>\n    </nav>\n    <a class=\"ng-btn ng-btn--volt ng-nav__cta\" href=\"/contacto/\" data-ng-magnet>Empieza hoy <span class=\"ng-btn__i\" aria-hidden=\"true\">↗</span></a>\n    <button class=\"ng-burger\" type=\"button\" aria-expanded=\"false\" aria-controls=\"ng-menu\" aria-label=\"Abrir menú\"><i></i><i></i></button>\n  </div>\n  <div class=\"ng-menu\" id=\"ng-menu\" aria-label=\"Menú\" role=\"dialog\" aria-modal=\"true\">\n    <nav aria-label=\"Menú móvil\">\n      <ul>\n        <li><a href=\"/\" style=\"--i:0\">Inicio <small>01</small></a></li>\n        <li><a href=\"/servicios/\" style=\"--i:1\">Servicios <small>02</small></a></li>\n        <li><a href=\"/tecnologia/\" style=\"--i:2\">Tecnología <small>03</small></a></li>\n        <li><a href=\"/#etica\" style=\"--i:3\">Ética <small>04</small></a></li>\n        <li><a href=\"/contacto/\" style=\"--i:4\">Contacto <small>05</small></a></li>\n      </ul>\n    </nav>\n    <div class=\"ng-menu__more\">\n      <p class=\"ng-menu__k ng-mono\">Secciones</p>\n      <div class=\"ng-menu__links\">\n        <a href=\"/#asi-mira\">Así mira tu cliente ↘</a><a href=\"/#packaging\">Packaging ↘</a><a href=\"/#tecnologia\">Señales y herramientas ↘</a><a href=\"/#caso\">Caso ↘</a>\n      </div>\n      <p class=\"ng-menu__k ng-mono\">Disciplinas</p>\n      <div class=\"ng-menu__tags\">\n        <a href=\"/tecnologia/\">Eye tracking</a><a href=\"/tecnologia/\">Facial coding</a><a href=\"/tecnologia/\">GSR</a><a href=\"/servicios/\">Branding</a><a href=\"/servicios/\">Business Intelligence</a><a href=\"/servicios/\">E-commerce</a><a href=\"/servicios/\">Marketing digital</a><a href=\"/servicios/\">SEO</a><a href=\"/servicios/\">Software</a><a href=\"/tecnologia/\">Python · SQL · IA</a>\n      </div>\n    </div>\n    <div class=\"ng-menu__meta\">\n      <a class=\"ng-btn ng-btn--volt\" href=\"/contacto/\">Empieza hoy <span class=\"ng-btn__i\" aria-hidden=\"true\">↗</span></a>\n      <p class=\"ng-mono\">Neuroscience-Driven<br>Marketing Optimization</p>\n    </div>\n  </div>\n</header>\n<div class=\"ng-cursor\" aria-hidden=\"true\"><span class=\"ng-cursor__ring\"></span><span class=\"ng-cursor__dot\"></span></div>\n<div class=\"ng-noise\" aria-hidden=\"true\"></div>\n\n<script>\nNG.boot('[data-ng=\"nav\"]', function (nav) {\n  var d = document, de = d.documentElement;\n  var bar = d.querySelector('.ng-progress span');\n  var burger = nav.querySelector('.ng-burger'), menu = nav.querySelector('.ng-menu');\n  var lastY = 0, ticking = false;\n\n  // Página actual\n  var path = location.pathname;\n  var page = de.getAttribute('data-ng-page') || (/servicios/.test(path) ? 'servicios' : /tecnologia/.test(path) ? 'tecnologia' : /contacto/.test(path) ? 'contacto' : 'index');\n  var mast = d.querySelector('[data-ng-mast]'), mastBurger = mast && mast.querySelector('.ng-mast__burger');\n  [].forEach.call(d.querySelectorAll('.ng-nav [data-ng-page=\"' + page + '\"],[data-ng-mast] [data-ng-page=\"' + page + '\"]'), function (a) { a.setAttribute('aria-current', 'page'); });\n\n  // La barra fija solo aparece cuando el masthead sale de la pantalla\n  var mastOut = !mast;\n  if (mast && 'IntersectionObserver' in window) {\n    new IntersectionObserver(function (es) { mastOut = !es[0].isIntersecting; nav.classList.toggle('ng-is-off', !mastOut); }, { rootMargin: '-40px 0px 0px 0px' }).observe(mast);\n  } else { nav.classList.remove('ng-is-off'); }\n  // Ajuste fino: el wordmark ocupa exactamente el ancho que le corresponde\n  var logo = mast && mast.querySelector('.ng-mast__logo'), tag = mast && mast.querySelector('.ng-mast__tag');\n  var fit = function () {\n    if (!logo) return;\n    logo.style.fontSize = '';\n    var head = logo.parentNode, stacked = getComputedStyle(head).flexDirection === 'column';\n    var avail = head.clientWidth - (stacked ? 0 : tag.offsetWidth + parseFloat(getComputedStyle(head).columnGap || 0));\n    var fs = parseFloat(getComputedStyle(logo).fontSize), w = logo.scrollWidth;\n    if (w > 0) logo.style.fontSize = Math.min(fs * avail / w, stacked ? 400 : 260) + 'px';\n  };\n  fit(); window.addEventListener('resize', fit);\n  if (d.fonts && d.fonts.ready) d.fonts.ready.then(fit);\n\n  // Estado al hacer scroll + barra de progreso\n  var onScroll = function () {\n    ticking = false;\n    var y = window.scrollY || 0, max = d.documentElement.scrollHeight - window.innerHeight;\n    nav.classList.toggle('ng-is-hidden', !menu.classList.contains('ng-is-open') && y > 900 && y > lastY + 4);\n    if (y < lastY - 4) nav.classList.remove('ng-is-hidden');\n    lastY = y;\n    if (bar) bar.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';\n  };\n  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });\n  onScroll();\n  nav.addEventListener('focusin', function () { nav.classList.remove('ng-is-hidden'); });\n\n  // Menú móvil\n  var focusables = function () { return [burger].concat([].slice.call(menu.querySelectorAll('a'))); };\n  var setOpen = function (open) {\n    menu.classList.toggle('ng-is-open', open);\n    burger.setAttribute('aria-expanded', open);\n    burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');\n    if (mastBurger) { mastBurger.setAttribute('aria-expanded', open); mastBurger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú'); }\n    nav.classList.toggle('ng-is-open', open);\n    if (NG.lenis) open ? NG.lenis.stop() : NG.lenis.start();\n    de.style.overflow = open ? 'hidden' : '';\n    if (open) setTimeout(function () { var a = menu.querySelector('a'); a && a.focus(); }, 60);\n  };\n  var opener = burger; // al cerrar, el foco vuelve al botón que abrió el menú\n  burger.addEventListener('click', function () { opener = burger; setOpen(!menu.classList.contains('ng-is-open')); });\n  if (mastBurger) mastBurger.addEventListener('click', function () { opener = mastBurger; setOpen(true); });\n  menu.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });\n  d.addEventListener('keydown', function (e) {\n    if (!menu.classList.contains('ng-is-open')) return;\n    if (e.key === 'Escape') { setOpen(false); (opener || burger).focus(); }\n    if (e.key === 'Tab') {\n      var f = focusables(), i = f.indexOf(d.activeElement);\n      if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }\n      else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }\n    }\n  });\n  window.addEventListener('resize', function () { if (window.innerWidth >= 992 && menu.classList.contains('ng-is-open')) setOpen(false); });\n\n  // Botones magnéticos de todo el documento\n  d.querySelectorAll('[data-ng-magnet]').forEach(function (b) { NG.magnet(b); });\n\n  // Cursor de fijación (solo puntero fino y sin reduced-motion)\n  if (NG.fine && !NG.rm) {\n    var cur2 = d.querySelector('.ng-cursor'), dot = cur2.querySelector('.ng-cursor__dot'), ring = cur2.querySelector('.ng-cursor__ring');\n    var mx = -100, my = -100, rx = -100, ry = -100, seen = false;\n    de.classList.add('ng-has-cursor');\n    window.addEventListener('pointermove', function (e) {\n      if (e.pointerType !== 'mouse') return;\n      mx = e.clientX; my = e.clientY;\n      if (!seen) { seen = true; rx = mx; ry = my; }\n      dot.style.transform = 'translate(' + mx + 'px,' + my + 'px)';\n      var t = e.target.closest && e.target.closest('a,button,[role=\"button\"],label,input,select,textarea,[data-ng-hover]');\n      cur2.classList.toggle('ng-is-hover', !!t);\n    }, { passive: true });\n    d.addEventListener('pointerleave', function () { cur2.style.opacity = 0; });\n    d.addEventListener('pointerenter', function () { cur2.style.opacity = 1; });\n    (function tick() {\n      rx = NG.lerp(rx, mx, 0.18); ry = NG.lerp(ry, my, 0.18);\n      ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px)';\n      requestAnimationFrame(tick);\n    })();\n  }\n  NG.ready();\n});\n</script>",
+      "_margin": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": true
+      },
+      "_padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": true
+      },
+      "_css_classes": "ng-el-block"
+     }
+    }
+   ],
+   "settings": {
+    "container_type": "flex",
+    "content_width": "full",
+    "flex_direction": "column",
+    "flex_gap": {
+     "column": "0",
+     "row": "0",
+     "isLinked": true,
+     "unit": "px",
+     "size": 0
+    },
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "padding_tablet": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "_title": "Encabezado",
+    "css_classes": "ng-el-section"
+   }
+  },
+  {
+   "id": "40a9ad72",
+   "elType": "container",
+   "isInner": false,
+   "elements": [
+    {
+     "id": "9707968e",
+     "elType": "widget",
+     "widgetType": "html",
+     "isInner": false,
+     "elements": [],
+     "settings": {
+      "html": "<style>\n.ng-ph{padding:clamp(48px,7vw,120px) 0 clamp(56px,7vw,112px);border-top:1px solid var(--ng-line)}\n.ng-ph__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end}\n.ng-ph__t{grid-column:1/span 11;font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(56px,9vw,170px);line-height:.88;letter-spacing:0;font-weight:400;margin-top:24px;text-wrap:balance}\n.ng-ph__p{grid-column:1/span 6;margin-top:clamp(20px,2.4vw,36px);font-size:clamp(18px,1.5vw,22px);font-weight:300;line-height:1.45}\n.ng-ph__meta{grid-column:9/span 4;justify-self:end;color:var(--ng-tx2);text-align:right}\n.ng-ph__meta b{color:var(--ng-lime);font-weight:500}\n.ng-ph__media{margin-top:clamp(48px,6vw,96px);aspect-ratio:21/9}\n.ng-ph__media img{transform-origin:50% 50%}\n@media (max-width:899px){\n.ng-ph__t,.ng-ph__p{grid-column:1/-1}\n.ng-ph__meta{grid-column:1/-1;justify-self:start;text-align:left}\n.ng-ph__media{aspect-ratio:4/3}\n}\n</style>\n<section class=\"ng-sec ng-ph\" aria-labelledby=\"ng-ph-title\" data-ng=\"pagehead\">\n  <div class=\"ng-wrap\">\n    <div class=\"ng-ph__grid\">\n      <p class=\"ng-mono ng-eyebrow\" style=\"grid-column:1/-1\">Servicios · Neuroscience-Driven Marketing Optimization</p>\n      <h1 class=\"ng-ph__t\" id=\"ng-ph-title\">Decisiones de marca basadas en evidencia, no en intuición.</h1>\n      <p class=\"ng-ph__p\" data-ng-reveal=\".2\">Neurogenomic traduce neurociencia del consumidor e inteligencia artificial en sistemas de marca, contenido y crecimiento que funcionan porque están diseñados sobre cómo el cerebro realmente decide.</p>\n      <p class=\"ng-ph__meta ng-mono\" aria-hidden=\"true\">REC <b>●</b> <span class=\"ng-ph__ts\">00:00:00</span><br>06 servicios · 01 framework</p>\n    </div>\n    \n  </div>\n</section>\n\n<script>\nNG.boot('[data-ng=\"pagehead\"]', function (sec) {\n  var ts = sec.querySelector('.ng-ph__ts'), t0 = Date.now();\n  var p = function (n) { return (n < 10 ? '0' : '') + n; };\n  setInterval(function () { var s = Math.floor((Date.now() - t0) / 1000); ts.textContent = p(Math.floor(s / 3600)) + ':' + p(Math.floor(s / 60) % 60) + ':' + p(s % 60); }, 1000);\n  NG.reveals(sec);\n  NG.ready().then(function (gsap) {\n    if (!gsap || NG.rm) return;\n    var w = NG.split(sec.querySelector('.ng-ph__t'));\n    gsap.set(w, { yPercent: 115 });\n    NG.afterPreload(function () { gsap.to(w, { yPercent: 0, duration: 1.2, ease: 'expo.out', stagger: .06, delay: .1 }); });\n    var img = sec.querySelector('.ng-ph__media img');\n    if (img) gsap.fromTo(img, { scale: 1.15, yPercent: -4 }, { scale: 1.15, yPercent: 4, ease: 'none', scrollTrigger: { trigger: img.parentNode, start: 'top bottom', end: 'bottom top', scrub: true } });\n  });\n});\n</script>",
+      "_margin": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": true
+      },
+      "_padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": true
+      },
+      "_css_classes": "ng-el-block"
+     }
+    }
+   ],
+   "settings": {
+    "container_type": "flex",
+    "content_width": "full",
+    "flex_direction": "column",
+    "flex_gap": {
+     "column": "0",
+     "row": "0",
+     "isLinked": true,
+     "unit": "px",
+     "size": 0
+    },
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "padding_tablet": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "_title": "Cabecera de página",
+    "css_classes": "ng-el-section"
+   }
+  },
+  {
+   "id": "316838a1",
+   "elType": "container",
+   "isInner": false,
+   "elements": [
+    {
+     "id": "82c62e3f",
+     "elType": "widget",
+     "widgetType": "html",
+     "isInner": false,
+     "elements": [],
+     "settings": {
+      "html": "<style>\n.ng-svc{padding:clamp(96px,12vw,180px) 0 0}\n.ng-svc__intro{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:clamp(40px,5vw,72px)}\n.ng-svc__intro .ng-head{grid-column:1/span 7;margin:0}\n.ng-svc__intro .ng-body{grid-column:9/span 4}\n.ng-svc__pin{position:relative}\n.ng-svc__track{display:flex;flex-direction:column}\n.ng-svc__ch{position:relative;border-top:1px solid var(--ng-line)}\n.ng-svc__in{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:0 clamp(16px,2vw,32px);padding:clamp(40px,6vw,72px) var(--ng-gut);max-width:var(--ng-max);margin-inline:auto;width:100%}\n.ng-svc__main{grid-column:1/span 7;display:flex;flex-direction:column;gap:clamp(14px,1.6vh,22px)}\n.ng-svc__lbl{display:flex;gap:16px;color:var(--ng-tx2)}\n.ng-svc__lbl b{color:var(--ng-volt);font-weight:500}\n.ng-svc__t{font-family:var(--ng-disp);font-weight:400;text-transform:uppercase;font-size:clamp(38px,4.2vw,76px);line-height:.92;letter-spacing:0;max-width:16ch;text-wrap:balance}\n.ng-svc__d{color:var(--ng-tx);opacity:.8;font-weight:300;max-width:60ch;font-size:clamp(15px,1.1vw,17px)}\n.ng-svc__k{color:var(--ng-tx2);margin-bottom:12px}\n.ng-svc__solve ul{display:grid;grid-template-columns:1fr 1fr;gap:16px}\n.ng-svc__solve li{border-left:1px solid var(--ng-line2);padding-left:14px}\n.ng-svc__solve h4,.ng-svc__tl h4{font-size:16px;line-height:1.25;font-weight:500;letter-spacing:-.01em;margin-bottom:6px}\n.ng-svc__solve p,.ng-svc__tl p{font-size:14px;line-height:1.45;color:var(--ng-tx2)}\n.ng-svc__tl{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding-top:22px}\n.ng-svc__line{position:absolute;left:0;right:0;top:4px;height:1px;background:var(--ng-line2)}\n.ng-svc__line i{position:absolute;inset:0;background:var(--ng-volt);transform-origin:0 50%}\n.ng-svc__tl li{position:relative}\n.ng-svc__tl li:not(.ng-svc__line)::before{content:\"\";position:absolute;left:0;top:-22px;width:9px;height:9px;border-radius:50%;background:var(--ng-bg);border:1px solid var(--ng-volt)}\n.ng-svc__tl .ng-mono{display:block;color:var(--ng-volt);margin-bottom:6px;font-size:11px}\n.ng-svc__cta{align-self:flex-start;margin-top:4px}\n.ng-svc__fig{grid-column:9/span 4;align-self:center;position:relative;margin:0}\n.ng-svc__fig .ng-media,.ng-spec{width:100%}\n.ng-svc__photo img{object-position:var(--ng-pos,50% 50%)}\n.ng-spec{position:relative;overflow:hidden;border-radius:6px;border:1px solid var(--ng-line);background:radial-gradient(70% 60% at 50% 42%,#171a1f 0%,#000 72%)}\n.ng-spec svg{position:absolute;inset:0;width:100%;height:100%}\n.ng-spec__heat{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:screen;opacity:.92}\n.ng-spec .ng-co{transform:translate(-6px,-50%)}\n.ng-spec .ng-co>span:last-child{white-space:normal;max-width:11ch;line-height:1.3;text-shadow:0 1px 6px #000}\n.ng-svc__fig figcaption{display:flex;justify-content:space-between;margin-top:10px;color:var(--ng-tx2)}\n.ng-svc__hud{display:none}\n@media (min-width:1024px) and (min-height:700px){\n.ng-svc.ng-is-h .ng-svc__pin{height:100vh;overflow:hidden}\n.ng-svc.ng-is-h .ng-svc__track{flex-direction:row;height:100%;width:max-content;will-change:transform}\n.ng-svc.ng-is-h .ng-svc__ch{flex:0 0 100vw;width:100vw;height:100%;border-top:0;border-left:1px solid var(--ng-line);display:flex;align-items:center}\n.ng-svc.ng-is-h .ng-svc__in{padding-top:calc(var(--ng-nav-h) + 8px);padding-bottom:64px}\n.ng-svc.ng-is-h .ng-svc__fig .ng-media,.ng-svc.ng-is-h .ng-spec{width:min(100%,calc(66vh * .8));margin-inline:auto}\n.ng-svc.ng-is-h .ng-svc__hud{display:flex;position:absolute;left:var(--ng-gut);right:var(--ng-gut);bottom:22px;align-items:center;gap:20px;color:var(--ng-tx2);z-index:3;pointer-events:none}\n.ng-svc__bar{flex:1;height:1px;background:var(--ng-line2);position:relative}\n.ng-svc__bar i{position:absolute;inset:0;background:var(--ng-volt);transform:scaleX(0);transform-origin:0 50%}\n.ng-svc__n{color:var(--ng-tx);font-variant-numeric:tabular-nums}\n}\n@media (max-width:1023px){\n.ng-svc__intro .ng-head,.ng-svc__intro .ng-body{grid-column:1/-1}\n.ng-svc__main,.ng-svc__fig{grid-column:1/-1}\n.ng-svc__fig{order:-1;margin-bottom:28px;max-width:560px}\n}\n@media (max-width:639px){\n.ng-svc__solve ul,.ng-svc__tl{grid-template-columns:1fr}\n.ng-svc__tl{padding-top:0;padding-left:22px;gap:20px}\n.ng-svc__line{left:4px;right:auto;top:6px;bottom:6px;width:1px;height:auto}\n.ng-svc__line i{transform-origin:50% 0}\n.ng-svc__tl li:not(.ng-svc__line)::before{left:-22px;top:4px}\n.ng-svc__cta{align-self:stretch}\n}\n</style>\n<section class=\"ng-sec ng-svc\" id=\"servicios\" aria-labelledby=\"ng-svc-title\" data-ng=\"services\">\n  <div class=\"ng-wrap\">\n    <div class=\"ng-svc__intro\">\n      <div class=\"ng-head\">\n        <p class=\"ng-mono ng-eyebrow\">01 · Servicios</p>\n        <h2 class=\"ng-h2\" id=\"ng-svc-title\" data-ng-split>Seis servicios. <span class=\"ng-hl\">Un framework.</span></h2>\n      </div>\n      <p class=\"ng-body\" data-ng-reveal>Cada línea de servicio se ejecuta de forma independiente o integrada. La metodología neurocientífica y los modelos de IA son el tejido conector entre todas.</p>\n    </div>\n  </div>\n  <div class=\"ng-svc__pin\">\n    <div class=\"ng-svc__track\">\n      <article class=\"ng-svc__ch\" id=\"svc-branding\" aria-labelledby=\"svc-branding-t\">\n        <div class=\"ng-svc__in\">\n          <div class=\"ng-svc__main\">\n            <p class=\"ng-svc__lbl ng-mono\"><b>Servicio 01 / 06</b><span>Branding</span></p>\n            <h3 class=\"ng-svc__t\" id=\"svc-branding-t\"><span class=\"ng-sr\">Branding: </span>Identidad calibrada contra el cerebro del consumidor.</h3>\n            <p class=\"ng-svc__d\">Construimos identidades de marca probando cada decisión —nombre, color, tono, símbolo— contra respuesta emocional y atencional real, antes de salir al mercado.</p>\n            <ul class=\"ng-chips\" aria-label=\"Capacidades\"><li class=\"ng-chip\">Eye Tracking</li><li class=\"ng-chip\">Facial Coding</li><li class=\"ng-chip\">Naming</li><li class=\"ng-chip\">Sistema Visual</li><li class=\"ng-chip\">Brand Voice + IA</li></ul>\n            <div class=\"ng-svc__solve\"><p class=\"ng-svc__k ng-mono\">Qué resolvemos</p><ul><li><h4>Marca sin diferenciación</h4><p>Identidades que se parecen a la categoría completa y no generan recuerdo espontáneo ni preferencia medible.</p></li><li><h4>Decisiones por comité</h4><p>Logos y mensajes aprobados por consenso interno, nunca testeados contra la reacción real del consumidor.</p></li></ul></div>\n            <div class=\"ng-svc__how\"><p class=\"ng-svc__k ng-mono\">Cómo lo hacemos</p><ol class=\"ng-svc__tl\"><li class=\"ng-svc__line\" aria-hidden=\"true\" style=\"position:absolute\"><i></i></li><li><span class=\"ng-mono\">Etapa 1</span><h4>Auditoría biométrica</h4><p>Testeamos marca actual y referentes de categoría con eye tracking y codificación facial para mapear el terreno emocional disponible.</p></li><li><span class=\"ng-mono\">Etapa 2</span><h4>Arquitectura de marca + IA</h4><p>Generamos y filtramos variantes de naming, paleta y tono con modelos de lenguaje, reduciendo a un set corto validado por hallazgos biométricos.</p></li><li><span class=\"ng-mono\">Etapa 3</span><h4>Validación final</h4><p>El sistema ganador se testea de nuevo antes de producción, confirmando activación emocional y memorabilidad superiores al benchmark de categoría.</p></li></ol></div>\n            <a class=\"ng-btn ng-btn--volt ng-svc__cta\" href=\"/contacto/?servicio=branding\">Solicitar diagnóstico <span class=\"ng-sr\">de Branding</span><span class=\"ng-btn__i\" aria-hidden=\"true\">↗</span></a>\n          </div>\n          <figure class=\"ng-svc__fig\">\n            <div class=\"ng-media ng-svc__photo\" style=\"aspect-ratio:4/5;--ng-pos:50% 42%\" data-ph=\"/img/ref-can\"><picture><source type=\"image/avif\" srcset=\"/img/ref-can-570.avif\"><source type=\"image/webp\" srcset=\"/img/ref-can-570.webp\"><img src=\"/img/ref-can-570.webp\" width=\"570\" height=\"1590\" alt=\"Lata negra con gotas de condensación y un mapa de calor de eye tracking pixelado sobre su superficie: la atención se concentra en el centro, la parte superior y la base\" loading=\"lazy\" decoding=\"async\" onerror=\"this.classList.add('ng-is-missing')\"></picture></div>\n            <figcaption class=\"ng-mono\" aria-hidden=\"true\"><span>S·01</span><span>Branding</span></figcaption>\n          </figure>\n        </div>\n      </article>\n      <article class=\"ng-svc__ch\" id=\"svc-bi\" aria-labelledby=\"svc-bi-t\">\n        <div class=\"ng-svc__in\">\n          <div class=\"ng-svc__main\">\n            <p class=\"ng-svc__lbl ng-mono\"><b>Servicio 02 / 06</b><span>Business Intelligence</span></p>\n            <h3 class=\"ng-svc__t\" id=\"svc-bi-t\"><span class=\"ng-sr\">Business Intelligence: </span>Datos biométricos y de negocio en un solo tablero.</h3>\n            <p class=\"ng-svc__d\">Integramos datos biométricos, de negocio y de comportamiento digital en un sistema único de decisión, con modelos predictivos que anticipan la respuesta del consumidor.</p>\n            <ul class=\"ng-chips\" aria-label=\"Capacidades\"><li class=\"ng-chip\">Dashboards</li><li class=\"ng-chip\">Modelos Predictivos</li><li class=\"ng-chip\">Data Biométrica</li><li class=\"ng-chip\">Machine Learning</li></ul>\n            <div class=\"ng-svc__solve\"><p class=\"ng-svc__k ng-mono\">Qué resolvemos</p><ul><li><h4>Datos en silos</h4><p>Métricas de ventas, marketing y comportamiento viven en sistemas separados que nunca se cruzan para generar una decisión.</p></li><li><h4>Reportes que miran al pasado</h4><p>Dashboards descriptivos que explican qué pasó, sin capacidad de anticipar qué va a pasar.</p></li></ul></div>\n            <div class=\"ng-svc__how\"><p class=\"ng-svc__k ng-mono\">Cómo lo hacemos</p><ol class=\"ng-svc__tl\"><li class=\"ng-svc__line\" aria-hidden=\"true\" style=\"position:absolute\"><i></i></li><li><span class=\"ng-mono\">Etapa 1</span><h4>Unificación de fuentes</h4><p>Conectamos CRM, e-commerce, analítica web y data biométrica de estudios previos en una capa de datos común.</p></li><li><span class=\"ng-mono\">Etapa 2</span><h4>Modelado predictivo</h4><p>Entrenamos modelos de IA sobre esa data unificada para anticipar churn, propensión de compra y respuesta a campañas antes de ejecutarlas.</p></li><li><span class=\"ng-mono\">Etapa 3</span><h4>Dashboards accionables</h4><p>Construimos dashboards ejecutivos que traducen los modelos en alertas y recomendaciones de acción, no solo gráficos.</p></li></ol></div>\n            <a class=\"ng-btn ng-btn--volt ng-svc__cta\" href=\"/contacto/?servicio=business-intelligence\">Solicitar diagnóstico <span class=\"ng-sr\">de Business Intelligence</span><span class=\"ng-btn__i\" aria-hidden=\"true\">↗</span></a>\n          </div>\n          <figure class=\"ng-svc__fig\">\n            <div class=\"ng-spec\" style=\"aspect-ratio:4/5\" data-heat='[[0.62, 0.37, 0.1, 1], [0.3, 0.2, 0.07, 0.5], [0.5, 0.7, 0.08, 0.45]]'><svg viewBox=\"0 0 400 500\" preserveAspectRatio=\"xMidYMid slice\" role=\"img\" aria-label=\"Ilustración de Business Intelligence con mapa de calor de atención\">\n      <rect x=\"40\" y=\"60\" width=\"320\" height=\"300\" rx=\"10\" fill=\"none\" stroke=\"#3A3F46\" stroke-width=\"2\"/>\n      <rect x=\"60\" y=\"80\" width=\"88\" height=\"44\" rx=\"4\" fill=\"#16191D\"/><rect x=\"156\" y=\"80\" width=\"88\" height=\"44\" rx=\"4\" fill=\"#16191D\"/><rect x=\"252\" y=\"80\" width=\"88\" height=\"44\" rx=\"4\" fill=\"#16191D\"/>\n      <rect x=\"70\" y=\"92\" width=\"40\" height=\"6\" rx=\"3\" fill=\"#3A3F46\"/><rect x=\"70\" y=\"104\" width=\"56\" height=\"10\" rx=\"3\" fill=\"#F2F3F0\" opacity=\".6\"/>\n      <rect x=\"166\" y=\"92\" width=\"40\" height=\"6\" rx=\"3\" fill=\"#3A3F46\"/><rect x=\"166\" y=\"104\" width=\"48\" height=\"10\" rx=\"3\" fill=\"#F2F3F0\" opacity=\".6\"/>\n      <rect x=\"262\" y=\"92\" width=\"40\" height=\"6\" rx=\"3\" fill=\"#3A3F46\"/><rect x=\"262\" y=\"104\" width=\"60\" height=\"10\" rx=\"3\" fill=\"#C8F542\"/>\n      <path d=\"M60 230 H340 M60 190 H340 M60 150 H340\" stroke=\"#1F2328\"/>\n      <polyline points=\"60,220 100,210 140,215 180,190 220,196 250,170\" fill=\"none\" stroke=\"#F2F3F0\" stroke-width=\"2\" opacity=\".7\"/>\n      <polyline points=\"250,170 280,150 310,158 340,132\" fill=\"none\" stroke=\"#C8F542\" stroke-width=\"2.5\" stroke-dasharray=\"6 5\"/>\n      <g fill=\"#2A2E33\"><rect x=\"70\" y=\"290\" width=\"22\" height=\"50\"/><rect x=\"104\" y=\"270\" width=\"22\" height=\"70\"/><rect x=\"138\" y=\"300\" width=\"22\" height=\"40\"/><rect x=\"172\" y=\"262\" width=\"22\" height=\"78\"/><rect x=\"206\" y=\"282\" width=\"22\" height=\"58\"/></g>\n      <rect x=\"240\" y=\"252\" width=\"22\" height=\"88\" fill=\"#C8F542\"/><rect x=\"274\" y=\"276\" width=\"22\" height=\"64\" fill=\"#2A2E33\"/><rect x=\"308\" y=\"268\" width=\"22\" height=\"72\" fill=\"#2A2E33\"/></svg><canvas class=\"ng-spec__heat\" aria-hidden=\"true\"></canvas><span class=\"ng-co ng-spec__co\" style=\"left:62%;top:37%\" aria-hidden=\"true\"><span class=\"ng-co__dot\"></span><span class=\"ng-co__ln\" style=\"--ng-co-w:28px\"></span><span>Predicción · Señal</span></span><span class=\"ng-marks\" aria-hidden=\"true\"><i></i></span></div>\n            <figcaption class=\"ng-mono\" aria-hidden=\"true\"><span>S·02</span><span>Business Intelligence</span></figcaption>\n          </figure>\n        </div>\n      </article>\n      <article class=\"ng-svc__ch\" id=\"svc-ecommerce\" aria-labelledby=\"svc-ecommerce-t\">\n        <div class=\"ng-svc__in\">\n          <div class=\"ng-svc__main\">\n            <p class=\"ng-svc__lbl ng-mono\"><b>Servicio 03 / 06</b><span>E-commerce</span></p>\n            <h3 class=\"ng-svc__t\" id=\"svc-ecommerce-t\"><span class=\"ng-sr\">E-commerce: </span>Arquitecturas de conversión basadas en fricción cognitiva.</h3>\n            <p class=\"ng-svc__d\">Diseñamos tiendas y catálogos donde cada fricción del recorrido de compra fue eliminada con base en eye tracking real sobre el flujo de checkout.</p>\n            <ul class=\"ng-chips\" aria-label=\"Capacidades\"><li class=\"ng-chip\">UX de Conversión</li><li class=\"ng-chip\">Eye Tracking de Checkout</li><li class=\"ng-chip\">Shopify / Headless</li><li class=\"ng-chip\">Personalización con IA</li></ul>\n            <div class=\"ng-svc__solve\"><p class=\"ng-svc__k ng-mono\">Qué resolvemos</p><ul><li><h4>Abandono de carrito</h4><p>Flujos de compra con fricciones invisibles para el equipo interno, pero evidentes en el comportamiento ocular y de clics del usuario real.</p></li><li><h4>Catálogo genérico</h4><p>Fichas de producto que no priorizan la información que el cerebro realmente busca en los primeros segundos de decisión.</p></li></ul></div>\n            <div class=\"ng-svc__how\"><p class=\"ng-svc__k ng-mono\">Cómo lo hacemos</p><ol class=\"ng-svc__tl\"><li class=\"ng-svc__line\" aria-hidden=\"true\" style=\"position:absolute\"><i></i></li><li><span class=\"ng-mono\">Etapa 1</span><h4>Diagnóstico de fricción</h4><p>Eye tracking y grabación de sesiones reales sobre el flujo de checkout actual para ubicar los puntos exactos de abandono.</p></li><li><span class=\"ng-mono\">Etapa 2</span><h4>Rediseño del flujo</h4><p>Reconstrucción de fichas de producto, carrito y checkout priorizando jerarquía visual validada biométricamente.</p></li><li><span class=\"ng-mono\">Etapa 3</span><h4>Personalización con IA</h4><p>Motor de recomendación y búsqueda asistido por IA que adapta el catálogo mostrado al perfil de comportamiento de cada visitante.</p></li></ol></div>\n            <a class=\"ng-btn ng-btn--volt ng-svc__cta\" href=\"/contacto/?servicio=ecommerce\">Solicitar diagnóstico <span class=\"ng-sr\">de E-commerce</span><span class=\"ng-btn__i\" aria-hidden=\"true\">↗</span></a>\n          </div>\n          <figure class=\"ng-svc__fig\">\n            <div class=\"ng-spec\" style=\"aspect-ratio:4/5\" data-heat='[[0.5, 0.8, 0.07, 1], [0.5, 0.35, 0.12, 0.75], [0.42, 0.57, 0.06, 0.45]]'><svg viewBox=\"0 0 400 500\" preserveAspectRatio=\"xMidYMid slice\" role=\"img\" aria-label=\"Ilustración de E-commerce con mapa de calor de atención\">\n      <rect x=\"128\" y=\"50\" width=\"144\" height=\"300\" rx=\"22\" fill=\"none\" stroke=\"#3A3F46\" stroke-width=\"2\"/><rect x=\"186\" y=\"62\" width=\"28\" height=\"6\" rx=\"3\" fill=\"#3A3F46\"/>\n      <rect x=\"144\" y=\"86\" width=\"112\" height=\"96\" rx=\"6\" fill=\"#16191D\"/><path d=\"M178 160 l22 -34 l22 34 Z\" fill=\"#2A2E33\"/>\n      <rect x=\"144\" y=\"196\" width=\"84\" height=\"8\" rx=\"4\" fill=\"#3A3F46\"/><rect x=\"144\" y=\"212\" width=\"60\" height=\"6\" rx=\"3\" fill=\"#2A2E33\"/>\n      <rect x=\"144\" y=\"232\" width=\"48\" height=\"12\" rx=\"3\" fill=\"#F2F3F0\" opacity=\".7\"/>\n      <rect x=\"144\" y=\"256\" width=\"112\" height=\"6\" rx=\"3\" fill=\"#2A2E33\"/><rect x=\"144\" y=\"268\" width=\"90\" height=\"6\" rx=\"3\" fill=\"#2A2E33\"/>\n      <rect x=\"144\" y=\"296\" width=\"112\" height=\"30\" rx=\"6\" fill=\"#C8F542\"/><text x=\"200\" y=\"316\" text-anchor=\"middle\" font-family=\"IBM Plex Mono,monospace\" font-size=\"11\" font-weight=\"600\" fill=\"#0A0B0D\">PAGAR</text></svg><canvas class=\"ng-spec__heat\" aria-hidden=\"true\"></canvas><span class=\"ng-co ng-spec__co\" style=\"left:50%;top:80%\" aria-hidden=\"true\"><span class=\"ng-co__dot\"></span><span class=\"ng-co__ln\" style=\"--ng-co-w:28px\"></span><span>Zona crítica · Checkout</span></span><span class=\"ng-marks\" aria-hidden=\"true\"><i></i></span></div>\n            <figcaption class=\"ng-mono\" aria-hidden=\"true\"><span>S·03</span><span>E-commerce</span></figcaption>\n          </figure>\n        </div>\n      </article>\n      <article class=\"ng-svc__ch\" id=\"svc-marketing\" aria-labelledby=\"svc-marketing-t\">\n        <div class=\"ng-svc__in\">\n          <div class=\"ng-svc__main\">\n            <p class=\"ng-svc__lbl ng-mono\"><b>Servicio 04 / 06</b><span>Marketing Digital</span></p>\n            <h3 class=\"ng-svc__t\" id=\"svc-marketing-t\"><span class=\"ng-sr\">Marketing Digital: </span>Campañas pre-validadas con biometría, no con intuición.</h3>\n            <p class=\"ng-svc__d\">Diseñamos y operamos campañas que ya fueron probadas contra reacción emocional y atencional real antes de invertir un solo peso en medios.</p>\n            <ul class=\"ng-chips\" aria-label=\"Capacidades\"><li class=\"ng-chip\">Paid Media</li><li class=\"ng-chip\">Pre-testing Biométrico</li><li class=\"ng-chip\">Copy con IA</li><li class=\"ng-chip\">CRO</li></ul>\n            <div class=\"ng-svc__solve\"><p class=\"ng-svc__k ng-mono\">Qué resolvemos</p><ul><li><h4>Presupuesto quemado en testing</h4><p>Probar creativos en producción real, gastando presupuesto de medios para descubrir qué no funciona.</p></li><li><h4>Creatividad sin sistema</h4><p>Piezas que dependen del gusto individual del equipo creativo, sin trazabilidad a un principio de comportamiento del consumidor.</p></li></ul></div>\n            <div class=\"ng-svc__how\"><p class=\"ng-svc__k ng-mono\">Cómo lo hacemos</p><ol class=\"ng-svc__tl\"><li class=\"ng-svc__line\" aria-hidden=\"true\" style=\"position:absolute\"><i></i></li><li><span class=\"ng-mono\">Etapa 1</span><h4>Pre-testing biométrico</h4><p>Cada concepto creativo se testea con codificación facial y eye tracking en panel reducido antes de invertir en medios pagados.</p></li><li><span class=\"ng-mono\">Etapa 2</span><h4>Producción asistida por IA</h4><p>Generamos variantes de copy y creativo con modelos de lenguaje e imagen, filtradas por los hallazgos del pre-testing.</p></li><li><span class=\"ng-mono\">Etapa 3</span><h4>Optimización continua</h4><p>Operamos las campañas con testing A/B permanente, retroalimentando el modelo de audiencia con cada ciclo.</p></li></ol></div>\n            <a class=\"ng-btn ng-btn--volt ng-svc__cta\" href=\"/contacto/?servicio=marketing-digital\">Solicitar diagnóstico <span class=\"ng-sr\">de Marketing Digital</span><span class=\"ng-btn__i\" aria-hidden=\"true\">↗</span></a>\n          </div>\n          <figure class=\"ng-svc__fig\">\n            <div class=\"ng-media ng-svc__photo\" style=\"aspect-ratio:4/5;--ng-pos:50% 66%\" data-ph=\"/img/ref-bottle\"><picture><source type=\"image/avif\" srcset=\"/img/ref-bottle-520.avif\"><source type=\"image/webp\" srcset=\"/img/ref-bottle-520.webp\"><img src=\"/img/ref-bottle-520.webp\" width=\"520\" height=\"1350\" alt=\"Botella de vino oscura bajo un foco, con puntos de fijación verdes brillando sobre la etiqueta blanca y un eye tracker detrás\" loading=\"lazy\" decoding=\"async\" onerror=\"this.classList.add('ng-is-missing')\"></picture></div>\n            <figcaption class=\"ng-mono\" aria-hidden=\"true\"><span>S·04</span><span>Marketing Digital</span></figcaption>\n          </figure>\n        </div>\n      </article>\n      <article class=\"ng-svc__ch\" id=\"svc-seo\" aria-labelledby=\"svc-seo-t\">\n        <div class=\"ng-svc__in\">\n          <div class=\"ng-svc__main\">\n            <p class=\"ng-svc__lbl ng-mono\"><b>Servicio 05 / 06</b><span>SEO técnico y de contenido</span></p>\n            <h3 class=\"ng-svc__t\" id=\"svc-seo-t\"><span class=\"ng-sr\">SEO técnico y de contenido: </span>Visibilidad orgánica diseñada para motores e IA generativa.</h3>\n            <p class=\"ng-svc__d\">Posicionamos marcas en buscadores tradicionales y en los motores de respuesta de IA generativa, con contenido estructurado para ambos.</p>\n            <ul class=\"ng-chips\" aria-label=\"Capacidades\"><li class=\"ng-chip\">SEO Técnico</li><li class=\"ng-chip\">AEO / GEO</li><li class=\"ng-chip\">Contenido E-E-A-T</li><li class=\"ng-chip\">Schema Markup</li></ul>\n            <div class=\"ng-svc__solve\"><p class=\"ng-svc__k ng-mono\">Qué resolvemos</p><ul><li><h4>Invisibilidad orgánica</h4><p>Sitios técnicamente correctos pero sin estrategia de contenido, que pierden posiciones frente a competidores más agresivos.</p></li><li><h4>Ausencia en respuestas de IA</h4><p>Contenido que no está estructurado para ser citado por motores de respuesta y buscadores conversacionales, y pierde la nueva capa de visibilidad.</p></li></ul></div>\n            <div class=\"ng-svc__how\"><p class=\"ng-svc__k ng-mono\">Cómo lo hacemos</p><ol class=\"ng-svc__tl\"><li class=\"ng-svc__line\" aria-hidden=\"true\" style=\"position:absolute\"><i></i></li><li><span class=\"ng-mono\">Etapa 1</span><h4>Auditoría técnica</h4><p>Revisión completa de arquitectura, velocidad, indexación y señales E-E-A-T sobre el sitio actual.</p></li><li><span class=\"ng-mono\">Etapa 2</span><h4>Estrategia de contenido</h4><p>Mapa de intención de búsqueda cruzado con los dominios de atención y memoria, priorizando temas con mayor potencial de codificación de marca.</p></li><li><span class=\"ng-mono\">Etapa 3</span><h4>Optimización para IA</h4><p>Estructuración de contenido y datos estructurados para maximizar la citabilidad en motores de respuesta generativa.</p></li></ol></div>\n            <a class=\"ng-btn ng-btn--volt ng-svc__cta\" href=\"/contacto/?servicio=seo\">Solicitar diagnóstico <span class=\"ng-sr\">de SEO técnico y de contenido</span><span class=\"ng-btn__i\" aria-hidden=\"true\">↗</span></a>\n          </div>\n          <figure class=\"ng-svc__fig\">\n            <div class=\"ng-spec\" style=\"aspect-ratio:4/5\" data-heat='[[0.5, 0.36, 0.12, 1], [0.35, 0.15, 0.06, 0.5], [0.4, 0.62, 0.06, 0.35]]'><svg viewBox=\"0 0 400 500\" preserveAspectRatio=\"xMidYMid slice\" role=\"img\" aria-label=\"Ilustración de SEO técnico y de contenido con mapa de calor de atención\">\n      <rect x=\"40\" y=\"50\" width=\"320\" height=\"320\" rx=\"10\" fill=\"none\" stroke=\"#3A3F46\" stroke-width=\"2\"/>\n      <rect x=\"64\" y=\"72\" width=\"272\" height=\"30\" rx=\"15\" fill=\"#16191D\" stroke=\"#3A3F46\"/><circle cx=\"84\" cy=\"87\" r=\"6\" fill=\"none\" stroke=\"#8A8F98\" stroke-width=\"2\"/>\n      <rect x=\"100\" y=\"83\" width=\"110\" height=\"8\" rx=\"4\" fill=\"#3A3F46\"/>\n      <rect x=\"64\" y=\"120\" width=\"272\" height=\"112\" rx=\"8\" fill=\"#111316\" stroke=\"#C8F542\" stroke-width=\"2\"/>\n      <rect x=\"80\" y=\"134\" width=\"60\" height=\"10\" rx=\"3\" fill=\"#C8F542\"/>\n      <rect x=\"80\" y=\"154\" width=\"236\" height=\"7\" rx=\"3\" fill=\"#F2F3F0\" opacity=\".55\"/><rect x=\"80\" y=\"168\" width=\"220\" height=\"7\" rx=\"3\" fill=\"#F2F3F0\" opacity=\".55\"/><rect x=\"80\" y=\"182\" width=\"180\" height=\"7\" rx=\"3\" fill=\"#F2F3F0\" opacity=\".55\"/>\n      <rect x=\"80\" y=\"204\" width=\"88\" height=\"14\" rx=\"7\" fill=\"none\" stroke=\"#C8F542\"/>\n      <g fill=\"#2A2E33\"><rect x=\"64\" y=\"252\" width=\"150\" height=\"9\" rx=\"4\"/><rect x=\"64\" y=\"268\" width=\"240\" height=\"6\" rx=\"3\"/><rect x=\"64\" y=\"280\" width=\"200\" height=\"6\" rx=\"3\"/>\n      <rect x=\"64\" y=\"304\" width=\"130\" height=\"9\" rx=\"4\"/><rect x=\"64\" y=\"320\" width=\"250\" height=\"6\" rx=\"3\"/><rect x=\"64\" y=\"332\" width=\"210\" height=\"6\" rx=\"3\"/></g></svg><canvas class=\"ng-spec__heat\" aria-hidden=\"true\"></canvas><span class=\"ng-co ng-spec__co\" style=\"left:50%;top:36%\" aria-hidden=\"true\"><span class=\"ng-co__dot\"></span><span class=\"ng-co__ln\" style=\"--ng-co-w:28px\"></span><span>Respuesta IA · Citada</span></span><span class=\"ng-marks\" aria-hidden=\"true\"><i></i></span></div>\n            <figcaption class=\"ng-mono\" aria-hidden=\"true\"><span>S·05</span><span>SEO técnico y de contenido</span></figcaption>\n          </figure>\n        </div>\n      </article>\n      <article class=\"ng-svc__ch\" id=\"svc-software\" aria-labelledby=\"svc-software-t\">\n        <div class=\"ng-svc__in\">\n          <div class=\"ng-svc__main\">\n            <p class=\"ng-svc__lbl ng-mono\"><b>Servicio 06 / 06</b><span>Desarrollo de Software</span></p>\n            <h3 class=\"ng-svc__t\" id=\"svc-software-t\"><span class=\"ng-sr\">Desarrollo de Software: </span>Producto digital con IA integrada de punta a punta.</h3>\n            <p class=\"ng-svc__d\">Construimos productos digitales a medida —desde landing pages hasta plataformas internas— con inteligencia artificial integrada desde la arquitectura, no añadida después.</p>\n            <ul class=\"ng-chips\" aria-label=\"Capacidades\"><li class=\"ng-chip\">Web &amp; Apps</li><li class=\"ng-chip\">Integración de IA</li><li class=\"ng-chip\">WordPress / Elementor</li><li class=\"ng-chip\">Automatización</li></ul>\n            <div class=\"ng-svc__solve\"><p class=\"ng-svc__k ng-mono\">Qué resolvemos</p><ul><li><h4>Deuda técnica heredada</h4><p>Plataformas construidas por distintos proveedores sin coherencia, lentas, difíciles de mantener o escalar.</p></li><li><h4>IA como feature decorativo</h4><p>Chatbots o funciones de IA añadidas superficialmente, sin conexión con el dato real de negocio o de comportamiento.</p></li></ul></div>\n            <div class=\"ng-svc__how\"><p class=\"ng-svc__k ng-mono\">Cómo lo hacemos</p><ol class=\"ng-svc__tl\"><li class=\"ng-svc__line\" aria-hidden=\"true\" style=\"position:absolute\"><i></i></li><li><span class=\"ng-mono\">Etapa 1</span><h4>Arquitectura del producto</h4><p>Definición de stack, estructura de datos e integraciones necesarias antes de escribir una sola línea de interfaz.</p></li><li><span class=\"ng-mono\">Etapa 2</span><h4>Desarrollo iterativo</h4><p>Construcción en ciclos cortos con entregas funcionales tempranas, validadas con usuarios reales en cada iteración.</p></li><li><span class=\"ng-mono\">Etapa 3</span><h4>IA nativa al producto</h4><p>Modelos de lenguaje y automatización conectados directamente a los datos de negocio: recomendación, soporte, generación de contenido o análisis.</p></li></ol></div>\n            <a class=\"ng-btn ng-btn--volt ng-svc__cta\" href=\"/contacto/?servicio=software\">Solicitar diagnóstico <span class=\"ng-sr\">de Desarrollo de Software</span><span class=\"ng-btn__i\" aria-hidden=\"true\">↗</span></a>\n          </div>\n          <figure class=\"ng-svc__fig\">\n            <div class=\"ng-spec\" style=\"aspect-ratio:4/5\" data-heat='[[0.5, 0.48, 0.11, 1], [0.3, 0.27, 0.06, 0.45], [0.45, 0.74, 0.06, 0.35]]'><svg viewBox=\"0 0 400 500\" preserveAspectRatio=\"xMidYMid slice\" role=\"img\" aria-label=\"Ilustración de Desarrollo de Software con mapa de calor de atención\">\n      <rect x=\"40\" y=\"60\" width=\"320\" height=\"300\" rx=\"10\" fill=\"none\" stroke=\"#3A3F46\" stroke-width=\"2\"/><path d=\"M40 90 H360\" stroke=\"#3A3F46\" stroke-width=\"2\"/>\n      <circle cx=\"58\" cy=\"75\" r=\"4\" fill=\"#3A3F46\"/><circle cx=\"72\" cy=\"75\" r=\"4\" fill=\"#3A3F46\"/><circle cx=\"86\" cy=\"75\" r=\"4\" fill=\"#3A3F46\"/>\n      <g font-family=\"IBM Plex Mono,monospace\" font-size=\"11\" fill=\"#5A5F66\"><text x=\"56\" y=\"118\">01</text><text x=\"56\" y=\"140\">02</text><text x=\"56\" y=\"162\">03</text><text x=\"56\" y=\"184\">04</text><text x=\"56\" y=\"206\">05</text><text x=\"56\" y=\"228\">06</text><text x=\"56\" y=\"250\">07</text><text x=\"56\" y=\"272\">08</text><text x=\"56\" y=\"294\">09</text><text x=\"56\" y=\"316\">10</text></g>\n      <g><rect x=\"84\" y=\"110\" width=\"70\" height=\"8\" rx=\"3\" fill=\"#8A8F98\"/><rect x=\"160\" y=\"110\" width=\"90\" height=\"8\" rx=\"3\" fill=\"#3A3F46\"/>\n      <rect x=\"100\" y=\"132\" width=\"110\" height=\"8\" rx=\"3\" fill=\"#3A3F46\"/><rect x=\"100\" y=\"154\" width=\"60\" height=\"8\" rx=\"3\" fill=\"#8A8F98\"/><rect x=\"166\" y=\"154\" width=\"120\" height=\"8\" rx=\"3\" fill=\"#3A3F46\"/>\n      <rect x=\"84\" y=\"186\" width=\"250\" height=\"56\" rx=\"4\" fill=\"rgba(200,245,66,.06)\" stroke=\"#C8F542\"/>\n      <rect x=\"100\" y=\"198\" width=\"54\" height=\"8\" rx=\"3\" fill=\"#C8F542\"/><rect x=\"160\" y=\"198\" width=\"140\" height=\"8\" rx=\"3\" fill=\"#F2F3F0\" opacity=\".55\"/>\n      <rect x=\"116\" y=\"220\" width=\"170\" height=\"8\" rx=\"3\" fill=\"#F2F3F0\" opacity=\".55\"/>\n      <rect x=\"100\" y=\"264\" width=\"90\" height=\"8\" rx=\"3\" fill=\"#3A3F46\"/><rect x=\"100\" y=\"286\" width=\"150\" height=\"8\" rx=\"3\" fill=\"#3A3F46\"/><rect x=\"84\" y=\"308\" width=\"40\" height=\"8\" rx=\"3\" fill=\"#8A8F98\"/>\n      <rect x=\"130\" y=\"306\" width=\"2\" height=\"12\" fill=\"#C8FF00\"/></g></svg><canvas class=\"ng-spec__heat\" aria-hidden=\"true\"></canvas><span class=\"ng-co ng-spec__co\" style=\"left:50%;top:48%\" aria-hidden=\"true\"><span class=\"ng-co__dot\"></span><span class=\"ng-co__ln\" style=\"--ng-co-w:28px\"></span><span>IA nativa · Integrada</span></span><span class=\"ng-marks\" aria-hidden=\"true\"><i></i></span></div>\n            <figcaption class=\"ng-mono\" aria-hidden=\"true\"><span>S·06</span><span>Desarrollo de Software</span></figcaption>\n          </figure>\n        </div>\n      </article>\n    </div>\n    <div class=\"ng-svc__hud ng-mono\" aria-hidden=\"true\"><span class=\"ng-svc__n\">01 / 06</span><span class=\"ng-svc__bar\"><i></i></span><span>Scroll ↓</span></div>\n  </div>\n</section>\n\n<script>\nNG.boot('[data-ng=\"services\"]', function (sec) {\n  var track = sec.querySelector('.ng-svc__track'), pin = sec.querySelector('.ng-svc__pin');\n  var chs = [].slice.call(sec.querySelectorAll('.ng-svc__ch'));\n  var n = sec.querySelector('.ng-svc__n'), bar = sec.querySelector('.ng-svc__bar i');\n  var lines = chs.map(function (c) { return c.querySelector('.ng-svc__line i'); });\n\n  var specs = [].slice.call(sec.querySelectorAll('.ng-spec'));\n  var drawSpecs = function () { specs.forEach(function (sp) { NG.heat(sp.querySelector('canvas'), JSON.parse(sp.getAttribute('data-heat'))); }); };\n  drawSpecs();\n  if ('ResizeObserver' in window) { var rt; new ResizeObserver(function () { clearTimeout(rt); rt = setTimeout(drawSpecs, 150); }).observe(track); }\n  NG.reveals(sec);\n  NG.ready().then(function (gsap) {\n    if (!gsap || NG.rm) return;\n    var mm = gsap.matchMedia();\n    mm.add({ h: '(min-width:1024px) and (min-height:700px)', v: '(max-width:1023px), (max-height:699px)' }, function (ctx) {\n      if (ctx.conditions.h && !NG.edit()) {\n        sec.classList.add('ng-is-h');\n        var dist = function () { return track.scrollWidth - window.innerWidth; };\n        var tween = gsap.to(track, {\n          x: function () { return -dist(); }, ease: 'none',\n          scrollTrigger: {\n            trigger: pin, start: 'top top', end: function () { return '+=' + dist(); }, pin: true, scrub: .8,\n            invalidateOnRefresh: true, anticipatePin: 1,\n            snap: { snapTo: 1 / (chs.length - 1), duration: { min: .2, max: .6 }, delay: .08, ease: 'power2.inOut' },\n            onUpdate: function (s) {\n              bar.style.transform = 'scaleX(' + s.progress + ')';\n              n.textContent = '0' + (Math.round(s.progress * (chs.length - 1)) + 1) + ' / 06';\n            }\n          }\n        });\n        chs.forEach(function (c, i) {\n          gsap.fromTo(lines[i], { scaleX: 0 }, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: c, containerAnimation: tween, start: 'left 60%', end: 'left 5%', scrub: true } });\n          gsap.from(c.querySelectorAll('.ng-svc__main>*'), { autoAlpha: 0, x: 60, stagger: .05, ease: 'none',\n            scrollTrigger: { trigger: c, containerAnimation: tween, start: 'left 95%', end: 'left 35%', scrub: true } });\n          var img = c.querySelector('.ng-svc__fig img');\n          if (img) gsap.fromTo(img, { xPercent: -8, scale: 1.12 }, { xPercent: 8, scale: 1.12, ease: 'none', scrollTrigger: { trigger: c, containerAnimation: tween, start: 'left right', end: 'right left', scrub: true } });\n        });\n        return function () { sec.classList.remove('ng-is-h'); gsap.set(track, { clearProps: 'transform' }); };\n      }\n      var vertical = window.innerWidth < 640;\n      chs.forEach(function (c, i) {\n        var st = { trigger: c.querySelector('.ng-svc__tl'), start: 'top 85%', end: 'bottom 55%', scrub: true };\n        if (vertical) gsap.fromTo(lines[i], { scaleY: 0 }, { scaleY: 1, ease: 'none', scrollTrigger: st });\n        else gsap.fromTo(lines[i], { scaleX: 0 }, { scaleX: 1, ease: 'none', scrollTrigger: st });\n        gsap.from(c.querySelectorAll('.ng-svc__main>*'), { autoAlpha: 0, y: 24, stagger: .06, duration: .8, scrollTrigger: { trigger: c, start: 'top 75%', once: true } });\n        var img = c.querySelector('.ng-svc__fig img');\n        if (img) gsap.fromTo(img, { yPercent: -6, scale: 1.12 }, { yPercent: 6, scale: 1.12, ease: 'none', scrollTrigger: { trigger: c, start: 'top bottom', end: 'bottom top', scrub: true } });\n      });\n    });\n  });\n});\n</script>",
+      "_margin": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": true
+      },
+      "_padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": true
+      },
+      "_css_classes": "ng-el-block"
+     }
+    }
+   ],
+   "settings": {
+    "container_type": "flex",
+    "content_width": "full",
+    "flex_direction": "column",
+    "flex_gap": {
+     "column": "0",
+     "row": "0",
+     "isLinked": true,
+     "unit": "px",
+     "size": 0
+    },
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "padding_tablet": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "_title": "01 · Servicios",
+    "css_classes": "ng-el-section"
+   }
+  },
+  {
+   "id": "12731ffa",
+   "elType": "container",
+   "isInner": false,
+   "elements": [
+    {
+     "id": "f117aaa2",
+     "elType": "widget",
+     "widgetType": "html",
+     "isInner": false,
+     "elements": [],
+     "settings": {
+      "html": "<style>\n.ng-met{padding:clamp(96px,12vw,180px) 0}\n.ng-met__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:clamp(40px,5vw,72px)}\n.ng-met__head .ng-head{grid-column:1/-1;margin:0}\n.ng-met__head .ng-media{grid-column:8/span 5;aspect-ratio:21/9}\n.ng-met__flow{position:relative}\n.ng-met__more{margin-top:clamp(20px,2.4vw,32px)}\n.ng-met__svg{display:block;width:100%;height:120px;overflow:visible}\n.ng-met__svg path{fill:none;stroke-linecap:round;stroke-linejoin:round}\n.ng-met__base{stroke:var(--ng-line2);stroke-width:1}\n.ng-met__sig{stroke:var(--ng-volt);stroke-width:1.6}\n.ng-met__steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,2vw,32px);margin-top:8px}\n.ng-met__st{position:relative;padding-top:28px;border-top:1px solid var(--ng-line);transition:opacity .5s}\n.ng-met__dot{position:absolute;left:0;top:-6px;width:11px;height:11px;border-radius:50%;background:var(--ng-bg);border:1px solid var(--ng-tx2);transition:background .4s,border-color .4s,box-shadow .4s}\n.ng-met__st.ng-is-on .ng-met__dot{background:var(--ng-lime);border-color:var(--ng-lime);box-shadow:0 0 0 6px rgba(200,255,0,.12)}\n.ng-met__n{font:500 clamp(48px,5vw,84px)/1 var(--ng-mono);letter-spacing:-.04em;color:var(--ng-tx2);transition:color .4s}\n.ng-met__st.ng-is-on .ng-met__n{color:var(--ng-volt)}\n.ng-met__st h3{font-family:var(--ng-ff);font-size:clamp(22px,2vw,30px);line-height:1.1;letter-spacing:-.02em;font-weight:600;margin:18px 0 12px}\n.ng-met__st p{color:var(--ng-tx2);font-size:15px;max-width:34ch}\n.ng-js .ng-met__st:not(.ng-is-on){opacity:.55}\n@media (max-width:1023px){\n.ng-met__head .ng-head,.ng-met__head .ng-media{grid-column:1/-1}\n.ng-met__svg{display:none}\n.ng-met__steps{grid-template-columns:1fr;gap:0;margin-top:0;padding-left:28px;position:relative}\n.ng-met__steps::before{content:\"\";position:absolute;left:5px;top:0;bottom:0;width:1px;background:var(--ng-line2)}\n.ng-met__vline{position:absolute;left:5px;top:0;bottom:40px;width:1px;background:var(--ng-volt);transform-origin:50% 0}\n.ng-met__st{border-top:0;padding:0 0 40px}\n.ng-met__dot{left:-28px;top:6px}\n}\n@media (min-width:1024px){.ng-met__vline{display:none}}\n</style>\n<section class=\"ng-sec ng-met\" id=\"metodo\" aria-labelledby=\"ng-met-title\" data-ng=\"method\">\n  <div class=\"ng-wrap\">\n    <div class=\"ng-met__head\">\n      <div class=\"ng-head\">\n        <p class=\"ng-mono ng-eyebrow\">02 · Método</p>\n        <h2 class=\"ng-h2\" id=\"ng-met-title\" data-ng-split>Un proceso, <span class=\"ng-hl\">seis aplicaciones.</span></h2>\n        <p class=\"ng-met__more\" data-ng-reveal><a class=\"ng-btn\" href=\"/servicios/\">Ver los seis servicios <span class=\"ng-btn__i\" aria-hidden=\"true\">→</span></a></p>\n      </div>\n    </div>\n    <div class=\"ng-met__flow\">\n      <svg class=\"ng-met__svg\" viewBox=\"0 0 1200 120\" preserveAspectRatio=\"none\" aria-hidden=\"true\">\n        <path class=\"ng-met__base\" d=\"M0 60 H1200\"/>\n        <path class=\"ng-met__sig\" d=\"M0 60 H120 l10 -6 l8 10 l10 -40 l12 70 l10 -40 l8 6 H420 l10 -8 l8 14 l10 -46 l12 76 l10 -44 l8 8 H720 l10 -6 l8 12 l10 -50 l12 80 l10 -42 l8 6 H1020 l10 -8 l8 10 l10 -44 l12 74 l10 -38 l8 6 H1200\"/>\n      </svg>\n      <span class=\"ng-met__vline\" aria-hidden=\"true\"></span>\n      <ol class=\"ng-met__steps\">\n        <li class=\"ng-met__st\"><span class=\"ng-met__dot\" aria-hidden=\"true\"></span><span class=\"ng-met__n\">01</span><h3>Medir</h3><p>Biometría aplicada sobre el estímulo, la marca o el flujo actual: eye tracking, codificación facial, respuesta galvánica.</p></li>\n        <li class=\"ng-met__st\"><span class=\"ng-met__dot\" aria-hidden=\"true\"></span><span class=\"ng-met__n\">02</span><h3>Modelar</h3><p>La IA cruza mirada, gesto y piel con datos de negocio para identificar patrones y anticipar la respuesta del consumidor.</p></li>\n        <li class=\"ng-met__st\"><span class=\"ng-met__dot\" aria-hidden=\"true\"></span><span class=\"ng-met__n\">03</span><h3>Construir</h3><p>Diseño, contenido o producto se ejecutan sobre las opciones ya validadas, no sobre la primera idea que pareció correcta.</p></li>\n        <li class=\"ng-met__st\"><span class=\"ng-met__dot\" aria-hidden=\"true\"></span><span class=\"ng-met__n\">04</span><h3>Verificar</h3><p>Cada entregable se vuelve a testear contra el comportamiento real antes y después de salir a producción.</p></li>\n      </ol>\n    </div>\n  </div>\n</section>\n\n<script>\nNG.boot('[data-ng=\"method\"]', function (sec) {\n  var sig = sec.querySelector('.ng-met__sig'), vline = sec.querySelector('.ng-met__vline');\n  var steps = [].slice.call(sec.querySelectorAll('.ng-met__st'));\n  var light = function (p) { steps.forEach(function (s, i) { s.classList.toggle('ng-is-on', p >= i * .25 + .04); }); };\n  NG.reveals(sec);\n  NG.ready().then(function (gsap) {\n    if (!gsap || NG.rm) { light(1); return; }\n    var len = sig.getTotalLength();\n    sig.style.strokeDasharray = len;\n    gsap.fromTo(sig, { strokeDashoffset: len }, { strokeDashoffset: 0, ease: 'none',\n      scrollTrigger: { trigger: sec.querySelector('.ng-met__flow'), start: 'top 75%', end: 'bottom 55%', scrub: true,\n        onUpdate: function (s) { if (window.innerWidth >= 1024) light(s.progress); } } });\n    gsap.fromTo(vline, { scaleY: 0 }, { scaleY: 1, ease: 'none',\n      scrollTrigger: { trigger: sec.querySelector('.ng-met__steps'), start: 'top 70%', end: 'bottom 60%', scrub: true,\n        onUpdate: function (s) { if (window.innerWidth < 1024) light(s.progress); } } });\n  });\n});\n</script>",
+      "_margin": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": true
+      },
+      "_padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": true
+      },
+      "_css_classes": "ng-el-block"
+     }
+    }
+   ],
+   "settings": {
+    "container_type": "flex",
+    "content_width": "full",
+    "flex_direction": "column",
+    "flex_gap": {
+     "column": "0",
+     "row": "0",
+     "isLinked": true,
+     "unit": "px",
+     "size": 0
+    },
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "padding_tablet": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "_title": "02 · Método",
+    "css_classes": "ng-el-section"
+   }
+  },
+  {
+   "id": "167f2362",
+   "elType": "container",
+   "isInner": false,
+   "elements": [
+    {
+     "id": "255d8907",
+     "elType": "widget",
+     "widgetType": "html",
+     "isInner": false,
+     "elements": [],
+     "settings": {
+      "html": "<style>\n.ng-why{padding:clamp(96px,12vw,180px) 0 clamp(56px,6vw,96px)}\n.ng-why__head{margin-bottom:clamp(48px,6vw,96px)}\n.ng-why__head .ng-lead{color:var(--ng-tx2)}\n.ng-why__grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--ng-line)}\n.ng-why__m{padding:28px clamp(12px,1.6vw,28px) 32px 0;border-right:1px solid var(--ng-line);display:flex;flex-direction:column;gap:20px}\n.ng-why__m+.ng-why__m{padding-left:clamp(12px,1.6vw,28px)}\n.ng-why__m:last-child{border-right:0}\n.ng-why__lbl{color:var(--ng-tx2);display:flex;justify-content:space-between}\n.ng-why__lbl i{font-style:normal;color:var(--ng-lime)}\n.ng-why__v{font:500 clamp(64px,7.6vw,148px)/.9 var(--ng-mono);letter-spacing:-.06em;color:var(--ng-tx);font-variant-numeric:tabular-nums;white-space:nowrap}\n.ng-why__v small{font-size:.42em;letter-spacing:-.02em;color:var(--ng-volt);margin-left:.06em}\n.ng-why__m p{color:var(--ng-tx2);font-size:15px;max-width:30ch}\n.ng-why__m p strong{color:var(--ng-tx);font-weight:500}\n.ng-mq{margin-top:clamp(64px,8vw,128px);border-block:1px solid var(--ng-line);overflow:hidden;padding:clamp(18px,2vw,28px) 0}\n.ng-mq__t{display:flex;width:max-content;animation:ng-mq 60s linear infinite}\n.ng-mq:hover .ng-mq__t{animation-play-state:paused}\n.ng-mq__g{display:flex;align-items:center;flex-shrink:0}\n.ng-mq__g span{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(34px,4.4vw,76px);font-weight:400;letter-spacing:0;white-space:nowrap;padding:0 clamp(18px,2vw,36px)}\n.ng-mq__g i{font-style:normal;color:var(--ng-volt);font-size:.5em}\n@keyframes ng-mq{to{transform:translateX(-50%)}}\n@media (max-width:1023px){\n.ng-why__grid{grid-template-columns:1fr 1fr}\n.ng-why__m:nth-child(2){border-right:0}\n.ng-why__m:nth-child(3){padding-left:0}\n.ng-why__m:nth-child(n+3){border-top:1px solid var(--ng-line)}\n}\n@media (max-width:539px){\n.ng-why__grid{grid-template-columns:1fr}\n.ng-why__m,.ng-why__m+.ng-why__m{border-right:0;padding-left:0;border-top:1px solid var(--ng-line)}\n.ng-why__m:first-child{border-top:0}\n}\n@media (prefers-reduced-motion:reduce){.ng-mq__t{animation:none}}\n</style>\n<section class=\"ng-sec ng-why\" aria-labelledby=\"ng-why-title\" data-ng=\"why\" data-ng-bg>\n  <div class=\"ng-wrap\">\n    <div class=\"ng-head ng-why__head\">\n      <p class=\"ng-mono ng-eyebrow\">03 · Evidencia</p>\n      <h2 class=\"ng-h2\" id=\"ng-why-title\" data-ng-split>Por qué neurociencia <span class=\"ng-hl\">+ IA</span></h2>\n      <p class=\"ng-lead\" data-ng-reveal>Neurogenomic es diferente.</p>\n    </div>\n    <div class=\"ng-why__grid\">\n      <div class=\"ng-why__m\"><span class=\"ng-why__lbl ng-mono\"><span>M·01</span><i>●</i></span><span class=\"ng-why__v\"><span data-to=\"3\">3</span></span><p><strong>señales biométricas</strong> combinadas: mirada, expresión facial y respuesta galvánica.</p></div>\n      <div class=\"ng-why__m\"><span class=\"ng-why__lbl ng-mono\"><span>M·02</span><i>●</i></span><span class=\"ng-why__v\"><span data-to=\"4\">4</span></span><p><strong>etapas de trabajo:</strong> diagnosticar, medir, analizar y recomendar.</p></div>\n      <div class=\"ng-why__m\"><span class=\"ng-why__lbl ng-mono\"><span>M·03</span><i>●</i></span><span class=\"ng-why__v\"><span data-to=\"6\">6</span></span><p><strong>líneas de servicio</strong> que se pueden contratar solas o integradas.</p></div>\n      <div class=\"ng-why__m\"><span class=\"ng-why__lbl ng-mono\"><span>M·04</span><i>●</i></span><span class=\"ng-why__v\"><span data-to=\"1\">1</span></span><p><strong>marco de evidencia</strong> común, en lugar de proveedores sin coordinación.</p></div>\n    </div>\n  </div>\n  <div class=\"ng-mq\" aria-label=\"Servicios: Branding, Business Intelligence, E-commerce, Marketing Digital, SEO técnico y de contenido, Desarrollo de Software\" role=\"region\">\n    <div class=\"ng-mq__t\" aria-hidden=\"true\">\n      <div class=\"ng-mq__g\"><span>Branding</span><i>◆</i><span>Business Intelligence</span><i>◆</i><span>E-commerce</span><i>◆</i><span>Marketing Digital</span><i>◆</i><span>SEO técnico y de contenido</span><i>◆</i><span>Desarrollo de Software</span><i>◆</i></div>\n      <div class=\"ng-mq__g\"><span>Branding</span><i>◆</i><span>Business Intelligence</span><i>◆</i><span>E-commerce</span><i>◆</i><span>Marketing Digital</span><i>◆</i><span>SEO técnico y de contenido</span><i>◆</i><span>Desarrollo de Software</span><i>◆</i></div>\n    </div>\n  </div>\n</section>\n\n<script>\nNG.boot('[data-ng=\"why\"]', function (sec) {\n  var nums = [].slice.call(sec.querySelectorAll('[data-to]'));\n  NG.reveals(sec);\n  NG.ready().then(function (gsap) {\n    if (!gsap || NG.rm) return;\n    nums.forEach(function (el) { el.textContent = '0'; });\n    gsap.from(sec.querySelectorAll('.ng-why__m'), { autoAlpha: 0, y: 40, stagger: .1, duration: 1,\n      scrollTrigger: { trigger: sec.querySelector('.ng-why__grid'), start: 'top 82%', once: true,\n        onEnter: function () { nums.forEach(function (el, i) { NG.count(el, +el.getAttribute('data-to'), { dur: 2, delay: i * .1 }); }); } } });\n  });\n});\n</script>",
+      "_margin": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": true
+      },
+      "_padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": true
+      },
+      "_css_classes": "ng-el-block"
+     }
+    }
+   ],
+   "settings": {
+    "container_type": "flex",
+    "content_width": "full",
+    "flex_direction": "column",
+    "flex_gap": {
+     "column": "0",
+     "row": "0",
+     "isLinked": true,
+     "unit": "px",
+     "size": 0
+    },
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "padding_tablet": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "_title": "03 · Por qué neurociencia + IA",
+    "css_classes": "ng-el-section"
+   }
+  },
+  {
+   "id": "b583fad9",
+   "elType": "container",
+   "isInner": false,
+   "elements": [
+    {
+     "id": "362aa898",
+     "elType": "widget",
+     "widgetType": "html",
+     "isInner": false,
+     "elements": [],
+     "settings": {
+      "html": "<style>\n.ng-cta{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:clamp(96px,10vw,160px) 0;background:#000}\n.ng-cta__grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,4vw,72px);align-items:center;width:100%}\n.ng-cta__fig{position:relative;margin:0;aspect-ratio:920/1070;max-height:82svh;justify-self:end;width:100%;perspective:1200px}\n.ng-cta__tilt{position:absolute;inset:0;transform:rotateY(var(--ty,0deg)) rotateX(var(--tx,0deg));transform-style:preserve-3d;will-change:transform}\n.ng-cta__fig .ng-media{position:absolute;inset:0;border-radius:8px;background:#000}\n.ng-cta__ov{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}\n.ng-cta__gaze{fill:#C8FF00}\n.ng-cta__halo{fill:none;stroke:rgba(200,255,0,.6);stroke-width:1.5}\n.ng-cta__trail{fill:none;stroke:rgba(200,255,0,.5);stroke-width:1.5;stroke-linecap:round;stroke-dasharray:3 5}\n.ng-cta__rip{fill:none;stroke:#C8FF00;stroke-width:2}\n.ng-cta__tag{position:absolute;left:12px;bottom:12px;border:1px solid rgba(200,255,0,.5);background:rgba(10,11,13,.78);color:var(--ng-lime);border-radius:4px;padding:6px 10px;font:500 11px/1.3 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase}\n.ng-cta__t{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(50px,6vw,118px);line-height:.88;letter-spacing:0;font-weight:400;margin:22px 0 28px;text-wrap:balance}\n.ng-cta__p{font-size:clamp(18px,1.5vw,22px);font-weight:300;max-width:44ch;color:var(--ng-tx)}\n.ng-cta__btn{margin-top:clamp(32px,4vw,56px);min-height:clamp(64px,7vw,96px);padding:0 clamp(28px,3vw,48px);font-size:clamp(17px,1.4vw,22px);border-radius:999px}\n.ng-cta__btn .ng-btn__t{display:inline-flex;gap:14px;align-items:center}\n.ng-qf{margin-top:clamp(28px,3vw,40px);max-width:560px;border-top:1px solid var(--ng-line);padding-top:clamp(20px,2vw,28px)}\n.ng-qf__l{display:block;font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);margin-bottom:12px}\n.ng-qf__row{display:flex;border:1.5px solid rgba(242,243,240,.7);border-radius:var(--ng-r);overflow:hidden;transition:border-color .3s,box-shadow .3s;background:var(--ng-s1)}\n.ng-qf__row:focus-within{border-color:var(--ng-lime);box-shadow:0 0 0 4px rgba(200,255,0,.12)}\n.ng-qf__row.is-err{border-color:#FF6B57}\n.ng-qf input[type=email]{flex:1 1 auto;min-width:0;min-height:56px;padding:0 16px;border:0;background:transparent;color:var(--ng-tx);font:400 16px/1 var(--ng-ff);outline:0}\n.ng-qf input[type=email]::placeholder{color:var(--ng-tx2)}\n.ng-qf button{flex:0 0 auto;display:inline-flex;align-items:center;gap:10px;padding:0 20px;border:0;background:var(--ng-lime);color:#0A0B0D;font:600 15px/1 var(--ng-ff);cursor:pointer;transition:background .3s}\n.ng-qf button:hover,.ng-qf button:focus{background:#D9FF4D;color:#0A0B0D}\n.ng-qf button[disabled]{opacity:.6;cursor:progress}\n.ng-qf__ck{display:flex;gap:10px;align-items:flex-start;margin-top:12px;color:var(--ng-tx2);font-size:13.5px;line-height:1.45;cursor:pointer}\n.ng-qf__ck input{flex:0 0 auto;width:18px;height:18px;margin:1px 0 0;accent-color:#C8FF00}\n.ng-qf__ck a{display:inline-block;padding:12px 2px;margin:-12px 0;color:var(--ng-tx);text-decoration:underline;text-underline-offset:2px}\n.ng-qf__st{min-height:1.4em;margin-top:10px;font:500 12px/1.4 var(--ng-mono);letter-spacing:.04em;color:var(--ng-tx2)}\n.ng-qf__st.is-err{color:#FF8A7A}.ng-qf__st.is-ok{color:var(--ng-lime)}\n.ng-qf.is-sent .ng-qf__row,.ng-qf.is-sent .ng-qf__ck{display:none}\n@media (max-width:479px){.ng-qf__row{flex-direction:column}.ng-qf button{min-height:52px;justify-content:center}}\n@media (max-width:899px){\n.ng-cta{align-items:flex-start}\n.ng-cta__grid{grid-template-columns:1fr}\n.ng-cta__fig{order:-1;justify-self:center;max-height:none;max-width:460px}\n.ng-cta__btn{width:100%}\n}\n</style>\n<section class=\"ng-sec ng-cta\" id=\"contacto-cta\" aria-labelledby=\"ng-cta-title\" data-ng=\"cta\">\n  <div class=\"ng-wrap ng-cta__grid\">\n    <div class=\"ng-cta__in\">\n      <p class=\"ng-mono ng-eyebrow\">04 · Diagnóstico</p>\n      <h2 class=\"ng-cta__t\" id=\"ng-cta-title\" data-ng-split>¿Construimos tu próxima decisión <span class=\"ng-hl\">con evidencia?</span></h2>\n      <p class=\"ng-cta__p\" data-ng-reveal>Cuéntanos qué quieres evaluar: una marca, una campaña, un packaging o un sitio web. Revisamos el desafío y te proponemos el método adecuado.</p>\n      <a class=\"ng-btn ng-btn--volt ng-cta__btn\" href=\"/contacto/\" data-ng-magnet><span class=\"ng-btn__t\">Agendar diagnóstico <span class=\"ng-btn__i\" aria-hidden=\"true\">↗</span></span></a>\n      <form class=\"ng-qf\" novalidate data-endpoint=\"https://formsubmit.co/ajax/cristiangm3005@gmail.com\" aria-describedby=\"ng-qf-st\">\n        <label class=\"ng-qf__l\" for=\"ng-qf-email\">¿Sin tiempo? Déjanos tu correo y te escribimos</label>\n        <div class=\"ng-qf__row\">\n          <input id=\"ng-qf-email\" name=\"email\" type=\"email\" inputmode=\"email\" autocomplete=\"email\" placeholder=\"tu@empresa.cl\" required>\n          <button type=\"submit\">Agendar demo <span aria-hidden=\"true\">→</span></button>\n        </div>\n        <label class=\"ng-qf__ck\"><input type=\"checkbox\" name=\"consentimiento\" required> <span>Acepto que Neurogenomic use este correo solo para responder mi solicitud (<a href=\"/privacidad/\">privacidad</a>).</span></label>\n        <div class=\"ng-sr\" aria-hidden=\"true\"><label for=\"ng-qf-hp\">No completar</label><input id=\"ng-qf-hp\" name=\"_honey\" type=\"text\" tabindex=\"-1\" autocomplete=\"off\"></div>\n        <p class=\"ng-qf__st\" id=\"ng-qf-st\" role=\"status\" aria-live=\"polite\"></p>\n      </form>\n    </div>\n    <figure class=\"ng-cta__fig\">\n      <div class=\"ng-cta__tilt\">\n        <div class=\"ng-media\" data-ph=\"/img/ng-phone\"><picture><source type=\"image/avif\" srcset=\"/img/ng-phone-600.avif 600w, /img/ng-phone-920.avif 920w\" sizes=\"(min-width:900px) 40vw, 100vw\"><source type=\"image/webp\" srcset=\"/img/ng-phone-600.webp 600w, /img/ng-phone-920.webp 920w\" sizes=\"(min-width:900px) 40vw, 100vw\"><img src=\"/img/ng-phone-920.webp\" width=\"920\" height=\"1070\" alt=\"Teléfono apoyado en un soporte mostrando el checkout de una tienda ficticia, con el botón Pagar en verde lima. Imagen ilustrativa\" loading=\"lazy\" decoding=\"async\" onerror=\"this.classList.add('ng-is-missing')\"></picture></div>\n        <svg class=\"ng-cta__ov\" viewBox=\"0 0 920 1070\" preserveAspectRatio=\"none\" aria-hidden=\"true\">\n          <path class=\"ng-cta__trail\"/>\n          <circle class=\"ng-cta__rip\" r=\"0\"/><circle class=\"ng-cta__rip\" r=\"0\"/>\n          <circle class=\"ng-cta__halo\" r=\"16\"/><circle class=\"ng-cta__gaze\" r=\"7\"/>\n        </svg>\n      </div>\n      <figcaption class=\"ng-cta__tag\">Ilustrativo · tienda ficticia</figcaption>\n    </figure>\n  </div>\n</section>\n\n<script>\nNG.boot('[data-ng=\"cta\"]', function (sec) {\n  /* Micro-formulario: solo correo + consentimiento → FormSubmit (mismo destino que el formulario de contacto) */\n  (function (f) {\n    if (!f) return;\n    var em = f.querySelector('input[type=email]'), ck = f.querySelector('input[name=consentimiento]'), st = f.querySelector('.ng-qf__st'), bt = f.querySelector('button'), row = f.querySelector('.ng-qf__row');\n    var say = function (m, cls) { st.textContent = m; st.className = 'ng-qf__st' + (cls ? ' ' + cls : ''); };\n    em.addEventListener('input', function () { row.classList.remove('is-err'); em.removeAttribute('aria-invalid'); if (st.classList.contains('is-err')) say(''); });\n    f.addEventListener('submit', function (e) {\n      e.preventDefault();\n      if (f.querySelector('[name=_honey]').value) return;\n      var v = em.value.trim();\n      if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/.test(v)) { row.classList.add('is-err'); em.setAttribute('aria-invalid', 'true'); say('Escribe un correo válido, por ejemplo nombre@empresa.cl.', 'is-err'); em.focus(); return; }\n      if (!ck.checked) { say('Necesitamos tu autorización para responderte.', 'is-err'); ck.focus(); return; }\n      bt.disabled = true; say('Enviando…');\n      var ep = f.getAttribute('data-endpoint');\n      var payload = { _subject: 'Solicitud rápida de demo · ' + v, _template: 'table', _captcha: 'false', _replyto: v,\n        Correo: v, Origen: 'Micro-formulario del CTA final', Consentimiento: 'Sí', 'Página': location.href };\n      var p = ep ? fetch(ep, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) })\n        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) === 'false') throw new Error(j.message || r.status); }); })\n        : new Promise(function (r) { setTimeout(r, 600); });\n      p.then(function () { f.classList.add('is-sent'); say('Listo. Te escribiremos a ' + v + ' para coordinar la demo.', 'is-ok'); })\n       .catch(function () { bt.disabled = false; say('No pudimos enviar tu correo. Inténtalo de nuevo o usa el formulario completo.', 'is-err'); });\n    });\n  })(sec.querySelector('.ng-qf'));\n\n  var D = {\"btn\":[0.4497,0.7093],\"btn_l\":[0.3163,0.6956],\"btn_r\":[0.5879,0.7236],\"title\":[0.4497,0.2894],\"total\":[0.4712,0.5179],\"screen\":[[0.3566,0.1575],[0.6721,0.1681],[0.5992,0.8256],[0.2844,0.7893]]}, P = function (k) { return [D[k][0] * 920, D[k][1] * 1070]; };\n  var fig = sec.querySelector('.ng-cta__fig'), tilt = sec.querySelector('.ng-cta__tilt');\n  var gaze = sec.querySelector('.ng-cta__gaze'), halo = sec.querySelector('.ng-cta__halo'), trail = sec.querySelector('.ng-cta__trail');\n  var rips = [].slice.call(sec.querySelectorAll('.ng-cta__rip'));\n  /* Recorrido de la mirada: título → total → botón, con sacadas (curva rápida) y pausas */\n  var stops = [P('title'), P('total'), [P('total')[0] + 90, P('total')[1] + 18], P('btn')];\n  var dwell = .55; // fracción de cada tramo en que la mirada está quieta (fijación)\n  var place = function (p) {\n    p = Math.max(0, Math.min(1, p));\n    var seg = Math.min(stops.length - 2, Math.floor(p * (stops.length - 1))), k = p * (stops.length - 1) - seg;\n    var m = k < dwell ? 0 : (k - dwell) / (1 - dwell); m = m * m * (3 - 2 * m);\n    var a = stops[seg], b = stops[seg + 1], x = a[0] + (b[0] - a[0]) * m, y = a[1] + (b[1] - a[1]) * m - Math.sin(m * Math.PI) * 26;\n    gaze.setAttribute('cx', x); gaze.setAttribute('cy', y); halo.setAttribute('cx', x); halo.setAttribute('cy', y);\n    halo.setAttribute('r', 10 + (k < dwell ? k / dwell : 0) * 14);\n    var d = 'M' + stops[0].join(' ');\n    for (var i = 1; i <= seg; i++) d += ' L' + stops[i].join(' ');\n    trail.setAttribute('d', d + ' L' + x.toFixed(1) + ' ' + y.toFixed(1));\n  };\n  var tap = function (q) {\n    var b = P('btn');\n    rips.forEach(function (c, i) {\n      var t = Math.max(0, Math.min(1, q * 1.4 - i * .35));\n      c.setAttribute('cx', b[0]); c.setAttribute('cy', b[1]);\n      c.setAttribute('r', (t * 150).toFixed(1)); c.style.opacity = t > 0 ? (1 - t).toFixed(3) : 0;\n    });\n  };\n  NG.reveals(sec);\n  sec.querySelectorAll('[data-ng-magnet]').forEach(function (b) { NG.magnet(b, .35); });\n  if (NG.rm) { place(1); tap(0); return; }\n  place(0); tap(0);\n  NG.ready().then(function (gsap) {\n    if (!gsap) { place(1); return; }\n    var st = { p: 0, q: 0 };\n    gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top 70%', end: 'bottom 70%', scrub: .6 } })\n      .to(st, { p: 1, ease: 'none', duration: 1, onUpdate: function () { place(st.p); } })\n      .to(st, { q: 1, ease: 'power1.out', duration: .45, onUpdate: function () { tap(st.q); } });\n    /* Inclinación leve del teléfono según el scroll (profundidad) */\n    gsap.fromTo(tilt, { '--ty': '-10deg', '--tx': '6deg' }, { '--ty': '6deg', '--tx': '-3deg', ease: 'none',\n      scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: true } });\n  });\n});\n</script>",
+      "_margin": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": true
+      },
+      "_padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": true
+      },
+      "_css_classes": "ng-el-block"
+     }
+    }
+   ],
+   "settings": {
+    "container_type": "flex",
+    "content_width": "full",
+    "flex_direction": "column",
+    "flex_gap": {
+     "column": "0",
+     "row": "0",
+     "isLinked": true,
+     "unit": "px",
+     "size": 0
+    },
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "padding_tablet": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "_title": "04 · CTA final + micro-formulario",
+    "css_classes": "ng-el-section"
+   }
+  },
+  {
+   "id": "b6dfbf1d",
+   "elType": "container",
+   "isInner": false,
+   "elements": [
+    {
+     "id": "0c0d45f7",
+     "elType": "widget",
+     "widgetType": "html",
+     "isInner": false,
+     "elements": [],
+     "settings": {
+      "html": "<style>\n.ng-foot{position:relative;background:var(--ng-bg);border-top:1px solid var(--ng-line);overflow:hidden;padding-top:clamp(64px,8vw,120px)}\n.ng-foot *{box-sizing:border-box}\n.ng-foot :where(h2,h3,p,ul){margin:0;padding:0}\n.ng-foot ul{list-style:none}\n.ng-foot__top{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:32px 24px}\n.ng-foot__brand{grid-column:1/span 5}\n.ng-foot__brand .ng-logo{font-size:28px}\n.ng-foot__brand p{margin-top:18px;color:var(--ng-tx2);max-width:36ch}\n.ng-foot__col{grid-column:span 2}\n.ng-foot__col:nth-of-type(1){grid-column:7/span 2}\n.ng-foot__col h2{font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);margin-bottom:14px}\n.ng-foot__col a{display:inline-flex;align-items:center;min-height:44px;color:var(--ng-tx);font-size:15px;transition:color .3s}\n.ng-foot__col a:hover{color:var(--ng-volt)}\n.ng-foot__bot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:clamp(48px,6vw,96px);padding:20px 0;border-top:1px solid var(--ng-line);color:var(--ng-tx2)}\n.ng-foot__mark{display:block;width:max-content;font-size:clamp(44px,12.4vw,240px);line-height:.8;font-family:var(--ng-disp);font-weight:400;letter-spacing:.02em;color:var(--ng-tx);white-space:nowrap;margin-bottom:-.18em;margin-left:max(0px,calc((100% - var(--ng-max)) / 2));padding-left:var(--ng-gut);user-select:none}\n.ng-foot__mark span{display:inline-block;color:var(--ng-volt)}\n@media (max-width:1023px){\n.ng-foot__brand{grid-column:1/-1}\n.ng-foot__col,.ng-foot__col:nth-of-type(1){grid-column:span 4}\n}\n@media (max-width:599px){\n.ng-foot{padding-top:56px}\n.ng-foot__top{grid-template-columns:1fr 1fr;gap:28px 16px}\n.ng-foot__brand{grid-column:1/-1}\n.ng-foot__col,.ng-foot__col:nth-of-type(1){grid-column:auto}\n.ng-foot__col:nth-of-type(1){order:1}.ng-foot__col:nth-of-type(3){order:2}\n.ng-foot__col:nth-of-type(2){order:3;grid-column:1/-1}\n.ng-foot__col:nth-of-type(2) ul{display:grid;grid-template-columns:1fr 1fr;column-gap:16px}\n.ng-foot__col a{font-size:14.5px;line-height:1.25}\n.ng-foot__bot{flex-direction:column;gap:6px;margin-top:36px}\n}\n</style>\n<footer class=\"ng-foot\" data-ng=\"foot\">\n  <div class=\"ng-wrap\">\n    <div class=\"ng-foot__top\">\n      <div class=\"ng-foot__brand\">\n        <a class=\"ng-logo\" href=\"/\" aria-label=\"Neurogenomic, ir al inicio\"><b>Neuro</b><span>genomic</span></a>\n        <p>Neuroscience-Driven Marketing Optimization. Una empresa de Genomic Industries SpA.</p>\n      </div>\n      <nav class=\"ng-foot__col\" aria-labelledby=\"ng-f1\"><h2 id=\"ng-f1\">Empresa</h2><ul>\n        <li><a href=\"/\">Inicio</a></li><li><a href=\"/servicios/\">Servicios</a></li><li><a href=\"/tecnologia/\">Tecnología</a></li><li><a href=\"/contacto/\">Contacto</a></li>\n      </ul></nav>\n      <nav class=\"ng-foot__col\" aria-labelledby=\"ng-f2\"><h2 id=\"ng-f2\">Servicios</h2><ul>\n        <li><a href=\"/servicios/#svc-branding\">Branding</a></li><li><a href=\"/servicios/#svc-bi\">Business Intelligence</a></li><li><a href=\"/servicios/#svc-ecommerce\">E-commerce</a></li><li><a href=\"/servicios/#svc-marketing\">Marketing digital</a></li><li><a href=\"/servicios/#svc-seo\">SEO</a></li><li><a href=\"/servicios/#svc-software\">Desarrollo de software</a></li>\n      </ul></nav>\n      <nav class=\"ng-foot__col\" aria-labelledby=\"ng-f3\"><h2 id=\"ng-f3\">Contacto</h2><ul>\n        <li><a href=\"https://www.linkedin.com/company/neurogenomic-cl/\" target=\"_blank\" rel=\"noopener\">LinkedIn <span class=\"ng-sr\">(se abre en una pestaña nueva)</span></a></li><li><a href=\"/privacidad/\">Privacidad y ética</a></li><li><a href=\"/terminos/\">Términos de uso</a></li>\n      </ul></nav>\n    </div>\n    <div class=\"ng-foot__bot ng-mono\"><p>© 2026 Neurogenomic. Todos los derechos reservados.</p><p>neurogenomic.cl</p></div>\n  </div>\n  <p class=\"ng-foot__mark\" aria-hidden=\"true\">NEUROGENOMIC<span>.</span></p>\n</footer>\n\n<script>\nNG.boot('[data-ng=\"foot\"]', function (foot) {\n  /* Ajusta el wordmark al ancho disponible (se recorta solo por abajo) */\n  var mark = foot.querySelector('.ng-foot__mark'), wrap = foot.querySelector('.ng-wrap');\n  var fit = function () {\n    mark.style.fontSize = '100px';\n    var cs = getComputedStyle(wrap), avail = wrap.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);\n    var pl = parseFloat(getComputedStyle(mark).paddingLeft) || 0;\n    mark.style.fontSize = Math.min(260, 100 * avail / (mark.scrollWidth - pl)).toFixed(2) + 'px';\n  };\n  fit();\n  window.addEventListener('resize', fit);\n  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);\n  NG.ready().then(function (gsap) {\n    if (!gsap || NG.rm) return;\n    gsap.from(foot.querySelector('.ng-foot__mark'), { yPercent: 60, ease: 'none', scrollTrigger: { trigger: foot, start: 'top bottom', end: 'bottom bottom', scrub: true } });\n  });\n});\n</script>",
+      "_margin": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": true
+      },
+      "_padding": {
+       "unit": "px",
+       "top": "0",
+       "right": "0",
+       "bottom": "0",
+       "left": "0",
+       "isLinked": true
+      },
+      "_css_classes": "ng-el-block"
+     }
+    }
+   ],
+   "settings": {
+    "container_type": "flex",
+    "content_width": "full",
+    "flex_direction": "column",
+    "flex_gap": {
+     "column": "0",
+     "row": "0",
+     "isLinked": true,
+     "unit": "px",
+     "size": 0
+    },
+    "padding": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "padding_tablet": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "padding_mobile": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "margin": {
+     "unit": "px",
+     "top": "0",
+     "right": "0",
+     "bottom": "0",
+     "left": "0",
+     "isLinked": true
+    },
+    "_title": "Pie de página",
+    "css_classes": "ng-el-section"
+   }
+  }
+ ]
+}

@@ -6,6 +6,33 @@ Guía paso a paso para montar las 4 páginas (Inicio, Servicios, Tecnología y C
 
 ---
 
+## Opción rápida: importar las páginas como plantillas JSON
+
+Esta vía reemplaza los pasos 3 y 4 de abajo: no hay que pegar los bloques uno por uno. Cada página es un archivo `.json` en `elementor-json/`:
+
+| Archivo | Página |
+|---|---|
+| `neurogenomic-inicio.json` | Inicio (20 contenedores: núcleo, encabezado, historia 3D, todas las secciones y pie) |
+| `neurogenomic-servicios.json` | Servicios |
+| `neurogenomic-tecnologia.json` | Tecnología |
+| `neurogenomic-contacto.json` | Contacto |
+
+1. Haz antes los pasos 1 (preparar WordPress) y 2 (subir `img/`).
+2. Crea la página (por ejemplo *Inicio*) y pulsa **Editar con Elementor**.
+3. Haz clic en el ícono de **carpeta** (*Añadir plantilla*), pestaña **Mis plantillas**, y luego en el ícono de **subir** (*Importar plantilla*). Elige el `.json` e impórtalo.
+4. En la lista de **Mis plantillas**, pulsa **Insertar** en la plantilla importada. Si pregunta por los ajustes de página, acepta **Sí**: así aplica *Elementor Canvas* y el fondo oscuro.
+5. Pulsa **Publicar**. Repite con las otras tres páginas.
+
+Cómo quedan las plantillas:
+- **Diseño completo:** cada sección es un contenedor con un widget **HTML** que lleva el bloque intacto (estilos, marcado y JavaScript). No se pierde ninguna animación ni ningún contenido.
+- **Navegador de Elementor:** cada contenedor lleva el nombre de su sección («03 · Lo que no se dice», «Capítulo 02 · Señales»…). Puedes reordenarlos o desactivarlos desde ahí.
+- **Núcleo:** el primer contenedor, «Núcleo Neurogenomic (no borrar)», carga las fuentes, los estilos base y el motor de animaciones una sola vez.
+- **Plantilla de página:** usan **Elementor Canvas**, porque ya traen su propio encabezado y pie. Si prefieres el encabezado y pie del Theme Builder (paso 3), borra los contenedores «Encabezado» y «Pie de página» de cada página y cambia la plantilla a *Elementor Ancho completo*.
+- **Compatibilidad con el tema:** los bloques traen un blindaje contra los estilos base de Hello Elementor (botones, enlaces, títulos, listas). Se verificó con una simulación del DOM de Elementor más el reset real de Hello: las 4 páginas miden exactamente lo mismo que el sitio original en 1440 y 390 px.
+- **Por qué widgets HTML y no widgets nativos:** las animaciones (escena 3D con WebGL, mapas de calor en canvas, demo cuadro a cuadro, GSAP) no tienen equivalente nativo en Elementor. Rehacerlas con widgets nativos las eliminaría.
+
+---
+
 ## 0. Qué necesitas tener a mano
 
 Del archivo `neurogenomic-sitio.zip` o del repositorio:
@@ -15,6 +42,7 @@ Del archivo `neurogenomic-sitio.zip` o del repositorio:
 | `elementor/` | Los 26 bloques completos (`00-…` a `25-…`). Cada uno funciona solo. |
 | `elementor/ligeros/` | Los mismos bloques sin repetir fuentes, estilos base ni núcleo JS, más `00-codigo-personalizado.html` (opción optimizada, paso 6). |
 | `img/` | Todas las imágenes, los 80 cuadros de la demo (`img/seq/`) y las imágenes de respaldo de la historia 3D (`img/story/`). |
+| `elementor-json/` | Las 4 páginas como plantillas JSON importables (opción rápida). |
 
 ---
 

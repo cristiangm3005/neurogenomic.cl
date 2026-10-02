@@ -37,7 +37,7 @@ html.ng-has-story body{background:#04060d}
 .ng-story__load i::after{animation-delay:.8s;border-color:var(--ng-lime)}
 @keyframes ng-load{from{transform:scale(.4);opacity:1}to{transform:scale(1.6);opacity:0}}
 .ng-story.is-on .ng-story__load,html.ng-no3d .ng-story__load{opacity:0;pointer-events:none}
-.ng-motion{position:fixed;left:clamp(10px,1.4vw,22px);bottom:clamp(10px,1.4vw,22px);z-index:30;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:999px;border:1px solid rgba(232,244,255,.25);background:rgba(4,8,20,.75);color:#E8F4FF;font:500 11px/1 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .5s,border-color .3s}
+.ng-motion{--ng-bbg:rgba(4,8,20,.75);--ng-bc:#E8F4FF;position:fixed;left:clamp(10px,1.4vw,22px);bottom:clamp(10px,1.4vw,22px);z-index:30;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 14px;border-radius:999px;border:1px solid rgba(232,244,255,.25);background:rgba(4,8,20,.75);color:#E8F4FF;font:500 11px/1 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;opacity:0;visibility:hidden;transition:opacity .5s,border-color .3s}
 .ng-motion.is-on{opacity:1;visibility:visible}
 .ng-motion:hover{border-color:var(--ng-lime)}
 .ng-motion:focus-visible{outline:2px solid var(--ng-lime);outline-offset:2px}

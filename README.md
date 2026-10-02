@@ -45,6 +45,7 @@ landing.html             ← landing B2B con demo scroll-driven (fuente: landing
 neurogenomic-landing.html ← la misma landing en un solo archivo
 elementor/00…25-*.html   ← cada sección como bloque autocontenido para el widget HTML de Elementor
 elementor/ligeros/       ← los mismos bloques sin núcleo repetido + 00-codigo-personalizado.html (Elementor Pro → Código personalizado)
+elementor-json/          ← las 4 páginas como plantillas JSON importables en Elementor (un contenedor por sección, sin perder animaciones)
 WORDPRESS-ELEMENTOR.md   ← guía paso a paso para subir el sitio a WordPress con Elementor Pro
 img/                     ← fotos (lata, botella) y renders fotográficos (bolsa de café, caja de té, teléfono, 80 cuadros de la demo) en AVIF + WebP
 src/data/*.json          ← calibración: posición de cada zona de los renders, para fijaciones y heatmaps

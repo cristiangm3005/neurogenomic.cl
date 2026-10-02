@@ -526,6 +526,68 @@ def build_elementor():
         + FONTS + "\n<style>\n" + tokens + "\n</style>\n<script>\n" + core + "\n</script>\n", encoding="utf-8")
 
 
+TITLES = {
+    "nav": "Encabezado", "s0-preloader": "Preloader", "x-story": "Historia 3D (capa fija)", "s1-hero": "Hero",
+    "x-ch1": "Capítulo 01 · Neurona", "x-ch2": "Capítulo 02 · Señales", "s2-demo": "Así mira tu cliente (demo)",
+    "s2b-pack": "Packaging · botella", "s3b-said": "Lo que no se dice", "x-ch3": "Capítulo 03 · Datos + IA",
+    "s4-signals": "Tecnología · señales y herramientas", "s9-ethics": "Ética y Centro de confianza",
+    "x-ch4": "Capítulo 04 · Estrategia", "s5-summary": "Servicios (resumen)", "s6-method": "Método", "s8-case": "Caso",
+    "x-ch5": "Capítulo 05 · Consumidor", "s10-cta": "CTA final + micro-formulario", "footer": "Pie de página",
+    "pagehead": "Cabecera de página", "s5-services": "Servicios", "s7-why": "Por qué neurociencia + IA",
+    "s2-gaze": "Así mira tu cliente (bolsa)", "contact-form": "Formulario de contacto",
+}
+
+
+def build_elementor_json():
+    """Plantillas JSON importables en Elementor (Editor → carpeta → Importar plantilla), una por página.
+    Cada sección = un contenedor a ancho completo con un widget HTML que lleva el bloque intacto (estilos,
+    marcado y JavaScript), así no se pierde ninguna animación. El primer contenedor carga fuentes, tokens y
+    el núcleo NG una sola vez. Plantilla de página: Elementor Canvas (incluye su propio encabezado y pie)."""
+    import secrets
+    out = ROOT / "elementor-json"
+    out.mkdir(exist_ok=True)
+    for old in out.glob("*.json"):
+        old.unlink()
+    seen = set()
+    def uid():
+        while True:
+            i = secrets.token_hex(4)
+            if i not in seen:
+                seen.add(i); return i
+    zero = {"unit": "px", "top": "0", "right": "0", "bottom": "0", "left": "0", "isLinked": True}
+    def block(title, html_):
+        w = {"id": uid(), "elType": "widget", "widgetType": "html", "isInner": False, "elements": [],
+             "settings": {"html": html_, "_margin": zero, "_padding": zero, "_css_classes": "ng-el-block"}}
+        return {"id": uid(), "elType": "container", "isInner": False, "elements": [w],
+                "settings": {"container_type": "flex", "content_width": "full", "flex_direction": "column",
+                             "flex_gap": {"column": "0", "row": "0", "isLinked": True, "unit": "px", "size": 0},
+                             "padding": zero, "padding_tablet": zero, "padding_mobile": zero, "margin": zero,
+                             "_title": title, "css_classes": "ng-el-section"}}
+    tokens = min_css(read("core/tokens.css"))
+    core = read("core/core.js").strip()
+    # Ajustes para el DOM de Elementor: sin espacios entre widgets ni contenedores
+    el_css = (".ng-el-section.e-con{--padding-top:0px;--padding-right:0px;--padding-bottom:0px;--padding-left:0px;--gap:0px;--row-gap:0px;--column-gap:0px;padding:0}"
+              ".ng-el-section>.elementor-widget-html,.ng-el-block,.ng-el-block>.elementor-widget-container{margin:0;padding:0}")
+    nucleo = FONTS + "\n<style>\n" + tokens + "\n" + el_css + "\n</style>\n<script>\n" + core + "\n</script>"
+    files = []
+    for key, pg in PAGES.items():
+        content = [block("Núcleo Neurogenomic (no borrar)", nucleo)]
+        for sec in pg["sections"]:
+            css, body = split_block(render(read(f"sections/{sec}.html"), URLS_WP, IMG_WP, key, section_number(key, sec)))
+            n = section_number(key, sec)
+            content.append(block((f"{n:02d} · " if n else "") + TITLES.get(sec, sec), "<style>\n" + min_css(css) + "\n</style>\n" + body))
+        tpl = {"title": "Neurogenomic · " + {"index": "Inicio", "servicios": "Servicios", "tecnologia": "Tecnología", "contacto": "Contacto"}[key],
+               "type": "page", "version": "0.4",
+               "page_settings": {"template": "elementor_canvas", "hide_title": "yes",
+                                 "background_background": "classic", "background_color": "#0A0B0D"},
+               "content": content}
+        f = out / f"neurogenomic-{ {'index': 'inicio'}.get(key, key) }.json"
+        f.write_text(json.dumps(tpl, ensure_ascii=False, indent=1), encoding="utf-8")
+        json.loads(f.read_text(encoding="utf-8"))
+        files.append(f.name)
+    return files
+
+
 def build_images_md():
     rows = ["# Imágenes · Neurogenomic 2026", "",
             "## Incluidas (ya en `img/`)", "",
@@ -618,4 +680,5 @@ if __name__ == "__main__":
     build_elementor()
     build_images_md()
     files.append(build_standalone())
+    build_elementor_json()
     print("OK:", ", ".join(files), "+ elementor/ + IMAGENES.md")

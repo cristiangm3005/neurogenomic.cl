@@ -5,7 +5,7 @@
 .ng-sig__head .ng-head{grid-column:1/span 8;margin:0}
 .ng-sig__head .ng-body{grid-column:9/span 4}
 .ng-sig__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.4vw,20px)}
-.ng-mon{position:relative;display:flex;flex-direction:column;background:var(--ng-s1);border:1px solid var(--ng-line);border-radius:8px;padding:14px;text-align:left;color:inherit;font:inherit;cursor:pointer;transition:border-color .4s}
+.ng-mon{--ng-bbg:var(--ng-s1);position:relative;display:flex;flex-direction:column;background:var(--ng-s1);border:1px solid var(--ng-line);border-radius:8px;padding:14px;text-align:left;color:inherit;font:inherit;cursor:pointer;transition:border-color .4s}
 .ng-sig__grid.ng-is-ready .ng-mon{transition:opacity .5s var(--ng-ease),transform .6s var(--ng-ease),border-color .4s}
 .ng-mon:hover,.ng-mon.ng-is-active{border-color:rgba(200,245,66,.5)}
 .ng-sig__grid.ng-has-active .ng-mon:not(.ng-is-active){opacity:.38}
