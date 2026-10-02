@@ -638,7 +638,7 @@ def inline_posters(s, prefix):
     def rep(m):
         f = ROOT / "img" / m.group(2)
         return f'{m.group(1)}="data:image/webp;base64,{base64.b64encode(f.read_bytes()).decode()}"' if f.exists() else m.group(0)
-    return re.sub(r'(src|srcset)="' + re.escape(prefix) + r'((?:story/cap-\d|el/el-(?:cap\d|hero)(?:-movil)?)\.webp)"', rep, s)
+    return re.sub(r'(src|srcset)="' + re.escape(prefix) + r'((?:story/(?:cap-\d|p-(?:cap\d|hero)(?:-movil)?)|el/el-(?:cap\d|hero)(?:-movil)?)\.webp)"', rep, s)
 
 
 def build_standalone(src="index.html", out="neurogenomic-index.html"):

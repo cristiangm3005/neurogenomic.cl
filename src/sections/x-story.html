@@ -63,9 +63,17 @@ html.ng-has-story body{background:#04060d}
 .ng-btn--grad:hover{animation-duration:1.8s;box-shadow:0 0 0 4px rgba(200,255,0,.18),0 16px 46px -10px rgba(125,249,255,.6)}
 @keyframes ng-grad{to{background-position:-260% 0}}
 @media (prefers-reduced-motion:reduce){.ng-btn--grad{animation:none}}
-.ng-ch__poster{display:none}
-html.ng-no3d .ng-ch__poster{display:block;position:absolute;inset:0 0 auto 0;width:100%;height:100vh;height:100svh;max-height:100%;object-fit:cover;opacity:.75;z-index:-1;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)} /* la imagen ocupa la primera pantalla del capítulo */
-html.ng-no3d .ng-hero__poster{opacity:.5}
+.ng-ch__poster{display:block;position:absolute;inset:0 0 auto 0;width:100%;height:100vh;height:100svh;max-height:100%;object-fit:cover;z-index:-1;pointer-events:none;
+  opacity:.92;transform-origin:65% 45%;animation:ng-poster 22s ease-in-out infinite alternate;transition:opacity .9s ease,visibility 0s linear .9s;
+  -webkit-mask-image:linear-gradient(#000 72%,transparent);mask-image:linear-gradient(#000 72%,transparent)}
+/* Imagen de respaldo «viva»: acercamiento lento y un pulso de brillo, para que la escena no se vea congelada sin WebGL */
+@keyframes ng-poster{0%{transform:scale(1.02) translate3d(0,0,0);filter:brightness(.95) saturate(1.05)}50%{filter:brightness(1.12) saturate(1.15)}100%{transform:scale(1.09) translate3d(-1.2%,-1%,0);filter:brightness(1) saturate(1.1)}}
+.ng-hero__poster{opacity:.85}
+/* Con la escena 3D en marcha, la imagen se retira suavemente */
+html.ng-3d-live .ng-ch__poster{opacity:0;visibility:hidden}
+@media (max-width:767px){.ng-hero__poster{opacity:.3}} /* en móvil el titular ocupa toda la pantalla: la neurona queda de fondo */
+html:not(.ng-js) .ng-story__load{display:none}
+@media (prefers-reduced-motion:reduce){.ng-ch__poster{animation:none}}
 /* Sin WebGL el fondo fijo de la escena no debe tapar las imágenes de cada capítulo */
 html.ng-no3d .ng-ch,html.ng-no3d .ng-hero{position:relative;isolation:isolate}
 @media (max-width:767px){
@@ -177,9 +185,21 @@ NG.boot('[data-ng="story"]', function (layer) {
 
   /* ---------- WebGL ---------- */
   var hasGL = (function () { try { var c = d.createElement('canvas'); return !!(window.WebGLRenderingContext && (c.getContext('webgl') || c.getContext('experimental-webgl'))); } catch (e) { return false; } })();
-  if (!hasGL || NG.edit()) { de.classList.add('ng-no3d'); return; }
+  // La escena también corre dentro del editor de Elementor (solo es un fondo, no tapa nada editable)
+  if (!hasGL) { de.classList.add('ng-no3d'); return; }
+  // Three.js viene incrustado en este mismo bloque; si un optimizador lo retrasa, se espera hasta 4 s antes de pedirlo a la CDN
+  var waitThree = function () {
+    return new Promise(function (ok, ko) {
+      var t0 = Date.now();
+      (function poll() {
+        if (window.THREE) return ok();
+        if (Date.now() - t0 > 4000) return NG.load(NG.CDN.three).then(ok, ko);
+        setTimeout(poll, 120);
+      })();
+    });
+  };
   var start = function () {
-    (window.THREE ? Promise.resolve() : NG.load(NG.CDN.three)).then(init, function () { de.classList.add('ng-no3d'); });
+    waitThree().then(init, function () { de.classList.add('ng-no3d'); });
   };
   // Carga progresiva: la escena se pide cuando el navegador queda libre
   if ('requestIdleCallback' in window) requestIdleCallback(start, { timeout: 1500 }); else setTimeout(start, 300);
@@ -500,7 +520,7 @@ NG.boot('[data-ng="story"]', function (layer) {
     }
     // Compila los shaders antes del primer cuadro y recién ahí retira el indicador de carga
     try { renderer.compile(scene, camera); } catch (e) {}
-    requestAnimationFrame(function (t) { frame(t); layer.classList.add('is-on'); });
+    requestAnimationFrame(function (t) { frame(t); layer.classList.add('is-on'); de.classList.add('ng-3d-live'); });
   }
 });
 </script>
