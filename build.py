@@ -37,7 +37,10 @@ URLS_WP = {
 FORM_EMAIL = "cristiangm3005@gmail.com"
 FORM_ENDPOINT = f"https://formsubmit.co/ajax/{FORM_EMAIL}"
 IMG_STATIC = "img/"
-IMG_WP = "/img/"  # reemplazar por la ruta de la Biblioteca de medios al subir las imágenes
+IMG_WP = "/img/"  # bloques HTML sueltos: reemplazar por la ruta de la Biblioteca de medios al subir las imágenes
+# Plantillas JSON: imágenes servidas por jsDelivr desde el repositorio público, fijadas a un commit (no cambian nunca)
+IMG_SHA = "2f940a7b408847f83a64f9edb34426dccf81fcb0"
+IMG_CDN = f"https://cdn.jsdelivr.net/gh/cristiangm3005/neurogenomic.cl@{IMG_SHA}/img/"
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
          '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
@@ -587,7 +590,7 @@ def build_elementor_json():
     for key, pg in PAGES.items():
         content = [block("Núcleo Neurogenomic (no borrar)", nucleo)]
         for sec in pg["sections"]:
-            css, body = split_block(render(read(f"sections/{sec}.html"), URLS_WP, IMG_WP, key, section_number(key, sec)))
+            css, body = split_block(render(read(f"sections/{sec}.html"), URLS_WP, IMG_CDN, key, section_number(key, sec)))
             n = section_number(key, sec)
             pre = f"<script>{js('three.min.js')}</script>\n" if sec == "x-story" else ""  # Three.js va con la capa 3D
             content.append(block((f"{n:02d} · " if n else "") + TITLES.get(sec, sec), pre + "<style>\n" + min_css(css) + "\n</style>\n" + body))

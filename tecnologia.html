@@ -256,7 +256,7 @@ html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{c
 }
 .ng-said{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:clamp(80px,9vw,140px) 0;background:#000}
 .ng-said__beam{position:absolute;left:-10%;top:-20%;width:60%;height:130%;z-index:-1;pointer-events:none;transform-origin:0 0;
-background:linear-gradient(118deg,rgba(242,243,240,.13) 0%,rgba(242,243,240,.05) 32%,rgba(242,243,240,0) 58%);
+background:linear-gradient(118deg,rgba(200,255,0,.10) 0%,rgba(200,255,0,.035) 32%,rgba(200,255,0,0) 58%);filter:blur(36px);
 clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out infinite alternate}
 @keyframes ng-beam{from{transform:rotate(-2deg)}to{transform:rotate(2.5deg)}}
 .ng-said__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:center}
@@ -526,7 +526,7 @@ clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out
 .ng-qf button[disabled]{opacity:.6;cursor:progress}
 .ng-qf__ck{display:flex;gap:10px;align-items:flex-start;margin-top:12px;color:var(--ng-tx2);font-size:13.5px;line-height:1.45;cursor:pointer}
 .ng-qf__ck input{flex:0 0 auto;width:18px;height:18px;margin:1px 0 0;accent-color:#C8FF00}
-.ng-qf__ck a{display:inline-block;padding:12px 2px;margin:-12px 0;color:var(--ng-tx);text-decoration:underline;text-underline-offset:2px}
+.ng-qf__ck a{display:inline;padding:0;margin:0;color:var(--ng-tx);text-decoration:underline;text-underline-offset:2px}
 .ng-qf__st{min-height:1.4em;margin-top:10px;font:500 12px/1.4 var(--ng-mono);letter-spacing:.04em;color:var(--ng-tx2)}
 .ng-qf__st.is-err{color:#FF8A7A}.ng-qf__st.is-ok{color:var(--ng-lime)}
 .ng-qf.is-sent .ng-qf__row,.ng-qf.is-sent .ng-qf__ck{display:none}

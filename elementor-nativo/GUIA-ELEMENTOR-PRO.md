@@ -1,5 +1,7 @@
 # Neurogenomic · Página de inicio nativa para Elementor Pro
 
+> **Versión simplificada.** Para el diseño completo, con la historia 3D, los mapas de calor interactivos y todas las animaciones, usa `elementor-json/neurogenomic-inicio.json` (ver `WORDPRESS-ELEMENTOR.md`). Esta versión nativa solo conviene si necesitas editar cada texto con los controles de Elementor.
+
 **Archivo para importar:** `neurogenomic-inicio-elementor-pro.json`. Se regenera con `python3 elementor-nativo/build_nativo.py`.
 
 Es la página de inicio completa hecha solo con widgets nativos (sin widgets HTML). Al importarla, las imágenes se

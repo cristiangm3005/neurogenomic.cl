@@ -535,7 +535,7 @@ NG.boot('[data-ng="story"]', function (layer) {
     });
     if (hero) {
       var hr = hero.getBoundingClientRect(), hv = Math.max(0, Math.min(hr.bottom, vh) - Math.max(hr.top, 0)) / vh;
-      if (hv > best) { best = hv; side = 1.15; }
+      if (hv > best) { best = hv; side = 1.55; } // hero: la neurona se corre a la derecha y deja libre el titular
     }
     var txt = false;
     [].forEach.call(d.querySelectorAll('[data-ng-chtxt],.ng-hero__content'), function (t) { var r = t.getBoundingClientRect(); if (r.top < vh * .85 && r.bottom > vh * .15) txt = true; });
@@ -831,7 +831,7 @@ NG.boot('[data-ng="story"]', function (layer) {
 
     /* --- Cámara y composición por etapa --- */
     var CAMZ = [12.5, 12.6, 12.8, 13, 12.2], OFFS = [3.2, 2.8, 3.1, 3.0, 3.3], ROTX = [.08, .02, .06, .28, .12], CAMY = [0, 0, .1, .25, .35];
-    var cur = { stage: S.stage, alpha: mobile && S.text ? .35 : 1, off: 0, z: 12.5 }, mx = 0, my = 0, tmx = 0, tmy = 0;
+    var cur = { stage: S.stage, alpha: mobile && S.text ? .24 : 1, off: 0, z: 12.5 }, mx = 0, my = 0, tmx = 0, tmy = 0;
     var ray = new T.Raycaster(), ndc = new T.Vector2(), plane = new T.Plane(), hit = new T.Vector3(), nrm = new T.Vector3(), mouseIn = 0, mouseT = 0;
     if (NG.fine) {
       addEventListener('pointermove', function (e) { tmx = e.clientX / innerWidth - .5; tmy = e.clientY / innerHeight - .5; ndc.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1); mouseIn = 1; kick(); }, { passive: true });
@@ -860,7 +860,7 @@ NG.boot('[data-ng="story"]', function (layer) {
       var k = paused ? 1 : 1 - Math.pow(1 - .085, dt * 60); // suavizado independiente de los FPS
       cur.stage += (S.stage - cur.stage) * k;
       var tgtAlpha = .28 + .72 * NG.clamp((S.focus - .12) / .45, 0, 1);
-      if (mobile && S.text) tgtAlpha = Math.min(tgtAlpha, .35);
+      if (mobile && S.text) tgtAlpha = Math.min(tgtAlpha, S.side > 1.1 ? .14 : .24); // en el hero móvil el titular ocupa toda la pantalla
       if (!mobile && S.side > 1.1 && innerWidth < 1200) tgtAlpha = Math.min(tgtAlpha, .6); // laptop: el titular del hero manda // en móvil, el texto manda: la escena baja a 35 %
       cur.alpha += (tgtAlpha - cur.alpha) * k;
       var tgtOff = mobile ? 0 : S.side * ip(OFFS, cur.stage);

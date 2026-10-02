@@ -8,7 +8,7 @@ Guía paso a paso para montar las 4 páginas (Inicio, Servicios, Tecnología y C
 
 ## Opción rápida: importar las páginas como plantillas JSON
 
-Esta vía reemplaza los pasos 3 y 4 de abajo: no hay que pegar los bloques uno por uno. Cada página es un archivo `.json` en `elementor-json/`:
+**Esta es la vía recomendada.** Reemplaza los pasos 2, 3 y 4 de abajo: no hay que pegar los bloques uno por uno ni subir la carpeta `img/`. Cada página es un archivo `.json` en `elementor-json/`:
 
 | Archivo | Página |
 |---|---|
@@ -17,7 +17,7 @@ Esta vía reemplaza los pasos 3 y 4 de abajo: no hay que pegar los bloques uno p
 | `neurogenomic-tecnologia.json` | Tecnología |
 | `neurogenomic-contacto.json` | Contacto |
 
-1. Haz antes los pasos 1 (preparar WordPress) y 2 (subir `img/`).
+1. Haz antes el paso 1 (preparar WordPress). No hace falta subir `img/`: las imágenes se cargan desde jsDelivr, la CDN del repositorio público, fijadas a una versión exacta que no cambia.
 2. Crea la página (por ejemplo *Inicio*) y pulsa **Editar con Elementor**.
 3. Haz clic en el ícono de **carpeta** (*Añadir plantilla*), pestaña **Mis plantillas**, y luego en el ícono de **subir** (*Importar plantilla*). Elige el `.json` e impórtalo.
 4. En la lista de **Mis plantillas**, pulsa **Insertar** en la plantilla importada. Si pregunta por los ajustes de página, acepta **Sí**: así aplica *Elementor Canvas* y el fondo oscuro.
@@ -26,9 +26,13 @@ Esta vía reemplaza los pasos 3 y 4 de abajo: no hay que pegar los bloques uno p
 Cómo quedan las plantillas:
 - **Diseño completo:** cada sección es un contenedor con un widget **HTML** que lleva el bloque intacto (estilos, marcado y JavaScript). No se pierde ninguna animación ni ningún contenido.
 - **Navegador de Elementor:** cada contenedor lleva el nombre de su sección («03 · Lo que no se dice», «Capítulo 02 · Señales»…). Puedes reordenarlos o desactivarlos desde ahí.
-- **Núcleo:** el primer contenedor, «Núcleo Neurogenomic (no borrar)», trae dentro las fuentes, los estilos base, el motor de animaciones y las librerías (GSAP, ScrollTrigger y Lenis). El contenedor «Historia 3D» trae Three.js. Las plantillas son **autónomas**, igual que `neurogenomic-index.html`: no descargan nada de CDNs externos, así que las animaciones funcionan aunque el hosting, un plugin de caché o una política de seguridad bloqueen scripts de terceros. Por eso el JSON de Inicio pesa unos 1,2 MB.
+- **Núcleo:** el primer contenedor, «Núcleo Neurogenomic (no borrar)», trae dentro las fuentes, los estilos base, el motor de animaciones y las librerías (GSAP, ScrollTrigger y Lenis). El contenedor «Historia 3D» trae Three.js. Las fuentes y los scripts van **dentro** del JSON, así que las animaciones funcionan aunque el hosting, un plugin de caché o una política de seguridad bloqueen scripts de terceros. Por eso el JSON de Inicio pesa unos 1,2 MB. Solo las imágenes vienen de fuera, desde jsDelivr.
+- **Plugins de caché u optimización:** excluye los scripts de la página de «Retrasar JavaScript» y de «Combinar JS» (WP Rocket, LiteSpeed, Autoptimize, SiteGround Optimizer…). Si no, la escena 3D y las animaciones no arrancan hasta que el visitante interactúa.
 - **Plantilla de página:** usan **Elementor Canvas**, porque ya traen su propio encabezado y pie. Si prefieres el encabezado y pie del Theme Builder (paso 3), borra los contenedores «Encabezado» y «Pie de página» de cada página y cambia la plantilla a *Elementor Ancho completo*.
-- **Compatibilidad con el tema:** los bloques traen un blindaje contra los estilos base de Hello Elementor (botones, enlaces, títulos, listas). Se verificó con una simulación del DOM de Elementor más el reset real de Hello: las 4 páginas miden exactamente lo mismo que el sitio original en 1440 y 390 px.
+- **Compatibilidad con el tema:** los bloques traen un blindaje contra los estilos base de Hello Elementor (botones, enlaces, títulos, listas). Se probó importando la plantilla en WordPress 7.1.2 con Elementor 3.33, Elementor Pro 3.33.1 y el tema Hello Elementor:
+  - **Alto de página:** el mismo que el sitio original a 1440 px y 390 px.
+  - **Animación:** escena 3D activa, 10 animaciones de scroll y desplazamiento suave.
+  - **Funcionamiento:** 0 errores en la consola, 0 imágenes rotas y sin scroll horizontal.
 - **Por qué widgets HTML y no widgets nativos:** las animaciones (escena 3D con WebGL, mapas de calor en canvas, demo cuadro a cuadro, GSAP) no tienen equivalente nativo en Elementor. Rehacerlas con widgets nativos las eliminaría.
 
 ---

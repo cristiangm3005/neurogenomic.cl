@@ -35,7 +35,7 @@
   .ng-demo__copy{order:2}
   .ng-demo__copy .ng-h2,.ng-demo__copy .ng-demo__keys,.ng-demo__copy .ng-eyebrow{display:none}
   .ng-demo__ph{margin-top:0}
-  .ng-demo__m{display:block;background:#000;padding:48px 0 clamp(72px,10vw,120px)}
+  .ng-demo__m{display:block;background:#000;padding:clamp(72px,10vw,120px) 0 24px} /* el título va ANTES de la demo */
 }
 @media (max-width:767px){.ng-demo__stage{aspect-ratio:4/5}.ng-demo__gsr{height:64px}.ng-demo__lbl{font-size:11px;padding:5px 8px}}
 @media (prefers-reduced-motion:reduce){
@@ -46,6 +46,18 @@
   .ng-demo__hint{display:none}
 }
 </style>
+
+<div class="ng-sec ng-demo__m">
+  <div class="ng-wrap">
+    <p class="ng-mono ng-eyebrow">{{n}} · Eye tracking + IA</p>
+    <p class="ng-h2" style="font-size:clamp(36px,9vw,56px);margin:16px 0 24px" aria-hidden="true">Así mira <span class="ng-hl">tu cliente</span></p>
+    <dl class="ng-demo__keys">
+      <div><dt>Qué se mide</dt><dd>Dónde se detiene la mirada, en qué orden y cómo varía la activación.</dd></div>
+      <div><dt>Qué revela</dt><dd>Qué elementos captan atención, cuáles se ignoran y dónde sube la activación.</dd></div>
+      <div><dt>Qué decisión permite</dt><dd>Priorizar, ajustar o descartar elementos antes de producir.</dd></div>
+    </dl>
+  </div>
+</div>
 
 <section class="ng-sec ng-demo" id="asi-mira" aria-labelledby="ng-demo-title" data-ng="demo">
   <div class="ng-demo__pin">
@@ -74,18 +86,6 @@
     </div>
   </div>
 </section>
-<div class="ng-sec ng-demo__m">
-  <div class="ng-wrap">
-    <p class="ng-mono ng-eyebrow">{{n}} · Eye tracking + IA</p>
-    <p class="ng-h2" style="font-size:clamp(36px,9vw,56px);margin:16px 0 24px" aria-hidden="true">Así mira <span class="ng-hl">tu cliente</span></p>
-    <dl class="ng-demo__keys">
-      <div><dt>Qué se mide</dt><dd>Dónde se detiene la mirada, en qué orden y cómo varía la activación.</dd></div>
-      <div><dt>Qué revela</dt><dd>Qué elementos captan atención, cuáles se ignoran y dónde sube la activación.</dd></div>
-      <div><dt>Qué decisión permite</dt><dd>Priorizar, ajustar o descartar elementos antes de producir.</dd></div>
-    </dl>
-  </div>
-</div>
-
 <script>
 /* Datos simulados: posición proyectada (0–1) de cada zona del packaging en cada uno de los 80 cuadros (render/seq_scene.py) */
 window.NG_SEQ = window.NG_SEQ || {{json:seq}};
