@@ -112,6 +112,7 @@ REAL = {
     "tracker": ("ng-tracker", 2520, 1080, "Barra de eye tracking negra montada bajo un monitor, con emisores infrarrojos encendidos y una lectura de mirada en pantalla", False, [1260, 2520], "(min-width:1680px) 1600px, 100vw"),
     "phone": ("ng-phone", 920, 1070, "Teléfono apoyado en un soporte mostrando el checkout de una tienda ficticia, con el botón Pagar en verde lima. Imagen ilustrativa", False, [600, 920], "(min-width:900px) 40vw, 100vw"),
     "box-a": ("ng-box-a", 1200, 1520, "Versión A: caja de té negra con el logotipo BRISA grande en la parte superior", False, [600, 1200], "(min-width:640px) 31vw, 100vw"),
+    "drink": ("ng-bottle", 1200, 1520, "Botella de bebida de vidrio sin marca ni textos, con tapa metálica y una etiqueta negra lisa con un filete verde lima, sobre fondo oscuro", False, [600, 1200], "(min-width:1024px) 40vw, 100vw"),
     "box-b": ("ng-box-b", 1200, 1520, "Versión B: caja de té clara con una hoja negra dentro de un círculo verde lima y la marca BRISA debajo", False, [600, 1200], "(min-width:640px) 31vw, 100vw"),
     "box-c": ("ng-box-c", 1200, 1520, "Versión C: caja de té blanca minimalista con la marca BRISA en vertical", False, [600, 1200], "(min-width:640px) 31vw, 100vw"),
 }
@@ -473,7 +474,7 @@ ELEMENTOR = [
     ("04-cap-01-neurona", "x-ch1", "index", "Capítulo 01 · Origen neuronal."),
     ("05-cap-02-senales", "x-ch2", "index", "Capítulo 02 · Señales y comportamiento."),
     ("06-asi-mira", "s2-demo", "index", "Demo scroll-driven de 80 cuadros: sube img/seq/f_000…079.webp (calibración en src/data/seq.json)."),
-    ("07-packaging", "s2b-pack", "index", "Comparador foto ⇄ mapa de calor. Usa img/ng-box-b-*.(avif|webp) (calibración en src/data/boxes.json)."),
+    ("07-packaging", "s2b-pack", "index", "Comparador foto ⇄ mapa de calor. Usa img/ng-bottle-*.(avif|webp) (calibración en src/data/bottle.json)."),
     ("08-no-se-dice", "s3b-said", "index", "Registro sincronizado ilustrativo dibujado en canvas (sin imagen)."),
     ("09-cap-03-datos-ia", "x-ch3", "index", "Capítulo 03 · Centro de datos e IA."),
     ("10-tecnologia", "s4-signals", "index", "Tres monitores de señal + stack de herramientas (sin imagen)."),
@@ -498,7 +499,9 @@ ELEMENTOR = [
 def build_elementor():
     out = ROOT / "elementor"
     out.mkdir(exist_ok=True)
-    for old in out.glob("*.html"):
+    lite = out / "ligeros"
+    lite.mkdir(exist_ok=True)
+    for old in list(out.glob("*.html")) + list(lite.glob("*.html")):
         old.unlink()
     tokens = min_css(read("core/tokens.css"))
     core = read("core/core.js").strip()
@@ -513,6 +516,14 @@ def build_elementor():
         txt = (head + FONTS + "\n<style>\n" + tokens + "\n" + min_css(css) + "\n</style>\n"
                + "<script>\n" + core + "\n</script>\n" + body + "\n")
         (out / f"{fname}.html").write_text(txt, encoding="utf-8")
+        # Versión ligera: sin fuentes, tokens ni núcleo (van una sola vez en Elementor Pro → Código personalizado)
+        lhead = (f"<!-- NEUROGENOMIC · Bloque ligero «{fname}» · requiere 00-codigo-personalizado.html en Elementor Pro → Código personalizado"
+                 + (f" · Nota: {note}" if note else "") + " -->\n")
+        (lite / f"{fname}.html").write_text(lhead + "<style>\n" + min_css(css) + "\n</style>\n" + body + "\n", encoding="utf-8")
+    (lite / "00-codigo-personalizado.html").write_text(
+        "<!-- NEUROGENOMIC · Código personalizado (Elementor Pro → Código personalizado → Ubicación: <head>, Condición: todo el sitio).\n"
+        "     Fuentes + sistema de diseño + núcleo NG una sola vez; los bloques de elementor/ligeros/ ya no los repiten. -->\n"
+        + FONTS + "\n<style>\n" + tokens + "\n</style>\n<script>\n" + core + "\n</script>\n", encoding="utf-8")
 
 
 def build_images_md():
@@ -523,7 +534,7 @@ def build_images_md():
             "| `ref-can-570.avif / .webp` | 570×1590 | Servicio 01 · Branding (página Servicios) |",
             "| `ref-bottle-520.avif / .webp` | 520×1350 | Servicio 04 · Marketing Digital (página Servicios) |",
             "| `ng-pouch-960/1600/2400` | 2400×1500 | «Así mira tu cliente» (bolsa de café kraft, render fotográfico) y monitor C·01 de Tecnología |",
-            "| `ng-box-b-600/1200` | 1200×1520 | «Tu packaging tiene una mirada para ganar»: comparador foto ⇄ mapa de calor (render fotográfico) |",
+            "| `ng-bottle-600/1200` | 1200×1520 | «Tu packaging tiene una mirada para ganar»: botella genérica sin textos, comparador foto ⇄ mapa de calor (render fotográfico, `render/bottle_scene.py`) |",
             "| `ng-phone-600/920` | 920×1070 | CTA final: tienda ficticia en un teléfono (render fotográfico) |",
             "| `seq/f_000…079.webp` | 80 cuadros | «Así mira tu cliente»: demo scroll-driven |",
             "| `story/cap-1…5.webp` | 1280×800 | Respaldo de la historia 3D cuando el navegador no tiene WebGL (capturas de la propia escena) |", "",

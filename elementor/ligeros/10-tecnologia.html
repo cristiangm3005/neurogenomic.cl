@@ -1,0 +1,364 @@
+<!-- NEUROGENOMIC · Bloque ligero «10-tecnologia» · requiere 00-codigo-personalizado.html en Elementor Pro → Código personalizado · Nota: Tres monitores de señal + stack de herramientas (sin imagen). -->
+<style>
+.ng-sig{padding:clamp(96px,12vw,180px) 0}
+.ng-sig__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:clamp(40px,5vw,80px)}
+.ng-sig__head .ng-head{grid-column:1/span 8;margin:0}
+.ng-sig__head .ng-body{grid-column:9/span 4}
+.ng-sig__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.4vw,20px)}
+.ng-mon{position:relative;display:flex;flex-direction:column;background:var(--ng-s1);border:1px solid var(--ng-line);border-radius:8px;padding:14px;text-align:left;color:inherit;font:inherit;cursor:pointer;transition:border-color .4s}
+.ng-sig__grid.ng-is-ready .ng-mon{transition:opacity .5s var(--ng-ease),transform .6s var(--ng-ease),border-color .4s}
+.ng-mon:hover,.ng-mon.ng-is-active{border-color:rgba(200,245,66,.5)}
+.ng-sig__grid.ng-has-active .ng-mon:not(.ng-is-active){opacity:.38}
+.ng-sig__grid.ng-has-active .ng-mon.ng-is-active{transform:scale(1.025);z-index:2}
+.ng-mon__top{display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--ng-tx2);margin-bottom:12px}
+.ng-mon__live{color:var(--ng-lime);display:inline-flex;align-items:center;gap:6px}
+.ng-mon__screen{position:relative;aspect-ratio:4/3;border-radius:4px;overflow:hidden;background:var(--ng-bg);border:1px solid var(--ng-line)}
+.ng-mon__screen canvas{position:absolute;inset:0;width:100%;height:100%}
+.ng-mon__photo{position:absolute;inset:0;border-radius:0}
+.ng-mon__photo img{object-position:53% 50%;transform:scale(1.25);transform-origin:53% 50%}
+.ng-mon__screen .ng-media{position:absolute;inset:0;border-radius:0}
+.ng-mon__screen .ng-media::before{align-items:flex-start;justify-content:flex-end;padding:10px 12px}
+.ng-mon__screen::after{content:"";position:absolute;inset:0;background:var(--ng-tx);opacity:0;pointer-events:none}
+.ng-mon.ng-is-flash .ng-mon__screen::after{animation:ng-on .7s steps(1) forwards}
+@keyframes ng-on{0%{opacity:.5}12%{opacity:0}22%{opacity:.25}34%,100%{opacity:0}}
+.ng-mon__read{position:absolute;left:10px;bottom:10px;font:500 12px/1 var(--ng-mono);letter-spacing:.08em;color:var(--ng-lime);background:rgba(10,11,13,.82);padding:7px 9px;border-radius:3px;font-variant-numeric:tabular-nums}
+.ng-mon__body{padding:18px 4px 4px;display:grid;gap:8px}
+.ng-mon__k{color:var(--ng-tx2)}
+.ng-mon__t{font-family:var(--ng-ff);font-size:clamp(24px,2vw,32px);line-height:1.1;letter-spacing:-.02em;font-weight:600}
+.ng-mon__d{color:var(--ng-tx2);font-size:15px;max-width:34ch}
+.ng-mon__hint{margin-top:auto;padding-top:14px;color:var(--ng-tx2);display:flex;justify-content:space-between}
+.ng-stk{margin-top:clamp(64px,8vw,120px);border-top:1px solid var(--ng-line);padding-top:clamp(28px,3vw,44px)}
+.ng-stk__head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(24px,3vw,40px)}
+.ng-stk__t{font-family:var(--ng-disp);text-transform:uppercase;font-weight:400;font-size:clamp(36px,4vw,68px);line-height:.95}
+.ng-stk__head p{color:var(--ng-tx2);max-width:46ch}
+.ng-stk__flow{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(12px,1.4vw,20px)}
+.ng-stk__rail{position:absolute;left:0;right:0;top:17px;height:1px;background:var(--ng-line2);pointer-events:none}
+.ng-stk__pk{position:absolute;top:-4px;left:0;width:9px;height:9px;margin-left:-4px;border-radius:50%;background:var(--ng-lime);box-shadow:0 0 0 4px rgba(200,255,0,.15),0 0 16px rgba(200,255,0,.9);opacity:0}
+.ng-stk__col{position:relative}
+.ng-stk__n{position:relative;display:inline-flex;align-items:center;gap:10px;height:35px;padding:0 12px 0 0;background:var(--ng-bg);font:500 11px/1 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2)}
+.ng-stk__n::before{content:"";width:11px;height:11px;border-radius:50%;border:1px solid var(--ng-line2);background:var(--ng-bg);transition:background .3s,border-color .3s,box-shadow .3s}
+.ng-stk__col.is-on .ng-stk__n{color:var(--ng-tx)}
+.ng-stk__col.is-on .ng-stk__n::before{background:var(--ng-lime);border-color:var(--ng-lime);box-shadow:0 0 12px rgba(200,255,0,.8)}
+.ng-stk__h{margin:14px 0 6px;font-size:clamp(19px,1.5vw,23px);font-weight:500;letter-spacing:-.015em}
+.ng-stk__d{color:var(--ng-tx2);font-size:14px;margin-bottom:16px;max-width:30ch}
+.ng-stk__chips{display:flex;flex-wrap:wrap;gap:6px}
+.ng-stk__chips li{font:500 11px/1 var(--ng-mono);letter-spacing:.06em;color:var(--ng-tx2);border:1px solid var(--ng-line);border-radius:4px;padding:8px 9px;transition:color .35s,border-color .35s,background .35s}
+.ng-stk__chips li.is-hot{color:#0A0B0D;background:var(--ng-lime);border-color:var(--ng-lime)}
+.ng-stk__chips li.is-lit{color:var(--ng-tx);border-color:rgba(200,245,66,.45)}
+.ng-stk__term{margin-top:clamp(28px,3vw,40px);display:flex;gap:14px;align-items:center;border:1px solid var(--ng-line);border-radius:6px;background:var(--ng-s1);padding:14px 16px;font:400 clamp(11px,1vw,13px)/1.5 var(--ng-mono);color:var(--ng-tx);overflow:hidden;white-space:nowrap}
+.ng-stk__term b{flex:0 0 auto;font-weight:500;color:var(--ng-lime);letter-spacing:.1em;font-size:11px;text-transform:uppercase;border:1px solid rgba(200,245,66,.4);border-radius:3px;padding:4px 6px}
+.ng-stk__code{overflow:hidden;text-overflow:clip}
+.ng-stk__code::after{content:"▍";color:var(--ng-lime);animation:ng-stk-b 1s steps(2,start) infinite}
+@keyframes ng-stk-b{to{visibility:hidden}}
+.ng-stk__note{margin-top:12px;font:400 11px/1.5 var(--ng-mono);letter-spacing:.06em;color:var(--ng-tx2)}
+@media (max-width:1023px){
+.ng-stk__flow{grid-template-columns:1fr 1fr;row-gap:36px}
+.ng-stk__rail{display:none}
+}
+@media (max-width:539px){.ng-stk__flow{grid-template-columns:1fr}}
+@media (max-width:1023px){
+.ng-sig__head .ng-head,.ng-sig__head .ng-body{grid-column:1/-1}
+.ng-sig__grid{grid-template-columns:1fr}
+.ng-sig__grid.ng-has-active .ng-mon.ng-is-active{transform:none}
+.ng-sig__grid.ng-has-active .ng-mon:not(.ng-is-active){opacity:.6}
+}
+@media (min-width:640px) and (max-width:1023px){.ng-mon{display:grid;grid-template-columns:1.1fr 1fr;gap:0 18px}.ng-mon__top{grid-column:1/-1}.ng-mon__body{padding-top:0}}
+</style>
+<section class="ng-sec ng-sig" id="tecnologia" aria-labelledby="ng-sig-title" data-ng="signals" data-ng-bg>
+  <div class="ng-wrap">
+    <div class="ng-sig__head">
+      <div class="ng-head">
+        <p class="ng-mono ng-eyebrow">04 · Tecnología</p>
+        <h2 class="ng-h2" id="ng-sig-title" data-ng-split>Tres señales que <span class="ng-hl">no dependen de lo que se declara.</span></h2>
+      </div>
+      <p class="ng-body" data-ng-reveal>Eye tracking, facial coding y respuesta galvánica, cruzados con modelos de IA propios, para convertir reacciones no conscientes en una decisión validada antes de construir.</p>
+    </div>
+    <div class="ng-sig__grid">
+      <button type="button" class="ng-mon" data-k="eye" aria-pressed="false" aria-label="Eye tracking, atención: dónde mira, en qué orden y qué ignora por completo. Ampliar panel.">
+        <span class="ng-mon__top ng-mono"><span>C·01 · Eye tracking</span><span class="ng-mon__live">● señal en vivo</span></span>
+        <span class="ng-mon__screen"><canvas aria-hidden="true"></canvas><span class="ng-mon__read">fijación <span data-r>214</span> ms</span><span class="ng-marks" aria-hidden="true"><i></i></span></span>
+        <span class="ng-mon__body"><span class="ng-mon__k ng-mono">Señal 01</span><span class="ng-mon__t">Atención</span><span class="ng-mon__d">Dónde mira, en qué orden y qué ignora por completo.</span></span>
+      </button>
+      <button type="button" class="ng-mon" data-k="face" aria-pressed="false" aria-label="Facial coding, emoción: valencia y activación estimadas a partir de unidades de acción facial. Ampliar panel.">
+        <span class="ng-mon__top ng-mono"><span>C·02 · Facial coding</span><span class="ng-mon__live">● señal en vivo</span></span>
+        <span class="ng-mon__screen">
+          <canvas aria-hidden="true"></canvas><span class="ng-mon__read">valencia <span data-r>+0.42</span></span><span class="ng-marks" aria-hidden="true"><i></i></span>
+        </span>
+        <span class="ng-mon__body"><span class="ng-mon__k ng-mono">Señal 02</span><span class="ng-mon__t">Emoción</span><span class="ng-mon__d">La microexpresión que aparece antes de que piense la respuesta.</span></span>
+      </button>
+      <button type="button" class="ng-mon" data-k="gsr" aria-pressed="false" aria-label="Respuesta galvánica, activación: la intensidad de la reacción, aunque el rostro se mantenga neutro. Ampliar panel.">
+        <span class="ng-mon__top ng-mono"><span>C·03 · Respuesta galvánica</span><span class="ng-mon__live">● señal en vivo</span></span>
+        <span class="ng-mon__screen">
+          <canvas aria-hidden="true"></canvas><span class="ng-mon__read"><span data-r>0.00</span> μS</span><span class="ng-marks" aria-hidden="true"><i></i></span></span>
+        <span class="ng-mon__body"><span class="ng-mon__k ng-mono">Señal 03</span><span class="ng-mon__t">Activación</span><span class="ng-mon__d">La intensidad de la reacción, aunque el rostro se mantenga neutro.</span></span>
+      </button>
+    </div>
+    <div class="ng-stk" aria-labelledby="ng-stk-title">
+      <div class="ng-stk__head">
+        <h3 class="ng-stk__t" id="ng-stk-title">Las herramientas <span class="ng-hl">detrás del dato.</span></h3>
+        <p data-ng-reveal>De la señal cruda a la decisión: el software con el que capturamos, procesamos, modelamos y mostramos cada estudio.</p>
+      </div>
+      <div class="ng-stk__flow">
+        <div class="ng-stk__rail" aria-hidden="true"><span class="ng-stk__pk"></span></div>
+        <div class="ng-stk__col">
+          <span class="ng-stk__n">01 · Captura</span>
+          <h4 class="ng-stk__h">Experimentos y señales</h4>
+          <p class="ng-stk__d">Diseño del estímulo, registro de mirada, rostro y piel.</p>
+          <ul class="ng-stk__chips"><li>Tobii Pro Lab</li><li>iMotions</li><li>Pupil Labs</li><li>PsychoPy</li><li>OpenFace</li><li>MediaPipe</li><li>OpenCV</li></ul>
+        </div>
+        <div class="ng-stk__col">
+          <span class="ng-stk__n">02 · Datos</span>
+          <h4 class="ng-stk__h">Limpieza y estructura</h4>
+          <p class="ng-stk__d">Sincronización de señales, depuración y bases consultables.</p>
+          <ul class="ng-stk__chips"><li>Python</li><li>SQL</li><li>PostgreSQL</li><li>BigQuery</li><li>pandas</li><li>NumPy</li><li>SciPy</li><li>R</li><li>Jupyter</li><li>Git</li><li>Docker</li></ul>
+        </div>
+        <div class="ng-stk__col">
+          <span class="ng-stk__n">03 · Modelos</span>
+          <h4 class="ng-stk__h">Análisis e IA</h4>
+          <p class="ng-stk__d">Procesamiento de señales, estadística y modelos predictivos.</p>
+          <ul class="ng-stk__chips"><li>NeuroKit2</li><li>scikit-learn</li><li>PyTorch</li><li>TensorFlow</li><li>Hugging Face</li><li>statsmodels</li><li>XGBoost</li></ul>
+        </div>
+        <div class="ng-stk__col">
+          <span class="ng-stk__n">04 · Decisión</span>
+          <h4 class="ng-stk__h">Visualización y activación</h4>
+          <p class="ng-stk__d">Reportes, dashboards y la implementación en tus canales.</p>
+          <ul class="ng-stk__chips"><li>Power BI</li><li>Tableau</li><li>Looker Studio</li><li>Plotly</li><li>Matplotlib</li><li>Google Analytics 4</li><li>Figma</li><li>WordPress</li><li>Shopify</li><li>React</li></ul>
+        </div>
+      </div>
+      <div class="ng-stk__term" aria-hidden="true"><b>Ejemplo</b><span class="ng-stk__code"></span></div>
+      <p class="ng-stk__note">Herramientas de referencia: el stack se ajusta a cada proyecto. Las líneas de código son ejemplos ilustrativos.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+NG.boot('[data-ng="signals"]', function (sec) {
+  var grid = sec.querySelector('.ng-sig__grid');
+  var mons = [].slice.call(sec.querySelectorAll('.ng-mon'));
+  var on = !NG.rm ? false : true;
+
+  /* Expandir uno, atenuar los otros (hover en desktop, tap/teclado en todos) */
+  var activate = function (m) {
+    mons.forEach(function (x) { x.classList.toggle('ng-is-active', x === m); x.setAttribute('aria-pressed', x === m); });
+    grid.classList.toggle('ng-has-active', !!m);
+  };
+  mons.forEach(function (m) {
+    if (NG.fine) { m.addEventListener('pointerenter', function () { activate(m); }); }
+    m.addEventListener('click', function () { activate(m.classList.contains('ng-is-active') && !NG.fine ? null : m); });
+    m.addEventListener('focus', function () { activate(m); });
+  });
+  grid.addEventListener('pointerleave', function () { if (NG.fine) activate(null); });
+  grid.addEventListener('focusout', function (e) { if (!grid.contains(e.relatedTarget)) activate(null); });
+
+  /* --- C·01 Eye tracking: lectura de una página (patrón en F) ---
+     Realismo: fijaciones de 180–320 ms con micro-temblor, sacadas balísticas (~40 ms)
+     de izquierda a derecha, regresiones ocasionales y barrido de retorno al inicio de línea. */
+  (function (m) {
+    var cv = NG.canvas(m.querySelector('canvas')), r = m.querySelector('[data-r]');
+    // Wireframe de una página: [x, y, ancho, alto] normalizados
+    var PAGE = [[.1, .1, .5, .07, 1], [.1, .24, .78, .025], [.1, .31, .72, .025], [.1, .38, .6, .025], [.1, .5, .34, .2, 2], [.5, .52, .38, .025], [.5, .58, .3, .025], [.5, .64, .34, .025], [.1, .8, .22, .08, 3]];
+    // Plan de lectura: muchas fijaciones arriba, decae hacia abajo (patrón F)
+    var plan = [], build = function () {
+      plan = [];
+      [[.13, .135], [.3, .135], [.47, .135]].forEach(function (p) { plan.push(p); });
+      [[.24, 5], [.31, 4], [.38, 2], [.52, 2], [.58, 1]].forEach(function (L) {
+        var n = L[1];
+        for (var k = 0; k < n; k++) plan.push([(L[0] > .5 ? .53 : .13) + k * .15 + (Math.random() - .5) * .03, L[0] + .012]);
+        if (Math.random() < .35 && n > 2) plan.push([plan[plan.length - 2][0], L[0] + .012]); // regresión
+      });
+      plan.push([.26, .6]); plan.push([.2, .84]);
+    };
+    build();
+    var idx = 0, from = { x: .13, y: .135 }, to = { x: .13, y: .135 }, t0 = 0, dwell = 240, trail = [];
+    var SACC = 42;
+    var draw = function (t) {
+      var c = cv.ctx, w = cv.w, h = cv.h;
+      if (t - t0 > SACC + dwell) {
+        trail.push({ x: to.x, y: to.y, d: dwell }); if (trail.length > 9) trail.shift();
+        idx++; if (idx >= plan.length) { idx = 0; build(); trail = []; }
+        from = { x: to.x, y: to.y }; to = { x: plan[idx][0], y: plan[idx][1] };
+        dwell = 180 + Math.random() * 140; t0 = t; r.textContent = Math.round(dwell);
+      }
+      var k = Math.min(1, (t - t0) / SACC), e = 1 - Math.pow(1 - k, 3);
+      var jx = k >= 1 ? (Math.random() - .5) * .004 : 0, jy = k >= 1 ? (Math.random() - .5) * .004 : 0;
+      var gx = (from.x + (to.x - from.x) * e + jx) * w, gy = (from.y + (to.y - from.y) * e + jy) * h;
+      c.clearRect(0, 0, w, h);
+      PAGE.forEach(function (b) {
+        c.fillStyle = b[4] === 1 ? 'rgba(242,243,240,.22)' : b[4] === 2 ? 'rgba(255,255,255,.07)' : b[4] === 3 ? 'rgba(200,245,66,.28)' : 'rgba(255,255,255,.11)';
+        c.fillRect(b[0] * w, b[1] * h, b[2] * w, b[3] * h);
+      });
+      c.lineWidth = 1; c.strokeStyle = 'rgba(200,245,66,.35)'; c.beginPath();
+      trail.forEach(function (p, i) { i ? c.lineTo(p.x * w, p.y * h) : c.moveTo(p.x * w, p.y * h); });
+      if (trail.length) c.lineTo(gx, gy); c.stroke();
+      trail.forEach(function (p, i) {
+        var a = (i + 1) / trail.length;
+        c.fillStyle = 'rgba(200,255,0,' + (a * .12).toFixed(3) + ')'; c.strokeStyle = 'rgba(200,245,66,' + (a * .7).toFixed(3) + ')';
+        c.beginPath(); c.arc(p.x * w, p.y * h, 3 + p.d / 45, 0, 6.283); c.fill(); c.stroke();
+      });
+      c.fillStyle = '#C8FF00'; c.beginPath(); c.arc(gx, gy, 4, 0, 6.283); c.fill();
+      var grow = k >= 1 ? Math.min(1, (t - t0 - SACC) / dwell) : 0;
+      c.strokeStyle = 'rgba(200,255,0,.55)'; c.beginPath(); c.arc(gx, gy, 6 + grow * 9, 0, 6.283); c.stroke();
+    };
+    m._draw = draw;
+  })(mons[0]);
+
+  /* --- C·02 Facial coding: plano valencia × activación (modelo circunflejo) + intensidad de unidades de acción ---
+     Realismo: la emoción estimada deriva lentamente (proceso de Ornstein-Uhlenbeck) y salta ante cada estímulo,
+     para luego volver a la línea base. AU12 (comisuras) sigue a la valencia positiva; AU4 (ceño) a la negativa. */
+  (function (m) {
+    var cv = NG.canvas(m.querySelector('canvas')), r = m.querySelector('[data-r]');
+    var x = .05, y = -.1, tx = .05, ty = -.1, trail = [], nextEv = 1500, lastT = 0, ev = null;
+    var EVENTS = [[.55, .45], [-.35, .5], [.3, -.2], [.62, .2], [-.15, -.35]], ei = 0;
+    var draw = function (t, dt) {
+      dt = Math.min(64, dt || 16);
+      var c = cv.ctx, w = cv.w, h = cv.h;
+      if (t > nextEv) { var e = EVENTS[ei++ % EVENTS.length]; tx = e[0]; ty = e[1]; ev = { t: t, x: e[0], y: e[1] }; nextEv = t + 2600 + Math.random() * 1600; }
+      // Retorno a la línea base + ruido
+      tx += (.05 - tx) * .0009 * dt; ty += (-.1 - ty) * .0009 * dt;
+      x += (tx - x) * .004 * dt + (Math.random() - .5) * .006; y += (ty - y) * .004 * dt + (Math.random() - .5) * .006;
+      if (t - lastT > 60) { trail.push([x, y]); if (trail.length > 70) trail.shift(); lastT = t; }
+      var P = 14, pw = w - 92 - P, ph = h - P - 48, ox = P, oy = P;
+      var X = function (v) { return ox + (v + 1) / 2 * pw; }, Y = function (v) { return oy + (1 - (v + 1) / 2) * ph; };
+      c.clearRect(0, 0, w, h);
+      // Rejilla
+      c.strokeStyle = 'rgba(255,255,255,.06)'; c.lineWidth = 1;
+      for (var g = -1; g <= 1.001; g += .5) { c.beginPath(); c.moveTo(X(g) + .5, Y(1)); c.lineTo(X(g) + .5, Y(-1)); c.stroke(); c.beginPath(); c.moveTo(X(-1), Y(g) + .5); c.lineTo(X(1), Y(g) + .5); c.stroke(); }
+      c.strokeStyle = 'rgba(255,255,255,.22)';
+      c.beginPath(); c.moveTo(X(0) + .5, Y(1)); c.lineTo(X(0) + .5, Y(-1)); c.moveTo(X(-1), Y(0) + .5); c.lineTo(X(1), Y(0) + .5); c.stroke();
+      c.beginPath(); c.ellipse(X(0), Y(0), pw / 2, ph / 2, 0, 0, 6.283); c.strokeStyle = 'rgba(255,255,255,.08)'; c.stroke();
+      c.font = '500 8.5px "IBM Plex Mono", monospace'; c.fillStyle = 'rgba(160,165,176,1)';
+      c.fillText('ACTIVACIÓN +', X(0) + 5, Y(1) + 9); c.fillText('ACTIVACIÓN −', X(0) + 5, Y(-1) - 4);
+      c.textAlign = 'left'; c.fillText('− VAL', X(-1) + 2, Y(0) - 5); c.textAlign = 'right'; c.fillText('VAL +', X(1) - 2, Y(0) - 5); c.textAlign = 'left';
+      // Marca del último estímulo
+      if (ev && t - ev.t < 1600) {
+        var k = (t - ev.t) / 1600;
+        c.strokeStyle = 'rgba(200,255,0,' + (1 - k) * .8 + ')'; c.beginPath(); c.arc(X(ev.x), Y(ev.y), 6 + k * 18, 0, 6.283); c.stroke();
+      }
+      // Trayectoria
+      for (var i = 1; i < trail.length; i++) {
+        c.strokeStyle = 'rgba(200,255,0,' + (i / trail.length * .6).toFixed(3) + ')';
+        c.beginPath(); c.moveTo(X(trail[i - 1][0]), Y(trail[i - 1][1])); c.lineTo(X(trail[i][0]), Y(trail[i][1])); c.stroke();
+      }
+      c.fillStyle = '#C8FF00'; c.beginPath(); c.arc(X(x), Y(y), 4, 0, 6.283); c.fill();
+      c.strokeStyle = 'rgba(200,255,0,.35)'; c.beginPath(); c.arc(X(x), Y(y), 9, 0, 6.283); c.stroke();
+      // Unidades de acción (intensidad 0–1)
+      var au = [['AU12', Math.max(0, x) * 1.1], ['AU6', Math.max(0, x * .8 + y * .2)], ['AU4', Math.max(0, -x) * 1.2], ['AU1+2', Math.max(0, y) * .9], ['AU15', Math.max(0, -x * .6 - y * .3)]];
+      var bx = w - 84, by = P + 4;
+      au.forEach(function (a, i) {
+        var v = Math.min(1, a[1] + Math.random() * .03), yy = by + i * ((ph - 8) / au.length);
+        c.fillStyle = 'rgba(160,165,176,1)'; c.fillText(a[0], bx, yy + 7);
+        c.fillStyle = 'rgba(255,255,255,.08)'; c.fillRect(bx, yy + 12, 72, 5);
+        c.fillStyle = v > .35 ? '#C8FF00' : 'rgba(242,243,240,.55)'; c.fillRect(bx, yy + 12, 72 * v, 5);
+      });
+      if (Math.floor(t / 250) % 2 === 0) r.textContent = (x >= 0 ? '+' : '−') + Math.abs(x).toFixed(2);
+    };
+    m._draw = draw;
+  })(mons[1]);
+
+  /* --- C·03 GSR: medidor de aguja con inercia (resorte amortiguado) ---
+     La conductancia tiene un nivel basal lento y respuestas fásicas: subida en ~1 s y bajada lenta.
+     La aguja sigue ese valor con física de resorte, como un instrumento analógico. */
+  (function (m) {
+    var cv = NG.canvas(m.querySelector('canvas')), r = m.querySelector('[data-r]');
+    var level = 2.1, phasic = [], needle = 2.1, vel = 0, clock = 0, peak = 0;
+    var draw = function (t, dt) {
+      var c = cv.ctx, w = cv.w, h = cv.h, s = Math.min(.05, (dt || 16) / 1000);
+      clock += s;
+      if (Math.random() < s * .45) phasic.push({ t0: clock, a: .5 + Math.random() * 1.3 });
+      phasic = phasic.filter(function (p) { return clock - p.t0 < 12; });
+      var target = level + Math.sin(clock / 6) * .08;
+      phasic.forEach(function (p) { var k = clock - p.t0; target += p.a * (1 - Math.exp(-k / .45)) * Math.exp(-k / 3.2); });
+      vel += ((target - needle) * 38 - vel * 9) * s; needle += vel * s;      // resorte amortiguado
+      peak = Math.max(peak * Math.exp(-s / 2.5), needle);
+      var cx = w / 2, cy = h * .82, R = Math.min(w * .42, h * .7), MIN = 1.5, MAX = 5, A0 = Math.PI * 1.1, A1 = Math.PI * 1.9;
+      var ang = function (v) { return A0 + (A1 - A0) * Math.max(0, Math.min(1, (v - MIN) / (MAX - MIN))); };
+      c.clearRect(0, 0, w, h);
+      c.lineWidth = 6; c.lineCap = 'round';
+      c.strokeStyle = 'rgba(255,255,255,.07)'; c.beginPath(); c.arc(cx, cy, R, A0, A1); c.stroke();
+      c.strokeStyle = 'rgba(200,245,66,.55)'; c.beginPath(); c.arc(cx, cy, R, A0, ang(needle)); c.stroke();
+      c.lineWidth = 1; c.lineCap = 'butt';
+      for (var i = 0; i <= 14; i++) {
+        var a = A0 + (A1 - A0) * i / 14, big = i % 2 === 0;
+        c.strokeStyle = big ? 'rgba(242,243,240,.45)' : 'rgba(242,243,240,.2)';
+        c.beginPath(); c.moveTo(cx + Math.cos(a) * (R - 12), cy + Math.sin(a) * (R - 12)); c.lineTo(cx + Math.cos(a) * (R - (big ? 22 : 17)), cy + Math.sin(a) * (R - (big ? 22 : 17))); c.stroke();
+      }
+      var pa = ang(peak); c.fillStyle = '#C8FF00';
+      c.beginPath(); c.arc(cx + Math.cos(pa) * R, cy + Math.sin(pa) * R, 3, 0, 6.283); c.fill();
+      var na = ang(needle);
+      c.strokeStyle = '#F2F3F0'; c.lineWidth = 2; c.beginPath(); c.moveTo(cx - Math.cos(na) * 10, cy - Math.sin(na) * 10); c.lineTo(cx + Math.cos(na) * (R - 26), cy + Math.sin(na) * (R - 26)); c.stroke();
+      c.fillStyle = '#16191D'; c.strokeStyle = 'rgba(242,243,240,.5)'; c.lineWidth = 1; c.beginPath(); c.arc(cx, cy, 6, 0, 6.283); c.fill(); c.stroke();
+      c.fillStyle = 'rgba(160,165,176,1)'; c.font = '500 9px "IBM Plex Mono", monospace'; c.textAlign = 'center';
+      c.fillText('μS', cx, cy - R * .38); c.textAlign = 'start';
+      if (Math.floor(t / 120) % 2 === 0) r.textContent = needle.toFixed(2);
+    };
+    m._draw = draw;
+  })(mons[2]);
+
+  /* Un solo bucle; se pausa fuera de viewport */
+  var start = function () {
+    on = true;
+    if (NG.rm) { mons.forEach(function (m) { m._draw(1000, 16); }); return; }
+    NG.loop(grid, function (t, dt) { mons.forEach(function (m) { m._draw(t, dt); }); });
+  };
+
+  /* --- Stack: un paquete de datos recorre el pipeline y enciende las herramientas de cada etapa --- */
+  (function () {
+    var stk = sec.querySelector('.ng-stk'), cols = [].slice.call(stk.querySelectorAll('.ng-stk__col'));
+    var pk = stk.querySelector('.ng-stk__pk'), rail = stk.querySelector('.ng-stk__rail'), code = stk.querySelector('.ng-stk__code');
+    var LINES = [
+      "gaze = pd.read_sql(\"SELECT participant_id, aoi, duration_ms FROM fixations WHERE study = 'pack_v3'\", conn)",
+      "eda, info = nk.eda_process(raw_eda, sampling_rate=128)  # picos SCR",
+      "dwell = gaze.groupby('aoi')['duration_ms'].agg(['mean', 'count'])",
+      "model = RandomForestClassifier(n_estimators=300).fit(X_train, y_train)",
+      "fig = px.density_heatmap(gaze, x='x', y='y', nbinsx=64, nbinsy=40)"
+    ];
+    if (NG.rm) { cols.forEach(function (c) { c.classList.add('is-on'); }); code.textContent = LINES[0]; return; }
+    /* Terminal: tipeo con ritmo humano (pausas en signos) */
+    var li = 0, ci = 0, wait = 0;
+    var type = function () {
+      var L = LINES[li], ch = L.charAt(ci);
+      if (ci < L.length) { ci++; code.textContent = L.slice(0, ci); wait = /[(,=.]/.test(ch) ? 120 : 18 + Math.random() * 40; }
+      else { li = (li + 1) % LINES.length; ci = 0; wait = 2200; }
+      typer = setTimeout(type, wait);
+    };
+    var typer = 0, running = false, step = 0, stepT = 0, hot = [];
+    var chips = cols.map(function (c) { return [].slice.call(c.querySelectorAll('li')); });
+    /* Ciclo: el paquete avanza etapa por etapa; en cada una se encienden 2–3 herramientas al azar */
+    var tick = function () {
+      if (!running) return;
+      hot.forEach(function (h) { h.classList.remove('is-hot'); h.classList.add('is-lit'); });
+      hot = [];
+      if (step === 0) cols.forEach(function (c, i) { c.classList.remove('is-on'); chips[i].forEach(function (h) { h.classList.remove('is-lit'); }); });
+      var col = cols[step];
+      col.classList.add('is-on');
+      var pool = chips[step].slice(), n = 2 + (Math.random() < .5 ? 1 : 0);
+      for (var k = 0; k < n && pool.length; k++) hot.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
+      hot.forEach(function (h, j) { setTimeout(function () { if (running) h.classList.add('is-hot'); }, 260 + j * 180); });
+      if (getComputedStyle(rail).display !== 'none') {
+        var rr = rail.getBoundingClientRect(), cr = col.getBoundingClientRect();
+        var x = cr.left - rr.left + 5;
+        pk.style.transition = step === 0 ? 'none' : 'transform .9s cubic-bezier(.65,0,.35,1),opacity .3s';
+        pk.style.opacity = 1; pk.style.transform = 'translateX(' + x + 'px)';
+      }
+      step = (step + 1) % cols.length;
+      stepT = setTimeout(tick, step === 0 ? 3200 : 1700);
+    };
+    NG.vis(stk, function () { if (running) return; running = true; tick(); type(); },
+      function () { running = false; clearTimeout(stepT); clearTimeout(typer); }, '0px');
+  })();
+
+  NG.reveals(sec);
+  NG.ready().then(function (gsap) {
+    if (!gsap || NG.rm) { grid.classList.add('ng-is-ready'); start(); return; }
+    gsap.from(mons, {
+      autoAlpha: 0, y: 48, duration: 1, ease: 'power3.out', stagger: .14,
+      scrollTrigger: { trigger: grid, start: 'top 80%', once: true },
+      onStart: function () { start(); },
+      onComplete: function () { gsap.set(mons, { clearProps: 'transform,opacity,visibility' }); grid.classList.add('ng-is-ready'); }
+    });
+    ScrollTrigger.create({ trigger: grid, start: 'top 80%', once: true, onEnter: function () {
+      mons.forEach(function (m, i) { setTimeout(function () { m.classList.add('ng-is-flash'); }, 220 + i * 140); });
+    } });
+  });
+});
+</script>

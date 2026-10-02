@@ -9,7 +9,7 @@ Recortes de las piezas de campaña de Neurogenomic, sin el texto incrustado. Se 
 | `ref-can-570.avif / .webp` | 570×1590 | Servicio 01 · Branding (página Servicios) |
 | `ref-bottle-520.avif / .webp` | 520×1350 | Servicio 04 · Marketing Digital (página Servicios) |
 | `ng-pouch-960/1600/2400` | 2400×1500 | «Así mira tu cliente» (bolsa de café kraft, render fotográfico) y monitor C·01 de Tecnología |
-| `ng-box-b-600/1200` | 1200×1520 | «Tu packaging tiene una mirada para ganar»: comparador foto ⇄ mapa de calor (render fotográfico) |
+| `ng-bottle-600/1200` | 1200×1520 | «Tu packaging tiene una mirada para ganar»: botella genérica sin textos, comparador foto ⇄ mapa de calor (render fotográfico, `render/bottle_scene.py`) |
 | `ng-phone-600/920` | 920×1070 | CTA final: tienda ficticia en un teléfono (render fotográfico) |
 | `seq/f_000…079.webp` | 80 cuadros | «Así mira tu cliente»: demo scroll-driven |
 | `story/cap-1…5.webp` | 1280×800 | Respaldo de la historia 3D cuando el navegador no tiene WebGL (capturas de la propia escena) |

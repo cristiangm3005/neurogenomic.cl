@@ -1,8 +1,5 @@
-<!-- NEUROGENOMIC · Bloque Elementor «07-packaging»
-     Pegar completo en un widget HTML de Elementor (ancho completo, sin padding).
-     Incluye tokens + núcleo NG (idempotentes: pueden repetirse en varios bloques).
-     Nota: Comparador foto ⇄ mapa de calor. Usa img/ng-bottle-*.(avif|webp) (calibración en src/data/bottle.json).
-     Imágenes: reemplaza /img/ por la URL de la Biblioteca de medios. -->
+<!-- NEUROGENOMIC · Código personalizado (Elementor Pro → Código personalizado → Ubicación: <head>, Condición: todo el sitio).
+     Fuentes + sistema de diseño + núcleo NG una sola vez; los bloques de elementor/ligeros/ ya no los repiten. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
@@ -113,45 +110,6 @@ html.ng-has-story .ng-noise{display:none}
 @media (prefers-reduced-motion:reduce){
 .ng-sec *,.ng-nav *,.ng-foot *,.ng-menu *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
 .ng-js .ng-sec[data-ng-bg]{--ng-bgo:1}
-}
-.ng-pack{padding:clamp(96px,11vw,170px) 0 clamp(56px,6vw,96px);background:#000}
-.ng-pack__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:center}
-.ng-pack__copy{grid-column:1/span 6}
-.ng-pack__t{font-size:clamp(64px,8.4vw,164px);line-height:.86;margin:clamp(20px,2.4vw,32px) 0 clamp(24px,3vw,40px)}
-.ng-pack__p{font-size:clamp(20px,1.9vw,30px);line-height:1.25;font-weight:400;max-width:22ch}
-.ng-pack__list{margin-top:clamp(28px,3vw,44px);display:grid;gap:0;border-top:1px solid var(--ng-line);max-width:520px}
-.ng-pack__list li{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--ng-line);transition:color .4s}
-.ng-pack__list b{font:500 11px/1 var(--ng-mono);letter-spacing:.12em;color:var(--ng-tx2)}
-.ng-pack__list span{font-size:16px}
-.ng-pack__list i{font:500 11px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;font-style:normal;color:var(--ng-tx2)}
-.ng-pack__list li.is-on b,.ng-pack__list li.is-on i{color:var(--ng-lime)}
-.ng-pack__stage{grid-column:7/span 6}
-.ng-pack__card{position:relative;margin:0 0 0 auto;max-width:min(100%,calc((100svh - 190px) * 30 / 38 + 26px));border:1px solid var(--ng-line2);border-radius:8px;background:var(--ng-s1);padding:12px}
-.ng-pack__top,.ng-pack__foot{display:flex;justify-content:space-between;gap:12px;font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2)}
-.ng-pack__top{padding:2px 2px 12px}
-.ng-pack__top b{font-weight:500;color:var(--ng-lime)}
-.ng-pack__foot{padding:12px 2px 2px}
-.ng-pack__view{position:relative;aspect-ratio:30/38;border-radius:4px;overflow:hidden;background:#000;touch-action:pan-y;cursor:ew-resize;user-select:none;-webkit-user-select:none}
-.ng-pack__view .ng-media{position:absolute;inset:0;border-radius:0;background:#000}
-.ng-pack__view .ng-media img{object-fit:cover;width:100%;height:100%}
-.ng-pack__heat{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:screen;clip-path:inset(0 0 0 var(--ng-split,100%))}
-.ng-pack__dim{position:absolute;inset:0;background:rgba(0,0,0,.28);clip-path:inset(0 0 0 var(--ng-split,100%));pointer-events:none}
-.ng-pack__hd{position:absolute;top:0;bottom:0;left:var(--ng-split,100%);width:0;pointer-events:none}
-.ng-pack__hd::before{content:"";position:absolute;top:0;bottom:0;left:-1px;width:2px;background:var(--ng-lime);box-shadow:0 0 14px rgba(200,255,0,.7)}
-.ng-pack__hd span{position:absolute;top:50%;left:0;translate:-50% -50%;width:44px;height:44px;border-radius:50%;background:var(--ng-lime);color:#0A0B0D;display:grid;place-items:center;font:600 14px/1 var(--ng-mono);box-shadow:0 6px 24px rgba(0,0,0,.5)}
-.ng-pack__lbl{position:absolute;top:12px;font:500 11px/1 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;padding:7px 8px;border-radius:3px;background:rgba(10,11,13,.78);color:var(--ng-tx);pointer-events:none}
-.ng-pack__lbl--l{left:12px}.ng-pack__lbl--r{right:12px;color:var(--ng-lime)}
-.ng-pack__aoi{position:absolute;width:0;height:0;pointer-events:none}
-.ng-pack__aoi::before{content:"";position:absolute;left:-15px;top:-15px;width:28px;height:28px;border:1.5px solid var(--ng-lime);border-radius:50%;opacity:0;transform:scale(.4);transition:opacity .4s,transform .6s var(--ng-ease)}
-.ng-pack__aoi em{position:absolute;left:20px;top:-9px;font:500 11px/1 var(--ng-mono);font-style:normal;letter-spacing:.1em;color:#0A0B0D;background:var(--ng-lime);padding:4px 5px;border-radius:2px;opacity:0;transition:opacity .4s}
-.ng-pack__aoi--l em{left:auto;right:20px}
-.ng-pack__aoi.is-on::before{opacity:1;transform:none}
-.ng-pack__aoi.is-on em{opacity:1}
-.ng-pack__strip{margin-top:clamp(48px,6vw,96px)}
-@media (max-width:1023px){
-.ng-pack__copy,.ng-pack__stage{grid-column:1/-1}
-.ng-pack__stage{margin-top:24px;max-width:520px}
-.ng-pack__card{margin:0;max-width:none}
 }
 </style>
 <script>
@@ -446,101 +404,4 @@ html.ng-has-story .ng-noise{display:none}
     history.replaceState(null, '', url.hash);
   });
 })();
-</script>
-<section class="ng-sec ng-pack" id="packaging" aria-labelledby="ng-pack-title" data-ng="pack">
-  <div class="ng-wrap">
-    <div class="ng-pack__grid">
-      <div class="ng-pack__copy">
-        <p class="ng-mono ng-eyebrow">02 · Inteligencia biométrica</p>
-        <h2 class="ng-h2 ng-pack__t" id="ng-pack-title" data-ng-split>Tu packaging tiene <span class="ng-hl">una mirada</span> para ganar.</h2>
-        <p class="ng-pack__p" data-ng-reveal>Mira lo que tus compradores realmente observan antes de comprar.</p>
-        <ol class="ng-pack__list" data-ng-reveal=".1">
-          <li data-a="0"><b>01</b><span>Tapa</span><i>Primera fijación</i></li>
-          <li data-a="1"><b>02</b><span>Etiqueta</span><i>Permanencia alta</i></li>
-          <li data-a="2"><b>03</b><span>Hombro y cuello</span><i>Revisitas</i></li>
-          <li data-a="3"><b>04</b><span>Base</span><i>Mirada breve</i></li>
-        </ol>
-      </div>
-      <div class="ng-pack__stage">
-        <figure class="ng-pack__card">
-          <figcaption class="ng-pack__top"><span>Eye tracking · packaging</span><b>Ilustrativo</b></figcaption>
-          <div class="ng-pack__view" role="slider" tabindex="0" aria-label="Comparar la foto de la botella con su mapa de calor de atención: la mayor concentración está en la etiqueta, seguida de la tapa y el hombro; la base recibe poca atención. Datos ilustrativos." aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
-            <div class="ng-media" data-ph="/img/ng-bottle"><picture><source type="image/avif" srcset="/img/ng-bottle-600.avif 600w, /img/ng-bottle-1200.avif 1200w" sizes="(min-width:1024px) 40vw, 100vw"><source type="image/webp" srcset="/img/ng-bottle-600.webp 600w, /img/ng-bottle-1200.webp 1200w" sizes="(min-width:1024px) 40vw, 100vw"><img src="/img/ng-bottle-1200.webp" width="1200" height="1520" alt="Botella de bebida de vidrio sin marca ni textos, con tapa metálica y una etiqueta negra lisa con un filete verde lima, sobre fondo oscuro" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
-            <div class="ng-pack__dim" aria-hidden="true"></div>
-            <canvas class="ng-pack__heat" aria-hidden="true"></canvas>
-            <span class="ng-pack__aoi" data-a="0" aria-hidden="true"><em>01</em></span>
-            <span class="ng-pack__aoi" data-a="1" aria-hidden="true"><em>02</em></span>
-            <span class="ng-pack__aoi ng-pack__aoi--l" data-a="2" aria-hidden="true"><em>03</em></span>
-            <span class="ng-pack__aoi" data-a="3" aria-hidden="true"><em>04</em></span>
-            <span class="ng-pack__lbl ng-pack__lbl--l" aria-hidden="true">Foto</span>
-            <span class="ng-pack__lbl ng-pack__lbl--r" aria-hidden="true">Mapa de calor</span>
-            <span class="ng-pack__hd" aria-hidden="true"><span>⇄</span></span>
-          </div>
-          <p class="ng-pack__foot"><span>Arrastra para comparar</span><span>Demostración visual</span></p>
-        </figure>
-      </div>
-    </div>
-    <p class="ng-strip ng-pack__strip"><span>Eye tracking</span><i>·</i><span>Respuesta GSR</span><i>·</i><span>Facial coding</span></p>
-  </div>
-</section>
-
-<script>
-NG.boot('[data-ng="pack"]', function (sec) {
-  var view = sec.querySelector('.ng-pack__view'), cv = sec.querySelector('.ng-pack__heat');
-  var aois = [].slice.call(sec.querySelectorAll('.ng-pack__aoi')), rows = [].slice.call(sec.querySelectorAll('.ng-pack__list li'));
-  // Zonas y silueta proyectadas desde la escena 3D de la botella (0–1 sobre la foto; render/bottle_scene.py)
-  var B = {"cap": [0.5, 0.1874], "shoulder": [0.5, 0.36], "label": [0.5, 0.5924], "labelHi": [0.5, 0.5352], "base": [0.5, 0.8108], "_shape": [[0.5549, 0.1738], [0.5564, 0.2149], [0.55, 0.2487], [0.5685, 0.2839], [0.5925, 0.3249], [0.6146, 0.3746], [0.6256, 0.4242], [0.6274, 0.4621], [0.6266, 0.8184], [0.6229, 0.8414], [0.6027, 0.853], [0.3973, 0.853], [0.3771, 0.8414], [0.3734, 0.8184], [0.3726, 0.4621], [0.3744, 0.4242], [0.3854, 0.3746], [0.4075, 0.3249], [0.4315, 0.2839], [0.45, 0.2487], [0.4436, 0.2149], [0.4451, 0.1738]]};
-  var Z = [B.cap, B.label, B.shoulder, B.base];
-  // Ilustrativo: la etiqueta concentra la atención, luego tapa y hombro; la base apenas se mira
-  var HEAT = [B.label.concat([.13, 1]), B.labelHi.concat([.1, .7]), B.cap.concat([.07, .8]), B.shoulder.concat([.08, .5]), B.base.concat([.07, .28])];
-  aois.forEach(function (a, i) { a.style.left = (Z[i][0] * 100) + '%'; a.style.top = (Z[i][1] * 100) + '%'; });
-  var paint = function () {
-    NG.heat(cv, HEAT, { gain: 1.1 });
-    // El calor solo existe sobre la botella: se recorta con su silueta (levemente ampliada)
-    var c = cv.getContext('2d'), w = cv.clientWidth, h = cv.clientHeight;
-    c.save(); c.globalCompositeOperation = 'destination-in'; c.fillStyle = '#000'; c.globalAlpha = 1; c.beginPath();
-    B._shape.forEach(function (p, i) { var x = (.5 + (p[0] - .5) * 1.06) * w, y = p[1] * h; i ? c.lineTo(x, y) : c.moveTo(x, y); });
-    c.closePath(); c.fill(); c.restore();
-  };
-  paint();
-  if ('ResizeObserver' in window) { var to; new ResizeObserver(function () { clearTimeout(to); to = setTimeout(paint, 120); }).observe(view); }
-
-  /* Comparador: --ng-split es el borde izquierdo del mapa de calor (100% = solo foto) */
-  var split = 100, user = false;
-  var set = function (v) {
-    split = Math.max(0, Math.min(100, v));
-    view.style.setProperty('--ng-split', split + '%');
-    view.setAttribute('aria-valuenow', Math.round(100 - split));
-    // Cuando el mapa de calor cubre el envase, las zonas se encienden en el orden en que se miraron
-    if (split < 55 && !seq) { seq = true; light(0); }
-    if (split > 62 && seq) { seq = false; clearTimeout(lt); aois.forEach(function (a, i) { a.classList.remove('is-on'); rows[i].classList.remove('is-on'); }); }
-  };
-  var seq = false, lt = 0;
-  var light = function (i) {
-    if (!seq || i >= aois.length) return;
-    aois[i].classList.add('is-on'); rows[i].classList.add('is-on');
-    lt = setTimeout(function () { light(i + 1); }, NG.rm ? 0 : 520);
-  };
-  set(NG.rm ? 0 : 100);
-  var fromEvent = function (e) { var r = view.getBoundingClientRect(); return (e.clientX - r.left) / r.width * 100; };
-  var drag = false;
-  view.addEventListener('pointerdown', function (e) { drag = true; user = true; view.setPointerCapture(e.pointerId); set(fromEvent(e)); });
-  view.addEventListener('pointermove', function (e) { if (drag) set(fromEvent(e)); else if (e.pointerType === 'mouse' && user) set(fromEvent(e)); });
-  view.addEventListener('pointerup', function () { drag = false; });
-  view.addEventListener('pointercancel', function () { drag = false; });
-  view.addEventListener('keydown', function (e) {
-    if (e.key === 'ArrowLeft') { user = true; set(split - 5); e.preventDefault(); }
-    if (e.key === 'ArrowRight') { user = true; set(split + 5); e.preventDefault(); }
-  });
-  NG.reveals(sec);
-  NG.ready().then(function (gsap) {
-    if (!gsap || NG.rm) { set(0); return; }
-    var card = sec.querySelector('.ng-pack__card');
-    gsap.fromTo(card, { y: 60, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.3, ease: 'expo.out', scrollTrigger: { trigger: card, start: 'top 88%', once: true } });
-    // Con el scroll, el mapa de calor barre el envase de derecha a izquierda y se detiene a la mitad
-    var o = { v: 100 };
-    gsap.to(o, { v: 28, ease: 'none', onUpdate: function () { if (!user) set(o.v); },
-      scrollTrigger: { trigger: view, start: 'top 75%', end: 'center 40%', scrub: .5 } });
-  });
-});
 </script>

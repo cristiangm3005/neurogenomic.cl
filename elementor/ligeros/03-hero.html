@@ -1,0 +1,80 @@
+<!-- NEUROGENOMIC · Bloque ligero «03-hero» · requiere 00-codigo-personalizado.html en Elementor Pro → Código personalizado · Nota: Texto del inicio sobre la neurona 3D. -->
+<style>
+.ng-hero{min-height:88vh;min-height:88svh;display:flex;align-items:flex-end;padding:96px 0 clamp(40px,5vw,72px);background:#000;border-top:1px solid var(--ng-line)}
+.ng-hero__quote{position:absolute;right:var(--ng-gut);bottom:clamp(48px,7vh,88px);display:flex;gap:16px;align-items:stretch;z-index:1}
+.ng-hero__quote::before{content:"";flex:0 0 6px;background:var(--ng-tx)}
+.ng-hero__quote p{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(26px,2.6vw,46px);line-height:.95;color:var(--ng-lime)}
+.ng-hero__hud{position:absolute;inset:18px var(--ng-gut) 18px;pointer-events:none;font:500 11px/1.5 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx)}
+.ng-hero__hud>span{position:absolute;display:flex;gap:14px;align-items:center;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.ng-hero__hud .ng-hero__tl{top:0;left:0}.ng-hero__hud .ng-hero__tr{top:0;right:0}.ng-hero__hud .ng-hero__br{bottom:0;right:0}
+.ng-rec{display:inline-flex;align-items:center;gap:8px}
+.ng-rec::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--ng-lime);animation:ng-blink 1.2s steps(2,start) infinite}
+@keyframes ng-blink{to{visibility:hidden}}
+.ng-hero__hud b{font-weight:500;color:var(--ng-lime);font-variant-numeric:tabular-nums}
+.ng-hero__content{position:relative}
+.ng-hero__eyebrow{margin-bottom:clamp(18px,2vw,28px);font-size:clamp(12px,1.05vw,15px)}
+.ng-hero__title{font-family:var(--ng-disp);font-weight:400;text-transform:uppercase;font-size:clamp(64px,9.4vw,188px);line-height:.96;letter-spacing:-.005em;will-change:transform}
+.ng-hero__sub{margin-top:clamp(22px,2.6vw,36px);font-size:clamp(19px,1.6vw,26px);line-height:1.25;letter-spacing:-.015em;font-weight:500;max-width:30ch}
+.ng-hero__text{margin-top:10px;color:var(--ng-tx);opacity:.8;max-width:50ch;font-weight:300}
+.ng-hero__ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:clamp(24px,2.6vw,36px)}
+.ng-hero__strip{margin-top:clamp(28px,3.4vw,48px);max-width:640px}
+@media (max-width:899px){
+.ng-hero{flex-direction:column;align-items:stretch;padding-top:56px;min-height:0}
+.ng-hero{padding-bottom:48px}
+.ng-hero__quote{position:relative;right:auto;top:auto;bottom:auto;translate:none;margin:28px var(--ng-gut) 28px}
+.ng-hero__copy,.ng-hero__title{text-shadow:0 2px 18px rgba(0,0,0,.85)}
+.ng-hero__hud{inset:16px var(--ng-gut) auto}
+.ng-hero__hud .ng-hero__tr,.ng-hero__hud .ng-hero__br{display:none}
+}
+@media (max-width:480px){.ng-hero__ctas .ng-btn{flex:1 1 100%}}
+</style>
+<section class="ng-sec ng-hero" id="inicio" aria-labelledby="ng-hero-title" data-ng="hero">
+  <div class="ng-hero__quote"><p>Todos miran.<br>Nosotros medimos.</p></div>
+  <div class="ng-hero__hud" aria-hidden="true">
+    <span class="ng-hero__tl"><span class="ng-rec">REC</span><span class="ng-hero__ts">00:00:00.000</span></span>
+    <span class="ng-hero__tr">FIX <b class="ng-hero__fix">214ms</b><span>SAMPLE <b>120Hz</b></span></span>
+    <span class="ng-hero__br">Neurona · sinapsis activa</span>
+  </div>
+  <div class="ng-wrap ng-hero__content">
+    <p class="ng-mono ng-eyebrow ng-hero__eyebrow">Neuroscience-Driven Marketing Optimization</p>
+    <h1 class="ng-hero__title" id="ng-hero-title">El marketing<br>digital <span class="ng-hl">cambió.</span></h1>
+    <div class="ng-hero__copy">
+      <p class="ng-hero__sub">Neuromarketing potenciado por inteligencia artificial.</p>
+      <p class="ng-hero__text">Analizamos procesos cerebrales subconscientes y los potenciamos con modelos predictivos para maximizar la conversión.</p>
+    </div>
+    <div class="ng-hero__ctas">
+      <a class="ng-btn ng-btn--volt" href="/contacto/" data-ng-magnet>Empieza hoy <span class="ng-btn__i" aria-hidden="true">↗</span></a>
+      <a class="ng-btn" href="#asi-mira">Así mira tu cliente <span class="ng-btn__i" aria-hidden="true">↓</span></a>
+    </div>
+    <p class="ng-strip ng-hero__strip" aria-label="Eye tracking, respuesta galvánica y facial coding"><span>Eye tracking</span><i>·</i><span>GSR</span><i>·</i><span>Facial coding</span></p>
+  </div>
+</section>
+
+<script>
+NG.boot('[data-ng="hero"]', function (sec) {
+  var title = sec.querySelector('.ng-hero__title'), ts = sec.querySelector('.ng-hero__ts'), fix = sec.querySelector('.ng-hero__fix');
+  var t0 = performance.now();
+  /* Lecturas "en vivo" del HUD (la neurona 3D vive en la capa de la historia, detrás) */
+  var pad = function (n, l) { n = String(n); while (n.length < l) n = '0' + n; return n; };
+  setInterval(function () {
+    var ms = Math.floor(performance.now() - t0);
+    ts.textContent = pad(Math.floor(ms / 3600000), 2) + ':' + pad(Math.floor(ms / 60000) % 60, 2) + ':' + pad(Math.floor(ms / 1000) % 60, 2) + '.' + pad(ms % 1000, 3);
+  }, NG.rm ? 1000 : 67);
+  if (!NG.rm) setInterval(function () { fix.textContent = (180 + Math.round(Math.random() * 90)) + 'ms'; }, 900);
+
+  /* Reveal + parallax del titular */
+  NG.ready().then(function (gsap) {
+    if (!gsap || NG.rm) return;
+    var words = NG.split(title);
+    gsap.set(words, { yPercent: 115 });
+    var rest = sec.querySelectorAll('.ng-hero__eyebrow,.ng-hero__copy>*,.ng-hero__ctas>*,.ng-hero__strip,.ng-hero__quote');
+    gsap.set(rest, { autoAlpha: 0, y: 20 });
+    NG.afterPreload(function () {
+      var tl = gsap.timeline({ delay: .05 });
+      tl.to(words, { yPercent: 0, duration: 1.2, ease: 'expo.out', stagger: .07 })
+        .to(rest, { autoAlpha: 1, y: 0, duration: .9, stagger: .06 }, .35);
+    });
+    gsap.to(title, { yPercent: -38, ease: 'none', scrollTrigger: { trigger: sec, start: 'top top', end: 'bottom top', scrub: true } });
+  });
+});
+</script>

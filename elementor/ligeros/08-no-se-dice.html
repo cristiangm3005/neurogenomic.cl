@@ -1,0 +1,139 @@
+<!-- NEUROGENOMIC · Bloque ligero «08-no-se-dice» · requiere 00-codigo-personalizado.html en Elementor Pro → Código personalizado · Nota: Registro sincronizado ilustrativo dibujado en canvas (sin imagen). -->
+<style>
+.ng-said{min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:clamp(80px,9vw,140px) 0;background:#000}
+.ng-said__beam{position:absolute;left:-10%;top:-20%;width:60%;height:130%;z-index:-1;pointer-events:none;transform-origin:0 0;
+background:linear-gradient(118deg,rgba(242,243,240,.13) 0%,rgba(242,243,240,.05) 32%,rgba(242,243,240,0) 58%);
+clip-path:polygon(0 0,38% 0,100% 100%,62% 100%);animation:ng-beam 9s ease-in-out infinite alternate}
+@keyframes ng-beam{from{transform:rotate(-2deg)}to{transform:rotate(2.5deg)}}
+.ng-said__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:center}
+.ng-said__copy{grid-column:1/span 6}
+.ng-said__t{font-size:clamp(66px,9.6vw,184px);line-height:.88}
+.ng-said__brand{margin-top:clamp(20px,2.4vw,32px);font:500 clamp(14px,1.3vw,20px)/1 var(--ng-mono);letter-spacing:.14em;color:var(--ng-lime);text-shadow:0 0 14px rgba(200,255,0,.55)}
+.ng-said__p{margin-top:clamp(28px,3vw,44px);color:var(--ng-tx2);max-width:44ch}
+.ng-said__stage{grid-column:8/span 5}
+.ng-said__rec{border:1px solid var(--ng-line2);border-radius:var(--ng-r);background:linear-gradient(180deg,rgba(17,19,22,.92),rgba(10,11,13,.92));padding:clamp(16px,1.6vw,24px)}
+.ng-said__rh{display:flex;justify-content:space-between;gap:12px;font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);padding-bottom:14px;border-bottom:1px solid var(--ng-line)}
+.ng-said__rh b{font-weight:500;color:var(--ng-lime)}
+.ng-said__cv{display:block;width:100%;height:clamp(250px,26vw,330px);margin-top:14px}
+.ng-said__ans{margin-top:16px;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;align-items:baseline;border-top:1px solid var(--ng-line);padding-top:14px}
+.ng-said__ans span{font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2)}
+.ng-said__ans q{font-size:clamp(17px,1.4vw,21px);font-weight:500;letter-spacing:-.01em;min-height:1.4em;quotes:none}
+.ng-said__ans q.is-typing::after{content:"▍";color:var(--ng-lime)}
+.ng-said__note{margin-top:14px;font:400 11px/1.5 var(--ng-mono);letter-spacing:.06em;color:var(--ng-tx2)}
+@media (max-width:1023px){
+.ng-said__copy,.ng-said__stage{grid-column:1/-1}
+.ng-said__stage{margin-top:36px}
+.ng-said__beam{width:110%}
+}
+@media (prefers-reduced-motion:reduce){.ng-said__beam{animation:none}}
+</style>
+<section class="ng-sec ng-said" aria-labelledby="ng-said-title" data-ng="said">
+  <div class="ng-said__beam" aria-hidden="true"></div>
+  <div class="ng-wrap">
+    <div class="ng-said__grid">
+      <div class="ng-said__copy">
+        <p class="ng-mono ng-eyebrow" style="margin-bottom:clamp(18px,2vw,28px)">03 · Señal no consciente</p>
+        <h2 class="ng-h2 ng-said__t" id="ng-said-title" data-ng-split>Lo que<br>no se dice<br><span class="ng-hl">sí se mide.</span></h2>
+        <p class="ng-said__brand" aria-hidden="true">NEUROGENOMIC</p>
+        <p class="ng-said__p" data-ng-reveal>Una encuesta recoge lo que la persona cree que siente. La mirada, el gesto y la piel registran lo que realmente pasa, antes de que lo pueda explicar.</p>
+      </div>
+      <div class="ng-said__stage">
+        <figure class="ng-said__rec" aria-label="Registro sincronizado ilustrativo: la mirada, el rostro y la piel reaccionan antes de que la persona responda una pregunta.">
+          <figcaption class="ng-said__rh"><span>Registro sincronizado · 0–8 s</span><b>Ilustrativo</b></figcaption>
+          <canvas class="ng-said__cv" aria-hidden="true"></canvas>
+          <div class="ng-said__ans"><span>Declarado</span><q class="ng-said__q">&nbsp;</q></div>
+          <p class="ng-said__note">Demostración visual. No corresponde a datos de un estudio real.</p>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+NG.boot('[data-ng="said"]', function (sec) {
+  var rec = sec.querySelector('.ng-said__rec'), q = sec.querySelector('.ng-said__q');
+  var draw, cv = NG.canvas(sec.querySelector('.ng-said__cv'), function () { if (NG.rm && draw) draw(1); });
+  NG.reveals(sec);
+  /* Eventos ilustrativos de una sesión de 8 s. La respuesta declarada llega al final. */
+  var T = 8, ANS = 6.3, SAY = 'Me da igual el envase.';
+  var gaze = [[.25, .55, 'LOGO'], [.7, 1.25, 'ENVASE'], [1.4, 1.7, 'PRECIO'], [1.85, 2.9, 'ENVASE'], [3.05, 3.3, 'CLAIM'], [3.45, 4.4, 'ENVASE'], [4.6, 4.85, 'LOGO'], [5.0, 5.7, 'ENVASE']];
+  var face = [[1.05, 'AU12', 'sonrisa'], [2.9, 'AU1+2', 'cejas ↑'], [4.6, 'AU12', 'sonrisa']];
+  var skin = [[1.6, .55], [3.9, .9], [6.9, .3]];
+  var rows = [['MIRADA', .14], ['ROSTRO', .40], ['PIEL', .66], ['DECLARADO', .9]];
+  var LW = 0, typed = -1;
+  draw = function (p) {
+    var c = cv.ctx, w = cv.w, h = cv.h;
+    LW = w < 420 ? 66 : 84;
+    var x0 = LW, x1 = w - 6, X = function (t) { return x0 + (x1 - x0) * t / T; };
+    var tt = p * T;
+    c.clearRect(0, 0, w, h);
+    c.font = '500 10px "IBM Plex Mono", monospace'; c.textBaseline = 'middle';
+    // Rejilla de tiempo
+    for (var s = 0; s <= T; s++) {
+      c.strokeStyle = 'rgba(255,255,255,' + (s % 2 ? .04 : .08) + ')';
+      c.beginPath(); c.moveTo(X(s) + .5, 0); c.lineTo(X(s) + .5, h - 16); c.stroke();
+      if (s % 2 === 0) { c.fillStyle = 'rgba(160,165,176,.9)'; c.fillText(s + 's', X(s) - (s === T ? 16 : 0), h - 6); }
+    }
+    rows.forEach(function (r) {
+      var y = r[1] * (h - 16);
+      c.fillStyle = 'rgba(160,165,176,.95)'; c.fillText(r[0], 0, y);
+      c.strokeStyle = 'rgba(255,255,255,.06)'; c.beginPath(); c.moveTo(x0, y + .5); c.lineTo(x1, y + .5); c.stroke();
+    });
+    var on = function (t) { return tt >= t; };
+    // Mirada: fijaciones como barras (duración) con zona de interés
+    var gy = rows[0][1] * (h - 16);
+    gaze.forEach(function (g) {
+      if (!on(g[0])) return;
+      var e = Math.min(tt, g[1]), env = g[2] === 'ENVASE';
+      c.fillStyle = env ? 'rgba(200,255,0,.85)' : 'rgba(242,243,240,.35)';
+      c.fillRect(X(g[0]), gy - 6, Math.max(2, X(e) - X(g[0])), 12);
+      if (env && tt > g[0] + .25 && (g[1] - g[0]) > .5) { c.fillStyle = 'rgba(10,11,13,.95)'; c.fillText(g[2], X(g[0]) + 4, gy + 1); }
+    });
+    // Rostro: marcadores de unidades de acción
+    var fy = rows[1][1] * (h - 16);
+    face.forEach(function (f) {
+      if (!on(f[0])) return;
+      var k = Math.min(1, (tt - f[0]) / .25), x = X(f[0]);
+      c.save(); c.translate(x, fy); c.rotate(Math.PI / 4); c.scale(k, k);
+      c.fillStyle = '#C8FF00'; c.fillRect(-5, -5, 10, 10); c.restore();
+      c.fillStyle = 'rgba(242,243,240,' + (.85 * k) + ')'; c.fillText(f[1], x + 10, fy - 9);
+      if (w > 360) { c.fillStyle = 'rgba(160,165,176,' + (.9 * k) + ')'; c.fillText(f[2], x + 10, fy + 9); }
+    });
+    // Piel: inicio de respuesta electrodérmica (SCR) como espigas
+    var sy = rows[2][1] * (h - 16), sh = (rows[2][1] - rows[1][1]) * (h - 16) * .8;
+    skin.forEach(function (k) {
+      if (!on(k[0])) return;
+      var a = Math.min(1, (tt - k[0]) / .5), x = X(k[0]), H = sh * k[1] * a;
+      c.strokeStyle = 'rgba(200,255,0,.9)'; c.lineWidth = 2;
+      c.beginPath(); c.moveTo(x, sy); c.lineTo(x, sy - H); c.stroke(); c.lineWidth = 1;
+      c.beginPath(); c.arc(x, sy - H, 3, 0, 6.283); c.fillStyle = '#C8FF00'; c.fill();
+      if (k[1] > .5) { c.fillStyle = 'rgba(242,243,240,' + (.85 * a) + ')'; c.fillText('SCR', x + 7, sy - H + 2); }
+    });
+    // Declarado: un solo evento, tarde
+    var dy = rows[3][1] * (h - 16);
+    if (on(ANS)) {
+      c.fillStyle = 'rgba(242,243,240,.9)'; c.fillRect(X(ANS), dy - 6, Math.max(2, X(Math.min(tt, ANS + 1.2)) - X(ANS)), 12);
+      // Brecha: señales previas vs. respuesta
+      c.setLineDash([3, 4]); c.strokeStyle = 'rgba(200,255,0,.55)';
+      c.beginPath(); c.moveTo(X(1.05), dy); c.lineTo(X(ANS) - 6, dy); c.stroke(); c.setLineDash([]);
+      c.fillStyle = 'rgba(200,255,0,.9)'; c.fillText('señales previas', X(1.05), dy - 11);
+    }
+    // Cabezal
+    c.fillStyle = 'rgba(200,255,0,.9)'; c.fillRect(X(tt), 0, 1.5, h - 16);
+    // Respuesta tipeada
+    var n = tt < ANS ? 0 : Math.min(SAY.length, Math.floor((tt - ANS) / 1.1 * SAY.length));
+    if (n !== typed) { typed = n; q.textContent = n ? '«' + SAY.slice(0, n) + (n === SAY.length ? '»' : '') : '\u00a0'; q.classList.toggle('is-typing', tt >= ANS && n < SAY.length); }
+  };
+  if (NG.rm) { draw(1); return; }
+  var t0 = null, HOLD = 2.2;
+  NG.loop(rec, function (t) {
+    if (t0 === null) t0 = t;
+    var e = ((t - t0) / 1000) % (T + HOLD);
+    draw(Math.min(1, e / T));
+  });
+  NG.ready().then(function (gsap) {
+    if (!gsap) return;
+    gsap.fromTo(rec, { autoAlpha: 0, y: 60 }, { autoAlpha: 1, y: 0, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: rec, start: 'top 85%', once: true, onEnter: function () { t0 = null; } } });
+  });
+});
+</script>

@@ -44,6 +44,8 @@ neurogenomic-sitio.zip   ← las 4 páginas + img/ listas para subir a un hostin
 landing.html             ← landing B2B con demo scroll-driven (fuente: landing/src; build: landing/build_landing.py). Ver LANDING.md
 neurogenomic-landing.html ← la misma landing en un solo archivo
 elementor/00…25-*.html   ← cada sección como bloque autocontenido para el widget HTML de Elementor
+elementor/ligeros/       ← los mismos bloques sin núcleo repetido + 00-codigo-personalizado.html (Elementor Pro → Código personalizado)
+WORDPRESS-ELEMENTOR.md   ← guía paso a paso para subir el sitio a WordPress con Elementor Pro
 img/                     ← fotos (lata, botella) y renders fotográficos (bolsa de café, caja de té, teléfono, 80 cuadros de la demo) en AVIF + WebP
 src/data/*.json          ← calibración: posición de cada zona de los renders, para fijaciones y heatmaps
 render/                  ← escenas de Blender (Cycles) que generan los renders; ver render/README.md

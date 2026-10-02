@@ -1,0 +1,138 @@
+<!-- NEUROGENOMIC · Bloque ligero «11-etica» · requiere 00-codigo-personalizado.html en Elementor Pro → Código personalizado -->
+<style>
+.ng-eth{padding:clamp(96px,12vw,180px) 0}
+.ng-eth__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:start;margin-bottom:clamp(40px,5vw,72px)}
+.ng-eth__head .ng-head{grid-column:1/span 7;margin:0}
+.ng-eth__head .ng-body{grid-column:8/span 5;align-self:end;color:var(--ng-tx);font-weight:300;font-size:clamp(17px,1.3vw,20px)}
+.ng-eth__head .ng-media{grid-column:8/span 5;grid-row:1/span 2;aspect-ratio:16/9;align-self:end}
+.ng-eth__doc{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ng-line);border-radius:8px;background:var(--ng-bg)}
+.ng-eth__col{padding:clamp(20px,2.4vw,36px)}
+.ng-eth__col+.ng-eth__col{border-left:1px solid var(--ng-line)}
+.ng-eth__col h3{display:flex;justify-content:space-between;gap:12px;align-items:baseline;font-size:clamp(22px,2vw,30px);letter-spacing:-.025em;font-weight:500;line-height:1.1;padding-bottom:18px;margin-bottom:8px;border-bottom:1px solid var(--ng-line)}
+.ng-eth__col h3 small{font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);white-space:nowrap}
+.ng-log li{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:baseline;padding:16px 0;border-bottom:1px dashed var(--ng-line);font-family:var(--ng-mono);font-size:14px;letter-spacing:.02em}
+.ng-log li:last-child{border-bottom:0}
+.ng-log__id{color:var(--ng-volt);font-weight:500;font-size:12px;letter-spacing:.12em}
+.ng-log__tx{position:relative;color:var(--ng-tx);font-family:var(--ng-ff);font-size:clamp(16px,1.3vw,19px);letter-spacing:-.01em;justify-self:start}
+.ng-log__st{font-size:11px;letter-spacing:.12em;color:var(--ng-tx2)}
+.ng-log--no .ng-log__tx::after{content:"";position:absolute;left:-2px;right:-2px;top:54%;height:2px;background:var(--ng-volt);transform-origin:0 50%;transform:scaleX(var(--ng-strike,1))}
+.ng-log__caret{display:inline-block;width:.55em;height:1em;vertical-align:-.12em;background:var(--ng-lime);margin-left:2px;opacity:0}
+@media (max-width:1023px){
+.ng-eth__head .ng-head,.ng-eth__head .ng-body,.ng-eth__head .ng-media{grid-column:1/-1;grid-row:auto}
+.ng-eth__doc{grid-template-columns:1fr}
+.ng-eth__col+.ng-eth__col{border-left:0;border-top:1px solid var(--ng-line)}
+}
+@media (max-width:479px){.ng-log li{grid-template-columns:auto 1fr}.ng-log__st{display:none}}
+.ng-trust{margin-bottom:clamp(16px,2vw,24px);border:1px solid rgba(200,245,66,.35);border-radius:8px;background:linear-gradient(180deg,rgba(200,245,66,.05),rgba(200,245,66,0) 60%),var(--ng-s1);padding:clamp(18px,2vw,28px)}
+.ng-trust__h{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-bottom:16px;margin-bottom:clamp(16px,2vw,24px);border-bottom:1px solid var(--ng-line)}
+.ng-trust__h b{display:inline-flex;align-items:center;gap:10px;font:600 clamp(18px,1.5vw,22px)/1.2 var(--ng-ff);letter-spacing:-.015em}
+.ng-trust__h b::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--ng-lime);box-shadow:0 0 12px rgba(200,255,0,.8)}
+.ng-trust__h span{font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2)}
+.ng-trust__g{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(12px,1.4vw,20px)}
+.ng-trust__i{display:grid;gap:10px;align-content:start}
+.ng-trust__i svg{width:44px;height:44px;fill:none;stroke:var(--ng-lime);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ng-trust__i h4{font:600 16px/1.25 var(--ng-ff);letter-spacing:-.01em}
+.ng-trust__i p{color:var(--ng-tx2);font-size:14px;line-height:1.45}
+@media (max-width:1023px){.ng-trust__g{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:479px){.ng-trust__g{grid-template-columns:1fr}.ng-trust__i{grid-template-columns:44px 1fr;column-gap:14px}.ng-trust__i svg{grid-row:span 2}}
+.ng-eth__legal{margin-top:24px;border-left:2px solid var(--ng-lime);padding:6px 0 6px 18px;color:var(--ng-tx2);font-size:15px;max-width:84ch}
+</style>
+<section class="ng-sec ng-eth" id="etica" aria-labelledby="ng-eth-title" data-ng="ethics" data-ng-bg>
+  <div class="ng-wrap">
+    <div class="ng-eth__head">
+      <div class="ng-head">
+        <p class="ng-mono ng-eyebrow">05 · Ética y datos</p>
+        <h2 class="ng-h2" id="ng-eth-title">Medimos reacciones. <span class="ng-hl">Con reglas claras.</span></h2>
+      </div>
+      <p class="ng-body" data-ng-reveal>Una señal biométrica es un dato sensible. Por eso cada estudio parte con consentimiento informado, usa solo los datos necesarios y entrega resultados agregados, no perfiles individuales.</p>
+    </div>
+    <div class="ng-trust" aria-labelledby="ng-trust-t">
+      <div class="ng-trust__h"><b id="ng-trust-t">Centro de confianza</b><span>Cómo tratamos los datos biométricos</span></div>
+      <div class="ng-trust__g">
+        <div class="ng-trust__i">
+          <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M12 5h14l8 8v26H12z"/><path d="M26 5v8h8"/><path d="M17 26l4 4 8-9"/></svg>
+          <h4>Consentimiento informado</h4><p>Cada participante sabe qué se mide, para qué y puede retirarse cuando quiera.</p>
+        </div>
+        <div class="ng-trust__i">
+          <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="17" cy="15" r="6"/><path d="M6 36c1.5-7 6-10 11-10s9.5 3 11 10"/><path d="M29 12h10M29 18h10M29 24h6"/></svg>
+          <h4>Seudonimización</h4><p>Las señales se guardan con un código, separadas del nombre y de los datos de contacto.</p>
+        </div>
+        <div class="ng-trust__i">
+          <svg viewBox="0 0 44 44" aria-hidden="true"><rect x="9" y="19" width="26" height="19" rx="3"/><path d="M15 19v-5a7 7 0 0 1 14 0v5"/><path d="M22 27v4"/></svg>
+          <h4>Acceso restringido</h4><p>Solo el equipo del estudio accede a los registros, con permisos por proyecto.</p>
+        </div>
+        <div class="ng-trust__i">
+          <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M7 37h30"/><path d="M12 37V24M19 37V14M26 37V20M33 37V9"/></svg>
+          <h4>Resultados agregados</h4><p>Entregamos patrones del grupo, nunca perfiles de personas individuales.</p>
+        </div>
+        <div class="ng-trust__i">
+          <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="23" r="14"/><path d="M22 15v8l5 4"/><path d="M8 9l4 4M36 9l-4 4"/></svg>
+          <h4>Retención definida</h4><p>Acordamos con el cliente cuánto tiempo se conservan los datos y cuándo se eliminan.</p>
+        </div>
+      </div>
+    </div>
+    <div class="ng-eth__doc">
+      <div class="ng-eth__col">
+        <h3>Protocolo <small>Lo que cumplimos</small></h3>
+        <ol class="ng-log">
+          <li><span class="ng-log__id">C·01</span><span class="ng-log__tx">Consentimiento que se entiende</span><span class="ng-log__st">OK</span></li>
+          <li><span class="ng-log__id">C·02</span><span class="ng-log__tx">Acceso restringido y datos separados de la identidad</span><span class="ng-log__st">OK</span></li>
+          <li><span class="ng-log__id">C·03</span><span class="ng-log__tx">Revisión legal de cada proyecto según su jurisdicción</span><span class="ng-log__st">OK</span></li>
+          <li><span class="ng-log__id">C·04</span><span class="ng-log__tx">Derecho a salir, siempre</span><span class="ng-log__st">OK</span></li>
+        </ol>
+      </div>
+      <div class="ng-eth__col">
+        <h3>Líneas rojas <small>Lo que no hacemos</small></h3>
+        <ol class="ng-log ng-log--no">
+          <li><span class="ng-log__id">R·01</span><span class="ng-log__tx">No vendemos datos</span><span class="ng-log__st">Bloqueado</span></li>
+          <li><span class="ng-log__id">R·02</span><span class="ng-log__tx">No perfilamos individuos</span><span class="ng-log__st">Bloqueado</span></li>
+          <li><span class="ng-log__id">R·03</span><span class="ng-log__tx">No diseñamos manipulación</span><span class="ng-log__st">Bloqueado</span></li>
+          <li><span class="ng-log__id">R·04</span><span class="ng-log__tx">No medimos a menores sin resguardo</span><span class="ng-log__st">Bloqueado</span></li>
+        </ol>
+      </div>
+    </div>
+    <p class="ng-eth__legal">Las obligaciones legales dependen del tipo de estudio, los datos tratados, la ubicación de los participantes y la jurisdicción aplicable. Recomendamos revisar cada proyecto con asesoría legal especializada. Mencionar la Ley 21.719 no constituye una certificación de cumplimiento.</p>
+  </div>
+</section>
+
+<script>
+NG.boot('[data-ng="ethics"]', function (sec) {
+  NG.reveals(sec);
+  NG.ready().then(function (gsap) {
+    if (!gsap || NG.rm) return;
+    gsap.from(sec.querySelector('.ng-h2'), { autoAlpha: 0, y: 20, duration: 1.2, scrollTrigger: { trigger: sec, start: 'top 75%', once: true } });
+    // Centro de confianza: los íconos se trazan como una firma, uno tras otro
+    var tiles = sec.querySelectorAll('.ng-trust__i'), ttl = gsap.timeline({ paused: true });
+    tiles.forEach(function (t, i) {
+      var shapes = t.querySelectorAll('path,circle,rect');
+      shapes.forEach(function (p) { var L = p.getTotalLength ? p.getTotalLength() : 100; gsap.set(p, { strokeDasharray: L, strokeDashoffset: L }); });
+      ttl.to(shapes, { strokeDashoffset: 0, duration: .9, stagger: .12, ease: 'power2.inOut' }, i * .18)
+         .from(t.querySelectorAll('h4,p'), { autoAlpha: 0, y: 10, duration: .6, stagger: .08 }, i * .18 + .2);
+    });
+    // Al terminar, se quitan los guiones del trazo: íconos estáticos y sin repintados costosos
+    ttl.eventCallback('onComplete', function () { gsap.set(sec.querySelectorAll('.ng-trust__i svg *'), { clearProps: 'strokeDasharray,strokeDashoffset' }); });
+    ScrollTrigger.create({ trigger: sec.querySelector('.ng-trust'), start: 'top 85%', once: true, onEnter: function () { ttl.play(); } });
+    sec.querySelectorAll('.ng-log').forEach(function (log) {
+      var no = log.classList.contains('ng-log--no');
+      var items = [].slice.call(log.children);
+      var tl = gsap.timeline({ paused: true });
+      items.forEach(function (li) {
+        var tx = li.querySelector('.ng-log__tx');
+        var chars = NG.split(tx, 'chars');
+        var caret = document.createElement('span'); caret.className = 'ng-log__caret'; caret.setAttribute('aria-hidden', 'true');
+        tx.lastElementChild.appendChild(caret);
+        gsap.set(chars, { opacity: 0 });
+        gsap.set(li.querySelectorAll('.ng-log__id,.ng-log__st'), { opacity: 0 });
+        if (no) gsap.set(tx, { '--ng-strike': 0 });
+        tl.to(li.querySelector('.ng-log__id'), { opacity: 1, duration: .2, ease: 'none' })
+          .set(caret, { opacity: 1 })
+          .to(chars, { opacity: 1, duration: .01, stagger: .01, ease: 'none' })
+          .set(caret, { opacity: 0 })
+          .to(li.querySelector('.ng-log__st'), { opacity: 1, duration: .25, ease: 'none' });
+        if (no) tl.to(tx, { '--ng-strike': 1, duration: .45, ease: 'power2.inOut' }, '-=.1');
+      });
+      ScrollTrigger.create({ trigger: log, start: 'top 88%', once: true, onEnter: function () { tl.play(); } });
+    });
+  });
+});
+</script>

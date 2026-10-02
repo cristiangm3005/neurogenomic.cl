@@ -1,0 +1,44 @@
+<!-- NEUROGENOMIC · Bloque ligero «24-pagehead-contacto» · requiere 00-codigo-personalizado.html en Elementor Pro → Código personalizado · Nota: Cabecera con H1 de /contacto/. -->
+<style>
+.ng-ph{padding:clamp(48px,7vw,120px) 0 clamp(56px,7vw,112px);border-top:1px solid var(--ng-line)}
+.ng-ph__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end}
+.ng-ph__t{grid-column:1/span 11;font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(56px,9vw,170px);line-height:.88;letter-spacing:0;font-weight:400;margin-top:24px;text-wrap:balance}
+.ng-ph__p{grid-column:1/span 6;margin-top:clamp(20px,2.4vw,36px);font-size:clamp(18px,1.5vw,22px);font-weight:300;line-height:1.45}
+.ng-ph__meta{grid-column:9/span 4;justify-self:end;color:var(--ng-tx2);text-align:right}
+.ng-ph__meta b{color:var(--ng-lime);font-weight:500}
+.ng-ph__media{margin-top:clamp(48px,6vw,96px);aspect-ratio:21/9}
+.ng-ph__media img{transform-origin:50% 50%}
+@media (max-width:899px){
+.ng-ph__t,.ng-ph__p{grid-column:1/-1}
+.ng-ph__meta{grid-column:1/-1;justify-self:start;text-align:left}
+.ng-ph__media{aspect-ratio:4/3}
+}
+</style>
+<section class="ng-sec ng-ph" aria-labelledby="ng-ph-title" data-ng="pagehead">
+  <div class="ng-wrap">
+    <div class="ng-ph__grid">
+      <p class="ng-mono ng-eyebrow" style="grid-column:1/-1">Contacto · Formulario de cotización</p>
+      <h1 class="ng-ph__t" id="ng-ph-title">Empieza hoy.</h1>
+      <p class="ng-ph__p" data-ng-reveal=".2">Cuéntanos qué servicio necesitas hoy. El diagnóstico inicial es la base de todo lo que viene después.</p>
+      <p class="ng-ph__meta ng-mono" aria-hidden="true">REC <b>●</b> <span class="ng-ph__ts">00:00:00</span><br>Diagnóstico inicial</p>
+    </div>
+    
+  </div>
+</section>
+
+<script>
+NG.boot('[data-ng="pagehead"]', function (sec) {
+  var ts = sec.querySelector('.ng-ph__ts'), t0 = Date.now();
+  var p = function (n) { return (n < 10 ? '0' : '') + n; };
+  setInterval(function () { var s = Math.floor((Date.now() - t0) / 1000); ts.textContent = p(Math.floor(s / 3600)) + ':' + p(Math.floor(s / 60) % 60) + ':' + p(s % 60); }, 1000);
+  NG.reveals(sec);
+  NG.ready().then(function (gsap) {
+    if (!gsap || NG.rm) return;
+    var w = NG.split(sec.querySelector('.ng-ph__t'));
+    gsap.set(w, { yPercent: 115 });
+    NG.afterPreload(function () { gsap.to(w, { yPercent: 0, duration: 1.2, ease: 'expo.out', stagger: .06, delay: .1 }); });
+    var img = sec.querySelector('.ng-ph__media img');
+    if (img) gsap.fromTo(img, { scale: 1.15, yPercent: -4 }, { scale: 1.15, yPercent: 4, ease: 'none', scrollTrigger: { trigger: img.parentNode, start: 'top bottom', end: 'bottom top', scrub: true } });
+  });
+});
+</script>

@@ -1,0 +1,85 @@
+<!-- NEUROGENOMIC · Bloque ligero «13-servicios-resumen» · requiere 00-codigo-personalizado.html en Elementor Pro → Código personalizado -->
+<style>
+.ng-sum{padding:clamp(96px,11vw,170px) 0 clamp(56px,6vw,96px)}
+.ng-sum__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:clamp(40px,5vw,72px)}
+.ng-sum__head .ng-head{grid-column:1/span 7;margin:0}
+.ng-sum__head .ng-body{grid-column:9/span 4}
+.ng-sum__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,1.2vw,16px);perspective:1400px}
+.ng-sc{position:relative;display:flex;flex-direction:column;gap:12px;min-height:280px;padding:clamp(20px,2vw,28px);border:1px solid var(--ng-line);border-radius:10px;background:linear-gradient(160deg,var(--ng-s2),var(--ng-s1) 60%);transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .5s var(--ng-ease),border-color .4s;will-change:transform;overflow:hidden;text-decoration:none;color:inherit}
+.ng-sc::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(420px circle at var(--gx,50%) var(--gy,0%),rgba(200,255,0,.10),transparent 45%);opacity:var(--go,0);transition:opacity .4s}
+.ng-sc:hover,.ng-sc:focus-visible{border-color:rgba(200,255,0,.45)}
+.ng-sc__n{display:flex;justify-content:space-between;color:var(--ng-tx2)}
+.ng-sc__n b{color:var(--ng-lime);font-weight:500}
+.ng-sc h3{font:600 clamp(22px,1.8vw,30px)/1.1 var(--ng-ff);letter-spacing:-.02em}
+.ng-sc p{color:var(--ng-tx2);font-size:15.5px;line-height:1.45}
+.ng-sc__dec{margin-top:auto;padding-top:14px;border-top:1px solid var(--ng-line);font-size:14.5px;color:var(--ng-tx)}
+.ng-sc__dec span{display:block;font:500 11px/1.4 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-tx2);margin-bottom:4px}
+.ng-sum__more{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;margin-top:clamp(28px,3vw,44px)}
+.ng-sum__tech{display:flex;flex-wrap:wrap;gap:8px}
+.ng-mq{margin-top:clamp(56px,7vw,112px);border-block:1px solid var(--ng-line);overflow:hidden;padding:clamp(18px,2vw,28px) 0}
+.ng-mq__t{display:flex;width:max-content;animation:ng-mq 60s linear infinite}
+.ng-mq:hover .ng-mq__t{animation-play-state:paused}
+.ng-mq__g{display:flex;align-items:center;flex-shrink:0}
+.ng-mq__g span{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(34px,4.4vw,76px);white-space:nowrap;padding:0 clamp(18px,2vw,36px)}
+.ng-mq__g i{font-style:normal;color:var(--ng-lime);font-size:clamp(17px,2.2vw,38px)}
+@keyframes ng-mq{to{transform:translateX(-50%)}}
+@media (max-width:1023px){.ng-sum__head .ng-head,.ng-sum__head .ng-body{grid-column:1/-1}.ng-sum__grid{grid-template-columns:1fr 1fr}}
+@media (max-width:599px){.ng-sum__grid{grid-template-columns:1fr}.ng-sc{min-height:0}}
+@media (prefers-reduced-motion:reduce){.ng-mq__t{animation:none}.ng-sc{transform:none!important}}
+</style>
+<section class="ng-sec ng-sum" id="servicios" aria-labelledby="ng-sum-title" data-ng="summary" data-ng-bg>
+  <div class="ng-wrap">
+    <div class="ng-sum__head">
+      <div class="ng-head">
+        <p class="ng-mono ng-eyebrow">06 · Servicios</p>
+        <h2 class="ng-h2" id="ng-sum-title" data-ng-split>Seis servicios. <span class="ng-hl">Un framework.</span></h2>
+      </div>
+      <p class="ng-body" data-ng-reveal>Cada línea se puede contratar sola o integrada. La medición biométrica y el análisis con IA conectan todas.</p>
+    </div>
+    <div class="ng-sum__grid">
+      <a class="ng-sc" href="/servicios/#svc-branding"><span class="ng-sc__n ng-mono"><b>S·01</b><span>→</span></span><h3>Branding</h3><p>Nombre, color, tono y símbolo probados contra la reacción del público antes de lanzar.</p><p class="ng-sc__dec"><span>Decisión que valida</span>Qué propuesta de marca desarrollar.</p></a>
+      <a class="ng-sc" href="/servicios/#svc-bi"><span class="ng-sc__n ng-mono"><b>S·02</b><span>→</span></span><h3>Business Intelligence</h3><p>Datos biométricos, de negocio y de comportamiento digital en un solo tablero.</p><p class="ng-sc__dec"><span>Decisión que valida</span>Qué hallazgos priorizar.</p></a>
+      <a class="ng-sc" href="/servicios/#svc-ecommerce"><span class="ng-sc__n ng-mono"><b>S·03</b><span>→</span></span><h3>E-commerce</h3><p>Fichas, carrito y checkout rediseñados a partir de dónde se traba la mirada del usuario.</p><p class="ng-sc__dec"><span>Decisión que valida</span>Qué fricción resolver primero.</p></a>
+      <a class="ng-sc" href="/servicios/#svc-marketing"><span class="ng-sc__n ng-mono"><b>S·04</b><span>→</span></span><h3>Marketing digital</h3><p>Pre-test biométrico de avisos y videos antes de invertir en medios.</p><p class="ng-sc__dec"><span>Decisión que valida</span>Qué pieza pautar y qué editar.</p></a>
+      <a class="ng-sc" href="/servicios/#svc-seo"><span class="ng-sc__n ng-mono"><b>S·05</b><span>→</span></span><h3>SEO técnico y de contenido</h3><p>Visibilidad en buscadores y en motores de respuesta con IA.</p><p class="ng-sc__dec"><span>Decisión que valida</span>Qué contenido estructurar primero.</p></a>
+      <a class="ng-sc" href="/servicios/#svc-software"><span class="ng-sc__n ng-mono"><b>S·06</b><span>→</span></span><h3>Desarrollo de software</h3><p>Sitios, apps y automatizaciones con la IA integrada desde la arquitectura.</p><p class="ng-sc__dec"><span>Decisión que valida</span>Qué flujo construir y cómo.</p></a>
+    </div>
+    <div class="ng-sum__more">
+      <ul class="ng-sum__tech" aria-label="Técnicas de medición"><li class="ng-chip">Eye tracking</li><li class="ng-chip">Facial coding</li><li class="ng-chip">Respuesta galvánica</li><li class="ng-chip">Análisis con IA</li></ul>
+      <a class="ng-btn" href="/servicios/">Ver el detalle de cada servicio <span class="ng-btn__i" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+  <div class="ng-mq" role="region" aria-label="Servicios: Branding, Business Intelligence, E-commerce, Marketing digital, SEO técnico y de contenido, Desarrollo de software">
+    <div class="ng-mq__t" aria-hidden="true">
+      <div class="ng-mq__g"><span>Branding</span><i>◆</i><span>Business Intelligence</span><i>◆</i><span>E-commerce</span><i>◆</i><span>Marketing digital</span><i>◆</i><span>SEO</span><i>◆</i><span>Desarrollo de software</span><i>◆</i></div>
+      <div class="ng-mq__g"><span>Branding</span><i>◆</i><span>Business Intelligence</span><i>◆</i><span>E-commerce</span><i>◆</i><span>Marketing digital</span><i>◆</i><span>SEO</span><i>◆</i><span>Desarrollo de software</span><i>◆</i></div>
+    </div>
+  </div>
+</section>
+
+<script>
+NG.boot('[data-ng="summary"]', function (sec) {
+  var cards = [].slice.call(sec.querySelectorAll('.ng-sc'));
+  /* Inclinación 3D con reflejo de luz que sigue al puntero (solo puntero fino) */
+  if (NG.fine && !NG.rm) cards.forEach(function (c) {
+    var raf = 0, ev = null;
+    c.addEventListener('pointermove', function (e) {
+      ev = e; if (raf) return;
+      raf = requestAnimationFrame(function () {
+        raf = 0; var r = c.getBoundingClientRect(), x = (ev.clientX - r.left) / r.width, y = (ev.clientY - r.top) / r.height;
+        c.style.setProperty('--ry', ((x - .5) * 10).toFixed(2) + 'deg'); c.style.setProperty('--rx', ((.5 - y) * 8).toFixed(2) + 'deg');
+        c.style.setProperty('--gx', (x * 100).toFixed(1) + '%'); c.style.setProperty('--gy', (y * 100).toFixed(1) + '%'); c.style.setProperty('--go', 1);
+      });
+    });
+    c.addEventListener('pointerleave', function () { c.style.setProperty('--rx', '0deg'); c.style.setProperty('--ry', '0deg'); c.style.setProperty('--go', 0); });
+  });
+  NG.reveals(sec);
+  NG.ready().then(function (gsap) {
+    if (!gsap || NG.rm) return;
+    /* Entrada: las tarjetas «se levantan» desde atrás con perspectiva, como cartas sobre una mesa */
+    gsap.from(cards, { rotationX: -38, y: 90, z: -120, autoAlpha: 0, transformOrigin: '50% 100%', duration: 1.2, ease: 'expo.out', stagger: { each: .09, grid: 'auto', from: 'start' },
+      scrollTrigger: { trigger: sec.querySelector('.ng-sum__grid'), start: 'top 82%', once: true },
+      onComplete: function () { gsap.set(cards, { clearProps: 'transform,opacity,visibility' }); } });
+  });
+});
+</script>

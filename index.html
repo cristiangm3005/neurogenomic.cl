@@ -320,7 +320,7 @@ html.ng-no3d .ng-ch__poster{display:block;position:absolute;inset:0;width:100%;h
 .ng-motion span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .ng-ch__t{font-size:clamp(40px,11vw,60px)}
 }
-html.ng-has-story main>.ng-sec:not(.ng-ch):not(.ng-hero){background:rgba(5,7,14,.86)}
+html.ng-has-story .ng-sec:not(.ng-ch):not(.ng-hero){background:rgba(5,7,14,.86)}
 html.ng-has-story .ng-hero{background:transparent}
 html.ng-has-story .ng-foot,html.ng-has-story .ng-mast{position:relative;z-index:2}
 html.ng-no3d .ng-story__cv,html.ng-no3d .ng-motion{display:none}
@@ -2092,17 +2092,17 @@ NG.boot('[data-ng="demo"]', function (sec) {
         <h2 class="ng-h2 ng-pack__t" id="ng-pack-title" data-ng-split>Tu packaging tiene <span class="ng-hl">una mirada</span> para ganar.</h2>
         <p class="ng-pack__p" data-ng-reveal>Mira lo que tus compradores realmente observan antes de comprar.</p>
         <ol class="ng-pack__list" data-ng-reveal=".1">
-          <li data-a="0"><b>01</b><span>Símbolo</span><i>Primera fijación</i></li>
-          <li data-a="1"><b>02</b><span>Marca</span><i>Permanencia alta</i></li>
-          <li data-a="2"><b>03</b><span>Detalle de la hoja</span><i>Revisitas</i></li>
-          <li data-a="3"><b>04</b><span>Descriptor</span><i>Lectura breve</i></li>
+          <li data-a="0"><b>01</b><span>Tapa</span><i>Primera fijación</i></li>
+          <li data-a="1"><b>02</b><span>Etiqueta</span><i>Permanencia alta</i></li>
+          <li data-a="2"><b>03</b><span>Hombro y cuello</span><i>Revisitas</i></li>
+          <li data-a="3"><b>04</b><span>Base</span><i>Mirada breve</i></li>
         </ol>
       </div>
       <div class="ng-pack__stage">
         <figure class="ng-pack__card">
           <figcaption class="ng-pack__top"><span>Eye tracking · packaging</span><b>Ilustrativo</b></figcaption>
-          <div class="ng-pack__view" role="slider" tabindex="0" aria-label="Comparar la foto del envase con su mapa de calor de atención" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
-            <div class="ng-media" data-ph="/img/ng-box-b"><picture><source type="image/avif" srcset="img/ng-box-b-600.avif 600w, img/ng-box-b-1200.avif 1200w" sizes="(min-width:640px) 31vw, 100vw"><source type="image/webp" srcset="img/ng-box-b-600.webp 600w, img/ng-box-b-1200.webp 1200w" sizes="(min-width:640px) 31vw, 100vw"><img src="img/ng-box-b-1200.webp" width="1200" height="1520" alt="Versión B: caja de té clara con una hoja negra dentro de un círculo verde lima y la marca BRISA debajo" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
+          <div class="ng-pack__view" role="slider" tabindex="0" aria-label="Comparar la foto de la botella con su mapa de calor de atención: la mayor concentración está en la etiqueta, seguida de la tapa y el hombro; la base recibe poca atención. Datos ilustrativos." aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+            <div class="ng-media" data-ph="/img/ng-bottle"><picture><source type="image/avif" srcset="img/ng-bottle-600.avif 600w, img/ng-bottle-1200.avif 1200w" sizes="(min-width:1024px) 40vw, 100vw"><source type="image/webp" srcset="img/ng-bottle-600.webp 600w, img/ng-bottle-1200.webp 1200w" sizes="(min-width:1024px) 40vw, 100vw"><img src="img/ng-bottle-1200.webp" width="1200" height="1520" alt="Botella de bebida de vidrio sin marca ni textos, con tapa metálica y una etiqueta negra lisa con un filete verde lima, sobre fondo oscuro" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
             <div class="ng-pack__dim" aria-hidden="true"></div>
             <canvas class="ng-pack__heat" aria-hidden="true"></canvas>
             <span class="ng-pack__aoi" data-a="0" aria-hidden="true"><em>01</em></span>
@@ -2125,12 +2125,20 @@ NG.boot('[data-ng="demo"]', function (sec) {
 NG.boot('[data-ng="pack"]', function (sec) {
   var view = sec.querySelector('.ng-pack__view'), cv = sec.querySelector('.ng-pack__heat');
   var aois = [].slice.call(sec.querySelectorAll('.ng-pack__aoi')), rows = [].slice.call(sec.querySelectorAll('.ng-pack__list li'));
-  // Zonas proyectadas desde la escena 3D del envase (0–1 sobre la foto)
-  var B = {"a":{"logo":[0.5813,0.3655],"name":[0.58,0.7893],"mid":[0.49,0.572]},"b":{"logo":[0.581,0.4702],"brand":[0.5804,0.6872],"name":[0.5802,0.7486],"leaf":[0.5631,0.429]},"c":{"logo":[0.467,0.5732],"name":[0.6489,0.3311],"low":[0.5801,0.7601]}}.b;
-  var Z = [B.logo, B.brand, B.leaf, B.name];
-  var HEAT = [B.logo.concat([.17, 1]), B.leaf.concat([.09, .6]), B.brand.concat([.1, .85]), B.name.concat([.07, .45])];
+  // Zonas y silueta proyectadas desde la escena 3D de la botella (0–1 sobre la foto; render/bottle_scene.py)
+  var B = {"cap": [0.5, 0.1874], "shoulder": [0.5, 0.36], "label": [0.5, 0.5924], "labelHi": [0.5, 0.5352], "base": [0.5, 0.8108], "_shape": [[0.5549, 0.1738], [0.5564, 0.2149], [0.55, 0.2487], [0.5685, 0.2839], [0.5925, 0.3249], [0.6146, 0.3746], [0.6256, 0.4242], [0.6274, 0.4621], [0.6266, 0.8184], [0.6229, 0.8414], [0.6027, 0.853], [0.3973, 0.853], [0.3771, 0.8414], [0.3734, 0.8184], [0.3726, 0.4621], [0.3744, 0.4242], [0.3854, 0.3746], [0.4075, 0.3249], [0.4315, 0.2839], [0.45, 0.2487], [0.4436, 0.2149], [0.4451, 0.1738]]};
+  var Z = [B.cap, B.label, B.shoulder, B.base];
+  // Ilustrativo: la etiqueta concentra la atención, luego tapa y hombro; la base apenas se mira
+  var HEAT = [B.label.concat([.13, 1]), B.labelHi.concat([.1, .7]), B.cap.concat([.07, .8]), B.shoulder.concat([.08, .5]), B.base.concat([.07, .28])];
   aois.forEach(function (a, i) { a.style.left = (Z[i][0] * 100) + '%'; a.style.top = (Z[i][1] * 100) + '%'; });
-  var paint = function () { NG.heat(cv, HEAT, { gain: 1 }); };
+  var paint = function () {
+    NG.heat(cv, HEAT, { gain: 1.1 });
+    // El calor solo existe sobre la botella: se recorta con su silueta (levemente ampliada)
+    var c = cv.getContext('2d'), w = cv.clientWidth, h = cv.clientHeight;
+    c.save(); c.globalCompositeOperation = 'destination-in'; c.fillStyle = '#000'; c.globalAlpha = 1; c.beginPath();
+    B._shape.forEach(function (p, i) { var x = (.5 + (p[0] - .5) * 1.06) * w, y = p[1] * h; i ? c.lineTo(x, y) : c.moveTo(x, y); });
+    c.closePath(); c.fill(); c.restore();
+  };
   paint();
   if ('ResizeObserver' in window) { var to; new ResizeObserver(function () { clearTimeout(to); to = setTimeout(paint, 120); }).observe(view); }
 
