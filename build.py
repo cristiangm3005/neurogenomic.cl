@@ -23,11 +23,14 @@ SITE = "https://neurogenomic.cl"
 URLS_STATIC = {
     "index": "index.html", "servicios": "servicios.html", "tecnologia": "tecnologia.html",
     "contacto": "contacto.html", "etica": "index.html#etica",
+    "asimira": "index.html#asi-mira", "packaging": "index.html#packaging", "senales": "index.html#tecnologia",
+    "caso": "index.html#caso",
     "privacidad": "/privacidad/", "terminos": "/terminos/",
 }
 URLS_WP = {
     "index": "/", "servicios": "/servicios/", "tecnologia": "/tecnologia/",
     "contacto": "/contacto/", "etica": "/#etica",
+    "asimira": "/#asi-mira", "packaging": "/#packaging", "senales": "/#tecnologia", "caso": "/#caso",
     "privacidad": "/privacidad/", "terminos": "/terminos/",
 }
 # Formulario de contacto → FormSubmit reenvía cada solicitud a este correo
@@ -460,16 +463,16 @@ def build_page(key):
 
 
 ELEMENTOR = [
-    ("00-global-nav", "nav", "index", "Header fijo, barra de progreso, menú móvil, cursor de fijación y grano. Pégalo en el header (Theme Builder) o al inicio de cada página."),
+    ("00-global-nav", "nav", "index", "Masthead editorial (wordmark + 3 filas enmarcadas), barra fija compacta, progreso, menú móvil, cursor de fijación y grano. Pégalo en el header (Theme Builder) o al inicio de cada página."),
     ("01-s0-preloader", "s0-preloader", "index", "Solo en la página de inicio, justo después del header."),
     ("02-hero", "s1-hero", "index", "Sin imagen: la estela de mirada recorre el propio titular."),
     ("03-asi-mira", "s2-demo", "index", "Demo scroll-driven de 80 cuadros: sube img/seq/f_000…079.webp (calibración en src/data/seq.json)."),
-    ("04-packaging", "s2b-pack", "index", "Usa img/ref-can-570.(avif|webp)."),
+    ("04-packaging", "s2b-pack", "index", "Comparador foto ⇄ mapa de calor. Usa img/ng-box-b-*.(avif|webp) (calibración en src/data/boxes.json)."),
     ("05-no-se-dice", "s3b-said", "index", "Registro sincronizado ilustrativo dibujado en canvas (sin imagen)."),
     ("06-tecnologia", "s4-signals", "index", "Tres monitores de señal + stack de herramientas (sin imagen)."),
     ("07-servicios-resumen", "s5-summary", "index", ""),
     ("08-metodo", "s6-method", "index", ""),
-    ("09-caso", "s8-case", "index", "Usa img/ng-box-a|b|c-*.(avif|webp) (render calibrado con src/data/boxes.json)."),
+    ("09-caso", "s8-case", "index", "Tres bloques con mini-visualizaciones en SVG (sin imagen)."),
     ("10-etica", "s9-ethics", "index", ""),
     ("11-cta-final", "s10-cta", "index", "Usa img/ng-phone-*.(avif|webp) (render calibrado con src/data/phone.json)."),
     ("12-footer", "footer", "index", "Pégalo en el footer (Theme Builder)."),
@@ -508,10 +511,10 @@ def build_images_md():
             "## Incluidas (ya en `img/`)", "",
             "Recortes de las piezas de campaña de Neurogenomic, sin el texto incrustado. Se sirven en AVIF con respaldo WebP.", "",
             "| Archivo | Tamaño | Dónde se usa |", "|---|---|---|",
-            "| `ref-can-570.avif / .webp` | 570×1590 | Sección «Tu packaging tiene una mirada para ganar» y Servicio 01 · Branding |",
+            "| `ref-can-570.avif / .webp` | 570×1590 | Servicio 01 · Branding (página Servicios) |",
             "| `ref-bottle-520.avif / .webp` | 520×1350 | Servicio 04 · Marketing Digital (página Servicios) |",
             "| `ng-pouch-960/1600/2400` | 2400×1500 | «Así mira tu cliente» (bolsa de café kraft, render fotográfico) y monitor C·01 de Tecnología |",
-            "| `ng-box-a/b/c-600/1200` | 1200×1520 | Caso: tres versiones de packaging (render fotográfico) |",
+            "| `ng-box-b-600/1200` | 1200×1520 | «Tu packaging tiene una mirada para ganar»: comparador foto ⇄ mapa de calor (render fotográfico) |",
             "| `ng-phone-600/920` | 920×1070 | CTA final: tienda ficticia en un teléfono (render fotográfico) |",
             "| `seq/f_000…079.webp` | 80 cuadros | «Así mira tu cliente»: demo scroll-driven |", "",
             "Los renders `ng-*` se generan con Blender/Cycles a partir de `render/`. Las capas de eye tracking se ubican con las coordenadas proyectadas que guarda `src/data/*.json`: si cambias un render, vuelve a copiar su JSON.", "",

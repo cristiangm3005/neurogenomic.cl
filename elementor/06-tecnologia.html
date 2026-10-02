@@ -14,7 +14,7 @@
 --ng-line:rgba(255,255,255,.08);
 --ng-line2:rgba(255,255,255,.16);
 --ng-tx:#F2F3F0;
---ng-tx2:#8A8F98;
+--ng-tx2:#A0A5B0;
 --ng-volt:#C8F542;
 --ng-lime:#C8FF00;
 --ng-ff:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
@@ -31,17 +31,17 @@ html:has(.ng-sec){scroll-behavior:auto;-webkit-text-size-adjust:100%}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
 .lenis.lenis-stopped{overflow:hidden}
-.ng-sec,.ng-nav,.ng-pre,.ng-foot,.ng-menu{
+.ng-sec,.ng-nav,.ng-mast,.ng-pre,.ng-foot,.ng-menu{
 font-family:var(--ng-ff);color:var(--ng-tx);
 -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
 font-size:16px;line-height:1.55;font-weight:400;
 }
-.ng-sec,.ng-nav,.ng-pre,.ng-foot,.ng-menu,.ng-sec *,.ng-nav *,.ng-pre *,.ng-foot *,.ng-menu *{box-sizing:border-box}
+.ng-sec,.ng-nav,.ng-mast,.ng-pre,.ng-foot,.ng-menu,.ng-sec *,.ng-nav *,.ng-mast *,.ng-pre *,.ng-foot *,.ng-menu *{box-sizing:border-box}
 .ng-sec{position:relative;background:var(--ng-bg);overflow:clip;isolation:isolate}
 .ng-sec :where(h1,h2,h3,h4,p,ul,ol,figure,blockquote){margin:0;padding:0}
 .ng-sec :where(ul,ol){list-style:none}
 .ng-sec :where(img,svg,canvas,picture){display:block;max-width:100%}
-.ng-sec :where(a),.ng-foot :where(a),.ng-nav :where(a){color:inherit;text-decoration:none}
+.ng-sec :where(a),.ng-foot :where(a),.ng-nav :where(a),.ng-mast :where(a){color:inherit;text-decoration:none}
 .ng-sec ::selection,.ng-foot ::selection{background:var(--ng-volt);color:var(--ng-bg)}
 .ng-wrap{width:100%;max-width:var(--ng-max);margin-inline:auto;padding-inline:var(--ng-gut)}
 .ng-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,1.6vw,24px)}
@@ -74,12 +74,13 @@ background:var(--_bg);color:var(--_fg)!important;font:500 15px/1 var(--ng-ff);le
 cursor:pointer;transition:background .35s var(--ng-ease),border-color .35s var(--ng-ease),color .35s var(--ng-ease);
 text-decoration:none;white-space:nowrap;
 }
-.ng-btn:hover{--_bd:var(--ng-tx)}
-.ng-btn--volt{--_bg:var(--ng-volt);--_fg:var(--ng-bg);--_bd:var(--ng-volt)}
-.ng-btn--volt:hover{--_bg:var(--ng-tx);--_bd:var(--ng-tx)}
+.ng-btn{--_bd:rgba(255,255,255,.12)}
+.ng-btn:hover{--_bd:rgba(255,255,255,.4);--_bg:rgba(255,255,255,.04)}
+.ng-btn--volt{--_bg:var(--ng-lime);--_fg:#0A0B0D;--_bd:var(--ng-lime);font-weight:600;box-shadow:0 0 0 0 rgba(200,255,0,0),0 10px 34px -12px rgba(200,255,0,.55);transition:background .35s var(--ng-ease),border-color .35s var(--ng-ease),color .35s var(--ng-ease),box-shadow .45s var(--ng-ease)}
+.ng-btn--volt:hover{--_bg:#D9FF4D;--_bd:#D9FF4D;box-shadow:0 0 0 4px rgba(200,255,0,.16),0 14px 40px -10px rgba(200,255,0,.7)}
 .ng-btn__i{display:inline-block;transition:transform .45s var(--ng-ease)}
 .ng-btn:hover .ng-btn__i{transform:translate(3px,-1px)}
-.ng-sec :focus-visible,.ng-nav :focus-visible,.ng-foot :focus-visible,.ng-menu :focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px;border-radius:2px}
+.ng-sec :focus-visible,.ng-nav :focus-visible,.ng-mast :focus-visible,.ng-foot :focus-visible,.ng-menu :focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px;border-radius:2px}
 .ng-chips{display:flex;flex-wrap:wrap;gap:8px}
 .ng-chip{font:500 11px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-tx);border:1px solid var(--ng-line2);border-radius:4px;padding:8px 10px}
 .ng-marks{position:absolute;inset:0;pointer-events:none}
@@ -136,7 +137,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-mon__read{position:absolute;left:10px;bottom:10px;font:500 12px/1 var(--ng-mono);letter-spacing:.08em;color:var(--ng-lime);background:rgba(10,11,13,.82);padding:7px 9px;border-radius:3px;font-variant-numeric:tabular-nums}
 .ng-mon__body{padding:18px 4px 4px;display:grid;gap:8px}
 .ng-mon__k{color:var(--ng-tx2)}
-.ng-mon__t{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(32px,2.8vw,46px);line-height:.95;font-weight:400}
+.ng-mon__t{font-family:var(--ng-ff);font-size:clamp(24px,2vw,32px);line-height:1.1;letter-spacing:-.02em;font-weight:600}
 .ng-mon__d{color:var(--ng-tx2);font-size:15px;max-width:34ch}
 .ng-mon__hint{margin-top:auto;padding-top:14px;color:var(--ng-tx2);display:flex;justify-content:space-between}
 .ng-stk{margin-top:clamp(64px,8vw,120px);border-top:1px solid var(--ng-line);padding-top:clamp(28px,3vw,44px)}
@@ -481,7 +482,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
         <span class="ng-mon__screen"><canvas aria-hidden="true"></canvas><span class="ng-mon__read">fijación <span data-r>214</span> ms</span><span class="ng-marks" aria-hidden="true"><i></i></span></span>
         <span class="ng-mon__body"><span class="ng-mon__k ng-mono">Señal 01</span><span class="ng-mon__t">Atención</span><span class="ng-mon__d">Dónde mira, en qué orden y qué ignora por completo.</span></span>
       </button>
-      <button type="button" class="ng-mon" data-k="face" aria-pressed="false" aria-label="Facial coding, emoción: la microexpresión que aparece antes de que piense la respuesta. Ampliar panel.">
+      <button type="button" class="ng-mon" data-k="face" aria-pressed="false" aria-label="Facial coding, emoción: valencia y activación estimadas a partir de unidades de acción facial. Ampliar panel.">
         <span class="ng-mon__top ng-mono"><span>C·02 · Facial coding</span><span class="ng-mon__live">● señal en vivo</span></span>
         <span class="ng-mon__screen">
           <canvas aria-hidden="true"></canvas><span class="ng-mon__read">valencia <span data-r>+0.42</span></span><span class="ng-marks" aria-hidden="true"><i></i></span>
@@ -604,40 +605,55 @@ NG.boot('[data-ng="signals"]', function (sec) {
     m._draw = draw;
   })(mons[0]);
 
-  /* --- C·02 Facial coding: landmarks + barras de valencia --- */
+  /* --- C·02 Facial coding: plano valencia × activación (modelo circunflejo) + intensidad de unidades de acción ---
+     Realismo: la emoción estimada deriva lentamente (proceso de Ornstein-Uhlenbeck) y salta ante cada estímulo,
+     para luego volver a la línea base. AU12 (comisuras) sigue a la valencia positiva; AU4 (ceño) a la negativa. */
   (function (m) {
     var cv = NG.canvas(m.querySelector('canvas')), r = m.querySelector('[data-r]');
-    var L = [];
-    for (var i = 0; i <= 16; i++) { var a = Math.PI * (1.05 - i / 16 * 1.1); L.push([.5 + Math.cos(a) * .2, .44 + Math.sin(a) * .26 * (i > 3 && i < 13 ? 1 : .9)]); }
-    [[.36, .3], [.39, .285], [.42, .283], [.45, .29], [.55, .29], [.58, .283], [.61, .285], [.64, .3]].forEach(function (p) { L.push(p); });
-    [[.38, .36], [.41, .35], [.44, .36], [.41, .37], [.56, .36], [.59, .35], [.62, .36], [.59, .37]].forEach(function (p) { L.push(p); });
-    [[.5, .37], [.5, .42], [.5, .47], [.47, .5], [.5, .51], [.53, .5]].forEach(function (p) { L.push(p); });
-    var mouth = [[.43, .58], [.46, .565], [.5, .56], [.54, .565], [.57, .58], [.54, .6], [.5, .605], [.46, .6]];
-    var bars = [['VAL', .42], ['JOY', .31], ['SUR', .12], ['NEU', .48], ['NEG', .06]], v = .42;
-    var draw = function (t) {
-      var c = cv.ctx, w = cv.w, h = cv.h, s = Math.sin(t / 900) * .5 + .5;
+    var x = .05, y = -.1, tx = .05, ty = -.1, trail = [], nextEv = 1500, lastT = 0, ev = null;
+    var EVENTS = [[.55, .45], [-.35, .5], [.3, -.2], [.62, .2], [-.15, -.35]], ei = 0;
+    var draw = function (t, dt) {
+      dt = Math.min(64, dt || 16);
+      var c = cv.ctx, w = cv.w, h = cv.h;
+      if (t > nextEv) { var e = EVENTS[ei++ % EVENTS.length]; tx = e[0]; ty = e[1]; ev = { t: t, x: e[0], y: e[1] }; nextEv = t + 2600 + Math.random() * 1600; }
+      // Retorno a la línea base + ruido
+      tx += (.05 - tx) * .0009 * dt; ty += (-.1 - ty) * .0009 * dt;
+      x += (tx - x) * .004 * dt + (Math.random() - .5) * .006; y += (ty - y) * .004 * dt + (Math.random() - .5) * .006;
+      if (t - lastT > 60) { trail.push([x, y]); if (trail.length > 70) trail.shift(); lastT = t; }
+      var P = 14, pw = w - 92 - P, ph = h - P - 48, ox = P, oy = P;
+      var X = function (v) { return ox + (v + 1) / 2 * pw; }, Y = function (v) { return oy + (1 - (v + 1) / 2) * ph; };
       c.clearRect(0, 0, w, h);
-      var ox = -.06 * w;
-      c.fillStyle = 'rgba(242,243,240,.92)';
-      L.forEach(function (p, i) { c.beginPath(); c.arc(ox + p[0] * w + Math.sin(t / 700 + i) * .6, p[1] * h, 1.6, 0, 6.283); c.fill(); });
-      mouth.forEach(function (p, i) {
-        var lift = (i === 0 || i === 4) ? -s * .018 : 0;
-        c.fillStyle = (i === 0 || i === 4) ? '#C8FF00' : 'rgba(242,243,240,.92)';
-        c.beginPath(); c.arc(ox + p[0] * w, (p[1] + lift) * h, (i === 0 || i === 4) ? 2.6 : 1.6, 0, 6.283); c.fill();
+      // Rejilla
+      c.strokeStyle = 'rgba(255,255,255,.06)'; c.lineWidth = 1;
+      for (var g = -1; g <= 1.001; g += .5) { c.beginPath(); c.moveTo(X(g) + .5, Y(1)); c.lineTo(X(g) + .5, Y(-1)); c.stroke(); c.beginPath(); c.moveTo(X(-1), Y(g) + .5); c.lineTo(X(1), Y(g) + .5); c.stroke(); }
+      c.strokeStyle = 'rgba(255,255,255,.22)';
+      c.beginPath(); c.moveTo(X(0) + .5, Y(1)); c.lineTo(X(0) + .5, Y(-1)); c.moveTo(X(-1), Y(0) + .5); c.lineTo(X(1), Y(0) + .5); c.stroke();
+      c.beginPath(); c.ellipse(X(0), Y(0), pw / 2, ph / 2, 0, 0, 6.283); c.strokeStyle = 'rgba(255,255,255,.08)'; c.stroke();
+      c.font = '500 8.5px "IBM Plex Mono", monospace'; c.fillStyle = 'rgba(160,165,176,1)';
+      c.fillText('ACTIVACIÓN +', X(0) + 5, Y(1) + 9); c.fillText('ACTIVACIÓN −', X(0) + 5, Y(-1) - 4);
+      c.textAlign = 'left'; c.fillText('− VAL', X(-1) + 2, Y(0) - 5); c.textAlign = 'right'; c.fillText('VAL +', X(1) - 2, Y(0) - 5); c.textAlign = 'left';
+      // Marca del último estímulo
+      if (ev && t - ev.t < 1600) {
+        var k = (t - ev.t) / 1600;
+        c.strokeStyle = 'rgba(200,255,0,' + (1 - k) * .8 + ')'; c.beginPath(); c.arc(X(ev.x), Y(ev.y), 6 + k * 18, 0, 6.283); c.stroke();
+      }
+      // Trayectoria
+      for (var i = 1; i < trail.length; i++) {
+        c.strokeStyle = 'rgba(200,255,0,' + (i / trail.length * .6).toFixed(3) + ')';
+        c.beginPath(); c.moveTo(X(trail[i - 1][0]), Y(trail[i - 1][1])); c.lineTo(X(trail[i][0]), Y(trail[i][1])); c.stroke();
+      }
+      c.fillStyle = '#C8FF00'; c.beginPath(); c.arc(X(x), Y(y), 4, 0, 6.283); c.fill();
+      c.strokeStyle = 'rgba(200,255,0,.35)'; c.beginPath(); c.arc(X(x), Y(y), 9, 0, 6.283); c.stroke();
+      // Unidades de acción (intensidad 0–1)
+      var au = [['AU12', Math.max(0, x) * 1.1], ['AU6', Math.max(0, x * .8 + y * .2)], ['AU4', Math.max(0, -x) * 1.2], ['AU1+2', Math.max(0, y) * .9], ['AU15', Math.max(0, -x * .6 - y * .3)]];
+      var bx = w - 84, by = P + 4;
+      au.forEach(function (a, i) {
+        var v = Math.min(1, a[1] + Math.random() * .03), yy = by + i * ((ph - 8) / au.length);
+        c.fillStyle = 'rgba(160,165,176,1)'; c.fillText(a[0], bx, yy + 7);
+        c.fillStyle = 'rgba(255,255,255,.08)'; c.fillRect(bx, yy + 12, 72, 5);
+        c.fillStyle = v > .35 ? '#C8FF00' : 'rgba(242,243,240,.55)'; c.fillRect(bx, yy + 12, 72 * v, 5);
       });
-      c.strokeStyle = 'rgba(242,243,240,.18)'; c.lineWidth = 1; c.beginPath();
-      L.slice(0, 17).forEach(function (p, i) { i ? c.lineTo(ox + p[0] * w, p[1] * h) : c.moveTo(ox + p[0] * w, p[1] * h); }); c.stroke();
-      var bx = w - 88, by = 14;
-      c.fillStyle = 'rgba(10,11,13,.78)'; c.fillRect(bx - 8, by - 6, 84, bars.length * 16 + 10);
-      c.font = '500 9px "IBM Plex Mono", monospace';
-      bars.forEach(function (b, i) {
-        var val = Math.max(.02, b[1] + Math.sin(t / 600 + i * 1.7) * .06);
-        if (i === 0) v = val;
-        c.fillStyle = 'rgba(138,143,152,1)'; c.fillText(b[0], bx, by + i * 16 + 7);
-        c.fillStyle = 'rgba(255,255,255,.08)'; c.fillRect(bx + 26, by + i * 16, 44, 6);
-        c.fillStyle = i === 0 ? '#C8FF00' : '#C8F542'; c.fillRect(bx + 26, by + i * 16, 44 * Math.min(1, val), 6);
-      });
-      if (Math.floor(t / 300) % 2 === 0) r.textContent = (v >= 0 ? '+' : '') + v.toFixed(2);
+      if (Math.floor(t / 250) % 2 === 0) r.textContent = (x >= 0 ? '+' : '−') + Math.abs(x).toFixed(2);
     };
     m._draw = draw;
   })(mons[1]);
@@ -674,7 +690,7 @@ NG.boot('[data-ng="signals"]', function (sec) {
       var na = ang(needle);
       c.strokeStyle = '#F2F3F0'; c.lineWidth = 2; c.beginPath(); c.moveTo(cx - Math.cos(na) * 10, cy - Math.sin(na) * 10); c.lineTo(cx + Math.cos(na) * (R - 26), cy + Math.sin(na) * (R - 26)); c.stroke();
       c.fillStyle = '#16191D'; c.strokeStyle = 'rgba(242,243,240,.5)'; c.lineWidth = 1; c.beginPath(); c.arc(cx, cy, 6, 0, 6.283); c.fill(); c.stroke();
-      c.fillStyle = 'rgba(138,143,152,1)'; c.font = '500 9px "IBM Plex Mono", monospace'; c.textAlign = 'center';
+      c.fillStyle = 'rgba(160,165,176,1)'; c.font = '500 9px "IBM Plex Mono", monospace'; c.textAlign = 'center';
       c.fillText('μS', cx, cy - R * .38); c.textAlign = 'start';
       if (Math.floor(t / 120) % 2 === 0) r.textContent = needle.toFixed(2);
     };

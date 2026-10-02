@@ -1,7 +1,7 @@
 <!-- NEUROGENOMIC · Bloque Elementor «09-caso»
      Pegar completo en un widget HTML de Elementor (ancho completo, sin padding).
      Incluye tokens + núcleo NG (idempotentes: pueden repetirse en varios bloques).
-     Nota: Usa img/ng-box-a|b|c-*.(avif|webp) (render calibrado con src/data/boxes.json).
+     Nota: Tres bloques con mini-visualizaciones en SVG (sin imagen).
      Imágenes: reemplaza /img/ por la URL de la Biblioteca de medios. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,7 @@
 --ng-line:rgba(255,255,255,.08);
 --ng-line2:rgba(255,255,255,.16);
 --ng-tx:#F2F3F0;
---ng-tx2:#8A8F98;
+--ng-tx2:#A0A5B0;
 --ng-volt:#C8F542;
 --ng-lime:#C8FF00;
 --ng-ff:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
@@ -31,17 +31,17 @@ html:has(.ng-sec){scroll-behavior:auto;-webkit-text-size-adjust:100%}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
 .lenis.lenis-stopped{overflow:hidden}
-.ng-sec,.ng-nav,.ng-pre,.ng-foot,.ng-menu{
+.ng-sec,.ng-nav,.ng-mast,.ng-pre,.ng-foot,.ng-menu{
 font-family:var(--ng-ff);color:var(--ng-tx);
 -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
 font-size:16px;line-height:1.55;font-weight:400;
 }
-.ng-sec,.ng-nav,.ng-pre,.ng-foot,.ng-menu,.ng-sec *,.ng-nav *,.ng-pre *,.ng-foot *,.ng-menu *{box-sizing:border-box}
+.ng-sec,.ng-nav,.ng-mast,.ng-pre,.ng-foot,.ng-menu,.ng-sec *,.ng-nav *,.ng-mast *,.ng-pre *,.ng-foot *,.ng-menu *{box-sizing:border-box}
 .ng-sec{position:relative;background:var(--ng-bg);overflow:clip;isolation:isolate}
 .ng-sec :where(h1,h2,h3,h4,p,ul,ol,figure,blockquote){margin:0;padding:0}
 .ng-sec :where(ul,ol){list-style:none}
 .ng-sec :where(img,svg,canvas,picture){display:block;max-width:100%}
-.ng-sec :where(a),.ng-foot :where(a),.ng-nav :where(a){color:inherit;text-decoration:none}
+.ng-sec :where(a),.ng-foot :where(a),.ng-nav :where(a),.ng-mast :where(a){color:inherit;text-decoration:none}
 .ng-sec ::selection,.ng-foot ::selection{background:var(--ng-volt);color:var(--ng-bg)}
 .ng-wrap{width:100%;max-width:var(--ng-max);margin-inline:auto;padding-inline:var(--ng-gut)}
 .ng-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,1.6vw,24px)}
@@ -74,12 +74,13 @@ background:var(--_bg);color:var(--_fg)!important;font:500 15px/1 var(--ng-ff);le
 cursor:pointer;transition:background .35s var(--ng-ease),border-color .35s var(--ng-ease),color .35s var(--ng-ease);
 text-decoration:none;white-space:nowrap;
 }
-.ng-btn:hover{--_bd:var(--ng-tx)}
-.ng-btn--volt{--_bg:var(--ng-volt);--_fg:var(--ng-bg);--_bd:var(--ng-volt)}
-.ng-btn--volt:hover{--_bg:var(--ng-tx);--_bd:var(--ng-tx)}
+.ng-btn{--_bd:rgba(255,255,255,.12)}
+.ng-btn:hover{--_bd:rgba(255,255,255,.4);--_bg:rgba(255,255,255,.04)}
+.ng-btn--volt{--_bg:var(--ng-lime);--_fg:#0A0B0D;--_bd:var(--ng-lime);font-weight:600;box-shadow:0 0 0 0 rgba(200,255,0,0),0 10px 34px -12px rgba(200,255,0,.55);transition:background .35s var(--ng-ease),border-color .35s var(--ng-ease),color .35s var(--ng-ease),box-shadow .45s var(--ng-ease)}
+.ng-btn--volt:hover{--_bg:#D9FF4D;--_bd:#D9FF4D;box-shadow:0 0 0 4px rgba(200,255,0,.16),0 14px 40px -10px rgba(200,255,0,.7)}
 .ng-btn__i{display:inline-block;transition:transform .45s var(--ng-ease)}
 .ng-btn:hover .ng-btn__i{transform:translate(3px,-1px)}
-.ng-sec :focus-visible,.ng-nav :focus-visible,.ng-foot :focus-visible,.ng-menu :focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px;border-radius:2px}
+.ng-sec :focus-visible,.ng-nav :focus-visible,.ng-mast :focus-visible,.ng-foot :focus-visible,.ng-menu :focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px;border-radius:2px}
 .ng-chips{display:flex;flex-wrap:wrap;gap:8px}
 .ng-chip{font:500 11px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-tx);border:1px solid var(--ng-line2);border-radius:4px;padding:8px 10px}
 .ng-marks{position:absolute;inset:0;pointer-events:none}
@@ -115,20 +116,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-case{padding:clamp(96px,12vw,180px) 0}
 .ng-case__head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end;margin-bottom:clamp(32px,4vw,56px)}
 .ng-case__head .ng-head{grid-column:1/span 8;margin:0}
-.ng-case__head .ng-mono{grid-column:10/span 3;color:var(--ng-tx2);text-align:right}
-.ng-case__pin{min-height:100vh;min-height:100svh;display:flex;align-items:center}
-.ng-case__row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,24px);width:100%}
-.ng-pk{position:relative;border:1px solid var(--ng-line);border-radius:8px;padding:14px;background:var(--ng-s1);transition:border-color .5s}
-.ng-pk__top{display:flex;justify-content:space-between;color:var(--ng-tx2);margin-bottom:12px}
-.ng-pk__stage{position:relative;aspect-ratio:30/38;border-radius:4px;overflow:hidden;background:#000}
-.ng-pk__stage .ng-media{position:absolute;inset:0;border-radius:0;background:#000}
-.ng-pk__stage canvas{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:screen}
-.ng-pk__stage canvas{opacity:0}
-.ng-pk__tag{position:absolute;left:12px;right:12px;bottom:12px;background:var(--ng-volt);color:var(--ng-bg);font:500 11px/1.35 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;padding:9px 10px;border-radius:3px;opacity:0;transform:translateY(8px)}
-.ng-pk__stage,.ng-pk__top{transition:opacity .5s}
-.ng-case__row.ng-is-done .ng-pk:not(.ng-is-win) .ng-pk__stage,.ng-case__row.ng-is-done .ng-pk:not(.ng-is-win) .ng-pk__top{opacity:.4}
-.ng-case__row.ng-is-done .ng-pk.ng-is-win{border-color:var(--ng-volt)}
-.ng-case__row.ng-is-done .ng-pk.ng-is-win .ng-pk__top span:last-child{color:var(--ng-volt)}
+.ng-case__head>.ng-mono{grid-column:10/span 3;color:var(--ng-tx2);text-align:right}
 .ng-case__blocks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,24px);margin-top:clamp(40px,5vw,72px)}
 .ng-case__b{display:flex;flex-direction:column;border:1px solid var(--ng-line);border-radius:8px;background:var(--ng-s1);padding:clamp(16px,1.4vw,22px)}
 .ng-case__bh{display:flex;justify-content:space-between;align-items:center;gap:10px;font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2)}
@@ -149,12 +137,8 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-cr__bar.is-win{fill:var(--ng-volt)}
 .ng-cr__track{fill:rgba(255,255,255,.05)}
 @media (max-width:1023px){
-.ng-case__head .ng-head,.ng-case__head .ng-mono{grid-column:1/-1;text-align:left}
-.ng-case__pin{min-height:0}
+.ng-case__head .ng-head,.ng-case__head>.ng-mono{grid-column:1/-1;text-align:left}
 .ng-case__blocks{grid-template-columns:1fr;max-width:640px}
-}
-@media (max-width:639px){
-.ng-case__row{grid-template-columns:1fr;max-width:420px;margin-inline:auto}
 }
 </style>
 <script>
@@ -457,34 +441,6 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
       <p class="ng-mono">Marca anonimizada.<br>Representación ilustrativa.</p>
     </div>
   </div>
-  <div class="ng-case__pin">
-    <div class="ng-wrap">
-      <div class="ng-case__row">
-        <figure class="ng-pk" data-v="a">
-          <figcaption class="ng-pk__top ng-mono"><span>Versión A</span><span>Panel · PDV simulado</span></figcaption>
-          <div class="ng-pk__stage" role="img" aria-label="Versión A: logotipo grande en la parte superior y nombre del producto pequeño.">
-            <div class="ng-media" data-ph="/img/ng-box-a"><picture><source type="image/avif" srcset="/img/ng-box-a-600.avif 600w, /img/ng-box-a-1200.avif 1200w" sizes="(min-width:640px) 31vw, 100vw"><source type="image/webp" srcset="/img/ng-box-a-600.webp 600w, /img/ng-box-a-1200.webp 1200w" sizes="(min-width:640px) 31vw, 100vw"><img src="/img/ng-box-a-1200.webp" width="1200" height="1520" alt="Versión A: caja de té negra con el logotipo BRISA grande en la parte superior" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
-            <canvas aria-hidden="true"></canvas>
-          </div>
-        </figure>
-        <figure class="ng-pk ng-is-win" data-v="b">
-          <figcaption class="ng-pk__top ng-mono"><span>Versión B</span><span>Ganadora</span></figcaption>
-          <div class="ng-pk__stage" role="img" aria-label="Versión B: ilustración central de hojas con la marca en la base; es la versión ganadora.">
-            <div class="ng-media" data-ph="/img/ng-box-b"><picture><source type="image/avif" srcset="/img/ng-box-b-600.avif 600w, /img/ng-box-b-1200.avif 1200w" sizes="(min-width:640px) 31vw, 100vw"><source type="image/webp" srcset="/img/ng-box-b-600.webp 600w, /img/ng-box-b-1200.webp 1200w" sizes="(min-width:640px) 31vw, 100vw"><img src="/img/ng-box-b-1200.webp" width="1200" height="1520" alt="Versión B: caja de té clara con una hoja negra dentro de un círculo verde lima y la marca BRISA debajo" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
-            <canvas aria-hidden="true"></canvas>
-            <span class="ng-pk__tag">Mayor atención sostenida<br>+ respuesta emocional positiva</span>
-          </div>
-        </figure>
-        <figure class="ng-pk" data-v="c">
-          <figcaption class="ng-pk__top ng-mono"><span>Versión C</span><span>Panel · PDV simulado</span></figcaption>
-          <div class="ng-pk__stage" role="img" aria-label="Versión C: diseño minimalista tipográfico con la marca en vertical.">
-            <div class="ng-media" data-ph="/img/ng-box-c"><picture><source type="image/avif" srcset="/img/ng-box-c-600.avif 600w, /img/ng-box-c-1200.avif 1200w" sizes="(min-width:640px) 31vw, 100vw"><source type="image/webp" srcset="/img/ng-box-c-600.webp 600w, /img/ng-box-c-1200.webp 1200w" sizes="(min-width:640px) 31vw, 100vw"><img src="/img/ng-box-c-1200.webp" width="1200" height="1520" alt="Versión C: caja de té blanca minimalista con la marca BRISA en vertical" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
-            <canvas aria-hidden="true"></canvas>
-          </div>
-        </figure>
-      </div>
-    </div>
-  </div>
   <div class="ng-wrap">
     <div class="ng-case__blocks">
       <article class="ng-case__b" data-ng-reveal>
@@ -534,25 +490,6 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 
 <script>
 NG.boot('[data-ng="case"]', function (sec) {
-  var row = sec.querySelector('.ng-case__row');
-  var cards = [].slice.call(sec.querySelectorAll('.ng-pk'));
-  var cvs = cards.map(function (c) { return c.querySelector('canvas'); });
-  var tag = sec.querySelector('.ng-pk__tag');
-  // Distribución ilustrativa de atención por versión (x, y, radio, peso) sobre 300×380
-  // Atención proyectada desde la escena 3D de cada caja (0–1 sobre la foto): [x, y, radio, peso]
-  var B = {"a":{"logo":[0.5813,0.3655],"name":[0.58,0.7893],"mid":[0.49,0.572]},"b":{"logo":[0.581,0.4702],"brand":[0.5804,0.6872],"name":[0.5802,0.7486],"leaf":[0.5631,0.429]},"c":{"logo":[0.467,0.5732],"name":[0.6489,0.3311],"low":[0.5801,0.7601]}};
-  var H = {
-    a: [B.a.logo.concat([.13, .95]), B.a.name.concat([.06, .25]), B.a.mid.concat([.08, .18])],
-    b: [B.b.logo.concat([.17, 1]), B.b.leaf.concat([.09, .6]), B.b.brand.concat([.1, .85]), B.b.name.concat([.07, .45])],
-    c: [B.c.logo.concat([.09, .42]), B.c.name.concat([.07, .3]), B.c.low.concat([.08, .15])]
-  };
-  var draw = function () { cards.forEach(function (c, i) { NG.heat(cvs[i], H[c.getAttribute('data-v')], { gain: 1 }); }); };
-  draw();
-  if ('ResizeObserver' in window) { var to; new ResizeObserver(function () { clearTimeout(to); to = setTimeout(draw, 150); }).observe(row); }
-
-  /* La atención se revela como un círculo que crece desde la primera fijación de cada versión */
-  var clip = function (i, r) { var o = H[cards[i].getAttribute('data-v')][0]; return 'circle(' + r + '% at ' + (o[0] * 100).toFixed(1) + '% ' + (o[1] * 100).toFixed(1) + '%)'; };
-  var finish = function () { row.classList.add('ng-is-done'); };
   /* --- Bloques: tres mini-visualizaciones, cada una con su propio movimiento --- */
   var vis = function (el, fn) { var on = false; NG.vis(el, function () { if (!on) { on = true; fn(true); } }, function () { if (on) { on = false; fn(false); } }, '0px'); };
   // 01 · Votos internos que se reparten sin mayoría (3/3/3 que nunca se rompen a favor de nadie)
@@ -631,26 +568,5 @@ NG.boot('[data-ng="case"]', function (sec) {
   })();
 
   NG.reveals(sec);
-  NG.ready().then(function (gsap) {
-    if (!gsap || NG.rm) { cvs.forEach(function (c) { c.style.opacity = .85; }); tag.style.opacity = 1; tag.style.transform = 'none'; finish(); return; }
-    var mm = gsap.matchMedia();
-    mm.add({ d: '(min-width:1024px) and (min-height:700px)', m: '(max-width:1023px), (max-height:699px)' }, function (ctx) {
-      var desk = ctx.conditions.d && !NG.edit();
-      var tl = gsap.timeline({
-        defaults: { ease: 'none' },
-        scrollTrigger: desk
-          ? { trigger: sec.querySelector('.ng-case__pin'), start: 'top top', end: '+=180%', pin: true, scrub: .6, anticipatePin: 1 }
-          : { trigger: row, start: 'top 75%', end: 'bottom 35%', scrub: .6 }
-      });
-      tl.from(cards, { autoAlpha: 0, y: 40, stagger: .15, duration: .5, ease: 'power2.out' })
-        .fromTo(cvs[0], { opacity: .9, clipPath: clip(0, 0) }, { clipPath: clip(0, 150), duration: .6 })
-        .fromTo(cvs[1], { opacity: .9, clipPath: clip(1, 0) }, { clipPath: clip(1, 150), duration: .6 }, '-=.25')
-        .fromTo(cvs[2], { opacity: .9, clipPath: clip(2, 0) }, { clipPath: clip(2, 150), duration: .6 }, '-=.25')
-        .to(tag, { opacity: 1, y: 0, duration: .4 })
-        .to({}, { duration: .3 });
-      tl.eventCallback('onUpdate', function () { row.classList.toggle('ng-is-done', tl.progress() > .78); });
-      return function () { row.classList.remove('ng-is-done'); };
-    });
-  });
 });
 </script>

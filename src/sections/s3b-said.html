@@ -73,11 +73,11 @@ NG.boot('[data-ng="said"]', function (sec) {
     for (var s = 0; s <= T; s++) {
       c.strokeStyle = 'rgba(255,255,255,' + (s % 2 ? .04 : .08) + ')';
       c.beginPath(); c.moveTo(X(s) + .5, 0); c.lineTo(X(s) + .5, h - 16); c.stroke();
-      if (s % 2 === 0) { c.fillStyle = 'rgba(138,143,152,.9)'; c.fillText(s + 's', X(s) - (s === T ? 16 : 0), h - 6); }
+      if (s % 2 === 0) { c.fillStyle = 'rgba(160,165,176,.9)'; c.fillText(s + 's', X(s) - (s === T ? 16 : 0), h - 6); }
     }
     rows.forEach(function (r) {
       var y = r[1] * (h - 16);
-      c.fillStyle = 'rgba(138,143,152,.95)'; c.fillText(r[0], 0, y);
+      c.fillStyle = 'rgba(160,165,176,.95)'; c.fillText(r[0], 0, y);
       c.strokeStyle = 'rgba(255,255,255,.06)'; c.beginPath(); c.moveTo(x0, y + .5); c.lineTo(x1, y + .5); c.stroke();
     });
     var on = function (t) { return tt >= t; };
@@ -98,7 +98,7 @@ NG.boot('[data-ng="said"]', function (sec) {
       c.save(); c.translate(x, fy); c.rotate(Math.PI / 4); c.scale(k, k);
       c.fillStyle = '#C8FF00'; c.fillRect(-5, -5, 10, 10); c.restore();
       c.fillStyle = 'rgba(242,243,240,' + (.85 * k) + ')'; c.fillText(f[1], x + 10, fy - 9);
-      if (w > 360) { c.fillStyle = 'rgba(138,143,152,' + (.9 * k) + ')'; c.fillText(f[2], x + 10, fy + 9); }
+      if (w > 360) { c.fillStyle = 'rgba(160,165,176,' + (.9 * k) + ')'; c.fillText(f[2], x + 10, fy + 9); }
     });
     // Piel: inicio de respuesta electrodérmica (SCR) como espigas
     var sy = rows[2][1] * (h - 16), sh = (rows[2][1] - rows[1][1]) * (h - 16) * .8;

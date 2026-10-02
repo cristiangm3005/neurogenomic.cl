@@ -14,7 +14,7 @@
 --ng-line:rgba(255,255,255,.08);
 --ng-line2:rgba(255,255,255,.16);
 --ng-tx:#F2F3F0;
---ng-tx2:#8A8F98;
+--ng-tx2:#A0A5B0;
 --ng-volt:#C8F542;
 --ng-lime:#C8FF00;
 --ng-ff:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
@@ -31,17 +31,17 @@ html:has(.ng-sec){scroll-behavior:auto;-webkit-text-size-adjust:100%}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
 .lenis.lenis-stopped{overflow:hidden}
-.ng-sec,.ng-nav,.ng-pre,.ng-foot,.ng-menu{
+.ng-sec,.ng-nav,.ng-mast,.ng-pre,.ng-foot,.ng-menu{
 font-family:var(--ng-ff);color:var(--ng-tx);
 -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
 font-size:16px;line-height:1.55;font-weight:400;
 }
-.ng-sec,.ng-nav,.ng-pre,.ng-foot,.ng-menu,.ng-sec *,.ng-nav *,.ng-pre *,.ng-foot *,.ng-menu *{box-sizing:border-box}
+.ng-sec,.ng-nav,.ng-mast,.ng-pre,.ng-foot,.ng-menu,.ng-sec *,.ng-nav *,.ng-mast *,.ng-pre *,.ng-foot *,.ng-menu *{box-sizing:border-box}
 .ng-sec{position:relative;background:var(--ng-bg);overflow:clip;isolation:isolate}
 .ng-sec :where(h1,h2,h3,h4,p,ul,ol,figure,blockquote){margin:0;padding:0}
 .ng-sec :where(ul,ol){list-style:none}
 .ng-sec :where(img,svg,canvas,picture){display:block;max-width:100%}
-.ng-sec :where(a),.ng-foot :where(a),.ng-nav :where(a){color:inherit;text-decoration:none}
+.ng-sec :where(a),.ng-foot :where(a),.ng-nav :where(a),.ng-mast :where(a){color:inherit;text-decoration:none}
 .ng-sec ::selection,.ng-foot ::selection{background:var(--ng-volt);color:var(--ng-bg)}
 .ng-wrap{width:100%;max-width:var(--ng-max);margin-inline:auto;padding-inline:var(--ng-gut)}
 .ng-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,1.6vw,24px)}
@@ -74,12 +74,13 @@ background:var(--_bg);color:var(--_fg)!important;font:500 15px/1 var(--ng-ff);le
 cursor:pointer;transition:background .35s var(--ng-ease),border-color .35s var(--ng-ease),color .35s var(--ng-ease);
 text-decoration:none;white-space:nowrap;
 }
-.ng-btn:hover{--_bd:var(--ng-tx)}
-.ng-btn--volt{--_bg:var(--ng-volt);--_fg:var(--ng-bg);--_bd:var(--ng-volt)}
-.ng-btn--volt:hover{--_bg:var(--ng-tx);--_bd:var(--ng-tx)}
+.ng-btn{--_bd:rgba(255,255,255,.12)}
+.ng-btn:hover{--_bd:rgba(255,255,255,.4);--_bg:rgba(255,255,255,.04)}
+.ng-btn--volt{--_bg:var(--ng-lime);--_fg:#0A0B0D;--_bd:var(--ng-lime);font-weight:600;box-shadow:0 0 0 0 rgba(200,255,0,0),0 10px 34px -12px rgba(200,255,0,.55);transition:background .35s var(--ng-ease),border-color .35s var(--ng-ease),color .35s var(--ng-ease),box-shadow .45s var(--ng-ease)}
+.ng-btn--volt:hover{--_bg:#D9FF4D;--_bd:#D9FF4D;box-shadow:0 0 0 4px rgba(200,255,0,.16),0 14px 40px -10px rgba(200,255,0,.7)}
 .ng-btn__i{display:inline-block;transition:transform .45s var(--ng-ease)}
 .ng-btn:hover .ng-btn__i{transform:translate(3px,-1px)}
-.ng-sec :focus-visible,.ng-nav :focus-visible,.ng-foot :focus-visible,.ng-menu :focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px;border-radius:2px}
+.ng-sec :focus-visible,.ng-nav :focus-visible,.ng-mast :focus-visible,.ng-foot :focus-visible,.ng-menu :focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px;border-radius:2px}
 .ng-chips{display:flex;flex-wrap:wrap;gap:8px}
 .ng-chip{font:500 11px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-tx);border:1px solid var(--ng-line2);border-radius:4px;padding:8px 10px}
 .ng-marks{position:absolute;inset:0;pointer-events:none}
@@ -127,6 +128,23 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-cta__p{font-size:clamp(18px,1.5vw,22px);font-weight:300;max-width:44ch;color:var(--ng-tx)}
 .ng-cta__btn{margin-top:clamp(32px,4vw,56px);min-height:clamp(64px,7vw,96px);padding:0 clamp(28px,3vw,48px);font-size:clamp(17px,1.4vw,22px);border-radius:999px}
 .ng-cta__btn .ng-btn__t{display:inline-flex;gap:14px;align-items:center}
+.ng-qf{margin-top:clamp(28px,3vw,40px);max-width:560px;border-top:1px solid var(--ng-line);padding-top:clamp(20px,2vw,28px)}
+.ng-qf__l{display:block;font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);margin-bottom:12px}
+.ng-qf__row{display:flex;border:1.5px solid rgba(242,243,240,.7);border-radius:var(--ng-r);overflow:hidden;transition:border-color .3s,box-shadow .3s;background:var(--ng-s1)}
+.ng-qf__row:focus-within{border-color:var(--ng-lime);box-shadow:0 0 0 4px rgba(200,255,0,.12)}
+.ng-qf__row.is-err{border-color:#FF6B57}
+.ng-qf input[type=email]{flex:1 1 auto;min-width:0;min-height:56px;padding:0 16px;border:0;background:transparent;color:var(--ng-tx);font:400 16px/1 var(--ng-ff);outline:0}
+.ng-qf input[type=email]::placeholder{color:var(--ng-tx2)}
+.ng-qf button{flex:0 0 auto;display:inline-flex;align-items:center;gap:10px;padding:0 20px;border:0;background:var(--ng-lime);color:#0A0B0D;font:600 15px/1 var(--ng-ff);cursor:pointer;transition:background .3s}
+.ng-qf button:hover{background:#D9FF4D}
+.ng-qf button[disabled]{opacity:.6;cursor:progress}
+.ng-qf__ck{display:flex;gap:10px;align-items:flex-start;margin-top:12px;color:var(--ng-tx2);font-size:13.5px;line-height:1.45;cursor:pointer}
+.ng-qf__ck input{flex:0 0 auto;width:18px;height:18px;margin:1px 0 0;accent-color:#C8FF00}
+.ng-qf__ck a{color:var(--ng-tx);text-decoration:underline;text-underline-offset:2px}
+.ng-qf__st{min-height:1.4em;margin-top:10px;font:500 12px/1.4 var(--ng-mono);letter-spacing:.04em;color:var(--ng-tx2)}
+.ng-qf__st.is-err{color:#FF8A7A}.ng-qf__st.is-ok{color:var(--ng-lime)}
+.ng-qf.is-sent .ng-qf__row,.ng-qf.is-sent .ng-qf__ck{display:none}
+@media (max-width:479px){.ng-qf__row{flex-direction:column}.ng-qf button{min-height:52px;justify-content:center}}
 @media (max-width:899px){
 .ng-cta{align-items:flex-start}
 .ng-cta__grid{grid-template-columns:1fr}
@@ -431,6 +449,16 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
       <h2 class="ng-cta__t" id="ng-cta-title" data-ng-split>¿Construimos tu próxima decisión <span class="ng-hl">con evidencia?</span></h2>
       <p class="ng-cta__p" data-ng-reveal>Cuéntanos qué quieres evaluar: una marca, una campaña, un packaging o un sitio web. Revisamos el desafío y te proponemos el método adecuado.</p>
       <a class="ng-btn ng-btn--volt ng-cta__btn" href="/contacto/" data-ng-magnet><span class="ng-btn__t">Agendar diagnóstico <span class="ng-btn__i" aria-hidden="true">↗</span></span></a>
+      <form class="ng-qf" novalidate data-endpoint="https://formsubmit.co/ajax/cristiangm3005@gmail.com" aria-describedby="ng-qf-st">
+        <label class="ng-qf__l" for="ng-qf-email">¿Sin tiempo? Déjanos tu correo y te escribimos</label>
+        <div class="ng-qf__row">
+          <input id="ng-qf-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="tu@empresa.cl" required>
+          <button type="submit">Agendar demo <span aria-hidden="true">→</span></button>
+        </div>
+        <label class="ng-qf__ck"><input type="checkbox" name="consentimiento" required> <span>Acepto que Neurogenomic use este correo solo para responder mi solicitud (<a href="/privacidad/">privacidad</a>).</span></label>
+        <div class="ng-sr" aria-hidden="true"><label for="ng-qf-hp">No completar</label><input id="ng-qf-hp" name="_honey" type="text" tabindex="-1" autocomplete="off"></div>
+        <p class="ng-qf__st" id="ng-qf-st" role="status" aria-live="polite"></p>
+      </form>
     </div>
     <figure class="ng-cta__fig">
       <div class="ng-cta__tilt">
@@ -448,6 +476,30 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 
 <script>
 NG.boot('[data-ng="cta"]', function (sec) {
+  /* Micro-formulario: solo correo + consentimiento → FormSubmit (mismo destino que el formulario de contacto) */
+  (function (f) {
+    if (!f) return;
+    var em = f.querySelector('input[type=email]'), ck = f.querySelector('input[name=consentimiento]'), st = f.querySelector('.ng-qf__st'), bt = f.querySelector('button'), row = f.querySelector('.ng-qf__row');
+    var say = function (m, cls) { st.textContent = m; st.className = 'ng-qf__st' + (cls ? ' ' + cls : ''); };
+    em.addEventListener('input', function () { row.classList.remove('is-err'); em.removeAttribute('aria-invalid'); if (st.classList.contains('is-err')) say(''); });
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (f.querySelector('[name=_honey]').value) return;
+      var v = em.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) { row.classList.add('is-err'); em.setAttribute('aria-invalid', 'true'); say('Escribe un correo válido, por ejemplo nombre@empresa.cl.', 'is-err'); em.focus(); return; }
+      if (!ck.checked) { say('Necesitamos tu autorización para responderte.', 'is-err'); ck.focus(); return; }
+      bt.disabled = true; say('Enviando…');
+      var ep = f.getAttribute('data-endpoint');
+      var payload = { _subject: 'Solicitud rápida de demo · ' + v, _template: 'table', _captcha: 'false', _replyto: v,
+        Correo: v, Origen: 'Micro-formulario del CTA final', Consentimiento: 'Sí', 'Página': location.href };
+      var p = ep ? fetch(ep, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) === 'false') throw new Error(j.message || r.status); }); })
+        : new Promise(function (r) { setTimeout(r, 600); });
+      p.then(function () { f.classList.add('is-sent'); say('Listo. Te escribiremos a ' + v + ' para coordinar la demo.', 'is-ok'); })
+       .catch(function () { bt.disabled = false; say('No pudimos enviar tu correo. Inténtalo de nuevo o usa el formulario completo.', 'is-err'); });
+    });
+  })(sec.querySelector('.ng-qf'));
+
   var D = {"btn":[0.4497,0.7093],"btn_l":[0.3163,0.6956],"btn_r":[0.5879,0.7236],"title":[0.4497,0.2894],"total":[0.4712,0.5179],"screen":[[0.3566,0.1575],[0.6721,0.1681],[0.5992,0.8256],[0.2844,0.7893]]}, P = function (k) { return [D[k][0] * 920, D[k][1] * 1070]; };
   var fig = sec.querySelector('.ng-cta__fig'), tilt = sec.querySelector('.ng-cta__tilt');
   var gaze = sec.querySelector('.ng-cta__gaze'), halo = sec.querySelector('.ng-cta__halo'), trail = sec.querySelector('.ng-cta__trail');

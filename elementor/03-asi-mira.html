@@ -14,7 +14,7 @@
 --ng-line:rgba(255,255,255,.08);
 --ng-line2:rgba(255,255,255,.16);
 --ng-tx:#F2F3F0;
---ng-tx2:#8A8F98;
+--ng-tx2:#A0A5B0;
 --ng-volt:#C8F542;
 --ng-lime:#C8FF00;
 --ng-ff:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
@@ -31,17 +31,17 @@ html:has(.ng-sec){scroll-behavior:auto;-webkit-text-size-adjust:100%}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
 .lenis.lenis-stopped{overflow:hidden}
-.ng-sec,.ng-nav,.ng-pre,.ng-foot,.ng-menu{
+.ng-sec,.ng-nav,.ng-mast,.ng-pre,.ng-foot,.ng-menu{
 font-family:var(--ng-ff);color:var(--ng-tx);
 -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
 font-size:16px;line-height:1.55;font-weight:400;
 }
-.ng-sec,.ng-nav,.ng-pre,.ng-foot,.ng-menu,.ng-sec *,.ng-nav *,.ng-pre *,.ng-foot *,.ng-menu *{box-sizing:border-box}
+.ng-sec,.ng-nav,.ng-mast,.ng-pre,.ng-foot,.ng-menu,.ng-sec *,.ng-nav *,.ng-mast *,.ng-pre *,.ng-foot *,.ng-menu *{box-sizing:border-box}
 .ng-sec{position:relative;background:var(--ng-bg);overflow:clip;isolation:isolate}
 .ng-sec :where(h1,h2,h3,h4,p,ul,ol,figure,blockquote){margin:0;padding:0}
 .ng-sec :where(ul,ol){list-style:none}
 .ng-sec :where(img,svg,canvas,picture){display:block;max-width:100%}
-.ng-sec :where(a),.ng-foot :where(a),.ng-nav :where(a){color:inherit;text-decoration:none}
+.ng-sec :where(a),.ng-foot :where(a),.ng-nav :where(a),.ng-mast :where(a){color:inherit;text-decoration:none}
 .ng-sec ::selection,.ng-foot ::selection{background:var(--ng-volt);color:var(--ng-bg)}
 .ng-wrap{width:100%;max-width:var(--ng-max);margin-inline:auto;padding-inline:var(--ng-gut)}
 .ng-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,1.6vw,24px)}
@@ -74,12 +74,13 @@ background:var(--_bg);color:var(--_fg)!important;font:500 15px/1 var(--ng-ff);le
 cursor:pointer;transition:background .35s var(--ng-ease),border-color .35s var(--ng-ease),color .35s var(--ng-ease);
 text-decoration:none;white-space:nowrap;
 }
-.ng-btn:hover{--_bd:var(--ng-tx)}
-.ng-btn--volt{--_bg:var(--ng-volt);--_fg:var(--ng-bg);--_bd:var(--ng-volt)}
-.ng-btn--volt:hover{--_bg:var(--ng-tx);--_bd:var(--ng-tx)}
+.ng-btn{--_bd:rgba(255,255,255,.12)}
+.ng-btn:hover{--_bd:rgba(255,255,255,.4);--_bg:rgba(255,255,255,.04)}
+.ng-btn--volt{--_bg:var(--ng-lime);--_fg:#0A0B0D;--_bd:var(--ng-lime);font-weight:600;box-shadow:0 0 0 0 rgba(200,255,0,0),0 10px 34px -12px rgba(200,255,0,.55);transition:background .35s var(--ng-ease),border-color .35s var(--ng-ease),color .35s var(--ng-ease),box-shadow .45s var(--ng-ease)}
+.ng-btn--volt:hover{--_bg:#D9FF4D;--_bd:#D9FF4D;box-shadow:0 0 0 4px rgba(200,255,0,.16),0 14px 40px -10px rgba(200,255,0,.7)}
 .ng-btn__i{display:inline-block;transition:transform .45s var(--ng-ease)}
 .ng-btn:hover .ng-btn__i{transform:translate(3px,-1px)}
-.ng-sec :focus-visible,.ng-nav :focus-visible,.ng-foot :focus-visible,.ng-menu :focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px;border-radius:2px}
+.ng-sec :focus-visible,.ng-nav :focus-visible,.ng-mast :focus-visible,.ng-foot :focus-visible,.ng-menu :focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px;border-radius:2px}
 .ng-chips{display:flex;flex-wrap:wrap;gap:8px}
 .ng-chip{font:500 11px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-tx);border:1px solid var(--ng-line2);border-radius:4px;padding:8px 10px}
 .ng-marks{position:absolute;inset:0;pointer-events:none}
@@ -112,7 +113,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-sec *,.ng-nav *,.ng-foot *,.ng-menu *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
 .ng-js .ng-sec[data-ng-bg]{--ng-bgo:1}
 }
-.ng-demo{height:520vh;background:#000;overflow:visible}
+.ng-demo{height:340vh;background:#000;overflow:visible}
 .ng-demo__pin{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;overflow:hidden}
 .ng-demo__grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(20px,3vw,48px);align-items:center;width:100%}
 .ng-demo__t{font-size:clamp(40px,4.4vw,80px);margin:18px 0 22px}
@@ -136,8 +137,13 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-demo__gsr span{position:absolute;left:12px;top:8px;color:var(--ng-tx2);pointer-events:none}
 .ng-demo__gsr b{color:var(--ng-lime);font-weight:500;font-variant-numeric:tabular-nums}
 .ng-demo__m{display:none}
+.ng-demo__hint{position:absolute;left:50%;bottom:64px;translate:-50% 0;z-index:3;display:flex;align-items:center;gap:10px;padding:9px 14px 9px 10px;border-radius:999px;background:rgba(10,11,13,.82);border:1px solid rgba(200,255,0,.45);font:500 10.5px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-tx);white-space:nowrap;pointer-events:none;transition:opacity .5s,transform .5s var(--ng-ease)}
+.ng-demo__hint i{position:relative;width:14px;height:22px;border:1.5px solid var(--ng-lime);border-radius:8px}
+.ng-demo__hint i::after{content:"";position:absolute;left:50%;top:4px;width:2px;height:5px;margin-left:-1px;border-radius:1px;background:var(--ng-lime);animation:ng-demo-wheel 1.6s ease-in-out infinite}
+@keyframes ng-demo-wheel{0%{transform:translateY(0);opacity:1}70%{transform:translateY(8px);opacity:0}100%{opacity:0}}
+.ng-demo.is-moving .ng-demo__hint{opacity:0;transform:translateY(8px)}
 @media (max-width:1023px){
-.ng-demo{height:420vh}
+.ng-demo{height:300vh}
 .ng-demo__grid{grid-template-columns:1fr;gap:14px}
 .ng-demo__copy{order:2}
 .ng-demo__copy .ng-h2,.ng-demo__copy .ng-demo__keys,.ng-demo__copy .ng-eyebrow{display:none}
@@ -150,6 +156,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-demo__pin{position:relative;height:auto;padding:clamp(80px,10vw,140px) 0}
 .ng-demo__copy .ng-h2,.ng-demo__copy .ng-demo__keys,.ng-demo__copy .ng-eyebrow{display:block}
 .ng-demo__m{display:none}
+.ng-demo__hint{display:none}
 }
 </style>
 <script>
@@ -462,6 +469,7 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
           <div class="ng-demo__hud" aria-hidden="true"><span>Cuadro <b data-r="f">001</b> / 080</span><span>Fijaciones <b data-r="x">0</b></span></div>
           <span class="ng-demo__load" data-r="load" aria-hidden="true"></span>
           <span class="ng-demo__lbl">Demostración visual. No corresponde a datos de un estudio real.</span>
+          <span class="ng-demo__hint" aria-hidden="true"><i></i>Desliza para ver cómo se arma el mapa de calor</span>
         </div>
         <div class="ng-demo__gsr" aria-hidden="true"><canvas data-r="g"></canvas><span class="ng-mono">Respuesta galvánica · <b data-r="v">0,00</b> μS · simulada</span></div>
       </div>
@@ -635,6 +643,7 @@ NG.boot('[data-ng="demo"]', function (sec) {
     var r = sec.getBoundingClientRect(), vh = innerHeight, total = r.height - vh;
     if (r.bottom < -vh || r.top > vh * 2) return;
     var p = clamp01(-r.top / total);
+    sec.classList.toggle('is-moving', p > .04 && p < .985);
     if (p !== target) { target = p; kick(); }
   };
   if (!NG.rm) { addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', onScroll); onScroll(); }

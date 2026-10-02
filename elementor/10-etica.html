@@ -13,7 +13,7 @@
 --ng-line:rgba(255,255,255,.08);
 --ng-line2:rgba(255,255,255,.16);
 --ng-tx:#F2F3F0;
---ng-tx2:#8A8F98;
+--ng-tx2:#A0A5B0;
 --ng-volt:#C8F542;
 --ng-lime:#C8FF00;
 --ng-ff:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
@@ -30,17 +30,17 @@ html:has(.ng-sec){scroll-behavior:auto;-webkit-text-size-adjust:100%}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
 .lenis.lenis-stopped{overflow:hidden}
-.ng-sec,.ng-nav,.ng-pre,.ng-foot,.ng-menu{
+.ng-sec,.ng-nav,.ng-mast,.ng-pre,.ng-foot,.ng-menu{
 font-family:var(--ng-ff);color:var(--ng-tx);
 -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
 font-size:16px;line-height:1.55;font-weight:400;
 }
-.ng-sec,.ng-nav,.ng-pre,.ng-foot,.ng-menu,.ng-sec *,.ng-nav *,.ng-pre *,.ng-foot *,.ng-menu *{box-sizing:border-box}
+.ng-sec,.ng-nav,.ng-mast,.ng-pre,.ng-foot,.ng-menu,.ng-sec *,.ng-nav *,.ng-mast *,.ng-pre *,.ng-foot *,.ng-menu *{box-sizing:border-box}
 .ng-sec{position:relative;background:var(--ng-bg);overflow:clip;isolation:isolate}
 .ng-sec :where(h1,h2,h3,h4,p,ul,ol,figure,blockquote){margin:0;padding:0}
 .ng-sec :where(ul,ol){list-style:none}
 .ng-sec :where(img,svg,canvas,picture){display:block;max-width:100%}
-.ng-sec :where(a),.ng-foot :where(a),.ng-nav :where(a){color:inherit;text-decoration:none}
+.ng-sec :where(a),.ng-foot :where(a),.ng-nav :where(a),.ng-mast :where(a){color:inherit;text-decoration:none}
 .ng-sec ::selection,.ng-foot ::selection{background:var(--ng-volt);color:var(--ng-bg)}
 .ng-wrap{width:100%;max-width:var(--ng-max);margin-inline:auto;padding-inline:var(--ng-gut)}
 .ng-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,1.6vw,24px)}
@@ -73,12 +73,13 @@ background:var(--_bg);color:var(--_fg)!important;font:500 15px/1 var(--ng-ff);le
 cursor:pointer;transition:background .35s var(--ng-ease),border-color .35s var(--ng-ease),color .35s var(--ng-ease);
 text-decoration:none;white-space:nowrap;
 }
-.ng-btn:hover{--_bd:var(--ng-tx)}
-.ng-btn--volt{--_bg:var(--ng-volt);--_fg:var(--ng-bg);--_bd:var(--ng-volt)}
-.ng-btn--volt:hover{--_bg:var(--ng-tx);--_bd:var(--ng-tx)}
+.ng-btn{--_bd:rgba(255,255,255,.12)}
+.ng-btn:hover{--_bd:rgba(255,255,255,.4);--_bg:rgba(255,255,255,.04)}
+.ng-btn--volt{--_bg:var(--ng-lime);--_fg:#0A0B0D;--_bd:var(--ng-lime);font-weight:600;box-shadow:0 0 0 0 rgba(200,255,0,0),0 10px 34px -12px rgba(200,255,0,.55);transition:background .35s var(--ng-ease),border-color .35s var(--ng-ease),color .35s var(--ng-ease),box-shadow .45s var(--ng-ease)}
+.ng-btn--volt:hover{--_bg:#D9FF4D;--_bd:#D9FF4D;box-shadow:0 0 0 4px rgba(200,255,0,.16),0 14px 40px -10px rgba(200,255,0,.7)}
 .ng-btn__i{display:inline-block;transition:transform .45s var(--ng-ease)}
 .ng-btn:hover .ng-btn__i{transform:translate(3px,-1px)}
-.ng-sec :focus-visible,.ng-nav :focus-visible,.ng-foot :focus-visible,.ng-menu :focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px;border-radius:2px}
+.ng-sec :focus-visible,.ng-nav :focus-visible,.ng-mast :focus-visible,.ng-foot :focus-visible,.ng-menu :focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px;border-radius:2px}
 .ng-chips{display:flex;flex-wrap:wrap;gap:8px}
 .ng-chip{font:500 11px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-tx);border:1px solid var(--ng-line2);border-radius:4px;padding:8px 10px}
 .ng-marks{position:absolute;inset:0;pointer-events:none}
@@ -134,6 +135,18 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-eth__col+.ng-eth__col{border-left:0;border-top:1px solid var(--ng-line)}
 }
 @media (max-width:479px){.ng-log li{grid-template-columns:auto 1fr}.ng-log__st{display:none}}
+.ng-trust{margin-bottom:clamp(16px,2vw,24px);border:1px solid rgba(200,245,66,.35);border-radius:8px;background:linear-gradient(180deg,rgba(200,245,66,.05),rgba(200,245,66,0) 60%),var(--ng-s1);padding:clamp(18px,2vw,28px)}
+.ng-trust__h{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-bottom:16px;margin-bottom:clamp(16px,2vw,24px);border-bottom:1px solid var(--ng-line)}
+.ng-trust__h b{display:inline-flex;align-items:center;gap:10px;font:600 clamp(18px,1.5vw,22px)/1.2 var(--ng-ff);letter-spacing:-.015em}
+.ng-trust__h b::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--ng-lime);box-shadow:0 0 12px rgba(200,255,0,.8)}
+.ng-trust__h span{font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2)}
+.ng-trust__g{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(12px,1.4vw,20px)}
+.ng-trust__i{display:grid;gap:10px;align-content:start}
+.ng-trust__i svg{width:44px;height:44px;fill:none;stroke:var(--ng-lime);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.ng-trust__i h4{font:600 16px/1.25 var(--ng-ff);letter-spacing:-.01em}
+.ng-trust__i p{color:var(--ng-tx2);font-size:14px;line-height:1.45}
+@media (max-width:1023px){.ng-trust__g{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:479px){.ng-trust__g{grid-template-columns:1fr}.ng-trust__i{grid-template-columns:44px 1fr;column-gap:14px}.ng-trust__i svg{grid-row:span 2}}
 .ng-eth__legal{margin-top:24px;border-left:2px solid var(--ng-lime);padding:6px 0 6px 18px;color:var(--ng-tx2);font-size:15px;max-width:84ch}
 </style>
 <script>
@@ -435,6 +448,31 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
       </div>
       <p class="ng-body" data-ng-reveal>Una señal biométrica es un dato sensible. Por eso cada estudio parte con consentimiento informado, usa solo los datos necesarios y entrega resultados agregados, no perfiles individuales.</p>
     </div>
+    <div class="ng-trust" aria-labelledby="ng-trust-t">
+      <div class="ng-trust__h"><b id="ng-trust-t">Centro de confianza</b><span>Cómo tratamos los datos biométricos</span></div>
+      <div class="ng-trust__g">
+        <div class="ng-trust__i">
+          <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M12 5h14l8 8v26H12z"/><path d="M26 5v8h8"/><path d="M17 26l4 4 8-9"/></svg>
+          <h4>Consentimiento informado</h4><p>Cada participante sabe qué se mide, para qué y puede retirarse cuando quiera.</p>
+        </div>
+        <div class="ng-trust__i">
+          <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="17" cy="15" r="6"/><path d="M6 36c1.5-7 6-10 11-10s9.5 3 11 10"/><path d="M29 12h10M29 18h10M29 24h6"/></svg>
+          <h4>Seudonimización</h4><p>Las señales se guardan con un código, separadas del nombre y de los datos de contacto.</p>
+        </div>
+        <div class="ng-trust__i">
+          <svg viewBox="0 0 44 44" aria-hidden="true"><rect x="9" y="19" width="26" height="19" rx="3"/><path d="M15 19v-5a7 7 0 0 1 14 0v5"/><path d="M22 27v4"/></svg>
+          <h4>Acceso restringido</h4><p>Solo el equipo del estudio accede a los registros, con permisos por proyecto.</p>
+        </div>
+        <div class="ng-trust__i">
+          <svg viewBox="0 0 44 44" aria-hidden="true"><path d="M7 37h30"/><path d="M12 37V24M19 37V14M26 37V20M33 37V9"/></svg>
+          <h4>Resultados agregados</h4><p>Entregamos patrones del grupo, nunca perfiles de personas individuales.</p>
+        </div>
+        <div class="ng-trust__i">
+          <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="23" r="14"/><path d="M22 15v8l5 4"/><path d="M8 9l4 4M36 9l-4 4"/></svg>
+          <h4>Retención definida</h4><p>Acordamos con el cliente cuánto tiempo se conservan los datos y cuándo se eliminan.</p>
+        </div>
+      </div>
+    </div>
     <div class="ng-eth__doc">
       <div class="ng-eth__col">
         <h3>Protocolo <small>Lo que cumplimos</small></h3>
@@ -465,6 +503,15 @@ NG.boot('[data-ng="ethics"]', function (sec) {
   NG.ready().then(function (gsap) {
     if (!gsap || NG.rm) return;
     gsap.from(sec.querySelector('.ng-h2'), { autoAlpha: 0, y: 20, duration: 1.2, scrollTrigger: { trigger: sec, start: 'top 75%', once: true } });
+    // Centro de confianza: los íconos se trazan como una firma, uno tras otro
+    var tiles = sec.querySelectorAll('.ng-trust__i'), ttl = gsap.timeline({ paused: true });
+    tiles.forEach(function (t, i) {
+      var shapes = t.querySelectorAll('path,circle,rect');
+      shapes.forEach(function (p) { var L = p.getTotalLength ? p.getTotalLength() : 100; gsap.set(p, { strokeDasharray: L, strokeDashoffset: L }); });
+      ttl.to(shapes, { strokeDashoffset: 0, duration: .9, stagger: .12, ease: 'power2.inOut' }, i * .18)
+         .from(t.querySelectorAll('h4,p'), { autoAlpha: 0, y: 10, duration: .6, stagger: .08 }, i * .18 + .2);
+    });
+    ScrollTrigger.create({ trigger: sec.querySelector('.ng-trust'), start: 'top 85%', once: true, onEnter: function () { ttl.play(); } });
     sec.querySelectorAll('.ng-log').forEach(function (log) {
       var no = log.classList.contains('ng-log--no');
       var items = [].slice.call(log.children);

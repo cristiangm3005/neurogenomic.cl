@@ -1,6 +1,6 @@
 <style>
 /* ---------- S2 · EYE TRACKING + IA · demostración cuadro a cuadro sincronizada con el scroll ---------- */
-.ng-demo{height:520vh;background:#000;overflow:visible}
+.ng-demo{height:340vh;background:#000;overflow:visible}
 .ng-demo__pin{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;overflow:hidden}
 .ng-demo__grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(20px,3vw,48px);align-items:center;width:100%}
 .ng-demo__t{font-size:clamp(40px,4.4vw,80px);margin:18px 0 22px}
@@ -24,8 +24,13 @@
 .ng-demo__gsr span{position:absolute;left:12px;top:8px;color:var(--ng-tx2);pointer-events:none}
 .ng-demo__gsr b{color:var(--ng-lime);font-weight:500;font-variant-numeric:tabular-nums}
 .ng-demo__m{display:none}
+.ng-demo__hint{position:absolute;left:50%;bottom:64px;translate:-50% 0;z-index:3;display:flex;align-items:center;gap:10px;padding:9px 14px 9px 10px;border-radius:999px;background:rgba(10,11,13,.82);border:1px solid rgba(200,255,0,.45);font:500 10.5px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-tx);white-space:nowrap;pointer-events:none;transition:opacity .5s,transform .5s var(--ng-ease)}
+.ng-demo__hint i{position:relative;width:14px;height:22px;border:1.5px solid var(--ng-lime);border-radius:8px}
+.ng-demo__hint i::after{content:"";position:absolute;left:50%;top:4px;width:2px;height:5px;margin-left:-1px;border-radius:1px;background:var(--ng-lime);animation:ng-demo-wheel 1.6s ease-in-out infinite}
+@keyframes ng-demo-wheel{0%{transform:translateY(0);opacity:1}70%{transform:translateY(8px);opacity:0}100%{opacity:0}}
+.ng-demo.is-moving .ng-demo__hint{opacity:0;transform:translateY(8px)}
 @media (max-width:1023px){
-  .ng-demo{height:420vh}
+  .ng-demo{height:300vh}
   .ng-demo__grid{grid-template-columns:1fr;gap:14px}
   .ng-demo__copy{order:2}
   .ng-demo__copy .ng-h2,.ng-demo__copy .ng-demo__keys,.ng-demo__copy .ng-eyebrow{display:none}
@@ -38,6 +43,7 @@
   .ng-demo__pin{position:relative;height:auto;padding:clamp(80px,10vw,140px) 0}
   .ng-demo__copy .ng-h2,.ng-demo__copy .ng-demo__keys,.ng-demo__copy .ng-eyebrow{display:block}
   .ng-demo__m{display:none}
+  .ng-demo__hint{display:none}
 }
 </style>
 
@@ -61,6 +67,7 @@
           <div class="ng-demo__hud" aria-hidden="true"><span>Cuadro <b data-r="f">001</b> / 080</span><span>Fijaciones <b data-r="x">0</b></span></div>
           <span class="ng-demo__load" data-r="load" aria-hidden="true"></span>
           <span class="ng-demo__lbl">Demostración visual. No corresponde a datos de un estudio real.</span>
+          <span class="ng-demo__hint" aria-hidden="true"><i></i>Desliza para ver cómo se arma el mapa de calor</span>
         </div>
         <div class="ng-demo__gsr" aria-hidden="true"><canvas data-r="g"></canvas><span class="ng-mono">Respuesta galvánica · <b data-r="v">0,00</b> μS · simulada</span></div>
       </div>
@@ -234,6 +241,7 @@ NG.boot('[data-ng="demo"]', function (sec) {
     var r = sec.getBoundingClientRect(), vh = innerHeight, total = r.height - vh;
     if (r.bottom < -vh || r.top > vh * 2) return;
     var p = clamp01(-r.top / total);
+    sec.classList.toggle('is-moving', p > .04 && p < .985);
     if (p !== target) { target = p; kick(); }
   };
   if (!NG.rm) { addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', onScroll); onScroll(); }

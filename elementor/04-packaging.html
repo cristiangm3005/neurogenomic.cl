@@ -1,7 +1,7 @@
 <!-- NEUROGENOMIC · Bloque Elementor «04-packaging»
      Pegar completo en un widget HTML de Elementor (ancho completo, sin padding).
      Incluye tokens + núcleo NG (idempotentes: pueden repetirse en varios bloques).
-     Nota: Usa img/ref-can-570.(avif|webp).
+     Nota: Comparador foto ⇄ mapa de calor. Usa img/ng-box-b-*.(avif|webp) (calibración en src/data/boxes.json).
      Imágenes: reemplaza /img/ por la URL de la Biblioteca de medios. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,7 @@
 --ng-line:rgba(255,255,255,.08);
 --ng-line2:rgba(255,255,255,.16);
 --ng-tx:#F2F3F0;
---ng-tx2:#8A8F98;
+--ng-tx2:#A0A5B0;
 --ng-volt:#C8F542;
 --ng-lime:#C8FF00;
 --ng-ff:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
@@ -31,17 +31,17 @@ html:has(.ng-sec){scroll-behavior:auto;-webkit-text-size-adjust:100%}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
 .lenis.lenis-stopped{overflow:hidden}
-.ng-sec,.ng-nav,.ng-pre,.ng-foot,.ng-menu{
+.ng-sec,.ng-nav,.ng-mast,.ng-pre,.ng-foot,.ng-menu{
 font-family:var(--ng-ff);color:var(--ng-tx);
 -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
 font-size:16px;line-height:1.55;font-weight:400;
 }
-.ng-sec,.ng-nav,.ng-pre,.ng-foot,.ng-menu,.ng-sec *,.ng-nav *,.ng-pre *,.ng-foot *,.ng-menu *{box-sizing:border-box}
+.ng-sec,.ng-nav,.ng-mast,.ng-pre,.ng-foot,.ng-menu,.ng-sec *,.ng-nav *,.ng-mast *,.ng-pre *,.ng-foot *,.ng-menu *{box-sizing:border-box}
 .ng-sec{position:relative;background:var(--ng-bg);overflow:clip;isolation:isolate}
 .ng-sec :where(h1,h2,h3,h4,p,ul,ol,figure,blockquote){margin:0;padding:0}
 .ng-sec :where(ul,ol){list-style:none}
 .ng-sec :where(img,svg,canvas,picture){display:block;max-width:100%}
-.ng-sec :where(a),.ng-foot :where(a),.ng-nav :where(a){color:inherit;text-decoration:none}
+.ng-sec :where(a),.ng-foot :where(a),.ng-nav :where(a),.ng-mast :where(a){color:inherit;text-decoration:none}
 .ng-sec ::selection,.ng-foot ::selection{background:var(--ng-volt);color:var(--ng-bg)}
 .ng-wrap{width:100%;max-width:var(--ng-max);margin-inline:auto;padding-inline:var(--ng-gut)}
 .ng-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,1.6vw,24px)}
@@ -74,12 +74,13 @@ background:var(--_bg);color:var(--_fg)!important;font:500 15px/1 var(--ng-ff);le
 cursor:pointer;transition:background .35s var(--ng-ease),border-color .35s var(--ng-ease),color .35s var(--ng-ease);
 text-decoration:none;white-space:nowrap;
 }
-.ng-btn:hover{--_bd:var(--ng-tx)}
-.ng-btn--volt{--_bg:var(--ng-volt);--_fg:var(--ng-bg);--_bd:var(--ng-volt)}
-.ng-btn--volt:hover{--_bg:var(--ng-tx);--_bd:var(--ng-tx)}
+.ng-btn{--_bd:rgba(255,255,255,.12)}
+.ng-btn:hover{--_bd:rgba(255,255,255,.4);--_bg:rgba(255,255,255,.04)}
+.ng-btn--volt{--_bg:var(--ng-lime);--_fg:#0A0B0D;--_bd:var(--ng-lime);font-weight:600;box-shadow:0 0 0 0 rgba(200,255,0,0),0 10px 34px -12px rgba(200,255,0,.55);transition:background .35s var(--ng-ease),border-color .35s var(--ng-ease),color .35s var(--ng-ease),box-shadow .45s var(--ng-ease)}
+.ng-btn--volt:hover{--_bg:#D9FF4D;--_bd:#D9FF4D;box-shadow:0 0 0 4px rgba(200,255,0,.16),0 14px 40px -10px rgba(200,255,0,.7)}
 .ng-btn__i{display:inline-block;transition:transform .45s var(--ng-ease)}
 .ng-btn:hover .ng-btn__i{transform:translate(3px,-1px)}
-.ng-sec :focus-visible,.ng-nav :focus-visible,.ng-foot :focus-visible,.ng-menu :focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px;border-radius:2px}
+.ng-sec :focus-visible,.ng-nav :focus-visible,.ng-mast :focus-visible,.ng-foot :focus-visible,.ng-menu :focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px;border-radius:2px}
 .ng-chips{display:flex;flex-wrap:wrap;gap:8px}
 .ng-chip{font:500 11px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-tx);border:1px solid var(--ng-line2);border-radius:4px;padding:8px 10px}
 .ng-marks{position:absolute;inset:0;pointer-events:none}
@@ -115,29 +116,42 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-pack{padding:clamp(96px,11vw,170px) 0 clamp(56px,6vw,96px);background:#000}
 .ng-pack__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:center}
 .ng-pack__copy{grid-column:1/span 6}
-.ng-pack__t{font-size:clamp(64px,9vw,176px);line-height:.86;margin:clamp(20px,2.4vw,32px) 0 clamp(24px,3vw,40px)}
-.ng-pack__p{font-size:clamp(20px,1.9vw,30px);line-height:1.25;font-weight:400;max-width:20ch}
-.ng-pack__demo{margin-top:clamp(24px,3vw,40px);color:var(--ng-tx2)}
-.ng-pack__stage{grid-column:7/span 6;position:relative;display:flex;justify-content:flex-start;padding-left:clamp(0px,4vw,64px)}
-.ng-pack__fig{position:relative;height:min(84vh,820px);aspect-ratio:570/1590;margin:0}
-.ng-pack__fig .ng-media{position:absolute;inset:0;border-radius:0;background:#000}
-.ng-pack__scan{position:absolute;inset:3% 6% 8%;pointer-events:none;overflow:hidden;mix-blend-mode:screen}
-.ng-pack__scan i{position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--ng-lime);box-shadow:0 0 16px 2px rgba(200,255,0,.7);animation:ng-scan 3.6s cubic-bezier(.65,0,.35,1) infinite alternate}
-@keyframes ng-scan{from{transform:translateY(calc(-1 * var(--ng-scan-h,700px)))}to{transform:translateY(0)}}
-.ng-pack .ng-co{left:100%;transform:translateY(-50%)}
-.ng-pack .ng-co__txt{display:grid;gap:2px}
+.ng-pack__t{font-size:clamp(64px,8.4vw,164px);line-height:.86;margin:clamp(20px,2.4vw,32px) 0 clamp(24px,3vw,40px)}
+.ng-pack__p{font-size:clamp(20px,1.9vw,30px);line-height:1.25;font-weight:400;max-width:22ch}
+.ng-pack__list{margin-top:clamp(28px,3vw,44px);display:grid;gap:0;border-top:1px solid var(--ng-line);max-width:520px}
+.ng-pack__list li{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--ng-line);transition:color .4s}
+.ng-pack__list b{font:500 11px/1 var(--ng-mono);letter-spacing:.12em;color:var(--ng-tx2)}
+.ng-pack__list span{font-size:16px}
+.ng-pack__list i{font:500 10px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;font-style:normal;color:var(--ng-tx2)}
+.ng-pack__list li.is-on b,.ng-pack__list li.is-on i{color:var(--ng-lime)}
+.ng-pack__stage{grid-column:7/span 6}
+.ng-pack__card{position:relative;margin:0 0 0 auto;max-width:min(100%,calc((100svh - 190px) * 30 / 38 + 26px));border:1px solid var(--ng-line2);border-radius:8px;background:var(--ng-s1);padding:12px}
+.ng-pack__top,.ng-pack__foot{display:flex;justify-content:space-between;gap:12px;font:500 10.5px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2)}
+.ng-pack__top{padding:2px 2px 12px}
+.ng-pack__top b{font-weight:500;color:var(--ng-lime)}
+.ng-pack__foot{padding:12px 2px 2px}
+.ng-pack__view{position:relative;aspect-ratio:30/38;border-radius:4px;overflow:hidden;background:#000;touch-action:pan-y;cursor:ew-resize;user-select:none;-webkit-user-select:none}
+.ng-pack__view .ng-media{position:absolute;inset:0;border-radius:0;background:#000}
+.ng-pack__view .ng-media img{object-fit:cover;width:100%;height:100%}
+.ng-pack__heat{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:screen;clip-path:inset(0 0 0 var(--ng-split,100%))}
+.ng-pack__dim{position:absolute;inset:0;background:rgba(0,0,0,.28);clip-path:inset(0 0 0 var(--ng-split,100%));pointer-events:none}
+.ng-pack__hd{position:absolute;top:0;bottom:0;left:var(--ng-split,100%);width:0;pointer-events:none}
+.ng-pack__hd::before{content:"";position:absolute;top:0;bottom:0;left:-1px;width:2px;background:var(--ng-lime);box-shadow:0 0 14px rgba(200,255,0,.7)}
+.ng-pack__hd span{position:absolute;top:50%;left:0;translate:-50% -50%;width:44px;height:44px;border-radius:50%;background:var(--ng-lime);color:#0A0B0D;display:grid;place-items:center;font:600 14px/1 var(--ng-mono);box-shadow:0 6px 24px rgba(0,0,0,.5)}
+.ng-pack__lbl{position:absolute;top:12px;font:500 10px/1 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;padding:7px 8px;border-radius:3px;background:rgba(10,11,13,.78);color:var(--ng-tx);pointer-events:none}
+.ng-pack__lbl--l{left:12px}.ng-pack__lbl--r{right:12px;color:var(--ng-lime)}
+.ng-pack__aoi{position:absolute;width:0;height:0;pointer-events:none}
+.ng-pack__aoi::before{content:"";position:absolute;left:-15px;top:-15px;width:28px;height:28px;border:1.5px solid var(--ng-lime);border-radius:50%;opacity:0;transform:scale(.4);transition:opacity .4s,transform .6s var(--ng-ease)}
+.ng-pack__aoi em{position:absolute;left:20px;top:-9px;font:500 10px/1 var(--ng-mono);font-style:normal;letter-spacing:.1em;color:#0A0B0D;background:var(--ng-lime);padding:4px 5px;border-radius:2px;opacity:0;transition:opacity .4s}
+.ng-pack__aoi--l em{left:auto;right:20px}
+.ng-pack__aoi.is-on::before{opacity:1;transform:none}
+.ng-pack__aoi.is-on em{opacity:1}
 .ng-pack__strip{margin-top:clamp(48px,6vw,96px)}
 @media (max-width:1023px){
 .ng-pack__copy,.ng-pack__stage{grid-column:1/-1}
-.ng-pack__stage{padding-left:0;margin-top:24px}
-.ng-pack__fig{height:min(72svh,620px)}
+.ng-pack__stage{margin-top:24px;max-width:520px}
+.ng-pack__card{margin:0;max-width:none}
 }
-@media (max-width:599px){
-.ng-pack__fig{height:min(64svh,500px)}
-.ng-pack .ng-co{gap:6px;font-size:9.5px;letter-spacing:.06em}
-.ng-pack .ng-co__ln{--ng-co-w:18px}
-}
-@media (prefers-reduced-motion:reduce){.ng-pack__scan{display:none}}
 </style>
 <script>
 /* ==========================================================
@@ -436,16 +450,29 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
         <p class="ng-mono ng-eyebrow">02 · Inteligencia biométrica</p>
         <h2 class="ng-h2 ng-pack__t" id="ng-pack-title" data-ng-split>Tu packaging tiene <span class="ng-hl">una mirada</span> para ganar.</h2>
         <p class="ng-pack__p" data-ng-reveal>Mira lo que tus compradores realmente observan antes de comprar.</p>
-        <p class="ng-mono ng-pack__demo" data-ng-reveal=".1">Lectura de demostración · eye tracking sobre packaging</p>
+        <ol class="ng-pack__list" data-ng-reveal=".1">
+          <li data-a="0"><b>01</b><span>Símbolo</span><i>Primera fijación</i></li>
+          <li data-a="1"><b>02</b><span>Marca</span><i>Permanencia alta</i></li>
+          <li data-a="2"><b>03</b><span>Detalle de la hoja</span><i>Revisitas</i></li>
+          <li data-a="3"><b>04</b><span>Descriptor</span><i>Lectura breve</i></li>
+        </ol>
       </div>
       <div class="ng-pack__stage">
-        <figure class="ng-pack__fig">
-          <div class="ng-media" data-ph="/img/ref-can"><picture><source type="image/avif" srcset="/img/ref-can-570.avif"><source type="image/webp" srcset="/img/ref-can-570.webp"><img src="/img/ref-can-570.webp" width="570" height="1590" alt="Lata negra con gotas de condensación y un mapa de calor de eye tracking pixelado sobre su superficie: la atención se concentra en el centro, la parte superior y la base" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
-          <div class="ng-pack__scan" aria-hidden="true"><i></i></div>
-          <div class="ng-co" style="top:13.3%" aria-hidden="true"><span class="ng-co__ln"></span><span class="ng-co__txt"><span>Atención % / <b data-to="88.4">88.4</b>%</span><span>Fijación / <b data-to="1150">1150</b>ms</span></span></div>
-          <div class="ng-co" style="top:39.6%" aria-hidden="true"><span class="ng-co__ln"></span><span class="ng-co__txt"><span>Atención % / <b data-to="93.1">93.1</b>%</span><span>Fijación / <b data-to="1720">1720</b>ms</span></span></div>
-          <div class="ng-co" style="top:69.5%" aria-hidden="true"><span class="ng-co__ln"></span><span class="ng-co__txt"><span>Atención % / <b data-to="76.9">76.9</b>%</span><span>Fijación / <b data-to="940">940</b>ms</span></span></div>
-          <figcaption class="ng-sr">Zonas de mayor atención en la lata: parte superior (88,4 % de atención, fijación de 1150 ms), centro (93,1 %, 1720 ms) y base (76,9 %, 940 ms). Datos de demostración.</figcaption>
+        <figure class="ng-pack__card">
+          <figcaption class="ng-pack__top"><span>Eye tracking · packaging</span><b>Ilustrativo</b></figcaption>
+          <div class="ng-pack__view" role="slider" tabindex="0" aria-label="Comparar la foto del envase con su mapa de calor de atención" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+            <div class="ng-media" data-ph="/img/ng-box-b"><picture><source type="image/avif" srcset="/img/ng-box-b-600.avif 600w, /img/ng-box-b-1200.avif 1200w" sizes="(min-width:640px) 31vw, 100vw"><source type="image/webp" srcset="/img/ng-box-b-600.webp 600w, /img/ng-box-b-1200.webp 1200w" sizes="(min-width:640px) 31vw, 100vw"><img src="/img/ng-box-b-1200.webp" width="1200" height="1520" alt="Versión B: caja de té clara con una hoja negra dentro de un círculo verde lima y la marca BRISA debajo" loading="lazy" decoding="async" onerror="this.classList.add('ng-is-missing')"></picture></div>
+            <div class="ng-pack__dim" aria-hidden="true"></div>
+            <canvas class="ng-pack__heat" aria-hidden="true"></canvas>
+            <span class="ng-pack__aoi" data-a="0" aria-hidden="true"><em>01</em></span>
+            <span class="ng-pack__aoi" data-a="1" aria-hidden="true"><em>02</em></span>
+            <span class="ng-pack__aoi ng-pack__aoi--l" data-a="2" aria-hidden="true"><em>03</em></span>
+            <span class="ng-pack__aoi" data-a="3" aria-hidden="true"><em>04</em></span>
+            <span class="ng-pack__lbl ng-pack__lbl--l" aria-hidden="true">Foto</span>
+            <span class="ng-pack__lbl ng-pack__lbl--r" aria-hidden="true">Mapa de calor</span>
+            <span class="ng-pack__hd" aria-hidden="true"><span>⇄</span></span>
+          </div>
+          <p class="ng-pack__foot"><span>Arrastra para comparar</span><span>Demostración visual</span></p>
         </figure>
       </div>
     </div>
@@ -455,22 +482,53 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 
 <script>
 NG.boot('[data-ng="pack"]', function (sec) {
-  var fig = sec.querySelector('.ng-pack__fig'), scan = sec.querySelector('.ng-pack__scan');
-  var cos = [].slice.call(sec.querySelectorAll('.ng-co'));
-  var setScan = function () { scan.style.setProperty('--ng-scan-h', (scan.clientHeight - 2) + 'px'); };
-  setScan(); window.addEventListener('resize', setScan);
+  var view = sec.querySelector('.ng-pack__view'), cv = sec.querySelector('.ng-pack__heat');
+  var aois = [].slice.call(sec.querySelectorAll('.ng-pack__aoi')), rows = [].slice.call(sec.querySelectorAll('.ng-pack__list li'));
+  // Zonas proyectadas desde la escena 3D del envase (0–1 sobre la foto)
+  var B = {"a":{"logo":[0.5813,0.3655],"name":[0.58,0.7893],"mid":[0.49,0.572]},"b":{"logo":[0.581,0.4702],"brand":[0.5804,0.6872],"name":[0.5802,0.7486],"leaf":[0.5631,0.429]},"c":{"logo":[0.467,0.5732],"name":[0.6489,0.3311],"low":[0.5801,0.7601]}}.b;
+  var Z = [B.logo, B.brand, B.leaf, B.name];
+  var HEAT = [B.logo.concat([.17, 1]), B.leaf.concat([.09, .6]), B.brand.concat([.1, .85]), B.name.concat([.07, .45])];
+  aois.forEach(function (a, i) { a.style.left = (Z[i][0] * 100) + '%'; a.style.top = (Z[i][1] * 100) + '%'; });
+  var paint = function () { NG.heat(cv, HEAT, { gain: 1 }); };
+  paint();
+  if ('ResizeObserver' in window) { var to; new ResizeObserver(function () { clearTimeout(to); to = setTimeout(paint, 120); }).observe(view); }
+
+  /* Comparador: --ng-split es el borde izquierdo del mapa de calor (100% = solo foto) */
+  var split = 100, user = false;
+  var set = function (v) {
+    split = Math.max(0, Math.min(100, v));
+    view.style.setProperty('--ng-split', split + '%');
+    view.setAttribute('aria-valuenow', Math.round(100 - split));
+    // Cuando el mapa de calor cubre el envase, las zonas se encienden en el orden en que se miraron
+    if (split < 55 && !seq) { seq = true; light(0); }
+    if (split > 62 && seq) { seq = false; clearTimeout(lt); aois.forEach(function (a, i) { a.classList.remove('is-on'); rows[i].classList.remove('is-on'); }); }
+  };
+  var seq = false, lt = 0;
+  var light = function (i) {
+    if (!seq || i >= aois.length) return;
+    aois[i].classList.add('is-on'); rows[i].classList.add('is-on');
+    lt = setTimeout(function () { light(i + 1); }, NG.rm ? 0 : 520);
+  };
+  set(NG.rm ? 0 : 100);
+  var fromEvent = function (e) { var r = view.getBoundingClientRect(); return (e.clientX - r.left) / r.width * 100; };
+  var drag = false;
+  view.addEventListener('pointerdown', function (e) { drag = true; user = true; view.setPointerCapture(e.pointerId); set(fromEvent(e)); });
+  view.addEventListener('pointermove', function (e) { if (drag) set(fromEvent(e)); else if (e.pointerType === 'mouse' && user) set(fromEvent(e)); });
+  view.addEventListener('pointerup', function () { drag = false; });
+  view.addEventListener('pointercancel', function () { drag = false; });
+  view.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') { user = true; set(split - 5); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { user = true; set(split + 5); e.preventDefault(); }
+  });
   NG.reveals(sec);
   NG.ready().then(function (gsap) {
-    if (!gsap || NG.rm) return;
-    gsap.fromTo(fig, { y: 80, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.4, ease: 'expo.out', scrollTrigger: { trigger: fig, start: 'top 85%', once: true } });
-    gsap.to(fig, { yPercent: -6, ease: 'none', scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: true } });
-    var tl = gsap.timeline({ scrollTrigger: { trigger: fig, start: 'top 55%', once: true } });
-    cos.forEach(function (c, i) {
-      var ln = c.querySelector('.ng-co__ln'), txt = c.querySelector('.ng-co__txt'), nums = c.querySelectorAll('[data-to]');
-      tl.fromTo(ln, { scaleX: 0 }, { scaleX: 1, duration: .5, ease: 'power3.inOut' }, i * .35)
-        .fromTo(txt, { autoAlpha: 0, x: -8 }, { autoAlpha: 1, x: 0, duration: .5,
-          onStart: function () { nums.forEach(function (n) { var to = +n.getAttribute('data-to'); NG.count(n, to, { dur: 1.2, dec: to % 1 ? 1 : 0 }); }); } }, i * .35 + .35);
-    });
+    if (!gsap || NG.rm) { set(0); return; }
+    var card = sec.querySelector('.ng-pack__card');
+    gsap.fromTo(card, { y: 60, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1.3, ease: 'expo.out', scrollTrigger: { trigger: card, start: 'top 88%', once: true } });
+    // Con el scroll, el mapa de calor barre el envase de derecha a izquierda y se detiene a la mitad
+    var o = { v: 100 };
+    gsap.to(o, { v: 28, ease: 'none', onUpdate: function () { if (!user) set(o.v); },
+      scrollTrigger: { trigger: view, start: 'top 75%', end: 'center 40%', scrub: .5 } });
   });
 });
 </script>

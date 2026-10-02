@@ -1,21 +1,45 @@
 <style>
-/* ---------- NAV · header fijo + progreso + cursor de fijación + grano ---------- */
+/* ---------- NAV · masthead editorial + barra fija compacta + progreso + cursor de fijación + grano ---------- */
 .ng-skip{position:fixed;left:16px;top:-80px;z-index:10001;background:var(--ng-volt);color:var(--ng-bg)!important;font:500 14px/1 var(--ng-ff);padding:14px 16px;border-radius:4px;transition:top .2s}
 .ng-skip:focus{top:12px}
 .ng-progress{position:fixed;inset:0 0 auto 0;height:2px;z-index:10000;pointer-events:none}
 .ng-progress span{display:block;height:100%;background:var(--ng-volt);transform:scaleX(0);transform-origin:0 50%}
-.ng-nav{position:fixed;inset:0 0 auto 0;z-index:9990;height:var(--ng-nav-h);transition:background .45s var(--ng-ease),border-color .45s var(--ng-ease),transform .5s var(--ng-ease);border-bottom:1px solid transparent}
-.ng-nav.ng-is-scrolled{background:var(--ng-bg);border-bottom-color:var(--ng-line)}
-.ng-nav.ng-is-hidden{transform:translateY(-100%)}
-.ng-nav__bar{height:100%;display:flex;align-items:center;gap:32px}
-.ng-logo{display:inline-flex;align-items:baseline;font-size:21px;letter-spacing:-.035em;line-height:1;min-height:44px;align-items:center;position:relative;z-index:2}
-.ng-logo b{font-weight:700}.ng-logo span{font-weight:300}
-.ng-nav__links{display:flex;gap:4px;margin:0 0 0 auto;padding:0;list-style:none}
-.ng-nav__links a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;font-size:14px;color:var(--ng-tx2);transition:color .3s;position:relative}
-.ng-nav__links a::after{content:"";position:absolute;left:12px;right:12px;bottom:10px;height:1px;background:var(--ng-volt);transform:scaleX(0);transform-origin:0 50%;transition:transform .45s var(--ng-ease)}
-.ng-nav__links a:hover,.ng-nav__links a[aria-current="page"]{color:var(--ng-tx)}
-.ng-nav__links a:hover::after,.ng-nav__links a[aria-current="page"]::after{transform:scaleX(1)}
-.ng-nav__cta{min-height:44px;padding:0 18px}
+.ng-nav{position:fixed;inset:0 0 auto 0;z-index:9990;height:var(--ng-nav-h);background:var(--ng-bg);border-bottom:1.5px solid rgba(242,243,240,.85);transition:transform .5s var(--ng-ease)}
+.ng-nav.ng-is-hidden,.ng-nav.ng-is-off{transform:translateY(-105%)}
+.ng-nav.ng-is-open{transform:none}
+.ng-nav__bar{height:100%;display:flex;align-items:center;gap:28px}
+.ng-logo{display:inline-flex;align-items:center;min-height:44px;position:relative;z-index:2;font:400 28px/1 var(--ng-disp);text-transform:uppercase;letter-spacing:.005em}
+.ng-nav__bar>nav{margin-left:auto}
+.ng-nav__links{display:flex;gap:2px;margin:0;padding:0;list-style:none}
+.ng-nav__links a,.ng-mast__main a:not(.ng-mast__cta){display:inline-flex;align-items:center;min-height:44px;padding:0 12px;font:500 14px/1 var(--ng-ff);text-transform:uppercase;letter-spacing:.04em;color:var(--ng-tx);position:relative}
+.ng-nav__links a::after,.ng-mast__main a:not(.ng-mast__cta)::after{content:"";position:absolute;left:12px;right:12px;bottom:10px;height:1.5px;background:var(--ng-lime);transform:scaleX(0);transform-origin:0 50%;transition:transform .45s var(--ng-ease)}
+.ng-nav__links a:hover::after,.ng-nav__links a[aria-current="page"]::after,.ng-mast__main a:not(.ng-mast__cta):hover::after,.ng-mast__main a[aria-current="page"]::after{transform:scaleX(1)}
+.ng-nav__links a[aria-current="page"],.ng-mast__main a[aria-current="page"]{color:var(--ng-lime)}
+.ng-nav__cta{min-height:40px;padding:0 16px}
+/* ---- Masthead editorial (en el flujo de la página) ---- */
+.ng-mast{position:relative;z-index:5;background:var(--ng-bg);color:var(--ng-tx);padding:clamp(20px,2.2vw,36px) 0 clamp(14px,1.4vw,20px)}
+.ng-mast__head{display:flex;align-items:flex-end;justify-content:space-between;gap:clamp(16px,2vw,32px);margin-bottom:clamp(14px,1.6vw,24px)}
+.ng-mast__logo{display:block;font:400 clamp(64px,12.4vw,224px)/.8 var(--ng-disp);text-transform:uppercase;letter-spacing:-.005em;white-space:nowrap;margin-bottom:-.04em}
+.ng-mast__logo span{color:var(--ng-lime)}
+.ng-mast__tag{font:400 clamp(18px,2.05vw,38px)/.92 var(--ng-disp);text-transform:uppercase;letter-spacing:.005em;flex:0 0 auto;padding-bottom:.1em}
+.ng-mast__tag em{font-style:normal;color:var(--ng-lime)}
+.ng-mast__row{display:flex;align-items:center;gap:4px;border:1.5px solid rgba(242,243,240,.85);min-height:46px;padding:0 6px;margin:0 0 8px;list-style:none}
+.ng-mast__main ul{display:flex;margin:0 0 0 auto;padding:0;list-style:none}
+.ng-mast__cta{display:inline-flex;align-items:center;gap:8px;min-height:34px;margin-left:8px;padding:0 14px;background:var(--ng-lime);color:#0A0B0D!important;font:600 14px/1 var(--ng-ff);text-transform:uppercase;letter-spacing:.03em;transition:background .3s}
+.ng-mast__cta:hover{background:#D9FF4D}
+.ng-mast__sec{justify-content:flex-end}
+.ng-mast__sec a{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 12px;font:500 14px/1 var(--ng-ff);text-transform:uppercase;letter-spacing:.04em;transition:color .3s}
+.ng-mast__sec a:hover{color:var(--ng-lime)}
+.ng-mast__sec a i{font-style:normal;display:inline-block;transition:transform .35s var(--ng-ease)}
+.ng-mast__sec a:hover i{transform:translate(2px,2px)}
+.ng-mast__sec a[target] i,.ng-mast__sec a.is-ext i{transform:none}
+.ng-mast__sec a.is-ext:hover i{transform:translate(2px,-2px)}
+.ng-mast__tags{gap:6px;padding:7px 8px;flex-wrap:wrap}
+.ng-mast__tags a{display:inline-flex;align-items:center;gap:5px;min-height:28px;padding:0 7px;border:1px solid rgba(242,243,240,.7);font:500 10.5px/1 var(--ng-mono);letter-spacing:.03em;text-transform:uppercase;transition:background .25s,color .25s,border-color .25s}
+.ng-mast__tags a small{font-size:10px;color:var(--ng-tx2)}
+.ng-mast__tags a:hover{background:var(--ng-lime);border-color:var(--ng-lime);color:#0A0B0D}
+.ng-mast__tags a:hover small{color:#0A0B0D}
+.ng-mast__burger{display:none}
 .ng-burger{display:none;position:relative;z-index:2;width:48px;height:48px;margin-left:auto;border:1px solid var(--ng-line2);border-radius:var(--ng-r);background:transparent;cursor:pointer;color:var(--ng-tx)}
 .ng-burger i{position:absolute;left:14px;right:14px;height:1px;background:currentColor;transition:transform .5s var(--ng-ease)}
 .ng-burger i:first-child{top:19px}.ng-burger i:last-child{top:27px}
@@ -42,15 +66,61 @@ html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{c
   .ng-nav__links,.ng-nav__cta{display:none}
   .ng-burger{display:block}
   :root{--ng-nav-h:64px}
+  .ng-mast__head{flex-direction:column;align-items:flex-start;gap:12px}
+  .ng-mast__tag br{display:none}
+  .ng-mast__main ul,.ng-mast__main .ng-mast__cta{display:none}
+  .ng-mast__burger{display:inline-flex;align-items:center;gap:10px;margin-left:auto;min-height:44px;padding:0 6px 0 12px;background:none;border:0;color:var(--ng-tx);font:500 14px/1 var(--ng-ff);text-transform:uppercase;letter-spacing:.04em;cursor:pointer}
+  .ng-mast__burger i{display:block;width:18px;height:1.5px;background:currentColor;box-shadow:0 -5px 0 currentColor,0 5px 0 currentColor}
+  .ng-mast__sec,.ng-mast__tags{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;justify-content:flex-start}
+  .ng-mast__sec::-webkit-scrollbar,.ng-mast__tags::-webkit-scrollbar{display:none}
+  .ng-mast__sec a,.ng-mast__tags a{flex:0 0 auto;white-space:nowrap}
 }
 </style>
 
 <a class="ng-skip" href="#ng-main">Saltar al contenido</a>
 <div class="ng-progress" aria-hidden="true"><span></span></div>
-<header class="ng-nav" data-ng="nav">
+<div class="ng-mast" data-ng-mast>
+  <div class="ng-wrap">
+    <div class="ng-mast__head">
+      <a class="ng-mast__logo" href="{{u:index}}" aria-label="Neurogenomic, ir al inicio">Neuro<span>genomic</span></a>
+      <p class="ng-mast__tag">Neurociencia <br>+ IA para <br>decidir con <br><em>evidencia</em></p>
+    </div>
+    <nav class="ng-mast__row ng-mast__main" aria-label="Principal">
+      <a href="{{u:index}}" data-ng-page="index">Inicio</a>
+      <ul>
+        <li><a href="{{u:servicios}}" data-ng-page="servicios">Servicios</a></li>
+        <li><a href="{{u:tecnologia}}" data-ng-page="tecnologia">Tecnología</a></li>
+        <li><a href="{{u:etica}}" data-ng-page="etica">Ética</a></li>
+        <li><a href="{{u:contacto}}" data-ng-page="contacto">Contacto</a></li>
+      </ul>
+      <a class="ng-mast__cta" href="{{u:contacto}}">Empieza hoy <span aria-hidden="true">↗</span></a>
+      <button class="ng-mast__burger" type="button" aria-expanded="false" aria-controls="ng-menu">Menú <i aria-hidden="true"></i></button>
+    </nav>
+    <nav class="ng-mast__row ng-mast__sec" aria-label="Secciones">
+      <a href="{{u:asimira}}">Así mira tu cliente <i aria-hidden="true">↘</i></a>
+      <a href="{{u:packaging}}">Packaging <i aria-hidden="true">↘</i></a>
+      <a href="{{u:senales}}">Señales y herramientas <i aria-hidden="true">↘</i></a>
+      <a href="{{u:caso}}">Caso <i aria-hidden="true">↘</i></a>
+      <a class="is-ext" href="{{u:contacto}}">Agenda un diagnóstico <i aria-hidden="true">↗</i></a>
+    </nav>
+    <ul class="ng-mast__row ng-mast__tags" aria-label="Disciplinas">
+      <li><a href="{{u:tecnologia}}">Eye tracking <small>(C·01)</small></a></li>
+      <li><a href="{{u:tecnologia}}">Facial coding <small>(C·02)</small></a></li>
+      <li><a href="{{u:tecnologia}}">GSR <small>(C·03)</small></a></li>
+      <li><a href="{{u:servicios}}">Branding <small>(01)</small></a></li>
+      <li><a href="{{u:servicios}}">Business Intelligence <small>(02)</small></a></li>
+      <li><a href="{{u:servicios}}">E-commerce <small>(03)</small></a></li>
+      <li><a href="{{u:servicios}}">Marketing digital <small>(04)</small></a></li>
+      <li><a href="{{u:servicios}}">SEO <small>(05)</small></a></li>
+      <li><a href="{{u:servicios}}">Software <small>(06)</small></a></li>
+      <li><a href="{{u:tecnologia}}">Python · SQL · IA <small>(stack)</small></a></li>
+    </ul>
+  </div>
+</div>
+<header class="ng-nav ng-is-off" data-ng="nav">
   <div class="ng-wrap ng-nav__bar">
-    <a class="ng-logo" href="{{u:index}}" aria-label="Neurogenomic, ir al inicio"><b>Neuro</b><span>genomic</span></a>
-    <nav aria-label="Principal">
+    <a class="ng-logo" href="{{u:index}}" aria-label="Neurogenomic, ir al inicio">Neurogenomic</a>
+    <nav aria-label="Principal (barra fija)">
       <ul class="ng-nav__links">
         <li><a href="{{u:index}}" data-ng-page="index">Inicio</a></li>
         <li><a href="{{u:servicios}}" data-ng-page="servicios">Servicios</a></li>
@@ -91,16 +161,33 @@ NG.boot('[data-ng="nav"]', function (nav) {
   // Página actual
   var path = location.pathname;
   var page = de.getAttribute('data-ng-page') || (/servicios/.test(path) ? 'servicios' : /tecnologia/.test(path) ? 'tecnologia' : /contacto/.test(path) ? 'contacto' : 'index');
-  var cur = nav.querySelector('[data-ng-page="' + page + '"]');
-  if (cur) cur.setAttribute('aria-current', 'page');
+  var mast = d.querySelector('[data-ng-mast]'), mastBurger = mast && mast.querySelector('.ng-mast__burger');
+  [].forEach.call(d.querySelectorAll('.ng-nav [data-ng-page="' + page + '"],[data-ng-mast] [data-ng-page="' + page + '"]'), function (a) { a.setAttribute('aria-current', 'page'); });
+
+  // La barra fija solo aparece cuando el masthead sale de la pantalla
+  var mastOut = !mast;
+  if (mast && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { mastOut = !es[0].isIntersecting; nav.classList.toggle('ng-is-off', !mastOut); }, { rootMargin: '-40px 0px 0px 0px' }).observe(mast);
+  } else { nav.classList.remove('ng-is-off'); }
+  // Ajuste fino: el wordmark ocupa exactamente el ancho que le corresponde
+  var logo = mast && mast.querySelector('.ng-mast__logo'), tag = mast && mast.querySelector('.ng-mast__tag');
+  var fit = function () {
+    if (!logo) return;
+    logo.style.fontSize = '';
+    var head = logo.parentNode, stacked = getComputedStyle(head).flexDirection === 'column';
+    var avail = head.clientWidth - (stacked ? 0 : tag.offsetWidth + parseFloat(getComputedStyle(head).columnGap || 0));
+    var fs = parseFloat(getComputedStyle(logo).fontSize), w = logo.scrollWidth;
+    if (w > 0) logo.style.fontSize = Math.min(fs * avail / w, stacked ? 400 : 260) + 'px';
+  };
+  fit(); window.addEventListener('resize', fit);
+  if (d.fonts && d.fonts.ready) d.fonts.ready.then(fit);
 
   // Estado al hacer scroll + barra de progreso
   var onScroll = function () {
     ticking = false;
     var y = window.scrollY || 0, max = d.documentElement.scrollHeight - window.innerHeight;
-    nav.classList.toggle('ng-is-scrolled', y > 40);
-    nav.classList.toggle('ng-is-hidden', !menu.classList.contains('ng-is-open') && y > 600 && y > lastY + 4);
-    if (y < lastY - 4 || y < 600) nav.classList.remove('ng-is-hidden');
+    nav.classList.toggle('ng-is-hidden', !menu.classList.contains('ng-is-open') && y > 900 && y > lastY + 4);
+    if (y < lastY - 4) nav.classList.remove('ng-is-hidden');
     lastY = y;
     if (bar) bar.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
   };
@@ -114,12 +201,14 @@ NG.boot('[data-ng="nav"]', function (nav) {
     menu.classList.toggle('ng-is-open', open);
     burger.setAttribute('aria-expanded', open);
     burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
-    nav.classList.toggle('ng-is-scrolled', open || window.scrollY > 40);
+    if (mastBurger) mastBurger.setAttribute('aria-expanded', open);
+    nav.classList.toggle('ng-is-open', open);
     if (NG.lenis) open ? NG.lenis.stop() : NG.lenis.start();
     de.style.overflow = open ? 'hidden' : '';
     if (open) setTimeout(function () { var a = menu.querySelector('a'); a && a.focus(); }, 60);
   };
   burger.addEventListener('click', function () { setOpen(!menu.classList.contains('ng-is-open')); });
+  if (mastBurger) mastBurger.addEventListener('click', function () { setOpen(true); });
   menu.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
   d.addEventListener('keydown', function (e) {
     if (!menu.classList.contains('ng-is-open')) return;

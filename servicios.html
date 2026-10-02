@@ -30,7 +30,7 @@
 --ng-line:rgba(255,255,255,.08);
 --ng-line2:rgba(255,255,255,.16);
 --ng-tx:#F2F3F0;
---ng-tx2:#8A8F98;
+--ng-tx2:#A0A5B0;
 --ng-volt:#C8F542;
 --ng-lime:#C8FF00;
 --ng-ff:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
@@ -47,17 +47,17 @@ html:has(.ng-sec){scroll-behavior:auto;-webkit-text-size-adjust:100%}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
 .lenis.lenis-stopped{overflow:hidden}
-.ng-sec,.ng-nav,.ng-pre,.ng-foot,.ng-menu{
+.ng-sec,.ng-nav,.ng-mast,.ng-pre,.ng-foot,.ng-menu{
 font-family:var(--ng-ff);color:var(--ng-tx);
 -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
 font-size:16px;line-height:1.55;font-weight:400;
 }
-.ng-sec,.ng-nav,.ng-pre,.ng-foot,.ng-menu,.ng-sec *,.ng-nav *,.ng-pre *,.ng-foot *,.ng-menu *{box-sizing:border-box}
+.ng-sec,.ng-nav,.ng-mast,.ng-pre,.ng-foot,.ng-menu,.ng-sec *,.ng-nav *,.ng-mast *,.ng-pre *,.ng-foot *,.ng-menu *{box-sizing:border-box}
 .ng-sec{position:relative;background:var(--ng-bg);overflow:clip;isolation:isolate}
 .ng-sec :where(h1,h2,h3,h4,p,ul,ol,figure,blockquote){margin:0;padding:0}
 .ng-sec :where(ul,ol){list-style:none}
 .ng-sec :where(img,svg,canvas,picture){display:block;max-width:100%}
-.ng-sec :where(a),.ng-foot :where(a),.ng-nav :where(a){color:inherit;text-decoration:none}
+.ng-sec :where(a),.ng-foot :where(a),.ng-nav :where(a),.ng-mast :where(a){color:inherit;text-decoration:none}
 .ng-sec ::selection,.ng-foot ::selection{background:var(--ng-volt);color:var(--ng-bg)}
 .ng-wrap{width:100%;max-width:var(--ng-max);margin-inline:auto;padding-inline:var(--ng-gut)}
 .ng-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,1.6vw,24px)}
@@ -90,12 +90,13 @@ background:var(--_bg);color:var(--_fg)!important;font:500 15px/1 var(--ng-ff);le
 cursor:pointer;transition:background .35s var(--ng-ease),border-color .35s var(--ng-ease),color .35s var(--ng-ease);
 text-decoration:none;white-space:nowrap;
 }
-.ng-btn:hover{--_bd:var(--ng-tx)}
-.ng-btn--volt{--_bg:var(--ng-volt);--_fg:var(--ng-bg);--_bd:var(--ng-volt)}
-.ng-btn--volt:hover{--_bg:var(--ng-tx);--_bd:var(--ng-tx)}
+.ng-btn{--_bd:rgba(255,255,255,.12)}
+.ng-btn:hover{--_bd:rgba(255,255,255,.4);--_bg:rgba(255,255,255,.04)}
+.ng-btn--volt{--_bg:var(--ng-lime);--_fg:#0A0B0D;--_bd:var(--ng-lime);font-weight:600;box-shadow:0 0 0 0 rgba(200,255,0,0),0 10px 34px -12px rgba(200,255,0,.55);transition:background .35s var(--ng-ease),border-color .35s var(--ng-ease),color .35s var(--ng-ease),box-shadow .45s var(--ng-ease)}
+.ng-btn--volt:hover{--_bg:#D9FF4D;--_bd:#D9FF4D;box-shadow:0 0 0 4px rgba(200,255,0,.16),0 14px 40px -10px rgba(200,255,0,.7)}
 .ng-btn__i{display:inline-block;transition:transform .45s var(--ng-ease)}
 .ng-btn:hover .ng-btn__i{transform:translate(3px,-1px)}
-.ng-sec :focus-visible,.ng-nav :focus-visible,.ng-foot :focus-visible,.ng-menu :focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px;border-radius:2px}
+.ng-sec :focus-visible,.ng-nav :focus-visible,.ng-mast :focus-visible,.ng-foot :focus-visible,.ng-menu :focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px;border-radius:2px}
 .ng-chips{display:flex;flex-wrap:wrap;gap:8px}
 .ng-chip{font:500 11px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-tx);border:1px solid var(--ng-line2);border-radius:4px;padding:8px 10px}
 .ng-marks{position:absolute;inset:0;pointer-events:none}
@@ -132,18 +133,41 @@ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .ng-skip:focus{top:12px}
 .ng-progress{position:fixed;inset:0 0 auto 0;height:2px;z-index:10000;pointer-events:none}
 .ng-progress span{display:block;height:100%;background:var(--ng-volt);transform:scaleX(0);transform-origin:0 50%}
-.ng-nav{position:fixed;inset:0 0 auto 0;z-index:9990;height:var(--ng-nav-h);transition:background .45s var(--ng-ease),border-color .45s var(--ng-ease),transform .5s var(--ng-ease);border-bottom:1px solid transparent}
-.ng-nav.ng-is-scrolled{background:var(--ng-bg);border-bottom-color:var(--ng-line)}
-.ng-nav.ng-is-hidden{transform:translateY(-100%)}
-.ng-nav__bar{height:100%;display:flex;align-items:center;gap:32px}
-.ng-logo{display:inline-flex;align-items:baseline;font-size:21px;letter-spacing:-.035em;line-height:1;min-height:44px;align-items:center;position:relative;z-index:2}
-.ng-logo b{font-weight:700}.ng-logo span{font-weight:300}
-.ng-nav__links{display:flex;gap:4px;margin:0 0 0 auto;padding:0;list-style:none}
-.ng-nav__links a{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;font-size:14px;color:var(--ng-tx2);transition:color .3s;position:relative}
-.ng-nav__links a::after{content:"";position:absolute;left:12px;right:12px;bottom:10px;height:1px;background:var(--ng-volt);transform:scaleX(0);transform-origin:0 50%;transition:transform .45s var(--ng-ease)}
-.ng-nav__links a:hover,.ng-nav__links a[aria-current="page"]{color:var(--ng-tx)}
-.ng-nav__links a:hover::after,.ng-nav__links a[aria-current="page"]::after{transform:scaleX(1)}
-.ng-nav__cta{min-height:44px;padding:0 18px}
+.ng-nav{position:fixed;inset:0 0 auto 0;z-index:9990;height:var(--ng-nav-h);background:var(--ng-bg);border-bottom:1.5px solid rgba(242,243,240,.85);transition:transform .5s var(--ng-ease)}
+.ng-nav.ng-is-hidden,.ng-nav.ng-is-off{transform:translateY(-105%)}
+.ng-nav.ng-is-open{transform:none}
+.ng-nav__bar{height:100%;display:flex;align-items:center;gap:28px}
+.ng-logo{display:inline-flex;align-items:center;min-height:44px;position:relative;z-index:2;font:400 28px/1 var(--ng-disp);text-transform:uppercase;letter-spacing:.005em}
+.ng-nav__bar>nav{margin-left:auto}
+.ng-nav__links{display:flex;gap:2px;margin:0;padding:0;list-style:none}
+.ng-nav__links a,.ng-mast__main a:not(.ng-mast__cta){display:inline-flex;align-items:center;min-height:44px;padding:0 12px;font:500 14px/1 var(--ng-ff);text-transform:uppercase;letter-spacing:.04em;color:var(--ng-tx);position:relative}
+.ng-nav__links a::after,.ng-mast__main a:not(.ng-mast__cta)::after{content:"";position:absolute;left:12px;right:12px;bottom:10px;height:1.5px;background:var(--ng-lime);transform:scaleX(0);transform-origin:0 50%;transition:transform .45s var(--ng-ease)}
+.ng-nav__links a:hover::after,.ng-nav__links a[aria-current="page"]::after,.ng-mast__main a:not(.ng-mast__cta):hover::after,.ng-mast__main a[aria-current="page"]::after{transform:scaleX(1)}
+.ng-nav__links a[aria-current="page"],.ng-mast__main a[aria-current="page"]{color:var(--ng-lime)}
+.ng-nav__cta{min-height:40px;padding:0 16px}
+.ng-mast{position:relative;z-index:5;background:var(--ng-bg);color:var(--ng-tx);padding:clamp(20px,2.2vw,36px) 0 clamp(14px,1.4vw,20px)}
+.ng-mast__head{display:flex;align-items:flex-end;justify-content:space-between;gap:clamp(16px,2vw,32px);margin-bottom:clamp(14px,1.6vw,24px)}
+.ng-mast__logo{display:block;font:400 clamp(64px,12.4vw,224px)/.8 var(--ng-disp);text-transform:uppercase;letter-spacing:-.005em;white-space:nowrap;margin-bottom:-.04em}
+.ng-mast__logo span{color:var(--ng-lime)}
+.ng-mast__tag{font:400 clamp(18px,2.05vw,38px)/.92 var(--ng-disp);text-transform:uppercase;letter-spacing:.005em;flex:0 0 auto;padding-bottom:.1em}
+.ng-mast__tag em{font-style:normal;color:var(--ng-lime)}
+.ng-mast__row{display:flex;align-items:center;gap:4px;border:1.5px solid rgba(242,243,240,.85);min-height:46px;padding:0 6px;margin:0 0 8px;list-style:none}
+.ng-mast__main ul{display:flex;margin:0 0 0 auto;padding:0;list-style:none}
+.ng-mast__cta{display:inline-flex;align-items:center;gap:8px;min-height:34px;margin-left:8px;padding:0 14px;background:var(--ng-lime);color:#0A0B0D!important;font:600 14px/1 var(--ng-ff);text-transform:uppercase;letter-spacing:.03em;transition:background .3s}
+.ng-mast__cta:hover{background:#D9FF4D}
+.ng-mast__sec{justify-content:flex-end}
+.ng-mast__sec a{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 12px;font:500 14px/1 var(--ng-ff);text-transform:uppercase;letter-spacing:.04em;transition:color .3s}
+.ng-mast__sec a:hover{color:var(--ng-lime)}
+.ng-mast__sec a i{font-style:normal;display:inline-block;transition:transform .35s var(--ng-ease)}
+.ng-mast__sec a:hover i{transform:translate(2px,2px)}
+.ng-mast__sec a[target] i,.ng-mast__sec a.is-ext i{transform:none}
+.ng-mast__sec a.is-ext:hover i{transform:translate(2px,-2px)}
+.ng-mast__tags{gap:6px;padding:7px 8px;flex-wrap:wrap}
+.ng-mast__tags a{display:inline-flex;align-items:center;gap:5px;min-height:28px;padding:0 7px;border:1px solid rgba(242,243,240,.7);font:500 10.5px/1 var(--ng-mono);letter-spacing:.03em;text-transform:uppercase;transition:background .25s,color .25s,border-color .25s}
+.ng-mast__tags a small{font-size:10px;color:var(--ng-tx2)}
+.ng-mast__tags a:hover{background:var(--ng-lime);border-color:var(--ng-lime);color:#0A0B0D}
+.ng-mast__tags a:hover small{color:#0A0B0D}
+.ng-mast__burger{display:none}
 .ng-burger{display:none;position:relative;z-index:2;width:48px;height:48px;margin-left:auto;border:1px solid var(--ng-line2);border-radius:var(--ng-r);background:transparent;cursor:pointer;color:var(--ng-tx)}
 .ng-burger i{position:absolute;left:14px;right:14px;height:1px;background:currentColor;transition:transform .5s var(--ng-ease)}
 .ng-burger i:first-child{top:19px}.ng-burger i:last-child{top:27px}
@@ -170,8 +194,16 @@ html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{c
 .ng-nav__links,.ng-nav__cta{display:none}
 .ng-burger{display:block}
 :root{--ng-nav-h:64px}
+.ng-mast__head{flex-direction:column;align-items:flex-start;gap:12px}
+.ng-mast__tag br{display:none}
+.ng-mast__main ul,.ng-mast__main .ng-mast__cta{display:none}
+.ng-mast__burger{display:inline-flex;align-items:center;gap:10px;margin-left:auto;min-height:44px;padding:0 6px 0 12px;background:none;border:0;color:var(--ng-tx);font:500 14px/1 var(--ng-ff);text-transform:uppercase;letter-spacing:.04em;cursor:pointer}
+.ng-mast__burger i{display:block;width:18px;height:1.5px;background:currentColor;box-shadow:0 -5px 0 currentColor,0 5px 0 currentColor}
+.ng-mast__sec,.ng-mast__tags{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;justify-content:flex-start}
+.ng-mast__sec::-webkit-scrollbar,.ng-mast__tags::-webkit-scrollbar{display:none}
+.ng-mast__sec a,.ng-mast__tags a{flex:0 0 auto;white-space:nowrap}
 }
-.ng-ph{padding:calc(var(--ng-nav-h) + clamp(64px,10vw,160px)) 0 clamp(56px,7vw,112px)}
+.ng-ph{padding:clamp(48px,7vw,120px) 0 clamp(56px,7vw,112px);border-top:1px solid var(--ng-line)}
 .ng-ph__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:end}
 .ng-ph__t{grid-column:1/span 11;font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(56px,9vw,170px);line-height:.88;letter-spacing:0;font-weight:400;margin-top:24px;text-wrap:balance}
 .ng-ph__p{grid-column:1/span 6;margin-top:clamp(20px,2.4vw,36px);font-size:clamp(18px,1.5vw,22px);font-weight:300;line-height:1.45}
@@ -259,7 +291,7 @@ html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{c
 .ng-met__st.ng-is-on .ng-met__dot{background:var(--ng-lime);border-color:var(--ng-lime);box-shadow:0 0 0 6px rgba(200,255,0,.12)}
 .ng-met__n{font:500 clamp(48px,5vw,84px)/1 var(--ng-mono);letter-spacing:-.04em;color:var(--ng-tx2);transition:color .4s}
 .ng-met__st.ng-is-on .ng-met__n{color:var(--ng-volt)}
-.ng-met__st h3{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(30px,2.8vw,46px);line-height:.95;letter-spacing:0;font-weight:400;margin:18px 0 12px}
+.ng-met__st h3{font-family:var(--ng-ff);font-size:clamp(22px,2vw,30px);line-height:1.1;letter-spacing:-.02em;font-weight:600;margin:18px 0 12px}
 .ng-met__st p{color:var(--ng-tx2);font-size:15px;max-width:34ch}
 .ng-js .ng-met__st:not(.ng-is-on){opacity:.55}
 @media (max-width:1023px){
@@ -319,6 +351,23 @@ html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{c
 .ng-cta__p{font-size:clamp(18px,1.5vw,22px);font-weight:300;max-width:44ch;color:var(--ng-tx)}
 .ng-cta__btn{margin-top:clamp(32px,4vw,56px);min-height:clamp(64px,7vw,96px);padding:0 clamp(28px,3vw,48px);font-size:clamp(17px,1.4vw,22px);border-radius:999px}
 .ng-cta__btn .ng-btn__t{display:inline-flex;gap:14px;align-items:center}
+.ng-qf{margin-top:clamp(28px,3vw,40px);max-width:560px;border-top:1px solid var(--ng-line);padding-top:clamp(20px,2vw,28px)}
+.ng-qf__l{display:block;font:500 11px/1.4 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx2);margin-bottom:12px}
+.ng-qf__row{display:flex;border:1.5px solid rgba(242,243,240,.7);border-radius:var(--ng-r);overflow:hidden;transition:border-color .3s,box-shadow .3s;background:var(--ng-s1)}
+.ng-qf__row:focus-within{border-color:var(--ng-lime);box-shadow:0 0 0 4px rgba(200,255,0,.12)}
+.ng-qf__row.is-err{border-color:#FF6B57}
+.ng-qf input[type=email]{flex:1 1 auto;min-width:0;min-height:56px;padding:0 16px;border:0;background:transparent;color:var(--ng-tx);font:400 16px/1 var(--ng-ff);outline:0}
+.ng-qf input[type=email]::placeholder{color:var(--ng-tx2)}
+.ng-qf button{flex:0 0 auto;display:inline-flex;align-items:center;gap:10px;padding:0 20px;border:0;background:var(--ng-lime);color:#0A0B0D;font:600 15px/1 var(--ng-ff);cursor:pointer;transition:background .3s}
+.ng-qf button:hover{background:#D9FF4D}
+.ng-qf button[disabled]{opacity:.6;cursor:progress}
+.ng-qf__ck{display:flex;gap:10px;align-items:flex-start;margin-top:12px;color:var(--ng-tx2);font-size:13.5px;line-height:1.45;cursor:pointer}
+.ng-qf__ck input{flex:0 0 auto;width:18px;height:18px;margin:1px 0 0;accent-color:#C8FF00}
+.ng-qf__ck a{color:var(--ng-tx);text-decoration:underline;text-underline-offset:2px}
+.ng-qf__st{min-height:1.4em;margin-top:10px;font:500 12px/1.4 var(--ng-mono);letter-spacing:.04em;color:var(--ng-tx2)}
+.ng-qf__st.is-err{color:#FF8A7A}.ng-qf__st.is-ok{color:var(--ng-lime)}
+.ng-qf.is-sent .ng-qf__row,.ng-qf.is-sent .ng-qf__ck{display:none}
+@media (max-width:479px){.ng-qf__row{flex-direction:column}.ng-qf button{min-height:52px;justify-content:center}}
 @media (max-width:899px){
 .ng-cta{align-items:flex-start}
 .ng-cta__grid{grid-template-columns:1fr}
@@ -757,10 +806,48 @@ html.ng-has-cursor input,html.ng-has-cursor textarea,html.ng-has-cursor select{c
 <body>
 <a class="ng-skip" href="#ng-main">Saltar al contenido</a>
 <div class="ng-progress" aria-hidden="true"><span></span></div>
-<header class="ng-nav" data-ng="nav">
+<div class="ng-mast" data-ng-mast>
+  <div class="ng-wrap">
+    <div class="ng-mast__head">
+      <a class="ng-mast__logo" href="index.html" aria-label="Neurogenomic, ir al inicio">Neuro<span>genomic</span></a>
+      <p class="ng-mast__tag">Neurociencia <br>+ IA para <br>decidir con <br><em>evidencia</em></p>
+    </div>
+    <nav class="ng-mast__row ng-mast__main" aria-label="Principal">
+      <a href="index.html" data-ng-page="index">Inicio</a>
+      <ul>
+        <li><a href="servicios.html" data-ng-page="servicios">Servicios</a></li>
+        <li><a href="tecnologia.html" data-ng-page="tecnologia">Tecnología</a></li>
+        <li><a href="index.html#etica" data-ng-page="etica">Ética</a></li>
+        <li><a href="contacto.html" data-ng-page="contacto">Contacto</a></li>
+      </ul>
+      <a class="ng-mast__cta" href="contacto.html">Empieza hoy <span aria-hidden="true">↗</span></a>
+      <button class="ng-mast__burger" type="button" aria-expanded="false" aria-controls="ng-menu">Menú <i aria-hidden="true"></i></button>
+    </nav>
+    <nav class="ng-mast__row ng-mast__sec" aria-label="Secciones">
+      <a href="index.html#asi-mira">Así mira tu cliente <i aria-hidden="true">↘</i></a>
+      <a href="index.html#packaging">Packaging <i aria-hidden="true">↘</i></a>
+      <a href="index.html#tecnologia">Señales y herramientas <i aria-hidden="true">↘</i></a>
+      <a href="index.html#caso">Caso <i aria-hidden="true">↘</i></a>
+      <a class="is-ext" href="contacto.html">Agenda un diagnóstico <i aria-hidden="true">↗</i></a>
+    </nav>
+    <ul class="ng-mast__row ng-mast__tags" aria-label="Disciplinas">
+      <li><a href="tecnologia.html">Eye tracking <small>(C·01)</small></a></li>
+      <li><a href="tecnologia.html">Facial coding <small>(C·02)</small></a></li>
+      <li><a href="tecnologia.html">GSR <small>(C·03)</small></a></li>
+      <li><a href="servicios.html">Branding <small>(01)</small></a></li>
+      <li><a href="servicios.html">Business Intelligence <small>(02)</small></a></li>
+      <li><a href="servicios.html">E-commerce <small>(03)</small></a></li>
+      <li><a href="servicios.html">Marketing digital <small>(04)</small></a></li>
+      <li><a href="servicios.html">SEO <small>(05)</small></a></li>
+      <li><a href="servicios.html">Software <small>(06)</small></a></li>
+      <li><a href="tecnologia.html">Python · SQL · IA <small>(stack)</small></a></li>
+    </ul>
+  </div>
+</div>
+<header class="ng-nav ng-is-off" data-ng="nav">
   <div class="ng-wrap ng-nav__bar">
-    <a class="ng-logo" href="index.html" aria-label="Neurogenomic, ir al inicio"><b>Neuro</b><span>genomic</span></a>
-    <nav aria-label="Principal">
+    <a class="ng-logo" href="index.html" aria-label="Neurogenomic, ir al inicio">Neurogenomic</a>
+    <nav aria-label="Principal (barra fija)">
       <ul class="ng-nav__links">
         <li><a href="index.html" data-ng-page="index">Inicio</a></li>
         <li><a href="servicios.html" data-ng-page="servicios">Servicios</a></li>
@@ -801,16 +888,33 @@ NG.boot('[data-ng="nav"]', function (nav) {
   // Página actual
   var path = location.pathname;
   var page = de.getAttribute('data-ng-page') || (/servicios/.test(path) ? 'servicios' : /tecnologia/.test(path) ? 'tecnologia' : /contacto/.test(path) ? 'contacto' : 'index');
-  var cur = nav.querySelector('[data-ng-page="' + page + '"]');
-  if (cur) cur.setAttribute('aria-current', 'page');
+  var mast = d.querySelector('[data-ng-mast]'), mastBurger = mast && mast.querySelector('.ng-mast__burger');
+  [].forEach.call(d.querySelectorAll('.ng-nav [data-ng-page="' + page + '"],[data-ng-mast] [data-ng-page="' + page + '"]'), function (a) { a.setAttribute('aria-current', 'page'); });
+
+  // La barra fija solo aparece cuando el masthead sale de la pantalla
+  var mastOut = !mast;
+  if (mast && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { mastOut = !es[0].isIntersecting; nav.classList.toggle('ng-is-off', !mastOut); }, { rootMargin: '-40px 0px 0px 0px' }).observe(mast);
+  } else { nav.classList.remove('ng-is-off'); }
+  // Ajuste fino: el wordmark ocupa exactamente el ancho que le corresponde
+  var logo = mast && mast.querySelector('.ng-mast__logo'), tag = mast && mast.querySelector('.ng-mast__tag');
+  var fit = function () {
+    if (!logo) return;
+    logo.style.fontSize = '';
+    var head = logo.parentNode, stacked = getComputedStyle(head).flexDirection === 'column';
+    var avail = head.clientWidth - (stacked ? 0 : tag.offsetWidth + parseFloat(getComputedStyle(head).columnGap || 0));
+    var fs = parseFloat(getComputedStyle(logo).fontSize), w = logo.scrollWidth;
+    if (w > 0) logo.style.fontSize = Math.min(fs * avail / w, stacked ? 400 : 260) + 'px';
+  };
+  fit(); window.addEventListener('resize', fit);
+  if (d.fonts && d.fonts.ready) d.fonts.ready.then(fit);
 
   // Estado al hacer scroll + barra de progreso
   var onScroll = function () {
     ticking = false;
     var y = window.scrollY || 0, max = d.documentElement.scrollHeight - window.innerHeight;
-    nav.classList.toggle('ng-is-scrolled', y > 40);
-    nav.classList.toggle('ng-is-hidden', !menu.classList.contains('ng-is-open') && y > 600 && y > lastY + 4);
-    if (y < lastY - 4 || y < 600) nav.classList.remove('ng-is-hidden');
+    nav.classList.toggle('ng-is-hidden', !menu.classList.contains('ng-is-open') && y > 900 && y > lastY + 4);
+    if (y < lastY - 4) nav.classList.remove('ng-is-hidden');
     lastY = y;
     if (bar) bar.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
   };
@@ -824,12 +928,14 @@ NG.boot('[data-ng="nav"]', function (nav) {
     menu.classList.toggle('ng-is-open', open);
     burger.setAttribute('aria-expanded', open);
     burger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
-    nav.classList.toggle('ng-is-scrolled', open || window.scrollY > 40);
+    if (mastBurger) mastBurger.setAttribute('aria-expanded', open);
+    nav.classList.toggle('ng-is-open', open);
     if (NG.lenis) open ? NG.lenis.stop() : NG.lenis.start();
     de.style.overflow = open ? 'hidden' : '';
     if (open) setTimeout(function () { var a = menu.querySelector('a'); a && a.focus(); }, 60);
   };
   burger.addEventListener('click', function () { setOpen(!menu.classList.contains('ng-is-open')); });
+  if (mastBurger) mastBurger.addEventListener('click', function () { setOpen(true); });
   menu.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
   d.addEventListener('keydown', function (e) {
     if (!menu.classList.contains('ng-is-open')) return;
@@ -1191,6 +1297,16 @@ NG.boot('[data-ng="why"]', function (sec) {
       <h2 class="ng-cta__t" id="ng-cta-title" data-ng-split>¿Construimos tu próxima decisión <span class="ng-hl">con evidencia?</span></h2>
       <p class="ng-cta__p" data-ng-reveal>Cuéntanos qué quieres evaluar: una marca, una campaña, un packaging o un sitio web. Revisamos el desafío y te proponemos el método adecuado.</p>
       <a class="ng-btn ng-btn--volt ng-cta__btn" href="contacto.html" data-ng-magnet><span class="ng-btn__t">Agendar diagnóstico <span class="ng-btn__i" aria-hidden="true">↗</span></span></a>
+      <form class="ng-qf" novalidate data-endpoint="https://formsubmit.co/ajax/cristiangm3005@gmail.com" aria-describedby="ng-qf-st">
+        <label class="ng-qf__l" for="ng-qf-email">¿Sin tiempo? Déjanos tu correo y te escribimos</label>
+        <div class="ng-qf__row">
+          <input id="ng-qf-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="tu@empresa.cl" required>
+          <button type="submit">Agendar demo <span aria-hidden="true">→</span></button>
+        </div>
+        <label class="ng-qf__ck"><input type="checkbox" name="consentimiento" required> <span>Acepto que Neurogenomic use este correo solo para responder mi solicitud (<a href="/privacidad/">privacidad</a>).</span></label>
+        <div class="ng-sr" aria-hidden="true"><label for="ng-qf-hp">No completar</label><input id="ng-qf-hp" name="_honey" type="text" tabindex="-1" autocomplete="off"></div>
+        <p class="ng-qf__st" id="ng-qf-st" role="status" aria-live="polite"></p>
+      </form>
     </div>
     <figure class="ng-cta__fig">
       <div class="ng-cta__tilt">
@@ -1208,6 +1324,30 @@ NG.boot('[data-ng="why"]', function (sec) {
 
 <script>
 NG.boot('[data-ng="cta"]', function (sec) {
+  /* Micro-formulario: solo correo + consentimiento → FormSubmit (mismo destino que el formulario de contacto) */
+  (function (f) {
+    if (!f) return;
+    var em = f.querySelector('input[type=email]'), ck = f.querySelector('input[name=consentimiento]'), st = f.querySelector('.ng-qf__st'), bt = f.querySelector('button'), row = f.querySelector('.ng-qf__row');
+    var say = function (m, cls) { st.textContent = m; st.className = 'ng-qf__st' + (cls ? ' ' + cls : ''); };
+    em.addEventListener('input', function () { row.classList.remove('is-err'); em.removeAttribute('aria-invalid'); if (st.classList.contains('is-err')) say(''); });
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (f.querySelector('[name=_honey]').value) return;
+      var v = em.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) { row.classList.add('is-err'); em.setAttribute('aria-invalid', 'true'); say('Escribe un correo válido, por ejemplo nombre@empresa.cl.', 'is-err'); em.focus(); return; }
+      if (!ck.checked) { say('Necesitamos tu autorización para responderte.', 'is-err'); ck.focus(); return; }
+      bt.disabled = true; say('Enviando…');
+      var ep = f.getAttribute('data-endpoint');
+      var payload = { _subject: 'Solicitud rápida de demo · ' + v, _template: 'table', _captcha: 'false', _replyto: v,
+        Correo: v, Origen: 'Micro-formulario del CTA final', Consentimiento: 'Sí', 'Página': location.href };
+      var p = ep ? fetch(ep, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) === 'false') throw new Error(j.message || r.status); }); })
+        : new Promise(function (r) { setTimeout(r, 600); });
+      p.then(function () { f.classList.add('is-sent'); say('Listo. Te escribiremos a ' + v + ' para coordinar la demo.', 'is-ok'); })
+       .catch(function () { bt.disabled = false; say('No pudimos enviar tu correo. Inténtalo de nuevo o usa el formulario completo.', 'is-err'); });
+    });
+  })(sec.querySelector('.ng-qf'));
+
   var D = {"btn":[0.4497,0.7093],"btn_l":[0.3163,0.6956],"btn_r":[0.5879,0.7236],"title":[0.4497,0.2894],"total":[0.4712,0.5179],"screen":[[0.3566,0.1575],[0.6721,0.1681],[0.5992,0.8256],[0.2844,0.7893]]}, P = function (k) { return [D[k][0] * 920, D[k][1] * 1070]; };
   var fig = sec.querySelector('.ng-cta__fig'), tilt = sec.querySelector('.ng-cta__tilt');
   var gaze = sec.querySelector('.ng-cta__gaze'), halo = sec.querySelector('.ng-cta__halo'), trail = sec.querySelector('.ng-cta__trail');

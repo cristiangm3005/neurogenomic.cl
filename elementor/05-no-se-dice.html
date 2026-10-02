@@ -14,7 +14,7 @@
 --ng-line:rgba(255,255,255,.08);
 --ng-line2:rgba(255,255,255,.16);
 --ng-tx:#F2F3F0;
---ng-tx2:#8A8F98;
+--ng-tx2:#A0A5B0;
 --ng-volt:#C8F542;
 --ng-lime:#C8FF00;
 --ng-ff:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
@@ -31,17 +31,17 @@ html:has(.ng-sec){scroll-behavior:auto;-webkit-text-size-adjust:100%}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
 .lenis.lenis-stopped{overflow:hidden}
-.ng-sec,.ng-nav,.ng-pre,.ng-foot,.ng-menu{
+.ng-sec,.ng-nav,.ng-mast,.ng-pre,.ng-foot,.ng-menu{
 font-family:var(--ng-ff);color:var(--ng-tx);
 -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
 font-size:16px;line-height:1.55;font-weight:400;
 }
-.ng-sec,.ng-nav,.ng-pre,.ng-foot,.ng-menu,.ng-sec *,.ng-nav *,.ng-pre *,.ng-foot *,.ng-menu *{box-sizing:border-box}
+.ng-sec,.ng-nav,.ng-mast,.ng-pre,.ng-foot,.ng-menu,.ng-sec *,.ng-nav *,.ng-mast *,.ng-pre *,.ng-foot *,.ng-menu *{box-sizing:border-box}
 .ng-sec{position:relative;background:var(--ng-bg);overflow:clip;isolation:isolate}
 .ng-sec :where(h1,h2,h3,h4,p,ul,ol,figure,blockquote){margin:0;padding:0}
 .ng-sec :where(ul,ol){list-style:none}
 .ng-sec :where(img,svg,canvas,picture){display:block;max-width:100%}
-.ng-sec :where(a),.ng-foot :where(a),.ng-nav :where(a){color:inherit;text-decoration:none}
+.ng-sec :where(a),.ng-foot :where(a),.ng-nav :where(a),.ng-mast :where(a){color:inherit;text-decoration:none}
 .ng-sec ::selection,.ng-foot ::selection{background:var(--ng-volt);color:var(--ng-bg)}
 .ng-wrap{width:100%;max-width:var(--ng-max);margin-inline:auto;padding-inline:var(--ng-gut)}
 .ng-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,1.6vw,24px)}
@@ -74,12 +74,13 @@ background:var(--_bg);color:var(--_fg)!important;font:500 15px/1 var(--ng-ff);le
 cursor:pointer;transition:background .35s var(--ng-ease),border-color .35s var(--ng-ease),color .35s var(--ng-ease);
 text-decoration:none;white-space:nowrap;
 }
-.ng-btn:hover{--_bd:var(--ng-tx)}
-.ng-btn--volt{--_bg:var(--ng-volt);--_fg:var(--ng-bg);--_bd:var(--ng-volt)}
-.ng-btn--volt:hover{--_bg:var(--ng-tx);--_bd:var(--ng-tx)}
+.ng-btn{--_bd:rgba(255,255,255,.12)}
+.ng-btn:hover{--_bd:rgba(255,255,255,.4);--_bg:rgba(255,255,255,.04)}
+.ng-btn--volt{--_bg:var(--ng-lime);--_fg:#0A0B0D;--_bd:var(--ng-lime);font-weight:600;box-shadow:0 0 0 0 rgba(200,255,0,0),0 10px 34px -12px rgba(200,255,0,.55);transition:background .35s var(--ng-ease),border-color .35s var(--ng-ease),color .35s var(--ng-ease),box-shadow .45s var(--ng-ease)}
+.ng-btn--volt:hover{--_bg:#D9FF4D;--_bd:#D9FF4D;box-shadow:0 0 0 4px rgba(200,255,0,.16),0 14px 40px -10px rgba(200,255,0,.7)}
 .ng-btn__i{display:inline-block;transition:transform .45s var(--ng-ease)}
 .ng-btn:hover .ng-btn__i{transform:translate(3px,-1px)}
-.ng-sec :focus-visible,.ng-nav :focus-visible,.ng-foot :focus-visible,.ng-menu :focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px;border-radius:2px}
+.ng-sec :focus-visible,.ng-nav :focus-visible,.ng-mast :focus-visible,.ng-foot :focus-visible,.ng-menu :focus-visible{outline:2px solid var(--ng-lime);outline-offset:3px;border-radius:2px}
 .ng-chips{display:flex;flex-wrap:wrap;gap:8px}
 .ng-chip{font:500 11px/1 var(--ng-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ng-tx);border:1px solid var(--ng-line2);border-radius:4px;padding:8px 10px}
 .ng-marks{position:absolute;inset:0;pointer-events:none}
@@ -474,11 +475,11 @@ NG.boot('[data-ng="said"]', function (sec) {
     for (var s = 0; s <= T; s++) {
       c.strokeStyle = 'rgba(255,255,255,' + (s % 2 ? .04 : .08) + ')';
       c.beginPath(); c.moveTo(X(s) + .5, 0); c.lineTo(X(s) + .5, h - 16); c.stroke();
-      if (s % 2 === 0) { c.fillStyle = 'rgba(138,143,152,.9)'; c.fillText(s + 's', X(s) - (s === T ? 16 : 0), h - 6); }
+      if (s % 2 === 0) { c.fillStyle = 'rgba(160,165,176,.9)'; c.fillText(s + 's', X(s) - (s === T ? 16 : 0), h - 6); }
     }
     rows.forEach(function (r) {
       var y = r[1] * (h - 16);
-      c.fillStyle = 'rgba(138,143,152,.95)'; c.fillText(r[0], 0, y);
+      c.fillStyle = 'rgba(160,165,176,.95)'; c.fillText(r[0], 0, y);
       c.strokeStyle = 'rgba(255,255,255,.06)'; c.beginPath(); c.moveTo(x0, y + .5); c.lineTo(x1, y + .5); c.stroke();
     });
     var on = function (t) { return tt >= t; };
@@ -499,7 +500,7 @@ NG.boot('[data-ng="said"]', function (sec) {
       c.save(); c.translate(x, fy); c.rotate(Math.PI / 4); c.scale(k, k);
       c.fillStyle = '#C8FF00'; c.fillRect(-5, -5, 10, 10); c.restore();
       c.fillStyle = 'rgba(242,243,240,' + (.85 * k) + ')'; c.fillText(f[1], x + 10, fy - 9);
-      if (w > 360) { c.fillStyle = 'rgba(138,143,152,' + (.9 * k) + ')'; c.fillText(f[2], x + 10, fy + 9); }
+      if (w > 360) { c.fillStyle = 'rgba(160,165,176,' + (.9 * k) + ')'; c.fillText(f[2], x + 10, fy + 9); }
     });
     // Piel: inicio de respuesta electrodérmica (SCR) como espigas
     var sy = rows[2][1] * (h - 16), sh = (rows[2][1] - rows[1][1]) * (h - 16) * .8;

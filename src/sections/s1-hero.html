@@ -1,6 +1,6 @@
 <style>
 /* ---------- S1 · HERO · "Todos miran. Nosotros medimos." · fijación sobre el ojo + scanpath ---------- */
-.ng-hero{min-height:100vh;min-height:100svh;display:flex;align-items:flex-end;padding:calc(var(--ng-nav-h) + 40px) 0 clamp(40px,5vw,72px);background:#000}
+.ng-hero{min-height:78vh;min-height:78svh;display:flex;align-items:flex-end;padding:96px 0 clamp(40px,5vw,72px);background:#000;border-top:1px solid var(--ng-line)}
 .ng-hero__quote{position:absolute;right:var(--ng-gut);top:50%;translate:0 -50%;display:flex;gap:16px;align-items:stretch;z-index:1}
 .ng-hero__quote::before{content:"";flex:0 0 6px;background:var(--ng-tx)}
 .ng-hero__quote p{font-family:var(--ng-disp);text-transform:uppercase;font-size:clamp(26px,2.6vw,46px);line-height:.95;color:var(--ng-lime)}
@@ -9,7 +9,7 @@
 .ng-hero__reticle line{stroke:var(--ng-lime);stroke-width:1}
 .ng-hero__reticle text{font-family:var(--ng-mono);font-size:10px;letter-spacing:1px;fill:var(--ng-lime)}
 .ng-hero__trail{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
-.ng-hero__hud{position:absolute;inset:calc(var(--ng-nav-h) + 12px) var(--ng-gut) 18px;pointer-events:none;font:500 11px/1.5 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx)}
+.ng-hero__hud{position:absolute;inset:18px var(--ng-gut) 18px;pointer-events:none;font:500 11px/1.5 var(--ng-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ng-tx)}
 .ng-hero__hud>span{position:absolute;display:flex;gap:14px;align-items:center;text-shadow:0 1px 8px rgba(0,0,0,.6)}
 .ng-hero__hud .ng-hero__tl{top:0;left:0}.ng-hero__hud .ng-hero__tr{top:0;right:0}.ng-hero__hud .ng-hero__br{bottom:0;right:0}
 .ng-rec{display:inline-flex;align-items:center;gap:8px}
@@ -24,13 +24,15 @@
 .ng-hero__ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:clamp(24px,2.6vw,36px)}
 .ng-hero__strip{margin-top:clamp(28px,3.4vw,48px);max-width:640px}
 @media (max-width:899px){
-  .ng-hero{flex-direction:column;align-items:stretch;padding-top:var(--ng-nav-h)}
+  .ng-hero{flex-direction:column;align-items:stretch;padding-top:56px;min-height:0}
   .ng-hero{padding-bottom:48px}
-  .ng-hero__quote{position:relative;right:auto;top:auto;translate:none;margin:auto var(--ng-gut) 28px;padding-top:56px}
-  .ng-hero__hud{inset:calc(var(--ng-nav-h) + 12px) var(--ng-gut) auto}
+  .ng-hero__quote{position:relative;right:auto;top:auto;translate:none;margin:0 var(--ng-gut) 28px}
+  .ng-hero__hud{inset:16px var(--ng-gut) auto}
   .ng-hero__hud .ng-hero__tr,.ng-hero__hud .ng-hero__br{display:none}
 }
 @media (max-width:480px){.ng-hero__ctas .ng-btn{flex:1 1 100%}}
+/* Táctil: sin retícula y con menos fijaciones por segundo (ahorra batería y FPS en equipos modestos) */
+@media (hover:none),(pointer:coarse){.ng-hero__reticle{display:none}}
 </style>
 
 <section class="ng-sec ng-hero" id="inicio" aria-labelledby="ng-hero-title" data-ng="hero">
@@ -107,17 +109,18 @@ NG.boot('[data-ng="hero"]', function (sec) {
     return [r.left - sr.left + a[1] * r.width, r.top - sr.top + a[2] * r.height];
   };
   /* Retícula que sigue la fijación actual con inercia (sacada rápida + asentamiento) */
-  var rx = -200, ry = -200, rs = 1;
+  var rx = -200, ry = -200, rs = 1, fn = 0;
   var draw = function (t) {
+    if (!NG.fine && !NG.rm && (fn++ & 1)) return; // táctil: 30 fps bastan para una estela que se desvanece
     var c = cv.ctx, w = cv.w, h = cv.h;
     if (t - lastMouse > 1800 && t > nextAuto) {
       var a = toSec(aoiEls[ai++ % aoiEls.length]);
       var x = a[0] + (Math.random() - .5) * 14, y = a[1] + (Math.random() - .5) * 14;
       addFix(x, y, t); last.d = 140 + Math.random() * 260;
-      nextAuto = t + 320 + Math.random() * 520;
+      nextAuto = t + (NG.fine ? 320 + Math.random() * 520 : 700 + Math.random() * 700);
       xy.textContent = 'X ' + (x / w).toFixed(3) + ' · Y ' + (y / h).toFixed(3);
     }
-    if (last) {
+    if (last && NG.fine) {
       var k = Math.hypot(last.x - rx, last.y - ry) > 300 ? 1 : .22;
       rx += (last.x - rx) * k; ry += (last.y - ry) * k;
       rs += ((.85 + last.d / 900) - rs) * .1;

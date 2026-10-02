@@ -6,10 +6,10 @@ Recortes de las piezas de campaña de Neurogenomic, sin el texto incrustado. Se 
 
 | Archivo | Tamaño | Dónde se usa |
 |---|---|---|
-| `ref-can-570.avif / .webp` | 570×1590 | Sección «Tu packaging tiene una mirada para ganar» y Servicio 01 · Branding |
+| `ref-can-570.avif / .webp` | 570×1590 | Servicio 01 · Branding (página Servicios) |
 | `ref-bottle-520.avif / .webp` | 520×1350 | Servicio 04 · Marketing Digital (página Servicios) |
 | `ng-pouch-960/1600/2400` | 2400×1500 | «Así mira tu cliente» (bolsa de café kraft, render fotográfico) y monitor C·01 de Tecnología |
-| `ng-box-a/b/c-600/1200` | 1200×1520 | Caso: tres versiones de packaging (render fotográfico) |
+| `ng-box-b-600/1200` | 1200×1520 | «Tu packaging tiene una mirada para ganar»: comparador foto ⇄ mapa de calor (render fotográfico) |
 | `ng-phone-600/920` | 920×1070 | CTA final: tienda ficticia en un teléfono (render fotográfico) |
 | `seq/f_000…079.webp` | 80 cuadros | «Así mira tu cliente»: demo scroll-driven |
 
