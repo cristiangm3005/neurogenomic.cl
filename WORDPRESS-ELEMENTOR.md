@@ -6,6 +6,20 @@ Guía paso a paso para montar las 4 páginas (Inicio, Servicios, Tecnología y C
 
 ---
 
+## La forma más fácil: subir el kit con las 4 páginas (un solo archivo)
+
+Archivo: **`neurogenomic-kit-elementor.zip`**. Trae Inicio, Servicios, Tecnología y Contacto ya armadas.
+
+1. WordPress › **Elementor › Herramientas › Importar/Exportar kit** (en algunas versiones: *Plantillas › Kits de sitio*).
+2. En **Importar un kit**, pulsa **Comenzar importación** y sube `neurogenomic-kit-elementor.zip`.
+3. Deja marcado **Contenido › Páginas** y pulsa **Importar**. No incluye "Ajustes del sitio", así que no cambia tus colores ni tipografías globales.
+4. Al terminar, ve a **Ajustes › Lectura** y comprueba que "Tu página de inicio" sea **Inicio**. Si no lo es, selecciónala.
+5. Ve a **Ajustes › Enlaces permanentes**, elige **Nombre de la entrada** y guarda. Así funcionan `/servicios/`, `/tecnologia/` y `/contacto/`.
+6. Si usas un plugin de caché, vacíala.
+
+Probado en WordPress 7.1.2 con Elementor 3.33 y Pro 3.33.1 (tema Hello Elementor): sin errores, con las 4 páginas, las fuentes, las imágenes, la historia 3D y las animaciones de scroll funcionando.
+Si ya existían páginas con esos nombres, WordPress crea copias (por ejemplo `servicios-2`). En ese caso, borra las antiguas antes de importar.
+
 ## Opción rápida: importar las páginas como plantillas JSON
 
 **Esta es la vía recomendada.** Reemplaza los pasos 2, 3 y 4 de abajo: no hay que pegar los bloques uno por uno ni subir la carpeta `img/`. Cada página es un archivo `.json` en `elementor-json/`:
