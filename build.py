@@ -44,7 +44,15 @@ IMG_CDN = f"https://cdn.jsdelivr.net/gh/cristiangm3005/neurogenomic.cl@{IMG_SHA}
 
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
          '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
-         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">')
+         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800&family=Martian+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">')
+
+# Tipografías incrustadas (latin, incluye tildes y ñ). Los títulos usan el peso 800 de Big Shoulders Display
+# declarado como 400 (así funciona con los font-weight:400 de los titulares); el texto en 300 usa el 400.
+FACES = [("Big Shoulders Display", "big-shoulders-display-latin-800-normal", 400),
+         ("Schibsted Grotesk", "schibsted-grotesk-latin-400-normal", 300), ("Schibsted Grotesk", "schibsted-grotesk-latin-400-normal", 400),
+         ("Schibsted Grotesk", "schibsted-grotesk-latin-500-normal", 500), ("Schibsted Grotesk", "schibsted-grotesk-latin-600-normal", 600),
+         ("Schibsted Grotesk", "schibsted-grotesk-latin-700-normal", 700),
+         ("Martian Mono", "martian-mono-latin-400-normal", 400), ("Martian Mono", "martian-mono-latin-500-normal", 500)]
 
 # ---------------------------------------------------------------- Imágenes
 # key: (n, archivo, ancho, alto, proporción, alt, prompt, sizes, eager, retrato_movil)
@@ -217,7 +225,7 @@ SPECS = {
       <rect x="144" y="196" width="84" height="8" rx="4" fill="#3A3F46"/><rect x="144" y="212" width="60" height="6" rx="3" fill="#2A2E33"/>
       <rect x="144" y="232" width="48" height="12" rx="3" fill="#F2F3F0" opacity=".7"/>
       <rect x="144" y="256" width="112" height="6" rx="3" fill="#2A2E33"/><rect x="144" y="268" width="90" height="6" rx="3" fill="#2A2E33"/>
-      <rect x="144" y="296" width="112" height="30" rx="6" fill="#C8F542"/><text x="200" y="316" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-size="11" font-weight="600" fill="#0A0B0D">PAGAR</text>"""),
+      <rect x="144" y="296" width="112" height="30" rx="6" fill="#C8F542"/><text x="200" y="316" text-anchor="middle" font-family="Martian Mono,monospace" font-size="11" font-weight="600" fill="#0A0B0D">PAGAR</text>"""),
     "bi": dict(label="Predicción · Señal", co=(.62, .37), heat=[[.62, .37, .1, 1], [.3, .2, .07, .5], [.5, .7, .08, .45]], svg=f"""
       <rect x="40" y="60" width="320" height="300" rx="10" {_G}/>
       <rect x="60" y="80" width="88" height="44" rx="4" fill="#16191D"/><rect x="156" y="80" width="88" height="44" rx="4" fill="#16191D"/><rect x="252" y="80" width="88" height="44" rx="4" fill="#16191D"/>
@@ -242,7 +250,7 @@ SPECS = {
     "software": dict(label="IA nativa · Integrada", co=(.5, .48), heat=[[.5, .48, .11, 1], [.3, .27, .06, .45], [.45, .74, .06, .35]], svg=f"""
       <rect x="40" y="60" width="320" height="300" rx="10" {_G}/><path d="M40 90 H360" stroke="#3A3F46" stroke-width="2"/>
       <circle cx="58" cy="75" r="4" fill="#3A3F46"/><circle cx="72" cy="75" r="4" fill="#3A3F46"/><circle cx="86" cy="75" r="4" fill="#3A3F46"/>
-      <g font-family="IBM Plex Mono,monospace" font-size="11" fill="#5A5F66"><text x="56" y="118">01</text><text x="56" y="140">02</text><text x="56" y="162">03</text><text x="56" y="184">04</text><text x="56" y="206">05</text><text x="56" y="228">06</text><text x="56" y="250">07</text><text x="56" y="272">08</text><text x="56" y="294">09</text><text x="56" y="316">10</text></g>
+      <g font-family="Martian Mono,monospace" font-size="11" fill="#5A5F66"><text x="56" y="118">01</text><text x="56" y="140">02</text><text x="56" y="162">03</text><text x="56" y="184">04</text><text x="56" y="206">05</text><text x="56" y="228">06</text><text x="56" y="250">07</text><text x="56" y="272">08</text><text x="56" y="294">09</text><text x="56" y="316">10</text></g>
       <g><rect x="84" y="110" width="70" height="8" rx="3" fill="#8A8F98"/><rect x="160" y="110" width="90" height="8" rx="3" fill="#3A3F46"/>
       <rect x="100" y="132" width="110" height="8" rx="3" fill="#3A3F46"/><rect x="100" y="154" width="60" height="8" rx="3" fill="#8A8F98"/><rect x="166" y="154" width="120" height="8" rx="3" fill="#3A3F46"/>
       <rect x="84" y="186" width="250" height="56" rx="4" fill="rgba(200,245,66,.06)" stroke="#C8F542"/>
@@ -579,11 +587,7 @@ def build_elementor_json():
     faces = "".join(
         f"@font-face{{font-family:'{fam}';font-style:normal;font-weight:{wt};font-display:swap;"
         f"src:url(data:font/woff2;base64,{base64.b64encode((vend / 'fonts' / (fn + '.woff2')).read_bytes()).decode()}) format('woff2')}}"
-        for fam, fn, wt in [("Anton", "anton-latin-400-normal", 400),
-                            ("Space Grotesk", "space-grotesk-latin-300-normal", 300), ("Space Grotesk", "space-grotesk-latin-400-normal", 400),
-                            ("Space Grotesk", "space-grotesk-latin-500-normal", 500), ("Space Grotesk", "space-grotesk-latin-600-normal", 600),
-                            ("Space Grotesk", "space-grotesk-latin-700-normal", 700),
-                            ("IBM Plex Mono", "ibm-plex-mono-latin-400-normal", 400), ("IBM Plex Mono", "ibm-plex-mono-latin-500-normal", 500)])
+        for fam, fn, wt in FACES)
     libs = "".join(f"<script>{js(f)}</script>\n" for f in ("gsap.min.js", "ScrollTrigger.min.js", "lenis.min.js"))
     nucleo = ("<style>" + faces + "</style>\n" + libs + "<style>\n" + tokens + "\n" + el_css + "\n</style>\n<script>\n" + core + "\n</script>")
     files = []
@@ -683,11 +687,7 @@ def build_standalone(src="index.html", out="neurogenomic-index.html"):
     vend = ROOT / "vendor"
     if vend.exists():
         faces = []
-        for fam, fn, wt in [("Anton", "anton-latin-400-normal", 400),
-                            ("Space Grotesk", "space-grotesk-latin-300-normal", 300), ("Space Grotesk", "space-grotesk-latin-400-normal", 400),
-                            ("Space Grotesk", "space-grotesk-latin-500-normal", 500), ("Space Grotesk", "space-grotesk-latin-600-normal", 600),
-                            ("Space Grotesk", "space-grotesk-latin-700-normal", 700),
-                            ("IBM Plex Mono", "ibm-plex-mono-latin-400-normal", 400), ("IBM Plex Mono", "ibm-plex-mono-latin-500-normal", 500)]:
+        for fam, fn, wt in FACES:
             b64 = base64.b64encode((vend / "fonts" / f"{fn}.woff2").read_bytes()).decode()
             faces.append(f"@font-face{{font-family:'{fam}';font-style:normal;font-weight:{wt};font-display:swap;src:url(data:font/woff2;base64,{b64}) format('woff2')}}")
         s = s.replace(FONTS, "<style>" + "".join(faces) + "</style>", 1)

@@ -68,7 +68,7 @@ NG.boot('[data-ng="said"]', function (sec) {
     var x0 = LW, x1 = w - 6, X = function (t) { return x0 + (x1 - x0) * t / T; };
     var tt = p * T;
     c.clearRect(0, 0, w, h);
-    c.font = '500 10px "IBM Plex Mono", monospace'; c.textBaseline = 'middle';
+    c.font = '500 10px "Martian Mono", monospace'; c.textBaseline = 'middle';
     // Rejilla de tiempo
     for (var s = 0; s <= T; s++) {
       c.strokeStyle = 'rgba(255,255,255,' + (s % 2 ? .04 : .08) + ')';

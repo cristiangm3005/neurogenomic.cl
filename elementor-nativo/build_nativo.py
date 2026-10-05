@@ -15,7 +15,7 @@ OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "neurogenomic-ini
 # ---------------------------------------------------------------- Marca (tokens de src/core/tokens.css)
 BG, S1, TX, TX2, LIME = "#0A0B0D", "#111316", "#F2F3F0", "#A0A5B0", "#C8FF00"
 LINE, LINE2 = "rgba(255,255,255,0.08)", "rgba(255,255,255,0.16)"
-DISP, BODY, MONO = "Anton", "Space Grotesk", "IBM Plex Mono"
+DISP, BODY, MONO = "Big Shoulders Display", "Schibsted Grotesk", "Martian Mono"
 CONTACTO, SERVICIOS, TECNOLOGIA = "/contacto/", "/servicios/", "/tecnologia/"
 
 # ---------------------------------------------------------------- Primitivas

@@ -5,7 +5,7 @@
      Imágenes: reemplaza /img/ por la URL de la Biblioteca de medios. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800&family=Martian+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">
 <style>
 :root{
 --ng-bg:#0A0B0D;
@@ -17,9 +17,9 @@
 --ng-tx2:#A0A5B0;
 --ng-volt:#C8F542;
 --ng-lime:#C8FF00;
---ng-ff:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
---ng-disp:'Anton','Bebas Neue',Impact,'Arial Narrow Bold',sans-serif;
---ng-mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+--ng-ff:'Schibsted Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+--ng-disp:'Big Shoulders Display','Arial Narrow Bold',Impact,sans-serif;
+--ng-mono:'Martian Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
 --ng-ease:cubic-bezier(.16,1,.3,1);
 --ng-gut:clamp(16px,4.4vw,72px);
 --ng-max:1680px;
@@ -181,6 +181,7 @@ radial-gradient(30% 25% at 50% 110%,rgba(0,190,255,.10),transparent 70%)}
 .ng-ch__chips li{font:500 11px/1 var(--ng-mono);letter-spacing:.08em;text-transform:uppercase;padding:8px 9px;border-radius:4px;border:1px solid rgba(143,233,255,.35);color:#E8F4FF;background:rgba(10,30,60,.35)}
 .ng-ch__note{margin-top:16px;font:400 11px/1.5 var(--ng-mono);letter-spacing:.05em;color:#A9B6CC}
 .ng-ch__ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+@media (max-width:480px){.ng-ch__ctas .ng-btn{flex:1 1 100%;max-width:100%;white-space:normal;text-align:center;justify-content:center}}
 .ng-btn--grad{--_fg:#0A0B0D;--_bd:transparent;position:relative;isolation:isolate;overflow:hidden;min-height:56px;padding:0 26px;font-weight:600;background:linear-gradient(110deg,#C8FF00 0%,#E9FF8A 22%,#7DF9FF 46%,#C8FF00 70%,#E9FF8A 100%);background-size:260% 100%;animation:ng-grad 5s linear infinite;box-shadow:0 12px 40px -12px rgba(200,255,0,.65),0 0 0 1px rgba(200,255,0,.4)}
 .ng-btn--grad:hover{animation-duration:1.8s;box-shadow:0 0 0 4px rgba(200,255,0,.18),0 16px 46px -10px rgba(125,249,255,.6)}
 @keyframes ng-grad{to{background-position:-260% 0}}

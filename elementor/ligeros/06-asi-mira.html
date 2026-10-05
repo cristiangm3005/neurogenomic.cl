@@ -37,7 +37,7 @@
 .ng-demo__ph{margin-top:0}
 .ng-demo__m{display:block;background:#000;padding:clamp(72px,10vw,120px) 0 24px}
 }
-@media (max-width:767px){.ng-demo__stage{aspect-ratio:4/5}.ng-demo__gsr{height:64px}.ng-demo__lbl{font-size:11px;padding:5px 8px}}
+@media (max-width:767px){.ng-demo__hint{white-space:normal;text-align:center;width:max-content;max-width:calc(100% - 28px);font-size:10px;line-height:1.35}.ng-demo__stage{aspect-ratio:4/5}.ng-demo__gsr{height:64px}.ng-demo__lbl{font-size:11px;padding:5px 8px}}
 @media (prefers-reduced-motion:reduce){
 .ng-demo{height:auto}
 .ng-demo__pin{position:relative;height:auto;padding:clamp(80px,10vw,140px) 0}
@@ -191,7 +191,7 @@ NG.boot('[data-ng="demo"]', function (sec) {
       ctx.beginPath(); ctx.arc(pt[0], pt[1], r, 0, 6.2832); ctx.fill(); ctx.stroke();
       var fs = Math.max(10, 12 * u), bw = fs * 2.1, bh = fs * 1.5, bx = pt[0] + r * .7, by = pt[1] - r - bh;
       ctx.fillStyle = '#0A0B0D'; ctx.fillRect(bx, by, bw, bh);
-      ctx.fillStyle = '#C8FF00'; ctx.font = '500 ' + fs + 'px "IBM Plex Mono", monospace'; ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#C8FF00'; ctx.font = '500 ' + fs + 'px "Martian Mono", monospace'; ctx.textBaseline = 'middle';
       ctx.fillText(('0' + (i + 1)).slice(-2), bx + fs * .3, by + bh / 2 + 1);
       ctx.restore();
     }
@@ -209,7 +209,7 @@ NG.boot('[data-ng="demo"]', function (sec) {
       var lw = 92, lx = b === 'side' ? bb[0] - lw - 6 : bb[2] + 8, ly = b === 'side' ? bb[1] + 4 : bb[1] - 4;
       lx = Math.max(6, Math.min(W - lw - 6, lx)); ly = Math.max(28, ly);
       ctx.fillStyle = '#F2F3F0'; ctx.fillRect(lx, ly, lw, 18);
-      ctx.fillStyle = '#0A0B0D'; ctx.font = '500 10.5px "IBM Plex Mono", monospace'; ctx.textBaseline = 'middle'; ctx.fillText('ZONA CIEGA', lx + 7, ly + 9.5);
+      ctx.fillStyle = '#0A0B0D'; ctx.font = '500 10.5px "Martian Mono", monospace'; ctx.textBaseline = 'middle'; ctx.fillText('ZONA CIEGA', lx + 7, ly + 9.5);
       ctx.restore();
     });
     drawGSR(p);

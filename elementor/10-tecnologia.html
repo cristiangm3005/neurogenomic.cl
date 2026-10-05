@@ -5,7 +5,7 @@
      Imágenes: reemplaza /img/ por la URL de la Biblioteca de medios. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800&family=Martian+Mono:wght@400;500&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">
 <style>
 :root{
 --ng-bg:#0A0B0D;
@@ -17,9 +17,9 @@
 --ng-tx2:#A0A5B0;
 --ng-volt:#C8F542;
 --ng-lime:#C8FF00;
---ng-ff:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
---ng-disp:'Anton','Bebas Neue',Impact,'Arial Narrow Bold',sans-serif;
---ng-mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+--ng-ff:'Schibsted Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+--ng-disp:'Big Shoulders Display','Arial Narrow Bold',Impact,sans-serif;
+--ng-mono:'Martian Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
 --ng-ease:cubic-bezier(.16,1,.3,1);
 --ng-gut:clamp(16px,4.4vw,72px);
 --ng-max:1680px;
@@ -671,7 +671,7 @@ NG.boot('[data-ng="signals"]', function (sec) {
       c.strokeStyle = 'rgba(255,255,255,.22)';
       c.beginPath(); c.moveTo(X(0) + .5, Y(1)); c.lineTo(X(0) + .5, Y(-1)); c.moveTo(X(-1), Y(0) + .5); c.lineTo(X(1), Y(0) + .5); c.stroke();
       c.beginPath(); c.ellipse(X(0), Y(0), pw / 2, ph / 2, 0, 0, 6.283); c.strokeStyle = 'rgba(255,255,255,.08)'; c.stroke();
-      c.font = '500 8.5px "IBM Plex Mono", monospace'; c.fillStyle = 'rgba(160,165,176,1)';
+      c.font = '500 8.5px "Martian Mono", monospace'; c.fillStyle = 'rgba(160,165,176,1)';
       c.fillText('ACTIVACIÓN +', X(0) + 5, Y(1) + 9); c.fillText('ACTIVACIÓN −', X(0) + 5, Y(-1) - 4);
       c.textAlign = 'left'; c.fillText('− VAL', X(-1) + 2, Y(0) - 5); c.textAlign = 'right'; c.fillText('VAL +', X(1) - 2, Y(0) - 5); c.textAlign = 'left';
       // Marca del último estímulo
@@ -732,7 +732,7 @@ NG.boot('[data-ng="signals"]', function (sec) {
       var na = ang(needle);
       c.strokeStyle = '#F2F3F0'; c.lineWidth = 2; c.beginPath(); c.moveTo(cx - Math.cos(na) * 10, cy - Math.sin(na) * 10); c.lineTo(cx + Math.cos(na) * (R - 26), cy + Math.sin(na) * (R - 26)); c.stroke();
       c.fillStyle = '#16191D'; c.strokeStyle = 'rgba(242,243,240,.5)'; c.lineWidth = 1; c.beginPath(); c.arc(cx, cy, 6, 0, 6.283); c.fill(); c.stroke();
-      c.fillStyle = 'rgba(160,165,176,1)'; c.font = '500 9px "IBM Plex Mono", monospace'; c.textAlign = 'center';
+      c.fillStyle = 'rgba(160,165,176,1)'; c.font = '500 9px "Martian Mono", monospace'; c.textAlign = 'center';
       c.fillText('μS', cx, cy - R * .38); c.textAlign = 'start';
       if (Math.floor(t / 120) % 2 === 0) r.textContent = needle.toFixed(2);
     };

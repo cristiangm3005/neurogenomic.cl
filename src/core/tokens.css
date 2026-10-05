@@ -13,9 +13,9 @@
   --ng-tx2:#A0A5B0;
   --ng-volt:#C8F542;
   --ng-lime:#C8FF00;
-  --ng-ff:'Space Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
-  --ng-disp:'Anton','Bebas Neue',Impact,'Arial Narrow Bold',sans-serif;
-  --ng-mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --ng-ff:'Schibsted Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --ng-disp:'Big Shoulders Display','Arial Narrow Bold',Impact,sans-serif;
+  --ng-mono:'Martian Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
   --ng-ease:cubic-bezier(.16,1,.3,1);
   --ng-gut:clamp(16px,4.4vw,72px);
   --ng-max:1680px;
