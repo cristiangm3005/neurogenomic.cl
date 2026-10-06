@@ -778,6 +778,140 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
   .finale.show::after,.finale.show .cat-cta,.h3d.is-al .h3d__dot{animation:none}
 }
 .h3d.flip .h3d__c{left:auto;right:10px}
+
+/* ═══ v11 · dirección editorial: texto integrado a la escena, sin tarjetas ═══ */
+:root{--ease-cine:cubic-bezier(.16,1,.3,1);--shade:9,8,7}
+
+/* Tipografía narrativa: oración, gran tamaño, sin mayúsculas extensas */
+.eyebrow{margin:0 0 18px;font:500 .78rem/1.3 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--copper)}
+.display{margin:0;font:600 clamp(2.6rem,5.4vw,5.8rem)/1.02 var(--f-text);letter-spacing:-.025em;text-transform:none;text-wrap:balance;color:var(--bone);
+  text-shadow:0 1px 2px rgba(var(--shade),.35),0 10px 40px rgba(var(--shade),.35)}
+.display .blk{display:inline-block}
+.display .cu,.display em{font-style:normal;color:var(--copper)}
+.display--xl{font-size:clamp(3.2rem,8.4vw,9.4rem);line-height:.96;letter-spacing:-.035em}
+.display2{margin:.18em 0 0;font:500 clamp(1.6rem,3vw,3rem)/1.1 var(--f-text);letter-spacing:-.02em;color:var(--bone-soft);text-shadow:0 1px 2px rgba(var(--shade),.4)}
+.sub{margin:22px 0 0;max-width:34ch;font:400 clamp(1.05rem,1.35vw,1.28rem)/1.55 var(--f-text);color:var(--bone);text-wrap:pretty;text-shadow:0 1px 2px rgba(var(--shade),.5)}
+.cap{margin:16px 0 0;font:500 .68rem/1.4 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bone-soft)}
+[data-beat]{will-change:opacity,transform}
+
+/* Composición: el texto ocupa el espacio negativo; un velo localizado y suave, nunca una caja */
+.scene .stick{display:grid;padding:clamp(96px,13vh,140px) var(--g) clamp(48px,9vh,110px)}
+.sc-l .stick{align-content:center;justify-items:start}
+.sc-bl .stick{align-content:end;justify-items:start}
+.sc-l .stick::before{background:linear-gradient(90deg,rgba(var(--shade),.6) 0%,rgba(var(--shade),.32) 32%,rgba(var(--shade),0) 58%)}
+.sc-bl .stick::before{background:radial-gradient(70% 60% at 0% 100%,rgba(var(--shade),.66) 0%,rgba(var(--shade),.3) 45%,rgba(var(--shade),0) 75%)}
+#planta .stick::before{background:radial-gradient(75% 65% at 0% 100%,rgba(var(--shade),.78) 0%,rgba(var(--shade),.42) 45%,rgba(var(--shade),0) 78%)}
+.nt{max-width:min(720px,100%)}
+.hero .stick{align-content:end;justify-items:start;padding-bottom:clamp(64px,10vh,120px)}
+.hero .stick::before{background:linear-gradient(90deg,rgba(var(--shade),.62) 0%,rgba(var(--shade),.28) 40%,rgba(var(--shade),0) 66%),linear-gradient(0deg,rgba(var(--shade),.55) 0%,rgba(var(--shade),0) 40%)}
+.nt--hero .sub{max-width:40ch}
+.nt--hero .ctas{margin-top:28px}
+.facts{margin-top:30px}
+
+/* Quiénes somos: frase en oración, sin mayúsculas */
+.intro__big{font:600 clamp(2.4rem,5.6vw,6.4rem)/1.02 var(--f-text);letter-spacing:-.03em;text-transform:none;max-width:18ch}
+.intro .sub{max-width:40ch}
+.pillars{display:flex;flex-wrap:wrap;gap:18px 44px;margin:30px 0 0;padding:22px 0 0;list-style:none;border-top:1px solid var(--line);max-width:980px}
+.pillars li{display:grid;gap:4px;font:400 .95rem/1.45 var(--f-text);color:var(--bone-soft)}
+.pillars b{font:500 .74rem/1.3 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--copper)}
+
+/* Leyenda como anotación técnica en línea */
+.legend--line{display:flex;flex-wrap:wrap;gap:10px 22px;margin:24px 0 0;padding:0;list-style:none;font:500 .72rem/1.2 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--bone)}
+.legend--line li{display:flex;align-items:center;gap:8px}
+.legend--line i{width:14px;height:8px;border-radius:2px;background:rgba(227,149,92,.6)}
+.legend--line li:nth-child(2) i{background:none;border-top:1.5px solid #f0a46a;height:0}
+.legend--line li:nth-child(3) i{width:9px;height:9px;border-radius:50%;background:none;border:1.5px solid #f9b27a}
+.nt .more{margin-top:26px}
+
+/* Biolixiviación: secuencia de verbos y corte de la pila como figura editorial (sin marco) */
+.seq{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px 28px;font:600 clamp(1.4rem,2.2vw,2.1rem)/1.1 var(--f-text);letter-spacing:-.015em;color:rgba(238,231,219,.42)}
+.seq li{transition:color .7s var(--ease-cine)}
+.seq li.on{color:var(--teal)}
+.microbio .stick{grid-template-columns:minmax(0,1fr) minmax(280px,440px);align-items:center;gap:clamp(24px,4vw,64px)}
+.microbio .stick>.nt{grid-column:1}
+.heapcut{position:static;grid-column:2;width:100%;margin:0;padding:0;border:0;border-radius:0;background:none;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+.heapcut figcaption{border-top:1px solid var(--line);padding-top:10px}
+
+/* Flotación: fases como anotación con regla, no como botones */
+.phase{display:flex;gap:0;list-style:none;margin:26px 0 0;padding:0;border-top:1px solid rgba(238,231,219,.18);max-width:520px}
+.phase li{flex:1;padding:10px 0 0;margin-top:-1px;border:0;border-top:2px solid transparent;border-radius:0;background:none;font:500 .66rem/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:rgba(238,231,219,.45);transition:color .6s var(--ease-cine),border-color .6s var(--ease-cine)}
+.phase li.on{color:var(--copper);background:none;border-top-color:var(--copper)}
+.phase__now{margin:14px 0 0;min-height:1.6em;overflow:hidden;font:500 1.02rem/1.5 var(--f-text);color:var(--bone)}
+.pm2{height:460vh}
+
+/* Anotaciones espaciales sobre las celdas: línea fina y texto, sin recuadro ni neón */
+.h3d__dot{width:7px;height:7px;left:-3.5px;top:-3.5px;background:var(--teal);box-shadow:0 0 0 3px rgba(143,208,191,.18)}
+.h3d__ln{top:-44px;height:44px;background:rgba(238,231,219,.55)}
+.h3d__c{left:8px;bottom:38px;min-width:0;padding:0;border:0;border-radius:0;background:none;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none;text-shadow:0 1px 2px rgba(0,0,0,.6),0 0 18px rgba(0,0,0,.45)}
+.h3d__c b{color:rgba(238,231,219,.8)}
+.h3d__c em{color:var(--bone);font-size:1.05rem}
+.h3d__c s{display:none}
+.h3d.is-al .h3d__dot{background:var(--copper);box-shadow:0 0 0 4px rgba(227,149,92,.25);animation:none}
+.h3d.is-al .h3d__ln{background:var(--copper)}
+.h3d.is-al .h3d__c{border:0;background:none;box-shadow:none}
+.h3d.is-al .h3d__c em{color:var(--copper);text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.h3d.is-ok .h3d__c em{color:var(--teal)}
+.h3d.is-chk .h3d__c b::after{content:" · patrón";color:var(--teal)}
+
+/* Electroobtención: pasos como anotaciones; «Cobre.» como gran entrada tipográfica */
+.ew-steps{max-width:460px}
+.ew-steps li{border-left:1px solid rgba(238,231,219,.2);text-shadow:0 1px 2px rgba(var(--shade),.6)}
+.cathode .stick::before{background:linear-gradient(90deg,rgba(var(--shade),.6) 0%,rgba(var(--shade),.3) 34%,rgba(var(--shade),0) 60%)}
+.finale{position:absolute;inset:0;display:grid;align-content:end;justify-items:start;gap:10px;padding:0 var(--g) clamp(56px,10vh,110px);text-align:left;opacity:0;pointer-events:none;transition:opacity 1.2s var(--ease-cine)}
+.finale::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgba(var(--shade),.55) 0%,rgba(var(--shade),0) 45%)}
+.finale::after{display:none}
+.finale.show{opacity:1}
+.cobre{margin:0;font:600 clamp(5rem,17vw,17rem)/.86 var(--f-text);letter-spacing:-.05em;color:var(--copper);text-shadow:0 2px 3px rgba(var(--shade),.35),0 20px 60px rgba(var(--shade),.4)}
+.cobre span{opacity:1!important}
+.finale .cap{margin:0 0 0 .4em}
+
+/* Método: señalética sobre el camino, sin tarjetas */
+.road__head .display{font-size:clamp(2.2rem,4.6vw,4.8rem)}
+.road__head .sub{margin-top:12px;color:var(--bone-soft);max-width:48ch}
+.stop__card{padding:0 0 18px;border:0;border-radius:0;background:none;box-shadow:none;gap:8px;opacity:.38}
+.stop.on .stop__card{opacity:1}
+.stop__t{justify-content:flex-start;gap:14px}
+.stop__t span:first-child{color:var(--copper)}
+.stop h3{font:600 1.7rem/1.1 var(--f-text);letter-spacing:-.02em;text-transform:none}
+.stop p{color:var(--bone)}
+.stop .tags li{background:none}
+.stop__post{bottom:-46px}
+
+/* Cierre */
+.card .display{font-size:clamp(2.6rem,6.4vw,6.6rem);max-width:16ch;text-align:center}
+
+@media (max-width:1000px){
+  .microbio .stick{grid-template-columns:1fr}
+  .heapcut{display:none}
+}
+@media (max-width:760px){
+  .scene .stick,.hero .stick{align-content:end;padding:96px 18px 40px}
+  .sc-l .stick::before,.sc-bl .stick::before,#planta .stick::before,.cathode .stick::before,.hero .stick::before{background:linear-gradient(0deg,rgba(var(--shade),.82) 0%,rgba(var(--shade),.5) 42%,rgba(var(--shade),0) 72%)}
+  .display{font-size:clamp(2.1rem,9.4vw,3rem);line-height:1.04}
+  .display--xl{font-size:clamp(2.8rem,13.5vw,4.2rem)}
+  .display2{font-size:1.4rem}
+  .sub{font-size:1rem;margin-top:14px}
+  .facts{margin-top:20px}
+  .intro__big{font-size:clamp(2rem,9vw,3rem)}
+  .pillars{gap:12px;margin-top:20px;padding-top:16px}
+  .seq{font-size:1.25rem;gap:4px 16px;margin-top:16px}
+  .phase{margin-top:16px}
+  .phase__now{font-size:.92rem}
+  .pm2 .stick{padding-bottom:28px}
+  .cobre{font-size:clamp(4.4rem,24vw,7rem)}
+  .road__head .sub{display:none}
+  .stop h3{font-size:1.3rem}
+}
+@media (prefers-reduced-motion:reduce){
+  [data-beat]{opacity:1!important;transform:none!important;clip-path:none!important;letter-spacing:normal!important}
+  .finale{transition:none}
+}
+.cathode .stick{align-content:center;justify-items:start;text-align:left}
+.cobre{color:var(--bone)}
+.cobre .cu,.cobre span{color:var(--bone)}
+.road__head{display:block}.road__head .eyebrow{margin-bottom:12px}
+
+.motion [data-beat]{opacity:0}
 </style>
 
 </head>
@@ -813,149 +947,122 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
 <div class="hud3d" id="hud3d" aria-hidden="true"></div>
 <main id="main">
 
-  <!-- 1 · Hero -->
-  <section class="act hero" id="inicio" data-scene="0" style="height:150vh" aria-labelledby="t-hero">
-    <div class="stick a-bl" id="heroStick">
-      <p class="k">MetalGenomic · Copiapó, Atacama</p>
-      <h1 class="h1" id="t-hero">
-        <span class="ln"><span>Más metal.</span></span>
-        <span class="ln"><span>Menos detenciones.</span></span>
-        <span class="ln"><span class="cu">Menos huella.</span></span>
-      </h1>
-      <div class="hero__row">
-        <div>
-          <ul class="chips" aria-label="Capacidades"><li><b>Genómica</b>microbiana</li><li><b>Datos</b>geoespaciales</li><li><b>IA</b>predictiva</li></ul>
-          <div class="ctas">
-            <a class="btn btn--cu" href="#agendar">Agendar diagnóstico <i aria-hidden="true">→</i></a>
-            <a class="btn btn--ghost" href="#territorio">Ver el recorrido</a>
-          </div>
+  <!-- 1 · Portada: los cerros entran primero; la segunda frase llega cuando la cámara empieza a subir -->
+  <section class="act hero sc-bl" id="inicio" data-scene="0" style="height:180vh" aria-labelledby="t-hero">
+    <div class="stick" id="heroStick">
+      <div class="nt nt--hero">
+        <p class="eyebrow">MetalGenomic · Copiapó, Atacama</p>
+        <h1 class="display display--xl h1" id="t-hero">
+          <span class="ln"><span>Del territorio</span></span>
+          <span class="ln"><span>al <em>cobre.</em></span></span>
+        </h1>
+        <p class="display2" data-beat=".14,1" data-fx="mask">Cada etapa cuenta.</p>
+        <p class="sub">Biotecnología, datos e inteligencia artificial para comprender tu operación y orientar sus mejoras.</p>
+        <div class="ctas">
+          <a class="btn btn--cu" href="#agendar">Conversemos sobre tu desafío <i aria-hidden="true">→</i></a>
+          <a class="btn btn--ghost" href="#territorio">Ver el recorrido</a>
         </div>
-        <ul class="facts" aria-label="Condiciones">
+        <ul class="facts" aria-label="Condiciones de trabajo">
           <li><b>≤ 4</b>semanas · diagnóstico</li>
           <li><b>1–3</b>meses · piloto</li>
           <li><b>NDA</b>desde la 1.ª reunión</li>
         </ul>
       </div>
-      <div class="cue" id="cue" aria-hidden="true"><span>Explorar</span><i></i></div>
+      <div class="cue" id="cue" aria-hidden="true"><span>Recorrer</span><i></i></div>
     </div>
   </section>
 
-  <!-- 1b · Quiénes somos: tipografía grande que se enciende con el cursor y con el scroll -->
+  <!-- 1b · Quiénes somos: la planta emerge mientras la frase se enciende -->
   <section class="act intro" id="empresa" data-scene="0.2" data-dim="0.32" data-label="Empresa" aria-labelledby="t-intro">
     <div class="stick intro__stick">
-      <p class="k" data-rv>Quiénes somos · Copiapó, Atacama</p>
-      <h2 class="intro__big" id="t-intro" data-split>Biotecnología, datos e IA para recuperar más metal.</h2>
-      <div class="intro__foot">
-        <ul class="intro__pillars">
-          <li data-rv><b>Genómica microbiana</b><span>Microbios nativos, trabajando.</span></li>
-          <li data-rv="2"><b>Datos geoespaciales</b><span>Dónde actuar primero.</span></li>
-          <li data-rv="3"><b>IA predictiva</b><span>Señales antes de la falla.</span></li>
-        </ul>
-        <p class="intro__hint" aria-hidden="true"><i></i>Pasa el cursor sobre el texto</p>
-      </div>
+      <p class="eyebrow">Quiénes somos</p>
+      <h2 class="intro__big" id="t-intro" data-split>Conectamos lo que tu operación necesita comprender.</h2>
+      <p class="sub" data-beat=".38,1" data-fx="rise">Territorio, procesos y equipos bajo una mirada integrada.</p>
+      <ul class="pillars" data-beat=".48,1" data-fx="fade">
+        <li><b>Genómica microbiana</b>Comunidades del mineral y sus soluciones</li>
+        <li><b>Datos geoespaciales</b>Señales del territorio</li>
+        <li><b>Inteligencia artificial</b>Datos de operación, analizados</li>
+      </ul>
+      <p class="intro__hint" aria-hidden="true"><i></i>Pasa el cursor sobre la frase</p>
     </div>
   </section>
 
-  <!-- 2 · Satélite: dónde está el mineral -->
-  <section class="act story st-r" id="territorio" data-scene="0.5" data-label="Territorio" style="height:300vh" aria-labelledby="t-geo">
-    <div class="panels">
-      <article class="panel">
-        <p class="k">01 · Satélite</p>
-        <h2 class="h2" id="t-geo">Dónde está el mineral.</h2>
-        <ul class="chips" aria-label="Telemetría"><li><b>Sat</b>alta resolución</li><li><b>Capas</b>geología + ML</li><li><b>Blancos</b>3 priorizados</li></ul>
-      </article>
-      <article class="panel">
-        <p class="k">Lectura del mapa</p>
-        <ul class="legend legend--v" aria-label="Capas del mapa">
-          <li><i></i><span>Zona de interés</span></li>
-          <li><i></i><span>Isolíneas de probabilidad</span></li>
-          <li><i></i><span>Blanco priorizado</span></li>
-        </ul>
-        <p class="gain"><b>Ganas</b>Menos riesgo al intervenir</p>
-        <a class="more" href="#agendar" data-topic="Exploración geoespacial">Evaluarlo →</a>
-      </article>
-    </div>
-  </section>
-
-  <!-- 3 · BIM: la planta antes de construirla -->
-  <section class="act story st-l" id="planta" data-scene="1" data-label="Planta" style="height:320vh" aria-labelledby="t-twin">
-    <div class="panels">
-      <article class="panel">
-        <p class="k">02 · Sistema BIM</p>
-        <h2 class="h2" id="t-twin">La planta, antes de construirla.</h2>
-        <ul class="chips" aria-label="Telemetría"><li><b>Modelo</b>1:1</li><li><b>Piezas</b>en secuencia</li><li><b>Gemelo</b>digital</li></ul>
-      </article>
-      <article class="panel">
-        <h3 class="h3">Prueba en pantalla, no en terreno.</h3>
-        <p class="gain"><b>Ganas</b>Cambios sin riesgo</p>
-        <a class="more" href="#agendar" data-topic="Gemelo digital">Solicitar demo →</a>
-      </article>
-    </div>
-  </section>
-
-  <!-- 4 · Biolixiviación genómica -->
-  <section class="act story st-l microbio" id="biolix" data-scene="2" data-label="Biolixiviación" style="height:400vh" aria-labelledby="t-bio">
-    <div class="bio-grid">
-      <div class="panels">
-        <article class="panel">
-          <p class="k">03 · Biolixiviación genómica</p>
-          <h2 class="h2" id="t-bio">La pila, un biorreactor.</h2>
-          <ul class="chips" aria-label="Telemetría"><li><b>Riego</b>goteo</li><li><b>PLS</b>en línea</li><li><b>Microbios</b>nativos</li></ul>
-        </article>
-        <article class="panel step" data-step="0">
-          <p class="k">Paso 1 · Secuenciar</p>
-          <h3 class="h3">Leemos su ADN.</h3>
-          <ul class="chips"><li><b>Metagenómica</b>mineral + soluciones</li></ul>
-        </article>
-        <article class="panel step" data-step="1">
-          <p class="k">Paso 2 · Seleccionar</p>
-          <h3 class="h3">Elegimos los mejores.</h3>
-          <ul class="chips"><li><b>Consorcios</b>nativos de Atacama</li></ul>
-        </article>
-        <article class="panel step" data-step="2">
-          <p class="k">Paso 3 · Monitorear</p>
-          <h3 class="h3">Ajustamos a tiempo.</h3>
-          <ul class="chips"><li><b>Riego</b>pH · aire</li></ul>
-          <p class="gain"><b>Ganas</b>Más cobre, menos ácido</p>
-          <p class="cap">Visualización ilustrativa</p>
-          <a class="more" href="#agendar" data-topic="Biolixiviación genómica">Evaluarlo →</a>
-        </article>
-      </div>
-      <figure class="heapcut" id="heapcut" data-st="0" aria-hidden="true"><svg id="heapSvg" viewBox="0 0 420 250"></svg><figcaption><span>Corte de la pila</span><b id="heapSt">Secuenciar</b></figcaption></figure>
-    </div>
-  </section>
-
-  <!-- 5 · Flotación automatizada: la cámara se sumerge en el circuito; HUD espacial sobre las celdas -->
-  <section class="act pm2" id="equipo" data-scene="3" data-label="Flotación" aria-labelledby="t-mnt">
-    <div class="stick pm2__stick">
-      <div class="panel pm2__panel">
-        <p class="k">04 · Flotación automatizada</p>
-        <h2 class="h2" id="t-mnt"><span class="swap" id="pmHead">Cada celda, en línea.</span></h2>
-        <ol class="phase" id="pmSteps" aria-label="Fases del modelo predictivo"><li class="on">Captura</li><li>Patrón</li><li>Alerta</li><li>Decisión</li></ol>
-        <p class="cap">Simulación ilustrativa</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6 · Nave EW: clímax cinemático y cierre -->
-  <section class="act cathode" id="catodo" data-scene="4" data-label="Nave EW" aria-labelledby="t-ew">
+  <!-- 2 · Satélite: la vista se vuelve cenital, las capas resuelven una zona y la frase llega con la señal -->
+  <section class="act scene sc-l" id="territorio" data-scene="0.5" data-label="Territorio" style="height:300vh" aria-labelledby="t-geo">
     <div class="stick">
-      <div class="ew-copy panel" id="ewCopy">
-        <p class="k">05 · Nave de electroobtención</p>
-        <h2 class="h2" id="t-ew">Del puente grúa al cátodo.</h2>
-        <ol class="ew-steps" id="ewSteps">
-          <li class="on"><b>Rodadura</b>Sobre rieles elevados.</li>
-          <li><b>Izaje vertical</b>El carro se centra en la celda.</li>
-          <li><b>Banco completo</b>Garras multipunto, sin oscilar.</li>
-          <li><b>Cosecha</b>Lavado y despegue.</li>
+      <div class="nt">
+        <p class="eyebrow" data-beat=".1,.94" data-fx="fade">01 · Exploración geoespacial</p>
+        <h2 class="display" id="t-geo" data-beat=".24,.94" data-fx="mask">Todo comienza con una señal.</h2>
+        <p class="sub" data-beat=".42,.94" data-fx="rise">Datos geoespaciales para orientar dónde explorar y qué evaluar.</p>
+        <ul class="legend legend--line" data-beat=".54,.94" data-fx="fade" aria-label="Capas del mapa">
+          <li><i></i>Zona de interés</li><li><i></i>Isolíneas de probabilidad</li><li><i></i>Blanco priorizado</li>
+        </ul>
+        <a class="more" data-beat=".6,.94" data-fx="fade" href="#agendar" data-topic="Exploración geoespacial">Evaluarlo en el diagnóstico →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · BIM: la frase se parte en dos tiempos — durante el montaje y cuando el conjunto se estabiliza -->
+  <section class="act scene sc-bl" id="planta" data-scene="1" data-label="Planta" style="height:320vh" aria-labelledby="t-twin">
+    <div class="stick">
+      <div class="nt">
+        <p class="eyebrow" data-beat=".04,.95" data-fx="fade">02 · Sistema BIM</p>
+        <h2 class="display" id="t-twin"><span class="blk" data-beat=".08,.95" data-fx="slide">Visualiza el cambio</span> <span class="blk cu" data-beat=".46,.95" data-fx="mask">antes de ejecutarlo.</span></h2>
+        <p class="sub" data-beat=".56,.95" data-fx="rise">Modelos digitales para comprender la planta y evaluar escenarios.</p>
+        <a class="more" data-beat=".62,.95" data-fx="fade" href="#agendar" data-topic="Gemelo digital">Solicitar una demo del modelo →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · Biolixiviación: acercamiento, escala invisible, revelado microbiano y secuencia de trabajo -->
+  <section class="act scene sc-l microbio" id="biolix" data-scene="2" data-label="Biolixiviación" style="height:440vh" aria-labelledby="t-bio">
+    <div class="stick">
+      <div class="nt">
+        <p class="eyebrow" data-beat=".04,.96" data-fx="fade">03 · Biolixiviación genómica</p>
+        <h2 class="display" id="t-bio"><span class="blk" data-beat=".1,.96" data-fx="mask">Una escala invisible.</span> <span class="blk cu" data-beat=".32,.96" data-fx="mask">Un proceso decisivo.</span></h2>
+        <p class="sub" data-beat=".42,.96" data-fx="rise">Estudiamos las comunidades microbianas y su relación con las condiciones de biolixiviación.</p>
+        <ol class="seq" id="bioSeq">
+          <li data-beat=".54,.96" data-fx="slide">Comprender.</li>
+          <li data-beat=".67,.96" data-fx="slide">Seleccionar.</li>
+          <li data-beat=".8,.96" data-fx="slide">Monitorear.</li>
+        </ol>
+        <p class="cap" data-beat=".32,.96" data-fx="fade">Visualización ilustrativa</p>
+      </div>
+      <figure class="heapcut" id="heapcut" data-st="0" data-beat=".3,.96" data-fx="scale" aria-hidden="true"><svg id="heapSvg" viewBox="0 0 420 250"></svg><figcaption><span>Corte de la pila</span><b id="heapSt">Comprender</b></figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 5 · Flotación: la cámara entra al circuito; la frase llega con la inmersión y las fases anotan el proceso -->
+  <section class="act scene sc-bl pm2" id="equipo" data-scene="3" data-label="Flotación" aria-labelledby="t-mnt">
+    <div class="stick">
+      <div class="nt">
+        <p class="eyebrow" data-beat=".04,.97" data-fx="fade">04 · Flotación</p>
+        <h2 class="display" id="t-mnt" data-beat=".1,.97" data-fx="mask">Lee las señales del proceso.</h2>
+        <p class="sub" data-beat=".24,.97" data-fx="rise">Monitoreo y análisis para apoyar las decisiones operacionales.</p>
+        <ol class="phase" id="pmSteps" data-beat=".3,.97" data-fx="fade" aria-label="Fases del análisis"><li class="on">Captura</li><li>Patrón</li><li>Alerta</li><li>Decisión</li></ol>
+        <p class="phase__now" data-beat=".3,.97" data-fx="fade"><span class="swap" id="pmHead"></span></p>
+        <p class="cap" data-beat=".3,.97" data-fx="fade">Simulación ilustrativa</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · Electroobtención: la frase acompaña la cosecha; «Cobre» llega cuando el cátodo es protagonista -->
+  <section class="act scene cathode sc-l" id="catodo" data-scene="4" data-label="Nave EW" aria-labelledby="t-ew">
+    <div class="stick">
+      <div class="nt" id="ewCopy">
+        <p class="eyebrow" data-beat=".04,.84" data-fx="fade">05 · Electroobtención</p>
+        <h2 class="display" id="t-ew" data-beat=".08,.84" data-fx="mask">El recorrido toma forma.</h2>
+        <p class="sub" data-beat=".2,.84" data-fx="rise">Del seguimiento del proceso a la cosecha del cátodo.</p>
+        <ol class="ew-steps" id="ewSteps" data-beat=".24,.84" data-fx="fade">
+          <li class="on"><b>Rodadura</b>El puente recorre la nave sobre rieles elevados.</li>
+          <li><b>Izaje vertical</b>El carro se centra sobre la celda.</li>
+          <li><b>Banco completo</b>Las garras levantan los cátodos sin oscilar.</li>
+          <li><b>Cosecha</b>Lavado y despegue del cobre.</li>
         </ol>
       </div>
-      <div class="el" aria-hidden="true"><small>29</small><b>Cu</b><span>Cobre<br>63,546</span></div>
       <div class="finale" id="finale">
-        <canvas class="sparks" id="sparks" aria-hidden="true"></canvas>
-        <p class="spec" aria-hidden="true"><b>Cu</b> 99,99 % · recién cosechado</p>
-        <p class="quote" id="quote">Al final, todo se mide en metal recuperado.</p>
-        <a class="btn btn--cu cat-cta" href="#agendar"><span aria-hidden="true">[</span> Agendar diagnóstico <span aria-hidden="true">]</span></a>
+        <p class="cobre" id="quote">Cobre.</p>
+        <p class="cap">Cátodo de cobre · render ilustrativo</p>
       </div>
     </div>
   </section>
@@ -964,8 +1071,9 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
   <section class="act road" id="metodo" data-scene="4" data-dim="0.14" data-label="Método" aria-labelledby="t-met">
     <div class="stick road__stick">
       <header class="road__head">
-        <p class="k">El camino · cómo trabajamos</p>
-        <h2 class="h2" id="t-met">Un problema. Un piloto. Tus números.</h2>
+        <p class="eyebrow">El método</p>
+        <h2 class="display" id="t-met">Primero medir. Después decidir.</h2>
+        <p class="sub">Diagnóstico, piloto y evaluación frente a una línea base.</p>
         </header>
       <div class="road__world">
         <div class="road__sky" aria-hidden="true"><i class="road__sun"></i></div>
@@ -1011,9 +1119,9 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
             <li class="stop stop--end" style="--i:4">
               <div class="stop__card">
                 <div class="stop__t"><span>Destino</span><span>Tu faena</span></div>
-                <h3>Empecemos.</h3>
-                <p>Cuéntanos tu desafío.</p>
-                <a class="btn btn--cu btn--sm" href="#agendar">Agendar diagnóstico <i aria-hidden="true">→</i></a>
+                <h3>El próximo paso.</h3>
+                <p>Empieza en tu operación.</p>
+                <a class="btn btn--cu btn--sm" href="#agendar">Conversemos sobre tu desafío <i aria-hidden="true">→</i></a>
               </div><i class="stop__post" aria-hidden="true"></i>
             </li>
           </ol>
@@ -1047,8 +1155,8 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
   <section class="act book" id="agendar" data-scene="4" data-dim="0.2" data-label="Diagnóstico" aria-labelledby="t-book">
     <div class="book__in">
       <div>
-        <p class="k" data-rv>Diagnóstico express</p>
-        <h2 class="h2" id="t-book" data-rv="2">¿Qué le duele hoy a tu operación?</h2>
+        <p class="k" data-rv>Conversemos sobre tu desafío</p>
+        <h2 class="display" id="t-book" data-rv="2">¿Qué le duele hoy a tu operación?</h2>
         <div class="pains" role="radiogroup" aria-label="Desafío principal" data-rv="3">
           <button type="button" class="pain" role="radio" aria-checked="true" data-pain="mnt"><span class="n">A</span><span><strong>Detenciones no planificadas</strong><small>Fallas sin aviso.</small></span><span class="dot" aria-hidden="true"></span></button>
           <button type="button" class="pain" role="radio" aria-checked="false" data-pain="bio"><span class="n">B</span><span><strong>Baja recuperación en baja ley</strong><small>Cada punto cuenta.</small></span><span class="dot" aria-hidden="true"></span></button>
@@ -1139,14 +1247,14 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
       <li data-rv><h3>¿Qué necesitamos para empezar?</h3><p>Solo contarnos el desafío.</p></li>
     </ul>
     <div class="card">
-      <h2 class="h2" data-rv>Del satélite<br>al cátodo.</h2>
-      <a class="btn btn--cu" href="#agendar" data-rv="2">Agendar diagnóstico <i aria-hidden="true">→</i></a>
+      <h2 class="display" data-rv>El próximo paso empieza en tu operación.</h2>
+      <a class="btn btn--cu" href="#agendar" data-rv="2">Conversemos sobre tu desafío <i aria-hidden="true">→</i></a>
       <div class="mail" data-rv="3"><code id="mailTxt">contacto@metalgenomic.cl</code><button class="linkbtn" type="button" id="copyMail">Copiar</button></div>
     </div>
     <footer class="foot">
       <span>MetalGenomic · una marca de Genomic Industries SpA</span>
       <span>Copiapó, Atacama, Chile</span>
-      <span>Imágenes renderizadas en tiempo real · ilustrativas</span>
+      <span>Escenas renderizadas en tiempo real · ilustrativas</span>
       <span>© 2026</span>
     </footer>
   </section>
@@ -1217,7 +1325,7 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
 
   /* ── Bucle ─────────────────────────── */
   let target_s=0,running=false;
-  let sv=0,cur={s:0,d:1},mouse=[0,0],mt=[0,0],t0=performance.now(),last=t0,visible=true;
+  const snapQA=/[?&]snap=1\b/.test(location.search);let sv=0,cur={s:0,d:1},mouse=[0,0],mt=[0,0],t0=performance.now(),last=t0,visible=true;
   addEventListener('pointermove',e=>{mt=[(e.clientX/innerWidth-.5),-(e.clientY/innerHeight-.5)]},{passive:true});
   document.addEventListener('visibilitychange',()=>{visible=!document.hidden;if(visible&&!running){running=true;last=performance.now();requestAnimationFrame(loop);}});
   const track=document.getElementById('track'),method=document.getElementById('metodo');
@@ -1238,37 +1346,27 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
     else el.textContent=txt;
   }
   const pmHead=document.getElementById('pmHead'),pmSteps=[...document.querySelectorAll('#pmSteps li')];
-  const PMH=['Cada celda, en línea.','Su patrón, aprendido.','RO-3: alerta temprana.','Mantención planificada.'];let pmPh=-1;
-  /* ── v10 · entrada de los paneles: líneas y telemetría con inercia ── */
-  const pio=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;pio.unobserve(e.target);const g=window.gsap;if(!g||reduce)return;
-    const els=e.target.querySelectorAll('.k,.h2,.h3,.chips li,.legend li,.gain,.more,.phase li,.stop__big,.stop h3');if(els.length)g.from(els,{y:28,opacity:0,duration:1.15,ease:'power4.out',stagger:.06,clearProps:'transform,opacity'});}),{threshold:.25});
-  document.querySelectorAll('.panel,.stop__card').forEach(el=>pio.observe(el));
-  /* ── v10 · cierre: destello cobrizo y partículas que responden al cursor ── */
-  const sparks=document.getElementById('sparks'),sctx=sparks.getContext('2d');let SP=[],spOn=false,spW=0,spH=0,finOn=false;
-  function sparkSize(){const dpr=Math.min(2,devicePixelRatio||1);spW=sparks.clientWidth;spH=sparks.clientHeight;sparks.width=Math.round(spW*dpr);sparks.height=Math.round(spH*dpr);sctx.setTransform(dpr,0,0,dpr,0,0);}
-  addEventListener('resize',sparkSize);
-  function burst(n){for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,v=90+Math.random()*460;SP.push({x:spW/2,y:spH*.5,vx:Math.cos(a)*v,vy:Math.sin(a)*v*.55-140,l:1,d:.6+Math.random()*1.4,r:.7+Math.random()*2.3,h:18+Math.random()*22});}}
-  function stepSparks(dt){
-    if(!spOn&&!SP.length)return;
-    if(!spW)sparkSize();
-    if(spOn&&SP.length<260)for(let i=0;i<Math.round(dt*46);i++)SP.push({x:Math.random()*spW,y:spH+10,vx:(Math.random()-.5)*30,vy:-40-Math.random()*90,l:1,d:2.5+Math.random()*3,r:.6+Math.random()*1.8,h:20+Math.random()*18});
-    const mx=(mt[0]+.5)*spW,my=(-mt[1]+.5)*spH;
-    sctx.clearRect(0,0,spW,spH);sctx.globalCompositeOperation='lighter';
-    for(let i=SP.length-1;i>=0;i--){const p=SP[i];
-      const dx=p.x-mx,dy=p.y-my,dd=dx*dx+dy*dy;if(dd<26000){const f=(1-dd/26000)*900*dt;const d=Math.sqrt(dd)||1;p.vx+=dx/d*f;p.vy+=dy/d*f;}
-      p.vy-=26*dt;p.vx*=1-1.2*dt;p.vy*=1-.6*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.l-=dt/p.d;
-      if(p.l<=0||p.y<-20){SP.splice(i,1);continue;}
-      sctx.fillStyle='hsla('+p.h.toFixed(0)+',95%,'+(58+p.l*16).toFixed(0)+'%,'+(p.l*.9).toFixed(3)+')';
-      sctx.beginPath();sctx.arc(p.x,p.y,p.r*(.6+p.l*.6),0,7);sctx.fill();}
-    sctx.globalCompositeOperation='source-over';
+  const PMH=['Instrumentos en línea: nivel, aire, espuma y ley.','El modelo aprende el patrón normal de cada celda.','Celda RO-3: la válvula de nivel responde más lento.','La mantención entra en una ventana planificada.'];let pmPh=-1;
+  /* ── v11 · coreografía texto-escena: cada frase tiene un tramo [entrada, salida] del avance de su escena.
+     Entra durante la acción, se sostiene mientras la escena se calma y sale con ella. Sin cajas detrás. ── */
+  const beatEls=[...document.querySelectorAll('[data-beat]')].map(el=>{const [a,b]=el.dataset.beat.split(',').map(Number);return{el,a,b,fx:el.dataset.fx||'rise',sec:el.closest('.act'),v:-1};});
+  function beats(){
+    for(const B of beatEls){
+      const r=B.sec.getBoundingClientRect();if(r.bottom<-innerHeight*.5||r.top>innerHeight*1.5)continue;
+      const p=secP(B.sec);
+      let v=reduce?1:sm01((p-B.a)/.07);if(!reduce&&B.b<1)v=Math.min(v,1-sm01((p-B.b+.06)/.06));
+      if(Math.abs(v-B.v)<.002)continue;B.v=v;const e=B.el.style;
+      e.opacity=v.toFixed(3);
+      if(reduce)continue;
+      if(B.fx==='mask'){e.clipPath='inset(-.2em -.2em '+((1-v)*100).toFixed(1)+'% -.2em)';e.transform='translate3d(0,'+((1-v)*.32).toFixed(3)+'em,0)';}
+      else if(B.fx==='slide')e.transform='translate3d('+((1-v)*-40).toFixed(1)+'px,0,0)';
+      else if(B.fx==='scale')e.transform='scale('+(.96+.04*v).toFixed(4)+')';
+      else if(B.fx==='rise')e.transform='translate3d(0,'+((1-v)*24).toFixed(1)+'px,0)';
+    }
   }
-  function finaleIn(){
-    const g=window.gsap;
-    if(!reduce){spOn=true;sparkSize();burst(170);}
-    if(g&&!reduce){g.fromTo(quoteWords,{yPercent:60,opacity:0,filter:'blur(6px)'},{yPercent:0,opacity:1,filter:'blur(0px)',duration:1.3,ease:'power4.out',stagger:.07});
-      g.fromTo('#finale .spec',{y:16,opacity:0},{y:0,opacity:1,duration:1,ease:'power4.out'});
-      g.fromTo('#finale .cat-cta',{scale:.86,opacity:0},{scale:1,opacity:1,duration:1.2,ease:'power4.out',delay:.55});}
-  }
+  const bioSeqLis=[...document.querySelectorAll('#bioSeq li')],plantaSec=document.getElementById('planta');
+  function finaleIn(){const g=window.gsap;if(g&&!reduce)g.fromTo('#quote',{yPercent:18,opacity:0},{yPercent:0,opacity:1,duration:1.6,ease:'power4.out'});}
+  let finOn=false;
 
   /* ── v9 · paneles de texto que se superponen a la escena fija (parallax) ── */
   const panels=[...document.querySelectorAll('.story .panel')];
@@ -1303,7 +1401,7 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
     const frag=document.createDocumentFragment();
     txt.split(' ').forEach((w,i)=>{
       if(i)frag.appendChild(document.createTextNode(' '));
-      const ws=document.createElement('span');ws.className='w'+(/^(más|metal\.?)$/i.test(w)?' cu':'');ws.setAttribute('aria-hidden','true');
+      const ws=document.createElement('span');ws.className='w'+(/^(comprender\.?)$/i.test(w)?' cu':'');ws.setAttribute('aria-hidden','true');
       for(const ch of w){const c=document.createElement('span');c.className='c';c.textContent=ch;ws.appendChild(c);iChars.push({el:c,w:ws,x:0,y:0,p:0});}
       frag.appendChild(ws);iWords.push(ws);
     });
@@ -1369,7 +1467,7 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
     const tg=target()||{s:4,d:.1,p:0};target_s=tg.s;
     const k=reduce?1:1-Math.pow(.0015,dt);
     // cámara con peso: resorte críticamente amortiguado (sin frenazos)
-    if(reduce){cur.s=tg.s;cur.d=tg.d;sv=0;}
+    if(reduce||snapQA){cur.s=tg.s;cur.d=tg.d;sv=0;}
     else{const W=3.4;let h=dt;while(h>1e-6){const e=Math.min(h,1/120);sv+=((tg.s-cur.s)*W*W-2*W*sv)*e;cur.s+=sv*e;h-=e;}cur.d+=(tg.d-cur.d)*(1-Math.pow(.004,dt));}
     mouse[0]+=(mt[0]-mouse[0])*k*.6;mouse[1]+=(mt[1]-mouse[1])*k*.6;
 
@@ -1377,16 +1475,16 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
     const hp=secP(hero),cp=cat.getBoundingClientRect();
     let bar=Math.max(0,1-hp*1.6)*Math.min(innerHeight*.085,72);
     if(cp.top<innerHeight&&cp.bottom>0){const p=secP(cat);bar=Math.max(bar,Math.sin(Math.min(1,p*1.25)*Math.PI)*innerHeight*.13);
-      const n=Math.floor(Math.min(1,Math.max(0,(p-.93)/.04))*quoteWords.length+.2);quoteWords.forEach((w,i)=>w.classList.toggle('on',reduce||i<n));}
+      const n=Math.floor(Math.min(1,Math.max(0,(p-.9)/.02))*quoteWords.length+.2);quoteWords.forEach((w,i)=>w.classList.toggle('on',reduce||i<n));}
     root.style.setProperty('--bar',bar.toFixed(1)+'px');
 
     // historia: BIM sobre la planta, frente de biolixiviación y cosecha con puente grúa
     story.bim=sm01((cur.s-.66)/.26)*(1-sm01((cur.s-1.25)/.4));
-    story.bio=secP(bioSec);story.crane=secP(cat);
+    story.bio=secP(bioSec);story.crane=secP(cat);story.build=sm01(secP(plantaSec)/.46);
     {const p=story.crane,st=p<.3?0:p<.44?1:p<.62?2:3;
      if(st!==ewStep){ewStep=st;ewLis.forEach((li,i)=>li.classList.toggle('on',i===st));}
      ewCopy.style.opacity=(1-sm01((p-.8)/.06)).toFixed(3);
-     const fin=p>.93;if(fin!==finOn){finOn=fin;if(fin)finaleIn();else spOn=false;}finale.classList.toggle('show',fin);quoteEl.classList.toggle('show',fin);}
+     const fin=p>.9;if(fin!==finOn){finOn=fin;if(fin)finaleIn();}finale.classList.toggle('show',fin);quoteEl.classList.toggle('show',fin);}
     // v7 · apertura: la indicación de scroll se retira al empezar el recorrido
     if(cue)cue.style.opacity=Math.max(0,1-hp*5).toFixed(3);
     // v7 · quiénes somos: las palabras se encienden con el avance del scroll
@@ -1402,10 +1500,12 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
       const v=Math.min(sm01((1.08-c)/.32),sm01((c+.08)/.32));
       el.style.opacity=v.toFixed(3);
       el.style.transform='translate3d(0,'+((c-.5)*-80).toFixed(1)+'px,0) scale('+(.94+.06*v).toFixed(4)+')';}
-    // v9 · biolixiviación: el paso activo es el panel más cercano al centro de la pantalla
+    // v11 · biolixiviación: acercamiento → escala invisible → revelado microbiano → Comprender / Seleccionar / Monitorear
     {const r=bioSec.getBoundingClientRect(),vis=r.top<innerHeight&&r.bottom>0;heap.classList.toggle('run',vis&&!reduce);
-      if(vis){let st=0,bd=1e9;bioSteps.forEach((el,i)=>{const q=el.getBoundingClientRect();const d=Math.abs(q.top+q.height/2-innerHeight*.5);if(d<bd){bd=d;st=i;}});
-        if(st!==bioSt){bioSt=st;heap.dataset.st=st;setT(heapSt,STN[st]);hcMic.style.opacity=['.22','.7','1'][st];}}}
+      if(vis){const p=secP(bioSec),st=p<.665?0:p<.795?1:2;
+        if(st!==bioSt){bioSt=st;heap.dataset.st=st;setT(heapSt,['Comprender','Seleccionar','Monitorear'][st]);bioSeqLis.forEach((li,i)=>li.classList.toggle('on',i===st&&p>.54));}
+        hcMic.style.opacity=(p<.3?.06:p<.54?.06+(p-.3)/.24*.5:[.56,.8,1][st]).toFixed(3);
+        bioSeqLis[0].classList.toggle('on',st===0&&p>.54);}}
     // v9 · método: camino horizontal; el camión avanza, se detiene en cada etapa y llega al destino
     {const r=road.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0&&roadGeo){
       const p=secP(road),N=stops.length-1,u=Math.min(N,p*N*1.04),i=Math.min(N-1,Math.floor(u)),f=u-i;
@@ -1427,7 +1527,7 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
       const ph=pm<.28?0:pm<.52?1:pm<.8?2:3;story.pmPhase=ph;
       if(vis&&ph!==pmPh){pmPh=ph;pmSteps.forEach((li,i)=>li.classList.toggle('on',i===ph));swapHead(pmHead,PMH[ph]);}
       const a=(vis&&ph===2)?1:0;alert+=(a-alert)*Math.min(1,dt*3);}
-    stepSparks(dt);
+    beats();
     // HUD
     setT(hudScale,fmt(cur.s));
     setT(hudLabel,cur.s<.12?'Cerros de Atacama':cur.s<.35?'Faena':cur.s<.75?'Imagen satelital':cur.s<1.5?'Planta · BIM':cur.s<2.5?'Pila · biolixiviación':cur.s<3.5?'Flotación · en línea':'Nave EW');
@@ -1723,17 +1823,17 @@ function part(geom,base,bim,{rough=.55,metal=.2,edges=true,shadow=true,emissive=
   part(merge(P),'#d5d9dc','#1557b8',{metal:.75,rough:.28});
   const T=[];// estanques de solución y orgánico
   [[20,160],[44,160],[20,184],[44,184],[100,176],[124,176]].forEach(([x,z])=>{T.push(CY(9,9,11,x,5.5,z,0,0,40),CY(9.2,1,2.4,x,12.2,z,0,0,40));});
-  part(merge(T),'#e3e6e8','#5aa7ee',{metal:.35,rough:.35});
+  part(merge(T),'#dfe2e1','#5aa7ee',{metal:0,rough:.62});
   const S=[];// mezcladores-decantadores
   for(let k=0;k<3;k++){S.push(BX(72,3.2,16,205,1.6,150+k*20),BX(6,5,6,165,2.5,150+k*20),BX(72,.3,16.4,205,3.35,150+k*20));}
-  part(merge(S),'#c7ccd0','#2f86e0',{metal:.25,rough:.5});
+  part(merge(S),'#bfc4c6','#2f86e0',{metal:0,rough:.7});
   const K=[];// espesadores sobre patas (como los conos de la referencia)
   [[-150,176],[-124,192]].forEach(([x,z])=>{K.push(CY(10,10,6,x,13,z,0,0,40),CY(10,1.4,8,x,6,z,0,0,40),CY(10.3,10.3,.5,x,16.2,z,0,0,40));
     for(let a=0;a<6;a++){const an=a/6*Math.PI*2;K.push(CY(.45,.45,10,x+Math.cos(an)*7.5,5,z+Math.sin(an)*7.5,0,0,8));}});
-  part(merge(K),'#d9d4c8','#7bb8f2',{metal:.2,rough:.6});
+  part(merge(K),'#cfc9bc','#7bb8f2',{metal:0,rough:.72});
   // nave de electroobtención con chimeneas
   const B=[BX(104,17,44,300,8.5,158)];
-  part(merge(B),'#d3d7da','#bcd9f7',{metal:.3,rough:.55});
+  part(merge(B),'#c9cdcf','#bcd9f7',{metal:.05,rough:.78});
   part(merge([[new THREE.BoxGeometry(106,.5,23.6),mat4(300,19.6,147.2,.24)],[new THREE.BoxGeometry(106,.5,23.6),mat4(300,19.6,168.8,-.24)]]),'#aeb6bc','#9cc7f3',{metal:.5,rough:.45});
   part(merge([CY(1.6,1.9,52,352,26,128,0,0,24),CY(1.6,1.9,52,366,26,128,0,0,24)]),'#cfd3d6','#1e78d6',{metal:.5,rough:.35});
   // estructura de acero (protagonista del BIM, como la referencia azul)
@@ -1747,12 +1847,12 @@ function part(geom,base,bim,{rough=.55,metal=.2,edges=true,shadow=true,emissive=
 }
 // concentradora: chancador en el borde del rajo, correa y edificio de molienda SAG
 {
-  part(merge([BX(22,20,22,-150,10,-60)]),'#c9c3b6','#9fc8f3',{rough:.6});
+  part(merge([BX(22,20,22,-150,10,-60)]),'#bdb6a8','#9fc8f3',{metal:0,rough:.85});
   const ax=-150,az=-50,bx=-118,bz=88,len=Math.hypot(bx-ax,bz-az),ry=Math.atan2(bx-ax,bz-az);
   const cg=[[new THREE.BoxGeometry(4,2.6,len),mat4((ax+bx)/2,24,(az+bz)/2,0,ry)]];
   for(let k=1;k<10;k++){const f=k/10;cg.push(BX(.9,24,.9,ax+(bx-ax)*f,12,az+(bz-az)*f));}
   part(merge(cg),'#a8adb1','#1e78d6',{metal:.5,rough:.4});
-  part(merge([BX(52,34,42,-112,17,110),BX(30,12,20,-82,6,138)]),'#b8c0c6','#bcd9f7',{metal:.35,rough:.5});
+  part(merge([BX(52,34,42,-112,17,110),BX(30,12,20,-82,6,138)]),'#aeb5b9','#bcd9f7',{metal:.05,rough:.78});
   const pile=new THREE.Mesh(new THREE.ConeGeometry(24,15,48),new THREE.MeshStandardMaterial({color:'#5d554e',map:rock,roughness:.95}));
   pile.position.set(-120,7.5,58);pile.castShadow=pile.receiveShadow=true;ext.add(pile);MINE.push({o:pile,kind:'scale'});
   [[40,-220],[480,170],[-40,250],[520,-90]].forEach(([x,z],i)=>part(merge([BX(18+i*4,7,12,x,3.5,z)]),'#d8d2c6','#9fc8f3',{rough:.7}));
@@ -1772,7 +1872,7 @@ const FLOT={leds:[],alertRing:null};
   }
   RAIL.push(BX(6*DX+4,.3,2.6,FX+2.5*DX,7.3,FZ+5.6),BX(6*DX+4,.08,.08,FX+2.5*DX,8.7,FZ+6.2),BX(6*DX+4,1.2,2,FX+2.5*DX,5.6,FZ-6.4));
   for(let i=0;i<=12;i++)RAIL.push(BX(.4,7.3,.4,FX-6+i*6.6,3.65,FZ+5.6));
-  part(merge(T),'#a3b0ac','#5aa7ee',{metal:.45,rough:.4});
+  part(merge(T),'#9aa6a3','#5aa7ee',{metal:.15,rough:.55});
   part(merge(R2),'#8a969c','#1557b8',{metal:.7,rough:.3});
   part(merge(TOP),'#3c4752','#1e78d6',{metal:.55,rough:.4});
   part(merge(P),'#c9cdd0','#1557b8',{metal:.7,rough:.3});
@@ -1895,7 +1995,7 @@ const EWI={};
   // haces de luz volumétricos: tragaluz y ventanales cortando el polvo en suspensión
   const shaftMat=new THREE.ShaderMaterial({transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,side:THREE.DoubleSide,uniforms:{uTime:U.uTime,uI:{value:1}},
     vertexShader:'varying float vY;varying vec3 vN;varying vec3 vV;void main(){vY=uv.y;vec4 w=modelMatrix*vec4(position,1.);vN=normalize(mat3(modelMatrix)*normal);vV=normalize(cameraPosition-w.xyz);gl_Position=projectionMatrix*viewMatrix*w;}',
-    fragmentShader:'uniform float uTime,uI;varying float vY;varying vec3 vN;varying vec3 vV;void main(){float f=pow(abs(dot(normalize(vN),normalize(vV))),2.4);float a=f*smoothstep(0.,.45,vY)*(.8+.2*sin(uTime*.5+vY*7.))*uI*.22;gl_FragColor=vec4(vec3(1.,.88,.7)*a,a);}'});
+    fragmentShader:'uniform float uTime,uI;varying float vY;varying vec3 vN;varying vec3 vV;void main(){float f=pow(abs(dot(normalize(vN),normalize(vV))),2.4);float a=f*smoothstep(0.,.45,vY)*(.85+.15*sin(uTime*.5+vY*7.))*uI*.15;gl_FragColor=vec4(vec3(1.,.88,.7)*a,a);}'});
   EWI.shaftMat=shaftMat;
   const shaftG=new THREE.CylinderGeometry(.75,2.1,15,28,1,true);
   for(let x=-36;x<=30;x+=6){const m=new THREE.Mesh(shaftG,shaftMat);m.position.set(x+2.1,6.8,1.9);m.rotation.set(.3,0,-.28);m.renderOrder=5;ew.add(m);EWI.fxHide.push(m);}
@@ -1907,7 +2007,7 @@ const EWI={};
     pg.setAttribute('position',new THREE.BufferAttribute(pp,3));pg.setAttribute('aS',new THREE.BufferAttribute(ps,1));
     const dm=new THREE.ShaderMaterial({transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,uniforms:{uTime:U.uTime,uA:{value:1}},
       vertexShader:'attribute float aS;uniform float uTime;varying float vA;void main(){vec3 p=position;p.x+=sin(uTime*.07+aS*40.)*.8;p.y=mod(p.y+uTime*(.04+aS*.06),13.);p.z+=cos(uTime*.05+aS*30.)*.5;vec4 mv=modelViewMatrix*vec4(p,1.);vA=.25+.75*aS;gl_PointSize=(.6+aS*1.2)*(36./-mv.z);gl_Position=projectionMatrix*mv;}',
-      fragmentShader:'uniform float uA;varying float vA;void main(){vec2 c=gl_PointCoord-.5;float a=smoothstep(.5,0.,length(c))*vA*.38*uA;gl_FragColor=vec4(vec3(1.,.9,.75)*a,a);}'});
+      fragmentShader:'uniform float uA;varying float vA;void main(){vec2 c=gl_PointCoord-.5;float a=smoothstep(.5,0.,length(c))*vA*.26*uA;gl_FragColor=vec4(vec3(1.,.9,.75)*a,a);}'});
     const dust=new THREE.Points(pg,dm);dust.frustumCulled=false;dust.renderOrder=6;ew.add(dust);EWI.dust=dm;EWI.fxHide.push(dust);}
   // columnas, camino de rodadura, rieles, muros con ventanales, cerchas de techo
   const S=[];
@@ -2000,18 +2100,18 @@ function hud(w,st,t){
   const ph=st.story.pmPhase|0,al=st.alert>.5;
   for(const L of HUDL){vP.copy(L.p).project(camE);
     const x=(vP.x*.5+.5)*innerWidth,y=(-vP.y*.5+.5)*innerHeight,vis=vP.z<1&&x>-60&&x<innerWidth+60&&y>40&&y<innerHeight+40;
-    L.el.style.transform='translate3d('+x.toFixed(1)+'px,'+y.toFixed(1)+'px,0)';L.el.style.visibility=vis?'visible':'hidden';L.el.classList.toggle('flip',x>innerWidth-(innerWidth<760?150:200));
+    L.el.style.transform='translate3d('+x.toFixed(1)+'px,'+y.toFixed(1)+'px,0)';L.el.style.visibility=vis?'visible':'hidden';L.el.classList.toggle('flip',x>innerWidth-(innerWidth<760?215:230));
     if(tick){
       if(L.alert){L.el.classList.toggle('is-al',al&&ph<3);L.el.classList.toggle('is-ok',ph>=3);
-        L.em.textContent=ph>=3?'OT planificada · SAP PM':al?'Alerta · respuesta lenta':L.v(t);}
+        L.em.textContent=ph>=3?'Mantención planificada':al?'Respuesta lenta':L.v(t);}
       else{L.em.textContent=L.v(t);L.el.classList.toggle('is-chk',ph>=1);}
-      L.bar.style.transform='scaleX('+(L.alert&&al&&ph<3?.92:L.b(t)).toFixed(3)+')';}}
+      }}
 }
 
 /* ════ POST-PROCESO: bloom leve, oclusión ambiental (SSAO) y profundidad de campo ════ */
 let comp=null,rpass=null,ssao=null,bokeh=null,bloom=null,fxLevel=FX?3:0;
 if(FX){try{
-  comp=new FX.EffectComposer(R);comp.setPixelRatio(Math.min(PR,1.5));comp.setSize(innerWidth,innerHeight);
+  comp=new FX.EffectComposer(R,new THREE.WebGLRenderTarget(innerWidth,innerHeight,{type:THREE.HalfFloatType,samples:R.capabilities.isWebGL2?4:0}));comp.setPixelRatio(PR);comp.setSize(innerWidth,innerHeight);
   rpass=new FX.RenderPass(ext,camE);comp.addPass(rpass);
   if(!small){ssao=new FX.SSAOPass(ew,camI,innerWidth,innerHeight);ssao.kernelRadius=.55;ssao.minDistance=.0006;ssao.maxDistance=.03;ssao.enabled=false;comp.addPass(ssao);}
   bokeh=new FX.BokehPass(ext,camE,{focus:60,aperture:.0001,maxblur:.006});bokeh.enabled=false;comp.addPass(bokeh);
@@ -2025,7 +2125,7 @@ function draw(scene,cam,focus,aperture,interior){
   rpass.scene=scene;rpass.camera=cam;
   if(ssao){ssao.enabled=interior&&fxLevel>=3;}
   if(bokeh){const on=aperture>0&&fxLevel>=2;bokeh.enabled=on;if(on){bokeh.scene=scene;bokeh.camera=cam;const u=bokeh.uniforms;u.focus.value=focus;u.aperture.value=aperture;u.nearClip.value=cam.near;u.farClip.value=cam.far;}}
-  bloom.enabled=fxLevel>=1;bloom.threshold=interior?.8:1.2;bloom.strength=interior?.34:.2;
+  bloom.enabled=fxLevel>=1;bloom.threshold=interior?.95:1.35;bloom.strength=interior?.22:.12;
   comp.render();
 }
 
@@ -2034,7 +2134,7 @@ resize();
 let lastBio=-1,lastBim=-1,lastVis=-1,frames=0,acc=0,lastT=performance.now(),stableUp=0,first=true;
 function resize(){R.setSize(innerWidth,innerHeight,false);const a=innerWidth/innerHeight;camE.aspect=camI.aspect=a;
   camE.fov=a<.8?58:a<1.2?48:40;camI.fov=a<.8?66:a<1.2?56:48;camE.updateProjectionMatrix();camI.updateProjectionMatrix();
-  if(comp){comp.setPixelRatio(Math.min(PR,1.5));comp.setSize(innerWidth,innerHeight);if(ssao)ssao.ssaoMaterial.uniforms.cameraInverseProjectionMatrix.value.copy(camI.projectionMatrixInverse);}}
+  if(comp){comp.setPixelRatio(PR);comp.setSize(innerWidth,innerHeight);if(ssao)ssao.ssaoMaterial.uniforms.cameraInverseProjectionMatrix.value.copy(camI.projectionMatrixInverse);}}
 addEventListener('resize',resize);
 let lastRender=0;
 function frame(st){
@@ -2056,7 +2156,7 @@ function frame(st){
   if(fromEW<=0){
     // exterior
     // la planta aparece (cerros → faena), se retira para la vista satelital y el BIM la vuelve a construir
-    const vis=s<.55?sm(.05,.22,s)*(1-sm(.32,.45,s)):sm(.6,1.02,s);
+    const vis=s<.55?sm(.05,.22,s)*(1-sm(.32,.45,s)):Math.max(sm(1.25,1.6,s),Math.min(1,Math.max(0,st.story.build||0)));
     if(Math.abs(vis-lastVis)>.001){lastVis=vis;
       const n=plant.length;plant.forEach((p,i)=>{const e=Math.min(1,Math.max(0,vis*1.6-(i/n)*.6));const k=e*e*(3-2*e);p.m.scale.y=Math.max(.001,k);p.m.visible=k>.002;if(p.y0)p.m.position.y=p.y0*k;});
       for(const l of FLOT.leds)l.visible=vis>.95;FLOT.alertRing.visible=vis>.95;
@@ -2084,7 +2184,7 @@ function frame(st){
     sky.position.copy(camE.position);
     for(const tk of trucks){const a=(tk.ph+t*.008)%1*Math.PI*2,rr=RP+28;tk.g.position.set(PIT.x+Math.cos(a)*rr*PSX,.4,PIT.z+Math.sin(a)*rr);tk.g.rotation.y=-a-Math.PI/2;}
     R.toneMappingExposure=.95*dimE*(1-toEW);
-    draw(ext,camE,vA.distanceTo(vB),pmw>.05?.00012*pmw:0,false);
+    draw(ext,camE,0,0,false);
   }else{
     // interior: puente grúa cosechando el banco de cátodos
     hud(0,st,t);
@@ -2101,7 +2201,7 @@ function frame(st){
     camI.position.copy(vA);camI.lookAt(vB);
     R.toneMappingExposure=1.1*dimE*fromEW;
     EWI.shaftMat.uniforms.uI.value=1-c3*.6;
-    draw(ew,camI,vA.distanceTo(vB),c3>.02?lerp(.0006,.012,c3):.0004,true);
+    draw(ew,camI,0,0,true);
   }
   if(first){first=false;M.ready();
     // la nave EW se compila en segundo plano para que el cambio de escena no se trabe
