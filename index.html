@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MetalGenomic — Minería con biotecnología e IA</title>
+<meta name="description" content="Integramos biolixiviación, modelos geoespaciales y mantenimiento predictivo para recuperar más metal, anticipar fallas y reducir el impacto ambiental.">
+<meta name="theme-color" content="#050505">
+<script>
+  // Las animaciones solo se preparan si el usuario no pidió movimiento reducido.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('motion');
+  }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #050505;
+    --ink: #0d0c0b;
+    --paper: #efe8dd;
+    --muted: #a39c92;
+    --copper: #c97b4a;
+    --copper-hi: #f0a46e;
+    --oxide: #3f8f86;
+    --line: rgba(239, 232, 221, .14);
+    --bar: 11vh;
+    --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+    --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { background: var(--black); }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  body {
+    margin: 0;
+    background: var(--black);
+    color: var(--paper);
+    font: 400 1rem/1.6 var(--sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 300; margin: 0; line-height: 1.05; }
+  p { margin: 0; }
+  .eyebrow {
+    font: 500 .72rem/1 var(--sans);
+    letter-spacing: .32em;
+    text-transform: uppercase;
+    color: var(--copper-hi);
+  }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* ---------- Capas de cine: letterbox, grano, viñeta ---------- */
+  .letterbox { position: absolute; left: 0; right: 0; height: var(--bar); background: #000; z-index: 60; pointer-events: none; }
+  .letterbox--top { top: 0; transform-origin: top; }
+  .letterbox--bottom { top: calc(100svh - var(--bar)); transform-origin: bottom; }
+  .motion .letterbox { position: fixed; }
+  .motion .letterbox--bottom { top: auto; bottom: 0; }
+
+  .vignette {
+    position: fixed; inset: 0; z-index: 50; pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.55) 100%);
+  }
+  .grain {
+    position: fixed; inset: -100%; z-index: 55; pointer-events: none;
+    width: 300%; height: 300%;
+    opacity: .09;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain 1s steps(6) infinite;
+  }
+  @keyframes grain {
+    0%   { transform: translate(0, 0); }
+    17%  { transform: translate(-4%, 3%); }
+    33%  { transform: translate(3%, -5%); }
+    50%  { transform: translate(-6%, -2%); }
+    67%  { transform: translate(5%, 4%); }
+    83%  { transform: translate(-2%, 6%); }
+    100% { transform: translate(0, 0); }
+  }
+
+  /* ---------- Navegación ---------- */
+  .nav {
+    position: fixed; top: 18px; left: 0; right: 0; z-index: 70;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 clamp(16px, 4vw, 48px);
+    font-size: .8rem; letter-spacing: .08em;
+  }
+  .brand { font-family: var(--serif); font-size: 1.15rem; letter-spacing: .02em; text-decoration: none; }
+  .brand span { color: var(--copper-hi); }
+  .nav a.nav-cta { text-decoration: none; border-bottom: 1px solid var(--copper); padding-bottom: 2px; }
+
+  /* ---------- Botones ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: .6em;
+    padding: 1rem 1.6rem; border-radius: 999px;
+    font: 500 .9rem/1 var(--sans); letter-spacing: .02em; text-decoration: none;
+    transition: background-color .4s ease, color .4s ease, border-color .4s ease;
+  }
+  .btn--primary { background: var(--copper); color: #120a05; }
+  .btn--primary:hover { background: var(--copper-hi); }
+  .btn--ghost { border: 1px solid var(--line); }
+  .btn--ghost:hover { border-color: var(--paper); }
+  .btn:focus-visible, a:focus-visible { outline: 2px solid var(--copper-hi); outline-offset: 4px; }
+
+  section { position: relative; }
+
+  /* ---------- Escena 1 · Apertura ---------- */
+  .opening { height: 100vh; height: 100svh; min-height: 560px; overflow: hidden; display: grid; place-items: center; }
+  .opening__image {
+    position: absolute; inset: -4%;
+    background:
+      radial-gradient(ellipse 60% 35% at 50% 98%, rgba(63,143,134,.55), transparent 70%),
+      repeating-radial-gradient(ellipse 120% 60% at 50% 115%, rgba(0,0,0,0) 0 26px, rgba(0,0,0,.35) 27px 30px, rgba(201,123,74,.08) 31px 52px),
+      radial-gradient(ellipse 90% 60% at 50% 100%, #6b3a1f 0%, #3a1f12 40%, transparent 72%),
+      radial-gradient(circle at 72% 28%, rgba(240,164,110,.55), transparent 32%),
+      linear-gradient(180deg, #0b0d12 0%, #1d1a1c 38%, #5a3220 62%, #2a170d 100%);
+    will-change: transform;
+  }
+  .opening__shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,5,5,.35), rgba(5,5,5,.15) 40%, rgba(5,5,5,.85)); }
+  .opening__black { position: absolute; inset: 0; background: #000; z-index: 3; pointer-events: none; opacity: 0; }
+  .opening__content { position: relative; z-index: 2; max-width: 1100px; padding: 0 16px; text-align: center; }
+  .opening h1 { font-size: clamp(2rem, 5.6vw, 4.8rem); margin: 1.4rem 0 1.6rem; letter-spacing: -.01em; }
+  .opening h1 em { font-style: italic; color: var(--copper-hi); }
+  .word { display: inline-block; white-space: nowrap; }
+  .char { display: inline-block; will-change: transform, opacity; }
+  .opening__sub { max-width: 640px; margin: 0 auto 2.2rem; color: #d6cec2; font-size: clamp(.98rem, 1.4vw, 1.12rem); }
+  .opening__ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .scroll-hint {
+    position: absolute; z-index: 2; left: 50%; bottom: calc(var(--bar) + 18px); transform: translateX(-50%);
+    font-size: .68rem; letter-spacing: .3em; text-transform: uppercase; color: var(--muted);
+  }
+  .scroll-hint::after { content: ""; display: block; width: 1px; height: 36px; margin: 10px auto 0; background: linear-gradient(var(--copper), transparent); }
+
+  /* ---------- Escena 2 · Planteamiento ---------- */
+  .setup { height: 100vh; height: 100svh; overflow: hidden; display: grid; place-items: center; background: var(--ink); }
+  .setup__bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 20% 80%, rgba(63,143,134,.18), transparent 45%),
+      radial-gradient(circle at 85% 15%, rgba(201,123,74,.16), transparent 40%),
+      linear-gradient(180deg, #0b0a09, #12100e);
+  }
+  .setup__label { white-space: nowrap; position: absolute; top: calc(var(--bar) + 64px); left: 50%; transform: translateX(-50%); z-index: 2; }
+  .setup__stage { position: relative; z-index: 2; width: min(1000px, 100% - 32px); display: grid; }
+  .phrase { grid-area: 1 / 1; text-align: center; }
+  .phrase h2 { font-size: clamp(1.9rem, 5vw, 4.2rem); }
+  .phrase h2 em { font-style: italic; color: var(--copper-hi); }
+  .phrase p { margin-top: 1.2rem; color: var(--muted); font-size: clamp(.95rem, 1.3vw, 1.08rem); }
+  .setup__progress { position: absolute; z-index: 2; bottom: calc(var(--bar) + 40px); left: 50%; transform: translateX(-50%); display: flex; gap: 10px; }
+  .setup__progress span { width: 44px; height: 2px; background: var(--line); overflow: hidden; }
+  .setup__progress i { display: block; height: 100%; background: var(--copper); transform: scaleX(0); transform-origin: left; }
+
+  /* ---------- Escena 3 · Desarrollo ---------- */
+  .develop { padding: 30vh 0 34vh; overflow: hidden; background: #0a0908; }
+  .layer { position: absolute; left: 0; right: 0; pointer-events: none; will-change: transform; }
+  .layer--far {
+    top: -20%; bottom: -20%;
+    background:
+      repeating-linear-gradient(172deg, rgba(201,123,74,.06) 0 2px, transparent 2px 64px),
+      repeating-linear-gradient(176deg, rgba(63,143,134,.05) 0 1px, transparent 1px 110px),
+      linear-gradient(180deg, #0a0908 0%, #1a110b 45%, #0f1414 100%);
+  }
+  .layer--mid { bottom: 0; height: 70%; }
+  .layer--mid svg { width: 100%; height: 100%; display: block; }
+  .layer--near {
+    top: -30%; bottom: -30%;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(240,164,110,.55) 0 2px, transparent 3px),
+      radial-gradient(circle at 78% 34%, rgba(240,164,110,.4) 0 3px, transparent 4px),
+      radial-gradient(circle at 34% 62%, rgba(63,143,134,.55) 0 2px, transparent 3px),
+      radial-gradient(circle at 88% 78%, rgba(240,164,110,.45) 0 2px, transparent 3px),
+      radial-gradient(circle at 56% 90%, rgba(239,232,221,.3) 0 1px, transparent 2px),
+      radial-gradient(circle at 6% 70%, rgba(239,232,221,.25) 0 1px, transparent 2px);
+    background-size: 520px 680px;
+    filter: blur(.4px);
+  }
+  .develop__inner { position: relative; z-index: 3; width: min(1180px, 100% - 32px); margin: 0 auto; }
+  .develop__head { max-width: 720px; margin-bottom: clamp(48px, 8vw, 96px); }
+  .develop__head h2 { font-size: clamp(2rem, 4.6vw, 3.8rem); margin-top: 1rem; }
+  .develop__head p { margin-top: 1.2rem; color: var(--muted); max-width: 560px; }
+  .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 28px); }
+  .card {
+    position: relative; overflow: hidden;
+    padding: clamp(24px, 3vw, 40px);
+    border: 1px solid var(--line); border-radius: 18px;
+    background: linear-gradient(160deg, rgba(26,20,16,.82), rgba(10,9,8,.72));
+    backdrop-filter: blur(6px);
+  }
+  .card:nth-child(even) { transform: translateY(64px); }
+  .card__art { height: 150px; margin: -8px -8px 26px; border-radius: 12px; }
+  .card:nth-child(1) .card__art { background: radial-gradient(circle at 30% 40%, rgba(63,143,134,.9), transparent 38%), radial-gradient(circle at 70% 65%, rgba(201,123,74,.7), transparent 40%), linear-gradient(135deg, #10201e, #2a170d); }
+  .card:nth-child(2) .card__art { background: repeating-radial-gradient(circle at 60% 120%, rgba(240,164,110,.35) 0 1px, transparent 1px 14px), linear-gradient(160deg, #13191c, #3a2416); }
+  .card:nth-child(3) .card__art { background: repeating-linear-gradient(90deg, rgba(239,232,221,.12) 0 1px, transparent 1px 22px), linear-gradient(180deg, transparent 45%, rgba(201,123,74,.6) 50%, transparent 55%), linear-gradient(135deg, #1a1411, #0f1716); }
+  .card:nth-child(4) .card__art { background: linear-gradient(transparent 49%, rgba(63,143,134,.6) 50%, transparent 51%) 0 0 / 28px 28px, linear-gradient(90deg, transparent 49%, rgba(63,143,134,.6) 50%, transparent 51%) 0 0 / 28px 28px, linear-gradient(135deg, #0d1615, #241710); }
+  .card__num { font: 500 .72rem/1 var(--sans); letter-spacing: .3em; color: var(--copper-hi); }
+  .card h3 { font-size: clamp(1.4rem, 2.2vw, 1.9rem); margin: .7rem 0 .9rem; }
+  .card p { color: #cfc7bb; font-size: .95rem; }
+  .card .benefit { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .88rem; }
+  .card a { display: inline-block; margin-top: 1.2rem; font-size: .88rem; text-decoration: none; color: var(--copper-hi); }
+  .truck { position: absolute; z-index: 2; left: 0; bottom: 6%; width: clamp(120px, 16vw, 220px); pointer-events: none; will-change: transform; }
+  .road { position: absolute; z-index: 2; left: 0; right: 0; bottom: 6%; height: 1px; background: linear-gradient(90deg, transparent, var(--line) 15%, var(--line) 85%, transparent); }
+
+  /* ---------- Escena 4 · Clímax ---------- */
+  .climax { min-height: 100vh; min-height: 100svh; display: grid; place-items: center; text-align: center; overflow: hidden; padding: 18vh 16px; background: radial-gradient(ellipse at center, #1f130b 0%, #070606 70%); }
+  .climax__glow { position: absolute; width: 70vmin; height: 70vmin; left: 50%; top: 50%; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, rgba(201,123,74,.35), transparent 65%); filter: blur(20px); }
+  .climax__inner { position: relative; z-index: 2; }
+  .climax__figure { position: relative; display: inline-grid; place-items: center; margin: 1.4rem 0 1rem; }
+  .climax__ring { position: absolute; width: 118%; height: auto; aspect-ratio: 1; }
+  .climax__ring circle { fill: none; stroke-width: 1; }
+  .climax__number {
+    font: 300 clamp(9rem, 30vw, 22rem)/.85 var(--serif);
+    letter-spacing: -.04em;
+    background: linear-gradient(180deg, #fff3e4 10%, var(--copper-hi) 55%, var(--copper) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-variant-numeric: tabular-nums;
+  }
+  .climax__unit { font-family: var(--serif); font-style: italic; font-size: clamp(1.4rem, 3vw, 2.4rem); }
+  .climax__copy { max-width: 560px; margin: 1.2rem auto 0; color: var(--muted); }
+  .metrics { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 2.4rem auto 0; max-width: 760px; padding: 0; list-style: none; }
+  .metrics li { border: 1px solid var(--line); border-radius: 999px; padding: .55rem 1rem; font-size: .82rem; color: #d6cec2; }
+  .climax__note { margin-top: 1.6rem; font-size: .78rem; color: var(--muted); }
+
+  /* ---------- Escena 5 · Créditos ---------- */
+  .credits { min-height: 160vh; padding: 22vh 16px calc(var(--bar) + 18vh); text-align: center; overflow: hidden; background: #000; }
+  .credits__bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, #2a170d 0%, #0b0807 55%, #000 100%); }
+  .credits__inner { position: relative; z-index: 2; max-width: 820px; margin: 0 auto; }
+  .credits h2 { font-size: clamp(2rem, 4.8vw, 3.8rem); margin: 1rem 0 3.4rem; }
+  .roll { display: grid; gap: 2.4rem; margin: 0 auto 4.4rem; }
+  .roll dt { font: 500 .7rem/1 var(--sans); letter-spacing: .32em; text-transform: uppercase; color: var(--muted); margin-bottom: .7rem; }
+  .roll dd { margin: 0; font-family: var(--serif); font-size: clamp(1.15rem, 2vw, 1.5rem); }
+  .credits__cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .credits__fin { margin-top: 26vh; }
+  .credits__fin .brand { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+  .credits__fin p { margin-top: .8rem; font-size: .78rem; letter-spacing: .14em; color: var(--muted); }
+  .fade-black { position: absolute; inset: 0; z-index: 1; background: #000; opacity: 0; pointer-events: none; }
+
+  /* ---------- Estados iniciales (solo con movimiento y JS) ---------- */
+  .motion .opening__black { opacity: 1; }
+  .motion .char { opacity: 0; }
+  .motion [data-reveal] { opacity: 0; }
+
+  /* ---------- Móvil ---------- */
+  @media (max-width: 767px) {
+    :root { --bar: 7vh; }
+    .nav a.nav-cta { display: none; }
+    .cards { grid-template-columns: 1fr; }
+    .card:nth-child(even) { transform: none; }
+    .setup { height: auto; min-height: 100svh; padding: 22vh 0; }
+    .setup__stage { gap: 18vh; }
+    .phrase { grid-area: auto; }
+    .setup__progress, .truck, .road { display: none; }
+    .develop { padding: 18vh 0 20vh; }
+  }
+
+  /* ---------- Movimiento reducido: todo estático y visible ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .grain { animation: none; }
+    .setup { height: auto; min-height: 100vh; padding: 22vh 0; }
+    .setup__stage { gap: 14vh; }
+    .phrase { grid-area: auto; }
+    .setup__progress, .truck { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="letterbox letterbox--top" aria-hidden="true"></div>
+<div class="letterbox letterbox--bottom" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="brand" href="#inicio">Metal<span>Genomic</span></a>
+  <a class="nav-cta" href="#agendar">Agendar diagnóstico</a>
+</header>
+
+<main>
+  <!-- ESCENA 1 · APERTURA -->
+  <section class="opening" id="inicio" aria-labelledby="titulo">
+    <div class="opening__image" aria-hidden="true"></div>
+    <div class="opening__shade" aria-hidden="true"></div>
+    <div class="opening__black" aria-hidden="true"></div>
+    <div class="opening__content">
+      <p class="eyebrow" data-reveal>Genomic Industries SpA presenta</p>
+      <h1 id="titulo" data-split>Minería más eficiente y sostenible, con <em>biotecnología</em> e inteligencia artificial.</h1>
+      <p class="opening__sub" data-reveal>Integramos biolixiviación, modelos geoespaciales y mantenimiento predictivo para ayudar a tu operación a recuperar más metal, anticipar fallas y reducir su impacto ambiental.</p>
+      <div class="opening__ctas" data-reveal>
+        <a class="btn btn--primary" href="#agendar">Agendar diagnóstico operativo</a>
+        <a class="btn btn--ghost" href="#servicios">Ver servicios</a>
+      </div>
+    </div>
+    <div class="scroll-hint" data-reveal aria-hidden="true">Desliza</div>
+  </section>
+
+  <!-- ESCENA 2 · PLANTEAMIENTO -->
+  <section class="setup" aria-label="El problema">
+    <div class="setup__bg" aria-hidden="true"></div>
+    <p class="eyebrow setup__label">Acto I · El problema</p>
+    <div class="setup__stage">
+      <div class="phrase">
+        <h2>Cada detención <em>no planificada</em> es producción que no vuelve.</h2>
+        <p>Molinos, chancadores, correas y flota: reaccionar siempre llega tarde.</p>
+      </div>
+      <div class="phrase">
+        <h2>En minerales de <em>baja ley</em>, cada punto de recuperación cuenta.</h2>
+        <p>Y los compromisos ambientales y de reporte ESG no dan tregua.</p>
+      </div>
+      <div class="phrase">
+        <h2>Pasar de decidir por <em>reacción</em> a decidir con datos.</h2>
+        <p>Sin cambiar toda tu operación: primero un piloto medible.</p>
+      </div>
+    </div>
+    <div class="setup__progress" aria-hidden="true"><span><i></i></span><span><i></i></span><span><i></i></span></div>
+  </section>
+
+  <!-- ESCENA 3 · DESARROLLO -->
+  <section class="develop" id="servicios" aria-labelledby="servicios-titulo">
+    <div class="layer layer--far" data-depth="far" aria-hidden="true"></div>
+    <div class="layer layer--mid" data-depth="mid" aria-hidden="true">
+      <svg viewBox="0 0 1440 600" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="ridgeA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2416"/><stop offset="1" stop-color="#0a0908"/></linearGradient>
+          <linearGradient id="ridgeB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b2423"/><stop offset="1" stop-color="#0a0908"/></linearGradient>
+        </defs>
+        <path fill="url(#ridgeB)" opacity=".8" d="M0 300 L140 220 L260 270 L420 160 L560 250 L700 190 L860 280 L1010 170 L1160 240 L1300 200 L1440 260 V600 H0Z"/>
+        <path fill="url(#ridgeA)" d="M0 420 L180 330 L300 380 L460 300 L640 400 L780 340 L920 410 L1100 320 L1260 390 L1440 350 V600 H0Z"/>
+      </svg>
+    </div>
+    <div class="layer layer--near" data-depth="near" aria-hidden="true"></div>
+
+    <div class="road" aria-hidden="true"></div>
+    <svg class="truck" viewBox="0 0 220 110" aria-hidden="true">
+      <rect x="18" y="22" width="120" height="44" rx="4" fill="#c97b4a"/>
+      <path d="M10 22 H146 L136 10 H24 Z" fill="#f0a46e"/>
+      <rect x="140" y="34" width="52" height="32" rx="4" fill="#d9cfc1"/>
+      <rect x="150" y="40" width="22" height="12" rx="2" fill="#0d0c0b"/>
+      <rect x="12" y="64" width="186" height="10" rx="2" fill="#2a2420"/>
+      <circle cx="48" cy="84" r="20" fill="#111"/><circle cx="48" cy="84" r="8" fill="#5b524a"/>
+      <circle cx="166" cy="84" r="20" fill="#111"/><circle cx="166" cy="84" r="8" fill="#5b524a"/>
+      <circle cx="196" cy="58" r="3" fill="#3f8f86"/>
+    </svg>
+
+    <div class="develop__inner">
+      <header class="develop__head" data-reveal>
+        <p class="eyebrow">Acto II · Cuatro capacidades</p>
+        <h2 id="servicios-titulo">Cuatro capacidades, un mismo equipo.</h2>
+        <p>Biotecnología, datos geoespaciales y mantenimiento predictivo integrados, con pilotos acotados y medibles pensados para mineras medianas.</p>
+      </header>
+      <div class="cards">
+        <article class="card" data-card>
+          <div class="card__art" aria-hidden="true"></div>
+          <span class="card__num">01</span>
+          <h3>Biolixiviación asistida por datos</h3>
+          <p>Diseñamos y monitoreamos procesos de biolixiviación con consorcios microbianos adaptados a tu mineral. Sensores y modelos permiten ajustar los parámetros a tiempo.</p>
+          <p class="benefit">Mejorar la recuperación en minerales de baja ley con menor uso de reactivos.</p>
+          <a href="#agendar">Conocer el servicio →</a>
+        </article>
+        <article class="card" data-card>
+          <div class="card__art" aria-hidden="true"></div>
+          <span class="card__num">02</span>
+          <h3>Análisis geoespacial predictivo</h3>
+          <p>Imágenes satelitales, datos geológicos y machine learning para apoyar la exploración, la estimación de recursos y el monitoreo de taludes.</p>
+          <p class="benefit">Más información para decidir dónde y cómo intervenir, con menor riesgo.</p>
+          <a href="#agendar">Conocer el servicio →</a>
+        </article>
+        <article class="card" data-card>
+          <div class="card__art" aria-hidden="true"></div>
+          <span class="card__num">03</span>
+          <h3>Mantenimiento predictivo con IA</h3>
+          <p>Vibraciones, temperatura, datos acústicos y operacionales de equipos críticos para detectar patrones de falla antes de una detención.</p>
+          <p class="benefit">Planificar las intervenciones en lugar de reaccionar ante ellas.</p>
+          <a href="#agendar">Conocer el servicio →</a>
+        </article>
+        <article class="card" data-card>
+          <div class="card__art" aria-hidden="true"></div>
+          <span class="card__num">04</span>
+          <h3>Gemelos digitales y BIM</h3>
+          <p>Modelos digitales 3D de la planta o sus circuitos para simular escenarios, coordinar la ingeniería y visualizar la operación con datos reales.</p>
+          <p class="benefit">Detectar interferencias y probar cambios antes de ejecutarlos en terreno.</p>
+          <a href="#agendar">Conocer el servicio →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESCENA 4 · CLÍMAX -->
+  <section class="climax" aria-labelledby="climax-titulo">
+    <div class="climax__glow" aria-hidden="true"></div>
+    <div class="climax__inner">
+      <p class="eyebrow" data-reveal>Acto III · El punto de partida</p>
+      <h2 id="climax-titulo" class="sr-only">Hasta 4 semanas para un diagnóstico operativo</h2>
+      <div class="climax__figure" aria-hidden="true">
+        <svg class="climax__ring" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="96" stroke="rgba(239,232,221,.12)"/>
+          <circle class="ring-progress" cx="100" cy="100" r="96" stroke="#c97b4a" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+        </svg>
+        <span class="climax__number" data-count="4">4</span>
+      </div>
+      <p class="climax__unit" data-reveal>semanas, como máximo, para un diagnóstico operativo.</p>
+      <p class="climax__copy" data-reveal>Revisamos tus datos, equipos y objetivos. Luego, un piloto acotado de 1 a 3 meses en un equipo, circuito o sector. Escalamos solo si los resultados lo justifican.</p>
+      <ul class="metrics" data-reveal aria-label="Indicadores que medimos en cada piloto">
+        <li>Disponibilidad del equipo (%)</li>
+        <li>Recuperación metalúrgica (%)</li>
+        <li>Consumo de reactivos por tonelada</li>
+        <li>Horas de detención evitadas</li>
+      </ul>
+      <p class="climax__note" data-reveal>Los resultados se miden contra tu línea base, no contra promesas genéricas.</p>
+    </div>
+  </section>
+
+  <!-- ESCENA 5 · CRÉDITOS FINALES -->
+  <section class="credits" id="agendar" aria-labelledby="creditos-titulo">
+    <div class="credits__bg" aria-hidden="true"></div>
+    <div class="fade-black" aria-hidden="true"></div>
+    <div class="credits__inner">
+      <p class="eyebrow" data-reveal>Créditos</p>
+      <h2 id="creditos-titulo" data-reveal>Respaldo científico, aplicado a tu operación.</h2>
+      <dl class="roll">
+        <div data-roll><dt>Un equipo multidisciplinario</dt><dd>Biotecnología · Ciencia de datos · Ingeniería</dd></div>
+        <div data-roll><dt>Integración con tus sistemas</dt><dd>SCADA · PI System · CMMS / SAP PM · GIS</dd></div>
+        <div data-roll><dt>Confidencialidad</dt><dd>Firma de NDA desde la primera reunión</dd></div>
+        <div data-roll><dt>Metodología</dt><dd>Diagnóstico → Piloto → Medición → Escalamiento</dd></div>
+      </dl>
+      <div class="credits__cta" data-reveal>
+        <a class="btn btn--primary" href="mailto:contacto@metalgenomic.cl?subject=Agendar%20diagn%C3%B3stico%20operativo">Agendar diagnóstico operativo</a>
+        <a class="btn btn--ghost" href="mailto:contacto@metalgenomic.cl?subject=Demo%20de%20gemelo%20digital">Solicitar demo de gemelo digital</a>
+      </div>
+      <footer class="credits__fin" data-reveal>
+        <a class="brand" href="#inicio">Metal<span>Genomic</span></a>
+        <p>Una marca de Genomic Industries SpA · Chile</p>
+      </footer>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(function () {
+  var root = document.documentElement;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Sin movimiento o sin librerías: se muestra todo estático.
+  if (reduce || !window.gsap || !window.ScrollTrigger) {
+    root.classList.remove('motion');
+    return;
+  }
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ---------- Scroll suave (Lenis) sincronizado con ScrollTrigger ----------
+  var lenis = null;
+  if (window.Lenis) {
+    lenis = new Lenis({ duration: 1.4, easing: function (t) { return 1 - Math.pow(1 - t, 3); } });
+    root.classList.add('lenis');
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      if (lenis) lenis.scrollTo(target, { duration: 2.2 });
+      else target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // ---------- Partir el título en letras (accesible: se lee el texto completo) ----------
+  var title = document.querySelector('[data-split]');
+  title.setAttribute('aria-label', title.textContent.replace(/\s+/g, ' ').trim());
+  (function split(node) {
+    Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+      if (child.nodeType === 3) {
+        var frag = document.createDocumentFragment();
+        child.textContent.split(/(\s+)/).forEach(function (part) {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+          var word = document.createElement('span');
+          word.className = 'word';
+          word.setAttribute('aria-hidden', 'true');
+          part.split('').forEach(function (c) {
+            var ch = document.createElement('span');
+            ch.className = 'char';
+            ch.textContent = c;
+            word.appendChild(ch);
+          });
+          frag.appendChild(word);
+        });
+        node.replaceChild(frag, child);
+      } else if (child.nodeType === 1) {
+        split(child);
+      }
+    });
+  })(title);
+
+  var mm = gsap.matchMedia();
+
+  mm.add({ desktop: '(min-width: 768px)', mobile: '(max-width: 767px)' }, function (ctx) {
+    var desktop = ctx.conditions.desktop;
+
+    // ---------- Escena 1 · Apertura ----------
+    var intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    intro
+      .fromTo('.letterbox--top, .letterbox--bottom', { scaleY: desktop ? 5 : 3 }, { scaleY: 1, duration: 2.2, ease: 'expo.inOut' }, 0)
+      .to('.opening__black', { opacity: 0, duration: 2.4, ease: 'expo.inOut' }, 0.2)
+      .fromTo('.opening__image', { scale: desktop ? 1.22 : 1.12 }, { scale: 1, xPercent: desktop ? -2 : 0, duration: 14, ease: 'power1.out' }, 0)
+      .fromTo('.opening .eyebrow', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 1.4 }, 1.2)
+      .fromTo('.opening .char',
+        { opacity: 0, y: desktop ? 40 : 18, filter: desktop ? 'blur(10px)' : 'blur(0px)' },
+        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.4, stagger: desktop ? 0.028 : 0.015 }, 1.6)
+      .fromTo('.opening__sub, .opening__ctas, .scroll-hint', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.6, stagger: 0.2 }, 3.2);
+
+    // Las barras letterbox se retiran al salir de la apertura.
+    gsap.to('.letterbox--top', { yPercent: -100, ease: 'none', scrollTrigger: { trigger: '.opening', start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.to('.letterbox--bottom', { yPercent: 100, ease: 'none', scrollTrigger: { trigger: '.opening', start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.to('.opening__content', { yPercent: desktop ? -30 : -12, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.opening', start: 'top top', end: 'bottom top', scrub: true } });
+
+    // ---------- Escena 2 · Planteamiento ----------
+    var phrases = gsap.utils.toArray('.phrase');
+    if (desktop) {
+      var bars = gsap.utils.toArray('.setup__progress i');
+      gsap.set(phrases, { opacity: 0, y: 50 });
+      var setup = gsap.timeline({
+        scrollTrigger: { trigger: '.setup', start: 'top top', end: '+=' + (phrases.length * 100) + '%', pin: true, scrub: 1.2 }
+      });
+      setup.fromTo('.setup__label', { opacity: 0 }, { opacity: 1, duration: 0.5 });
+      phrases.forEach(function (p, i) {
+        setup
+          .to(p, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' })
+          .to(bars[i], { scaleX: 1, duration: 1.4, ease: 'none' }, '<')
+          .to({}, { duration: 0.6 });
+        if (i < phrases.length - 1) setup.to(p, { opacity: 0, y: -50, filter: 'blur(6px)', duration: 1, ease: 'expo.inOut' });
+      });
+    } else {
+      phrases.forEach(function (p) {
+        gsap.from(p, { opacity: 0, y: 30, duration: 1.4, ease: 'power3.out', scrollTrigger: { trigger: p, start: 'top 80%' } });
+      });
+    }
+
+    // ---------- Escena 3 · Desarrollo: parallax en 3 profundidades ----------
+    var depth = desktop ? { far: -12, mid: -28, near: -60 } : { far: -4, mid: -10, near: -18 };
+    Object.keys(depth).forEach(function (k) {
+      gsap.fromTo('[data-depth="' + k + '"]', { yPercent: -depth[k] / 2 }, {
+        yPercent: depth[k] / 2, ease: 'none',
+        scrollTrigger: { trigger: '.develop', start: 'top bottom', end: 'bottom top', scrub: true }
+      });
+    });
+    if (desktop) {
+      gsap.fromTo('.truck', { x: '-25vw' }, {
+        x: '105vw', ease: 'none',
+        scrollTrigger: { trigger: '.develop', start: 'top 60%', end: 'bottom 40%', scrub: 1.5 }
+      });
+    }
+    gsap.fromTo('.develop__head', { opacity: 0, y: 40 }, {
+      opacity: 1, y: 0, duration: 1.6, ease: 'power3.out',
+      scrollTrigger: { trigger: '.develop__head', start: 'top 80%' }
+    });
+    gsap.utils.toArray('[data-card]').forEach(function (card, i) {
+      gsap.fromTo(card, { opacity: 0, y: desktop ? 80 : 30 }, {
+        opacity: 1, y: 0, duration: desktop ? 1.8 : 1.2, delay: desktop ? (i % 2) * 0.15 : 0, ease: 'power3.out',
+        scrollTrigger: { trigger: card, start: 'top 88%' }
+      });
+    });
+
+    // ---------- Escena 4 · Clímax: el número se anima al entrar ----------
+    var num = document.querySelector('[data-count]');
+    var target = parseFloat(num.getAttribute('data-count'));
+    var counter = { v: 0 };
+    num.textContent = '0';
+    var climax = gsap.timeline({ scrollTrigger: { trigger: '.climax', start: 'top 55%' } });
+    climax
+      .fromTo('.climax__glow', { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 2.6, ease: 'expo.inOut' }, 0)
+      .fromTo('.climax__number', { scale: desktop ? 1.5 : 1.2, opacity: 0, filter: 'blur(14px)' }, { scale: 1, opacity: 1, filter: 'blur(0px)', duration: 2.4, ease: 'expo.inOut' }, 0)
+      .to(counter, { v: target, duration: 2.6, ease: 'expo.inOut', onUpdate: function () { num.textContent = Math.round(counter.v); } }, 0.2)
+      .fromTo('.ring-progress', { attr: { 'stroke-dashoffset': 1 } }, { attr: { 'stroke-dashoffset': 0 }, duration: 2.8, ease: 'expo.inOut' }, 0.2)
+      .fromTo('.climax [data-reveal]', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1.4, stagger: 0.18, ease: 'power3.out' }, 1.2);
+
+    // ---------- Escena 5 · Créditos finales + fundido a negro ----------
+    gsap.utils.toArray('.credits [data-reveal], [data-roll]').forEach(function (el) {
+      gsap.fromTo(el, { opacity: 0, y: desktop ? 40 : 20 }, {
+        opacity: 1, y: 0, duration: 1.6, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%' }
+      });
+    });
+    gsap.to('.fade-black', {
+      opacity: 1, ease: 'none',
+      scrollTrigger: { trigger: '.credits', start: 'center center', end: 'bottom bottom', scrub: true }
+    });
+    // Las barras vuelven al final, como en el cierre de una película.
+    gsap.fromTo('.letterbox--top', { yPercent: -100 }, { yPercent: 0, ease: 'none', immediateRender: false,
+      scrollTrigger: { trigger: '.credits', start: 'center center', end: 'bottom bottom', scrub: true } });
+    gsap.fromTo('.letterbox--bottom', { yPercent: 100 }, { yPercent: 0, ease: 'none', immediateRender: false,
+      scrollTrigger: { trigger: '.credits', start: 'center center', end: 'bottom bottom', scrub: true } });
+  });
+
+  // El resto de [data-reveal] ya se anima en sus escenas; se recalcula al cargar fuentes.
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
+})();
+</script>
+</body>
+</html>
