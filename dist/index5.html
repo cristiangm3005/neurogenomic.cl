@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 <link rel="canonical" href="https://metalgenomic.cl/">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_CL">
@@ -702,6 +704,80 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
   .stop__big{font-size:clamp(2.4rem,4.4vw,3.6rem)}
   .stop__card{padding:16px 20px 18px;gap:8px}
 }
+
+/* ═══ v10 · síntesis, HUD espacial y clímax ═══════════════════════ */
+:root{--ease-cine:cubic-bezier(.16,1,.3,1)}
+.motion [data-rv]{transition:opacity 1.2s var(--ease-cine),transform 1.4s var(--ease-cine)}
+/* Paneles de cristal oscuro con borde cobrizo */
+.panel{border:1px solid rgba(227,149,92,.26);-webkit-backdrop-filter:blur(20px) saturate(1.3);backdrop-filter:blur(20px) saturate(1.3);
+  background:linear-gradient(180deg,rgba(20,16,13,.72),rgba(12,10,9,.66));box-shadow:0 1px 0 rgba(255,214,180,.08) inset,0 40px 90px -40px rgba(0,0,0,.85)}
+.panel .h2{font-size:clamp(2.4rem,4.4vw,4.4rem);line-height:.92}
+.panel .h3{font-size:clamp(1.9rem,3vw,2.8rem)}
+.story .panel{width:min(500px,100%)}
+/* Micro-telemetría tipo HUD */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 0;padding:0;list-style:none}
+.chips li{display:inline-flex;align-items:center;gap:8px;padding:8px 12px 8px 10px;border:1px solid rgba(227,149,92,.3);border-radius:999px;background:rgba(227,149,92,.06);
+  font:500 .66rem/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bone-soft);white-space:nowrap}
+.chips li::before{content:"";width:6px;height:6px;border-radius:50%;background:#8FD0BF;box-shadow:0 0 8px #8FD0BF}
+.chips b{color:var(--copper);font-weight:500}
+.hero .chips{margin:0 0 22px}
+.legend--v span{font:500 .78rem/1.3 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--bone)}
+/* 04 · Flotación: panel compacto, la escena 3D es la protagonista */
+.pm2{height:440vh}
+.pm2__stick{align-content:end;justify-items:start;padding-bottom:clamp(28px,6vh,64px)}
+.pm2__stick::before{background:linear-gradient(0deg,rgba(9,8,7,.55),rgba(9,8,7,0) 40%)}
+.pm2__panel{width:min(520px,100%)}
+.pm2 .h2{font-size:clamp(2.2rem,3.8vw,3.8rem);overflow:hidden;padding-bottom:.06em}
+.swap{display:inline-block;will-change:transform,opacity}
+.phase{display:flex;gap:6px;flex-wrap:wrap;list-style:none;margin:18px 0 0;padding:0}
+.phase li{padding:7px 11px;border-radius:999px;border:1px solid rgba(238,231,219,.14);font:500 .64rem/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:rgba(238,231,219,.45);transition:color .5s var(--ease-cine),border-color .5s var(--ease-cine),background-color .5s var(--ease-cine)}
+.phase li.on{color:#0b0a09;background:var(--copper);border-color:var(--copper)}
+.pm2 .cap{margin-top:12px}
+/* HUD espacial anclado a coordenadas 3D */
+.hud3d{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:0;display:none}
+.hud3d.on{display:block}
+.h3d{position:absolute;left:0;top:0;will-change:transform}
+.h3d__dot{position:absolute;left:-5px;top:-5px;width:10px;height:10px;border-radius:50%;background:#8FD0BF;box-shadow:0 0 0 4px rgba(143,208,191,.18),0 0 16px #8FD0BF}
+.h3d__ln{position:absolute;left:0;top:-54px;width:1px;height:54px;background:linear-gradient(0deg,rgba(143,208,191,.95),rgba(143,208,191,.1))}
+.h3d__c{position:absolute;left:10px;bottom:46px;min-width:168px;padding:10px 13px 11px;border-radius:10px;background:rgba(7,13,13,.66);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(143,208,191,.38);box-shadow:0 0 24px rgba(143,208,191,.12)}
+.h3d__c b{display:block;font:500 .6rem/1.2 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:rgba(238,231,219,.72);white-space:nowrap}
+.h3d__c em{display:block;margin-top:4px;font:600 1.02rem/1.15 var(--f-mono);font-style:normal;color:#c6f5ea;font-variant-numeric:tabular-nums;white-space:nowrap}
+.h3d__c s{display:block;height:2px;margin-top:8px;background:rgba(143,208,191,.18);text-decoration:none;overflow:hidden}
+.h3d__c u{display:block;height:100%;background:#8FD0BF;transform-origin:left;transition:transform .5s var(--ease-cine)}
+.h3d.is-chk .h3d__c b::after{content:" · patrón ✓";color:#8FD0BF}
+.h3d.is-al .h3d__dot{background:#ff6a3d;box-shadow:0 0 0 5px rgba(255,106,61,.22),0 0 22px #ff5a2a;animation:alp 1.1s ease-in-out infinite}
+.h3d.is-al .h3d__ln{background:linear-gradient(0deg,#ff7a45,rgba(255,122,69,.1))}
+.h3d.is-al .h3d__c{border-color:rgba(255,120,70,.9);background:rgba(30,10,5,.72);box-shadow:0 0 28px rgba(255,90,42,.45),inset 0 0 18px rgba(255,90,42,.15)}
+.h3d.is-al .h3d__c em{color:#ffb58e;text-shadow:0 0 12px rgba(255,110,60,.85)}
+.h3d.is-al .h3d__c u{background:#ff6a3d}
+.h3d.is-ok .h3d__c{border-color:rgba(143,208,191,.9)}
+.h3d.is-ok .h3d__c em{color:#8FD0BF}
+@keyframes alp{50%{transform:scale(1.35)}}
+/* Clímax: destello cobrizo y partículas */
+.finale{gap:22px}
+.finale .sparks{position:absolute;inset:-10% 0;width:100%;height:120%;z-index:-1;pointer-events:none}
+.finale::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;background:radial-gradient(42% 36% at 50% 52%,rgba(255,176,110,.62),rgba(227,149,92,.12) 55%,rgba(227,149,92,0) 75%)}
+.finale.show::after{animation:flash 1.8s var(--ease-cine) both}
+@keyframes flash{0%{opacity:0;transform:scale(.6)}22%{opacity:1}100%{opacity:0;transform:scale(1.5)}}
+.spec{margin:0;padding:8px 14px;border:1px solid rgba(227,149,92,.45);border-radius:999px;background:rgba(12,10,9,.5);font:500 .7rem/1 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--bone)}
+.spec b{color:var(--copper);font-weight:600}
+.cat-cta{box-shadow:0 0 0 0 rgba(227,149,92,.6);letter-spacing:.02em}
+.finale.show .cat-cta{animation:ctaGlow 2.4s var(--ease-cine) .9s both}
+@keyframes ctaGlow{0%{box-shadow:0 0 0 0 rgba(255,170,100,.7)}60%{box-shadow:0 0 0 18px rgba(255,170,100,0)}100%{box-shadow:0 0 30px 0 rgba(227,149,92,.35)}}
+.cat-cta span{opacity:.6;font-weight:400}
+.finale .quote{font-size:clamp(2.6rem,7vw,7.4rem)}
+@media (max-width:760px){
+  .h3d--d{display:none}
+  .h3d__c{min-width:128px;padding:8px 10px}
+  .h3d__c em{font-size:.86rem}
+  .pm2__stick{padding-bottom:24px}
+  .chips li{padding:7px 10px;font-size:.6rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .finale.show::after,.finale.show .cat-cta,.h3d.is-al .h3d__dot{animation:none}
+}
+.h3d.flip .h3d__c{left:auto;right:10px}
 </style>
 
 </head>
@@ -734,12 +810,13 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
   <div class="hud__row"><span>27°22′S · 70°19′O</span><span>Atacama</span></div>
 </aside>
 
+<div class="hud3d" id="hud3d" aria-hidden="true"></div>
 <main id="main">
 
   <!-- 1 · Hero -->
   <section class="act hero" id="inicio" data-scene="0" style="height:150vh" aria-labelledby="t-hero">
     <div class="stick a-bl" id="heroStick">
-      <p class="k">Biotecnología + IA para minería · Copiapó, Chile</p>
+      <p class="k">MetalGenomic · Copiapó, Atacama</p>
       <h1 class="h1" id="t-hero">
         <span class="ln"><span>Más metal.</span></span>
         <span class="ln"><span>Menos detenciones.</span></span>
@@ -747,9 +824,9 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
       </h1>
       <div class="hero__row">
         <div>
-          <p class="lead">Genómica microbiana, datos geoespaciales e IA para recuperar más cobre con menos agua y reactivos. Un piloto medible, sin detener la operación.</p>
+          <ul class="chips" aria-label="Capacidades"><li><b>Genómica</b>microbiana</li><li><b>Datos</b>geoespaciales</li><li><b>IA</b>predictiva</li></ul>
           <div class="ctas">
-            <a class="btn btn--cu" href="#agendar">Agendar diagnóstico operativo <i aria-hidden="true">→</i></a>
+            <a class="btn btn--cu" href="#agendar">Agendar diagnóstico <i aria-hidden="true">→</i></a>
             <a class="btn btn--ghost" href="#territorio">Ver el recorrido</a>
           </div>
         </div>
@@ -759,7 +836,7 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
           <li><b>NDA</b>desde la 1.ª reunión</li>
         </ul>
       </div>
-      <div class="cue" id="cue" aria-hidden="true"><span>Desliza para explorar</span><i></i></div>
+      <div class="cue" id="cue" aria-hidden="true"><span>Explorar</span><i></i></div>
     </div>
   </section>
 
@@ -767,170 +844,118 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
   <section class="act intro" id="empresa" data-scene="0.2" data-dim="0.32" data-label="Empresa" aria-labelledby="t-intro">
     <div class="stick intro__stick">
       <p class="k" data-rv>Quiénes somos · Copiapó, Atacama</p>
-      <h2 class="intro__big" id="t-intro" data-split>Somos MetalGenomic. Unimos biotecnología, datos e inteligencia artificial para que la minería recupere más metal, se detenga menos y deje menos huella.</h2>
+      <h2 class="intro__big" id="t-intro" data-split>Biotecnología, datos e IA para recuperar más metal.</h2>
       <div class="intro__foot">
         <ul class="intro__pillars">
-          <li data-rv><b>Genómica microbiana</b><span>Leemos la comunidad microbiana nativa de tu mineral y tus soluciones.</span></li>
-          <li data-rv="2"><b>Datos geoespaciales</b><span>Satélite y geología para decidir dónde actuar.</span></li>
-          <li data-rv="3"><b>Inteligencia artificial</b><span>Modelos sobre los datos que tu operación ya genera.</span></li>
+          <li data-rv><b>Genómica microbiana</b><span>Microbios nativos, trabajando.</span></li>
+          <li data-rv="2"><b>Datos geoespaciales</b><span>Dónde actuar primero.</span></li>
+          <li data-rv="3"><b>IA predictiva</b><span>Señales antes de la falla.</span></li>
         </ul>
         <p class="intro__hint" aria-hidden="true"><i></i>Pasa el cursor sobre el texto</p>
       </div>
     </div>
   </section>
 
-  <!-- 2 · Territorio: vista satelital, la planta se retira y aparece dónde está el mineral -->
+  <!-- 2 · Satélite: dónde está el mineral -->
   <section class="act story st-r" id="territorio" data-scene="0.5" data-label="Territorio" style="height:300vh" aria-labelledby="t-geo">
     <div class="panels">
       <article class="panel">
-        <p class="k">01 · Territorio · imagen satelital</p>
-        <h2 class="h2" id="t-geo">Encontrar dónde está el mineral</h2>
-        <p class="lead">Antes de la planta, el territorio. Cruzamos imágenes satelitales, geología y machine learning en un solo mapa de probabilidad.</p>
+        <p class="k">01 · Satélite</p>
+        <h2 class="h2" id="t-geo">Dónde está el mineral.</h2>
+        <ul class="chips" aria-label="Telemetría"><li><b>Sat</b>alta resolución</li><li><b>Capas</b>geología + ML</li><li><b>Blancos</b>3 priorizados</li></ul>
       </article>
       <article class="panel">
-        <p class="k">Cómo leer el mapa</p>
+        <p class="k">Lectura del mapa</p>
         <ul class="legend legend--v" aria-label="Capas del mapa">
-          <li><i></i><span><b>Zonas de interés.</b> Donde el modelo concentra la probabilidad de mineral.</span></li>
-          <li><i></i><span><b>Isolíneas.</b> Curvas de igual probabilidad, como un mapa topográfico.</span></li>
-          <li><i></i><span><b>Blancos priorizados.</b> Dónde conviene sondear y estudiar primero.</span></li>
+          <li><i></i><span>Zona de interés</span></li>
+          <li><i></i><span>Isolíneas de probabilidad</span></li>
+          <li><i></i><span>Blanco priorizado</span></li>
         </ul>
-        <p class="gain"><b>Ganas</b>Decidir dónde intervenir, con menos riesgo</p>
-        <a class="more" href="#agendar" data-topic="Exploración geoespacial">Evaluarlo en el diagnóstico →</a>
+        <p class="gain"><b>Ganas</b>Menos riesgo al intervenir</p>
+        <a class="more" href="#agendar" data-topic="Exploración geoespacial">Evaluarlo →</a>
       </article>
     </div>
   </section>
 
-  <!-- 3 · Sistema BIM: el modelo diseña y arma la planta -->
+  <!-- 3 · BIM: la planta antes de construirla -->
   <section class="act story st-l" id="planta" data-scene="1" data-label="Planta" style="height:320vh" aria-labelledby="t-twin">
     <div class="panels">
       <article class="panel">
         <p class="k">02 · Sistema BIM</p>
-        <h2 class="h2" id="t-twin">Diseñar la planta antes de construirla</h2>
-        <p class="lead">El modelo BIM arma la faena pieza por pieza: rajo, pilas, piscinas, correas y planta, cada una en su lugar.</p>
+        <h2 class="h2" id="t-twin">La planta, antes de construirla.</h2>
+        <ul class="chips" aria-label="Telemetría"><li><b>Modelo</b>1:1</li><li><b>Piezas</b>en secuencia</li><li><b>Gemelo</b>digital</li></ul>
       </article>
       <article class="panel">
-        <p class="k">Gemelo digital</p>
-        <p class="lead">Después, el mismo modelo se conecta a los datos de operación. Pruebas los cambios en pantalla, no en terreno.</p>
-        <p class="gain"><b>Ganas</b>Probar cambios sin riesgo</p>
-        <a class="more" href="#agendar" data-topic="Gemelo digital">Solicitar una demo del gemelo →</a>
+        <h3 class="h3">Prueba en pantalla, no en terreno.</h3>
+        <p class="gain"><b>Ganas</b>Cambios sin riesgo</p>
+        <a class="more" href="#agendar" data-topic="Gemelo digital">Solicitar demo →</a>
       </article>
     </div>
   </section>
 
-  <!-- 4 · Biolixiviación genómica: tres pasos sincronizados con la pila -->
+  <!-- 4 · Biolixiviación genómica -->
   <section class="act story st-l microbio" id="biolix" data-scene="2" data-label="Biolixiviación" style="height:400vh" aria-labelledby="t-bio">
     <div class="bio-grid">
       <div class="panels">
         <article class="panel">
-          <p class="k">03 · Biolixiviación genómica · nuestro diferenciador</p>
-          <h2 class="h2" id="t-bio">La pila se convierte en biorreactor</h2>
-          <p class="lead">Ponemos a trabajar a los microorganismos nativos de tu mineral para disolver más cobre, incluso en baja ley.</p>
+          <p class="k">03 · Biolixiviación genómica</p>
+          <h2 class="h2" id="t-bio">La pila, un biorreactor.</h2>
+          <ul class="chips" aria-label="Telemetría"><li><b>Riego</b>goteo</li><li><b>PLS</b>en línea</li><li><b>Microbios</b>nativos</li></ul>
         </article>
         <article class="panel step" data-step="0">
           <p class="k">Paso 1 · Secuenciar</p>
-          <h3 class="h3">Leemos el ADN de tu pila</h3>
-          <p>Metagenómica de toda la comunidad microbiana de tu mineral y tus soluciones.</p>
+          <h3 class="h3">Leemos su ADN.</h3>
+          <ul class="chips"><li><b>Metagenómica</b>mineral + soluciones</li></ul>
         </article>
         <article class="panel step" data-step="1">
           <p class="k">Paso 2 · Seleccionar</p>
-          <h3 class="h3">Elegimos a los que mejor trabajan</h3>
-          <p>Consorcios nativos de Atacama que mejor disuelven tu mineral, en tus condiciones.</p>
+          <h3 class="h3">Elegimos los mejores.</h3>
+          <ul class="chips"><li><b>Consorcios</b>nativos de Atacama</li></ul>
         </article>
         <article class="panel step" data-step="2">
           <p class="k">Paso 3 · Monitorear</p>
-          <h3 class="h3">Ajustamos a tiempo</h3>
-          <p>Seguimos la pila en operación y ajustamos riego, pH y aireación.</p>
-          <p class="gain"><b>Ganas</b>Más recuperación con menos ácido</p>
-          <p class="cap">Riego por goteo y piscina de solución rica (PLS) · visualización ilustrativa</p>
-          <a class="more" href="#agendar" data-topic="Biolixiviación genómica">Evaluarlo en el diagnóstico →</a>
+          <h3 class="h3">Ajustamos a tiempo.</h3>
+          <ul class="chips"><li><b>Riego</b>pH · aire</li></ul>
+          <p class="gain"><b>Ganas</b>Más cobre, menos ácido</p>
+          <p class="cap">Visualización ilustrativa</p>
+          <a class="more" href="#agendar" data-topic="Biolixiviación genómica">Evaluarlo →</a>
         </article>
       </div>
-      <figure class="heapcut" id="heapcut" data-st="0" aria-hidden="true"><svg id="heapSvg" viewBox="0 0 420 250"></svg><figcaption><span>Corte ilustrativo de la pila</span><b id="heapSt">Secuenciar</b></figcaption></figure>
+      <figure class="heapcut" id="heapcut" data-st="0" aria-hidden="true"><svg id="heapSvg" viewBox="0 0 420 250"></svg><figcaption><span>Corte de la pila</span><b id="heapSt">Secuenciar</b></figcaption></figure>
     </div>
   </section>
 
-  <!-- 5 · Modelo predictivo para toda la planta: el proceso completo visto desde el computador -->
-  <section class="act pm" id="equipo" data-scene="3" data-dim="0.4" data-label="Planta predictiva" aria-labelledby="t-mnt">
-    <div class="stick pm__stick">
-      <div class="pm__copy">
-        <p class="k" data-rv>04 · Modelo predictivo · ejemplo: flotación</p>
-        <h2 class="h2" id="t-mnt" data-rv="2">Flotación automatizada, con aviso temprano</h2>
-        <p class="lead pm__lead" data-rv="3">Los instrumentos automáticos miden nivel, aire, espuma y ley en línea en cada celda. El modelo aprende su comportamiento normal y busca las señales que muchas fallas dan antes de detener el circuito.</p>
-        <ol class="pm__steps" id="pmSteps" data-rv="3">
-          <li class="on"><b>01 · Captura</b><span>Nivel, flujo de aire, cámaras de espuma, analizador de ley y dosificación de reactivos, desde tu SCADA.</span></li>
-          <li><b>02 · Análisis</b><span>Cada celda se compara con su propio comportamiento normal.</span></li>
-          <li><b>03 · Señal temprana</b><span>La válvula de nivel de la celda rougher 3 responde cada vez más lento: hay desgaste en curso.</span></li>
-          <li><b>04 · Decisión</b><span>El cambio de válvula entra en una ventana planificada, con repuesto y permisos listos.</span></li>
-        </ol>
-        <p class="gain" data-rv="4"><b>Ganas</b>Planificar en vez de reaccionar</p>
-      </div>
-
-      <div class="pc" id="pc" aria-hidden="true">
-        <div class="pc__bezel">
-          <div class="pc__screen" id="pcScreen" data-ph="0">
-            <div class="pc__bar">
-              <span class="pc__app"><i></i>MetalGenomic · Flotación automatizada</span>
-              <span class="pc__ph" id="pcPhase">01 · Captura de datos</span>
-              <span class="pc__clk" id="pcClock">08:12:00</span>
-            </div>
-            <div class="pc__main"><div class="pc__flow" id="pcFlow"></div></div>
-            <div class="pc__low">
-                <div class="pc__card">
-                  <div class="mon__h"><span>Nivel de pulpa · celda RO-3</span><span class="mon__s" id="monS">● Normal</span></div>
-                  <canvas id="vib"></canvas>
-                  <div class="mon__f"><span>Tendencia</span><span>Simulación</span></div>
-                </div>
-                <ul class="pc__tags" id="pcTags">
-                  <li data-k="vib"><span>Nivel de pulpa · RO-3</span><i><b></b></i><em>Normal</em></li>
-                  <li data-k="tmp"><span>Válvula de dardo · RO-3</span><i><b></b></i><em>Normal</em></li>
-                  <li><span>Flujo de aire · RO-3</span><i><b></b></i><em>Normal</em></li>
-                  <li><span>Espuma · cámara de visión</span><i><b></b></i><em>Normal</em></li>
-                  <li><span>Ley en línea · analizador</span><i><b></b></i><em>Normal</em></li>
-                  <li><span>pH · acondicionador</span><i><b></b></i><em>Normal</em></li>
-                </ul>
-                <div class="pc__out">
-              <ol class="pc__log" id="pcLog">
-                <li data-at="0"><time>08:12</time>Captura · instrumentos del circuito en línea</li>
-                <li data-at="1"><time>08:14</time>Análisis · patrón normal aprendido por celda</li>
-                <li data-at="2" class="w"><time>08:21</time>Celda RO-3 · el nivel oscila más que su patrón</li>
-                <li data-at="2" class="w"><time>08:22</time>Sugerencia · revisar válvula de dardo en la próxima ventana</li>
-                <li data-at="3"><time>08:30</time>Orden de trabajo planificada · SAP PM</li>
-              </ol>
-              <div class="pc__tl" id="pcTl">
-                <div class="tl__row"><span class="tl__lbl">Sin señal temprana</span><div class="tl__bar"><i class="op" style="--w:44%"></i><i class="x" style="--w:4%"></i><i class="stop" style="--w:52%"><em>Detención no planificada</em></i></div></div>
-                <div class="tl__row"><span class="tl__lbl">Con señal temprana</span><div class="tl__bar"><i class="op" style="--w:30%"></i><i class="sig" style="--w:4%"></i><i class="op" style="--w:24%"></i><i class="plan" style="--w:18%"><em>Mantención planificada</em></i><i class="op" style="--w:24%"></i></div></div>
-                <p class="tl__note">Esquema ilustrativo, no a escala. No todas las fallas dan aviso; las que sí, se pueden planificar.</p>
-              </div>
-                </div>
-            </div>
-            <div class="pc__glare"></div>
-          </div>
-        </div>
-        <div class="pc__neck"></div><div class="pc__base"></div>
-        <p class="pc__cap">Interfaz ilustrativa · datos simulados</p>
-
-
+  <!-- 5 · Flotación automatizada: la cámara se sumerge en el circuito; HUD espacial sobre las celdas -->
+  <section class="act pm2" id="equipo" data-scene="3" data-label="Flotación" aria-labelledby="t-mnt">
+    <div class="stick pm2__stick">
+      <div class="panel pm2__panel">
+        <p class="k">04 · Flotación automatizada</p>
+        <h2 class="h2" id="t-mnt"><span class="swap" id="pmHead">Cada celda, en línea.</span></h2>
+        <ol class="phase" id="pmSteps" aria-label="Fases del modelo predictivo"><li class="on">Captura</li><li>Patrón</li><li>Alerta</li><li>Decisión</li></ol>
+        <p class="cap">Simulación ilustrativa</p>
       </div>
     </div>
   </section>
 
-  <!-- 6 · Nave EW: el puente grúa cosecha el banco y el recorrido termina en el cátodo -->
+  <!-- 6 · Nave EW: clímax cinemático y cierre -->
   <section class="act cathode" id="catodo" data-scene="4" data-label="Nave EW" aria-labelledby="t-ew">
     <div class="stick">
       <div class="ew-copy panel" id="ewCopy">
-        <p class="k">05 · Nave de electroobtención · cosecha</p>
-        <h2 class="h2" id="t-ew">Del puente grúa al cátodo</h2>
+        <p class="k">05 · Nave de electroobtención</p>
+        <h2 class="h2" id="t-ew">Del puente grúa al cátodo.</h2>
         <ol class="ew-steps" id="ewSteps">
-          <li class="on"><b>Camino de rodadura</b>El puente recorre la nave sobre rieles elevados, apoyado en sus vigas testeras.</li>
-          <li><b>Carro y polipasto</b>El carro se ubica sobre la celda. El izaje es siempre vertical.</li>
-          <li><b>Travesaño multipunto</b>Las garras toman el banco completo y lo sacan de la celda, lento y sin oscilar.</li>
-          <li><b>Lavado y despegue</b>El banco va a la estación de lavado y el cobre se despega en paquetes.</li>
+          <li class="on"><b>Rodadura</b>Sobre rieles elevados.</li>
+          <li><b>Izaje vertical</b>El carro se centra en la celda.</li>
+          <li><b>Banco completo</b>Garras multipunto, sin oscilar.</li>
+          <li><b>Cosecha</b>Lavado y despegue.</li>
         </ol>
       </div>
       <div class="el" aria-hidden="true"><small>29</small><b>Cu</b><span>Cobre<br>63,546</span></div>
       <div class="finale" id="finale">
+        <canvas class="sparks" id="sparks" aria-hidden="true"></canvas>
+        <p class="spec" aria-hidden="true"><b>Cu</b> 99,99 % · recién cosechado</p>
         <p class="quote" id="quote">Al final, todo se mide en metal recuperado.</p>
-        <a class="btn btn--cu cat-cta" href="#agendar">Agendar diagnóstico <i aria-hidden="true">→</i></a>
+        <a class="btn btn--cu cat-cta" href="#agendar"><span aria-hidden="true">[</span> Agendar diagnóstico <span aria-hidden="true">]</span></a>
       </div>
     </div>
   </section>
@@ -941,8 +966,7 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
       <header class="road__head">
         <p class="k">El camino · cómo trabajamos</p>
         <h2 class="h2" id="t-met">Un problema. Un piloto. Tus números.</h2>
-        <p class="lead">No cambias toda tu operación. Elegimos un problema concreto, medimos y escalamos solo si los números lo justifican.</p>
-      </header>
+        </header>
       <div class="road__world">
         <div class="road__sky" aria-hidden="true"><i class="road__sun"></i></div>
         <div class="road__layer road__far" id="roadFar" aria-hidden="true"></div>
@@ -955,7 +979,7 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
                 <div class="stop__t"><span>Etapa 1</span><span>Km 0</span></div>
                 <div class="stop__big">≤ 4<small>semanas</small></div>
                 <h3>Diagnóstico</h3>
-                <p>Revisamos tus datos, equipos y objetivos para encontrar dónde está el mayor potencial.</p>
+                <p>Dónde está el mayor potencial.</p>
               </div><i class="stop__post" aria-hidden="true"></i>
             </li>
             <li class="stop" style="--i:1">
@@ -963,7 +987,7 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
                 <div class="stop__t"><span>Etapa 2</span><span>Piloto</span></div>
                 <div class="stop__big">1–3<small>meses</small></div>
                 <h3>Piloto acotado</h3>
-                <p>En un equipo, circuito o sector. Integrado a tus sistemas y sin detener la operación.</p>
+                <p>Un equipo, circuito o sector.</p>
                 <ul class="tags"><li>SCADA</li><li>PI System</li><li>SAP PM</li><li>GIS</li></ul>
               </div><i class="stop__post" aria-hidden="true"></i>
             </li>
@@ -972,7 +996,7 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
                 <div class="stop__t"><span>Etapa 3</span><span>Línea base</span></div>
                 <div class="stop__big">4<small>indicadores</small></div>
                 <h3>Medición</h3>
-                <p>Tus números, no promesas genéricas. Fijamos la línea base contigo antes de empezar.</p>
+                <p>Tu línea base, no promesas.</p>
                 <ul class="tags"><li>Disponibilidad</li><li>Recuperación</li><li>Reactivos / t</li><li>Horas de detención</li></ul>
               </div><i class="stop__post" aria-hidden="true"></i>
             </li>
@@ -981,14 +1005,14 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
                 <div class="stop__t"><span>Etapa 4</span><span>Con datos</span></div>
                 <div class="stop__big">↗<small>escalar</small></div>
                 <h3>Escalamiento</h3>
-                <p>Solo si los resultados lo justifican. Si no, lo sabrás a tiempo y con evidencia de tu propia operación.</p>
+                <p>Solo si los números lo justifican.</p>
               </div><i class="stop__post" aria-hidden="true"></i>
             </li>
             <li class="stop stop--end" style="--i:4">
               <div class="stop__card">
                 <div class="stop__t"><span>Destino</span><span>Tu faena</span></div>
-                <h3>Empecemos por el diagnóstico</h3>
-                <p>Cuéntanos qué le duele hoy a tu operación.</p>
+                <h3>Empecemos.</h3>
+                <p>Cuéntanos tu desafío.</p>
                 <a class="btn btn--cu btn--sm" href="#agendar">Agendar diagnóstico <i aria-hidden="true">→</i></a>
               </div><i class="stop__post" aria-hidden="true"></i>
             </li>
@@ -1023,20 +1047,20 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
   <section class="act book" id="agendar" data-scene="4" data-dim="0.2" data-label="Diagnóstico" aria-labelledby="t-book">
     <div class="book__in">
       <div>
-        <p class="k" data-rv>Diagnóstico express · 10 segundos</p>
+        <p class="k" data-rv>Diagnóstico express</p>
         <h2 class="h2" id="t-book" data-rv="2">¿Qué le duele hoy a tu operación?</h2>
         <div class="pains" role="radiogroup" aria-label="Desafío principal" data-rv="3">
-          <button type="button" class="pain" role="radio" aria-checked="true" data-pain="mnt"><span class="n">A</span><span><strong>Detenciones no planificadas</strong><small>Molinos, chancadores, correas o flota fallan sin aviso.</small></span><span class="dot" aria-hidden="true"></span></button>
-          <button type="button" class="pain" role="radio" aria-checked="false" data-pain="bio"><span class="n">B</span><span><strong>Baja recuperación en baja ley</strong><small>Cada punto cuenta y el ácido pesa en el costo.</small></span><span class="dot" aria-hidden="true"></span></button>
-          <button type="button" class="pain" role="radio" aria-checked="false" data-pain="geo"><span class="n">C</span><span><strong>Dónde explorar o qué talud vigilar</strong><small>Decisiones de territorio con información incompleta.</small></span><span class="dot" aria-hidden="true"></span></button>
-          <button type="button" class="pain" role="radio" aria-checked="false" data-pain="twin"><span class="n">D</span><span><strong>Cambios en la planta o un circuito</strong><small>Quieres probar antes de ejecutar en terreno.</small></span><span class="dot" aria-hidden="true"></span></button>
+          <button type="button" class="pain" role="radio" aria-checked="true" data-pain="mnt"><span class="n">A</span><span><strong>Detenciones no planificadas</strong><small>Fallas sin aviso.</small></span><span class="dot" aria-hidden="true"></span></button>
+          <button type="button" class="pain" role="radio" aria-checked="false" data-pain="bio"><span class="n">B</span><span><strong>Baja recuperación en baja ley</strong><small>Cada punto cuenta.</small></span><span class="dot" aria-hidden="true"></span></button>
+          <button type="button" class="pain" role="radio" aria-checked="false" data-pain="geo"><span class="n">C</span><span><strong>Dónde explorar o qué talud vigilar</strong><small>Información incompleta.</small></span><span class="dot" aria-hidden="true"></span></button>
+          <button type="button" class="pain" role="radio" aria-checked="false" data-pain="twin"><span class="n">D</span><span><strong>Cambios en la planta o un circuito</strong><small>Probar antes de ejecutar.</small></span><span class="dot" aria-hidden="true"></span></button>
         </div>
         <div class="rec" aria-live="polite" data-rv="4">
           <p class="k" id="recK">Empezaríamos por · Equipo</p>
-          <h3 id="recT">Mantenimiento predictivo con IA</h3>
+          <h3 id="recT">Mantenimiento predictivo</h3>
           <dl>
-            <dt>Revisamos</dt><dd id="recR">Vibración, temperatura, acústica y datos de operación de tus equipos críticos.</dd>
-            <dt>Piloto</dt><dd id="recP">Un equipo crítico, por ejemplo un molino o una correa.</dd>
+            <dt>Revisamos</dt><dd id="recR">Señales de tus equipos críticos.</dd>
+            <dt>Piloto</dt><dd id="recP">Un molino, una correa o un circuito.</dd>
           </dl>
         </div>
         <ol class="next" aria-label="Qué pasa después">
@@ -1107,12 +1131,12 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
   <section class="act credits" id="preguntas" data-scene="4" data-dim="0.1" data-label="Créditos" aria-labelledby="t-faq">
     <p class="k" id="t-faq">Antes de agendar · lo que suelen preguntarnos</p>
     <ul class="roll">
-      <li data-rv><h3>¿Tenemos que cambiar nuestros sistemas?</h3><p>No. Trabajamos sobre lo que ya usas: SCADA, PI System, SAP PM y GIS.</p></li>
-      <li data-rv><h3>¿Cuánto tiempo toma?</h3><p>Diagnóstico en hasta 4 semanas. Piloto de 1 a 3 meses en un equipo, circuito o sector.</p></li>
-      <li data-rv><h3>¿Cómo sabremos si funcionó?</h3><p>Contra la línea base que fijamos juntos: disponibilidad, recuperación, reactivos por tonelada y horas de detención.</p></li>
-      <li data-rv><h3>¿Y la confidencialidad?</h3><p>NDA desde la primera reunión. Tus datos se usan solo para tu proyecto.</p></li>
-      <li data-rv><h3>¿Y si el piloto no da resultados?</h3><p>No escalamos. Lo sabrás a tiempo y con evidencia de tu operación.</p></li>
-      <li data-rv><h3>¿Qué necesitamos para empezar?</h3><p>Solo contarnos el desafío. El diagnóstico define dónde está el mayor potencial.</p></li>
+      <li data-rv><h3>¿Tenemos que cambiar nuestros sistemas?</h3><p>No. Usamos SCADA, PI System, SAP PM y GIS.</p></li>
+      <li data-rv><h3>¿Cuánto tiempo toma?</h3><p>Diagnóstico ≤ 4 semanas. Piloto de 1 a 3 meses.</p></li>
+      <li data-rv><h3>¿Cómo sabremos si funcionó?</h3><p>Contra la línea base que fijamos juntos.</p></li>
+      <li data-rv><h3>¿Y la confidencialidad?</h3><p>NDA desde la primera reunión.</p></li>
+      <li data-rv><h3>¿Y si el piloto no da resultados?</h3><p>No escalamos. Lo sabrás a tiempo.</p></li>
+      <li data-rv><h3>¿Qué necesitamos para empezar?</h3><p>Solo contarnos el desafío.</p></li>
     </ul>
     <div class="card">
       <h2 class="h2" data-rv>Del satélite<br>al cátodo.</h2>
@@ -1189,29 +1213,11 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
   const labels=['Territorio','Territorio','Planta · BIM','Pila · biolixiviación','Planta · predictivo','Nave EW'];
   function tc(frac){const tot=frac*160;const m=Math.floor(tot/60),s=Math.floor(tot%60),fr=Math.floor((tot%1)*24);const z=n=>String(n).padStart(2,'0');return'00:'+z(m)+':'+z(s)+':'+z(fr);}
 
-  /* ── Vibración ─────────────────────── */
-  const vib=document.getElementById('vib'),vctx=vib.getContext('2d'),monS=document.getElementById('monS');
-  const eqSec=document.getElementById('equipo');
-  let alert=0,alertT=0;
-  function drawVib(t){
-    const w=vib.clientWidth,h=vib.clientHeight,dpr=Math.min(2,devicePixelRatio||1);
-    if(vib.width!==Math.round(w*dpr)){vib.width=Math.round(w*dpr);vib.height=Math.round(h*dpr);}
-    vctx.setTransform(dpr,0,0,dpr,0,0);vctx.clearRect(0,0,w,h);
-    vctx.strokeStyle='rgba(238,231,219,.12)';vctx.lineWidth=1;
-    for(let i=1;i<4;i++){vctx.beginPath();vctx.moveTo(0,h*i/4);vctx.lineTo(w,h*i/4);vctx.stroke();}
-    const lim=h*.18;vctx.setLineDash([4,4]);vctx.strokeStyle='rgba(227,149,92,.55)';vctx.beginPath();vctx.moveTo(0,lim);vctx.lineTo(w,lim);vctx.stroke();vctx.setLineDash([]);
-    vctx.beginPath();
-    for(let x=0;x<=w;x+=2){const u=x/w*20+t*3;
-      let y=Math.sin(u*2.1)*.18+Math.sin(u*5.3+1)*.09+Math.sin(u*11.7)*.05;
-      const imp=Math.pow(Math.max(0,Math.sin(u*1.3)),28)*alert*1.15;
-      y+=imp*Math.sign(Math.sin(u*40))+ (Math.random()-.5)*.04;
-      const py=h*.55-y*h*.42;x===0?vctx.moveTo(x,py):vctx.lineTo(x,py);}
-    vctx.strokeStyle=alert>.5?'#E3955C':'#8FD0BF';vctx.lineWidth=1.4;vctx.stroke();
-  }
+  const eqSec=document.getElementById('equipo');let alert=0;
 
   /* ── Bucle ─────────────────────────── */
   let target_s=0,running=false;
-  let cur={s:0,d:1},mouse=[0,0],mt=[0,0],t0=performance.now(),last=t0,visible=true;
+  let sv=0,cur={s:0,d:1},mouse=[0,0],mt=[0,0],t0=performance.now(),last=t0,visible=true;
   addEventListener('pointermove',e=>{mt=[(e.clientX/innerWidth-.5),-(e.clientY/innerHeight-.5)]},{passive:true});
   document.addEventListener('visibilitychange',()=>{visible=!document.hidden;if(visible&&!running){running=true;last=performance.now();requestAnimationFrame(loop);}});
   const track=document.getElementById('track'),method=document.getElementById('metodo');
@@ -1223,6 +1229,46 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
 
   function setT(el,v){if(el._v!==v){el._v=v;el.textContent=v;}}
   function secP(el){const r=el.getBoundingClientRect();return Math.min(1,Math.max(0,-r.top/(el.offsetHeight-innerHeight)));}
+
+  /* ── v10 · titulares que cambian con la fase (GSAP power4.out si está disponible) ── */
+  function swapHead(el,txt){
+    if(!el||el.textContent===txt)return;
+    const g=window.gsap;
+    if(g&&!reduce){g.killTweensOf(el);g.to(el,{yPercent:-110,opacity:0,duration:.32,ease:'power2.in',onComplete:()=>{el.textContent=txt;g.fromTo(el,{yPercent:110,opacity:0},{yPercent:0,opacity:1,duration:1,ease:'power4.out'});}});}
+    else el.textContent=txt;
+  }
+  const pmHead=document.getElementById('pmHead'),pmSteps=[...document.querySelectorAll('#pmSteps li')];
+  const PMH=['Cada celda, en línea.','Su patrón, aprendido.','RO-3: alerta temprana.','Mantención planificada.'];let pmPh=-1;
+  /* ── v10 · entrada de los paneles: líneas y telemetría con inercia ── */
+  const pio=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;pio.unobserve(e.target);const g=window.gsap;if(!g||reduce)return;
+    const els=e.target.querySelectorAll('.k,.h2,.h3,.chips li,.legend li,.gain,.more,.phase li,.stop__big,.stop h3');if(els.length)g.from(els,{y:28,opacity:0,duration:1.15,ease:'power4.out',stagger:.06,clearProps:'transform,opacity'});}),{threshold:.25});
+  document.querySelectorAll('.panel,.stop__card').forEach(el=>pio.observe(el));
+  /* ── v10 · cierre: destello cobrizo y partículas que responden al cursor ── */
+  const sparks=document.getElementById('sparks'),sctx=sparks.getContext('2d');let SP=[],spOn=false,spW=0,spH=0,finOn=false;
+  function sparkSize(){const dpr=Math.min(2,devicePixelRatio||1);spW=sparks.clientWidth;spH=sparks.clientHeight;sparks.width=Math.round(spW*dpr);sparks.height=Math.round(spH*dpr);sctx.setTransform(dpr,0,0,dpr,0,0);}
+  addEventListener('resize',sparkSize);
+  function burst(n){for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,v=90+Math.random()*460;SP.push({x:spW/2,y:spH*.5,vx:Math.cos(a)*v,vy:Math.sin(a)*v*.55-140,l:1,d:.6+Math.random()*1.4,r:.7+Math.random()*2.3,h:18+Math.random()*22});}}
+  function stepSparks(dt){
+    if(!spOn&&!SP.length)return;
+    if(!spW)sparkSize();
+    if(spOn&&SP.length<260)for(let i=0;i<Math.round(dt*46);i++)SP.push({x:Math.random()*spW,y:spH+10,vx:(Math.random()-.5)*30,vy:-40-Math.random()*90,l:1,d:2.5+Math.random()*3,r:.6+Math.random()*1.8,h:20+Math.random()*18});
+    const mx=(mt[0]+.5)*spW,my=(-mt[1]+.5)*spH;
+    sctx.clearRect(0,0,spW,spH);sctx.globalCompositeOperation='lighter';
+    for(let i=SP.length-1;i>=0;i--){const p=SP[i];
+      const dx=p.x-mx,dy=p.y-my,dd=dx*dx+dy*dy;if(dd<26000){const f=(1-dd/26000)*900*dt;const d=Math.sqrt(dd)||1;p.vx+=dx/d*f;p.vy+=dy/d*f;}
+      p.vy-=26*dt;p.vx*=1-1.2*dt;p.vy*=1-.6*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.l-=dt/p.d;
+      if(p.l<=0||p.y<-20){SP.splice(i,1);continue;}
+      sctx.fillStyle='hsla('+p.h.toFixed(0)+',95%,'+(58+p.l*16).toFixed(0)+'%,'+(p.l*.9).toFixed(3)+')';
+      sctx.beginPath();sctx.arc(p.x,p.y,p.r*(.6+p.l*.6),0,7);sctx.fill();}
+    sctx.globalCompositeOperation='source-over';
+  }
+  function finaleIn(){
+    const g=window.gsap;
+    if(!reduce){spOn=true;sparkSize();burst(170);}
+    if(g&&!reduce){g.fromTo(quoteWords,{yPercent:60,opacity:0,filter:'blur(6px)'},{yPercent:0,opacity:1,filter:'blur(0px)',duration:1.3,ease:'power4.out',stagger:.07});
+      g.fromTo('#finale .spec',{y:16,opacity:0},{y:0,opacity:1,duration:1,ease:'power4.out'});
+      g.fromTo('#finale .cat-cta',{scale:.86,opacity:0},{scale:1,opacity:1,duration:1.2,ease:'power4.out',delay:.55});}
+  }
 
   /* ── v9 · paneles de texto que se superponen a la escena fija (parallax) ── */
   const panels=[...document.querySelectorAll('.story .panel')];
@@ -1257,7 +1303,7 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
     const frag=document.createDocumentFragment();
     txt.split(' ').forEach((w,i)=>{
       if(i)frag.appendChild(document.createTextNode(' '));
-      const ws=document.createElement('span');ws.className='w'+(/^(metal,?|menos|huella\.?)$/i.test(w)?' cu':'');ws.setAttribute('aria-hidden','true');
+      const ws=document.createElement('span');ws.className='w'+(/^(más|metal\.?)$/i.test(w)?' cu':'');ws.setAttribute('aria-hidden','true');
       for(const ch of w){const c=document.createElement('span');c.className='c';c.textContent=ch;ws.appendChild(c);iChars.push({el:c,w:ws,x:0,y:0,p:0});}
       frag.appendChild(ws);iWords.push(ws);
     });
@@ -1315,69 +1361,6 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
   })();
   const hcMic=document.getElementById('hcMic');
 
-  /* ── v7 · Modelo predictivo: el proceso completo en pantalla ── */
-  const pc=document.getElementById('pc'),pcScreen=document.getElementById('pcScreen'),pcFlow=document.getElementById('pcFlow'),pcBezel=pc.querySelector('.pc__bezel');
-  const pcPhase=document.getElementById('pcPhase'),pcClock=document.getElementById('pcClock');
-  const pcLog=[...document.querySelectorAll('#pcLog li')],pmLis=[...document.querySelectorAll('#pmSteps li')];
-  const pcTags=[...document.querySelectorAll('#pcTags li')],tlBars=[...document.querySelectorAll('.tl__bar')];
-  const PHN=['01 · Captura de datos','02 · Análisis por equipo','03 · Señal temprana','04 · Decisión planificada'];
-  const FL=[['Flotación primaria · rougher-scavenger',[['Alimentación','feed'],['Acondicionador','cond'],['Rougher 1-2','cell'],['Rougher 3-4','cell'],['Scavenger','cell'],['Relaves','tails']]],
-            ['Limpieza y concentrado',[['Remolienda','ball'],['Columna cleaner','column'],['Recleaner','cell'],['Espesador','thick'],['Filtro','filter'],['Concentrado','pile']]]];
-  const ICON={
-    feed:'M-7,-18 H7 V-8 H-7 Z M-7,-8 L-2,16 H2 L7,-8 Z M-2,-18 V-23 H2 V-18 M7,-14 H16',
-    cond:'M-14,-12 H14 V16 H-14 Z M0,-22 V8 M-8,8 H8 M-6,-22 H6 V-17 H-6 Z',
-    cell:'M-16,-10 H16 V16 H-16 Z M-21,-10 H-16 M16,-10 H21 V-4 M0,-22 V10 M-7,10 H7 M-5,-22 H5 V-17 H-5 Z M-12,-5 Q-8,-8 -4,-5 T4,-5 T12,-5',
-    tails:'M-26,12 L-14,-6 H26 V12 Z M-10,2 Q-4,-1 2,2 T14,2',
-    ball:'M-20,-10 H14 V10 H-20 Z M-26,-4 H-20 V4 H-26 Z M14,-4 H20 V4 H14 Z M-9,-13 V13',
-    column:'M-7,-22 H7 V18 H-7 Z M-11,-18 H-7 M7,-10 H12 M-4,-14 H4 M-4,-6 H4 M-4,2 H4 M-4,10 H4',
-    thick:'M-26,-6 H26 L4,12 H-4 Z M0,-16 V4 M-22,-6 V-10 H22 V-6',
-    filter:'M-24,-10 H24 V10 H-24 Z M-18,-10 V10 M-12,-10 V10 M-6,-10 V10 M0,-10 V10 M6,-10 V10 M12,-10 V10 M18,-10 V10 M-22,10 V16 M22,10 V16',
-    pile:'M-24,14 L0,-14 L24,14 Z M-8,14 L0,-14 L8,14'
-  };
-  // instrumentación automática (burbujas ISA): pH, nivel, aire, ley en línea, densidad, presión
-  const INST={1:'AIC',2:'LIC',3:'LIC',4:'FIC',7:'AT',9:'DIT',10:'PIC'};
-  const HEALTH=[.88,.86,.84,.8,.85,.9,.83,.87,.85,.88,.86,.92];
-  let flMode='',flNodes=[],flScan=null,flW=720,flH=300,flNarrow=false,flKey='',pmPh=-1;
-  function buildFlow(){
-    const narrow=pcFlow.clientWidth<520,mode=narrow?'n':'w';if(mode===flMode)return;flMode=mode;flNarrow=narrow;flKey='';
-    const W=narrow?340:720,H=narrow?352:270;flW=W;flH=H;
-    const pos=narrow?(r,i)=>[r?204:34,56+i*52]:(r,i)=>[62+i*119,r?196:74];
-    const sc=narrow?.62:1;
-    let h='<defs><linearGradient id="flScanG" x1="0" y1="0" x2="'+(narrow?0:1)+'" y2="'+(narrow?1:0)+'"><stop offset="0" stop-color="rgba(29,63,182,0)"/><stop offset="1" stop-color="rgba(29,63,182,.16)"/></linearGradient>'+
-      '<marker id="fsA" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 Z" fill="#d7322a"/></marker>'+
-      '<marker id="fsR" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 Z" fill="#8d9a6b"/></marker></defs>';
-    h+='<rect class="fs-bg" x="0" y="0" width="'+W+'" height="'+H+'" rx="4"/>';
-    for(let x=20;x<W;x+=20)h+='<line class="fs-grid" x1="'+x+'" y1="0" x2="'+x+'" y2="'+H+'"/>';
-    for(let y=20;y<H;y+=20)h+='<line class="fs-grid" x1="0" y1="'+y+'" x2="'+W+'" y2="'+y+'"/>';
-    FL.forEach(([lbl,nodes],r)=>{
-      const p0=pos(r,0);
-      h+=narrow?'<text class="fs-row" x="'+(p0[0]-20)+'" y="24">'+(r?'Limpieza':'Rougher')+'</text>':'<text class="fs-row" x="12" y="'+(p0[1]-46)+'">'+lbl+'</text>';
-      for(let i=0;i<nodes.length-1;i++){if(!narrow&&r===0&&i===4)continue;const a=pos(r,i),b=pos(r,i+1);
-        const d=narrow?'M'+a[0]+' '+(a[1]+15)+' V'+(b[1]-17):'M'+(a[0]+30)+' '+a[1]+' H'+(b[0]-31);
-        h+='<path class="fs-arrow" d="'+d+'" marker-end="url(#fsA)"/><path class="fs-flow" d="'+d+'"/>';}
-    });
-    if(!narrow){
-      // colas del scavenger a relaves, concentrado rougher a remolienda, recirculaciones
-      const s4=pos(0,4),s5=pos(0,5),r3=pos(0,3),m0=pos(1,0),c1=pos(1,1),c2=pos(1,2);
-      const d1='M'+(s4[0]+30)+' '+s4[1]+' H'+(s5[0]-31);h+='<path class="fs-arrow" d="'+d1+'" marker-end="url(#fsA)"/><path class="fs-flow" d="'+d1+'"/>';
-      const d2='M'+r3[0]+' '+(r3[1]+42)+' V'+(r3[1]+58)+' H'+m0[0]+' V'+(m0[1]-26);h+='<path class="fs-arrow" d="'+d2+'" marker-end="url(#fsA)"/><path class="fs-flow" d="'+d2+'"/>';
-      h+='<path class="fs-ret" d="M'+s4[0]+' '+(s4[1]-24)+' V'+(s4[1]-36)+' H'+pos(0,2)[0]+' V'+(s4[1]-24)+'" marker-end="url(#fsR)"/>';
-      h+='<path class="fs-ret" d="M'+c2[0]+' '+(c2[1]+42)+' V'+(c2[1]+56)+' H'+c1[0]+' V'+(c1[1]+42)+'" marker-end="url(#fsR)"/>';
-    }
-    h+=narrow?'<rect class="fl-scan" x="0" y="0" width="'+W+'" height="64"/>':'<rect class="fl-scan" x="0" y="0" width="72" height="'+H+'"/>';
-    FL.forEach(([,nodes],r)=>nodes.forEach(([n,ic],i)=>{const [x,y]=pos(r,i),id=r*6+i,tag=INST[id];
-      h+='<g class="fl-nd" transform="translate('+x+','+y+')">'+
-        (narrow?'<rect class="fl-ring" x="-24" y="-20" width="160" height="40" rx="6"/>':'<rect class="fl-ring" x="-36" y="-28" width="72" height="72" rx="6"/>')+
-        '<g transform="scale('+sc+')"><path class="fs-ic" d="'+ICON[ic]+'"/></g>'+
-        (narrow?
-        '<circle class="led" cx="128" cy="-8" r="2.8"/><text class="fs-lbl" x="24" y="-2">'+n+(tag?' · '+tag:'')+'</text><rect class="hb" x="24" y="5" width="104" height="2.6"/><rect class="hv" x="24" y="5" width="'+(104*HEALTH[id]).toFixed(1)+'" height="2.6"/>':
-        (tag?'<line class="fs-tagl" x1="14" y1="-14" x2="22" y2="-22"/><circle class="fs-tag" cx="28" cy="-28" r="9"/><text class="fs-tagt" x="28" y="-25.6" text-anchor="middle">'+tag+'</text>':'<circle class="led" cx="30" cy="-22" r="2.8"/>')+
-        '<text class="fs-lbl" x="0" y="30" text-anchor="middle">'+n+'</text><rect class="hb" x="-24" y="35" width="48" height="2.6"/><rect class="hv" x="-24" y="35" width="'+(48*HEALTH[id]).toFixed(1)+'" height="2.6"/>')+'</g>';}));
-    pcFlow.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet">'+h+'</svg>';
-    flNodes=[...pcFlow.querySelectorAll('.fl-nd')].map((g,id)=>{const r=id<6?0:1,i=id%6,pp=pos(r,i);return{g,x:pp[0],y:pp[1]};});
-    flScan=pcFlow.querySelector('.fl-scan');
-  }
-  addEventListener('resize',()=>{flMode='';});
 
 
   function loop(now){
@@ -1385,14 +1368,16 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
     const dt=Math.min(.1,(now-last)/1000);last=now;
     const tg=target()||{s:4,d:.1,p:0};target_s=tg.s;
     const k=reduce?1:1-Math.pow(.0015,dt);
-    cur.s+=(tg.s-cur.s)*k;cur.d+=(tg.d-cur.d)*k;
+    // cámara con peso: resorte críticamente amortiguado (sin frenazos)
+    if(reduce){cur.s=tg.s;cur.d=tg.d;sv=0;}
+    else{const W=3.4;let h=dt;while(h>1e-6){const e=Math.min(h,1/120);sv+=((tg.s-cur.s)*W*W-2*W*sv)*e;cur.s+=sv*e;h-=e;}cur.d+=(tg.d-cur.d)*(1-Math.pow(.004,dt));}
     mouse[0]+=(mt[0]-mouse[0])*k*.6;mouse[1]+=(mt[1]-mouse[1])*k*.6;
 
     // barras de cine: abiertas en el hero, se cierran en el pico
     const hp=secP(hero),cp=cat.getBoundingClientRect();
     let bar=Math.max(0,1-hp*1.6)*Math.min(innerHeight*.085,72);
     if(cp.top<innerHeight&&cp.bottom>0){const p=secP(cat);bar=Math.max(bar,Math.sin(Math.min(1,p*1.25)*Math.PI)*innerHeight*.13);
-      const n=Math.floor(Math.min(1,Math.max(0,(p-.9)/.06))*quoteWords.length+.2);quoteWords.forEach((w,i)=>w.classList.toggle('on',reduce||i<n));}
+      const n=Math.floor(Math.min(1,Math.max(0,(p-.93)/.04))*quoteWords.length+.2);quoteWords.forEach((w,i)=>w.classList.toggle('on',reduce||i<n));}
     root.style.setProperty('--bar',bar.toFixed(1)+'px');
 
     // historia: BIM sobre la planta, frente de biolixiviación y cosecha con puente grúa
@@ -1400,8 +1385,8 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
     story.bio=secP(bioSec);story.crane=secP(cat);
     {const p=story.crane,st=p<.3?0:p<.44?1:p<.62?2:3;
      if(st!==ewStep){ewStep=st;ewLis.forEach((li,i)=>li.classList.toggle('on',i===st));}
-     ewCopy.style.opacity=(1-sm01((p-.84)/.05)).toFixed(3);
-     const fin=p>.9;finale.classList.toggle('show',fin);quoteEl.classList.toggle('show',fin);}
+     ewCopy.style.opacity=(1-sm01((p-.8)/.06)).toFixed(3);
+     const fin=p>.93;if(fin!==finOn){finOn=fin;if(fin)finaleIn();else spOn=false;}finale.classList.toggle('show',fin);quoteEl.classList.toggle('show',fin);}
     // v7 · apertura: la indicación de scroll se retira al empezar el recorrido
     if(cue)cue.style.opacity=Math.max(0,1-hp*5).toFixed(3);
     // v7 · quiénes somos: las palabras se encienden con el avance del scroll
@@ -1436,31 +1421,16 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
       const on=Math.min(N,Math.round(roadPos/roadGeo.gap));
       if(on!==roadOn){roadOn=on;stops.forEach((s,k)=>s.classList.toggle('on',k===on));setT(roadKm,STOPN[on]||'');}
       roadBar.style.transform='scaleX('+(roadPos/roadGeo.max).toFixed(3)+')';}}
-    // v7 · modelo predictivo: captura → análisis → señal temprana → decisión
-    {const r=eqSec.getBoundingClientRect(),vis=r.top<innerHeight&&r.bottom>0;pc.classList.toggle('run',vis&&!reduce);
-      if(vis){buildFlow();
-        const p=secP(eqSec),ph=p<.22?0:p<.46?1:p<.7?2:3;
-        if(ph!==pmPh){pmPh=ph;pcScreen.dataset.ph=ph;pmLis.forEach((li,i)=>li.classList.toggle('on',i===ph));setT(pcPhase,PHN[ph]);pcLog.forEach(li=>li.classList.toggle('on',+li.dataset.at<=ph));}
-        pcScreen.classList.toggle('flow',p>.02);
-        const nLive=Math.min(12,Math.ceil(Math.min(1,p/.18)*12)),sq=Math.min(1,Math.max(0,(p-.22)/.22));
-        const sPos=sq*((flNarrow?flH:flW)+70)-70,al=p>.5;
-        const key=nLive+'|'+Math.round(sPos)+'|'+al;
-        if(key!==flKey){flKey=key;
-          if(flScan)flScan.setAttribute('transform',flNarrow?'translate(0,'+sPos.toFixed(1)+')':'translate('+sPos.toFixed(1)+',0)');
-          flNodes.forEach((n,i)=>{n.g.classList.toggle('live',i<nLive);n.g.classList.toggle('scanned',p>=.44||(p>.22&&(flNarrow?n.y:n.x)<sPos+40));n.g.classList.toggle('alert',i===3&&al);});
-          pcTags.forEach((li,i)=>{const on=i<Math.ceil(nLive/2);const hi=al&&(li.dataset.k==='vib'||li.dataset.k==='tmp');
-            li.querySelector('b').style.transform='scaleX('+(on?(hi?(li.dataset.k==='vib'?.86:.7):[.36,.42,.58,.5,.46,.54][i]):0)+')';
-            li.classList.toggle('hi',hi);setT(li.querySelector('em'),hi?'Alta':(on?'Normal':'—'));});}
-        const a=Math.min(1,Math.max(0,(p-.46)/.12));alert+=(a-alert)*Math.min(1,dt*3);
-        drawVib(reduce?0:(now-t0)/1000);const alv=alert>.5;monS.classList.toggle('alert',alv);setT(monS,alv?'● Sobre su patrón':'● Normal');
-        const tl=reduce?(ph===3?1:0):Math.min(1,Math.max(0,(p-.72)/.2));tlBars.forEach(b=>b.style.setProperty('--tl',tl.toFixed(3)));
-        const mins=Math.floor(p*18),secs=Math.floor((p*18*60)%60);setT(pcClock,'08:'+String(12+mins).padStart(2,'0')+':'+String(secs).padStart(2,'0'));
-        if(finePtr&&!reduce&&!small){pcBezel.style.setProperty('--ry',(mouse[0]*-7).toFixed(2)+'deg');pcBezel.style.setProperty('--rx',(mouse[1]*-4).toFixed(2)+'deg');}
-      }else alert+=(0-alert)*Math.min(1,dt*3);}
-
+    // v10 · flotación: la cámara se sumerge en el circuito; cada fase se sincroniza con el HUD espacial
+    {const r=eqSec.getBoundingClientRect(),vis=r.top<innerHeight&&r.bottom>0;
+      const p=secP(eqSec),pm=Math.min(1,p/.7);story.pm=pm;
+      const ph=pm<.28?0:pm<.52?1:pm<.8?2:3;story.pmPhase=ph;
+      if(vis&&ph!==pmPh){pmPh=ph;pmSteps.forEach((li,i)=>li.classList.toggle('on',i===ph));swapHead(pmHead,PMH[ph]);}
+      const a=(vis&&ph===2)?1:0;alert+=(a-alert)*Math.min(1,dt*3);}
+    stepSparks(dt);
     // HUD
     setT(hudScale,fmt(cur.s));
-    setT(hudLabel,cur.s<.12?'Cerros de Atacama':cur.s<.35?'Faena':cur.s<.75?'Imagen satelital':cur.s<1.5?'Planta · BIM':cur.s<2.5?'Pila · biolixiviación':cur.s<3.5?'Flotación · predictivo':'Nave EW');
+    setT(hudLabel,cur.s<.12?'Cerros de Atacama':cur.s<.35?'Faena':cur.s<.75?'Imagen satelital':cur.s<1.5?'Planta · BIM':cur.s<2.5?'Pila · biolixiviación':cur.s<3.5?'Flotación · en línea':'Nave EW');
     setT(hudTc,tc(scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight)));
     root.style.setProperty('--hud-o',Math.max(0,Math.min(1,(cur.d-.45)/.4)).toFixed(2));
     fb.dataset.s=String(Math.round(cur.s));
@@ -1478,10 +1448,10 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
 
   /* ── Diagnóstico express ───────────── */
   const REC={
-    mnt:{k:'Equipo',t:'Mantenimiento predictivo con IA',r:'Vibración, temperatura, acústica y datos de operación de tus equipos críticos.',p:'Un equipo crítico, por ejemplo un molino o una correa.',chip:'i-mnt'},
-    bio:{k:'Microbio',t:'Biolixiviación genómica',r:'La comunidad microbiana de tu mineral y tus soluciones, y su condición de proceso.',p:'Un sector de pila o circuito de lixiviación.',chip:'i-bio'},
-    geo:{k:'Territorio',t:'Exploración geoespacial predictiva',r:'Imágenes satelitales, geología y datos de terreno de tu zona.',p:'Un sector a priorizar o un talud a vigilar.',chip:'i-geo'},
-    twin:{k:'Planta',t:'Gemelo digital y BIM',r:'Planos, modelos y datos de operación de tu planta.',p:'Un circuito o área de la planta, modelado con datos reales.',chip:'i-twin'}
+    mnt:{k:'Equipo',t:'Mantenimiento predictivo',r:'Señales de tus equipos críticos.',p:'Un molino, una correa o un circuito.',chip:'i-mnt'},
+    bio:{k:'Pila',t:'Biolixiviación genómica',r:'Microbios y soluciones de tu pila.',p:'Un sector de pila.',chip:'i-bio'},
+    geo:{k:'Territorio',t:'Exploración geoespacial',r:'Satélite, geología y terreno.',p:'Un sector o un talud.',chip:'i-geo'},
+    twin:{k:'Planta',t:'Gemelo digital y BIM',r:'Planos, modelos y operación.',p:'Un circuito o área.',chip:'i-twin'}
   };
   const pains=[...document.querySelectorAll('.pain')];
   function pick(key,focus){
@@ -1545,10 +1515,13 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
    Mundo exterior: territorio → rajo → faena / BIM → pila con riego → planta.
    Interior: nave de electroobtención con puente grúa birriel.               */
 const M=window.__mg;
-let THREE=null;
+let THREE=null,FX=null;
 if(M&&!M.dead()){
-  for(const u of ['https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js','https://unpkg.com/three@0.160.0/build/three.module.min.js']){
-    try{THREE=await import(u);break;}catch(e){}
+  try{THREE=await import('three');}catch(e){}
+  if(THREE&&!/[?&]fx=0\b/.test(location.search)){
+    try{const m=await Promise.all(['EffectComposer','RenderPass','UnrealBloomPass','SSAOPass','BokehPass','OutputPass'].map(n=>import('three/addons/postprocessing/'+n+'.js')));
+      FX={EffectComposer:m[0].EffectComposer,RenderPass:m[1].RenderPass,UnrealBloomPass:m[2].UnrealBloomPass,SSAOPass:m[3].SSAOPass,BokehPass:m[4].BokehPass,OutputPass:m[5].OutputPass};}
+    catch(e){FX=null;}
   }
   if(!THREE)M.nogl('no se pudo cargar el motor 3D');
   else{try{start();}catch(e){console.warn(e);M.nogl('error al iniciar la escena 3D');}}
@@ -1755,7 +1728,7 @@ function part(geom,base,bim,{rough=.55,metal=.2,edges=true,shadow=true,emissive=
   for(let k=0;k<3;k++){S.push(BX(72,3.2,16,205,1.6,150+k*20),BX(6,5,6,165,2.5,150+k*20),BX(72,.3,16.4,205,3.35,150+k*20));}
   part(merge(S),'#c7ccd0','#2f86e0',{metal:.25,rough:.5});
   const K=[];// espesadores sobre patas (como los conos de la referencia)
-  [[-30,182],[-6,196]].forEach(([x,z])=>{K.push(CY(10,10,6,x,13,z,0,0,40),CY(10,1.4,8,x,6,z,0,0,40),CY(10.3,10.3,.5,x,16.2,z,0,0,40));
+  [[-150,176],[-124,192]].forEach(([x,z])=>{K.push(CY(10,10,6,x,13,z,0,0,40),CY(10,1.4,8,x,6,z,0,0,40),CY(10.3,10.3,.5,x,16.2,z,0,0,40));
     for(let a=0;a<6;a++){const an=a/6*Math.PI*2;K.push(CY(.45,.45,10,x+Math.cos(an)*7.5,5,z+Math.sin(an)*7.5,0,0,8));}});
   part(merge(K),'#d9d4c8','#7bb8f2',{metal:.2,rough:.6});
   // nave de electroobtención con chimeneas
@@ -1792,16 +1765,16 @@ const FLOT={leds:[],alertRing:null};
   const T=[],R2=[],TOP=[],P=[],RAIL=[];
   for(let i=0;i<6;i++){const x=FX+i*DX;
     T.push(CY(4.6,4.6,7,x,3.5,FZ,0,0,40),CY(4.6,3.2,1.6,x,-.2,FZ,0,0,40));
-    R2.push(CY(5.1,5.1,.7,x,6.75,FZ,0,0,40));
-    TOP.push(BX(10.4,.45,.9,x,7.7,FZ),BX(1.6,1.5,1.6,x,8.7,FZ));
+    R2.push([new THREE.CylinderGeometry(5.1,5.1,.7,48,1,true),mat4(x,6.75,FZ)],[new THREE.TorusGeometry(4.85,.22,8,48).rotateX(Math.PI/2),mat4(x,7.1,FZ)]);
+    TOP.push(BX(10.4,.3,.7,x,7.55,FZ),BX(1.1,1.1,1.1,x,8.25,FZ),CY(.18,.18,1.2,x,7.0,FZ,0,0,12));
     if(i<5)P.push(CY(.55,.55,DX-9.2,x+DX/2,1.6,FZ,0,Math.PI/2,16),BX(1.1,1.1,1.1,x+DX/2,1.6,FZ+.0));
     RAIL.push(BX(.12,1.1,.12,x-5,8.15,FZ+6.2),BX(.12,1.1,.12,x+1,8.15,FZ+6.2));
   }
   RAIL.push(BX(6*DX+4,.3,2.6,FX+2.5*DX,7.3,FZ+5.6),BX(6*DX+4,.08,.08,FX+2.5*DX,8.7,FZ+6.2),BX(6*DX+4,1.2,2,FX+2.5*DX,5.6,FZ-6.4));
   for(let i=0;i<=12;i++)RAIL.push(BX(.4,7.3,.4,FX-6+i*6.6,3.65,FZ+5.6));
   part(merge(T),'#a3b0ac','#5aa7ee',{metal:.45,rough:.4});
-  part(merge(R2),'#5e6a70','#1557b8',{metal:.6,rough:.35});
-  part(merge(TOP),'#2f63a8','#1e78d6',{metal:.4,rough:.45});
+  part(merge(R2),'#8a969c','#1557b8',{metal:.7,rough:.3});
+  part(merge(TOP),'#3c4752','#1e78d6',{metal:.55,rough:.4});
   part(merge(P),'#c9cdd0','#1557b8',{metal:.7,rough:.3});
   part(merge(RAIL),'#e2aa22','#1f87e6',{metal:.3,rough:.45});
   const froth=canvasTex(256,256,(g,w,h)=>{g.fillStyle='#b8ab83';g.fillRect(0,0,w,h);for(let i=0;i<900;i++){const x=rnd()*w,y=rnd()*h,r=1.5+rnd()*6;g.fillStyle='rgba(235,228,205,'+(.25+rnd()*.5).toFixed(2)+')';g.beginPath();g.arc(x,y,r,0,7);g.fill();g.strokeStyle='rgba(90,80,60,.35)';g.stroke();}},true,1);
@@ -1905,7 +1878,7 @@ const EWI={};
   cells.castShadow=cells.receiveShadow=true;bus.castShadow=true;ew.add(cells,ely,bus);
   // cátodos (todas las celdas menos la 0, que la grúa cosecha)
   const plateG=new THREE.BoxGeometry(1.0,1.1,.014),barG=new THREE.BoxGeometry(1.26,.03,.034);
-  var cu=new THREE.MeshStandardMaterial({color:'#ec9a62',roughness:.22,metalness:1,envMapIntensity:1.6}),cuBar=new THREE.MeshStandardMaterial({color:'#d08a55',roughness:.25,metalness:1});
+  var cu=new THREE.MeshStandardMaterial({color:'#f0a06a',roughness:.17,metalness:1,envMapIntensity:2.2}),cuBar=new THREE.MeshStandardMaterial({color:'#d08a55',roughness:.25,metalness:1});
   const NP=27,plates=new THREE.InstancedMesh(plateG,cu,28*NP),bars=new THREE.InstancedMesh(barG,cuBar,28*NP);let k=0;
   for(let i=0;i<29;i++){if(i===14)continue;const x=(i-14)*CP;for(let j=0;j<NP;j++){const z=(j-13)*.17;plates.setMatrixAt(k,mat4(x,.68,z));bars.setMatrixAt(k,mat4(x,1.27,z));k++;}}
   plates.castShadow=plates.receiveShadow=true;ew.add(plates,bars);
@@ -1914,10 +1887,28 @@ const EWI={};
   for(let j=0;j<NP;j++){const z=(j-13)*.17;lp.setMatrixAt(j,mat4(0,.68,z));lb.setMatrixAt(j,mat4(0,1.27,z));}
   lp.castShadow=lp.receiveShadow=true;lifted.add(lp,lb);EWI.lifted=lifted;
   // gotas de electrolito bajo el banco izado
-  const dropG=new THREE.BufferGeometry(),DN=60,dp=new Float32Array(DN*3);
+  const dropG=new THREE.BufferGeometry(),DN=140,dp=new Float32Array(DN*3);
   for(let i=0;i<DN;i++){dp[i*3]=(rnd()-.5)*1;dp[i*3+1]=rnd();dp[i*3+2]=(rnd()-.5)*4.4;}
   dropG.setAttribute('position',new THREE.BufferAttribute(dp,3));
-  EWI.drops=new THREE.Points(dropG,new THREE.PointsMaterial({color:'#7fd3cf',size:.035,transparent:true,opacity:0}));ew.add(EWI.drops);EWI.dropBase=dp.slice();
+  const glow=canvasTex(64,64,(g,w,h)=>{const r=g.createRadialGradient(32,32,0,32,32,32);r.addColorStop(0,'rgba(255,255,255,1)');r.addColorStop(.25,'rgba(190,255,248,.85)');r.addColorStop(1,'rgba(120,230,220,0)');g.fillStyle=r;g.fillRect(0,0,w,h);},true,1);
+  EWI.drops=new THREE.Points(dropG,new THREE.PointsMaterial({color:'#bff7f0',map:glow,size:.06,transparent:true,opacity:0,depthWrite:false,blending:THREE.AdditiveBlending}));ew.add(EWI.drops);EWI.dropBase=dp.slice();EWI.fxHide=[EWI.drops];
+  // haces de luz volumétricos: tragaluz y ventanales cortando el polvo en suspensión
+  const shaftMat=new THREE.ShaderMaterial({transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,side:THREE.DoubleSide,uniforms:{uTime:U.uTime,uI:{value:1}},
+    vertexShader:'varying float vY;varying vec3 vN;varying vec3 vV;void main(){vY=uv.y;vec4 w=modelMatrix*vec4(position,1.);vN=normalize(mat3(modelMatrix)*normal);vV=normalize(cameraPosition-w.xyz);gl_Position=projectionMatrix*viewMatrix*w;}',
+    fragmentShader:'uniform float uTime,uI;varying float vY;varying vec3 vN;varying vec3 vV;void main(){float f=pow(abs(dot(normalize(vN),normalize(vV))),2.4);float a=f*smoothstep(0.,.45,vY)*(.8+.2*sin(uTime*.5+vY*7.))*uI*.22;gl_FragColor=vec4(vec3(1.,.88,.7)*a,a);}'});
+  EWI.shaftMat=shaftMat;
+  const shaftG=new THREE.CylinderGeometry(.75,2.1,15,28,1,true);
+  for(let x=-36;x<=30;x+=6){const m=new THREE.Mesh(shaftG,shaftMat);m.position.set(x+2.1,6.8,1.9);m.rotation.set(.3,0,-.28);m.renderOrder=5;ew.add(m);EWI.fxHide.push(m);}
+  const winG=new THREE.CylinderGeometry(.9,2.4,13,24,1,true);
+  for(let x=-34;x<=28;x+=12){const m=new THREE.Mesh(winG,shaftMat);m.position.set(x+1.5,6.2,-4.6);m.rotation.set(.95,0,-.18);m.renderOrder=5;ew.add(m);EWI.fxHide.push(m);}
+  // polvo industrial en suspensión
+  {const N=small?700:1800,pg=new THREE.BufferGeometry(),pp=new Float32Array(N*3),ps=new Float32Array(N);
+    for(let i=0;i<N;i++){pp[i*3]=-38+rnd()*72;pp[i*3+1]=rnd()*13;pp[i*3+2]=-8+rnd()*16;ps[i]=rnd();}
+    pg.setAttribute('position',new THREE.BufferAttribute(pp,3));pg.setAttribute('aS',new THREE.BufferAttribute(ps,1));
+    const dm=new THREE.ShaderMaterial({transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,uniforms:{uTime:U.uTime,uA:{value:1}},
+      vertexShader:'attribute float aS;uniform float uTime;varying float vA;void main(){vec3 p=position;p.x+=sin(uTime*.07+aS*40.)*.8;p.y=mod(p.y+uTime*(.04+aS*.06),13.);p.z+=cos(uTime*.05+aS*30.)*.5;vec4 mv=modelViewMatrix*vec4(p,1.);vA=.25+.75*aS;gl_PointSize=(.6+aS*1.2)*(36./-mv.z);gl_Position=projectionMatrix*mv;}',
+      fragmentShader:'uniform float uA;varying float vA;void main(){vec2 c=gl_PointCoord-.5;float a=smoothstep(.5,0.,length(c))*vA*.38*uA;gl_FragColor=vec4(vec3(1.,.9,.75)*a,a);}'});
+    const dust=new THREE.Points(pg,dm);dust.frustumCulled=false;dust.renderOrder=6;ew.add(dust);EWI.dust=dm;EWI.fxHide.push(dust);}
   // columnas, camino de rodadura, rieles, muros con ventanales, cerchas de techo
   const S=[];
   for(let x=-42;x<=36;x+=6){S.push(BX(.56,9.2,.56,x,4.6,7.35),BX(.56,9.2,.56,x,4.6,-7.35),BX(.4,.9,17.2,x,13.2,0));
@@ -1958,6 +1949,16 @@ const EWI={};
     for(let k=0;k<n;k++)st.setMatrixAt(k,mat4((rnd()-.5)*.02,.19+k*.0125,(rnd()-.5)*.02,0,(rnd()-.5)*.012));
     st.castShadow=st.receiveShadow=true;g.add(st);
     const hgt=.19+n*.0125;
+    if(q===0){
+      const cuTex=canvasTex(1024,1024,(gg,w,h)=>{gg.fillStyle='#d98a55';gg.fillRect(0,0,w,h);
+        for(let i=0;i<6000;i++){const x=rnd()*w,y=rnd()*h,r=2+rnd()*9;const c=rnd();gg.fillStyle=c<.5?'rgba(255,190,140,'+(.08+rnd()*.18).toFixed(2)+')':'rgba(150,70,35,'+(.06+rnd()*.14).toFixed(2)+')';gg.beginPath();gg.arc(x,y,r,0,7);gg.fill();}
+        const gr=gg.createLinearGradient(0,0,w,0);gr.addColorStop(0,'rgba(90,40,20,.35)');gr.addColorStop(.06,'rgba(0,0,0,0)');gr.addColorStop(.94,'rgba(0,0,0,0)');gr.addColorStop(1,'rgba(90,40,20,.35)');gg.fillStyle=gr;gg.fillRect(0,0,w,h);},true,1);
+      const nod=canvasTex(1024,1024,(gg,w,h)=>{gg.fillStyle='#808080';gg.fillRect(0,0,w,h);
+        for(let i=0;i<14000;i++){const x=rnd()*w,y=rnd()*h,r=1.5+rnd()*5.5;const gr=gg.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,'rgba(255,255,255,.55)');gr.addColorStop(1,'rgba(128,128,128,0)');gg.fillStyle=gr;gg.fillRect(x-r,y-r,r*2,r*2);}},false,1);
+      cuTex.wrapS=cuTex.wrapT=nod.wrapS=nod.wrapT=THREE.ClampToEdgeWrapping;
+      const macro=new THREE.MeshPhysicalMaterial({color:'#ffffff',map:cuTex,metalness:1,roughness:.28,bumpMap:nod,bumpScale:2.2,envMapIntensity:2.4,clearcoat:.35,clearcoatRoughness:.2});
+      const top=new THREE.Mesh(new THREE.PlaneGeometry(1.0,1.06).rotateX(-Math.PI/2),macro);top.position.y=.19+(n-1)*.0125+.0072;top.receiveShadow=true;g.add(top);
+    }
     const strap=new THREE.Mesh(merge([BX(.035,hgt-.12,1.08,-.3,.12+(hgt-.12)/2,0),BX(.035,hgt-.12,1.08,.3,.12+(hgt-.12)/2,0),BX(.035,.006,1.1,-.3,hgt+.003,0),BX(.035,.006,1.1,.3,hgt+.003,0)]),new THREE.MeshStandardMaterial({color:'#2b2f33',roughness:.5,metalness:.6}));g.add(strap);
   });
   const spot=new THREE.SpotLight(0xffe2bf,60,14,.55,.6,1.4);spot.position.set(10.8,4.6,-7.6);spot.target.position.set(12.6,.4,-4.4);ew.add(spot,spot.target);
@@ -1976,13 +1977,65 @@ const KP=[V3(140,24,250),V3(470,200,470),V3(-300,1700,30),V3(560,320,560),V3(120
 const KT=[V3(-60,120,-1400),V3(80,0,0),V3(-300,0,-20),V3(120,0,20),V3(195,12,-150),V3(-46,5,190)];
 const cPos=new THREE.CatmullRomCurve3(KP,false,'centripetal'),cTgt=new THREE.CatmullRomCurve3(KT,false,'centripetal');
 function sToU(s){s=Math.min(3,Math.max(0,s));let i=0;while(i<KS.length-2&&s>KS[i+1])i++;const f=(s-KS[i])/(KS[i+1]-KS[i]);const e=f*f*(3-2*f);return (i+e)/(KS.length-1);}
-const vA=V3(0,0,0),vB=V3(0,0,0);
+const vA=V3(0,0,0),vB=V3(0,0,0),v1=V3(0,0,0),v2=V3(0,0,0),vP=V3(0,0,0);
+const dPos=new THREE.CatmullRomCurve3([V3(-8,34,236),V3(-84,15.5,212),V3(-54,13.6,201.5),V3(-30,17,210)],false,'centripetal');
+const dTgt=new THREE.CatmullRomCurve3([V3(-40,5,190),V3(-40,7,190),V3(-46,7.4,190),V3(-46,7,190)],false,'centripetal');
+/* HUD espacial: tarjetas vectoriales ancladas a coordenadas X,Y,Z de las celdas */
+const hudEl=document.getElementById('hud3d');
+const HUDL=[
+  {p:V3(-70,10.4,190),t:'RO-1 · Espuma',v:t=>(38+Math.sin(t*.7)*1.2).toFixed(1)+' cm',b:t=>.62+Math.sin(t*.7)*.04,m:1},
+  {p:V3(-58,10.4,190),t:'RO-2 · Aire',v:t=>(12.4+Math.sin(t*.9+1)*.3).toFixed(1)+' m³/min',b:t=>.55+Math.sin(t*.9)*.04,m:0},
+  {p:V3(-46,10.4,190),t:'RO-3 · Válvula de nivel',v:t=>'Nivel '+(41+Math.sin(t*1.7)*2.4).toFixed(1)+' cm',b:t=>.7,m:1,alert:1},
+  {p:V3(-34,10.4,190),t:'Dosificación · colector',v:t=>(18+Math.sin(t*.5)*.4).toFixed(1)+' g/t',b:t=>.48,m:1},
+  {p:V3(-22,10.4,190),t:'Ley en línea · Cu',v:t=>(1.21+Math.sin(t*.3)*.02).toFixed(2)+' %',b:t=>.58,m:0}];
+if(hudEl){HUDL.forEach(L=>{const el=document.createElement('div');el.className='h3d'+(L.alert?' h3d--al':'')+(L.m?'':' h3d--d');
+  el.innerHTML='<i class="h3d__dot"></i><i class="h3d__ln"></i><div class="h3d__c"><b>'+L.t+'</b><em></em><s><u></u></s></div>';hudEl.appendChild(el);L.el=el;L.em=el.querySelector('em');L.bar=el.querySelector('u');});}
+let hudT=0,hudOn=false;
+function hud(w,st,t){
+  if(!hudEl)return;
+  const on=w>.15;if(on!==hudOn){hudOn=on;hudEl.classList.toggle('on',on);}
+  if(!on)return;
+  hudEl.style.opacity=Math.min(1,(w-.15)/.4).toFixed(3);
+  const tick=t-hudT>.25;if(tick)hudT=t;
+  const ph=st.story.pmPhase|0,al=st.alert>.5;
+  for(const L of HUDL){vP.copy(L.p).project(camE);
+    const x=(vP.x*.5+.5)*innerWidth,y=(-vP.y*.5+.5)*innerHeight,vis=vP.z<1&&x>-60&&x<innerWidth+60&&y>40&&y<innerHeight+40;
+    L.el.style.transform='translate3d('+x.toFixed(1)+'px,'+y.toFixed(1)+'px,0)';L.el.style.visibility=vis?'visible':'hidden';L.el.classList.toggle('flip',x>innerWidth-(innerWidth<760?150:200));
+    if(tick){
+      if(L.alert){L.el.classList.toggle('is-al',al&&ph<3);L.el.classList.toggle('is-ok',ph>=3);
+        L.em.textContent=ph>=3?'OT planificada · SAP PM':al?'Alerta · respuesta lenta':L.v(t);}
+      else{L.em.textContent=L.v(t);L.el.classList.toggle('is-chk',ph>=1);}
+      L.bar.style.transform='scaleX('+(L.alert&&al&&ph<3?.92:L.b(t)).toFixed(3)+')';}}
+}
+
+/* ════ POST-PROCESO: bloom leve, oclusión ambiental (SSAO) y profundidad de campo ════ */
+let comp=null,rpass=null,ssao=null,bokeh=null,bloom=null,fxLevel=FX?3:0;
+if(FX){try{
+  comp=new FX.EffectComposer(R);comp.setPixelRatio(Math.min(PR,1.5));comp.setSize(innerWidth,innerHeight);
+  rpass=new FX.RenderPass(ext,camE);comp.addPass(rpass);
+  if(!small){ssao=new FX.SSAOPass(ew,camI,innerWidth,innerHeight);ssao.kernelRadius=.55;ssao.minDistance=.0006;ssao.maxDistance=.03;ssao.enabled=false;comp.addPass(ssao);}
+  bokeh=new FX.BokehPass(ext,camE,{focus:60,aperture:.0001,maxblur:.006});bokeh.enabled=false;comp.addPass(bokeh);
+  bloom=new FX.UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),.3,.55,.86);comp.addPass(bloom);
+  comp.addPass(new FX.OutputPass());
+  // los haces, el polvo y las gotas no entran al buffer de profundidad/normales de SSAO y DoF
+  for(const ps of [ssao,bokeh]){if(!ps)continue;const orig=ps.render.bind(ps);ps.render=(...a)=>{const h=EWI.fxHide||[];h.forEach(o=>o.visible=false);try{orig(...a);}finally{h.forEach(o=>o.visible=true);}};}
+}catch(e){console.warn(e);comp=null;fxLevel=0;}}
+function draw(scene,cam,focus,aperture,interior){
+  if(!comp){R.render(scene,cam);return;}
+  rpass.scene=scene;rpass.camera=cam;
+  if(ssao){ssao.enabled=interior&&fxLevel>=3;}
+  if(bokeh){const on=aperture>0&&fxLevel>=2;bokeh.enabled=on;if(on){bokeh.scene=scene;bokeh.camera=cam;const u=bokeh.uniforms;u.focus.value=focus;u.aperture.value=aperture;u.nearClip.value=cam.near;u.farClip.value=cam.far;}}
+  bloom.enabled=fxLevel>=1;bloom.threshold=interior?.8:1.2;bloom.strength=interior?.34:.2;
+  comp.render();
+}
 
 /* ════ CUADRO ════════════════════════════════════════════════════════ */
+resize();
 let lastBio=-1,lastBim=-1,lastVis=-1,frames=0,acc=0,lastT=performance.now(),stableUp=0,first=true;
 function resize(){R.setSize(innerWidth,innerHeight,false);const a=innerWidth/innerHeight;camE.aspect=camI.aspect=a;
-  camE.fov=a<.8?58:a<1.2?48:40;camI.fov=a<.8?66:a<1.2?56:48;camE.updateProjectionMatrix();camI.updateProjectionMatrix();}
-addEventListener('resize',resize);resize();
+  camE.fov=a<.8?58:a<1.2?48:40;camI.fov=a<.8?66:a<1.2?56:48;camE.updateProjectionMatrix();camI.updateProjectionMatrix();
+  if(comp){comp.setPixelRatio(Math.min(PR,1.5));comp.setSize(innerWidth,innerHeight);if(ssao)ssao.ssaoMaterial.uniforms.cameraInverseProjectionMatrix.value.copy(camI.projectionMatrixInverse);}}
+addEventListener('resize',resize);
 let lastRender=0;
 function frame(st){
   const now=performance.now();
@@ -1994,7 +2047,8 @@ function frame(st){
   // adaptación de nitidez: se baja la densidad de píxeles solo si el equipo no da
   if(!prFixed&&st.moving&&!first){acc+=Math.min(.2,dtR);frames++;
     if(acc>1.2){const ft=acc/frames;acc=0;frames=0;
-      if(ft>.034&&PR>1){PR=Math.max(1,PR-.25);R.setPixelRatio(PR);resize();stableUp=0;}
+      if(ft>.034&&fxLevel>0){fxLevel--;stableUp=0;}
+      else if(ft>.034&&PR>1){PR=Math.max(1,PR-.25);R.setPixelRatio(PR);resize();stableUp=0;}
       else if(ft>.06&&PR>.75){PR=Math.max(.75,PR-.25);R.setPixelRatio(PR);resize();}
       else if(ft<.018&&PR<maxPR){if(++stableUp>2){PR=Math.min(maxPR,PR+.25);R.setPixelRatio(PR);resize();stableUp=0;}}}}
   const toEW=sm(3.38,3.62,s),fromEW=sm(3.62,3.86,s);
@@ -2022,26 +2076,32 @@ function frame(st){
     vA.lerp(V3(160,34,130),bz*st.story.bio*.5);
     const drift=1-sm(.9,1.2,s)*.6;
     vA.x+=Math.sin(t*.05)*14*drift+st.mouse[0]*30*drift;vA.y+=st.mouse[1]*14*drift;
+    const pmw=sm(2.62,2.96,s)*(1-sm(3.3,3.44,s));
+    if(pmw>0){const q=Math.min(1,Math.max(0,st.story.pm||0));dPos.getPoint(q,v1);dTgt.getPoint(q,v2);vA.lerp(v1,pmw);vB.lerp(v2,pmw);}
+    const far=pmw>.3?2600:12000;if(camE.far!==far){camE.far=far;camE.updateProjectionMatrix();}
     camE.position.copy(vA);camE.lookAt(vB);
+    hud(pmw,st,t);
     sky.position.copy(camE.position);
     for(const tk of trucks){const a=(tk.ph+t*.008)%1*Math.PI*2,rr=RP+28;tk.g.position.set(PIT.x+Math.cos(a)*rr*PSX,.4,PIT.z+Math.sin(a)*rr);tk.g.rotation.y=-a-Math.PI/2;}
     R.toneMappingExposure=.95*dimE*(1-toEW);
-    R.render(ext,camE);
+    draw(ext,camE,vA.distanceTo(vB),pmw>.05?.00012*pmw:0,false);
   }else{
     // interior: puente grúa cosechando el banco de cátodos
+    hud(0,st,t);
     const u=st.story.crane,cs=craneState(u);
     EWI.crane.position.x=cs.cx;EWI.trolley.position.z=cs.tz;EWI.bar.position.y=cs.hy+.1;
     for(const c of EWI.cables){const top=10.2,bot=cs.hy+.1;c.scale.y=Math.max(.01,top-bot);c.position.y=(top+bot)/2;}
     EWI.lifted.position.y=cs.lift;EWI.lifted.position.x=cs.lx;
-    const dm=EWI.drops.material;dm.opacity=u>.48?.9*(1-sm(.78,.86,u)):0;EWI.drops.position.x=cs.lx;
-    if(dm.opacity>0){const p=EWI.drops.geometry.attributes.position,b=EWI.dropBase;for(let i=0;i<p.count;i++){const f=(b[i*3+1]+t*1.4)%1;p.setXYZ(i,b[i*3],cs.lift+.1-f*(cs.lift-.05),b[i*3+2]);}p.needsUpdate=true;}
-    const a=sm(0,.3,u),b=sm(.3,.55,u),c=sm(.6,.78,u),c2=sm(.8,.96,u);
-    const P0=V3(-29,7.4,-1.8),T0=V3(-14,7.6,.4),P1=V3(-12.5,7.8,-4.2),T1=V3(0,5,.4),P2=V3(-5.2,6,-5.4),T2=V3(0,4.7,0),P3=V3(2.5,5.6,-6.6),T3=V3(8.6,3.4,0),P4=V3(10.35,1.3,-7.25),T4=V3(12.55,.42,-4.55);
-    vA.copy(P0).lerp(P1,a).lerp(P2,b).lerp(P3,c).lerp(P4,c2);vB.copy(T0).lerp(T1,a).lerp(T2,b).lerp(T3,c).lerp(T4,c2);
-    vA.x+=Math.sin(t*.07)*.4*(1-c2)+st.mouse[0]*.8*(1-c2*.7);vA.y+=st.mouse[1]*.4*(1-c2*.7);
+    const dm=EWI.drops.material;dm.opacity=u>.46?1-sm(.78,.86,u):0;EWI.drops.position.x=cs.lx;
+    if(dm.opacity>0){const p=EWI.drops.geometry.attributes.position,b=EWI.dropBase;for(let i=0;i<p.count;i++){const f=(b[i*3+1]+t*.45)%1;p.setXYZ(i,b[i*3],cs.lift+.1-f*(cs.lift-.05),b[i*3+2]);}p.needsUpdate=true;}
+    const a=sm(0,.3,u),b=sm(.3,.55,u),c=sm(.6,.78,u),c2=sm(.8,.9,u),c3=sm(.9,.985,u);
+    const P0=V3(-29,7.4,-1.8),T0=V3(-14,7.6,.4),P1=V3(-12.5,7.8,-4.2),T1=V3(0,5,.4),P2=V3(-5.2,6,-5.4),T2=V3(0,4.7,0),P3=V3(2.5,5.6,-6.6),T3=V3(8.6,3.4,0),P4=V3(10.35,1.3,-7.25),T4=V3(12.55,.42,-4.55),P5=V3(12.36,.69,-5.02),T5=V3(12.6,.56,-4.42);
+    vA.copy(P0).lerp(P1,a).lerp(P2,b).lerp(P3,c).lerp(P4,c2).lerp(P5,c3);vB.copy(T0).lerp(T1,a).lerp(T2,b).lerp(T3,c).lerp(T4,c2).lerp(T5,c3);
+    vA.x+=Math.sin(t*.07)*.4*(1-c2)+st.mouse[0]*.8*(1-c2*.7)+st.mouse[0]*.05*c3;vA.y+=st.mouse[1]*.4*(1-c2*.7)+st.mouse[1]*.03*c3;
     camI.position.copy(vA);camI.lookAt(vB);
     R.toneMappingExposure=1.1*dimE*fromEW;
-    R.render(ew,camI);
+    EWI.shaftMat.uniforms.uI.value=1-c3*.6;
+    draw(ew,camI,vA.distanceTo(vB),c3>.02?lerp(.0006,.012,c3):.0004,true);
   }
   if(first){first=false;M.ready();
     // la nave EW se compila en segundo plano para que el cambio de escena no se trabe
