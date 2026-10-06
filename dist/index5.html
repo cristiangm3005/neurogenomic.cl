@@ -60,11 +60,11 @@ a{color:inherit}
 #gl,.fallback{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
 #gl{z-index:1;opacity:0;transition:opacity .9s var(--ease)}
 .glon #gl{opacity:1}
-.fallback{background:radial-gradient(120% 80% at 70% 30%,#7a3d1c 0%,#2a150b 45%,#0b0a09 80%);transition:background 1.2s var(--ease)}
+.fallback{background:linear-gradient(180deg,#2f6fb4 0%,#8fb5d8 42%,#c9a57c 43%,#9c7350 70%,#5e4330 100%);transition:background 1.2s var(--ease)}
 .nogl #gl{display:none}
-.fallback[data-s="2"]{background:radial-gradient(90% 70% at 60% 60%,#3d3a2a 0%,#1a1a12 55%,#0b0a09 100%)}
-.fallback[data-s="3"]{background:radial-gradient(90% 70% at 40% 40%,#3a2a20 0%,#14100d 60%,#0b0a09 100%)}
-.fallback[data-s="4"]{background:radial-gradient(100% 70% at 50% 80%,#b0582a 0%,#3a1709 45%,#0b0a09 85%)}
+.fallback[data-s="2"]{background:linear-gradient(180deg,#3b7cc0 0%,#9cc0de 46%,#3a3e43 47%,#2c3034 70%,#c9a57c 71%,#9c7350 100%)}
+.fallback[data-s="3"]{background:linear-gradient(180deg,#3b7cc0 0%,#9cc0de 50%,#b9c0c6 51%,#8b9298 75%,#9c7350 100%)}
+.fallback[data-s="4"]{background:linear-gradient(180deg,#2a2d30 0%,#4b4f53 40%,#6f6a62 70%,#3b3632 100%)}
 
 .bars i{position:fixed;left:0;right:0;height:var(--bar);background:#060505;z-index:6;pointer-events:none}
 .bars i:first-child{top:0}.bars i:last-child{bottom:0}
@@ -556,6 +556,35 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
   .h1{font-size:clamp(2.3rem,12vw,4.6rem)}
   .quote{font-size:clamp(2.2rem,10.5vw,3.6rem)}
 }
+/* contraste sobre escenas claras (cielo de día y BIM) */
+#planta .a-bl::before{background:linear-gradient(90deg,rgba(9,8,7,.88) 0%,rgba(9,8,7,.62) 38%,rgba(9,8,7,0) 66%),linear-gradient(0deg,rgba(9,8,7,.6),rgba(9,8,7,0) 45%)}
+.a-tr::before{background:radial-gradient(85% 80% at 100% 0%,rgba(9,8,7,.86) 0%,rgba(9,8,7,0) 72%)}
+.a-tl::before{background:radial-gradient(85% 85% at 0% 0%,rgba(9,8,7,.86) 0%,rgba(9,8,7,0) 72%)}
+.a-bl::before{background:radial-gradient(90% 80% at 0% 100%,rgba(9,8,7,.86) 0%,rgba(9,8,7,0) 72%)}
+.hud{text-shadow:0 1px 10px rgba(0,0,0,.55)}
+.nav{background:linear-gradient(180deg,rgba(9,8,7,.55),rgba(9,8,7,0))}
+@media (max-width:760px){.a-bl::before,.a-tr::before,.a-tl::before,.a-br::before,#planta .a-bl::before{background:linear-gradient(0deg,rgba(9,8,7,.9) 0%,rgba(9,8,7,.62) 50%,rgba(9,8,7,.1) 80%)}}
+/* diagrama de flujo estilo plano de proceso (íconos azules, flujo rojo, retorno de agua) */
+.fs-bg{fill:#f3f5f8}
+.fs-grid{stroke:#e2e7ee;stroke-width:1}
+.fs-row{font:600 9.5px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;fill:#5b6b80}
+.fs-ic{fill:#fff;stroke:#1d3fb6;stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round;transition:stroke .5s ease}
+.fs-lbl{font:600 9px var(--f-mono);letter-spacing:.05em;text-transform:uppercase;fill:#26303d}
+.fs-arrow{fill:none;stroke:#d7322a;stroke-width:1.6}
+.fs-ret{fill:none;stroke:#8d9a6b;stroke-width:1.4}
+.fs-flow{fill:none;stroke:#d7322a;stroke-width:2.2;stroke-dasharray:3 9;opacity:0;transition:opacity .8s var(--ease-out)}
+.pc__screen.flow .fs-flow{opacity:.9;animation:perc .9s linear infinite}
+.fl-nd .led{fill:#c3cbd6}
+.fl-nd.live .led{fill:#18a07f}
+.fl-nd .hb{fill:#dde3ea}
+.fl-nd .hv{fill:#18a07f}
+.fl-nd.alert .fs-ic{stroke:#e0672a}
+.fl-nd.alert .led,.fl-nd.alert .hv{fill:#e0672a}
+.fl-nd .fl-ring{stroke:#e0672a}
+.fl-scan{fill:url(#flScanG)}
+.fl-nd .fl-ring,.fl-nd.alert .fl-ring{fill:none}
+.fl-nd.alert .hb{fill:#dde3ea;stroke:none}.fl-nd.alert .hv{stroke:none}
+.fl-nd .fs-lbl{fill:#26303d}
 </style>
 
 </head>
@@ -913,331 +942,7 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
   </section>
 </main>
 
-<script id="fs" type="x-shader/x-fragment">
-precision highp float;
-uniform vec2 uRes;
-uniform float uTime, uScene, uDim, uAlert;
-uniform vec2 uMouse;
-#define PI 3.14159265
 
-float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
-vec3 h33(vec3 p){p=fract(p*vec3(.1031,.1030,.0973));p+=dot(p,p.yxz+33.33);return fract((p.xxy+p.yxx)*p.zyx);}
-float noise(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);
-  return mix(mix(h21(i),h21(i+vec2(1,0)),u.x),mix(h21(i+vec2(0,1)),h21(i+vec2(1,1)),u.x),u.y);}
-const mat2 M2=mat2(.8,.6,-.6,.8);
-float fbm(vec2 p,float oc){float a=.5,s=0.;for(int i=0;i<9;i++){if(float(i)>=oc)break;s+=a*noise(p);p=M2*p*2.03;a*=.5;}return s;}
-float ridged(vec2 p,float oc){float a=.5,s=0.,w=1.;for(int i=0;i<9;i++){if(float(i)>=oc)break;float n=1.-abs(noise(p)*2.-1.);n*=n;s+=a*n*w;w=clamp(n*1.5,0.,1.);p=M2*p*2.03;a*=.5;}return s;}
-mat3 camMat(vec3 ro,vec3 ta){vec3 f=normalize(ta-ro);vec3 r=normalize(cross(vec3(0,1,0),f));return mat3(r,cross(f,r),f);}
-vec2 rot(vec2 p,float a){float c=cos(a),s=sin(a);return mat2(c,-s,s,c)*p;}
-vec3 aces(vec3 x){return clamp((x*(2.51*x+.03))/(x*(2.43*x+.59)+.14),0.,1.);}
-
-/* ── 0–1 · Desierto y rajo ─────────────── */
-const vec2 PIT=vec2(0.,40.);
-float terr(vec2 p,float oc){
-  float base=ridged(p*.045,oc)*17.+fbm(p*.012+7.,3.)*10.-10.;
-  vec2 q=(p-PIT)*vec2(1.,1.25);float d=length(q);float R=10.;
-  float bowl=-9.*(1.-smoothstep(0.,R,d));
-  float st=.9;float k=bowl/st;bowl=(floor(k)+smoothstep(.6,1.,fract(k)))*st;
-  float flatH=1.2+fbm(p*.08,3.)*.6;
-  float m=1.-smoothstep(R*.9,R*2.3,d);
-  float h=mix(base,flatH+bowl,m);
-  vec2 bq=abs(p-(PIT+vec2(22.,-4.)))-vec2(6.,4.);float pd=max(bq.x,bq.y);
-  h=mix(h,flatH,1.-smoothstep(0.,5.,pd));
-  h+=1.1*smoothstep(0.,.5,-pd)+1.1*smoothstep(1.4,1.9,-pd);
-  vec2 pb=abs(p-(PIT+vec2(20.,9.)))-vec2(3.,2.);float od=max(pb.x,pb.y);
-  h=mix(h,flatH,1.-smoothstep(0.,4.,od));
-  h-=.45*(1.-smoothstep(-.1,.1,od));
-  return h;
-}
-vec3 skyCol(vec3 rd,vec3 sun){
-  float y=max(rd.y,0.);
-  vec3 c=mix(vec3(1.05,.56,.30),vec3(.09,.12,.23),pow(y,.45));
-  float s=max(dot(rd,sun),0.);
-  c+=vec3(1.,.55,.25)*pow(s,8.)*.7+vec3(1.,.82,.6)*pow(s,400.)*8.;
-  c=mix(c,vec3(.95,.52,.32),exp(-abs(rd.y)*16.)*.5);
-  return c;
-}
-uniform float uBim, uBio, uCrane, uGeo;
-/* Vuelo continuo: satélite (k=0) → planta / BIM (k=1) → pila de lixiviación (k=2) */
-float lineW(float d,float w){return 1.-smoothstep(w*.5,w*1.5,d);}
-vec3 sceneTerrain(vec2 uv,float k){
-  vec3 sun=normalize(vec3(.75,.2,.55));
-  float tt=uTime*.6;
-  vec2 PH=PIT+vec2(22.,-4.),PP=PIT+vec2(20.,9.);
-  vec3 ro0=vec3(-34.+tt*.35,48.,-48.),ta0=vec3(PIT.x+4.,-6.,PIT.y+14.);
-  vec3 ro1=vec3(PIT.x-19.+sin(uTime*.05)*2.,9.5,PIT.y-17.),ta1=vec3(PIT.x+5.,-3.,PIT.y+5.);
-  vec3 ro2=vec3(PH.x-8.+sin(uTime*.04)*.6,8.6,PH.y-11.),ta2=vec3(PH.x+1.,.4,PH.y+1.);
-  vec3 ro,ta;
-  if(k<1.){float e=k*k*(3.-2.*k);ro=mix(ro0,ro1,e);ta=mix(ta0,ta1,e);}
-  else{float e=clamp(k-1.,0.,1.);e=e*e*(3.-2.*e);ro=mix(ro1,ro2,e);ta=mix(ta1,ta2,e);}
-  ro.xy+=uMouse*vec2(1.6,.8)*(1.-.6*clamp(k-1.,0.,1.));
-  vec3 rd=camMat(ro,ta)*normalize(vec3(uv,1.75));
-  float t=1.,tmax=220.;bool hit=false;
-  for(int i=0;i<Q_TS;i++){vec3 p=ro+rd*t;float d=p.y-terr(p.xz,4.);if(d<.004*t){hit=true;break;}t+=d*Q_TF;if(t>tmax)break;}
-  vec3 col;
-  if(hit){
-    vec3 p=ro+rd*t;float ep=.02+.0025*t;
-    vec3 n=normalize(vec3(terr(p.xz-vec2(ep,0),Q_NO)-terr(p.xz+vec2(ep,0),Q_NO),2.*ep,terr(p.xz-vec2(0,ep),Q_NO)-terr(p.xz+vec2(0,ep),Q_NO)));
-    float nz=fbm(p.xz*.15,4.);
-    vec3 alb=mix(vec3(.36,.19,.11),vec3(.62,.40,.24),nz);
-    alb=mix(alb,vec3(.72,.53,.27),smoothstep(.6,.72,fbm(p.xz*.05+3.,4.))*.75);
-    alb=mix(alb,vec3(.19,.37,.33),smoothstep(.66,.76,fbm(p.xz*.07-9.,4.))*.65);
-    alb*=mix(.5,1.,smoothstep(.5,.9,n.y));
-    float dP=length((p.xz-PIT)*vec2(1.,1.25));
-    alb=mix(alb,vec3(.56,.46,.37)*(.8+.4*nz),(1.-smoothstep(9.,13.,dP))*.8);
-    vec2 bq=abs(p.xz-PH)-vec2(6.,4.);float pd=max(bq.x,bq.y);
-    float onPad=1.-smoothstep(-.2,.3,pd);
-    // mineral apilado: granulometría visible de cerca
-    float grain=fbm(p.xz*3.2,3.);
-    alb=mix(alb,vec3(.60,.49,.38)*(.82+.36*grain),onPad);
-    /* Biolixiviación: el riego por goteo avanza y la pila pasa a operar como biorreactor.
-       Mineral húmedo más oscuro, líneas de goteo, eflorescencias de sulfato de cobre. */
-    float spec=0.;
-    float frontX=PH.x-6.5+uBio*14.;
-    float wet=onPad*smoothstep(.4,-.4,p.x-frontX)*step(.001,uBio);
-    float rowD=abs(fract((p.z-PH.y)/.45)-.5)*.45;
-    float wl=lineW(rowD,.03+.0016*t);
-    float emit=wl*lineW(abs(fract((p.x-PH.x)/.35)-.5)*.35,.03+.0012*t);
-    alb=mix(alb,alb*.42+vec3(.01,.02,.02),wet*.9);
-    alb=mix(alb,vec3(.10,.10,.09),wl*onPad*.55*smoothstep(0.,.3,uBio));          // mangueras
-    alb=mix(alb,vec3(.18,.42,.38),wet*smoothstep(.55,.8,fbm(p.xz*1.7+9.,3.))*.45); // sulfato de cobre
-    spec=wet*(.35+.65*emit);
-    // canal de solución rica (PLS) hacia la piscina
-    float ch=abs(p.x-(PIT.x+21.))-.22;float inCh=step(ch,0.)*step(PIT.y-.2,p.z)*step(p.z,PIT.y+7.2)*smoothstep(.15,.45,uBio);
-    alb=mix(alb,vec3(.05,.32,.30)*(.8+.4*step(.5,fract(p.z*1.6-uTime*.8))),inCh);
-    float sha=1.,st=.3;
-    for(int i=0;i<Q_SH;i++){vec3 q=p+n*.05+sun*st;float hh=q.y-terr(q.xz,3.);sha=min(sha,10.*hh/st);st+=clamp(hh,.6,7.);if(sha<0.||st>90.)break;}
-    sha=clamp(sha,0.,1.);sha=sha*sha*(3.-2.*sha);
-    float dif=max(dot(n,sun),0.);
-    vec3 lin=vec3(1.,.63,.38)*dif*sha*3.3;
-    lin+=vec3(.22,.28,.42)*(.5+.5*n.y)*.6;
-    lin+=vec3(.35,.18,.1)*max(dot(n,normalize(vec3(-sun.x,0.,-sun.z))),0.)*.3;
-    col=alb*lin;
-    // brillo del mineral mojado y de los goteros
-    vec3 hv=normalize(sun-rd);col+=vec3(1.,.8,.6)*pow(max(dot(n,hv),0.),60.)*spec*sha*2.2;
-    // piscina PLS: más turquesa y con nivel a medida que la pila produce
-    vec2 pb=abs(p.xz-PP)-vec2(3.,2.);
-    if(max(pb.x,pb.y)<-.05){vec3 rr=reflect(rd,vec3(0,1,0));
-      vec3 wc=mix(vec3(.04,.30,.29),vec3(.06,.48,.43),uBio);
-      col=mix(wc,skyCol(rr,sun)*.6,.12+.3*pow(1.-max(-rd.y,0.),5.));}
-    /* BIM: modelo técnico superpuesto sobre la faena real (contornos, ejes y retícula) */
-    if(uBim>.01){
-      float w=.05+.0019*t;
-      float g=0.;
-      g=max(g,lineW(abs(pd),w));                                           // pila
-      vec2 pq=abs(p.xz-PP)-vec2(3.,2.);g=max(g,lineW(abs(max(pq.x,pq.y)),w));// piscina
-      g=max(g,lineW(abs(dP-10.),w));g=max(g,lineW(abs(dP-13.),w));         // borde del rajo
-      vec2 gg=abs(fract((p.xz-PIT)/4.-.5)-.5)*4.;
-      float grid=lineW(min(gg.x,gg.y),w*.6)*(1.-smoothstep(28.,46.,length(p.xz-PIT-vec2(8.,0.))));
-      float ax=lineW(abs(p.z-(PIT.y-4.)),w)*step(PIT.x-14.,p.x)*step(p.x,PIT.x+30.); // eje de correa
-      float scan=smoothstep(.0,.04,fract(uTime*.08)-fract((p.x-PIT.x+30.)/70.))*.0;
-      float a=uBim*(1.-smoothstep(120.,170.,t));
-      col=mix(col,vec3(.56,.90,.82),clamp(g*.85+grid*.25+ax*.6+scan,0.,1.)*a);
-    }
-    /* Exploración geoespacial: prospectividad, isolíneas, barrido de análisis y blancos priorizados */
-    if(uGeo>.01){
-      float f=fbm(p.xz*.03+vec2(7.,3.),4.);
-      float zone=smoothstep(.56,.64,f);
-      float iso=lineW(abs(fract(f*14.)-.5)/14.,.0045+.00004*t);
-      float sx=mix(-70.,90.,fract(uTime*.05));
-      float band=exp(-abs(p.x-PIT.x-sx)*.22);
-      float ga=uGeo*(1.-smoothstep(170.,230.,t));
-      col=mix(col,col*vec3(1.45,.92,.6)+vec3(.14,.05,0.),zone*.75*ga);
-      col=mix(col,vec3(.93,.6,.36),iso*ga*(.05+.4*zone));
-      col+=vec3(.56,.90,.82)*band*.09*ga;
-      for(int j=0;j<3;j++){vec2 T=PIT+(j==0?vec2(-32.,14.):(j==1?vec2(-14.,-28.):vec2(40.,24.)));float dd=length(p.xz-T);
-        float ring=lineW(abs(dd-3.2-sin(uTime*1.4+float(j))*.45),.14+.0025*t)+lineW(dd,.5+.002*t);
-        col=mix(col,vec3(.99,.72,.44),clamp(ring,0.,1.)*ga*.75);}
-    }
-    float fo=1.-exp(-t*.0058);
-    vec3 fc=mix(vec3(.34,.24,.22),vec3(1.0,.58,.33),pow(max(dot(rd,sun),0.),4.));
-    col=mix(col,fc,fo);
-  } else col=skyCol(rd,sun);
-  return col;
-}
-
-/* ── 2 · Molino SAG ──────────────────── */
-float millMap(vec3 p,out float mat){
-  float a=uTime*.22;
-  vec3 q=p;q.yz=rot(q.yz,a);
-  float r=length(q.yz);float an=atan(q.z,q.y);
-  float xx=mod(q.x+PI*.25,PI*.5)-PI*.25;
-  float shell=max(r-2.6-.07*smoothstep(.12,.0,abs(xx)),abs(q.x-.15)-3.55);
-  float bc=fract(an/(2.*PI)*40.)-.5;
-  vec2 bp=vec2(bc*.41,abs(xx)-.16);
-  shell-=.04*smoothstep(.06,.0,length(bp));
-  float gear=max(abs(q.x+3.1)-.2,r-(3.02+.06*smoothstep(-.4,.4,sin(an*96.))));
-  float fl=max(abs(q.x-3.7)-.1,r-3.2);
-  float head=min(max(max(3.7-q.x,q.x-4.7),r-2.6+(q.x-3.7)*.9),max(3.7-q.x,r-.9));
-  float d=shell*.8;mat=0.;
-  float o=min(min(gear*.8,fl),head);
-  if(o<d){d=o;mat=1.;}
-  float fl2=p.y+3.6;
-  if(fl2<d){mat=2.;d=fl2;}
-  return d;
-}
-vec3 envHall(vec3 rd){
-  vec3 c=vec3(.012,.012,.014)+vec3(.05,.035,.03)*max(rd.y,0.);
-  c+=vec3(1.,.55,.22)*smoothstep(.96,1.,cos(rd.x*16.))*smoothstep(.25,.5,rd.y)*2.2;
-  c+=vec3(.25,.36,.48)*smoothstep(.55,.0,length(rd.xy-vec2(-.65,.35)))*.9;
-  return c;
-}
-vec3 sceneMill(vec2 uv){
-  vec3 ro=vec3(-3.2+uMouse.x*.7,1.5+uMouse.y*.35,-12.5);vec3 ta=vec3(1.4,-.5,0.);
-  ro+=(vec3(h21(vec2(uTime,1.)),h21(vec2(uTime,2.)),0.)-.5)*.035*uAlert;
-  vec3 rd=camMat(ro,ta)*normalize(vec3(uv,1.9));
-  float t=0.,mat=0.;bool hit=false;
-  for(int i=0;i<Q_MS;i++){vec3 p=ro+rd*t;float m;float d=millMap(p,m);if(d<.0008*t+.0004){hit=true;mat=m;break;}t+=d;if(t>40.)break;}
-  vec3 col=envHall(rd)*.55;
-  if(hit){
-    vec3 p=ro+rd*t;vec2 e=vec2(.002,0);float m;
-    vec3 n=normalize(vec3(millMap(p+e.xyy,m)-millMap(p-e.xyy,m),millMap(p+e.yxy,m)-millMap(p-e.yxy,m),millMap(p+e.yyx,m)-millMap(p-e.yyx,m)));
-    vec3 key=normalize(vec3(-.6,.7,-.35));vec3 rim=normalize(vec3(.85,.25,.9));
-    vec3 alb;float metal;
-    if(mat<.5){vec3 q=p;q.yz=rot(q.yz,uTime*.22);float w=fbm(vec2(q.x*3.,atan(q.z,q.y)*6.),5.);
-      alb=mix(vec3(.46,.19,.06),vec3(.12,.11,.10),smoothstep(.4,.7,w));metal=.3+.5*smoothstep(.42,.72,w);}
-    else if(mat<1.5){alb=vec3(.24,.22,.2);metal=.9;}
-    else{alb=vec3(.07,.065,.06)*(.7+.6*fbm(p.xz*2.,3.));metal=.15;}
-    float dif=max(dot(n,key),0.);float ri=pow(max(dot(n,rim),0.),2.);
-    vec3 v=-rd;vec3 h=normalize(key+v);float sp=pow(max(dot(n,h),0.),70.);
-    float fr=pow(1.-max(dot(n,v),0.),5.);
-    vec3 refl=envHall(reflect(rd,n));
-    col=alb*(vec3(1.,.70,.45)*dif*dif*1.9+vec3(.3,.42,.55)*ri*1.4+.012);
-    col+=mix(vec3(.04),alb,metal)*refl*(.6+fr)+vec3(1.,.82,.62)*sp*(.35+metal);
-    if(uAlert>.4&&mat<.5){vec3 q=p;q.yz=rot(q.yz,uTime*.22);float hot=smoothstep(.5,0.,length(vec2(q.x+.6,q.y-.4)));col+=vec3(1.,.35,.08)*hot*(uAlert-.4)*.9;}
-    col=mix(col,vec3(.03,.022,.018),1.-exp(-t*.05));
-  }
-  col+=vec3(.95,.52,.24)*.035*smoothstep(-.3,.8,uv.y-uv.x*.4);
-  return col;
-}
-
-
-/* ── 3 · Nave de electroobtención: puente grúa birriel cosechando cátodos ─────
-   Ejes: x a lo largo de la nave (celdas), z a lo ancho (luz del puente), y hacia arriba.
-   Partes según el manual de operación: camino de rodadura sobre columnas, vigas testeras,
-   viga principal birriel, carro con polipasto, cables y travesaño multipunto con garras. */
-float sdBox(vec3 p,vec3 b){vec3 q=abs(p)-b;return length(max(q,0.))+min(max(q.x,max(q.y,q.z)),0.);}
-float sdCylX(vec3 p,float r,float h){vec2 d=abs(vec2(length(p.yz),p.x))-vec2(r,h);return min(max(d.x,d.y),0.)+length(max(d,0.));}
-float sdCapV(vec3 p,float y0,float y1,float r){p.y-=clamp(p.y,y0,y1);return length(p)-r;}
-const float CP=1.45;                 // paso entre celdas
-void crane(out float cx,out float tz,out float hy,out float lift){
-  float u=uCrane;
-  cx=mix(-15.*CP/1.45,0.,smoothstep(.02,.34,u));
-  tz=mix(-1.8,0.,smoothstep(.12,.36,u));
-  float down=smoothstep(.34,.48,u),up=smoothstep(.52,.74,u);
-  hy=mix(mix(6.9,1.36,down),5.2,up);
-  lift=hy-1.36;lift*=step(.5,u);
-}
-vec2 opU(vec2 a,vec2 b){return a.x<b.x?a:b;}
-vec2 tankMap(vec3 p){
-  float cx,tz,hy,lift;crane(cx,tz,hy,lift);
-  vec2 r=vec2(p.y,1.);                                            // piso
-  // celdas (repetición finita a lo largo de x)
-  float id=clamp(floor(p.x/CP+.5),-14.,14.);
-  vec3 q=p-vec3(id*CP,0.,0.);
-  float cell=sdBox(q-vec3(0.,.56,0.),vec3(.62,.56,2.45));
-  r=opU(r,vec2(cell,2.));
-  // electrodos: placas paralelas a lo largo de z (las de la celda 0 suben con la grúa)
-  float ly=(abs(id)<.5)?lift:0.;
-  vec3 e=q-vec3(0.,ly,0.);
-  float pz=e.z-.17*clamp(floor(e.z/.17+.5),-13.,13.);
-  float plate=sdBox(vec3(e.x,e.y-.66,pz),vec3(.5,.56,.007));
-  float bar=sdBox(vec3(e.x,e.y-1.24,pz),vec3(.62,.014,.016));
-  r=opU(r,vec2(min(plate,bar),4.));
-  // barras colectoras de cobre entre celdas
-  float bus=sdBox(vec3(abs(q.x)-.70,q.y-1.13,q.z),vec3(.05,.035,2.45));
-  r=opU(r,vec2(bus,4.));
-  // columnas y camino de rodadura
-  vec3 c=p;c.x-=6.*clamp(floor(c.x/6.+.5),-6.,6.);
-  float col=sdBox(vec3(c.x,c.y-4.6,abs(c.z)-7.35),vec3(.28,4.6,.28));
-  float run=sdBox(vec3(p.x,p.y-9.0,abs(p.z)-7.0),vec3(40.,.2,.16));
-  float rail=sdBox(vec3(p.x,p.y-9.24,abs(p.z)-7.0),vec3(40.,.04,.035));
-  r=opU(r,vec2(min(min(col,run),rail),5.));
-  // muros laterales con ventanales altos
-  r=opU(r,vec2(8.6-abs(p.z),7.));
-  // puente grúa birriel
-  vec3 g=p-vec3(cx,0.,0.);
-  float gird=sdBox(vec3(abs(g.x)-.72,g.y-9.75,g.z),vec3(.2,.42,7.15));
-  float endt=sdBox(vec3(g.x,g.y-9.42,abs(g.z)-7.0),vec3(1.9,.26,.3));
-  float walk=sdBox(vec3(g.x+1.15,g.y-10.2,g.z),vec3(.3,.02,7.));
-  vec3 tr=g-vec3(0.,0.,tz);
-  float trol=sdBox(tr-vec3(0.,10.42,0.),vec3(1.05,.26,.85));
-  float drum=sdCylX(tr-vec3(0.,10.78,0.),.32,.78);
-  r=opU(r,vec2(min(min(gird,endt),min(walk,trol)),6.));
-  r=opU(r,vec2(drum,5.));
-  // cables del polipasto y travesaño multipunto con garras
-  vec3 cq=vec3(abs(tr.x)-.12,tr.y,abs(tr.z)-1.55);
-  float cab=sdCapV(cq,hy+.1,10.2,.022);
-  vec3 cq2=vec3(abs(tr.x)-.12,tr.y,abs(tr.z)-.55);
-  cab=min(cab,sdCapV(cq2,hy+.1,10.2,.022));
-  float beam=sdBox(tr-vec3(0.,hy+.1,0.),vec3(.16,.09,2.35));
-  float hz=tr.z-.17*clamp(floor(tr.z/.17+.5),-13.,13.);
-  float claw=sdBox(vec3(tr.x,tr.y-hy+.03,hz),vec3(.07,.06,.02));
-  r=opU(r,vec2(cab,8.));
-  r=opU(r,vec2(min(beam,claw),6.));
-  return r;
-}
-vec3 tankN(vec3 p){vec2 e=vec2(.0015,-.0015);
-  return normalize(e.xyy*tankMap(p+e.xyy).x+e.yyx*tankMap(p+e.yyx).x+e.yxy*tankMap(p+e.yxy).x+e.xxx*tankMap(p+e.xxx).x);}
-vec3 tankSky(vec3 rd){
-  vec3 c=vec3(.025,.022,.02);
-  // tragaluces de la cubierta y luz cálida de proyectores
-  c+=vec3(1.,.78,.55)*1.1*smoothstep(.985,1.,cos(rd.x*22.))*smoothstep(.2,.6,rd.y);
-  c+=vec3(.55,.45,.35)*.08*smoothstep(-.2,.6,rd.y);
-  return c;
-}
-vec3 sceneTank(vec2 uv){
-  float u=uCrane;
-  // cámara: plano general → acercamiento → foco en el cátodo
-  vec3 ro0=vec3(-29.,7.4,-1.8),ta0=vec3(-14.,7.6,.4);
-  vec3 ro1=vec3(-12.5,7.8,-4.2),ta1=vec3(0.,5.,.4);
-  vec3 ro2=vec3(-5.2,6.,-5.4),ta2=vec3(0.,4.7,0.);
-  vec3 ro3=vec3(-2.2,5.5,-2.7),ta3=vec3(0.,4.9,.2);
-  float a=smoothstep(.0,.45,u),b=smoothstep(.45,.78,u),c=smoothstep(.78,1.,u);
-  vec3 ro=mix(mix(mix(ro0,ro1,a),ro2,b),ro3,c),ta=mix(mix(mix(ta0,ta1,a),ta2,b),ta3,c);
-  ro.x+=sin(uTime*.07)*.4*(1.-c);ro.xy+=uMouse*vec2(.8,.4)*(1.-c*.7);
-  vec3 rd=camMat(ro,ta)*normalize(vec3(uv,1.6+.7*c));
-  float t=.2,m=0.;bool hit=false;
-  for(int i=0;i<Q_KS;i++){vec3 p=ro+rd*t;vec2 h=tankMap(p);if(h.x<.0012*t){hit=true;m=h.y;break;}t+=h.x*.9;if(t>75.)break;}
-  vec3 L=normalize(vec3(.35,.85,-.4));
-  vec3 col=tankSky(rd);
-  if(hit){
-    vec3 p=ro+rd*t,n=tankN(p);
-    float ao=clamp(tankMap(p+n*.25).x/.25,0.,1.)*.6+.4;
-    float dif=max(dot(n,L),0.),amb=.5+.5*n.y;
-    vec3 V=-rd,H=normalize(L+V);float sp=pow(max(dot(n,H),0.),48.);
-    vec3 alb=vec3(.1);float metal=0.;
-    if(m<1.5){alb=vec3(.11,.10,.095)*(.75+.5*fbm(p.xz*.8,3.));               // piso húmedo
-      alb=mix(alb,vec3(.10,.16,.15),smoothstep(.62,.75,fbm(p.xz*.35+4.,3.))*.6);metal=.25;}
-    else if(m<2.5){alb=vec3(.10,.12,.115)*(.8+.3*fbm(p.xz*4.,3.));            // celda de concreto polimérico
-      if(p.y>1.08&&abs(p.x-CP*floor(p.x/CP+.5))<.56&&abs(p.z)<2.38){alb=vec3(.03,.10,.10);metal=.8;}} // electrolito
-    else if(m<4.5){alb=vec3(.86,.48,.30);metal=1.;}                            // cobre
-    else if(m<5.5){alb=vec3(.30,.31,.32)*(.8+.3*fbm(p.xy*2.,3.));metal=.5;}   // acero
-    else if(m<6.5){alb=vec3(.78,.55,.14)*(.82+.25*fbm(p.xz*3.+p.y,3.));metal=.2;} // grúa amarilla industrial
-    else if(m<7.5){alb=vec3(.13,.12,.11);                                     // muro + ventanales
-      float win=smoothstep(.0,.04,fract(p.x/3.)-.12)*smoothstep(.0,.04,.88-fract(p.x/3.))*step(9.8,p.y)*step(p.y,12.6);
-      col=vec3(1.,.82,.6)*1.4*win;}
-    else{alb=vec3(.2);metal=.9;}                                              // cable
-    vec3 F0=mix(vec3(.04),alb,metal);
-    vec3 env=tankSky(reflect(rd,n))*2.+vec3(.9,.6,.4)*.06;
-    float fr=pow(1.-max(dot(n,V),0.),5.);
-    vec3 lit=alb*(1.-metal)*(vec3(1.,.82,.62)*dif*2.1+vec3(.30,.32,.36)*amb*.8)*ao;
-    lit+=(F0+(1.-F0)*fr)*(env*ao+vec3(1.,.85,.65)*sp*dif*2.2);
-    if(m>6.5&&m<7.5)lit+=col;
-    col=lit;
-    // goteo de electrolito desde los cátodos recién izados
-    if(m>3.5&&m<4.5&&u>.55)col+=vec3(.25,.55,.5)*.12*smoothstep(.4,0.,fract(p.y*3.-uTime*1.2))*step(p.y,4.)*(1.-c);
-  }
-  // neblina ácida y haces de luz desde los ventanales
-  float fog=1.-exp(-t*.012);
-  vec3 fc=vec3(.10,.085,.075)+vec3(.9,.62,.38)*.25*pow(max(dot(rd,normalize(vec3(.2,.5,1.))),0.),6.);
-  col=mix(col,fc,fog*(.85-.45*c));
-  col+=vec3(1.,.75,.5)*.05*smoothstep(.6,1.,sin(dot(rd.xy,vec2(9.,4.))+1.5))*(1.-c);
-  return col;
-}
-
-/* main(): se genera en JS, un programa por escena (compilación corta y por partes) */
-</script>
 
 <script>
 (function(){
@@ -1246,109 +951,26 @@ vec3 sceneTank(vec2 uv){
   root.classList.add('js'); if(!reduce) root.classList.add('motion');
   requestAnimationFrame(()=>requestAnimationFrame(()=>document.getElementById('heroStick').classList.add('ready')));
 
-  /* ── WebGL ───────────────────────────
-     Un programa por escena (compilación corta y escalonada), presupuesto de pasos
-     según el equipo, resolución adaptativa, tope de cuadros cuando no hay movimiento,
-     recuperación si se pierde el contexto y respaldo estático si el equipo no da. */
+  /* ── Escenas 3D ──────────────────────
+     Motor three.js en un módulo aparte: geometría real dibujada a la resolución
+     nativa de la pantalla (sin reescalar), con antialiasing y sombras. Si el equipo
+     no tiene aceleración gráfica o el motor no carga, se muestra el fondo estático. */
   const cv=document.getElementById('gl');
   const fb=document.getElementById('fallback');
   const small=matchMedia('(max-width:760px)').matches;
   const qs=location.search, forceGL=/[?&]gl=1\b/.test(qs);
-  const SRC=document.getElementById('fs').textContent;
-  const Q=small?{TS:60,TF:'.62',NO:'5.',SH:8,MS:56,KS:64}:{TS:92,TF:'.56',NO:'6.',SH:12,MS:72,KS:92};
-  const DEF='#define Q_TS '+Q.TS+'\n#define Q_TF '+Q.TF+'\n#define Q_NO '+Q.NO+'\n#define Q_SH '+Q.SH+'\n#define Q_MS '+Q.MS+'\n#define Q_KS '+Q.KS+'\n';
-  // 0 satélite → BIM → pila (vuelo continuo) · 1 molino / modelo predictivo · 2 nave EW con puente grúa
-  const EXPR=['sceneTerrain(uv,uK)','sceneMill(uv)','sceneTank(uv)'];
-  const MAIN=e=>'\nuniform float uK,uFade;\nvoid main(){vec2 uv=(gl_FragCoord.xy-.5*uRes)/uRes.y;vec3 col='+e+';col*=uDim*uFade;col=aces(col*1.08);col=pow(col,vec3(1./2.2));vec2 q=gl_FragCoord.xy/uRes;col*=.32+.68*pow(16.*q.x*q.y*(1.-q.x)*(1.-q.y),.24);col+=(h21(gl_FragCoord.xy+fract(uTime*7.)*91.)-.5)*.028;gl_FragColor=vec4(col,1.);}\n';
-  const VS='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
-  let gl=null,ext=null,buf=null,progs=[],glDead=false,glLost=false,drewOnce=false;
-
-  function nogl(why){if(glDead)return;glDead=true;root.classList.add('nogl');root.classList.remove('glon');if(why)console.info('MetalGenomic: escena WebGL desactivada ('+why+'). Se muestra el fondo estático.');}
-  function initGL(){
-    progs=[];drewOnce=false;
-    try{gl=cv.getContext('webgl',{antialias:false,alpha:false,depth:false,stencil:false,powerPreference:'high-performance',preserveDrawingBuffer:false,failIfMajorPerformanceCaveat:!forceGL});}catch(e){gl=null;}
-    if(!gl){nogl('sin WebGL o con renderizado por software');return;}
-    // Renderizadores por software congelan la página: se usa el fondo estático.
-    const dbg=gl.getExtension('WEBGL_debug_renderer_info');
-    const ren=dbg?String(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL)):'';
-    if(!forceGL&&/swiftshader|llvmpipe|softpipe|software|basic render/i.test(ren)){nogl('renderizador por software: '+ren);return;}
-    ext=gl.getExtension('KHR_parallel_shader_compile');
-    buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);
-    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
-    // La escena del hero primero; las demás, de a una y sin bloquear el scroll.
-    compile(0);
-    [1,2].forEach((i,n)=>setTimeout(()=>{if(gl&&!glDead&&!glLost)compile(i);},900+n*700));
-  }
-  function compile(i){
-    if(progs[i])return;
-    const sh=(type,src)=>{const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);return s;};
-    const v=sh(gl.VERTEX_SHADER,VS),f=sh(gl.FRAGMENT_SHADER,DEF+SRC+MAIN(EXPR[i]));
-    const p=gl.createProgram();gl.attachShader(p,v);gl.attachShader(p,f);gl.linkProgram(p);
-    progs[i]={p,v,f,ok:undefined};
-  }
-  function ready(i){
-    const P=progs[i];if(!P)return false;
-    if(P.ok!==undefined)return P.ok;
-    if(ext&&!gl.getProgramParameter(P.p,ext.COMPLETION_STATUS_KHR))return false;
-    P.ok=!!gl.getProgramParameter(P.p,gl.LINK_STATUS);
-    if(!P.ok){console.warn(gl.getShaderInfoLog(P.f)||gl.getProgramInfoLog(P.p));nogl('el shader no compiló');return false;}
-    P.loc=gl.getAttribLocation(P.p,'p');P.U={};
-    ['uRes','uTime','uDim','uAlert','uMouse','uK','uFade','uBim','uBio','uCrane','uGeo'].forEach(n=>P.U[n]=gl.getUniformLocation(P.p,n));
-    return true;
-  }
-  cv.addEventListener('webglcontextlost',e=>{e.preventDefault();glLost=true;root.classList.remove('glon');},false);
-  cv.addEventListener('webglcontextrestored',()=>{glLost=false;initGL();},false);
-  if(/[?&]gl=0\b/.test(qs))nogl('desactivada por parámetro');else initGL();
-
-  let scale=small?.5:.62; const minScale=small?.28:.3, maxScale=1;
-  function size(){
-    if(!gl)return;
-    const sc=Math.min(scale,Math.sqrt(2.3e6/(innerWidth*innerHeight)));const w=Math.max(2,Math.round(innerWidth*sc)),h=Math.max(2,Math.round(innerHeight*sc));
-    if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h;gl.viewport(0,0,w,h);}
-  }
-  // escena (0..4) → programa y mezcla
   const story={bim:0,bio:0,crane:0,geo:0};
-  function draw(i,k,fade,alpha,now){
-    const P=progs[i];gl.useProgram(P.p);
-    gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.enableVertexAttribArray(P.loc);gl.vertexAttribPointer(P.loc,2,gl.FLOAT,false,0,0);
-    const U=P.U;
-    gl.uniform2f(U.uRes,cv.width,cv.height);
-    gl.uniform1f(U.uTime,reduce?12.:(now-t0)/1000+12.);
-    gl.uniform1f(U.uDim,cur.d);gl.uniform1f(U.uAlert,reduce?0:alert);
-    gl.uniform2f(U.uMouse,mouse[0],mouse[1]);gl.uniform1f(U.uK,k);gl.uniform1f(U.uFade,fade);
-    gl.uniform1f(U.uBim,story.bim);gl.uniform1f(U.uBio,story.bio);gl.uniform1f(U.uCrane,story.crane);gl.uniform1f(U.uGeo,story.geo);
-    if(alpha<1){gl.enable(gl.BLEND);gl.blendColor(0,0,0,alpha);gl.blendFunc(gl.CONSTANT_ALPHA,gl.ONE_MINUS_CONSTANT_ALPHA);}else gl.disable(gl.BLEND);
-    gl.drawArrays(gl.TRIANGLES,0,3);
-  }
-  let lastDraw=0,lastInput=performance.now(),slow=0,gAcc=0,gFrames=0;
+  let glDead=false;
+  function nogl(why){if(glDead)return;glDead=true;root.classList.add('nogl');root.classList.remove('glon');if(why)console.info('MetalGenomic: escena 3D desactivada ('+why+'). Se muestra el fondo estático.');}
+  window.__mg={small,reduce,forceGL,cv,nogl,dead:()=>glDead,ready:()=>{if(!glDead)root.classList.add('glon');}};
+  if(/[?&]gl=0\b/.test(qs))nogl('desactivada por parámetro');
+  setTimeout(()=>{if(!window.MGScene)nogl('el motor 3D no cargó a tiempo');},15000);
+  function size(){}
+  let lastInput=performance.now();
   addEventListener('scroll',()=>{lastInput=performance.now();},{passive:true});
   function renderGL(now,dt){
-    if(!gl||glDead||glLost)return;
-    const s=Math.min(4,Math.max(0,cur.s));
-    const moving=now-lastInput<900||Math.abs(target_s-cur.s)>.002;
-    const budget=cur.d<.15?120:(moving?0:40);   // sin movimiento: ~25 fps; casi negro: ~8 fps
-    if(now-lastDraw<budget)return;
-    // rendimiento: si el equipo no sostiene ni la resolución mínima, se usa el fondo estático
-    if(drewOnce&&moving){gAcc+=dt;gFrames++;
-      if(gAcc>.5){const ft=gAcc/gFrames;gAcc=0;gFrames=0;
-        if(ft>.028&&scale>minScale)scale=Math.max(minScale,scale*.84);
-        else if(ft<.017&&scale<maxScale)scale=Math.min(maxScale,scale*1.06);
-        if(ft>.12&&scale<=minScale+1e-3){if(++slow>=3){nogl('el equipo no alcanza a dibujar la escena');return;}}else slow=0;}}
-    let a,f;
-    if(s<1){a=0;f=0;}else{a=Math.floor(s);f=s-a;if(a>=4){a=4;f=0;}}
-    const w=a<=1?0:(f<.45?0:(f>=1?1:Math.min(1,Math.max(0,(f-.45)/.55))));
-    const ws=w*w*(3-2*w);
-    const iA=a<=2?0:(a===3?1:2),iB=a<=1?0:(a===2?1:2);
-    const kA=a<=2?Math.min(2,s):1;
-    const okA=ready(iA),okB=ws>.002?ready(iB):false;
-    if(glDead)return;
-    if(!okA&&!okB)return;              // aún compilando: se ve el fondo estático
-    size();
-    const fade=(ws>.002&&ws<.998)?1-.6*Math.sin(ws*Math.PI):1;
-    if(okA&&(ws<.998||!okB))draw(iA,kA,fade,1,now);
-    if(okB&&ws>.002)draw(iB,1,fade,okA?ws:1,now);
-    lastDraw=now;
-    if(!drewOnce){drewOnce=true;root.classList.add('glon');}
+    if(glDead||!window.MGScene)return;
+    window.MGScene.frame({s:Math.min(4,Math.max(0,cur.s)),d:cur.d,story,mouse,t:reduce?12:(now-t0)/1000,moving:now-lastInput<900||Math.abs(target_s-cur.s)>.002});
   }
 
   /* ── Mapa de actos ─────────────────── */
@@ -1488,22 +1110,54 @@ vec3 sceneTank(vec2 uv){
   const pcLog=[...document.querySelectorAll('#pcLog li')],pmLis=[...document.querySelectorAll('#pmSteps li')];
   const pcTags=[...document.querySelectorAll('#pcTags li')],tlBars=[...document.querySelectorAll('.tl__bar')];
   const PHN=['01 · Captura de datos','02 · Análisis por equipo','03 · Señal temprana','04 · Decisión planificada'];
-  const FL=[['Concentradora · chancado y molienda',['Chancador','Correa CV-02','Molino SAG','Harnero','Molino bolas','Hidrociclones']],['Hidrometalurgia · electroobtención',['Pila','Solución PLS','Planta SX','Nave EW','Puente grúa','Cátodos']]];
-  const HEALTH=[.86,.8,.84,.78,.83,.8,.9,.85,.83,.88,.86,.92];
+  const FL=[['Concentradora · chancado y molienda',[['Chancador','crusher'],['Molino SAG','sag'],['Harnero','screen'],['Molino bolas','ball'],['Hidrociclones','cyclone'],['Flotación','flot']]],
+            ['Hidrometalurgia · electroobtención',[['Pila','heap'],['Solución PLS','pond'],['Planta SX','sx'],['Nave EW','ew'],['Puente grúa','crane'],['Cátodos','cathode']]]];
+  const ICON={
+    crusher:'M-14,-20 H14 L9,-12 H-9 Z M-11,-12 H11 V12 H-11 Z M-11,-4 H11 M-11,4 H11 M-6,12 V18 H6 V12',
+    sag:'M-18,-14 H14 V14 H-18 Z M-25,-5 H-18 V5 H-25 Z M14,-5 H21 V5 H14 Z M-8,-18 V18 M-3,-18 V18',
+    screen:'M-22,6 L18,-10 L20,-4 L-20,12 Z M-14,4 L-12,10 M-6,1 L-4,7 M2,-2 L4,4 M10,-5 L12,1 M-18,12 V18 M16,-4 V18',
+    ball:'M-20,-10 H14 V10 H-20 Z M-26,-4 H-20 V4 H-26 Z M14,-4 H20 V4 H14 Z M-9,-13 V13',
+    cyclone:'M-7,-18 H7 V-8 H-7 Z M-7,-8 L-2,16 H2 L7,-8 Z M-2,-18 V-23 H2 V-18 M7,-14 H14',
+    flot:'M-26,-8 H-2 V8 H-26 Z M-26,-8 L-14,4 L-2,-8 M2,-8 H26 V8 H2 Z M2,-8 L14,4 L26,-8',
+    heap:'M-26,14 L-14,-6 H14 L26,14 Z M-16,-11 H16 M-12,-11 V-7 M-4,-11 V-7 M4,-11 V-7 M12,-11 V-7',
+    pond:'M-26,-8 L-18,10 H18 L26,-8 M-20,-2 Q-15,-6 -10,-2 T0,-2 T10,-2 T20,-2',
+    sx:'M-26,-6 H-14 V8 H-26 Z M-20,-12 V-6 M-24,-12 H-16 M-14,0 H26 V8 H-14 Z M-4,0 V8 M6,0 V8 M16,0 V8',
+    ew:'M-24,-4 H24 V12 H-24 Z M-18,-12 V10 M-12,-12 V10 M-6,-12 V10 M0,-12 V10 M6,-12 V10 M12,-12 V10 M18,-12 V10',
+    crane:'M-26,-14 H26 V-9 H-26 Z M-2,-9 V4 M-9,4 H9 V8 H-9 Z M-6,8 V15 M0,8 V15 M6,8 V15',
+    cathode:'M-8,-20 H18 V6 H-8 Z M-12,-16 H14 V10 H-12 Z M-16,-12 H10 V14 H-16 Z'
+  };
+  const HEALTH=[.86,.84,.78,.83,.8,.88,.9,.85,.83,.88,.86,.92];
   let flMode='',flNodes=[],flScan=null,flW=720,flH=300,flNarrow=false,flKey='',pmPh=-1;
   function buildFlow(){
     const narrow=pcFlow.clientWidth<520,mode=narrow?'n':'w';if(mode===flMode)return;flMode=mode;flNarrow=narrow;flKey='';
-    const W=narrow?340:720,H=narrow?322:252;flW=W;flH=H;
-    const pos=narrow?(r,i)=>[r?256:84,52+i*48]:(r,i)=>[62+i*119,r?204:84];
-    let h='<defs><linearGradient id="flScanG" x1="0" y1="0" x2="'+(narrow?0:1)+'" y2="'+(narrow?1:0)+'"><stop offset="0" stop-color="rgba(143,208,191,0)"/><stop offset="1" stop-color="rgba(143,208,191,.32)"/></linearGradient></defs>';
+    const W=narrow?340:720,H=narrow?352:262;flW=W;flH=H;
+    const pos=narrow?(r,i)=>[r?204:34,56+i*52]:(r,i)=>[62+i*119,r?190:72];
+    const sc=narrow?.62:1;
+    let h='<defs><linearGradient id="flScanG" x1="0" y1="0" x2="'+(narrow?0:1)+'" y2="'+(narrow?1:0)+'"><stop offset="0" stop-color="rgba(29,63,182,0)"/><stop offset="1" stop-color="rgba(29,63,182,.16)"/></linearGradient>'+
+      '<marker id="fsA" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 Z" fill="#d7322a"/></marker>'+
+      '<marker id="fsR" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 Z" fill="#8d9a6b"/></marker></defs>';
+    h+='<rect class="fs-bg" x="0" y="0" width="'+W+'" height="'+H+'" rx="4"/>';
+    for(let x=20;x<W;x+=20)h+='<line class="fs-grid" x1="'+x+'" y1="0" x2="'+x+'" y2="'+H+'"/>';
+    for(let y=20;y<H;y+=20)h+='<line class="fs-grid" x1="0" y1="'+y+'" x2="'+W+'" y2="'+y+'"/>';
     FL.forEach(([lbl,nodes],r)=>{
       const p0=pos(r,0);
-      h+=narrow?'<text class="fl-row" x="'+p0[0]+'" y="22" text-anchor="middle">'+lbl.split(' · ')[0]+'</text>':'<text class="fl-row" x="12" y="'+(p0[1]-34)+'">'+lbl+'</text>';
-      for(let i=0;i<nodes.length-1;i++){const a=pos(r,i),b=pos(r,i+1);const d=narrow?'M'+a[0]+' '+(a[1]+16)+' V'+(b[1]-16):'M'+(a[0]+50)+' '+a[1]+' H'+(b[0]-50);h+='<path class="fl-pipe" d="'+d+'"/><path class="fl-flow" d="'+d+'"/>';}
+      h+=narrow?'<text class="fs-row" x="'+(p0[0]-20)+'" y="24">'+lbl.split(' · ')[0]+'</text>':'<text class="fs-row" x="12" y="'+(p0[1]-44)+'">'+lbl+'</text>';
+      for(let i=0;i<nodes.length-1;i++){const a=pos(r,i),b=pos(r,i+1);
+        const d=narrow?'M'+a[0]+' '+(a[1]+15)+' V'+(b[1]-17):'M'+(a[0]+30)+' '+a[1]+' H'+(b[0]-31);
+        h+='<path class="fs-arrow" d="'+d+'" marker-end="url(#fsA)"/><path class="fs-flow" d="'+d+'"/>';}
     });
+    // retornos de agua y refino (líneas verde oliva, como en el plano de referencia)
+    if(!narrow){const a=pos(0,5),b=pos(0,1),c=pos(1,2),e=pos(1,0);
+      h+='<path class="fs-ret" d="M'+a[0]+' '+(a[1]-24)+' V'+(a[1]-36)+' H'+b[0]+' V'+(b[1]-24)+'" marker-end="url(#fsR)"/>';
+      h+='<path class="fs-ret" d="M'+c[0]+' '+(c[1]+40)+' V'+(c[1]+52)+' H'+e[0]+' V'+(e[1]+40)+'" marker-end="url(#fsR)"/>';}
     h+=narrow?'<rect class="fl-scan" x="0" y="0" width="'+W+'" height="64"/>':'<rect class="fl-scan" x="0" y="0" width="72" height="'+H+'"/>';
-    FL.forEach(([,nodes],r)=>nodes.forEach((n,i)=>{const [x,y]=pos(r,i),id=r*6+i,w=100,hh=32;
-      h+='<g class="fl-nd" transform="translate('+(x-w/2)+','+(y-hh/2)+')"><rect class="fl-ring" width="'+w+'" height="'+hh+'" rx="4"/><rect width="'+w+'" height="'+hh+'" rx="4"/><circle class="led" cx="'+(w-8)+'" cy="8" r="2.6"/><text x="8" y="17">'+n+'</text><rect class="hb" x="8" y="'+(hh-8)+'" width="'+(w-16)+'" height="2.5"/><rect class="hv" x="8" y="'+(hh-8)+'" width="'+((w-16)*HEALTH[id]).toFixed(1)+'" height="2.5"/></g>';}));
+    FL.forEach(([,nodes],r)=>nodes.forEach(([n,ic],i)=>{const [x,y]=pos(r,i),id=r*6+i;
+      h+='<g class="fl-nd" transform="translate('+x+','+y+')">'+
+        (narrow?'<rect class="fl-ring" x="-24" y="-20" width="160" height="40" rx="6"/>':'<rect class="fl-ring" x="-36" y="-28" width="72" height="72" rx="6"/>')+
+        '<g transform="scale('+sc+')"><path class="fs-ic" d="'+ICON[ic]+'"/></g>'+
+        (narrow?
+        '<circle class="led" cx="128" cy="-8" r="2.8"/><text class="fs-lbl" x="24" y="-2">'+n+'</text><rect class="hb" x="24" y="5" width="104" height="2.6"/><rect class="hv" x="24" y="5" width="'+(104*HEALTH[id]).toFixed(1)+'" height="2.6"/>':
+        '<circle class="led" cx="30" cy="-22" r="2.8"/><text class="fs-lbl" x="0" y="30" text-anchor="middle">'+n+'</text><rect class="hb" x="-24" y="35" width="48" height="2.6"/><rect class="hv" x="-24" y="35" width="'+(48*HEALTH[id]).toFixed(1)+'" height="2.6"/>')+'</g>';}));
     pcFlow.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet">'+h+'</svg>';
     flNodes=[...pcFlow.querySelectorAll('.fl-nd')].map((g,id)=>{const r=id<6?0:1,i=id%6,pp=pos(r,i);return{g,x:pp[0],y:pp[1]};});
     flScan=pcFlow.querySelector('.fl-scan');
@@ -1561,7 +1215,7 @@ vec3 sceneTank(vec2 uv){
         const key=nLive+'|'+Math.round(sPos)+'|'+al;
         if(key!==flKey){flKey=key;
           if(flScan)flScan.setAttribute('transform',flNarrow?'translate(0,'+sPos.toFixed(1)+')':'translate('+sPos.toFixed(1)+',0)');
-          flNodes.forEach((n,i)=>{n.g.classList.toggle('live',i<nLive);n.g.classList.toggle('scanned',p>=.44||(p>.22&&(flNarrow?n.y:n.x)<sPos+40));n.g.classList.toggle('alert',i===2&&al);});
+          flNodes.forEach((n,i)=>{n.g.classList.toggle('live',i<nLive);n.g.classList.toggle('scanned',p>=.44||(p>.22&&(flNarrow?n.y:n.x)<sPos+40));n.g.classList.toggle('alert',i===1&&al);});
           pcTags.forEach((li,i)=>{const on=i<Math.ceil(nLive/2);const hi=al&&(li.dataset.k==='vib'||li.dataset.k==='tmp');
             li.querySelector('b').style.transform='scaleX('+(on?(hi?(li.dataset.k==='vib'?.86:.7):[.36,.42,.58,.5,.46,.54][i]):0)+')';
             li.classList.toggle('hi',hi);setT(li.querySelector('em'),hi?'Alta':(on?'Normal':'—'));});}
@@ -1654,5 +1308,460 @@ vec3 sceneTank(vec2 uv){
 })();
 </script>
 
+<script type="module">
+/* ═══ MetalGenomic · escenas 3D nítidas ═════════════════════════════════════
+   Geometría real (no raymarching) dibujada a la resolución nativa de la pantalla,
+   con antialiasing, sombras y luz de día despejada.
+   Mundo exterior: territorio → rajo → faena / BIM → pila con riego → planta.
+   Interior: nave de electroobtención con puente grúa birriel.               */
+const M=window.__mg;
+let THREE=null;
+if(M&&!M.dead()){
+  for(const u of ['https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js','https://unpkg.com/three@0.160.0/build/three.module.min.js']){
+    try{THREE=await import(u);break;}catch(e){}
+  }
+  if(!THREE)M.nogl('no se pudo cargar el motor 3D');
+  else{try{start();}catch(e){console.warn(e);M.nogl('error al iniciar la escena 3D');}}
+}
+
+function start(){
+const {small,forceGL,cv}=M;
+const qs=location.search;
+let R;
+try{R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:false,powerPreference:'high-performance',failIfMajorPerformanceCaveat:!forceGL});}
+catch(e){M.nogl('sin WebGL');return;}
+const glc=R.getContext();const dbg=glc.getExtension('WEBGL_debug_renderer_info');
+const ren=dbg?String(glc.getParameter(dbg.UNMASKED_RENDERER_WEBGL)):'';
+if(!forceGL&&/swiftshader|llvmpipe|softpipe|software|basic render/i.test(ren)){R.dispose();M.nogl('renderizador por software: '+ren);return;}
+R.outputColorSpace=THREE.SRGBColorSpace;
+R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=.95;
+R.shadowMap.enabled=true;R.shadowMap.type=THREE.PCFSoftShadowMap;
+const prFixed=(qs.match(/[?&]pr=([\d.]+)/)||[])[1];
+const maxPR=Math.min(devicePixelRatio||1,2);
+let PR=prFixed?+prFixed:maxPR;
+R.setPixelRatio(PR);R.setSize(innerWidth,innerHeight,false);
+const ANI=R.capabilities.getMaxAnisotropy();
+const V3=(x,y,z)=>new THREE.Vector3(x,y,z);
+const C=h=>new THREE.Color(h);
+const sm=(a,b,x)=>{const t=Math.min(1,Math.max(0,(x-a)/(b-a)));return t*t*(3-2*t);};
+const lerp=(a,b,t)=>a+(b-a)*t;
+
+/* ── ruido determinista ── */
+function mulberry(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+const rnd=mulberry(20251006);
+const PERM=new Uint8Array(512);{const p=[...Array(256).keys()];for(let i=255;i>0;i--){const j=Math.floor(rnd()*(i+1));[p[i],p[j]]=[p[j],p[i]];}for(let i=0;i<512;i++)PERM[i]=p[i&255];}
+function vn(x,y){const xi=Math.floor(x),yi=Math.floor(y),xf=x-xi,yf=y-yi,u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf),X=xi&255,Y=yi&255;
+  const h=(i,j)=>PERM[PERM[(X+i)&255]+((Y+j)&255)]/255;
+  return (h(0,0)*(1-u)+h(1,0)*u)*(1-v)+(h(0,1)*(1-u)+h(1,1)*u)*v;}
+function fbm(x,y,o=5){let a=.5,f=1,s=0,n=0;for(let i=0;i<o;i++){s+=a*vn(x*f+i*17.3,y*f-i*9.1);n+=a;a*=.5;f*=2.03;}return s/n;}
+const ridged=(x,y)=>{let s=0,a=.5,f=1;for(let i=0;i<5;i++){s+=a*(1-Math.abs(2*vn(x*f+i*5.1,y*f)-1));a*=.5;f*=2.1;}return s;};
+
+/* ── texturas de detalle (nitidez a corta distancia) ── */
+function canvasTex(w,h,draw,srgb=true,rep=1){const c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');draw(g,w,h);
+  const t=new THREE.CanvasTexture(c);if(srgb)t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=ANI;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(rep,rep);t.userData.canvas=c;t.userData.g=g;return t;}
+const detail=canvasTex(256,256,(g,w,h)=>{const im=g.createImageData(w,h);
+  for(let y=0;y<h;y++)for(let x=0;x<w;x++){const n=.55*vn(x/6,y/6)+.3*vn(x/2.2+40,y/2.2)+.15*rnd();const v=Math.round(200+55*n);const i=(y*w+x)*4;im.data[i]=v;im.data[i+1]=v;im.data[i+2]=v;im.data[i+3]=255;}
+  g.putImageData(im,0,0);});
+const rock=canvasTex(256,256,(g,w,h)=>{g.fillStyle='#bdbdbd';g.fillRect(0,0,w,h);
+  for(let i=0;i<2600;i++){const x=rnd()*w,y=rnd()*h,r=.6+rnd()*2.6,v=120+rnd()*135|0;g.fillStyle='rgb('+v+','+v+','+v+')';g.beginPath();g.arc(x,y,r,0,7);g.fill();}});
+
+/* ── uniformes compartidos (BIM, capas geoespaciales, tiempo) ── */
+const U={uBim:{value:0},uGeo:{value:0},uTime:{value:0}};
+const GLSL_NOISE=`
+float mgH(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float mgN(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(mgH(i),mgH(i+vec2(1,0)),f.x),mix(mgH(i+vec2(0,1)),mgH(i+vec2(1,1)),f.x),f.y);}
+float mgLine(float k,float w){float d=abs(fract(k-.5)-.5)/max(fwidth(k),1e-4);return 1.-min(d/w,1.);}
+`;
+function groundShader(mat,{geo=false}={}){
+  mat.extensions={derivatives:true};
+  mat.onBeforeCompile=sh=>{
+    Object.assign(sh.uniforms,U);
+    sh.vertexShader=sh.vertexShader.replace('#include <common>','#include <common>\nvarying vec3 vW;')
+      .replace('#include <begin_vertex>','#include <begin_vertex>\nvW=(modelMatrix*vec4(transformed,1.)).xyz;');
+    sh.fragmentShader=sh.fragmentShader.replace('#include <common>','#include <common>\nvarying vec3 vW;uniform float uBim,uGeo,uTime;'+GLSL_NOISE)
+      .replace('#include <color_fragment>',`#include <color_fragment>
+      ${geo?`if(uGeo>.002){
+        float n=mgN(vW.xz*.0042+vec2(3.,7.))*.62+mgN(vW.xz*.012+11.)*.38;
+        float zone=smoothstep(.6,.67,n);
+        diffuseColor.rgb=mix(diffuseColor.rgb,diffuseColor.rgb*vec3(1.18,.78,.52)+vec3(.16,.05,.0),zone*.72*uGeo);
+        float iso=mgLine(n*18.,1.1)*(.25+.75*smoothstep(.5,.62,n));
+        diffuseColor.rgb=mix(diffuseColor.rgb,vec3(1.,.55,.25),iso*.85*uGeo);
+        vec2 T0=vec2(-720.,330.),T1=vec2(-560.,-470.),T2=vec2(-900.,-90.);
+        float r=min(min(length(vW.xz-T0),length(vW.xz-T1)),length(vW.xz-T2));
+        float ring=mgLine(r/34.,1.4)*(1.-smoothstep(70.,110.,r))+ (1.-smoothstep(5.,8.,r));
+        diffuseColor.rgb=mix(diffuseColor.rgb,vec3(1.,.82,.45),clamp(ring,0.,1.)*uGeo);
+        float sx=mix(-1400.,600.,fract(uTime*.045));
+        diffuseColor.rgb+=vec3(.35,.8,.75)*exp(-abs(vW.x-sx)*.03)*.22*uGeo;
+      }`:''}
+      if(uBim>.002){
+        diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.86,.9,.95),uBim*.92);
+        float g=max(mgLine(vW.x/25.,.8),mgLine(vW.z/25.,.8));
+        float c=mgLine(vW.y/3.,1.);
+        diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.12,.42,.85),clamp(g*.45+c*.75,0.,1.)*uBim);
+      }`);
+  };
+  return mat;
+}
+
+/* ════ MUNDO EXTERIOR ════════════════════════════════════════════════ */
+const ext=new THREE.Scene();
+const camE=new THREE.PerspectiveCamera(40,innerWidth/innerHeight,1,12000);
+const SUN=V3(-.62,.42,.62).normalize();
+
+// cielo despejado (como la foto de referencia), se vuelve blanco técnico en BIM
+const skyMat=new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,fog:false,uniforms:{uSun:{value:SUN},uBim:U.uBim},
+  vertexShader:'varying vec3 vD;void main(){vD=normalize(position);vec4 p=projectionMatrix*modelViewMatrix*vec4(position,1.);gl_Position=p.xyww;}',
+  fragmentShader:`varying vec3 vD;uniform vec3 uSun;uniform float uBim;
+  void main(){float y=vD.y;vec3 zen=vec3(.10,.30,.68),hor=vec3(.55,.70,.86),gnd=vec3(.62,.55,.47);
+    vec3 col=mix(hor,zen,pow(clamp(y,0.,1.),.5));col=mix(col,gnd,clamp(-y*5.,0.,1.));
+    float s=max(dot(vD,uSun),0.);col+=vec3(1.,.93,.82)*(pow(s,1200.)*8.+pow(s,24.)*.18);
+    col=mix(col,vec3(.93,.95,.98),uBim*.94);
+    gl_FragColor=vec4(col,1.);
+    #include <tonemapping_fragment>
+    #include <colorspace_fragment>
+  }`});
+const sky=new THREE.Mesh(new THREE.SphereGeometry(9000,48,24),skyMat);sky.frustumCulled=false;ext.add(sky);
+ext.fog=new THREE.Fog(0x9ab6cf,3200,9000);
+
+// iluminación
+const sun=new THREE.DirectionalLight(0xfff2e0,2.7);sun.position.copy(SUN).multiplyScalar(1400);
+sun.target.position.set(80,0,40);ext.add(sun.target);
+sun.castShadow=true;sun.shadow.mapSize.set(small?1024:2048,small?1024:2048);
+Object.assign(sun.shadow.camera,{left:-520,right:520,top:420,bottom:-420,near:200,far:3200});
+sun.shadow.bias=-.0004;sun.shadow.normalBias=.6;ext.add(sun);
+ext.add(new THREE.HemisphereLight(0xcfe2f5,0x8a6a4c,.55));
+{const envS=new THREE.Scene();envS.add(new THREE.Mesh(new THREE.SphereGeometry(100,32,16),skyMat));
+  const pm=new THREE.PMREMGenerator(R);ext.environment=pm.fromScene(envS,.02).texture;pm.dispose();}
+
+/* terreno de Atacama */
+const PIT={x:-330,z:-40},RP=190,PSX=1.25;
+function terrH(x,z){
+  let h=(fbm(x*.0016+3,z*.0016-2,5)-.5)*90+ (ridged(x*.0042+7,z*.0042)-.45)*46;
+  const r=Math.hypot(x+80,z);
+  h+=Math.pow(sm(520,1600,r),1.3)*(180+300*ridged(x*.0011,z*.0011));
+  const fx=Math.max(-190-x,x-560,0),fz=Math.max(-280-z,z-230,0),dp=Math.hypot(fx,fz);
+  const dx=(x-PIT.x)/PSX,dz=z-PIT.z,rp=Math.hypot(dx,dz);
+  const m=Math.max(1-sm(0,160,dp),1-sm(RP,RP+150,rp));
+  h=h*(1-m)+(fbm(x*.03,z*.03,2)-.5)*1.6*m;
+  if(rp<RP-3)h=-230;
+  return h;
+}
+{
+  const S=4600,N=small?220:300;
+  const g=new THREE.PlaneGeometry(S,S,N,N);g.rotateX(-Math.PI/2);
+  const p=g.attributes.position;
+  for(let i=0;i<p.count;i++)p.setY(i,terrH(p.getX(i),p.getZ(i)));
+  g.computeVertexNormals();
+  const col=new Float32Array(p.count*3),nrm=g.attributes.normal;
+  const cA=C('#a77a52'),cB=C('#7f5236'),cS=C('#c29a6e'),cR=C('#6a4532'),cG=C('#7c7268'),cPad=C('#b89a74'),t=new THREE.Color();
+  for(let i=0;i<p.count;i++){const x=p.getX(i),z=p.getZ(i),y=p.getY(i);
+    const n1=fbm(x*.0022,z*.0022,3),n2=fbm(x*.017+9,z*.017,3),sl=1-nrm.getY(i);
+    t.copy(cA).lerp(cB,sm(.3,.75,n1)*.7);t.multiplyScalar(.9+.2*n2);t.lerp(cS,sm(.55,.8,n2)*.3*(1-sm(.05,.2,sl)));
+    t.lerp(cG,sm(.62,.75,fbm(x*.006-4,z*.006,3))*.5);
+    t.lerp(cR,sm(.06,.32,sl)*.85);
+    if(y>60)t.lerp(cR,sm(60,260,y)*.35);
+    const fx=Math.max(-190-x,x-560,0),fz=Math.max(-280-z,z-230,0);
+    t.lerp(cPad,(1-sm(0,90,Math.hypot(fx,fz)))*.55);
+    col[i*3]=t.r;col[i*3+1]=t.g;col[i*3+2]=t.b;}
+  g.setAttribute('color',new THREE.BufferAttribute(col,3));
+  const uv=g.attributes.uv;for(let i=0;i<uv.count;i++)uv.setXY(i,uv.getX(i)*S/14,uv.getY(i)*S/14);
+  const terr=new THREE.Mesh(g,groundShader(new THREE.MeshStandardMaterial({vertexColors:true,map:detail,roughness:.96,metalness:0}),{geo:true}));
+  terr.receiveShadow=true;ext.add(terr);
+}
+
+/* rajo abierto: bancos escalonados nítidos (anillos independientes) */
+{
+  const grp=new THREE.Group();grp.position.set(PIT.x,0,PIT.z);grp.scale.set(PSX,1,1);ext.add(grp);
+  const bands=['#a9805e','#8e6a52','#b38f6c','#7d6a5e','#9a7356','#a58d76','#86624d','#b09070','#927a66'];
+  let r=38,y=-117;
+  const ring=(r0,y0,r1,y1,colr,rough)=>{const g=new THREE.LatheGeometry([new THREE.Vector2(r0,y0),new THREE.Vector2(r1,y1)],120);
+    const uv=g.attributes.uv;for(let i=0;i<uv.count;i++)uv.setXY(i,uv.getX(i)*60,uv.getY(i)*2);
+    const m=new THREE.Mesh(g,groundShader(new THREE.MeshStandardMaterial({color:colr,map:detail,roughness:rough,side:THREE.DoubleSide}),{geo:true}));m.receiveShadow=true;m.castShadow=false;grp.add(m);};
+  const floor=new THREE.Mesh(new THREE.CircleGeometry(38,64).rotateX(-Math.PI/2),groundShader(new THREE.MeshStandardMaterial({color:'#9b7d63',map:detail,roughness:.95})));floor.position.y=-117;floor.receiveShadow=true;grp.add(floor);
+  const pond=new THREE.Mesh(new THREE.CircleGeometry(14,48).rotateX(-Math.PI/2),new THREE.MeshStandardMaterial({color:'#4f8f86',roughness:.12,metalness:.1}));pond.position.set(6,-116.7,4);grp.add(pond);
+  for(let b=0;b<9;b++){ring(r,y,r+9,y,C(bands[b]).multiplyScalar(1.08),.97);ring(r+9,y,r+16,y+13,C(bands[b]).multiplyScalar(.82),.92);r+=16;y+=13;}
+  ring(r,0,RP+10,0,C('#c39b70'),.96);
+}
+
+/* utilidades de construcción */
+const tmpM=new THREE.Matrix4(),tmpQ=new THREE.Quaternion(),tmpE=new THREE.Euler();
+const mat4=(x,y,z,rx=0,ry=0,rz=0,sx=1,sy=1,sz=1)=>new THREE.Matrix4().compose(V3(x,y,z),new THREE.Quaternion().setFromEuler(new THREE.Euler(rx,ry,rz)),V3(sx,sy,sz));
+function merge(list){let n=0;const qs2=list.map(([g,m])=>{const q=(g.index?g.toNonIndexed():g.clone());q.applyMatrix4(m);n+=q.attributes.position.count;return q;});
+  const pos=new Float32Array(n*3),nor=new Float32Array(n*3);let o=0;
+  for(const q of qs2){pos.set(q.attributes.position.array,o*3);nor.set(q.attributes.normal.array,o*3);o+=q.attributes.position.count;q.dispose();}
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setAttribute('normal',new THREE.BufferAttribute(nor,3));g.computeBoundingSphere();return g;}
+const BX=(w,h,d,x,y,z,ry=0)=>[new THREE.BoxGeometry(w,h,d),mat4(x,y,z,0,ry)];
+const CY=(r0,r1,h,x,y,z,rx=0,rz=0,seg=20)=>[new THREE.CylinderGeometry(r0,r1,h,seg,1),mat4(x,y,z,rx,0,rz)];
+
+/* planta: cada pieza recuerda su color real y su color BIM (estructura azul técnica) */
+const plant=[];
+function part(geom,base,bim,{rough=.55,metal=.2,edges=true,shadow=true}={}){
+  const m=new THREE.Mesh(geom,new THREE.MeshStandardMaterial({color:base,roughness:rough,metalness:metal}));
+  m.castShadow=shadow;m.receiveShadow=true;ext.add(m);
+  let e=null;
+  if(edges){e=new THREE.LineSegments(new THREE.EdgesGeometry(geom,28),new THREE.LineBasicMaterial({color:0x0b3a8f,transparent:true,opacity:0,depthWrite:false}));e.visible=false;m.add(e);}
+  plant.push({m,e,base:C(base),bim:C(bim),rough,metal});return m;
+}
+
+// planta SX-EW en primer plano (como en la referencia): estanques, mezcladores-decantadores, piping
+{
+  const L=[];// racks de cañerías
+  for(let x=-10;x<=370;x+=12)L.push(BX(.5,8,.5,x,4,116),BX(.5,8,.5,x,4,124),BX(.6,.5,9.5,x,8,120));
+  for(let z=40;z<=200;z+=12)L.push(BX(.5,8,.5,56,4,z),BX(.5,8,.5,64,4,z),BX(9.5,.5,.6,60,8,z));
+  part(merge(L),'#9ea5ab','#1e78d6',{metal:.6,rough:.4});
+  const P=[];
+  for(let k=0;k<6;k++)P.push(CY(.75,.75,380,180,8.9+(k%2)*1.6,117+k*1.25,0,Math.PI/2,16));
+  for(let k=0;k<4;k++)P.push(CY(.7,.7,160,57.5+k*1.6,8.9+(k%2)*1.5,120,Math.PI/2,0,16));
+  part(merge(P),'#d5d9dc','#1557b8',{metal:.75,rough:.28});
+  const T=[];// estanques de solución y orgánico
+  [[20,160],[44,160],[20,184],[44,184],[100,176],[124,176]].forEach(([x,z])=>{T.push(CY(9,9,11,x,5.5,z,0,0,40),CY(9.2,1,2.4,x,12.2,z,0,0,40));});
+  part(merge(T),'#e3e6e8','#5aa7ee',{metal:.35,rough:.35});
+  const S=[];// mezcladores-decantadores
+  for(let k=0;k<3;k++){S.push(BX(72,3.2,16,205,1.6,150+k*20),BX(6,5,6,165,2.5,150+k*20),BX(72,.3,16.4,205,3.35,150+k*20));}
+  part(merge(S),'#c7ccd0','#2f86e0',{metal:.25,rough:.5});
+  const K=[];// espesadores sobre patas (como los conos de la referencia)
+  [[-30,182],[-6,196]].forEach(([x,z])=>{K.push(CY(10,10,6,x,13,z,0,0,40),CY(10,1.4,8,x,6,z,0,0,40),CY(10.3,10.3,.5,x,16.2,z,0,0,40));
+    for(let a=0;a<6;a++){const an=a/6*Math.PI*2;K.push(CY(.45,.45,10,x+Math.cos(an)*7.5,5,z+Math.sin(an)*7.5,0,0,8));}});
+  part(merge(K),'#d9d4c8','#7bb8f2',{metal:.2,rough:.6});
+  // nave de electroobtención con chimeneas
+  const B=[BX(104,17,44,300,8.5,158)];
+  part(merge(B),'#d3d7da','#bcd9f7',{metal:.3,rough:.55});
+  part(merge([[new THREE.BoxGeometry(106,.5,23.6),mat4(300,19.6,147.2,.24)],[new THREE.BoxGeometry(106,.5,23.6),mat4(300,19.6,168.8,-.24)]]),'#aeb6bc','#9cc7f3',{metal:.5,rough:.45});
+  part(merge([CY(1.6,1.9,52,352,26,128,0,0,24),CY(1.6,1.9,52,366,26,128,0,0,24)]),'#cfd3d6','#1e78d6',{metal:.5,rough:.35});
+  // estructura de acero (protagonista del BIM, como la referencia azul)
+  const F=[];const fx0=200,fz0=86;
+  for(let i=0;i<=6;i++)for(let j=0;j<=3;j++)F.push(BX(.7,16,.7,fx0+i*8,8,fz0+j*8));
+  for(const yy of [6,11,16]){for(let i=0;i<=6;i++)F.push(BX(.45,.6,24,fx0+i*8,yy,fz0+12));for(let j=0;j<=3;j++)F.push(BX(48,.6,.45,fx0+24,yy,fz0+j*8));}
+  for(let i=0;i<6;i++)F.push([new THREE.BoxGeometry(.3,11.3,.3),mat4(fx0+4+i*8,8.5,fz0,0,0,Math.atan2(8,10))]);
+  F.push(BX(48,.25,24,fx0+24,11.3,fz0+12));
+  for(let s=0;s<10;s++)F.push(BX(1.2,.25,2.4,fx0+50+s*.0,1+s*1.05,fz0+2+s*1.0));
+  part(merge(F),'#8f979e','#1f87e6',{metal:.7,rough:.35});
+}
+// concentradora: chancador en el borde del rajo, correa y edificio de molienda SAG
+{
+  part(merge([BX(22,20,22,-150,10,-60)]),'#c9c3b6','#9fc8f3',{rough:.6});
+  const ax=-150,az=-50,bx=-118,bz=88,len=Math.hypot(bx-ax,bz-az),ry=Math.atan2(bx-ax,bz-az);
+  const cg=[[new THREE.BoxGeometry(4,2.6,len),mat4((ax+bx)/2,24,(az+bz)/2,0,ry)]];
+  for(let k=1;k<10;k++){const f=k/10;cg.push(BX(.9,24,.9,ax+(bx-ax)*f,12,az+(bz-az)*f));}
+  part(merge(cg),'#a8adb1','#1e78d6',{metal:.5,rough:.4});
+  part(merge([BX(52,34,42,-112,17,110),BX(30,12,20,-82,6,138)]),'#b8c0c6','#bcd9f7',{metal:.35,rough:.5});
+  const pile=new THREE.Mesh(new THREE.ConeGeometry(24,15,48),new THREE.MeshStandardMaterial({color:'#5d554e',map:rock,roughness:.95}));
+  pile.position.set(-120,7.5,58);pile.castShadow=pile.receiveShadow=true;ext.add(pile);
+  [[40,-220],[480,170],[-40,250],[520,-90]].forEach(([x,z],i)=>part(merge([BX(18+i*4,7,12,x,3.5,z)]),'#d8d2c6','#9fc8f3',{rough:.7}));
+}
+
+/* pila de lixiviación escalonada; el riego avanza y la pila pasa a biolixiviación */
+const HEAP={x:180,z:-150,w:380,d:150};
+const heapTex=canvasTex(1024,512,()=>{},true,1);
+heapTex.wrapS=heapTex.wrapT=THREE.ClampToEdgeWrapping;
+const heapBase=document.createElement('canvas');heapBase.width=1024;heapBase.height=512;
+{const g=heapBase.getContext('2d');g.fillStyle='#3a3d41';g.fillRect(0,0,1024,512);
+  for(let i=0;i<26000;i++){const x=rnd()*1024,y=rnd()*512,r=.5+rnd()*2.2,v=38+rnd()*70|0;g.fillStyle='rgba('+v+','+(v+2)+','+(v+5)+','+(.5+rnd()*.5).toFixed(2)+')';g.fillRect(x,y,r,r);}}
+const MOD=[];{const NX=22,NZ=6;for(let i=0;i<NX;i++)for(let j=0;j<NZ;j++)MOD.push({i,j,NX,NZ,k:i/NX*.75+rnd()*.25+(j%2)*.03,seed:rnd()});MOD.sort((a,b)=>a.k-b.k);}
+let heapCount=-1;
+function drawHeap(bio){
+  const base=Math.round(MOD.length*.14),n=Math.min(MOD.length,base+Math.round(bio*MOD.length*.74));
+  if(n===heapCount)return;heapCount=n;
+  const g=heapTex.userData.g;g.drawImage(heapBase,0,0);
+  for(let q=0;q<n;q++){const m=MOD[q];const w=1024/m.NX,h=512/m.NZ,x=m.i*w,y=m.j*h,fresh=q>n-6&&bio>0;
+    g.fillStyle='rgba(6,10,13,.34)';g.fillRect(x,y,w,h);
+    const r2=mulberry(Math.floor(m.seed*1e6));
+    const ns=2+Math.floor(r2()*3);for(let s=0;s<ns;s++){const sx=x+4+r2()*(w-8),sw=1.5+r2()*2.5,sy=y+3+r2()*h*.3,sh=(h-6)*(.45+r2()*.5);g.fillStyle='rgba(38,190,205,'+(fresh?.85:.38+r2()*.3).toFixed(2)+')';g.fillRect(sx,sy,sw,Math.min(sh,y+h-3-sy));}
+    g.strokeStyle='rgba(15,20,22,.55)';g.lineWidth=1;for(let yy=y+6;yy<y+h-3;yy+=7){g.beginPath();g.moveTo(x+3,yy);g.lineTo(x+w-3,yy);g.stroke();}
+  }
+  heapTex.needsUpdate=true;
+}
+drawHeap(0);
+{
+  const heapMat=groundShader(new THREE.MeshStandardMaterial({map:heapTex,roughness:.93,metalness:0,bumpMap:rock,bumpScale:.6}));
+  function frustum(w0,d0,w1,d1,h,y0){
+    const a=[[-w0/2,y0,-d0/2],[w0/2,y0,-d0/2],[w0/2,y0,d0/2],[-w0/2,y0,d0/2]],b=[[-w1/2,y0+h,-d1/2],[w1/2,y0+h,-d1/2],[w1/2,y0+h,d1/2],[-w1/2,y0+h,d1/2]];
+    const tri=[];const q=(p0,p1,p2,p3)=>tri.push(p0,p1,p2,p0,p2,p3);
+    q(b[3],b[2],b[1],b[0]);for(let k=0;k<4;k++){const k1=(k+1)%4;q(a[k],b[k],b[k1],a[k1]);}
+    const pos=new Float32Array(tri.length*3),uv=new Float32Array(tri.length*2);
+    tri.forEach((p,i)=>{pos.set(p,i*3);uv[i*2]=(p[0]+HEAP.w/2)/HEAP.w;uv[i*2+1]=1-(p[2]+HEAP.d/2)/HEAP.d;});
+    const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));g.setAttribute('uv',new THREE.BufferAttribute(uv,2));g.computeVertexNormals();return g;}
+  const grp=new THREE.Group();grp.position.set(HEAP.x,0,HEAP.z);ext.add(grp);
+  let w=HEAP.w,d=HEAP.d;
+  for(let l=0;l<4;l++){const h=10,ins=h*1.4;const m=new THREE.Mesh(frustum(w,d,w-ins*2,d-ins*2,h,l*h),heapMat);m.castShadow=m.receiveShadow=true;grp.add(m);w-=ins*2+16;d-=ins*2+10;}
+  // carpeta impermeable y canal de solución rica
+  const liner=new THREE.Mesh(new THREE.BoxGeometry(HEAP.w+16,.3,HEAP.d+14),new THREE.MeshStandardMaterial({color:'#1d2124',roughness:.6}));liner.position.set(HEAP.x,.15,HEAP.z);liner.receiveShadow=true;ext.add(liner);
+}
+// piscinas PLS y refino
+const pondMats=[];
+[[430,-40,74,48],[430,30,60,40]].forEach(([x,z,w,d],i)=>{
+  const berm=new THREE.Mesh(new THREE.BoxGeometry(w+8,2.2,d+8),new THREE.MeshStandardMaterial({color:'#24282b',roughness:.55}));berm.position.set(x,1.1,z);berm.receiveShadow=true;ext.add(berm);
+  const wm=new THREE.MeshStandardMaterial({color:i?'#2e7f86':'#1b6f78',roughness:.06,metalness:.15});pondMats.push(wm);
+  const water=new THREE.Mesh(new THREE.PlaneGeometry(w,d).rotateX(-Math.PI/2),wm);water.position.set(x,2.25,z);ext.add(water);});
+const chan=new THREE.Mesh(new THREE.BoxGeometry(2.2,.6,70),new THREE.MeshStandardMaterial({color:'#1aa7b3',roughness:.1,metalness:.1,emissive:'#0a3f44'}));chan.position.set(390,.6,-95);ext.add(chan);
+
+/* caminos y camiones de extracción */
+{
+  const road=new THREE.Mesh(new THREE.RingGeometry(RP+22,RP+34,120).rotateX(-Math.PI/2),new THREE.MeshStandardMaterial({color:'#d8c3a0',map:detail,roughness:.98}));
+  road.position.set(PIT.x,.35,PIT.z);road.scale.set(PSX,1,1);road.receiveShadow=true;ext.add(road);
+  const r2=new THREE.Mesh(new THREE.PlaneGeometry(14,400).rotateX(-Math.PI/2),road.material);r2.position.set(-30,.4,-60);r2.rotation.y=Math.PI/2.15;r2.receiveShadow=true;ext.add(r2);
+}
+const trucks=[];
+{
+  const tg=merge([BX(11,3.4,6.4,0,4.6,0),BX(3.6,3,6.4,6.6,4.4,0),BX(12,.8,6,0,2.4,0)]);
+  const wg=merge([CY(1.8,1.8,1.2,4.5,1.8,3.4,Math.PI/2),CY(1.8,1.8,1.2,4.5,1.8,-3.4,Math.PI/2),CY(1.8,1.8,1.2,-3.6,1.8,3.4,Math.PI/2),CY(1.8,1.8,1.2,-3.6,1.8,-3.4,Math.PI/2)]);
+  const tm=new THREE.MeshStandardMaterial({color:'#e6b11e',roughness:.45,metalness:.2}),wm=new THREE.MeshStandardMaterial({color:'#1e1e1e',roughness:.9});
+  for(let i=0;i<4;i++){const g=new THREE.Group();const a=new THREE.Mesh(tg,tm),b=new THREE.Mesh(wg,wm);a.castShadow=b.castShadow=true;g.add(a,b);ext.add(g);trucks.push({g,ph:i/4});}
+}
+
+/* ════ INTERIOR: NAVE DE ELECTROOBTENCIÓN ═══════════════════════════ */
+const ew=new THREE.Scene();ew.background=C('#1c1f22');
+const camI=new THREE.PerspectiveCamera(48,innerWidth/innerHeight,.05,300);
+const CP=1.45;
+{
+  const envS=new THREE.Scene();
+  envS.add(new THREE.Mesh(new THREE.BoxGeometry(80,26,30),new THREE.MeshBasicMaterial({color:'#5a5752',side:THREE.BackSide})));
+  for(let x=-36;x<=36;x+=6){const w=new THREE.Mesh(new THREE.PlaneGeometry(4,3),new THREE.MeshBasicMaterial({color:'#fff6e8'}));w.position.set(x,10,14.9);w.rotation.y=Math.PI;envS.add(w);const w2=w.clone();w2.position.z=-14.9;w2.rotation.y=0;envS.add(w2);}
+  const sk=new THREE.Mesh(new THREE.PlaneGeometry(70,3),new THREE.MeshBasicMaterial({color:'#ffffff'}));sk.position.y=12.9;sk.rotation.x=Math.PI/2;envS.add(sk);
+  const pm=new THREE.PMREMGenerator(R);ew.environment=pm.fromScene(envS,.04).texture;pm.dispose();
+}
+ew.add(new THREE.HemisphereLight(0xe7eef5,0x4a4038,.75));
+const roofL=new THREE.DirectionalLight(0xfff0dc,2.4);roofL.position.set(-8,30,-10);roofL.target.position.set(0,0,0);ew.add(roofL.target);
+roofL.castShadow=true;roofL.shadow.mapSize.set(small?1024:2048,small?1024:2048);Object.assign(roofL.shadow.camera,{left:-30,right:30,top:20,bottom:-20,near:5,far:80});roofL.shadow.bias=-.0003;roofL.shadow.normalBias=.03;ew.add(roofL);
+{const pl=new THREE.PointLight(0xffd9a8,40,40,1.6);pl.position.set(-4,7,4);ew.add(pl);}
+const floorTex=canvasTex(512,512,(g,w,h)=>{g.fillStyle='#8a8c88';g.fillRect(0,0,w,h);
+  for(let i=0;i<9000;i++){const v=110+rnd()*60|0;g.fillStyle='rgba('+v+','+v+','+(v-4)+',.35)';g.fillRect(rnd()*w,rnd()*h,1.5,1.5);}
+  g.strokeStyle='rgba(40,40,38,.55)';g.lineWidth=2;g.strokeRect(1,1,w-2,h-2);},true,1);
+floorTex.repeat.set(18,5);
+const EWI={};
+{
+  const fl=new THREE.Mesh(new THREE.PlaneGeometry(110,17.2).rotateX(-Math.PI/2),new THREE.MeshStandardMaterial({map:floorTex,roughness:.82,metalness:0}));fl.position.x=-5;fl.receiveShadow=true;ew.add(fl);
+  // celdas de concreto polimérico (paredes) y electrolito
+  const wallG=merge([BX(.07,1.12,4.9,-.585,.56,0),BX(.07,1.12,4.9,.585,.56,0),BX(1.24,1.12,.07,0,.56,-2.415),BX(1.24,1.12,.07,0,.56,2.415)]);
+  const cells=new THREE.InstancedMesh(wallG,new THREE.MeshStandardMaterial({color:'#5f6e69',roughness:.62,metalness:.05}),29);
+  const ely=new THREE.InstancedMesh(new THREE.BoxGeometry(1.1,.02,4.76),new THREE.MeshStandardMaterial({color:'#0f3f45',roughness:.05,metalness:.3}),29);
+  const bus=new THREE.InstancedMesh(new THREE.BoxGeometry(.11,.08,4.9),new THREE.MeshStandardMaterial({color:'#c27447',roughness:.3,metalness:1}),30);
+  for(let i=0;i<29;i++){const x=(i-14)*CP;cells.setMatrixAt(i,mat4(x,0,0));ely.setMatrixAt(i,mat4(x,1.06,0));}
+  for(let i=0;i<30;i++)bus.setMatrixAt(i,mat4((i-14.5)*CP,1.15,0));
+  cells.castShadow=cells.receiveShadow=true;bus.castShadow=true;ew.add(cells,ely,bus);
+  // cátodos (todas las celdas menos la 0, que la grúa cosecha)
+  const plateG=new THREE.BoxGeometry(1.0,1.1,.014),barG=new THREE.BoxGeometry(1.26,.03,.034);
+  const cu=new THREE.MeshStandardMaterial({color:'#d9814f',roughness:.28,metalness:1}),cuBar=new THREE.MeshStandardMaterial({color:'#d08a55',roughness:.25,metalness:1});
+  const NP=27,plates=new THREE.InstancedMesh(plateG,cu,28*NP),bars=new THREE.InstancedMesh(barG,cuBar,28*NP);let k=0;
+  for(let i=0;i<29;i++){if(i===14)continue;const x=(i-14)*CP;for(let j=0;j<NP;j++){const z=(j-13)*.17;plates.setMatrixAt(k,mat4(x,.68,z));bars.setMatrixAt(k,mat4(x,1.27,z));k++;}}
+  plates.castShadow=plates.receiveShadow=true;ew.add(plates,bars);
+  const lifted=new THREE.Group();ew.add(lifted);
+  const lp=new THREE.InstancedMesh(plateG,cu,NP),lb=new THREE.InstancedMesh(barG,cuBar,NP);
+  for(let j=0;j<NP;j++){const z=(j-13)*.17;lp.setMatrixAt(j,mat4(0,.68,z));lb.setMatrixAt(j,mat4(0,1.27,z));}
+  lp.castShadow=lp.receiveShadow=true;lifted.add(lp,lb);EWI.lifted=lifted;
+  // gotas de electrolito bajo el banco izado
+  const dropG=new THREE.BufferGeometry(),DN=60,dp=new Float32Array(DN*3);
+  for(let i=0;i<DN;i++){dp[i*3]=(rnd()-.5)*1;dp[i*3+1]=rnd();dp[i*3+2]=(rnd()-.5)*4.4;}
+  dropG.setAttribute('position',new THREE.BufferAttribute(dp,3));
+  EWI.drops=new THREE.Points(dropG,new THREE.PointsMaterial({color:'#7fd3cf',size:.035,transparent:true,opacity:0}));ew.add(EWI.drops);EWI.dropBase=dp.slice();
+  // columnas, camino de rodadura, rieles, muros con ventanales, cerchas de techo
+  const S=[];
+  for(let x=-42;x<=36;x+=6){S.push(BX(.56,9.2,.56,x,4.6,7.35),BX(.56,9.2,.56,x,4.6,-7.35),BX(.4,.9,17.2,x,13.2,0));
+    for(let s=-1;s<=1;s+=2)S.push([new THREE.BoxGeometry(.18,.18,8.4),mat4(x,12.4,s*3.6,s*.32)]);}
+  S.push(BX(80,.42,.34,-3,9.0,7.0),BX(80,.42,.34,-3,9.0,-7.0),BX(80,.08,.08,-3,9.25,7.0),BX(80,.08,.08,-3,9.25,-7.0),BX(80,.3,.3,-3,13.6,0));
+  const steel=new THREE.Mesh(merge(S),new THREE.MeshStandardMaterial({color:'#6f7880',roughness:.42,metalness:.75}));steel.castShadow=steel.receiveShadow=true;ew.add(steel);
+  const wallM=new THREE.MeshStandardMaterial({color:'#9a958c',roughness:.88});
+  for(const s of [-1,1]){const w=new THREE.Mesh(new THREE.BoxGeometry(84,14,.3),wallM);w.position.set(-3,7,s*8.6);w.receiveShadow=true;ew.add(w);}
+  const endW=new THREE.Mesh(new THREE.BoxGeometry(.3,14,17.2),wallM);endW.position.set(37,7,0);ew.add(endW);
+  const winM=new THREE.MeshBasicMaterial({color:'#fff1d8'});
+  for(let x=-40;x<=34;x+=6)for(const s of [-1,1]){const w=new THREE.Mesh(new THREE.PlaneGeometry(4.2,2.6),winM);w.position.set(x,11.2,s*8.43);w.rotation.y=s>0?Math.PI:0;ew.add(w);}
+  const roofM=new THREE.Mesh(new THREE.BoxGeometry(84,.3,17.4),new THREE.MeshStandardMaterial({color:'#4b4f53',roughness:.8}));roofM.position.set(-3,14.2,0);ew.add(roofM);
+  const sky2=new THREE.Mesh(new THREE.PlaneGeometry(80,2.2).rotateX(Math.PI/2),winM);sky2.position.set(-3,14.03,0);ew.add(sky2);
+  // puente grúa birriel: vigas principales, testeras, pasarela, carro, polipasto, cables y travesaño multipunto
+  const crane=new THREE.Group();ew.add(crane);
+  const yel=new THREE.MeshStandardMaterial({color:'#e2aa22',roughness:.38,metalness:.35});
+  const gird=new THREE.Mesh(merge([BX(.42,.86,14.3,-.72,9.75,0),BX(.42,.86,14.3,.72,9.75,0),BX(3.8,.52,.6,0,9.42,7.0),BX(3.8,.52,.6,0,9.42,-7.0),BX(.6,.04,14,-1.18,10.18,0)]),yel);
+  const rail=new THREE.Mesh(merge([BX(.04,.9,14,-1.45,10.6,0),BX(.04,.04,14,-1.45,11.05,0)]),new THREE.MeshStandardMaterial({color:'#2b2b2b',roughness:.6}));
+  gird.castShadow=true;crane.add(gird,rail);
+  const trolley=new THREE.Group();crane.add(trolley);
+  const tr=new THREE.Mesh(merge([BX(2.1,.52,1.7,0,10.42,0)]),yel);
+  const drum=new THREE.Mesh(merge([CY(.32,.32,1.56,0,10.78,0,0,Math.PI/2,24)]),new THREE.MeshStandardMaterial({color:'#5b6066',roughness:.35,metalness:.85}));
+  tr.castShadow=drum.castShadow=true;trolley.add(tr,drum);
+  const cabM=new THREE.MeshStandardMaterial({color:'#2a2c2e',roughness:.4,metalness:.8});
+  const cables=[];for(const sx of [-.12,.12])for(const sz of [-1.55,-.55,.55,1.55]){const c=new THREE.Mesh(new THREE.CylinderGeometry(.018,.018,1,8),cabM);c.position.set(sx,0,sz);trolley.add(c);cables.push(c);}
+  const bar=new THREE.Group();trolley.add(bar);
+  const claws=[BX(.32,.18,4.7,0,.06,0)];for(let j=0;j<NP;j++)claws.push(BX(.14,.16,.04,0,-.12,(j-13)*.17));
+  const barM=new THREE.Mesh(merge(claws),yel);barM.castShadow=true;bar.add(barM);
+  Object.assign(EWI,{crane,trolley,bar,cables});
+}
+function craneState(u){
+  const cx=lerp(-15,0,sm(.02,.34,u)),tz=lerp(-1.8,0,sm(.12,.36,u));
+  const down=sm(.34,.48,u),up=sm(.52,.74,u);const hy=lerp(lerp(6.9,1.36,down),5.2,up);
+  return{cx,tz,hy,lift:u>=.5?hy-1.36:0};
+}
+
+/* ════ CÁMARAS ═══════════════════════════════════════════════════════ */
+const KS=[0,.5,1,2,3];
+const KP=[V3(-860,780,920),V3(-760,520,470),V3(380,150,380),V3(120,42,250),V3(-10,62,250)];
+const KT=[V3(-120,0,-60),V3(-360,-30,-70),V3(200,6,110),V3(195,12,-150),V3(-112,20,100)];
+const cPos=new THREE.CatmullRomCurve3(KP,false,'centripetal'),cTgt=new THREE.CatmullRomCurve3(KT,false,'centripetal');
+function sToU(s){s=Math.min(3,Math.max(0,s));let i=0;while(i<KS.length-2&&s>KS[i+1])i++;const f=(s-KS[i])/(KS[i+1]-KS[i]);const e=f*f*(3-2*f);return (i+e)/(KS.length-1);}
+const vA=V3(0,0,0),vB=V3(0,0,0);
+
+/* ════ CUADRO ════════════════════════════════════════════════════════ */
+let lastBio=-1,lastBim=-1,frames=0,acc=0,lastT=performance.now(),stableUp=0,first=true;
+function resize(){R.setSize(innerWidth,innerHeight,false);const a=innerWidth/innerHeight;camE.aspect=camI.aspect=a;
+  camE.fov=a<.8?58:a<1.2?48:40;camI.fov=a<.8?66:a<1.2?56:48;camE.updateProjectionMatrix();camI.updateProjectionMatrix();}
+addEventListener('resize',resize);resize();
+let lastRender=0;
+function frame(st){
+  const now=performance.now();
+  const s=st.s,d=st.d,t=st.t;
+  // presupuesto: casi negro → pocos cuadros; quieto → 30 fps
+  const budget=d<.3?100:(st.moving?0:30);if(now-lastRender<budget)return;
+  const dtR=(now-lastRender)/1000;lastRender=now;
+  U.uTime.value=t;U.uGeo.value=st.story.geo;
+  // adaptación de nitidez: se baja la densidad de píxeles solo si el equipo no da
+  if(!prFixed&&st.moving&&!first){acc+=Math.min(.2,dtR);frames++;
+    if(acc>1.2){const ft=acc/frames;acc=0;frames=0;
+      if(ft>.034&&PR>1){PR=Math.max(1,PR-.25);R.setPixelRatio(PR);resize();stableUp=0;}
+      else if(ft>.06&&PR>.75){PR=Math.max(.75,PR-.25);R.setPixelRatio(PR);resize();}
+      else if(ft<.018&&PR<maxPR){if(++stableUp>2){PR=Math.min(maxPR,PR+.25);R.setPixelRatio(PR);resize();stableUp=0;}}}}
+  const toEW=sm(3.38,3.62,s),fromEW=sm(3.62,3.86,s);
+  const dimE=Math.max(.04,d);
+  if(fromEW<=0){
+    // exterior
+    const bim=st.story.bim;U.uBim.value=bim;
+    if(Math.abs(bim-lastBim)>.002){lastBim=bim;
+      for(const p of plant){p.m.material.color.lerpColors(p.base,p.bim,bim);p.m.material.metalness=lerp(p.metal,.05,bim);p.m.material.roughness=lerp(p.rough,.6,bim);
+        if(p.e){p.e.visible=bim>.01;p.e.material.opacity=bim*.9;}}
+      sun.intensity=lerp(2.7,2.1,bim);}
+    const bio=st.story.bio;if(Math.abs(bio-lastBio)>.004){lastBio=bio;drawHeap(bio);
+      pondMats[0].color.copy(C('#1b6f78')).lerp(C('#14b3bb'),bio);}
+    const u=sToU(s);cPos.getPoint(u,vA);cTgt.getPoint(u,vB);
+    // la pila se acerca a medida que avanza la biolixiviación
+    const bz=sm(1.7,2.2,s)*(1-sm(2.4,2.8,s));
+    vA.lerp(V3(160,34,130),bz*st.story.bio*.5);
+    const drift=1-sm(.9,1.2,s)*.6;
+    vA.x+=Math.sin(t*.05)*14*drift+st.mouse[0]*30*drift;vA.y+=st.mouse[1]*14*drift;
+    camE.position.copy(vA);camE.lookAt(vB);
+    sky.position.copy(camE.position);
+    for(const tk of trucks){const a=(tk.ph+t*.008)%1*Math.PI*2,rr=RP+28;tk.g.position.set(PIT.x+Math.cos(a)*rr*PSX,.4,PIT.z+Math.sin(a)*rr);tk.g.rotation.y=-a-Math.PI/2;}
+    R.toneMappingExposure=.95*dimE*(1-toEW);
+    R.render(ext,camE);
+  }else{
+    // interior: puente grúa cosechando el banco de cátodos
+    const u=st.story.crane,cs=craneState(u);
+    EWI.crane.position.x=cs.cx;EWI.trolley.position.z=cs.tz;EWI.bar.position.y=cs.hy+.1;
+    for(const c of EWI.cables){const top=10.2,bot=cs.hy+.1;c.scale.y=Math.max(.01,top-bot);c.position.y=(top+bot)/2;}
+    EWI.lifted.position.y=cs.lift;
+    const dm=EWI.drops.material;dm.opacity=u>.55?.9*(1-sm(.9,1,u)):0;
+    if(dm.opacity>0){const p=EWI.drops.geometry.attributes.position,b=EWI.dropBase;for(let i=0;i<p.count;i++){const f=(b[i*3+1]+t*1.4)%1;p.setXYZ(i,b[i*3],cs.lift+.1-f*(cs.lift-.05),b[i*3+2]);}p.needsUpdate=true;}
+    const a=sm(0,.45,u),b=sm(.45,.78,u),c=sm(.78,1,u);
+    const P0=V3(-29,7.4,-1.8),T0=V3(-14,7.6,.4),P1=V3(-12.5,7.8,-4.2),T1=V3(0,5,.4),P2=V3(-5.2,6,-5.4),T2=V3(0,4.7,0),P3=V3(-2.2,5.5,-2.7),T3=V3(0,4.9,.2);
+    vA.copy(P0).lerp(P1,a).lerp(P2,b).lerp(P3,c);vB.copy(T0).lerp(T1,a).lerp(T2,b).lerp(T3,c);
+    vA.x+=Math.sin(t*.07)*.4*(1-c)+st.mouse[0]*.8*(1-c*.7);vA.y+=st.mouse[1]*.4*(1-c*.7);
+    camI.position.copy(vA);camI.lookAt(vB);
+    R.toneMappingExposure=1.1*dimE*fromEW;
+    R.render(ew,camI);
+  }
+  if(first){first=false;M.ready();
+    // la nave EW se compila en segundo plano para que el cambio de escena no se trabe
+    setTimeout(()=>{try{if(R.compileAsync&&R.extensions.has('KHR_parallel_shader_compile'))R.compileAsync(ew,camI).catch(()=>{});else R.compile(ew,camI);}catch(e){}},1200);}
+}
+window.MGScene={frame};
+}
+
+</script>
 </body>
 </html>
