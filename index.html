@@ -4,602 +4,1069 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MetalGenomic — Minería con biotecnología e IA</title>
-<meta name="description" content="Integramos biolixiviación, modelos geoespaciales y mantenimiento predictivo para recuperar más metal, anticipar fallas y reducir el impacto ambiental.">
-<meta name="theme-color" content="#050505">
+<meta name="description" content="Biolixiviación, análisis geoespacial, mantenimiento predictivo y gemelos digitales para recuperar más metal, anticipar fallas y reducir el impacto ambiental. Diagnóstico operativo en hasta 4 semanas.">
+<meta name="theme-color" content="#f2efe9">
+<meta property="og:title" content="MetalGenomic — Del satélite al cátodo">
+<meta property="og:description" content="Biotecnología e inteligencia artificial aplicadas a la minería: un diagnóstico operativo en hasta 4 semanas.">
+<meta property="og:image" content="assets/hero.webp">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='2' width='28' height='28' rx='4' fill='%230d0d0c'/%3E%3Cpath d='M8 9c6 0 10 14 16 14M8 23c6 0 10-14 16-14' fill='none' stroke='%23e9a23b' stroke-width='2.4'/%3E%3C/svg%3E">
 <script>
   // Las animaciones solo se preparan si el usuario no pidió movimiento reducido.
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.documentElement.classList.add('motion');
-  }
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,300&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --black: #050505;
-    --ink: #0d0c0b;
-    --paper: #efe8dd;
-    --muted: #a39c92;
-    --copper: #c97b4a;
-    --copper-hi: #f0a46e;
-    --oxide: #3f8f86;
-    --line: rgba(239, 232, 221, .14);
-    --bar: 11vh;
-    --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
-    --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  }
-  *, *::before, *::after { box-sizing: border-box; }
-  html { background: var(--black); }
-  html.lenis, html.lenis body { height: auto; }
-  .lenis.lenis-smooth { scroll-behavior: auto !important; }
-  body {
-    margin: 0;
-    background: var(--black);
-    color: var(--paper);
-    font: 400 1rem/1.6 var(--sans);
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-  a { color: inherit; }
-  h1, h2, h3 { font-family: var(--serif); font-weight: 300; margin: 0; line-height: 1.05; }
-  p { margin: 0; }
-  .eyebrow {
-    font: 500 .72rem/1 var(--sans);
-    letter-spacing: .32em;
-    text-transform: uppercase;
-    color: var(--copper-hi);
-  }
-  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+:root{
+  --paper:#f2efe9; --paper-2:#e8e4dc; --ghost:#e2ded5; --ink:#0d0d0c; --ink-2:#161614;
+  --mute:#6f6b64; --mute-d:#9c978e; --dim:#4f4c47;
+  --line:rgba(13,13,12,.12); --line-d:rgba(242,239,233,.14); --line-d2:rgba(242,239,233,.24);
+  --amber:#e9a23b; --amber-d:#c4822a; --copper:#d4824f; --copper-hi:#f2a774; --oxide:#2f8f82; --oxide-hi:#5cc0b0;
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --sans:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --ease-io:cubic-bezier(.77,0,.175,1);
+  --pad:clamp(16px,4.4vw,64px);
+  --nav-h:72px;
+  --u:min(.85vw,.98vh);
+}
+@media (max-width:767px){:root{--u:min(1.42vw,.95vh);--nav-h:60px}}
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--paper);overflow-x:clip}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 1rem/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip;text-rendering:optimizeLegibility}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3{margin:0;font-weight:800}
+p{margin:0}
+ul,ol,dl,dd{margin:0;padding:0;list-style:none}
+button,input,textarea{font:inherit;color:inherit}
+::selection{background:var(--amber);color:var(--ink)}
+:focus-visible{outline:2px solid var(--copper);outline-offset:4px;border-radius:4px}
+.sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:fixed;left:16px;top:-60px;z-index:200;background:var(--amber);color:var(--ink);padding:10px 16px;border-radius:8px;text-decoration:none;font-weight:700}
+.skip:focus{top:16px}
 
-  /* ---------- Capas de cine: letterbox, grano, viñeta ---------- */
-  .letterbox { position: absolute; left: 0; right: 0; height: var(--bar); background: #000; z-index: 60; pointer-events: none; }
-  .letterbox--top { top: 0; transform-origin: top; }
-  .letterbox--bottom { top: calc(100svh - var(--bar)); transform-origin: bottom; }
-  .motion .letterbox { position: fixed; }
-  .motion .letterbox--bottom { top: auto; bottom: 0; }
+.disp{font-family:var(--display);font-weight:800;font-stretch:125%;text-transform:uppercase;letter-spacing:-.01em;line-height:.9}
+.mono{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase}
+.kicker{display:inline-flex;align-items:center;gap:.8em;font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase}
+.kicker::before{content:"";width:24px;height:1px;background:currentColor;opacity:.6}
+.ill{font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--paper);background:rgba(13,13,12,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);padding:.4em .7em;border-radius:99px;border:1px solid var(--line-d)}
 
-  .vignette {
-    position: fixed; inset: 0; z-index: 50; pointer-events: none;
-    background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.55) 100%);
-  }
-  .grain {
-    position: fixed; inset: -100%; z-index: 55; pointer-events: none;
-    width: 300%; height: 300%;
-    opacity: .09;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    animation: grain 1s steps(6) infinite;
-  }
-  @keyframes grain {
-    0%   { transform: translate(0, 0); }
-    17%  { transform: translate(-4%, 3%); }
-    33%  { transform: translate(3%, -5%); }
-    50%  { transform: translate(-6%, -2%); }
-    67%  { transform: translate(5%, 4%); }
-    83%  { transform: translate(-2%, 6%); }
-    100% { transform: translate(0, 0); }
-  }
+/* ---------- Grano ---------- */
+.grain{position:fixed;inset:-50%;width:200%;height:200%;z-index:90;pointer-events:none;opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 1.2s steps(6) infinite}
+@keyframes grain{0%,100%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-4%)}60%{transform:translate(-4%,-1%)}80%{transform:translate(3%,3%)}}
 
-  /* ---------- Navegación ---------- */
-  .nav {
-    position: fixed; top: 18px; left: 0; right: 0; z-index: 70;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 0 clamp(16px, 4vw, 48px);
-    font-size: .8rem; letter-spacing: .08em;
-  }
-  .brand { font-family: var(--serif); font-size: 1.15rem; letter-spacing: .02em; text-decoration: none; }
-  .brand span { color: var(--copper-hi); }
-  .nav a.nav-cta { text-decoration: none; border-bottom: 1px solid var(--copper); padding-bottom: 2px; }
+/* ---------- Navegación ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:80;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 var(--pad);pointer-events:none}
+.nav > *{pointer-events:auto}
+.brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font:800 1rem/1 var(--display);font-stretch:125%;text-transform:uppercase;letter-spacing:.01em;color:var(--ink);transition:color .3s ease}
+.nav.is-dark .brand,.nav.is-dark .nav__links{color:var(--paper)}
+.brand svg{width:26px;height:26px}
+.nav__links{display:flex;gap:28px;font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);transition:color .3s ease}
+.nav__links a{text-decoration:none;position:relative;padding:6px 0}
+.nav__links a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.nav__links a:hover::after{transform:scaleX(1);transform-origin:left}}
 
-  /* ---------- Botones ---------- */
-  .btn {
-    display: inline-flex; align-items: center; gap: .6em;
-    padding: 1rem 1.6rem; border-radius: 999px;
-    font: 500 .9rem/1 var(--sans); letter-spacing: .02em; text-decoration: none;
-    transition: background-color .4s ease, color .4s ease, border-color .4s ease;
-  }
-  .btn--primary { background: var(--copper); color: #120a05; }
-  .btn--primary:hover { background: var(--copper-hi); }
-  .btn--ghost { border: 1px solid var(--line); }
-  .btn--ghost:hover { border-color: var(--paper); }
-  .btn:focus-visible, a:focus-visible { outline: 2px solid var(--copper-hi); outline-offset: 4px; }
+/* ---------- Botones ---------- */
+.btn{display:inline-flex;align-items:center;gap:.6em;padding:1rem 1.45rem;border-radius:999px;font:700 .8rem/1 var(--display);font-stretch:112%;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid transparent;cursor:pointer;white-space:nowrap;transition:background-color .25s ease,color .25s ease,border-color .25s ease,transform .16s var(--ease-out)}
+.btn:active{transform:scale(.97)}
+.btn i{font-style:normal;transition:transform .3s var(--ease-out)}
+.btn--amber{background:var(--amber);color:var(--ink)}
+.btn--ink{background:var(--ink);color:var(--paper)}
+.btn--line{border-color:var(--line);color:var(--ink)}
+.btn--line-d{border-color:var(--line-d2);color:var(--paper)}
+.btn--sm{padding:.75rem 1.05rem;font-size:.72rem}
+@media (hover:hover) and (pointer:fine){
+  .btn--amber:hover{background:#f3b65a}
+  .btn--ink:hover{background:#2a2925}
+  .btn--line:hover{border-color:var(--ink)}
+  .btn--line-d:hover{border-color:var(--paper)}
+  .btn:hover i{transform:translateX(3px)}
+}
 
-  section { position: relative; }
+section{position:relative}
+.wrap{width:min(1320px,100% - var(--pad)*2);margin-inline:auto}
 
-  /* ---------- Escena 1 · Apertura ---------- */
-  .opening { height: 100vh; height: 100svh; min-height: 560px; overflow: hidden; display: grid; place-items: center; }
-  .opening__image {
-    position: absolute; inset: -4%;
-    background:
-      radial-gradient(ellipse 60% 35% at 50% 98%, rgba(63,143,134,.55), transparent 70%),
-      repeating-radial-gradient(ellipse 120% 60% at 50% 115%, rgba(0,0,0,0) 0 26px, rgba(0,0,0,.35) 27px 30px, rgba(201,123,74,.08) 31px 52px),
-      radial-gradient(ellipse 90% 60% at 50% 100%, #6b3a1f 0%, #3a1f12 40%, transparent 72%),
-      radial-gradient(circle at 72% 28%, rgba(240,164,110,.55), transparent 32%),
-      linear-gradient(180deg, #0b0d12 0%, #1d1a1c 38%, #5a3220 62%, #2a170d 100%);
-    will-change: transform;
-  }
-  .opening__shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,5,5,.35), rgba(5,5,5,.15) 40%, rgba(5,5,5,.85)); }
-  .opening__black { position: absolute; inset: 0; background: #000; z-index: 3; pointer-events: none; opacity: 0; }
-  .opening__content { position: relative; z-index: 2; max-width: 1100px; padding: 0 16px; text-align: center; }
-  .opening h1 { font-size: clamp(2rem, 5.6vw, 4.8rem); margin: 1.4rem 0 1.6rem; letter-spacing: -.01em; }
-  .opening h1 em { font-style: italic; color: var(--copper-hi); }
-  .word { display: inline-block; white-space: nowrap; }
-  .char { display: inline-block; will-change: transform, opacity; }
-  .opening__sub { max-width: 640px; margin: 0 auto 2.2rem; color: #d6cec2; font-size: clamp(.98rem, 1.4vw, 1.12rem); }
-  .opening__ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .scroll-hint {
-    position: absolute; z-index: 2; left: 50%; bottom: calc(var(--bar) + 18px); transform: translateX(-50%);
-    font-size: .68rem; letter-spacing: .3em; text-transform: uppercase; color: var(--muted);
-  }
-  .scroll-hint::after { content: ""; display: block; width: 1px; height: 36px; margin: 10px auto 0; background: linear-gradient(var(--copper), transparent); }
+/* =========================================================
+   ESCENA 1–2 · Carga y servicios (escenario fijado)
+   ========================================================= */
+.stage{background:var(--paper)}
+.stage__pin{position:relative;overflow:hidden;background:var(--paper)}
+.hero-copy{position:relative;z-index:3;padding:calc(var(--nav-h) + 5vh) var(--pad) 0;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:clamp(24px,4vw,64px);align-items:start}
+.hero-copy .kicker{color:var(--mute)}
+.hero-copy h1{font-size:clamp(2.3rem,min(5.4vw,7.4vh),6.2rem);margin-top:18px}
+.hero-copy h1 .ln{display:block;overflow:hidden;padding:.14em 0 .04em;margin-top:-.14em}
+.hero-copy h1 .ln > span{display:inline-block}
+.hero-copy h1 .ln:last-child{color:var(--copper)}
+.hero-aside{display:grid;gap:20px;padding-bottom:6px}
+.hero-sub{color:var(--dim);font-size:clamp(.95rem,1.15vw,1.06rem);max-width:430px}
+.hero-ctas{display:flex;gap:10px;flex-wrap:wrap}
+.proof{display:grid;grid-template-columns:repeat(3,auto);width:max-content;max-width:100%;border:1px solid var(--line);border-radius:14px}
+.proof li{padding:10px 16px;border-right:1px solid var(--line);font-size:.72rem;line-height:1.35;color:var(--mute)}
+.proof li:last-child{border-right:0}
+.proof b{display:block;font:800 1.25rem/1 var(--display);font-stretch:125%;color:var(--ink);margin-bottom:4px}
 
-  /* ---------- Escena 2 · Planteamiento ---------- */
-  .setup { height: 100vh; height: 100svh; overflow: hidden; display: grid; place-items: center; background: var(--ink); }
-  .setup__bg {
-    position: absolute; inset: 0;
-    background:
-      radial-gradient(circle at 20% 80%, rgba(63,143,134,.18), transparent 45%),
-      radial-gradient(circle at 85% 15%, rgba(201,123,74,.16), transparent 40%),
-      linear-gradient(180deg, #0b0a09, #12100e);
-  }
-  .setup__label { white-space: nowrap; position: absolute; top: calc(var(--bar) + 64px); left: 50%; transform: translateX(-50%); z-index: 2; }
-  .setup__stage { position: relative; z-index: 2; width: min(1000px, 100% - 32px); display: grid; }
-  .phrase { grid-area: 1 / 1; text-align: center; }
-  .phrase h2 { font-size: clamp(1.9rem, 5vw, 4.2rem); }
-  .phrase h2 em { font-style: italic; color: var(--copper-hi); }
-  .phrase p { margin-top: 1.2rem; color: var(--muted); font-size: clamp(.95rem, 1.3vw, 1.08rem); }
-  .setup__progress { position: absolute; z-index: 2; bottom: calc(var(--bar) + 40px); left: 50%; transform: translateX(-50%); display: flex; gap: 10px; }
-  .setup__progress span { width: 44px; height: 2px; background: var(--line); overflow: hidden; }
-  .setup__progress i { display: block; height: 100%; background: var(--copper); transform: scaleX(0); transform-origin: left; }
+.giant{display:none}
+.ground{position:relative;z-index:2;background:var(--ink);color:var(--paper);margin-top:calc(var(--u)*34 + 40px)}
+.ground__lane{position:absolute;left:0;right:0;top:16px;height:3px;overflow:hidden;opacity:.5}
+.ground__lane i{display:block;width:200%;height:100%;background:repeating-linear-gradient(90deg,rgba(242,239,233,.55) 0 30px,transparent 30px 64px)}
+.ground__foot{display:none}
+.scene{position:absolute;bottom:100%;left:max(10px,3.5vw);width:calc(var(--u)*62);height:calc(var(--u)*34);pointer-events:none}
+.shovel{position:absolute;left:0;bottom:0;width:calc(var(--u)*47);height:calc(var(--u)*34);overflow:hidden}
+.truck-side{position:absolute;left:calc(var(--u)*26);bottom:0;width:calc(var(--u)*36);height:calc(var(--u)*20.45);overflow:visible}
 
-  /* ---------- Escena 3 · Desarrollo ---------- */
-  .develop { padding: 30vh 0 34vh; overflow: hidden; background: #0a0908; }
-  .layer { position: absolute; left: 0; right: 0; pointer-events: none; will-change: transform; }
-  .layer--far {
-    top: -20%; bottom: -20%;
-    background:
-      repeating-linear-gradient(172deg, rgba(201,123,74,.06) 0 2px, transparent 2px 64px),
-      repeating-linear-gradient(176deg, rgba(63,143,134,.05) 0 1px, transparent 1px 110px),
-      linear-gradient(180deg, #0a0908 0%, #1a110b 45%, #0f1414 100%);
-  }
-  .layer--mid { bottom: 0; height: 70%; }
-  .layer--mid svg { width: 100%; height: 100%; display: block; }
-  .layer--near {
-    top: -30%; bottom: -30%;
-    background:
-      radial-gradient(circle at 12% 18%, rgba(240,164,110,.55) 0 2px, transparent 3px),
-      radial-gradient(circle at 78% 34%, rgba(240,164,110,.4) 0 3px, transparent 4px),
-      radial-gradient(circle at 34% 62%, rgba(63,143,134,.55) 0 2px, transparent 3px),
-      radial-gradient(circle at 88% 78%, rgba(240,164,110,.45) 0 2px, transparent 3px),
-      radial-gradient(circle at 56% 90%, rgba(239,232,221,.3) 0 1px, transparent 2px),
-      radial-gradient(circle at 6% 70%, rgba(239,232,221,.25) 0 1px, transparent 2px);
-    background-size: 520px 680px;
-    filter: blur(.4px);
-  }
-  .develop__inner { position: relative; z-index: 3; width: min(1180px, 100% - 32px); margin: 0 auto; }
-  .develop__head { max-width: 720px; margin-bottom: clamp(48px, 8vw, 96px); }
-  .develop__head h2 { font-size: clamp(2rem, 4.6vw, 3.8rem); margin-top: 1rem; }
-  .develop__head p { margin-top: 1.2rem; color: var(--muted); max-width: 560px; }
-  .cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 28px); }
-  .card {
-    position: relative; overflow: hidden;
-    padding: clamp(24px, 3vw, 40px);
-    border: 1px solid var(--line); border-radius: 18px;
-    background: linear-gradient(160deg, rgba(26,20,16,.82), rgba(10,9,8,.72));
-    backdrop-filter: blur(6px);
-  }
-  .card:nth-child(even) { transform: translateY(64px); }
-  .card__art { height: 150px; margin: -8px -8px 26px; border-radius: 12px; }
-  .card:nth-child(1) .card__art { background: radial-gradient(circle at 30% 40%, rgba(63,143,134,.9), transparent 38%), radial-gradient(circle at 70% 65%, rgba(201,123,74,.7), transparent 40%), linear-gradient(135deg, #10201e, #2a170d); }
-  .card:nth-child(2) .card__art { background: repeating-radial-gradient(circle at 60% 120%, rgba(240,164,110,.35) 0 1px, transparent 1px 14px), linear-gradient(160deg, #13191c, #3a2416); }
-  .card:nth-child(3) .card__art { background: repeating-linear-gradient(90deg, rgba(239,232,221,.12) 0 1px, transparent 1px 22px), linear-gradient(180deg, transparent 45%, rgba(201,123,74,.6) 50%, transparent 55%), linear-gradient(135deg, #1a1411, #0f1716); }
-  .card:nth-child(4) .card__art { background: linear-gradient(transparent 49%, rgba(63,143,134,.6) 50%, transparent 51%) 0 0 / 28px 28px, linear-gradient(90deg, transparent 49%, rgba(63,143,134,.6) 50%, transparent 51%) 0 0 / 28px 28px, linear-gradient(135deg, #0d1615, #241710); }
-  .card__num { font: 500 .72rem/1 var(--sans); letter-spacing: .3em; color: var(--copper-hi); }
-  .card h3 { font-size: clamp(1.4rem, 2.2vw, 1.9rem); margin: .7rem 0 .9rem; }
-  .card p { color: #cfc7bb; font-size: .95rem; }
-  .card .benefit { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .88rem; }
-  .card a { display: inline-block; margin-top: 1.2rem; font-size: .88rem; text-decoration: none; color: var(--copper-hi); }
-  .truck { position: absolute; z-index: 2; left: 0; bottom: 6%; width: clamp(120px, 16vw, 220px); pointer-events: none; will-change: transform; }
-  .road { position: absolute; z-index: 2; left: 0; right: 0; bottom: 6%; height: 1px; background: linear-gradient(90deg, transparent, var(--line) 15%, var(--line) 85%, transparent); }
+.services{padding:12vh var(--pad) 14vh}
+.svc-track{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px 32px}
+.svc-intro h2{font-size:clamp(1.7rem,2.6vw,2.6rem)}
+.svc-intro h2 span{display:block;color:var(--dim)}
+.svc-intro p{margin-top:18px;color:var(--mute-d);font-size:.92rem;max-width:380px}
+.svc{display:flex;flex-direction:column;gap:12px}
+.svc__img{position:relative;height:180px;border-radius:12px;overflow:hidden;background:var(--ink-2)}
+.svc__img img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease-out)}
+.svc__top{display:flex;align-items:center;gap:10px;color:var(--amber)}
+.svc__top svg{width:22px;height:22px;flex:none}
+.svc h3{font:800 1.05rem/1.12 var(--display);font-stretch:118%;text-transform:uppercase;letter-spacing:.005em}
+.svc p{color:var(--mute-d);font-size:.88rem;line-height:1.55}
+.svc .svc__gain{color:var(--paper);font-size:.85rem}
+.svc__gain b{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--oxide-hi);font-weight:500;margin-right:6px}
+.svc a{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);text-decoration:none;display:inline-flex;gap:8px;align-items:center}
+@media (hover:hover) and (pointer:fine){.svc:hover .svc__img img{transform:scale(1.05)}.svc a:hover{color:#f3b65a}}
 
-  /* ---------- Escena 4 · Clímax ---------- */
-  .climax { min-height: 100vh; min-height: 100svh; display: grid; place-items: center; text-align: center; overflow: hidden; padding: 18vh 16px; background: radial-gradient(ellipse at center, #1f130b 0%, #070606 70%); }
-  .climax__glow { position: absolute; width: 70vmin; height: 70vmin; left: 50%; top: 50%; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, rgba(201,123,74,.35), transparent 65%); filter: blur(20px); }
-  .climax__inner { position: relative; z-index: 2; }
-  .climax__figure { position: relative; display: inline-grid; place-items: center; margin: 1.4rem 0 1rem; }
-  .climax__ring { position: absolute; width: 118%; height: auto; aspect-ratio: 1; }
-  .climax__ring circle { fill: none; stroke-width: 1; }
-  .climax__number {
-    font: 300 clamp(9rem, 30vw, 22rem)/.85 var(--serif);
-    letter-spacing: -.04em;
-    background: linear-gradient(180deg, #fff3e4 10%, var(--copper-hi) 55%, var(--copper) 100%);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-    font-variant-numeric: tabular-nums;
-  }
-  .climax__unit { font-family: var(--serif); font-style: italic; font-size: clamp(1.4rem, 3vw, 2.4rem); }
-  .climax__copy { max-width: 560px; margin: 1.2rem auto 0; color: var(--muted); }
-  .metrics { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 2.4rem auto 0; max-width: 760px; padding: 0; list-style: none; }
-  .metrics li { border: 1px solid var(--line); border-radius: 999px; padding: .55rem 1rem; font-size: .82rem; color: #d6cec2; }
-  .climax__note { margin-top: 1.6rem; font-size: .78rem; color: var(--muted); }
+/* Escenario con movimiento: todo cabe en una pantalla */
+.motion .stage__pin{height:100vh;height:100svh}
+.motion .hero-copy{position:absolute;left:0;right:0;top:0}
+.motion .giant{display:block;position:absolute;z-index:1;left:0;top:calc(var(--nav-h) - 1vh);font-size:min(27vh,20vw);color:var(--ghost);white-space:nowrap;will-change:transform}
+.motion .ground{position:absolute;left:0;right:0;top:0;height:100%;margin:0;transform:translateY(80%);will-change:transform}
+.motion .ground__foot{display:flex;position:absolute;left:var(--pad);right:var(--pad);top:44px;justify-content:space-between;gap:16px;color:var(--mute-d)}
+.motion .ground__foot .cue{display:inline-flex;align-items:center;gap:10px;color:var(--paper)}
+.motion .ground__foot .cue i{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 0 rgba(233,162,59,.6);animation:pulse 1.8s var(--ease-out) infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(233,162,59,.55)}100%{box-shadow:0 0 0 12px rgba(233,162,59,0)}}
+.motion .services{position:absolute;left:0;right:0;top:0;padding:calc(5vh + 28px) 0 0 var(--pad);opacity:0}
+.motion .svc-track{display:flex;width:max-content;gap:0;will-change:transform}
+.motion .svc-intro{width:min(36vw,500px);padding-right:4vw;flex:none}
+.motion .svc{width:clamp(250px,23vw,340px);flex:none;padding:0 2vw;border-left:1px solid var(--line-d)}
+.motion .svc__img{height:15vh;min-height:90px}
+@media (max-height:800px) and (min-width:768px){.motion .svc__img{height:11vh}.motion .svc .svc__gain{display:none}}
 
-  /* ---------- Escena 5 · Créditos ---------- */
-  .credits { min-height: 160vh; padding: 22vh 16px calc(var(--bar) + 18vh); text-align: center; overflow: hidden; background: #000; }
-  .credits__bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, #2a170d 0%, #0b0807 55%, #000 100%); }
-  .credits__inner { position: relative; z-index: 2; max-width: 820px; margin: 0 auto; }
-  .credits h2 { font-size: clamp(2rem, 4.8vw, 3.8rem); margin: 1rem 0 3.4rem; }
-  .roll { display: grid; gap: 2.4rem; margin: 0 auto 4.4rem; }
-  .roll dt { font: 500 .7rem/1 var(--sans); letter-spacing: .32em; text-transform: uppercase; color: var(--muted); margin-bottom: .7rem; }
-  .roll dd { margin: 0; font-family: var(--serif); font-size: clamp(1.15rem, 2vw, 1.5rem); }
-  .credits__cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .credits__fin { margin-top: 26vh; }
-  .credits__fin .brand { font-size: clamp(1.6rem, 3vw, 2.2rem); }
-  .credits__fin p { margin-top: .8rem; font-size: .78rem; letter-spacing: .14em; color: var(--muted); }
-  .fade-black { position: absolute; inset: 0; z-index: 1; background: #000; opacity: 0; pointer-events: none; }
+/* =========================================================
+   ESCENA 3 · La ruta (vista cenital)
+   ========================================================= */
+.route{background:var(--paper);overflow:clip;padding:300px 0 34vh}
+.route__svg{position:absolute;left:0;top:0;z-index:0;pointer-events:none;overflow:visible}
+.route__svg .road{fill:none;stroke:var(--ink)}
+.route__svg .dash{fill:none;stroke:var(--paper);stroke-width:2.5;stroke-dasharray:22 18;opacity:.85}
+.route__svg .dots circle{fill:var(--paper);stroke:var(--ink);stroke-width:3;transition:fill .4s ease,stroke .4s ease}
+.route__svg .dots circle.is-on{fill:var(--amber);stroke:var(--amber)}
+.truck-top{position:absolute;left:0;top:0;z-index:2;width:110px;height:auto;pointer-events:none;will-change:transform;filter:drop-shadow(0 6px 10px rgba(0,0,0,.25))}
+.route__grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,38%) 180px minmax(0,1fr);padding:0 var(--pad)}
+.route__lane{grid-column:2;grid-row:1;height:1px}
+.route__head{grid-column:1;grid-row:1;align-self:start;position:sticky;top:20vh;padding-right:12px}
+.route__head .kicker{color:var(--mute)}
+.route__head h2{font-size:clamp(2.2rem,4.6vw,5rem);margin-top:22px}
+.route__head h2 .w{display:inline-block}
+.route__head p{margin-top:22px;color:var(--dim);max-width:400px}
+.route__head .nda{margin-top:22px;display:inline-flex;gap:10px;align-items:center;color:var(--mute);font-size:.86rem}
+.route__head .nda::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--oxide)}
+.ms-list{grid-column:3;grid-row:1}
+.ms{min-height:58vh;padding-bottom:8vh}
+.ms .mono{color:var(--mute)}
+.ms__big{display:block;font:800 clamp(3.4rem,7vw,7rem)/.86 var(--display);font-stretch:125%;letter-spacing:-.02em;color:#cfcac1;margin:18px 0 6px;transition:color .6s var(--ease-out)}
+.ms__big small{font-size:.28em;letter-spacing:.02em;margin-left:.2em;vertical-align:.25em}
+.ms h3{font:800 clamp(1.5rem,2.4vw,2.2rem)/1 var(--display);font-stretch:125%;text-transform:uppercase;color:#bdb8ae;transition:color .6s var(--ease-out)}
+.ms p{margin-top:16px;color:var(--mute);max-width:440px;transition:color .6s var(--ease-out)}
+.ms .chips{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+.ms .chips li{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line);border-radius:99px;padding:.5em .85em;color:var(--mute)}
+.ms.is-on .ms__big{color:var(--copper)}
+.ms.is-on h3{color:var(--ink)}
+.ms.is-on p{color:var(--dim)}
 
-  /* ---------- Estados iniciales (solo con movimiento y JS) ---------- */
-  .motion .opening__black { opacity: 1; }
-  .motion .char { opacity: 0; }
-  .motion [data-reveal] { opacity: 0; }
+/* =========================================================
+   ESCENA 4 · Vista aérea
+   ========================================================= */
+.aerial{height:230vh;background:var(--ink);color:var(--paper)}
+.aerial__sticky{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.aerial__img{position:absolute;inset:0}
+.aerial__img img{width:100%;height:100%;object-fit:cover;will-change:transform}
+.aerial__shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,13,12,.82) 0%,rgba(13,13,12,.25) 42%,rgba(13,13,12,.35) 70%,rgba(13,13,12,.85) 100%)}
+.aerial__route{position:absolute;inset:0;width:100%;height:100%}
+.aerial__route path{fill:none;stroke:var(--amber);stroke-width:3;vector-effect:non-scaling-stroke;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(233,162,59,.6))}
+.aerial__route path.ghost{stroke:rgba(242,239,233,.35);stroke-width:1.5;stroke-dasharray:5 7;filter:none}
+.wp{position:absolute;transform:translate(-9px,-9px);display:flex;align-items:flex-start;gap:12px}
+.wp i{width:18px;height:18px;flex:none;border-radius:50%;background:var(--amber);border:3px solid var(--ink);box-shadow:0 0 0 1px var(--amber)}
+.wp span{display:block;background:rgba(13,13,12,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line-d);border-radius:10px;padding:8px 12px;margin-top:-6px}
+.wp b{display:block;font:800 .95rem/1.1 var(--display);font-stretch:118%;text-transform:uppercase}
+.wp small{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--amber)}
+.aerial__copy{position:absolute;left:var(--pad);right:var(--pad);top:calc(var(--nav-h) + 4vh)}
+.aerial__copy h2{font-size:clamp(2.6rem,min(7.4vw,11vh),8.4rem)}
+.aerial__copy h2 .ln{display:block;overflow:hidden;padding:.14em 0 .04em;margin-top:-.14em}
+.aerial__copy h2 .ln > span{display:inline-block}
+.aerial__copy p{margin-top:18px;color:#d9d4cb;max-width:460px}
+.aerial .ill{position:absolute;right:var(--pad);bottom:22px}
 
-  /* ---------- Móvil ---------- */
-  @media (max-width: 767px) {
-    :root { --bar: 7vh; }
-    .nav a.nav-cta { display: none; }
-    .cards { grid-template-columns: 1fr; }
-    .card:nth-child(even) { transform: none; }
-    .setup { height: auto; min-height: 100svh; padding: 22vh 0; }
-    .setup__stage { gap: 18vh; }
-    .phrase { grid-area: auto; }
-    .setup__progress, .truck, .road { display: none; }
-    .develop { padding: 18vh 0 20vh; }
-  }
+/* =========================================================
+   Por dónde empezar
+   ========================================================= */
+.finder{padding:clamp(100px,15vh,170px) 0;background:var(--paper)}
+.sec-head{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:40px;align-items:end;margin-bottom:48px}
+.sec-head h2{font-size:clamp(2.1rem,4.4vw,4.6rem);margin-top:20px}
+.sec-head h2 em{font-style:normal;color:var(--copper)}
+.sec-head p{color:var(--dim);max-width:420px;justify-self:end}
+.sec-head .kicker{color:var(--mute)}
+.finder__grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(18px,3vw,40px)}
+.pains{display:grid;gap:10px;align-content:start}
+.pain{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;text-align:left;width:100%;padding:20px 22px;border:1px solid var(--line);border-radius:16px;background:transparent;cursor:pointer;transition:border-color .25s ease,background-color .25s ease,transform .16s var(--ease-out)}
+.pain:active{transform:scale(.99)}
+@media (hover:hover) and (pointer:fine){.pain:hover{border-color:rgba(13,13,12,.3)}}
+.pain[aria-checked="true"]{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.pain .n{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;color:var(--copper)}
+.pain strong{display:block;font:800 1.02rem/1.15 var(--display);font-stretch:115%;text-transform:uppercase}
+.pain small{display:block;color:var(--mute);font-size:.86rem;margin-top:5px}
+.pain[aria-checked="true"] small{color:var(--mute-d)}
+.pain .dot{width:18px;height:18px;border-radius:50%;border:1px solid currentColor;opacity:.5;transition:background-color .25s ease,border-color .25s ease,opacity .25s ease}
+.pain[aria-checked="true"] .dot{opacity:1;background:var(--amber);border-color:var(--amber)}
+.rec{position:relative;border-radius:22px;overflow:hidden;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;min-height:480px}
+.rec__img{position:relative;height:210px;overflow:hidden}
+.rec__img img{width:100%;height:100%;object-fit:cover}
+.rec__img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,var(--ink))}
+.rec__body{padding:4px clamp(22px,2.6vw,34px) clamp(22px,2.6vw,32px);display:flex;flex-direction:column;gap:16px;flex:1}
+.rec__body .kicker{color:var(--amber)}
+.rec__body h3{font:800 clamp(1.5rem,2.4vw,2.2rem)/1 var(--display);font-stretch:125%;text-transform:uppercase}
+.rec__dl{display:grid;gap:12px;border-top:1px solid var(--line-d);padding-top:16px}
+.rec__dl div{display:grid;grid-template-columns:140px 1fr;gap:16px}
+.rec__dl dt{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute-d);padding-top:3px}
+.rec__dl dd{color:#ddd8cf;font-size:.95rem}
+.rec__cta{margin-top:auto;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.rec__cta small{color:var(--mute-d);font-size:.8rem}
+.rec [data-swap]{transition:opacity .2s ease,transform .2s var(--ease-out)}
+.rec.is-swapping [data-swap]{opacity:0;transform:translateY(6px)}
 
-  /* ---------- Movimiento reducido: todo estático y visible ---------- */
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation: none !important; transition: none !important; }
-    .grain { animation: none; }
-    .setup { height: auto; min-height: 100vh; padding: 22vh 0; }
-    .setup__stage { gap: 14vh; }
-    .phrase { grid-area: auto; }
-    .setup__progress, .truck { display: none; }
-  }
+/* =========================================================
+   Cátodo
+   ========================================================= */
+.cathode{height:clamp(540px,100vh,1000px);overflow:hidden;display:grid;align-items:end;background:var(--ink);color:var(--paper)}
+.cathode__media{position:absolute;inset:-10% 0}
+.cathode__media img{width:100%;height:100%;object-fit:cover}
+.cathode::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,13,12,.55) 0%,rgba(13,13,12,.05) 35%,rgba(13,13,12,.25) 60%,rgba(13,13,12,.92) 100%)}
+.cathode__quote{position:relative;z-index:2;padding-bottom:clamp(56px,10vh,110px)}
+.cathode__quote p{font-size:clamp(2.2rem,5.6vw,6rem);max-width:15ch}
+.cathode__quote p .w{display:inline-block}
+.cathode__quote .mono{display:block;margin-top:22px;color:#d9d4cb}
+
+/* =========================================================
+   Preguntas
+   ========================================================= */
+.faq{padding:clamp(100px,14vh,160px) 0;background:var(--paper)}
+.faq__grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(36px,6vw,96px)}
+.faq h2{font-size:clamp(2.1rem,4vw,4rem);margin-top:20px}
+.faq__aside .kicker{color:var(--mute)}
+.faq__aside p{color:var(--dim);margin-top:20px;max-width:360px}
+.faq__aside .btn{margin-top:26px}
+.qa{border-top:1px solid var(--line)}
+.qa:last-child{border-bottom:1px solid var(--line)}
+.qa summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;padding:22px 0;font:700 clamp(1rem,1.4vw,1.2rem)/1.25 var(--display);font-stretch:108%;transition:color .2s ease}
+.qa summary::-webkit-details-marker{display:none}
+@media (hover:hover) and (pointer:fine){.qa summary:hover{color:var(--copper)}}
+.qa summary i{width:30px;height:30px;border:1px solid var(--line);border-radius:50%;position:relative;flex:none;transition:transform .3s var(--ease-out),background-color .2s ease,border-color .2s ease}
+.qa summary i::before,.qa summary i::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:1.5px;background:currentColor;transform:translate(-50%,-50%)}
+.qa summary i::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .3s var(--ease-out)}
+.qa[open] summary i{background:var(--ink);color:var(--paper);border-color:var(--ink);transform:rotate(180deg)}
+.qa[open] summary i::after{transform:translate(-50%,-50%) rotate(0)}
+.qa__a p{padding:0 56px 24px 0;color:var(--dim);max-width:620px}
+
+/* =========================================================
+   Contacto
+   ========================================================= */
+.contact{padding:clamp(100px,14vh,170px) 0 clamp(80px,10vh,120px);background:var(--ink);color:var(--paper)}
+.contact__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(40px,6vw,100px);align-items:start}
+.contact .kicker{color:var(--amber)}
+.contact h2{font-size:clamp(2.4rem,5.4vw,5.6rem);margin-top:22px}
+.contact h2 em{font-style:normal;color:var(--amber)}
+.contact__lead{margin-top:24px;color:#cfcac1;max-width:460px}
+.next{margin-top:40px;border-left:1px solid var(--line-d2);padding-left:24px}
+.next li{position:relative;padding:0 0 26px}
+.next li::before{content:"";position:absolute;left:-29px;top:5px;width:9px;height:9px;border-radius:50%;background:var(--ink);border:1px solid var(--amber)}
+.next li:first-child::before{background:var(--amber)}
+.next .mono{color:var(--amber)}
+.next strong{display:block;font:800 1.05rem/1.2 var(--display);font-stretch:115%;text-transform:uppercase;margin:6px 0 4px}
+.next p{color:var(--mute-d);font-size:.92rem}
+.form{border:1px solid var(--line-d2);border-radius:22px;padding:clamp(22px,3vw,36px);background:var(--ink-2);display:grid;gap:18px}
+.form__progress{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.form__progress .mono{color:var(--mute-d)}
+.form__track{flex:1;height:2px;background:var(--line-d);border-radius:2px;overflow:hidden}
+.form__track i{display:block;height:100%;width:100%;background:var(--amber);transform-origin:left;transform:scaleX(.5);transition:transform .5s var(--ease-out)}
+.fstep{display:grid;gap:18px}
+.fstep[hidden]{display:none}
+.fstep h3{font:800 1.45rem/1.1 var(--display);font-stretch:118%;text-transform:uppercase}
+.form__row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:grid;gap:8px}
+fieldset.field{border:0;padding:0;margin:0}
+.field label,.field legend{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute-d)}
+.field input,.field textarea{width:100%;background:rgba(242,239,233,.04);border:1px solid var(--line-d2);border-radius:12px;padding:.9rem 1rem;color:var(--paper);font-size:1rem;transition:border-color .2s ease,background-color .2s ease}
+.field textarea{min-height:96px;resize:vertical}
+.field input::placeholder,.field textarea::placeholder{color:#6f6a62}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--amber);background:rgba(242,239,233,.06)}
+.field.is-err input{border-color:#e0715a}
+.chips-in{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.chips-in label{cursor:pointer;font-family:var(--sans);font-size:1rem;letter-spacing:0;text-transform:none;color:inherit}
+.chips-in input{position:absolute;opacity:0;pointer-events:none}
+.chips-in span{display:inline-block;font-size:.88rem;border:1px solid var(--line-d2);border-radius:99px;padding:.55em 1em;color:#ddd8cf;transition:background-color .2s ease,border-color .2s ease,color .2s ease}
+.chips-in input:checked + span{background:var(--amber);border-color:var(--amber);color:var(--ink)}
+.chips-in input:focus-visible + span{outline:2px solid var(--amber);outline-offset:3px}
+.form__nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.form__msg{font-size:.84rem;color:var(--mute-d)}
+.form__msg.is-err{color:#f09a86}
+.linkbtn{background:none;border:0;color:var(--mute-d);cursor:pointer;padding:8px 0;font-size:.9rem;text-decoration:underline;text-underline-offset:4px}
+@media (hover:hover) and (pointer:fine){.linkbtn:hover{color:var(--paper)}}
+.form__assure{display:flex;flex-wrap:wrap;gap:8px 18px;color:var(--mute-d);font-size:.78rem;border-top:1px solid var(--line-d);padding-top:16px}
+.form__assure span::before{content:"●";color:var(--oxide-hi);font-size:.6em;margin-right:8px;vertical-align:middle}
+.form__done{display:grid;gap:14px}
+.form__done[hidden]{display:none}
+.form__done h3{font:800 1.6rem/1.05 var(--display);font-stretch:118%;text-transform:uppercase}
+.form__done p{color:#cfcac1}
+
+/* ---------- Pie ---------- */
+.foot{padding:56px 0 30px;background:var(--ink);color:var(--paper);border-top:1px solid var(--line-d);overflow:hidden}
+.foot__top{display:flex;justify-content:space-between;align-items:start;gap:30px;flex-wrap:wrap}
+.foot__top .brand{color:var(--paper)}
+.foot__top p{color:var(--mute-d);font-size:.86rem;margin-top:12px}
+.foot__links{display:flex;gap:24px;flex-wrap:wrap;font-size:.88rem;color:#cfcac1}
+.foot__links a{text-decoration:none}
+@media (hover:hover) and (pointer:fine){.foot__links a:hover{color:var(--amber)}}
+.foot__mark{margin-top:56px;font-size:clamp(3rem,12.4vw,15rem);color:transparent;-webkit-text-stroke:1px rgba(242,239,233,.2);white-space:nowrap;user-select:none}
+.foot__bot{margin-top:22px;display:flex;justify-content:space-between;gap:20px;color:#6f6a62;flex-wrap:wrap}
+
+/* ---------- Barra fija ---------- */
+.dock{position:fixed;right:22px;bottom:20px;z-index:85;transform:translateY(160%);transition:transform .5s var(--ease-out);display:flex;align-items:center;gap:18px;padding:8px 8px 8px 22px;border-radius:999px;background:var(--ink);color:var(--paper);box-shadow:0 18px 50px rgba(0,0,0,.28);white-space:nowrap}
+.dock.is-on{transform:none}
+.dock p{font-size:.82rem;color:#cfcac1}
+.dock p b{color:var(--paper);font-weight:600}
+
+/* ---------- Revelados ---------- */
+.motion [data-reveal]{opacity:0}
+.motion .hero-copy h1 .ln > span{transform:translateY(110%)}
+.motion .aerial__copy h2 .ln > span{transform:translateY(110%)}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1024px){
+  .nav__links{display:none}
+  .sec-head,.finder__grid,.faq__grid,.contact__grid{grid-template-columns:1fr}
+  .sec-head p{justify-self:start}
+  .route__grid{grid-template-columns:minmax(0,40%) 120px minmax(0,1fr)}
+}
+@media (max-width:767px){
+  .hero-copy{grid-template-columns:1fr;gap:18px}
+  .hero-copy h1{font-size:min(10.6vw,6.4vh)}
+  .hero-sub{font-size:.92rem}
+  .motion .proof{display:none}
+  .motion .hero-ctas .btn--line{display:none}
+  .proof{grid-template-columns:repeat(3,1fr);width:100%}
+  .proof li{padding:10px;font-size:.66rem}
+  .motion .ground__foot .end{display:none}
+  .motion .giant{font-size:19vh}
+  .motion .svc-intro{width:80vw;padding-right:8vw}
+  .motion .svc{width:76vw;padding:0 6vw}
+  .motion .svc__img{height:11vh}
+  .svc p{font-size:.84rem}
+  .route{padding:180px 0 26vh}
+  .route__grid{display:block;padding:0 var(--pad) 0 76px}
+  .route__lane{position:absolute;left:34px;top:0;width:8px;height:8px}
+  .route__head{position:relative;top:auto;padding:0 0 12vh}
+  .ms{min-height:auto;padding-bottom:16vh}
+  .rec__dl div{grid-template-columns:1fr;gap:4px}
+  .rec{min-height:0}
+  .pain{padding:16px}
+  .form__row{grid-template-columns:1fr}
+  .qa__a p{padding-right:0}
+  .wp span{padding:6px 9px}
+  .wp b{font-size:.8rem}
+  .dock{left:12px;right:12px;bottom:12px;justify-content:space-between;padding:8px 8px 8px 16px}
+  .dock p{white-space:normal;font-size:.76rem;line-height:1.3}
+  .dock .hide-sm{display:none}
+  .nav .btn{padding:.65rem .9rem;font-size:.66rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .aerial{height:auto}
+  .aerial__sticky{position:relative;height:100vh}
+}
 </style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"MetalGenomic","parentOrganization":{"@type":"Organization","name":"Genomic Industries SpA"},"email":"contacto@metalgenomic.cl","areaServed":"CL","description":"Biolixiviación, análisis geoespacial predictivo, mantenimiento predictivo con IA y gemelos digitales para minería.","makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Diagnóstico operativo"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Biolixiviación asistida por datos"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Análisis geoespacial predictivo"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Mantenimiento predictivo con IA"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Gemelos digitales y BIM"}}]}
+</script>
 </head>
 <body>
-
-<div class="letterbox letterbox--top" aria-hidden="true"></div>
-<div class="letterbox letterbox--bottom" aria-hidden="true"></div>
-<div class="vignette" aria-hidden="true"></div>
+<a class="skip" href="#main">Saltar al contenido</a>
 <div class="grain" aria-hidden="true"></div>
 
 <header class="nav">
-  <a class="brand" href="#inicio">Metal<span>Genomic</span></a>
-  <a class="nav-cta" href="#agendar">Agendar diagnóstico</a>
+  <a class="brand" href="#inicio" aria-label="MetalGenomic, volver al inicio">
+    <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="1.5" y="1.5" width="29" height="29" rx="4" stroke="currentColor" stroke-width="1.6"/><path d="M7 8.5c7 0 11 15 18 15M7 23.5c7 0 11-15 18-15" stroke="currentColor" stroke-width="1.6"/></svg>
+    MetalGenomic
+  </a>
+  <nav class="nav__links" aria-label="Principal">
+    <a href="#servicios" data-jump="services">Servicios</a>
+    <a href="#metodo">Método</a>
+    <a href="#empezar">Por dónde empezar</a>
+    <a href="#preguntas">Preguntas</a>
+  </nav>
+  <a class="btn btn--amber btn--sm" href="#agendar" data-cta="nav">Agendar diagnóstico <i aria-hidden="true">→</i></a>
 </header>
 
-<main>
-  <!-- ESCENA 1 · APERTURA -->
-  <section class="opening" id="inicio" aria-labelledby="titulo">
-    <div class="opening__image" aria-hidden="true"></div>
-    <div class="opening__shade" aria-hidden="true"></div>
-    <div class="opening__black" aria-hidden="true"></div>
-    <div class="opening__content">
-      <p class="eyebrow" data-reveal>Genomic Industries SpA presenta</p>
-      <h1 id="titulo" data-split>Minería más eficiente y sostenible, con <em>biotecnología</em> e inteligencia artificial.</h1>
-      <p class="opening__sub" data-reveal>Integramos biolixiviación, modelos geoespaciales y mantenimiento predictivo para ayudar a tu operación a recuperar más metal, anticipar fallas y reducir su impacto ambiental.</p>
-      <div class="opening__ctas" data-reveal>
-        <a class="btn btn--primary" href="#agendar">Agendar diagnóstico operativo</a>
-        <a class="btn btn--ghost" href="#servicios">Ver servicios</a>
+<main id="main">
+
+  <!-- ============ ESCENA 1–2 · CARGA Y SERVICIOS ============ -->
+  <section class="stage" id="inicio" aria-labelledby="hero-title">
+    <div class="stage__pin" id="stagePin">
+      <div class="hero-copy" id="heroCopy">
+        <div>
+          <p class="kicker" data-hero-fade>Biotecnología e IA para minería · Chile</p>
+          <h1 id="hero-title" class="disp">
+            <span class="ln"><span>Más metal.</span></span>
+            <span class="ln"><span>Menos detenciones.</span></span>
+            <span class="ln"><span>Menos huella.</span></span>
+          </h1>
+        </div>
+        <div class="hero-aside">
+          <p class="hero-sub" data-hero-fade>Biolixiviación, modelos geoespaciales y mantenimiento predictivo para mineras medianas: recupera más metal, anticipa fallas y reduce tu impacto ambiental, partiendo por un piloto medible.</p>
+          <div class="hero-ctas" data-hero-fade>
+            <a class="btn btn--ink" href="#agendar" data-cta="hero">Agendar diagnóstico operativo <i aria-hidden="true">→</i></a>
+            <a class="btn btn--line" href="#servicios" data-jump="services" data-cta="hero-services">Ver servicios</a>
+          </div>
+          <ul class="proof" data-hero-fade aria-label="Condiciones del diagnóstico">
+            <li><b>≤ 4</b>semanas de<br>diagnóstico</li>
+            <li><b>1–3</b>meses de<br>piloto acotado</li>
+            <li><b>NDA</b>desde la<br>primera reunión</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="giant disp" id="giant" aria-hidden="true">Nuestros servicios · Nuestros servicios</p>
+
+      <div class="ground" id="ground">
+        <div class="ground__lane" aria-hidden="true"><i id="laneI"></i></div>
+
+        <div class="scene" id="scene" aria-hidden="true">
+          <!-- Pala de cable -->
+          <svg class="shovel" id="shovel" viewBox="0 0 470 340">
+            <g id="pile">
+              <path d="M278 340 C292 322 306 310 326 304 C346 298 366 304 382 318 C392 326 398 334 402 340 Z" fill="#3b2a1f"/>
+              <circle cx="318" cy="318" r="7" fill="#d4824f"/><circle cx="342" cy="310" r="6" fill="#5cc0b0"/><circle cx="360" cy="322" r="8" fill="#a8613a"/><circle cx="332" cy="328" r="6" fill="#e9a23b"/><circle cx="376" cy="332" r="5" fill="#d4824f"/><circle cx="300" cy="332" r="5" fill="#7a4a2c"/>
+            </g>
+            <rect x="18" y="306" width="196" height="34" rx="17" fill="#1b1b1a"/>
+            <g fill="#3d3c39"><circle cx="40" cy="323" r="10"/><circle cx="76" cy="323" r="8"/><circle cx="116" cy="323" r="8"/><circle cx="156" cy="323" r="8"/><circle cx="192" cy="323" r="10"/></g>
+            <rect x="62" y="292" width="110" height="16" fill="#2a2a28"/>
+            <path d="M34 300 V224 H178 L198 250 V300 Z" fill="#e9a23b"/>
+            <rect x="28" y="248" width="16" height="52" fill="#c4822a"/>
+            <g stroke="#c4822a" stroke-width="3"><line x1="58" y1="262" x2="138" y2="262"/><line x1="58" y1="276" x2="138" y2="276"/></g>
+            <rect x="148" y="234" width="38" height="32" rx="3" fill="#0d0d0c"/>
+            <rect x="154" y="240" width="26" height="16" rx="2" fill="#9fd4d8" opacity=".75"/>
+            <polyline points="70,224 112,148 152,224" fill="none" stroke="#c4822a" stroke-width="8" stroke-linejoin="round"/>
+            <line x1="112" y1="148" x2="332" y2="68" stroke="#1b1b1a" stroke-width="2"/>
+            <line x1="166" y1="236" x2="336" y2="64" stroke="#e9a23b" stroke-width="16" stroke-linecap="round"/>
+            <line x1="172" y1="226" x2="330" y2="68" stroke="#c4822a" stroke-width="3"/>
+            <line id="rope" x1="336" y1="64" x2="420" y2="100" stroke="#1b1b1a" stroke-width="2.4"/>
+            <g id="dipper">
+              <rect x="228" y="143" width="192" height="14" rx="3" fill="#c4822a"/>
+              <rect x="228" y="146" width="192" height="3" fill="#e9a23b"/>
+            </g>
+            <circle cx="245" cy="150" r="10" fill="#1b1b1a"/><circle cx="245" cy="150" r="4" fill="#6d6b66"/>
+            <circle cx="336" cy="64" r="13" fill="#1b1b1a"/><circle cx="336" cy="64" r="5" fill="#6d6b66"/>
+            <g id="bucket">
+              <g id="bucketLoad" opacity="0"><circle cx="10" cy="-2" r="8" fill="#d4824f"/><circle cx="26" cy="-6" r="9" fill="#a8613a"/><circle cx="40" cy="-2" r="7" fill="#5cc0b0"/><circle cx="18" cy="-10" r="6" fill="#e9a23b"/></g>
+              <path d="M-12 0 H52 L60 62 H-6 Z" fill="#e9a23b"/>
+              <path d="M-12 0 H52 L54 14 H-10 Z" fill="#c4822a"/>
+              <g fill="#1b1b1a"><path d="M52 4 L64 8 L53 12 Z"/><path d="M54 20 L66 24 L55 28 Z"/><path d="M56 36 L68 40 L57 44 Z"/></g>
+              <g id="door"><rect x="-6" y="60" width="66" height="7" rx="2" fill="#1b1b1a"/></g>
+            </g>
+            <g id="fall" opacity="0" transform="translate(394 132)"><circle cx="6" cy="0" r="8" fill="#d4824f"/><circle cx="24" cy="8" r="9" fill="#a8613a"/><circle cx="40" cy="-2" r="7" fill="#5cc0b0"/><circle cx="16" cy="18" r="6" fill="#e9a23b"/><circle cx="34" cy="20" r="5" fill="#d4824f"/></g>
+          </svg>
+
+          <!-- Camión de extracción (vista lateral) -->
+          <svg class="truck-side" id="truckSide" viewBox="0 0 440 250">
+            <ellipse cx="230" cy="247" rx="200" ry="5" fill="rgba(0,0,0,.25)"/>
+            <rect x="30" y="148" width="396" height="22" fill="#1b1b1a"/>
+            <g id="truckLoad">
+              <path d="M10 60 C40 30 70 22 104 24 C130 8 170 6 198 16 C232 6 270 14 296 24 C312 26 326 30 334 38 L10 60 Z" fill="#5a3d2b"/>
+              <circle cx="60" cy="40" r="9" fill="#d4824f"/><circle cx="110" cy="26" r="10" fill="#a8613a"/><circle cx="150" cy="18" r="8" fill="#5cc0b0"/><circle cx="196" cy="22" r="10" fill="#d4824f"/><circle cx="240" cy="20" r="8" fill="#e9a23b"/><circle cx="282" cy="28" r="9" fill="#a8613a"/>
+            </g>
+            <path d="M6 58 L336 34 L354 46 L346 148 L84 148 L6 112 Z" fill="#e9a23b"/>
+            <g stroke="#c4822a" stroke-width="7"><line x1="100" y1="54" x2="100" y2="146"/><line x1="160" y1="50" x2="160" y2="146"/><line x1="220" y1="46" x2="220" y2="146"/><line x1="280" y1="42" x2="280" y2="146"/></g>
+            <path d="M6 58 L336 34 L354 46 L12 70 Z" fill="#c4822a"/>
+            <rect x="354" y="80" width="56" height="68" fill="#e9a23b"/>
+            <rect x="360" y="86" width="44" height="26" rx="2" fill="#0d0d0c"/>
+            <rect x="364" y="90" width="36" height="16" rx="1" fill="#9fd4d8" opacity=".7"/>
+            <rect x="408" y="108" width="24" height="52" rx="3" fill="#2a2a28"/>
+            <rect x="420" y="116" width="10" height="8" rx="2" fill="#fff4cf"/>
+            <line x1="372" y1="150" x2="398" y2="196" stroke="#1b1b1a" stroke-width="4"/>
+            <g class="wheel" id="wheelR">
+              <circle cx="120" cy="200" r="48" fill="#141413"/>
+              <circle cx="120" cy="200" r="43" fill="none" stroke="#2b2b29" stroke-width="7" stroke-dasharray="7 7"/>
+              <circle cx="120" cy="200" r="27" fill="#8a8780"/>
+              <g stroke="#3d3c39" stroke-width="4"><line x1="120" y1="176" x2="120" y2="224"/><line x1="99" y1="188" x2="141" y2="212"/><line x1="99" y1="212" x2="141" y2="188"/></g>
+              <circle cx="120" cy="200" r="8" fill="#1b1b1a"/>
+            </g>
+            <g class="wheel" id="wheelF">
+              <circle cx="362" cy="200" r="48" fill="#141413"/>
+              <circle cx="362" cy="200" r="43" fill="none" stroke="#2b2b29" stroke-width="7" stroke-dasharray="7 7"/>
+              <circle cx="362" cy="200" r="27" fill="#8a8780"/>
+              <g stroke="#3d3c39" stroke-width="4"><line x1="362" y1="176" x2="362" y2="224"/><line x1="341" y1="188" x2="383" y2="212"/><line x1="341" y1="212" x2="383" y2="188"/></g>
+              <circle cx="362" cy="200" r="8" fill="#1b1b1a"/>
+            </g>
+          </svg>
+        </div>
+
+        <div class="ground__foot mono" id="groundFoot" aria-hidden="true">
+          <span class="cue"><i></i>Desliza para cargar</span>
+          <span class="end">Del satélite al cátodo</span>
+        </div>
+
+        <div class="services" id="services">
+          <div class="svc-track" id="svcTrack">
+            <div class="svc-intro">
+              <p class="kicker" style="color:var(--amber)">Cuatro capacidades</p>
+              <h2 class="disp" id="servicios" style="margin-top:18px">Todo lo que tu operación necesita. <span>En un solo equipo.</span></h2>
+              <p>Biotecnología, datos geoespaciales y mantenimiento predictivo integrados, con pilotos acotados y medibles pensados para mineras medianas.</p>
+            </div>
+            <article class="svc">
+              <div class="svc__img"><img src="assets/geo-sm.webp" alt="" decoding="async"></div>
+              <div class="svc__top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-10.5a6.5 6.5 0 1 1 13 0C18.5 15.4 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.4"/></svg><span class="mono">01 · Territorio</span></div>
+              <h3>Análisis geoespacial predictivo</h3>
+              <p>Imágenes satelitales, datos geológicos y machine learning para apoyar la exploración, la estimación de recursos y el monitoreo de taludes.</p>
+              <p class="svc__gain"><b>Ganas</b>Decidir dónde y cómo intervenir, con menor riesgo.</p>
+              <a href="#agendar" data-topic="Análisis geoespacial">Evaluarlo en el diagnóstico <span aria-hidden="true">→</span></a>
+            </article>
+            <article class="svc">
+              <div class="svc__img"><img src="assets/bio-sm.webp" alt="" decoding="async"></div>
+              <div class="svc__top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><ellipse cx="11" cy="12" rx="6.5" ry="3.6" transform="rotate(-28 11 12)"/><path d="M16.6 8.6c1.6-1 2.4-2.6 4.4-2.4M5.4 15.4c-1.4.8-1.8 2.4-3.4 2.6"/><circle cx="9.6" cy="12.6" r=".9" fill="currentColor"/><circle cx="12.6" cy="11" r=".9" fill="currentColor"/></svg><span class="mono">02 · Microbio</span></div>
+              <h3>Biolixiviación asistida por datos</h3>
+              <p>Consorcios microbianos adaptados a tu mineral, con sensores y modelos para ajustar los parámetros del proceso a tiempo.</p>
+              <p class="svc__gain"><b>Ganas</b>Mejor recuperación en baja ley, con menos reactivos.</p>
+              <a href="#agendar" data-topic="Biolixiviación">Evaluarlo en el diagnóstico <span aria-hidden="true">→</span></a>
+            </article>
+            <article class="svc">
+              <div class="svc__img"><img src="assets/plant-sm.webp" alt="" decoding="async"></div>
+              <div class="svc__top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h3.5l2-6 4 12 3-9 2 3H22"/></svg><span class="mono">03 · Equipo</span></div>
+              <h3>Mantenimiento predictivo con IA</h3>
+              <p>Vibración, temperatura, acústica y datos operacionales de molinos, chancadores, correas y flota para detectar fallas antes de una detención.</p>
+              <p class="svc__gain"><b>Ganas</b>Planificar intervenciones en vez de reaccionar.</p>
+              <a href="#agendar" data-topic="Mantenimiento predictivo">Evaluarlo en el diagnóstico <span aria-hidden="true">→</span></a>
+            </article>
+            <article class="svc">
+              <div class="svc__img"><img src="assets/hero-sm.webp" alt="" decoding="async"></div>
+              <div class="svc__top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5l8.5 4.8v9.4L12 21.5l-8.5-4.8V7.3z"/><path d="M12 12l8.5-4.7M12 12v9.5M12 12L3.5 7.3"/></svg><span class="mono">04 · Planta</span></div>
+              <h3>Gemelos digitales y BIM</h3>
+              <p>Modelos 3D de la planta o sus circuitos para simular escenarios, coordinar la ingeniería y ver la operación con datos reales.</p>
+              <p class="svc__gain"><b>Ganas</b>Probar cambios antes de ejecutarlos en terreno.</p>
+              <a href="#agendar" data-topic="Gemelo digital">Solicitar demo del gemelo <span aria-hidden="true">→</span></a>
+            </article>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="scroll-hint" data-reveal aria-hidden="true">Desliza</div>
   </section>
 
-  <!-- ESCENA 2 · PLANTEAMIENTO -->
-  <section class="setup" aria-label="El problema">
-    <div class="setup__bg" aria-hidden="true"></div>
-    <p class="eyebrow setup__label">Acto I · El problema</p>
-    <div class="setup__stage">
-      <div class="phrase">
-        <h2>Cada detención <em>no planificada</em> es producción que no vuelve.</h2>
-        <p>Molinos, chancadores, correas y flota: reaccionar siempre llega tarde.</p>
-      </div>
-      <div class="phrase">
-        <h2>En minerales de <em>baja ley</em>, cada punto de recuperación cuenta.</h2>
-        <p>Y los compromisos ambientales y de reporte ESG no dan tregua.</p>
-      </div>
-      <div class="phrase">
-        <h2>Pasar de decidir por <em>reacción</em> a decidir con datos.</h2>
-        <p>Sin cambiar toda tu operación: primero un piloto medible.</p>
-      </div>
-    </div>
-    <div class="setup__progress" aria-hidden="true"><span><i></i></span><span><i></i></span><span><i></i></span></div>
-  </section>
-
-  <!-- ESCENA 3 · DESARROLLO -->
-  <section class="develop" id="servicios" aria-labelledby="servicios-titulo">
-    <div class="layer layer--far" data-depth="far" aria-hidden="true"></div>
-    <div class="layer layer--mid" data-depth="mid" aria-hidden="true">
-      <svg viewBox="0 0 1440 600" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="ridgeA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2416"/><stop offset="1" stop-color="#0a0908"/></linearGradient>
-          <linearGradient id="ridgeB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b2423"/><stop offset="1" stop-color="#0a0908"/></linearGradient>
-        </defs>
-        <path fill="url(#ridgeB)" opacity=".8" d="M0 300 L140 220 L260 270 L420 160 L560 250 L700 190 L860 280 L1010 170 L1160 240 L1300 200 L1440 260 V600 H0Z"/>
-        <path fill="url(#ridgeA)" d="M0 420 L180 330 L300 380 L460 300 L640 400 L780 340 L920 410 L1100 320 L1260 390 L1440 350 V600 H0Z"/>
-      </svg>
-    </div>
-    <div class="layer layer--near" data-depth="near" aria-hidden="true"></div>
-
-    <div class="road" aria-hidden="true"></div>
-    <svg class="truck" viewBox="0 0 220 110" aria-hidden="true">
-      <rect x="18" y="22" width="120" height="44" rx="4" fill="#c97b4a"/>
-      <path d="M10 22 H146 L136 10 H24 Z" fill="#f0a46e"/>
-      <rect x="140" y="34" width="52" height="32" rx="4" fill="#d9cfc1"/>
-      <rect x="150" y="40" width="22" height="12" rx="2" fill="#0d0c0b"/>
-      <rect x="12" y="64" width="186" height="10" rx="2" fill="#2a2420"/>
-      <circle cx="48" cy="84" r="20" fill="#111"/><circle cx="48" cy="84" r="8" fill="#5b524a"/>
-      <circle cx="166" cy="84" r="20" fill="#111"/><circle cx="166" cy="84" r="8" fill="#5b524a"/>
-      <circle cx="196" cy="58" r="3" fill="#3f8f86"/>
+  <!-- ============ ESCENA 3 · LA RUTA ============ -->
+  <section class="route" id="metodo" aria-labelledby="route-title">
+    <svg class="route__svg" id="roadSvg" aria-hidden="true">
+      <path class="road" id="roadPath" d=""/>
+      <path class="dash" id="roadDash" d=""/>
+      <g class="dots" id="roadDots"></g>
     </svg>
+    <svg class="truck-top" id="truckTop" viewBox="0 0 220 110" aria-hidden="true">
+      <rect x="26" y="0" width="44" height="16" rx="4" fill="#141413"/><rect x="26" y="94" width="44" height="16" rx="4" fill="#141413"/>
+      <rect x="150" y="0" width="34" height="16" rx="4" fill="#141413"/><rect x="150" y="94" width="34" height="16" rx="4" fill="#141413"/>
+      <rect x="14" y="12" width="182" height="86" rx="6" fill="#e9a23b"/>
+      <rect x="22" y="20" width="132" height="70" rx="3" fill="#c4822a"/>
+      <path d="M30 40 C40 26 62 24 80 30 C96 22 120 24 134 34 C146 44 146 64 134 76 C116 88 90 86 74 82 C56 88 36 82 30 70 Z" fill="#5a3d2b"/>
+      <circle cx="52" cy="44" r="7" fill="#d4824f"/><circle cx="80" cy="58" r="8" fill="#a8613a"/><circle cx="104" cy="40" r="6" fill="#5cc0b0"/><circle cx="118" cy="66" r="7" fill="#d4824f"/><circle cx="62" cy="70" r="6" fill="#e9a23b"/>
+      <rect x="158" y="12" width="38" height="86" fill="#e9a23b"/>
+      <g stroke="#c4822a" stroke-width="2"><line x1="164" y1="20" x2="164" y2="90"/><line x1="172" y1="20" x2="172" y2="90"/></g>
+      <rect x="176" y="16" width="20" height="28" rx="2" fill="#f2efe9"/><rect x="186" y="20" width="8" height="20" rx="1" fill="#0d0d0c"/>
+      <rect x="196" y="20" width="12" height="70" rx="2" fill="#2a2a28"/>
+      <rect x="204" y="24" width="6" height="10" rx="1" fill="#fff4cf"/><rect x="204" y="76" width="6" height="10" rx="1" fill="#fff4cf"/>
+    </svg>
+    <div class="route__grid">
+      <span class="route__lane" id="lane" aria-hidden="true"></span>
+      <div class="route__head">
+        <p class="kicker">Cómo trabajamos</p>
+        <h2 class="disp" id="route-title" data-words>Resultados en cada etapa.</h2>
+        <p>No pedimos cambiar toda tu operación. Empezamos con un problema concreto, medimos los resultados y luego escalamos.</p>
+        <p class="nda">NDA desde la primera reunión</p>
+      </div>
+      <ol class="ms-list">
+        <li class="ms">
+          <span class="mono">01 · Hasta 4 semanas</span>
+          <span class="ms__big"><span id="msNum">4</span><small>semanas</small></span>
+          <h3>Diagnóstico</h3>
+          <p>Revisamos tus datos, equipos y objetivos para elegir dónde está el mayor potencial.</p>
+        </li>
+        <li class="ms">
+          <span class="mono">02 · 1 a 3 meses</span>
+          <span class="ms__big">1–3<small>meses</small></span>
+          <h3>Piloto acotado</h3>
+          <p>En un equipo, circuito o sector. Integrado a tus sistemas, sin detener la operación.</p>
+          <ul class="chips"><li>SCADA</li><li>PI System</li><li>CMMS / SAP PM</li><li>GIS</li></ul>
+        </li>
+        <li class="ms">
+          <span class="mono">03 · Contra tu línea base</span>
+          <span class="ms__big">KPI<small>×4</small></span>
+          <h3>Medición</h3>
+          <p>Tus números, no promesas genéricas. Fijamos contigo la línea base antes de empezar.</p>
+          <ul class="chips"><li>Disponibilidad (%)</li><li>Recuperación (%)</li><li>Reactivos / t</li><li>Horas de detención evitadas</li></ul>
+        </li>
+        <li class="ms">
+          <span class="mono">04 · Solo si se justifica</span>
+          <span class="ms__big">↗</span>
+          <h3>Escalamiento</h3>
+          <p>Escalamos solo si los resultados lo justifican. Si no, lo sabrás con datos y a tiempo.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
 
-    <div class="develop__inner">
-      <header class="develop__head" data-reveal>
-        <p class="eyebrow">Acto II · Cuatro capacidades</p>
-        <h2 id="servicios-titulo">Cuatro capacidades, un mismo equipo.</h2>
-        <p>Biotecnología, datos geoespaciales y mantenimiento predictivo integrados, con pilotos acotados y medibles pensados para mineras medianas.</p>
-      </header>
-      <div class="cards">
-        <article class="card" data-card>
-          <div class="card__art" aria-hidden="true"></div>
-          <span class="card__num">01</span>
-          <h3>Biolixiviación asistida por datos</h3>
-          <p>Diseñamos y monitoreamos procesos de biolixiviación con consorcios microbianos adaptados a tu mineral. Sensores y modelos permiten ajustar los parámetros a tiempo.</p>
-          <p class="benefit">Mejorar la recuperación en minerales de baja ley con menor uso de reactivos.</p>
-          <a href="#agendar">Conocer el servicio →</a>
-        </article>
-        <article class="card" data-card>
-          <div class="card__art" aria-hidden="true"></div>
-          <span class="card__num">02</span>
-          <h3>Análisis geoespacial predictivo</h3>
-          <p>Imágenes satelitales, datos geológicos y machine learning para apoyar la exploración, la estimación de recursos y el monitoreo de taludes.</p>
-          <p class="benefit">Más información para decidir dónde y cómo intervenir, con menor riesgo.</p>
-          <a href="#agendar">Conocer el servicio →</a>
-        </article>
-        <article class="card" data-card>
-          <div class="card__art" aria-hidden="true"></div>
-          <span class="card__num">03</span>
-          <h3>Mantenimiento predictivo con IA</h3>
-          <p>Vibraciones, temperatura, datos acústicos y operacionales de equipos críticos para detectar patrones de falla antes de una detención.</p>
-          <p class="benefit">Planificar las intervenciones en lugar de reaccionar ante ellas.</p>
-          <a href="#agendar">Conocer el servicio →</a>
-        </article>
-        <article class="card" data-card>
-          <div class="card__art" aria-hidden="true"></div>
-          <span class="card__num">04</span>
-          <h3>Gemelos digitales y BIM</h3>
-          <p>Modelos digitales 3D de la planta o sus circuitos para simular escenarios, coordinar la ingeniería y visualizar la operación con datos reales.</p>
-          <p class="benefit">Detectar interferencias y probar cambios antes de ejecutarlos en terreno.</p>
-          <a href="#agendar">Conocer el servicio →</a>
+  <!-- ============ ESCENA 4 · VISTA AÉREA ============ -->
+  <section class="aerial" data-dark aria-labelledby="aerial-title">
+    <div class="aerial__sticky">
+      <div class="aerial__img" aria-hidden="true"><img id="aerialImg" src="assets/geo.webp" alt="" loading="lazy" decoding="async"></div>
+      <div class="aerial__shade" aria-hidden="true"></div>
+      <svg class="aerial__route" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <path class="ghost" d="M18 48 C38 40 58 44 70 54 S28 62 32 72 S66 80 78 88"/>
+        <path id="aerialPath" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0" d="M18 48 C38 40 58 44 70 54 S28 62 32 72 S66 80 78 88"/>
+      </svg>
+      <div class="wp" style="left:18%;top:48%"><i></i><span><small>01 · 400 km</small><b>Territorio</b></span></div>
+      <div class="wp" style="left:70%;top:54%"><i></i><span><small>02 · 1 µm</small><b>Microbio</b></span></div>
+      <div class="wp" style="left:32%;top:72%"><i></i><span><small>03 · Hz</small><b>Equipo</b></span></div>
+      <div class="wp" style="left:78%;top:88%"><i></i><span><small>04 · 1 : 1</small><b>Planta</b></span></div>
+      <div class="aerial__copy">
+        <p class="kicker" style="color:var(--amber)">Una mina, cuatro escalas</p>
+        <h2 class="disp" id="aerial-title" style="margin-top:18px"><span class="ln"><span>Del satélite</span></span><span class="ln"><span>al cátodo.</span></span></h2>
+        <p data-reveal>Trabajamos en las cuatro escalas de tu operación con un mismo equipo multidisciplinario: biotecnología, ciencia de datos e ingeniería.</p>
+      </div>
+      <span class="ill">Imagen ilustrativa</span>
+    </div>
+  </section>
+
+  <!-- ============ POR DÓNDE EMPEZAR ============ -->
+  <section class="finder" id="empezar" aria-labelledby="finder-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="kicker" data-reveal>Diagnóstico express · 10 segundos</p>
+          <h2 class="disp" id="finder-title" data-reveal>¿Qué le duele hoy <em>a tu operación?</em></h2>
+        </div>
+        <p data-reveal>Elige el desafío más urgente. Te mostramos por dónde empezaría el diagnóstico y dejamos tu solicitud lista.</p>
+      </div>
+      <div class="finder__grid">
+        <div class="pains" role="radiogroup" aria-label="Desafío principal" data-reveal>
+          <button type="button" class="pain" role="radio" aria-checked="true" data-pain="mnt"><span class="n">01</span><span><strong>Detenciones no planificadas</strong><small>Molinos, chancadores, correas o flota fallan sin aviso.</small></span><span class="dot" aria-hidden="true"></span></button>
+          <button type="button" class="pain" role="radio" aria-checked="false" data-pain="bio"><span class="n">02</span><span><strong>Recuperación baja en mineral de baja ley</strong><small>Cada punto cuenta y el consumo de reactivos pesa.</small></span><span class="dot" aria-hidden="true"></span></button>
+          <button type="button" class="pain" role="radio" aria-checked="false" data-pain="geo"><span class="n">03</span><span><strong>Dónde explorar o qué talud vigilar</strong><small>Decisiones de territorio con información incompleta.</small></span><span class="dot" aria-hidden="true"></span></button>
+          <button type="button" class="pain" role="radio" aria-checked="false" data-pain="twin"><span class="n">04</span><span><strong>Cambios en la planta o un circuito</strong><small>Quieres probar antes de ejecutar en terreno.</small></span><span class="dot" aria-hidden="true"></span></button>
+        </div>
+        <article class="rec" id="rec" aria-live="polite" data-reveal>
+          <div class="rec__img"><img id="recImg" src="assets/plant-sm.webp" alt="" loading="lazy" decoding="async"></div>
+          <div class="rec__body">
+            <p class="kicker" data-swap id="recKicker">Empezaríamos por · Equipo</p>
+            <h3 data-swap id="recTitle">Mantenimiento predictivo con IA</h3>
+            <dl class="rec__dl" data-swap>
+              <div><dt>Qué revisamos</dt><dd id="recReview">Vibraciones, temperatura, datos acústicos y operacionales de tus equipos críticos.</dd></div>
+              <div><dt>Piloto típico</dt><dd id="recPilot">Un equipo crítico, por ejemplo un molino o una correa.</dd></div>
+              <div><dt>Lo que ganas</dt><dd id="recGain">Planificar las intervenciones en lugar de reaccionar ante ellas.</dd></div>
+            </dl>
+            <div class="rec__cta">
+              <a class="btn btn--amber" href="#agendar" id="recBtn" data-cta="finder" data-topic="Mantenimiento predictivo">Agendar este diagnóstico <i aria-hidden="true">→</i></a>
+              <small>Sin compromiso · NDA desde la primera reunión</small>
+            </div>
+          </div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- ESCENA 4 · CLÍMAX -->
-  <section class="climax" aria-labelledby="climax-titulo">
-    <div class="climax__glow" aria-hidden="true"></div>
-    <div class="climax__inner">
-      <p class="eyebrow" data-reveal>Acto III · El punto de partida</p>
-      <h2 id="climax-titulo" class="sr-only">Hasta 4 semanas para un diagnóstico operativo</h2>
-      <div class="climax__figure" aria-hidden="true">
-        <svg class="climax__ring" viewBox="0 0 200 200">
-          <circle cx="100" cy="100" r="96" stroke="rgba(239,232,221,.12)"/>
-          <circle class="ring-progress" cx="100" cy="100" r="96" stroke="#c97b4a" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
-        </svg>
-        <span class="climax__number" data-count="4">4</span>
-      </div>
-      <p class="climax__unit" data-reveal>semanas, como máximo, para un diagnóstico operativo.</p>
-      <p class="climax__copy" data-reveal>Revisamos tus datos, equipos y objetivos. Luego, un piloto acotado de 1 a 3 meses en un equipo, circuito o sector. Escalamos solo si los resultados lo justifican.</p>
-      <ul class="metrics" data-reveal aria-label="Indicadores que medimos en cada piloto">
-        <li>Disponibilidad del equipo (%)</li>
-        <li>Recuperación metalúrgica (%)</li>
-        <li>Consumo de reactivos por tonelada</li>
-        <li>Horas de detención evitadas</li>
-      </ul>
-      <p class="climax__note" data-reveal>Los resultados se miden contra tu línea base, no contra promesas genéricas.</p>
+  <!-- ============ CÁTODO ============ -->
+  <section class="cathode" data-dark aria-label="Del mineral al metal">
+    <div class="cathode__media" id="cathodeMedia" aria-hidden="true"><img src="assets/cathode.webp" srcset="assets/cathode-sm.webp 900w, assets/cathode.webp 2000w" sizes="100vw" alt="" loading="lazy" decoding="async"></div>
+    <div class="wrap cathode__quote">
+      <p class="disp" data-words>Al final del recorrido, todo se mide en metal recuperado.</p>
+      <span class="mono" data-reveal>Cu 29 · Cátodo · Imagen ilustrativa</span>
     </div>
   </section>
 
-  <!-- ESCENA 5 · CRÉDITOS FINALES -->
-  <section class="credits" id="agendar" aria-labelledby="creditos-titulo">
-    <div class="credits__bg" aria-hidden="true"></div>
-    <div class="fade-black" aria-hidden="true"></div>
-    <div class="credits__inner">
-      <p class="eyebrow" data-reveal>Créditos</p>
-      <h2 id="creditos-titulo" data-reveal>Respaldo científico, aplicado a tu operación.</h2>
-      <dl class="roll">
-        <div data-roll><dt>Un equipo multidisciplinario</dt><dd>Biotecnología · Ciencia de datos · Ingeniería</dd></div>
-        <div data-roll><dt>Integración con tus sistemas</dt><dd>SCADA · PI System · CMMS / SAP PM · GIS</dd></div>
-        <div data-roll><dt>Confidencialidad</dt><dd>Firma de NDA desde la primera reunión</dd></div>
-        <div data-roll><dt>Metodología</dt><dd>Diagnóstico → Piloto → Medición → Escalamiento</dd></div>
-      </dl>
-      <div class="credits__cta" data-reveal>
-        <a class="btn btn--primary" href="mailto:contacto@metalgenomic.cl?subject=Agendar%20diagn%C3%B3stico%20operativo">Agendar diagnóstico operativo</a>
-        <a class="btn btn--ghost" href="mailto:contacto@metalgenomic.cl?subject=Demo%20de%20gemelo%20digital">Solicitar demo de gemelo digital</a>
+  <!-- ============ PREGUNTAS ============ -->
+  <section class="faq" id="preguntas" aria-labelledby="faq-title">
+    <div class="wrap faq__grid">
+      <div class="faq__aside">
+        <p class="kicker" data-reveal>Antes de agendar</p>
+        <h2 class="disp" id="faq-title" data-reveal>Lo que suelen preguntarnos.</h2>
+        <p data-reveal>¿Tu pregunta no está aquí? Escríbela en el formulario y la revisamos en la primera reunión.</p>
+        <a class="btn btn--line" href="#agendar" data-cta="faq" data-reveal>Ir al formulario <i aria-hidden="true">↓</i></a>
       </div>
-      <footer class="credits__fin" data-reveal>
-        <a class="brand" href="#inicio">Metal<span>Genomic</span></a>
-        <p>Una marca de Genomic Industries SpA · Chile</p>
-      </footer>
+      <div data-reveal>
+        <details class="qa" open><summary>¿Tenemos que cambiar nuestros sistemas?<i aria-hidden="true"></i></summary><div class="qa__a"><p>No. Trabajamos sobre lo que ya tienes: nos integramos con SCADA, PI System, CMMS / SAP PM y GIS.</p></div></details>
+        <details class="qa"><summary>¿Cuánto tiempo toma?<i aria-hidden="true"></i></summary><div class="qa__a"><p>El diagnóstico operativo toma hasta 4 semanas. Si avanzamos, el piloto dura de 1 a 3 meses y se acota a un equipo, circuito o sector.</p></div></details>
+        <details class="qa"><summary>¿Cómo sabremos si funcionó?<i aria-hidden="true"></i></summary><div class="qa__a"><p>Antes de empezar fijamos contigo la línea base: disponibilidad del equipo, recuperación metalúrgica, consumo de reactivos por tonelada y horas de detención evitadas. El piloto se evalúa contra esos números.</p></div></details>
+        <details class="qa"><summary>¿Qué pasa con la confidencialidad de nuestros datos?<i aria-hidden="true"></i></summary><div class="qa__a"><p>Firmamos un acuerdo de confidencialidad (NDA) desde la primera reunión.</p></div></details>
+        <details class="qa"><summary>¿Y si el piloto no da los resultados esperados?<i aria-hidden="true"></i></summary><div class="qa__a"><p>No escalamos. Escalamos solo si los resultados lo justifican, y lo sabrás con datos de tu propia operación.</p></div></details>
+        <details class="qa"><summary>¿Qué necesitamos para empezar?<i aria-hidden="true"></i></summary><div class="qa__a"><p>Contarnos el desafío. En el diagnóstico revisamos tus datos, equipos y objetivos para definir dónde está el mayor potencial.</p></div></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACTO ============ -->
+  <section class="contact" data-dark id="agendar" aria-labelledby="contact-title">
+    <div class="wrap contact__grid">
+      <div>
+        <p class="kicker" data-reveal>Agenda tu diagnóstico</p>
+        <h2 class="disp" id="contact-title" data-reveal>Empecemos por <em>tus datos.</em></h2>
+        <p class="contact__lead" data-reveal>Dos pasos, menos de un minuto. Cuéntanos qué quieres mejorar y te contactamos para la primera reunión.</p>
+        <ol class="next" data-reveal aria-label="Qué pasa después">
+          <li><span class="mono">01 · Hoy</span><strong>Nos cuentas tu desafío</strong><p>Equipo, circuito o sector que quieres mejorar.</p></li>
+          <li><span class="mono">02 · Primera reunión</span><strong>NDA y qué medir</strong><p>Firmamos confidencialidad y definimos la línea base.</p></li>
+          <li><span class="mono">03 · Hasta 4 semanas</span><strong>Diagnóstico operativo</strong><p>Revisamos datos, equipos y objetivos para decidir si pilotar.</p></li>
+        </ol>
+      </div>
+      <form class="form" id="leadForm" novalidate data-reveal>
+        <div class="form__progress"><span class="mono" id="stepLbl">Paso 1 de 2</span><span class="form__track" aria-hidden="true"><i id="stepBar"></i></span></div>
+        <div class="fstep" data-step="1">
+          <h3>¿Qué quieres mejorar?</h3>
+          <fieldset class="field">
+            <legend>Puedes elegir más de uno</legend>
+            <div class="chips-in">
+              <label><input type="checkbox" name="interes" value="Mantenimiento predictivo"><span>Detenciones · predictivo</span></label>
+              <label><input type="checkbox" name="interes" value="Biolixiviación"><span>Recuperación · biolixiviación</span></label>
+              <label><input type="checkbox" name="interes" value="Análisis geoespacial"><span>Territorio · geoespacial</span></label>
+              <label><input type="checkbox" name="interes" value="Gemelo digital"><span>Planta · gemelo digital</span></label>
+              <label><input type="checkbox" name="interes" value="Aún no lo sé"><span>Aún no lo sé</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="field">
+            <legend>¿En qué etapa estás?</legend>
+            <div class="chips-in">
+              <label><input type="radio" name="etapa" value="Explorando opciones" checked><span>Explorando opciones</span></label>
+              <label><input type="radio" name="etapa" value="Tengo un problema concreto"><span>Tengo un problema concreto</span></label>
+              <label><input type="radio" name="etapa" value="Listo para un piloto"><span>Listo para un piloto</span></label>
+            </div>
+          </fieldset>
+          <div class="field"><label for="f-msg">Tu desafío en una línea (opcional)</label><textarea id="f-msg" name="mensaje" placeholder="Ej.: detenciones en el molino SAG, recuperación en mineral de baja ley…"></textarea></div>
+          <div class="form__nav"><p class="form__msg" id="formMsg1" role="status" aria-live="polite"></p><button class="btn btn--amber" type="button" id="toStep2">Continuar <i aria-hidden="true">→</i></button></div>
+        </div>
+        <div class="fstep" data-step="2" hidden>
+          <h3>¿A quién contactamos?</h3>
+          <div class="form__row">
+            <div class="field"><label for="f-name">Nombre</label><input id="f-name" name="nombre" autocomplete="name" required placeholder="Tu nombre"></div>
+            <div class="field"><label for="f-role">Cargo (opcional)</label><input id="f-role" name="cargo" autocomplete="organization-title" placeholder="Ej.: jefe de mantenimiento"></div>
+          </div>
+          <div class="form__row">
+            <div class="field"><label for="f-company">Empresa / faena</label><input id="f-company" name="empresa" autocomplete="organization" required placeholder="Minera, planta o faena"></div>
+            <div class="field"><label for="f-phone">Teléfono (opcional)</label><input id="f-phone" name="telefono" type="tel" autocomplete="tel" inputmode="tel" placeholder="+56 9 …"></div>
+          </div>
+          <div class="field"><label for="f-email">Correo corporativo</label><input id="f-email" name="correo" type="email" autocomplete="email" inputmode="email" required placeholder="nombre@empresa.cl"></div>
+          <div class="form__nav">
+            <button class="linkbtn" type="button" id="toStep1">← Volver</button>
+            <button class="btn btn--amber" type="submit">Agendar diagnóstico <i aria-hidden="true">→</i></button>
+          </div>
+          <p class="form__msg" id="formMsg" role="status" aria-live="polite">Se abrirá tu correo con la solicitud lista para enviar.</p>
+        </div>
+        <div class="form__done" id="formDone" hidden tabindex="-1">
+          <p class="kicker">Solicitud preparada</p>
+          <h3>Gracias. Solo falta enviar el correo.</h3>
+          <p>Abrimos tu correo con todo listo para <b>contacto@metalgenomic.cl</b>. Si no se abrió, escríbenos directamente a esa dirección.</p>
+          <button class="linkbtn" type="button" id="formAgain">Editar la solicitud</button>
+        </div>
+        <div class="form__assure"><span>NDA desde la primera reunión</span><span>Sin compromiso</span><span>Tus datos solo se usan para responderte</span></div>
+      </form>
     </div>
   </section>
 </main>
+
+<footer class="foot" data-dark>
+  <div class="wrap">
+    <div class="foot__top">
+      <div>
+        <a class="brand" href="#inicio" aria-label="MetalGenomic, volver al inicio"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="1.5" y="1.5" width="29" height="29" rx="4" stroke="currentColor" stroke-width="1.6"/><path d="M7 8.5c7 0 11 15 18 15M7 23.5c7 0 11-15 18-15" stroke="currentColor" stroke-width="1.6"/></svg>MetalGenomic</a>
+        <p>Una marca de Genomic Industries SpA · Chile</p>
+      </div>
+      <nav class="foot__links" aria-label="Pie de página">
+        <a href="mailto:contacto@metalgenomic.cl">contacto@metalgenomic.cl</a>
+        <a href="mailto:contacto@metalgenomic.cl?subject=Demo%20de%20gemelo%20digital">Demo de gemelo digital</a>
+        <a href="#preguntas">Preguntas frecuentes</a>
+      </nav>
+    </div>
+    <p class="foot__mark disp" aria-hidden="true">MetalGenomic</p>
+    <div class="foot__bot mono"><span>© 2026 Genomic Industries SpA</span><span>Del satélite al cátodo</span></div>
+  </div>
+</footer>
+
+<div class="dock" id="dock" aria-hidden="true">
+  <p><b>Diagnóstico en hasta 4 semanas</b><span class="hide-sm"> · NDA desde la primera reunión</span></p>
+  <a class="btn btn--amber btn--sm" href="#agendar" data-cta="dock" tabindex="-1">Agendar <i aria-hidden="true">→</i></a>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
-(function () {
-  var root = document.documentElement;
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+(function(){
+  'use strict';
+  var d=document, W=window, root=d.documentElement;
+  var reduce=W.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasGsap=!!(W.gsap&&W.ScrollTrigger);
+  var $=function(s,c){return (c||d).querySelector(s);}, $$=function(s,c){return [].slice.call((c||d).querySelectorAll(s));};
+  if(!hasGsap) root.classList.remove('motion');
+  var motion=root.classList.contains('motion');
 
-  // Sin movimiento o sin librerías: se muestra todo estático.
-  if (reduce || !window.gsap || !window.ScrollTrigger) {
-    root.classList.remove('motion');
+  /* ---------- Medición (dataLayer / GA4 / GTM) ---------- */
+  W.dataLayer=W.dataLayer||[];
+  function track(ev,data){var o={event:ev};for(var k in data)o[k]=data[k];W.dataLayer.push(o);}
+  $$('[data-cta]').forEach(function(a){a.addEventListener('click',function(){track('cta_click',{cta_location:a.dataset.cta});});});
+  var utm=(function(){var q=new URLSearchParams(location.search),o=[];['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid'].forEach(function(k){if(q.get(k))o.push(k+'='+q.get(k));});return o.join(' · ');})();
+
+  /* ---------- Pala: brazo, balde y cable ---------- */
+  var dip=$('#dipper'), bkt=$('#bucket'), door=$('#door'), rope=$('#rope');
+  function setDipper(a,t){
+    var r=a*Math.PI/180, ex=245+170*Math.cos(r), ey=150+170*Math.sin(r);
+    dip.setAttribute('transform','rotate('+a.toFixed(2)+' 245 150)');
+    bkt.setAttribute('transform','translate('+ex.toFixed(2)+' '+ey.toFixed(2)+')');
+    door.setAttribute('transform','rotate('+t.toFixed(2)+' -6 63)');
+    rope.setAttribute('x2',(ex+20).toFixed(2));rope.setAttribute('y2',ey.toFixed(2));
+  }
+  setDipper(motion?40:-30,0);
+
+  /* ---------- La ruta: carretera generada según el diseño ---------- */
+  var route=$('#metodo'), roadSvg=$('#roadSvg'), roadPath=$('#roadPath'), roadDash=$('#roadDash'), dotsG=$('#roadDots'), tTop=$('#truckTop'), lane=$('#lane'), ms=$$('.ms'), msNum=$('#msNum');
+  var R={L:0,yA:0,sA:0,cps:[]}, counted=false;
+  function buildRoad(){
+    var w=route.clientWidth,h=route.clientHeight;if(!w)return;
+    var rr=route.getBoundingClientRect(), lr=lane.getBoundingClientRect();
+    var x=Math.round(lr.left-rr.left+lr.width/2), desk=W.innerWidth>=768, rw=desk?76:46, dstr;
+    if(desk){var y0=160,r=120;dstr='M -260 '+y0+' H '+(x-r)+' A '+r+' '+r+' 0 0 1 '+x+' '+(y0+r)+' V '+(h+260);R.yA=y0+r;R.sA=(x-r+260)+Math.PI*r/2;}
+    else{dstr='M '+x+' -220 V '+(h+260);R.yA=0;R.sA=220;}
+    roadSvg.setAttribute('width',w);roadSvg.setAttribute('height',h);roadSvg.setAttribute('viewBox','0 0 '+w+' '+h);
+    roadPath.setAttribute('d',dstr);roadDash.setAttribute('d',dstr);roadPath.setAttribute('stroke-width',rw);
+    R.L=roadPath.getTotalLength();
+    var html='';
+    R.cps=ms.map(function(m){var mr=m.getBoundingClientRect();var cy=Math.round(mr.top-rr.top+(desk?70:40));html+='<circle cx="'+x+'" cy="'+cy+'" r="'+(desk?11:8)+'"/>';return cy;});
+    dotsG.innerHTML=html;
+    tTop.style.width=Math.round(rw*1.5)+'px';
+  }
+  function countUp(){
+    if(!msNum)return;
+    if(!motion){msNum.textContent='4';return;}
+    var c={v:0};gsap.to(c,{v:4,duration:1.4,ease:'power3.out',onUpdate:function(){msNum.textContent=Math.round(c.v);}});
+  }
+  function placeTruck(){
+    if(!R.L)return;
+    var rr=route.getBoundingClientRect(), y=(motion?W.innerHeight*.56:R.cps[0]+60)-(motion?rr.top:0);
+    var s=Math.max(0,Math.min(R.L,R.sA+(y-R.yA)));
+    var p=roadPath.getPointAtLength(s), a;
+    if(s+2<=R.L){var q=roadPath.getPointAtLength(s+2);a=Math.atan2(q.y-p.y,q.x-p.x);}else{var o=roadPath.getPointAtLength(s-2);a=Math.atan2(p.y-o.y,p.x-o.x);}
+    tTop.style.transform='translate('+p.x.toFixed(1)+'px,'+p.y.toFixed(1)+'px) translate(-50%,-50%) rotate('+(a*180/Math.PI).toFixed(2)+'deg)';
+    var dots=dotsG.children;
+    R.cps.forEach(function(cy,i){var on=!motion||p.y>=cy-2;ms[i].classList.toggle('is-on',on);if(dots[i])dots[i].classList.toggle('is-on',on);if(on&&i===0&&!counted){counted=true;countUp();}});
+  }
+  if(msNum&&motion)msNum.textContent='0';
+
+  /* ---------- Por dónde empezar ---------- */
+  (function(){
+    var Rc={
+      mnt:{img:'assets/plant-sm.webp',k:'Empezaríamos por · Equipo',t:'Mantenimiento predictivo con IA',r:'Vibraciones, temperatura, datos acústicos y operacionales de tus equipos críticos.',p:'Un equipo crítico, por ejemplo un molino o una correa.',g:'Planificar las intervenciones en lugar de reaccionar ante ellas.',topic:'Mantenimiento predictivo'},
+      bio:{img:'assets/bio-sm.webp',k:'Empezaríamos por · Microbio',t:'Biolixiviación asistida por datos',r:'Tu mineral y los parámetros actuales del proceso, para adaptar consorcios microbianos y sensores.',p:'Un circuito o sector de la pila.',g:'Mejor recuperación en minerales de baja ley, con menor uso de reactivos.',topic:'Biolixiviación'},
+      geo:{img:'assets/geo-sm.webp',k:'Empezaríamos por · Territorio',t:'Análisis geoespacial predictivo',r:'Imágenes satelitales y datos geológicos disponibles, cruzados con machine learning.',p:'Un sector de exploración o un talud a monitorear.',g:'Más información para decidir dónde y cómo intervenir, con menor riesgo.',topic:'Análisis geoespacial'},
+      twin:{img:'assets/hero-sm.webp',k:'Empezaríamos por · Planta',t:'Gemelo digital y BIM',r:'Planos, modelos existentes y datos de operación de la planta o del circuito.',p:'Un circuito o un área de la planta.',g:'Detectar interferencias y probar cambios antes de ejecutarlos en terreno.',topic:'Gemelo digital'}
+    };
+    var rec=$('#rec'),btns=$$('.pain');if(!rec)return;
+    function pick(b,focus){var o=Rc[b.dataset.pain];btns.forEach(function(x){x.setAttribute('aria-checked',String(x===b));x.tabIndex=x===b?0:-1;});if(focus)b.focus();
+      rec.classList.add('is-swapping');
+      setTimeout(function(){$('#recImg').src=o.img;$('#recKicker').textContent=o.k;$('#recTitle').textContent=o.t;$('#recReview').textContent=o.r;$('#recPilot').textContent=o.p;$('#recGain').textContent=o.g;$('#recBtn').dataset.topic=o.topic;rec.classList.remove('is-swapping');},reduce?0:200);
+      track('finder_select',{challenge:o.topic});}
+    btns.forEach(function(b,i){b.tabIndex=i===0?0:-1;b.addEventListener('click',function(){pick(b);});
+      b.addEventListener('keydown',function(e){var n=e.key==='ArrowDown'||e.key==='ArrowRight'?1:e.key==='ArrowUp'||e.key==='ArrowLeft'?-1:0;if(!n)return;e.preventDefault();pick(btns[(i+n+btns.length)%btns.length],true);});});
+  })();
+
+  /* ---------- Formulario en dos pasos → correo ---------- */
+  (function(){
+    var f=$('#leadForm');if(!f)return;var msg=$('#formMsg'),msg1=$('#formMsg1'),s1=$('[data-step="1"]',f),s2=$('[data-step="2"]',f),done=$('#formDone'),lbl=$('#stepLbl'),bar=$('#stepBar'),started=false;
+    function go(n){s1.hidden=n!==1;s2.hidden=n!==2;done.hidden=n!==3;lbl.textContent=n===3?'Listo':'Paso '+n+' de 2';bar.style.transform='scaleX('+(n===1?.5:1)+')';
+      if(n===2){$('#f-name').focus({preventScroll:true});track('form_step',{step:2});}if(n===3)done.focus({preventScroll:true});}
+    f.addEventListener('input',function(){if(!started){started=true;track('form_start',{});}});
+    $$('[data-topic]').forEach(function(a){a.addEventListener('click',function(){var v=a.dataset.topic;$$('input[name=interes]',f).forEach(function(c){if(c.value===v)c.checked=true;});go(1);});});
+    $('#toStep2').addEventListener('click',function(){if(!$$('input[name=interes]:checked',f).length){msg1.textContent='Elige al menos una opción (o «Aún no lo sé»).';msg1.className='form__msg is-err';return;}msg1.textContent='';go(2);});
+    $('#toStep1').addEventListener('click',function(){go(1);});
+    $('#formAgain').addEventListener('click',function(){go(2);});
+    f.addEventListener('submit',function(e){
+      e.preventDefault();
+      if(!s1.hidden){$('#toStep2').click();return;}
+      var ok=true;
+      ['f-name','f-company','f-email'].forEach(function(id){var el=$('#'+id),fd=el.closest('.field'),bad=!el.value.trim()||(el.type==='email'&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value));fd.classList.toggle('is-err',bad);el.setAttribute('aria-invalid',bad?'true':'false');if(bad&&ok){el.focus();ok=false;}});
+      if(!ok){msg.textContent='Revisa los campos marcados: nombre, empresa y un correo válido.';msg.className='form__msg is-err';return;}
+      var ints=$$('input[name=interes]:checked',f).map(function(c){return c.value;}).join(', ');
+      var et=(($('input[name=etapa]:checked',f)||{}).value)||'—';
+      var v=function(id){return $('#'+id).value.trim()||'—';};
+      var body='Nombre: '+v('f-name')+'\nCargo: '+v('f-role')+'\nEmpresa / faena: '+v('f-company')+'\nCorreo: '+v('f-email')+'\nTeléfono: '+v('f-phone')+'\n\nInterés: '+ints+'\nEtapa: '+et+'\n\nDesafío:\n'+v('f-msg')+(utm?'\n\nOrigen: '+utm:'');
+      track('generate_lead',{interest:ints,stage:et});
+      W.location.href='mailto:contacto@metalgenomic.cl?subject='+encodeURIComponent('Diagnóstico operativo — '+v('f-company'))+'&body='+encodeURIComponent(body);
+      go(3);
+    });
+  })();
+
+  /* ---------- Preguntas: una abierta a la vez ---------- */
+  (function(){var qs=$$('.qa');qs.forEach(function(q){q.addEventListener('toggle',function(){if(q.open){qs.forEach(function(o){if(o!==q)o.open=false;});track('faq_open',{question:$('summary',q).textContent});}});});})();
+
+  /* ---------- Barra fija: aparece después del escenario, se oculta en el formulario ---------- */
+  var stageEnd=function(){return W.innerHeight;};
+  (function(){var dock=$('#dock'),formIn=false,on=null;
+    function upd(){var v=W.scrollY>stageEnd()&&!formIn;if(v===on)return;on=v;dock.classList.toggle('is-on',v);dock.setAttribute('aria-hidden',String(!v));$('a',dock).tabIndex=v?0:-1;}
+    var io=new IntersectionObserver(function(es){es.forEach(function(x){x.target._in=x.isIntersecting;});formIn=$('#agendar')._in||$('.foot')._in;upd();});io.observe($('#agendar'));io.observe($('.foot'));
+    W.addEventListener('scroll',upd,{passive:true});upd();
+  })();
+
+  /* ---------- Navegación: texto claro sobre secciones oscuras ---------- */
+  (function(){var nav=$('.nav'),darks=$$('[data-dark]'),y=36,last=null;
+    function upd(){var on=darks.some(function(s){var r=s.getBoundingClientRect();return r.top<=y&&r.bottom>y;});if(on!==last){last=on;nav.classList.toggle('is-dark',on);}}
+    W.addEventListener('scroll',upd,{passive:true});W.addEventListener('resize',upd);upd();
+  })();
+
+  /* ---------- Sin animaciones: estado final estático ---------- */
+  if(!motion){
+    var stat=function(){buildRoad();placeTruck();};
+    stat();W.addEventListener('resize',stat);W.addEventListener('load',stat);
+    if(d.fonts&&d.fonts.ready)d.fonts.ready.then(stat);
     return;
   }
+
   gsap.registerPlugin(ScrollTrigger);
 
-  // ---------- Scroll suave (Lenis) sincronizado con ScrollTrigger ----------
-  var lenis = null;
-  if (window.Lenis) {
-    lenis = new Lenis({ duration: 1.4, easing: function (t) { return 1 - Math.pow(1 - t, 3); } });
-    root.classList.add('lenis');
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
-    gsap.ticker.lagSmoothing(0);
+  /* ---------- Scroll suave ---------- */
+  var lenis=null;
+  if(W.Lenis){lenis=new Lenis({duration:1.2,easing:function(t){return 1-Math.pow(1-t,4);}});root.classList.add('lenis');lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(function(t){lenis.raf(t*1000);});gsap.ticker.lagSmoothing(0);}
+  function scrollTo(y){if(lenis)lenis.scrollTo(y,{duration:1.8});else W.scrollTo({top:y,behavior:'smooth'});}
+  var stageTL=null;
+  $$('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){
+    var id=a.getAttribute('href');
+    if(a.dataset.jump==='services'&&stageTL){e.preventDefault();var st=stageTL.scrollTrigger;scrollTo(st.start+(st.end-st.start)*(stageTL.labels.services/stageTL.duration()));return;}
+    var tg=id.length>1&&d.querySelector(id);if(!tg)return;e.preventDefault();
+    if(lenis)lenis.scrollTo(tg,{duration:1.8});else tg.scrollIntoView({behavior:'smooth'});
+  });});
+
+  /* ---------- Entrada ---------- */
+  gsap.timeline({defaults:{ease:'power3.out'}})
+    .to('.hero-copy h1 .ln > span',{y:0,duration:1.1,stagger:.09},.15)
+    .fromTo('[data-hero-fade]',{opacity:0,y:16},{opacity:1,y:0,duration:.9,stagger:.07},.35)
+    .fromTo('#scene',{opacity:0,x:-40},{opacity:1,x:0,duration:1.2,ease:'expo.out'},.3)
+    .fromTo('#groundFoot',{opacity:0},{opacity:1,duration:.8},.9);
+
+  var mm=gsap.matchMedia();
+  mm.add({desk:'(min-width: 768px)',mob:'(max-width: 767px)'},function(ctx){
+    var desk=ctx.conditions.desk;
+
+    /* ===== Escenario: cargar → avanzar → servicios → salir ===== */
+    var truck=$('#truckSide'),wheels=$$('#truckSide .wheel'),load=$('#truckLoad'),shovel=$('#shovel'),scene=$('#scene'),ground=$('#ground'),giant=$('#giant'),trk=$('#svcTrack'),svcs=$('#services');
+    var Dp={a:40,t:0},sync=function(){setDipper(Dp.a,Dp.t);};
+    var tw=function(){return truck.getBoundingClientRect().width;};
+    var tL=function(){return truck.getBoundingClientRect().left-(gsap.getProperty(truck,'x')||0)-(gsap.getProperty(scene,'x')||0);};
+    var deg=function(px){return px/(2*Math.PI*(48/440)*tw())*360;};
+    var offR=function(){return W.innerWidth-tL()+30;};
+    var ctr=function(){return W.innerWidth/2-tw()/2-tL();};
+    var padL=function(){return parseFloat(getComputedStyle(svcs).paddingLeft)||0;};
+    var dist=function(){return Math.max(0,trk.scrollWidth+padL()*1.4-W.innerWidth);};
+    var gdist=function(){return giant.scrollWidth-W.innerWidth*.9;};
+    var rB=function(){return -deg(offR());};
+    var rD=function(){return rB()+deg(ctr());};
+    var rE=function(){return rD()+deg(dist()*.6);};
+    gsap.set('#pile',{transformOrigin:'50% 100%'});
+    gsap.set(wheels,{transformOrigin:'50% 50%'});
+    gsap.set(load,{scaleY:0,transformOrigin:'50% 100%'});
+    gsap.set(ground,{y:0,yPercent:80});
+    gsap.set(truck,{x:offR()});gsap.set(giant,{x:W.innerWidth});gsap.set(svcs,{opacity:0,y:40});
+    sync();
+
+    var E=Math.max(1.6,dist()/W.innerHeight*(desk?1:.8));
+    var tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'#stagePin',start:'top top',
+      end:function(){return '+='+Math.round(tl.duration()*W.innerHeight*(desk?.5:.42));},
+      pin:true,scrub:1,invalidateOnRefresh:true,anticipatePin:1}});
+    stageTL=tl;
+    // A · la pala carga el balde
+    tl.to('#groundFoot',{opacity:0,y:-8,duration:.3},0)
+      .to(Dp,{a:62,duration:.45,ease:'power2.inOut',onUpdate:sync},0)
+      .to('#pile',{scaleY:.3,duration:.35,ease:'power2.out'},.3)
+      .to('#bucketLoad',{opacity:1,duration:.12},.35)
+      .to(Dp,{a:-30,duration:.6,ease:'power2.inOut',onUpdate:sync},.5)
+    // B · el camión retrocede bajo el balde
+      .fromTo(truck,{x:offR},{x:0,duration:.9,ease:'power2.out'},1.15)
+      .fromTo(wheels,{rotation:0},{rotation:rB,duration:.9,ease:'power2.out'},1.15)
+    // C · se abre la compuerta y cae el mineral
+      .to(Dp,{t:68,duration:.3,ease:'power2.inOut',onUpdate:sync},2.1)
+      .to('#bucketLoad',{opacity:0,duration:.1},2.24)
+      .fromTo('#fall',{opacity:0,y:0},{opacity:1,duration:.04},2.22)
+      .to('#fall',{y:52,duration:.26,ease:'power2.in'},2.24)
+      .to('#fall',{opacity:0,duration:.06},2.46)
+      .to(load,{scaleY:1,duration:.34,ease:'power2.out'},2.32)
+      .to(truck,{y:function(){return tw()*.014;},duration:.1,ease:'power1.inOut',yoyo:true,repeat:1},2.36)
+    // D · el camión avanza, sube el suelo y aparecen los servicios
+      .to(Dp,{a:30,t:0,duration:.5,ease:'power2.inOut',onUpdate:sync},2.75)
+      .to('#heroCopy',{y:-70,opacity:0,duration:.6,ease:'power2.in'},2.9)
+      .to(shovel,{x:function(){return -W.innerWidth*.55;},opacity:0,duration:1,ease:'power2.in'},3)
+      .to(truck,{x:ctr,duration:1.1,ease:'power2.inOut'},3)
+      .to(wheels,{rotation:rD,duration:1.1,ease:'power2.inOut'},3)
+      .to('#laneI',{xPercent:-12,duration:1.1,ease:'power2.inOut'},3)
+      .fromTo(ground,{yPercent:80},{yPercent:desk?42:44,duration:1.1,ease:'power3.inOut'},3.1)
+      .fromTo(giant,{x:function(){return W.innerWidth;}},{x:function(){return W.innerWidth*.05;},duration:1.2,ease:'power3.out'},3.3)
+      .fromTo(svcs,{opacity:0,y:40},{opacity:1,y:0,duration:.6,ease:'power3.out'},3.8)
+      .addLabel('services',4.4)
+    // E · recorrido horizontal de servicios; el camión rueda en su lugar
+      .to(trk,{x:function(){return -dist();},duration:E},4.4)
+      .to(giant,{x:function(){return -gdist();},duration:E},4.4)
+      .to(wheels,{rotation:rE,duration:E},4.4)
+      .to('#laneI',{xPercent:-50,duration:E},4.4)
+    // F · el camión sale por la derecha
+      .to(truck,{x:function(){return offR()+20;},duration:.8,ease:'power2.in'},4.5+E)
+      .to(wheels,{rotation:function(){return rE()+deg(offR()+20-ctr());},duration:.8,ease:'power2.in'},4.5+E)
+      .to({},{duration:.15});
+    stageEnd=function(){return tl.scrollTrigger?tl.scrollTrigger.end:W.innerHeight;};
+
+    /* ===== La ruta ===== */
+    ScrollTrigger.create({trigger:route,start:'top bottom',end:'bottom top',onUpdate:placeTruck,onRefresh:function(){buildRoad();placeTruck();}});
+    var ws=splitWords($('#route-title'));
+    gsap.fromTo(ws,{color:'#cfcac1'},{color:'#0d0d0c',stagger:.12,ease:'none',scrollTrigger:{trigger:route,start:'top 60%',end:'top -10%',scrub:true}});
+
+    /* ===== Vista aérea ===== */
+    var atl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'.aerial',start:'top top',end:'bottom bottom',scrub:true}});
+    atl.fromTo('#aerialImg',{scale:1.35},{scale:1,duration:1},0)
+       .fromTo('#aerialPath',{attr:{'stroke-dashoffset':1}},{attr:{'stroke-dashoffset':0},duration:.8},.12);
+    $$('.wp').forEach(function(w,i){atl.fromTo(w,{opacity:0,scale:.9},{opacity:1,scale:1,duration:.08,ease:'power2.out'},.12+i*.22);});
+    gsap.to('.aerial__copy h2 .ln > span',{y:0,duration:1.1,stagger:.1,ease:'power3.out',scrollTrigger:{trigger:'.aerial',start:'top 40%'}});
+
+    /* ===== Revelados ===== */
+    $$('[data-reveal]').forEach(function(el){
+      gsap.fromTo(el,{opacity:0,y:24},{opacity:1,y:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}});
+    });
+    var cw=splitWords($('.cathode__quote [data-words]'));
+    gsap.fromTo(cw,{opacity:.18},{opacity:1,stagger:.1,ease:'none',scrollTrigger:{trigger:'.cathode',start:'top 60%',end:'bottom 70%',scrub:true}});
+    gsap.fromTo('#cathodeMedia',{yPercent:-8,scale:1.12},{yPercent:8,scale:1,ease:'none',scrollTrigger:{trigger:'.cathode',start:'top bottom',end:'bottom top',scrub:true}});
+    gsap.fromTo('.foot__mark',{xPercent:8},{xPercent:-2,ease:'none',scrollTrigger:{trigger:'.foot',start:'top bottom',end:'bottom bottom',scrub:true}});
+
+    return function(){stageTL=null;};
+  });
+
+  function splitWords(el){
+    if(!el)return [];
+    if(!el.dataset.split){
+      (function split(node){[].slice.call(node.childNodes).forEach(function(ch){
+        if(ch.nodeType===3){var f=d.createDocumentFragment();ch.textContent.split(/(\s+)/).forEach(function(w){if(!w)return;if(/^\s+$/.test(w)){f.appendChild(d.createTextNode(' '));return;}var s=d.createElement('span');s.className='w';s.textContent=w;f.appendChild(s);});node.replaceChild(f,ch);}
+        else if(ch.nodeType===1)split(ch);});})(el);
+      el.dataset.split='1';
+    }
+    return $$('.w',el);
   }
-  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
-    a.addEventListener('click', function (e) {
-      var target = document.querySelector(a.getAttribute('href'));
-      if (!target) return;
-      e.preventDefault();
-      if (lenis) lenis.scrollTo(target, { duration: 2.2 });
-      else target.scrollIntoView({ behavior: 'smooth' });
-    });
-  });
 
-  // ---------- Partir el título en letras (accesible: se lee el texto completo) ----------
-  var title = document.querySelector('[data-split]');
-  title.setAttribute('aria-label', title.textContent.replace(/\s+/g, ' ').trim());
-  (function split(node) {
-    Array.prototype.slice.call(node.childNodes).forEach(function (child) {
-      if (child.nodeType === 3) {
-        var frag = document.createDocumentFragment();
-        child.textContent.split(/(\s+)/).forEach(function (part) {
-          if (!part) return;
-          if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
-          var word = document.createElement('span');
-          word.className = 'word';
-          word.setAttribute('aria-hidden', 'true');
-          part.split('').forEach(function (c) {
-            var ch = document.createElement('span');
-            ch.className = 'char';
-            ch.textContent = c;
-            word.appendChild(ch);
-          });
-          frag.appendChild(word);
-        });
-        node.replaceChild(frag, child);
-      } else if (child.nodeType === 1) {
-        split(child);
-      }
-    });
-  })(title);
-
-  var mm = gsap.matchMedia();
-
-  mm.add({ desktop: '(min-width: 768px)', mobile: '(max-width: 767px)' }, function (ctx) {
-    var desktop = ctx.conditions.desktop;
-
-    // ---------- Escena 1 · Apertura ----------
-    var intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
-    intro
-      .fromTo('.letterbox--top, .letterbox--bottom', { scaleY: desktop ? 5 : 3 }, { scaleY: 1, duration: 2.2, ease: 'expo.inOut' }, 0)
-      .to('.opening__black', { opacity: 0, duration: 2.4, ease: 'expo.inOut' }, 0.2)
-      .fromTo('.opening__image', { scale: desktop ? 1.22 : 1.12 }, { scale: 1, xPercent: desktop ? -2 : 0, duration: 14, ease: 'power1.out' }, 0)
-      .fromTo('.opening .eyebrow', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 1.4 }, 1.2)
-      .fromTo('.opening .char',
-        { opacity: 0, y: desktop ? 40 : 18, filter: desktop ? 'blur(10px)' : 'blur(0px)' },
-        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.4, stagger: desktop ? 0.028 : 0.015 }, 1.6)
-      .fromTo('.opening__sub, .opening__ctas, .scroll-hint', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.6, stagger: 0.2 }, 3.2);
-
-    // Las barras letterbox se retiran al salir de la apertura.
-    gsap.to('.letterbox--top', { yPercent: -100, ease: 'none', scrollTrigger: { trigger: '.opening', start: 'top top', end: 'bottom top', scrub: true } });
-    gsap.to('.letterbox--bottom', { yPercent: 100, ease: 'none', scrollTrigger: { trigger: '.opening', start: 'top top', end: 'bottom top', scrub: true } });
-    gsap.to('.opening__content', { yPercent: desktop ? -30 : -12, opacity: 0, ease: 'none', scrollTrigger: { trigger: '.opening', start: 'top top', end: 'bottom top', scrub: true } });
-
-    // ---------- Escena 2 · Planteamiento ----------
-    var phrases = gsap.utils.toArray('.phrase');
-    if (desktop) {
-      var bars = gsap.utils.toArray('.setup__progress i');
-      gsap.set(phrases, { opacity: 0, y: 50 });
-      var setup = gsap.timeline({
-        scrollTrigger: { trigger: '.setup', start: 'top top', end: '+=' + (phrases.length * 100) + '%', pin: true, scrub: 1.2 }
-      });
-      setup.fromTo('.setup__label', { opacity: 0 }, { opacity: 1, duration: 0.5 });
-      phrases.forEach(function (p, i) {
-        setup
-          .to(p, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' })
-          .to(bars[i], { scaleX: 1, duration: 1.4, ease: 'none' }, '<')
-          .to({}, { duration: 0.6 });
-        if (i < phrases.length - 1) setup.to(p, { opacity: 0, y: -50, filter: 'blur(6px)', duration: 1, ease: 'expo.inOut' });
-      });
-    } else {
-      phrases.forEach(function (p) {
-        gsap.from(p, { opacity: 0, y: 30, duration: 1.4, ease: 'power3.out', scrollTrigger: { trigger: p, start: 'top 80%' } });
-      });
-    }
-
-    // ---------- Escena 3 · Desarrollo: parallax en 3 profundidades ----------
-    var depth = desktop ? { far: -12, mid: -28, near: -60 } : { far: -4, mid: -10, near: -18 };
-    Object.keys(depth).forEach(function (k) {
-      gsap.fromTo('[data-depth="' + k + '"]', { yPercent: -depth[k] / 2 }, {
-        yPercent: depth[k] / 2, ease: 'none',
-        scrollTrigger: { trigger: '.develop', start: 'top bottom', end: 'bottom top', scrub: true }
-      });
-    });
-    if (desktop) {
-      gsap.fromTo('.truck', { x: '-25vw' }, {
-        x: '105vw', ease: 'none',
-        scrollTrigger: { trigger: '.develop', start: 'top 60%', end: 'bottom 40%', scrub: 1.5 }
-      });
-    }
-    gsap.fromTo('.develop__head', { opacity: 0, y: 40 }, {
-      opacity: 1, y: 0, duration: 1.6, ease: 'power3.out',
-      scrollTrigger: { trigger: '.develop__head', start: 'top 80%' }
-    });
-    gsap.utils.toArray('[data-card]').forEach(function (card, i) {
-      gsap.fromTo(card, { opacity: 0, y: desktop ? 80 : 30 }, {
-        opacity: 1, y: 0, duration: desktop ? 1.8 : 1.2, delay: desktop ? (i % 2) * 0.15 : 0, ease: 'power3.out',
-        scrollTrigger: { trigger: card, start: 'top 88%' }
-      });
-    });
-
-    // ---------- Escena 4 · Clímax: el número se anima al entrar ----------
-    var num = document.querySelector('[data-count]');
-    var target = parseFloat(num.getAttribute('data-count'));
-    var counter = { v: 0 };
-    num.textContent = '0';
-    var climax = gsap.timeline({ scrollTrigger: { trigger: '.climax', start: 'top 55%' } });
-    climax
-      .fromTo('.climax__glow', { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 2.6, ease: 'expo.inOut' }, 0)
-      .fromTo('.climax__number', { scale: desktop ? 1.5 : 1.2, opacity: 0, filter: 'blur(14px)' }, { scale: 1, opacity: 1, filter: 'blur(0px)', duration: 2.4, ease: 'expo.inOut' }, 0)
-      .to(counter, { v: target, duration: 2.6, ease: 'expo.inOut', onUpdate: function () { num.textContent = Math.round(counter.v); } }, 0.2)
-      .fromTo('.ring-progress', { attr: { 'stroke-dashoffset': 1 } }, { attr: { 'stroke-dashoffset': 0 }, duration: 2.8, ease: 'expo.inOut' }, 0.2)
-      .fromTo('.climax [data-reveal]', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1.4, stagger: 0.18, ease: 'power3.out' }, 1.2);
-
-    // ---------- Escena 5 · Créditos finales + fundido a negro ----------
-    gsap.utils.toArray('.credits [data-reveal], [data-roll]').forEach(function (el) {
-      gsap.fromTo(el, { opacity: 0, y: desktop ? 40 : 20 }, {
-        opacity: 1, y: 0, duration: 1.6, ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 88%' }
-      });
-    });
-    gsap.to('.fade-black', {
-      opacity: 1, ease: 'none',
-      scrollTrigger: { trigger: '.credits', start: 'center center', end: 'bottom bottom', scrub: true }
-    });
-    // Las barras vuelven al final, como en el cierre de una película.
-    gsap.fromTo('.letterbox--top', { yPercent: -100 }, { yPercent: 0, ease: 'none', immediateRender: false,
-      scrollTrigger: { trigger: '.credits', start: 'center center', end: 'bottom bottom', scrub: true } });
-    gsap.fromTo('.letterbox--bottom', { yPercent: 100 }, { yPercent: 0, ease: 'none', immediateRender: false,
-      scrollTrigger: { trigger: '.credits', start: 'center center', end: 'bottom bottom', scrub: true } });
-  });
-
-  // El resto de [data-reveal] ya se anima en sus escenas; se recalcula al cargar fuentes.
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { ScrollTrigger.refresh(); });
+  if(d.fonts&&d.fonts.ready)d.fonts.ready.then(function(){ScrollTrigger.refresh();});
+  W.addEventListener('load',function(){ScrollTrigger.refresh();});
 })();
 </script>
 </body>
