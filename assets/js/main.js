@@ -260,6 +260,7 @@
       if (on && !stepDone[i]) { stepDone[i] = 1; var c = $('[data-step-count]', steps[i]); if (c) countUp(c, +c.dataset.stepCount, 900); }
       if (railSpans[i]) railSpans[i].classList.toggle('is-on', on);
     });
+    var rail = $('.rail'); if (rail) rail.style.opacity = !motion || p.y >= RD.yA ? 1 : 0;
     if (railFill) railFill.style.transform = 'scaleY(' + clamp((s - RD.sA) / Math.max(1, (RD.cps[RD.cps.length - 1] - RD.yA)), 0, 1).toFixed(3) + ')';
   }
   // La línea central discontinua se recorta al tramo ya dibujado con una máscara de trazo
