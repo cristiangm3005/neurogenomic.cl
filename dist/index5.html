@@ -302,7 +302,7 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
 .assets li.alert b{color:var(--copper)}
 .assets li.alert i::after{background:var(--copper)}
 /* ── Nave EW: foco final en el cátodo real ── */
-.cathode{height:380vh}
+.cathode{height:470vh}
 .cathode .stick{align-content:end;justify-items:center;text-align:center}
 .cathode .stick::before{background:radial-gradient(70% 45% at 50% 85%,rgba(9,8,7,.62),rgba(9,8,7,0) 75%)}
 .realcat{position:absolute;inset:0;margin:0;z-index:-2;opacity:0;pointer-events:none}
@@ -317,9 +317,10 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
 .ew-steps li.on b{color:var(--copper)}
 .cathode .quote{opacity:0;transition:opacity .6s}
 .cathode .quote.show{opacity:1}
+.cat-cta:focus-visible{opacity:1!important;transform:none!important}
 @media (max-width:900px){.plant{grid-template-columns:1fr;justify-content:stretch}}
 @media (max-width:760px){
-  .cathode{height:320vh}
+  .cathode{height:420vh}
   .ew-copy{top:calc(var(--bar) + 80px)}
   .ew-steps li{font-size:.86rem;padding:6px 0 6px 12px}
   .ew-steps li:not(.on){display:none}
@@ -328,6 +329,232 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
 }
 @media (prefers-reduced-motion:reduce){
   .motion [data-rv]{opacity:1;transform:none}
+}
+
+/* ═══ v7 · nitidez, duración y responsive ═══════════════════════ */
+:root{--ease-out:cubic-bezier(.23,1,.32,1);--ease-io:cubic-bezier(.77,0,.175,1);--teal:#8FD0BF}
+.motion [data-rv]{transition:opacity 1.3s var(--ease-out),transform 1.5s var(--ease-out)}
+.motion [data-rv="2"]{transition-delay:.18s}.motion [data-rv="3"]{transition-delay:.36s}.motion [data-rv="4"]{transition-delay:.54s}
+#gl{image-rendering:auto}
+
+/* Indicación de scroll en la apertura */
+.cue{position:absolute;left:50%;bottom:calc(var(--bar) + 26px);transform:translateX(-50%);display:grid;justify-items:center;gap:10px;font:500 .66rem/1 var(--f-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--bone-soft);pointer-events:none}
+.cue i{position:relative;width:1px;height:44px;background:var(--line);overflow:hidden}
+.cue i::after{content:"";position:absolute;left:0;top:0;width:1px;height:16px;background:var(--copper);animation:cue 2.4s var(--ease-io) infinite}
+@keyframes cue{0%{transform:translateY(-16px)}70%,100%{transform:translateY(44px)}}
+
+/* ── Quiénes somos ── */
+.intro{height:250vh}
+.intro__stick{align-content:center;gap:clamp(22px,4vh,44px);padding-top:clamp(96px,13vh,130px);padding-bottom:clamp(60px,9vh,100px)}
+.intro__stick::before{background:radial-gradient(90% 80% at 50% 50%,rgba(9,8,7,.72),rgba(9,8,7,.35) 70%)}
+.intro .k{margin:0}
+.intro__big{font:800 clamp(2.1rem,min(5.2vw,7.6vh),6.6rem)/.94 var(--f-display);text-transform:uppercase;letter-spacing:.004em;margin:0;max-width:24ch;cursor:default}
+.intro__big .w{display:inline-block;white-space:nowrap}
+.intro__big .c{display:inline-block;opacity:.14;transition:opacity .9s var(--ease-out),transform .55s var(--ease-out),color .45s ease;will-change:transform}
+.intro__big .w.lit .c{opacity:1}
+.intro__big .w.cu.lit .c{color:var(--copper)}
+.intro__big .c.hot{color:var(--copper)}
+.intro__foot{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:20px 40px}
+.intro__pillars{list-style:none;margin:0;padding:22px 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(3,minmax(0,260px));gap:clamp(16px,3vw,44px)}
+.intro__pillars li{display:grid;gap:6px;align-content:start}
+.intro__pillars b{font:500 .74rem/1.2 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--copper)}
+.intro__pillars span{font-size:.95rem;line-height:1.5;color:var(--bone-soft)}
+.intro__hint{display:none;align-items:center;gap:10px;margin:0;font:500 .66rem/1 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--bone-soft)}
+.intro__hint i{width:8px;height:8px;border-radius:50%;background:var(--copper);box-shadow:0 0 0 0 rgba(227,149,92,.6);animation:pulse 2.4s ease-out infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(227,149,92,.55)}80%,100%{box-shadow:0 0 0 12px rgba(227,149,92,0)}}
+@media (hover:hover) and (pointer:fine){.intro__hint{display:flex}}
+
+/* ── Biolixiviación: corte ilustrativo de la pila ── */
+.trio li b,.trio li span{transition:opacity .6s var(--ease-out),color .6s ease}
+.motion .trio li:not(.on) b,.motion .trio li:not(.on) span{opacity:.42}
+.trio li.on b{color:var(--teal)}
+.heapcut{position:absolute;right:var(--g);top:calc(var(--bar) + 104px);width:min(440px,34vw);margin:0;padding:14px 16px 12px;border:1px solid var(--line);border-radius:8px;background:rgba(11,10,9,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.heapcut svg{display:block;width:100%;height:auto}
+.heapcut figcaption{display:flex;justify-content:space-between;gap:12px;margin-top:8px;font:500 .64rem/1.3 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bone-soft)}
+.heapcut figcaption b{font-weight:500;color:var(--teal)}
+.hc-perc{stroke-dasharray:3 9;animation:perc 1.6s linear infinite}
+.hc-pls{stroke-dasharray:6 6;animation:perc 1.2s linear infinite}
+@keyframes perc{to{stroke-dashoffset:-12}}
+.hc-bub{animation:bub 2.6s ease-in infinite}
+@keyframes bub{0%{transform:translateY(0);opacity:0}20%{opacity:.9}100%{transform:translateY(-34px);opacity:0}}
+.hc-mic{transition:opacity 1s var(--ease-out)}
+.hc-tag{opacity:0;transition:opacity .8s var(--ease-out)}
+.heapcut[data-st="0"] .t0,.heapcut[data-st="1"] .t1,.heapcut[data-st="2"] .t2{opacity:1}
+.heapcut:not(.run) *{animation-play-state:paused}
+
+/* ── Modelo predictivo: computador ── */
+.pm{height:380vh}
+.pm__stick{grid-template-columns:minmax(280px,400px) minmax(0,1fr);align-items:center;gap:clamp(28px,4vw,64px);padding-top:clamp(92px,12vh,120px);padding-bottom:clamp(40px,7vh,80px)}
+.pm__stick::before{background:linear-gradient(90deg,rgba(9,8,7,.82),rgba(9,8,7,.5) 45%,rgba(9,8,7,.35))}
+.pm .h2{font-size:clamp(2.2rem,4.2vw,4.4rem)}
+.pm__lead{font-size:clamp(.98rem,1.1vw,1.08rem)!important;color:var(--bone-soft)!important}
+.pm__steps{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:4px}
+.pm__steps li{display:grid;gap:3px;padding:9px 0 9px 14px;border-left:1px solid var(--line);transition:border-color .6s ease}
+.pm__steps b{font:500 .7rem/1.2 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bone-soft);transition:color .6s ease}
+.pm__steps span{font-size:.9rem;line-height:1.45;color:var(--bone-soft);opacity:.55;transition:opacity .6s ease}
+.pm__steps li.on{border-color:var(--copper)}
+.pm__steps li.on b{color:var(--copper)}
+.pm__steps li.on span{opacity:1;color:var(--bone)}
+.pm__note{margin:16px 0 0;font-size:.82rem;line-height:1.45;color:var(--bone-soft);max-width:44ch}
+.pm__note small{display:block;margin-top:4px;font:400 .62rem/1.3 var(--f-mono);letter-spacing:.08em;opacity:.7}
+
+.pc{justify-self:center;width:100%;max-width:min(940px,calc((100svh - 230px) * 1.6));display:grid;justify-items:center;perspective:1600px}
+.pc__bezel{width:100%;padding:clamp(6px,.8vw,12px);border-radius:14px;background:linear-gradient(160deg,#2a2622,#100e0c 40%,#191613);box-shadow:0 0 0 1px rgba(238,231,219,.08),0 40px 80px -30px rgba(0,0,0,.9);transform:rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg));transition:transform .8s var(--ease-out)}
+.pc__screen{position:relative;container-type:inline-size;aspect-ratio:16/10;overflow:hidden;border-radius:6px;background:radial-gradient(120% 90% at 30% 0%,#121615 0%,#0a0c0b 60%,#070807 100%);display:grid;grid-template-rows:auto minmax(0,1fr) auto;color:var(--bone);font-family:var(--f-mono)}
+.pc__bar{display:flex;align-items:center;gap:2cqw;padding:1.1cqw 1.8cqw;border-bottom:1px solid rgba(238,231,219,.08);font-size:max(8px,1.15cqw);letter-spacing:.1em;text-transform:uppercase;color:var(--bone-soft)}
+.pc__app{display:flex;align-items:center;gap:.8cqw}
+.pc__app i{width:.8cqw;height:.8cqw;min-width:6px;min-height:6px;border-radius:50%;background:var(--teal)}
+.pc__ph{margin-left:auto;color:var(--teal)}
+.pc__screen[data-ph="2"] .pc__ph{color:var(--copper)}
+.pc__clk{font-variant-numeric:tabular-nums}
+.pc__main{display:grid;grid-template-columns:minmax(0,1fr) 30%;gap:1.6cqw;padding:1.6cqw 1.8cqw 0;min-height:0}
+.pc__flow{min-width:0;min-height:0}
+.pc__flow svg{display:block;width:100%;height:100%}
+.pc__side{display:grid;align-content:start;gap:1.2cqw;min-width:0}
+.pc__card{border:1px solid rgba(238,231,219,.1);border-radius:4px;padding:1cqw 1.2cqw .8cqw;background:rgba(238,231,219,.02)}
+.pc__card .mon__h,.pc__card .mon__f{font-size:max(7px,.95cqw)}
+.pc__card canvas{display:block;width:100%;height:7.5cqw;margin-top:.6cqw}
+.pc__tags{list-style:none;margin:0;padding:0;display:grid;gap:.7cqw}
+.pc__tags li{display:grid;grid-template-columns:minmax(0,1fr) 5.5cqw 4.6cqw;gap:.8cqw;align-items:center;font-size:max(7px,.92cqw);letter-spacing:.05em;text-transform:uppercase;color:var(--bone-soft)}
+.pc__tags li span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc__tags i{position:relative;height:3px;background:rgba(238,231,219,.1);display:block;overflow:hidden}
+.pc__tags b{position:absolute;inset:0;background:var(--teal);transform-origin:left;transform:scaleX(var(--v,0));transition:transform 1s var(--ease-out),background-color .5s}
+.pc__tags em{font-style:normal;text-align:right;color:var(--teal)}
+.pc__tags li.hi b{background:var(--copper)}.pc__tags li.hi em{color:var(--copper)}
+.pc__low{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:1.8cqw;padding:1.2cqw 1.8cqw 1.6cqw;border-top:1px solid rgba(238,231,219,.08);min-height:13cqw}
+.pc__log{list-style:none;margin:0;padding:0;display:grid;align-content:start;gap:.5cqw;font-size:max(7px,.95cqw);letter-spacing:.04em;color:var(--bone-soft)}
+.pc__log li{display:flex;gap:1cqw;opacity:0;transform:translateY(6px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+.pc__log li.on{opacity:1;transform:none}
+.pc__log li.w{color:var(--copper)}
+.pc__log time{color:rgba(238,231,219,.42)}
+.pc__tl{display:grid;align-content:start;gap:.9cqw;opacity:0;transition:opacity .8s var(--ease-out)}
+.pc__screen[data-ph="3"] .pc__tl{opacity:1}
+.tl__row{display:grid;grid-template-columns:11cqw minmax(0,1fr);gap:1cqw;align-items:center}
+.tl__lbl{font-size:max(7px,.9cqw);letter-spacing:.06em;text-transform:uppercase;color:var(--bone-soft)}
+.tl__bar{display:flex;height:2.4cqw;min-height:12px;border-radius:2px;overflow:hidden;background:rgba(238,231,219,.05);clip-path:inset(0 calc(100% - var(--tl,0) * 100%) 0 0)}
+.tl__bar i{position:relative;flex:0 0 var(--w);display:flex;align-items:center;justify-content:center}
+.tl__bar em{font-style:normal;font-size:max(6.5px,.82cqw);letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;color:#0b0a09}
+.tl__bar .op{background:rgba(143,208,191,.28)}
+.tl__bar .x{background:#d4553a}
+.tl__bar .stop{background:linear-gradient(90deg,#b7472f,#7a2c1d)}
+.tl__bar .stop em{color:var(--bone)}
+.tl__bar .sig{background:var(--copper)}
+.tl__bar .plan{background:var(--teal)}
+.tl__note{margin:0;font-size:max(6.5px,.82cqw);line-height:1.4;color:rgba(238,231,219,.5)}
+.pc__glare{position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,.05) 0%,rgba(255,255,255,0) 32%)}
+.pc__neck{width:12%;height:clamp(14px,2.4vw,34px);background:linear-gradient(90deg,#14110f,#2b2622,#14110f)}
+.pc__base{width:30%;height:8px;border-radius:6px 6px 2px 2px;background:linear-gradient(180deg,#2b2622,#0f0d0b)}
+.pc__cap{margin:10px 0 0;font:500 .62rem/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bone-soft);opacity:.8}
+
+/* SVG del proceso */
+.fl-row{font:500 10px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;fill:rgba(238,231,219,.5)}
+.fl-pipe{stroke:rgba(238,231,219,.16);stroke-width:1.4;fill:none}
+.fl-flow{stroke:var(--teal);stroke-width:1.4;fill:none;stroke-dasharray:4 8;opacity:0;transition:opacity .8s var(--ease-out)}
+.pc__screen.flow .fl-flow{opacity:.85;animation:perc 1s linear infinite}
+.fl-nd rect{fill:#121514;stroke:rgba(238,231,219,.18);stroke-width:1;transition:stroke .6s ease,fill .6s ease}
+.fl-nd text{font:500 9.5px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;fill:var(--bone)}
+.fl-nd .led{fill:rgba(238,231,219,.2);transition:fill .5s ease}
+.fl-nd.live .led{fill:var(--teal)}
+.fl-nd.live rect{stroke:rgba(143,208,191,.5)}
+.fl-nd .hb{fill:rgba(238,231,219,.08)}
+.fl-nd .hv{fill:var(--teal);transform-box:fill-box;transform-origin:left;transform:scaleX(0);transition:transform 1s var(--ease-out)}
+.fl-nd.alert rect{stroke:var(--copper);fill:#21140c}
+.fl-nd.alert .led,.fl-nd.alert .hv{fill:var(--copper)}
+.fl-ring{fill:none;stroke:var(--copper);stroke-width:1.2;opacity:0;transform-box:fill-box;transform-origin:center}
+.fl-nd.alert .fl-ring{animation:ring 1.8s ease-out infinite}
+@keyframes ring{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(1.5)}}
+.fl-scan{fill:url(#flScanG);opacity:0;transition:opacity .5s ease}
+.pc__screen[data-ph="1"] .fl-scan{opacity:1}
+.pc:not(.run) *{animation-play-state:paused}
+
+/* Cierre: llamado a la acción */
+.cat-cta{margin-top:26px;opacity:0;transform:translateY(12px);transition:opacity .9s var(--ease-out) .3s,transform .9s var(--ease-out) .3s;pointer-events:none}
+.cathode .quote.show+.cat-cta{opacity:1;transform:none;pointer-events:auto}
+
+/* ── Tablet ── */
+@media (max-width:1100px){
+  .heapcut{width:min(380px,38vw)}
+}
+@media (max-width:1100px){
+  .pm__stick{grid-template-columns:1fr;align-content:start;gap:22px;padding-top:96px}
+  .pm__lead,.pm__note,.pm .gain{display:none}
+  .pm__steps{margin-top:14px;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+  .pm__steps li{border-left:0;border-top:1px solid var(--line);padding:10px 0 0}
+  .pc{max-width:min(860px,calc((100svh - 330px) * 1.6))}
+  .heapcut{display:none}
+}
+@media (max-width:900px){
+  .intro__pillars{grid-template-columns:1fr;gap:14px}
+}
+/* ── Teléfono ── */
+@media (max-width:760px){
+  .intro{height:230vh}
+  .intro__big{font-size:clamp(1.9rem,min(9.4vw,5.4vh),3.4rem);line-height:.96}
+  .intro__pillars span{font-size:.86rem}
+  .pm{height:400vh}
+  .pm__stick{padding-top:88px;padding-bottom:24px;gap:14px}
+  .pm .h2{font-size:clamp(2rem,9.6vw,2.8rem)}
+  .pm__steps{grid-template-columns:1fr;margin-top:10px}
+  .pm__steps li:not(.on){display:none}
+  .pc{max-width:none}
+  .pc__screen{aspect-ratio:auto}
+  .pc__bezel{padding:5px;border-radius:10px}
+  .pc__neck,.pc__base{display:none}
+  .pc__bar{font-size:8px;gap:8px;padding:7px 9px}
+  .pc__app{display:none}
+  .pc__ph{margin-left:0}
+  .pc__clk{margin-left:auto}
+  .pc__main{grid-template-columns:1fr;padding:8px 9px 0;gap:8px}
+  .pc__flow{height:auto}
+  .pc__tags{display:none}
+  .pc__card{padding:6px 8px}
+  .pc__card .mon__h,.pc__card .mon__f{font-size:8px}
+  .pc__card canvas{height:38px}
+  .pc__low{grid-template-columns:1fr;padding:8px 9px 10px;min-height:0;gap:8px}
+  .pc__log{font-size:8.5px}
+  .pc__log li:not(.on){display:none}
+  .tl__row{grid-template-columns:76px minmax(0,1fr)}
+  .tl__lbl,.tl__note{font-size:8px}
+  .tl__bar em{font-size:7px}
+  .pc__screen:not([data-ph="3"]) .pc__tl{display:none}
+  .cue{bottom:calc(var(--bar) + 18px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .cue i::after,.intro__hint i,.hc-perc,.hc-pls,.hc-bub,.fl-flow,.fl-ring{animation:none!important}
+  .intro__big .c{transition:opacity .4s ease,color .4s ease}
+  .pc__bezel{transform:none}
+}
+.fl-nd.scanned .hv{transform:scaleX(1)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:18px 0 0;padding:0;list-style:none;font:500 .66rem/1.2 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bone-soft)}
+.a-tr .legend{justify-content:flex-end}
+.legend li{display:flex;align-items:center;gap:8px}
+.legend i{width:14px;height:8px;border-radius:2px;background:rgba(227,149,92,.55)}
+.legend li:nth-child(2) i{background:none;border-top:1px solid #f0a46a;height:0}
+.legend li:nth-child(3) i{width:9px;height:9px;border-radius:50%;background:none;border:1.5px solid #f9b27a}
+@media (max-width:760px){.legend{justify-content:flex-start!important}}
+
+/* pantalla: proceso a lo ancho, instrumentos abajo */
+.pc__main{grid-template-columns:1fr;padding:1.2cqw 1.8cqw 0}
+.pc__low{grid-template-columns:minmax(0,1fr) minmax(0,.95fr) minmax(0,1.3fr);min-height:0;align-items:start}
+.pc__out{position:relative;min-width:0;align-self:stretch}
+.pc__tl{position:absolute;inset:0}
+.pc__log{transition:opacity .6s ease}
+.pc__screen[data-ph="3"] .pc__log{opacity:0}
+.pc__card canvas{height:5.6cqw}
+.pm .h2{font-size:clamp(2rem,3.5vw,3.8rem)}
+.pm__note{text-align:center;max-width:72ch;margin:8px auto 0}
+@media (max-width:760px){
+  .pc__low{grid-template-columns:1fr}
+  .pc__tl{position:relative;inset:auto}
+  .pc__screen[data-ph="3"] .pc__log{display:none}
+  .pc__card canvas{height:38px}
+}
+/* ajustes de pantallas bajas y móviles */
+@media (max-width:1100px),(max-height:820px){.cue{display:none}}
+@media (min-width:761px) and (max-height:820px){.h1{font-size:clamp(3rem,min(11vw,10.4vh),11rem)}.hero .stick{padding-top:96px}}
+@media (max-width:760px){
+  .h1{font-size:clamp(2.3rem,12vw,4.6rem)}
+  .quote{font-size:clamp(2.2rem,10.5vw,3.6rem)}
 }
 </style>
 
@@ -386,24 +613,42 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
           <li><b>NDA</b>desde la 1.ª reunión</li>
         </ul>
       </div>
+      <div class="cue" id="cue" aria-hidden="true"><span>Desliza para explorar</span><i></i></div>
+    </div>
+  </section>
+
+  <!-- 1b · Quiénes somos: tipografía grande que se enciende con el cursor y con el scroll -->
+  <section class="act intro" id="empresa" data-scene="0.2" data-dim="0.32" data-label="Empresa" aria-labelledby="t-intro">
+    <div class="stick intro__stick">
+      <p class="k" data-rv>Quiénes somos · Copiapó, Atacama</p>
+      <h2 class="intro__big" id="t-intro" data-split>Somos MetalGenomic. Unimos biotecnología, datos e inteligencia artificial para que la minería recupere más metal, se detenga menos y deje menos huella.</h2>
+      <div class="intro__foot">
+        <ul class="intro__pillars">
+          <li data-rv><b>Genómica microbiana</b><span>Leemos la comunidad microbiana nativa de tu mineral y tus soluciones.</span></li>
+          <li data-rv="2"><b>Datos geoespaciales</b><span>Satélite y geología para decidir dónde actuar.</span></li>
+          <li data-rv="3"><b>Inteligencia artificial</b><span>Modelos sobre los datos que tu operación ya genera.</span></li>
+        </ul>
+        <p class="intro__hint" aria-hidden="true"><i></i>Pasa el cursor sobre el texto</p>
+      </div>
     </div>
   </section>
 
   <!-- 2 · Territorio -->
-  <section class="act" id="territorio" data-scene="0.5" data-label="Territorio" style="height:160vh" aria-labelledby="t-geo">
+  <section class="act" id="territorio" data-scene="0.5" data-label="Territorio" style="height:250vh" aria-labelledby="t-geo">
     <div class="stick a-tr">
       <div>
         <p class="k" data-rv>Territorio · 400 km</p>
         <h2 class="h2" id="t-geo" data-rv="2">Exploración<br>geoespacial<br>predictiva</h2>
         <p class="lead" data-rv="3" style="margin-left:auto">Satélite, geología y machine learning para priorizar zonas, estimar recursos y vigilar taludes.</p>
         <p class="gain" data-rv="3"><b>Ganas</b>Decidir dónde intervenir con menos riesgo</p>
+        <ul class="legend" data-rv="4" aria-label="Capas del mapa"><li><i></i>Zonas de interés</li><li><i></i>Isolíneas del modelo</li><li><i></i>Blancos priorizados</li></ul>
         <a class="more" data-rv="4" href="#agendar" data-topic="Exploración geoespacial">Evaluarlo en el diagnóstico →</a>
       </div>
     </div>
   </section>
 
   <!-- 3 · Planta · sistema BIM -->
-  <section class="act" id="planta" data-scene="1" data-label="Planta" style="height:170vh" aria-labelledby="t-twin">
+  <section class="act" id="planta" data-scene="1" data-label="Planta" style="height:260vh" aria-labelledby="t-twin">
     <div class="stick a-bl">
       <div>
         <p class="k" data-rv>Planta · 2 km · sistema BIM</p>
@@ -416,14 +661,14 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
   </section>
 
   <!-- 4 · Pilas → biolixiviación -->
-  <section class="act microbio" id="biolix" data-scene="2" data-label="Biolixiviación" style="height:230vh" aria-labelledby="t-bio">
+  <section class="act microbio" id="biolix" data-scene="2" data-label="Biolixiviación" style="height:340vh" aria-labelledby="t-bio">
     <div class="stick a-tl">
       <div>
         <p class="k" data-rv>Pila de lixiviación · 200 m · nuestro diferenciador</p>
         <h2 class="h2" id="t-bio" data-rv="2">Biolixiviación<br>genómica</h2>
         <p class="lead" data-rv="3">Tus pilas pasan a operar como biorreactores. Leemos la comunidad microbiana nativa de tu mineral y la ponemos a disolver más cobre, incluso en baja ley.</p>
         <p class="gain" data-rv="3"><b>Ganas</b>Más recuperación con menos ácido</p>
-        <div class="bio-hud" data-rv="3" aria-hidden="true"><span>Frente de riego</span><i><b id="bioBar"></b></i><em id="bioPct">0 %</em></div>
+        <div class="bio-hud" data-rv="3" aria-hidden="true"><span>Riego · etapa</span><i><b id="bioBar"></b></i><em id="bioPct">Secuenciar</em></div>
         <ol class="trio">
           <li data-rv="2"><b>Secuenciar</b><span>Metagenómica: el ADN de toda la comunidad de tu mineral y tus soluciones.</span></li>
           <li data-rv="3"><b>Seleccionar</b><span>Consorcios nativos de Atacama que mejor disuelven tu mineral, en tus condiciones.</span></li>
@@ -432,33 +677,71 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
         <p class="cap" data-rv="4">Pila con riego por goteo y piscina de solución rica (PLS) · render en tiempo real, ilustrativo</p>
         <a class="more" href="#agendar" data-topic="Biolixiviación genómica">Evaluarlo en el diagnóstico →</a>
       </div>
+      <figure class="heapcut" id="heapcut" data-st="0" aria-hidden="true"><svg id="heapSvg" viewBox="0 0 420 250"></svg><figcaption><span>Corte ilustrativo de la pila</span><b id="heapSt">Secuenciar</b></figcaption></figure>
     </div>
   </section>
 
-  <!-- 5 · Modelo predictivo para toda la planta -->
-  <section class="act" id="equipo" data-scene="3" data-label="Planta predictiva" style="height:200vh" aria-labelledby="t-mnt">
-    <div class="stick a-br">
-      <div>
-        <p class="k" data-rv>Planta completa · 10 m</p>
+  <!-- 5 · Modelo predictivo para toda la planta: el proceso completo visto desde el computador -->
+  <section class="act pm" id="equipo" data-scene="3" data-dim="0.4" data-label="Planta predictiva" aria-labelledby="t-mnt">
+    <div class="stick pm__stick">
+      <div class="pm__copy">
+        <p class="k" data-rv>Planta completa · modelo predictivo</p>
         <h2 class="h2" id="t-mnt" data-rv="2">Modelo predictivo<br>para toda la planta</h2>
-        <p class="lead" data-rv="3" style="margin-left:auto">Vibración, temperatura, acústica y datos de operación de chancadores, molinos, correas, bombas y rectificadores en un solo modelo. La falla avisa antes de detener la planta.</p>
-        <p class="gain" data-rv="3"><b>Ganas</b>Planificar en vez de reaccionar</p>
-        <div class="plant" data-rv="4" aria-hidden="true">
-          <div class="mon">
-            <div class="mon__h"><span>Vibración · molino SAG</span><span class="mon__s" id="monS">● Normal</span></div>
-            <canvas id="vib"></canvas>
-            <div class="mon__f"><span>mm/s RMS</span><span>Simulación</span></div>
+        <p class="lead pm__lead" data-rv="3">Vibración, temperatura, potencia y variables de proceso de chancado, molienda, clasificación, bombeo y electroobtención, leídas en un solo modelo. Muchas fallas dan señales antes de detener la planta: el modelo las busca.</p>
+        <ol class="pm__steps" id="pmSteps" data-rv="3">
+          <li class="on"><b>01 · Captura</b><span>Los sensores y sistemas que ya tienes: SCADA, PI System y SAP PM.</span></li>
+          <li><b>02 · Análisis</b><span>Cada equipo se compara con su propio comportamiento normal.</span></li>
+          <li><b>03 · Señal temprana</b><span>Una desviación en el descanso del molino SAG aparece antes de convertirse en detención.</span></li>
+          <li><b>04 · Decisión</b><span>La mantención entra en una ventana planificada, con bloqueo de energías y permisos en regla.</span></li>
+        </ol>
+        <p class="gain" data-rv="4"><b>Ganas</b>Planificar en vez de reaccionar</p>
+      </div>
+
+      <div class="pc" id="pc" aria-hidden="true">
+        <div class="pc__bezel">
+          <div class="pc__screen" id="pcScreen" data-ph="0">
+            <div class="pc__bar">
+              <span class="pc__app"><i></i>MetalGenomic · Planta concentradora + EW</span>
+              <span class="pc__ph" id="pcPhase">01 · Captura de datos</span>
+              <span class="pc__clk" id="pcClock">08:12:00</span>
+            </div>
+            <div class="pc__main"><div class="pc__flow" id="pcFlow"></div></div>
+            <div class="pc__low">
+                <div class="pc__card">
+                  <div class="mon__h"><span>Vibración · descanso SAG</span><span class="mon__s" id="monS">● Normal</span></div>
+                  <canvas id="vib"></canvas>
+                  <div class="mon__f"><span>Tendencia</span><span>Simulación</span></div>
+                </div>
+                <ul class="pc__tags" id="pcTags">
+                  <li data-k="vib"><span>Vibración · descanso</span><i><b></b></i><em>Normal</em></li>
+                  <li data-k="tmp"><span>Temperatura · descanso</span><i><b></b></i><em>Normal</em></li>
+                  <li><span>Potencia · motor</span><i><b></b></i><em>Normal</em></li>
+                  <li><span>% sólidos · densímetro</span><i><b></b></i><em>Normal</em></li>
+                  <li><span>Presión · ciclones</span><i><b></b></i><em>Normal</em></li>
+                  <li><span>Nivel · cuba</span><i><b></b></i><em>Normal</em></li>
+                </ul>
+                <div class="pc__out">
+              <ol class="pc__log" id="pcLog">
+                <li data-at="0"><time>08:12</time>Captura · señales de 12 equipos en línea</li>
+                <li data-at="1"><time>08:14</time>Análisis · patrón normal aprendido por equipo</li>
+                <li data-at="2" class="w"><time>08:21</time>Molino SAG · vibración en descanso sobre su patrón</li>
+                <li data-at="2" class="w"><time>08:22</time>Sugerencia · inspeccionar rodamiento en la próxima ventana</li>
+                <li data-at="3"><time>08:30</time>Orden de trabajo planificada · SAP PM</li>
+              </ol>
+              <div class="pc__tl" id="pcTl">
+                <div class="tl__row"><span class="tl__lbl">Sin señal temprana</span><div class="tl__bar"><i class="op" style="--w:44%"></i><i class="x" style="--w:4%"></i><i class="stop" style="--w:52%"><em>Detención no planificada</em></i></div></div>
+                <div class="tl__row"><span class="tl__lbl">Con señal temprana</span><div class="tl__bar"><i class="op" style="--w:30%"></i><i class="sig" style="--w:4%"></i><i class="op" style="--w:24%"></i><i class="plan" style="--w:18%"><em>Mantención planificada</em></i><i class="op" style="--w:24%"></i></div></div>
+                <p class="tl__note">Esquema ilustrativo, no a escala. No todas las fallas dan aviso; las que sí, se pueden planificar.</p>
+              </div>
+                </div>
+            </div>
+            <div class="pc__glare"></div>
           </div>
-          <ul class="assets" id="assets">
-            <li><span>Chancador primario</span><i style="--v:.86"></i><b>OK</b></li>
-            <li id="aSag"><span>Molino SAG</span><i style="--v:.81"></i><b>OK</b></li>
-            <li><span>Correa CV-02</span><i style="--v:.77"></i><b>OK</b></li>
-            <li><span>Bombas PLS</span><i style="--v:.9"></i><b>OK</b></li>
-            <li><span>Rectificador EW</span><i style="--v:.84"></i><b>OK</b></li>
-            <li><span>Puente grúa 2</span><i style="--v:.88"></i><b>OK</b></li>
-          </ul>
         </div>
-        <a class="more" data-rv="4" href="#agendar" data-topic="Mantenimiento predictivo">Evaluarlo en el diagnóstico →</a>
+        <div class="pc__neck"></div><div class="pc__base"></div>
+        <p class="pc__cap">Interfaz ilustrativa · datos simulados</p>
+        <p class="pm__note" >La molienda consume del 70 % al 80 % de la energía de una planta concentradora: cada detención evitada pesa.<small>Fuente: IPLACEX, Operación de equipos de chancado y molienda, unidad II.</small></p>
+
       </div>
     </div>
   </section>
@@ -479,6 +762,7 @@ legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;
       </div>
       <div class="el" aria-hidden="true"><small>29</small><b>Cu</b><span>Cobre<br>63,546</span></div>
       <p class="quote" id="quote">Al final, todo se mide en metal recuperado.</p>
+      <a class="btn btn--cu cat-cta" href="#agendar">Agendar diagnóstico <i aria-hidden="true">→</i></a>
     </div>
   </section>
 
@@ -673,7 +957,7 @@ vec3 skyCol(vec3 rd,vec3 sun){
   c=mix(c,vec3(.95,.52,.32),exp(-abs(rd.y)*16.)*.5);
   return c;
 }
-uniform float uBim, uBio, uCrane;
+uniform float uBim, uBio, uCrane, uGeo;
 /* Vuelo continuo: satélite (k=0) → planta / BIM (k=1) → pila de lixiviación (k=2) */
 float lineW(float d,float w){return 1.-smoothstep(w*.5,w*1.5,d);}
 vec3 sceneTerrain(vec2 uv,float k){
@@ -749,6 +1033,21 @@ vec3 sceneTerrain(vec2 uv,float k){
       float scan=smoothstep(.0,.04,fract(uTime*.08)-fract((p.x-PIT.x+30.)/70.))*.0;
       float a=uBim*(1.-smoothstep(120.,170.,t));
       col=mix(col,vec3(.56,.90,.82),clamp(g*.85+grid*.25+ax*.6+scan,0.,1.)*a);
+    }
+    /* Exploración geoespacial: prospectividad, isolíneas, barrido de análisis y blancos priorizados */
+    if(uGeo>.01){
+      float f=fbm(p.xz*.03+vec2(7.,3.),4.);
+      float zone=smoothstep(.56,.64,f);
+      float iso=lineW(abs(fract(f*14.)-.5)/14.,.0045+.00004*t);
+      float sx=mix(-70.,90.,fract(uTime*.05));
+      float band=exp(-abs(p.x-PIT.x-sx)*.22);
+      float ga=uGeo*(1.-smoothstep(170.,230.,t));
+      col=mix(col,col*vec3(1.45,.92,.6)+vec3(.14,.05,0.),zone*.75*ga);
+      col=mix(col,vec3(.93,.6,.36),iso*ga*(.05+.4*zone));
+      col+=vec3(.56,.90,.82)*band*.09*ga;
+      for(int j=0;j<3;j++){vec2 T=PIT+(j==0?vec2(-32.,14.):(j==1?vec2(-14.,-28.):vec2(40.,24.)));float dd=length(p.xz-T);
+        float ring=lineW(abs(dd-3.2-sin(uTime*1.4+float(j))*.45),.14+.0025*t)+lineW(dd,.5+.002*t);
+        col=mix(col,vec3(.99,.72,.44),clamp(ring,0.,1.)*ga*.75);}
     }
     float fo=1.-exp(-t*.0058);
     vec3 fc=mix(vec3(.34,.24,.22),vec3(1.0,.58,.33),pow(max(dot(rd,sun),0.),4.));
@@ -960,7 +1259,7 @@ vec3 sceneTank(vec2 uv){
   const DEF='#define Q_TS '+Q.TS+'\n#define Q_TF '+Q.TF+'\n#define Q_NO '+Q.NO+'\n#define Q_SH '+Q.SH+'\n#define Q_MS '+Q.MS+'\n#define Q_KS '+Q.KS+'\n';
   // 0 satélite → BIM → pila (vuelo continuo) · 1 molino / modelo predictivo · 2 nave EW con puente grúa
   const EXPR=['sceneTerrain(uv,uK)','sceneMill(uv)','sceneTank(uv)'];
-  const MAIN=e=>'\nuniform float uK,uFade;\nvoid main(){vec2 uv=(gl_FragCoord.xy-.5*uRes)/uRes.y;vec3 col='+e+';col*=uDim*uFade;col=aces(col*1.08);col=pow(col,vec3(1./2.2));vec2 q=gl_FragCoord.xy/uRes;col*=.32+.68*pow(16.*q.x*q.y*(1.-q.x)*(1.-q.y),.24);col+=(h21(gl_FragCoord.xy+fract(uTime*7.)*91.)-.5)*.05;gl_FragColor=vec4(col,1.);}\n';
+  const MAIN=e=>'\nuniform float uK,uFade;\nvoid main(){vec2 uv=(gl_FragCoord.xy-.5*uRes)/uRes.y;vec3 col='+e+';col*=uDim*uFade;col=aces(col*1.08);col=pow(col,vec3(1./2.2));vec2 q=gl_FragCoord.xy/uRes;col*=.32+.68*pow(16.*q.x*q.y*(1.-q.x)*(1.-q.y),.24);col+=(h21(gl_FragCoord.xy+fract(uTime*7.)*91.)-.5)*.028;gl_FragColor=vec4(col,1.);}\n';
   const VS='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
   let gl=null,ext=null,buf=null,progs=[],glDead=false,glLost=false,drewOnce=false;
 
@@ -994,21 +1293,21 @@ vec3 sceneTank(vec2 uv){
     P.ok=!!gl.getProgramParameter(P.p,gl.LINK_STATUS);
     if(!P.ok){console.warn(gl.getShaderInfoLog(P.f)||gl.getProgramInfoLog(P.p));nogl('el shader no compiló');return false;}
     P.loc=gl.getAttribLocation(P.p,'p');P.U={};
-    ['uRes','uTime','uDim','uAlert','uMouse','uK','uFade','uBim','uBio','uCrane'].forEach(n=>P.U[n]=gl.getUniformLocation(P.p,n));
+    ['uRes','uTime','uDim','uAlert','uMouse','uK','uFade','uBim','uBio','uCrane','uGeo'].forEach(n=>P.U[n]=gl.getUniformLocation(P.p,n));
     return true;
   }
   cv.addEventListener('webglcontextlost',e=>{e.preventDefault();glLost=true;root.classList.remove('glon');},false);
   cv.addEventListener('webglcontextrestored',()=>{glLost=false;initGL();},false);
   if(/[?&]gl=0\b/.test(qs))nogl('desactivada por parámetro');else initGL();
 
-  let scale=small?.34:.42; const minScale=small?.2:.24, maxScale=small?.5:.6;
+  let scale=small?.5:.62; const minScale=small?.28:.3, maxScale=1;
   function size(){
     if(!gl)return;
-    const w=Math.max(2,Math.round(innerWidth*scale)),h=Math.max(2,Math.round(innerHeight*scale));
+    const sc=Math.min(scale,Math.sqrt(2.3e6/(innerWidth*innerHeight)));const w=Math.max(2,Math.round(innerWidth*sc)),h=Math.max(2,Math.round(innerHeight*sc));
     if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h;gl.viewport(0,0,w,h);}
   }
   // escena (0..4) → programa y mezcla
-  const story={bim:0,bio:0,crane:0};
+  const story={bim:0,bio:0,crane:0,geo:0};
   function draw(i,k,fade,alpha,now){
     const P=progs[i];gl.useProgram(P.p);
     gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.enableVertexAttribArray(P.loc);gl.vertexAttribPointer(P.loc,2,gl.FLOAT,false,0,0);
@@ -1017,7 +1316,7 @@ vec3 sceneTank(vec2 uv){
     gl.uniform1f(U.uTime,reduce?12.:(now-t0)/1000+12.);
     gl.uniform1f(U.uDim,cur.d);gl.uniform1f(U.uAlert,reduce?0:alert);
     gl.uniform2f(U.uMouse,mouse[0],mouse[1]);gl.uniform1f(U.uK,k);gl.uniform1f(U.uFade,fade);
-    gl.uniform1f(U.uBim,story.bim);gl.uniform1f(U.uBio,story.bio);gl.uniform1f(U.uCrane,story.crane);
+    gl.uniform1f(U.uBim,story.bim);gl.uniform1f(U.uBio,story.bio);gl.uniform1f(U.uCrane,story.crane);gl.uniform1f(U.uGeo,story.geo);
     if(alpha<1){gl.enable(gl.BLEND);gl.blendColor(0,0,0,alpha);gl.blendFunc(gl.CONSTANT_ALPHA,gl.ONE_MINUS_CONSTANT_ALPHA);}else gl.disable(gl.BLEND);
     gl.drawArrays(gl.TRIANGLES,0,3);
   }
@@ -1033,7 +1332,7 @@ vec3 sceneTank(vec2 uv){
     if(drewOnce&&moving){gAcc+=dt;gFrames++;
       if(gAcc>.5){const ft=gAcc/gFrames;gAcc=0;gFrames=0;
         if(ft>.028&&scale>minScale)scale=Math.max(minScale,scale*.84);
-        else if(ft<.017&&scale<maxScale)scale=Math.min(maxScale,scale*1.05);
+        else if(ft<.017&&scale<maxScale)scale=Math.min(maxScale,scale*1.06);
         if(ft>.12&&scale<=minScale+1e-3){if(++slow>=3){nogl('el equipo no alcanza a dibujar la escena');return;}}else slow=0;}}
     let a,f;
     if(s<1){a=0;f=0;}else{a=Math.floor(s);f=s-a;if(a>=4){a=4;f=0;}}
@@ -1083,7 +1382,7 @@ vec3 sceneTank(vec2 uv){
 
   /* ── Vibración ─────────────────────── */
   const vib=document.getElementById('vib'),vctx=vib.getContext('2d'),monS=document.getElementById('monS');
-  const eqSec=document.getElementById('equipo'),aSag=document.getElementById('aSag'),aSagB=aSag.querySelector('b'),aSagI=aSag.querySelector('i');
+  const eqSec=document.getElementById('equipo');
   let alert=0,alertT=0;
   function drawVib(t){
     const w=vib.clientWidth,h=vib.clientHeight,dpr=Math.min(2,devicePixelRatio||1);
@@ -1116,6 +1415,102 @@ vec3 sceneTank(vec2 uv){
   function setT(el,v){if(el._v!==v){el._v=v;el.textContent=v;}}
   function secP(el){const r=el.getBoundingClientRect();return Math.min(1,Math.max(0,-r.top/(el.offsetHeight-innerHeight)));}
 
+  /* ── v7 · Quiénes somos: cada letra se enciende con el cursor; las palabras, con el scroll ── */
+  const finePtr=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  const intro=document.getElementById('empresa'),introBig=intro.querySelector('[data-split]');
+  const iWords=[],iChars=[];let iLit=-1;
+  (function(){
+    const txt=introBig.textContent.trim().replace(/\s+/g,' ');introBig.setAttribute('aria-label',txt);
+    const frag=document.createDocumentFragment();
+    txt.split(' ').forEach((w,i)=>{
+      if(i)frag.appendChild(document.createTextNode(' '));
+      const ws=document.createElement('span');ws.className='w'+(/^(metal,?|menos|huella\.?)$/i.test(w)?' cu':'');ws.setAttribute('aria-hidden','true');
+      for(const ch of w){const c=document.createElement('span');c.className='c';c.textContent=ch;ws.appendChild(c);iChars.push({el:c,w:ws,x:0,y:0,p:0});}
+      frag.appendChild(ws);iWords.push(ws);
+    });
+    introBig.textContent='';introBig.appendChild(frag);
+  })();
+  function measureIntro(){const b=introBig.getBoundingClientRect();iChars.forEach(o=>{const r=o.el.getBoundingClientRect();o.x=r.left-b.left+r.width/2;o.y=r.top-b.top+r.height/2;});}
+  let iPt=null,iRaf=0;
+  function introHover(){
+    iRaf=0;const b=introBig.getBoundingClientRect();const R=Math.max(90,Math.min(180,b.width*.1));
+    for(const o of iChars){
+      let p=0;
+      if(iPt){const dx=iPt[0]-(b.left+o.x),dy=(iPt[1]-(b.top+o.y))*1.3;p=Math.max(0,1-Math.sqrt(dx*dx+dy*dy)/R);p=p*p*(3-2*p);}
+      if(Math.abs(p-o.p)<.015)continue;o.p=p;
+      o.el.style.transform=(p>.01&&!reduce)?'translateY('+(-p*.1).toFixed(3)+'em) scale('+(1+p*.12).toFixed(3)+')':'';
+      o.el.classList.toggle('hot',p>.3);
+      if(p>.45&&!o.w.classList.contains('hov')){o.w.classList.add('hov','lit');}
+    }
+  }
+  if(finePtr){
+    introBig.addEventListener('pointermove',e=>{iPt=[e.clientX,e.clientY];if(!iRaf)iRaf=requestAnimationFrame(introHover);},{passive:true});
+    introBig.addEventListener('pointerleave',()=>{iPt=null;if(!iRaf)iRaf=requestAnimationFrame(introHover);});
+  }
+  addEventListener('resize',measureIntro);addEventListener('load',measureIntro);
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(measureIntro);
+  measureIntro();
+  const cue=document.getElementById('cue');
+
+  /* ── v7 · Biolixiviación: corte ilustrativo de la pila sincronizado con los tres pasos ── */
+  const heap=document.getElementById('heapcut'),heapSvg=document.getElementById('heapSvg'),heapSt=document.getElementById('heapSt');
+  const trioLis=[...document.querySelectorAll('#biolix .trio li')],STN=['Secuenciar','Seleccionar','Monitorear'];let bioSt=-1;
+  (function(){
+    let sd=11;const rnd=()=>(sd=(sd*16807)%2147483647)/2147483647;
+    const T=(x,y,t,a)=>'<text x="'+x+'" y="'+y+'" text-anchor="'+(a||'start')+'" fill="rgba(238,231,219,.72)" style="font:500 9px var(--f-mono);letter-spacing:.08em;text-transform:uppercase">'+t+'</text>';
+    const HP='40,205 112,64 308,64 380,205';
+    let h='<defs><linearGradient id="hcG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6e5643"/><stop offset="1" stop-color="#33271f"/></linearGradient><clipPath id="hcC"><polygon points="'+HP+'"/></clipPath></defs>';
+    h+='<polygon points="'+HP+'" fill="url(#hcG)"/><g clip-path="url(#hcC)">';
+    for(let i=0;i<300;i++){const x=40+rnd()*340,y=64+rnd()*141,r=.8+rnd()*3.2;h+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+r.toFixed(1)+'" fill="rgba('+(140+rnd()*70|0)+','+(110+rnd()*45|0)+','+(85+rnd()*35|0)+','+(.2+rnd()*.4).toFixed(2)+')"/>';}
+    for(let x=126;x<300;x+=21)h+='<line class="hc-perc" x1="'+x+'" y1="66" x2="'+(x-8)+'" y2="200" stroke="rgba(143,208,191,.6)" stroke-width="1.2"/>';
+    h+='<g class="hc-mic" id="hcMic" opacity=".2">';
+    for(let i=0;i<90;i++){const x=64+rnd()*292,y=78+rnd()*120;h+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+(.9+rnd()*.9).toFixed(1)+'" fill="#8FD0BF" opacity="'+(.3+rnd()*.7).toFixed(2)+'"/>';}
+    h+='</g>';
+    for(let x=86;x<350;x+=44)h+='<circle class="hc-bub" style="animation-delay:'+(rnd()*2.6).toFixed(2)+'s" cx="'+x+'" cy="196" r="1.8" fill="rgba(238,231,219,.7)"/>';
+    h+='</g>';
+    h+='<line x1="108" y1="60" x2="312" y2="60" stroke="#24211e" stroke-width="3"/>';
+    for(let x=116;x<308;x+=12)h+='<circle cx="'+x+'" cy="60" r="1.6" fill="#8FD0BF"/>';
+    h+='<line x1="28" y1="208" x2="394" y2="208" stroke="#161413" stroke-width="4"/>';
+    h+='<line x1="58" y1="199" x2="362" y2="199" stroke="rgba(238,231,219,.35)" stroke-width="1.4" stroke-dasharray="2 4"/>';
+    h+='<path class="hc-pls" d="M52 214 H396 V228" stroke="#3fae9c" stroke-width="2.4" fill="none"/>';
+    h+='<rect x="370" y="228" width="44" height="14" rx="2" fill="#1f6f66"/>';
+    h+=T(40,52,'Riego por goteo')+T(366,238,'PLS','end')+T(28,236,'Aire · carpeta impermeable');
+    h+='<g class="hc-tag t0">';[[150,112],[232,152],[292,98]].forEach(([x,y])=>{h+='<circle cx="'+x+'" cy="'+y+'" r="7" fill="none" stroke="#E3955C" stroke-width="1.2"/><circle cx="'+x+'" cy="'+y+'" r="2" fill="#E3955C"/>';});h+=T(304,124,'Muestras')+'</g>';
+    h+='<g class="hc-tag t1"><rect x="132" y="122" width="156" height="20" rx="3" fill="rgba(11,10,9,.78)"/>'+T(210,135,'Consorcio nativo activo','middle')+'</g>';
+    h+='<g class="hc-tag t2">';[[150,'pH'],[210,'T°'],[270,'O₂']].forEach(([x,l])=>{h+='<line x1="'+x+'" y1="30" x2="'+x+'" y2="150" stroke="#E3955C" stroke-width="1.3"/><circle cx="'+x+'" cy="150" r="2.6" fill="#E3955C"/>'+T(x,24,l,'middle');});h+=T(292,24,'· en rango')+'</g>';
+    heapSvg.innerHTML=h;
+  })();
+  const hcMic=document.getElementById('hcMic');
+
+  /* ── v7 · Modelo predictivo: el proceso completo en pantalla ── */
+  const pc=document.getElementById('pc'),pcScreen=document.getElementById('pcScreen'),pcFlow=document.getElementById('pcFlow'),pcBezel=pc.querySelector('.pc__bezel');
+  const pcPhase=document.getElementById('pcPhase'),pcClock=document.getElementById('pcClock');
+  const pcLog=[...document.querySelectorAll('#pcLog li')],pmLis=[...document.querySelectorAll('#pmSteps li')];
+  const pcTags=[...document.querySelectorAll('#pcTags li')],tlBars=[...document.querySelectorAll('.tl__bar')];
+  const PHN=['01 · Captura de datos','02 · Análisis por equipo','03 · Señal temprana','04 · Decisión planificada'];
+  const FL=[['Concentradora · chancado y molienda',['Chancador','Correa CV-02','Molino SAG','Harnero','Molino bolas','Hidrociclones']],['Hidrometalurgia · electroobtención',['Pila','Solución PLS','Planta SX','Nave EW','Puente grúa','Cátodos']]];
+  const HEALTH=[.86,.8,.84,.78,.83,.8,.9,.85,.83,.88,.86,.92];
+  let flMode='',flNodes=[],flScan=null,flW=720,flH=300,flNarrow=false,flKey='',pmPh=-1;
+  function buildFlow(){
+    const narrow=pcFlow.clientWidth<520,mode=narrow?'n':'w';if(mode===flMode)return;flMode=mode;flNarrow=narrow;flKey='';
+    const W=narrow?340:720,H=narrow?322:252;flW=W;flH=H;
+    const pos=narrow?(r,i)=>[r?256:84,52+i*48]:(r,i)=>[62+i*119,r?204:84];
+    let h='<defs><linearGradient id="flScanG" x1="0" y1="0" x2="'+(narrow?0:1)+'" y2="'+(narrow?1:0)+'"><stop offset="0" stop-color="rgba(143,208,191,0)"/><stop offset="1" stop-color="rgba(143,208,191,.32)"/></linearGradient></defs>';
+    FL.forEach(([lbl,nodes],r)=>{
+      const p0=pos(r,0);
+      h+=narrow?'<text class="fl-row" x="'+p0[0]+'" y="22" text-anchor="middle">'+lbl.split(' · ')[0]+'</text>':'<text class="fl-row" x="12" y="'+(p0[1]-34)+'">'+lbl+'</text>';
+      for(let i=0;i<nodes.length-1;i++){const a=pos(r,i),b=pos(r,i+1);const d=narrow?'M'+a[0]+' '+(a[1]+16)+' V'+(b[1]-16):'M'+(a[0]+50)+' '+a[1]+' H'+(b[0]-50);h+='<path class="fl-pipe" d="'+d+'"/><path class="fl-flow" d="'+d+'"/>';}
+    });
+    h+=narrow?'<rect class="fl-scan" x="0" y="0" width="'+W+'" height="64"/>':'<rect class="fl-scan" x="0" y="0" width="72" height="'+H+'"/>';
+    FL.forEach(([,nodes],r)=>nodes.forEach((n,i)=>{const [x,y]=pos(r,i),id=r*6+i,w=100,hh=32;
+      h+='<g class="fl-nd" transform="translate('+(x-w/2)+','+(y-hh/2)+')"><rect class="fl-ring" width="'+w+'" height="'+hh+'" rx="4"/><rect width="'+w+'" height="'+hh+'" rx="4"/><circle class="led" cx="'+(w-8)+'" cy="8" r="2.6"/><text x="8" y="17">'+n+'</text><rect class="hb" x="8" y="'+(hh-8)+'" width="'+(w-16)+'" height="2.5"/><rect class="hv" x="8" y="'+(hh-8)+'" width="'+((w-16)*HEALTH[id]).toFixed(1)+'" height="2.5"/></g>';}));
+    pcFlow.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet">'+h+'</svg>';
+    flNodes=[...pcFlow.querySelectorAll('.fl-nd')].map((g,id)=>{const r=id<6?0:1,i=id%6,pp=pos(r,i);return{g,x:pp[0],y:pp[1]};});
+    flScan=pcFlow.querySelector('.fl-scan');
+  }
+  addEventListener('resize',()=>{flMode='';});
+
+
   function loop(now){
     if(!visible){running=false;return;}
     const dt=Math.min(.1,(now-last)/1000);last=now;
@@ -1128,13 +1523,13 @@ vec3 sceneTank(vec2 uv){
     const hp=secP(hero),cp=cat.getBoundingClientRect();
     let bar=Math.max(0,1-hp*1.6)*Math.min(innerHeight*.085,72);
     if(cp.top<innerHeight&&cp.bottom>0){const p=secP(cat);bar=Math.max(bar,Math.sin(Math.min(1,p*1.25)*Math.PI)*innerHeight*.13);
-      const n=Math.floor(Math.min(1,Math.max(0,(p-.86)/.12))*quoteWords.length+.2);quoteWords.forEach((w,i)=>w.classList.toggle('on',reduce||i<n));}
+      const n=Math.floor(Math.min(1,Math.max(0,(p-.84)/.09))*quoteWords.length+.2);quoteWords.forEach((w,i)=>w.classList.toggle('on',reduce||i<n));}
     root.style.setProperty('--bar',bar.toFixed(1)+'px');
 
     // historia: BIM sobre la planta, frente de biolixiviación y cosecha con puente grúa
     story.bim=Math.max(0,Math.min(1,1-Math.abs(cur.s-1)/.55));
     story.bio=secP(bioSec);story.crane=secP(cat);
-    bioBar.style.transform='scaleX('+story.bio.toFixed(3)+')';setT(bioPct,Math.round(story.bio*100)+' %');
+    bioBar.style.transform='scaleX('+story.bio.toFixed(3)+')';
     {const p=story.crane,st=p<.3?0:p<.5?1:p<.8?2:3;
      if(st!==ewStep){ewStep=st;ewLis.forEach((li,i)=>li.classList.toggle('on',i===st));}
      const f=Math.min(1,Math.max(0,(p-.8)/.15)),fb2=1-Math.min(1,Math.max(0,(p-.84)/.16));
@@ -1142,14 +1537,42 @@ vec3 sceneTank(vec2 uv){
      realcat.style.setProperty('--rb',(reduce?0:fb2*16).toFixed(2)+'px');realcat.style.setProperty('--rs',(1+.1*fb2).toFixed(4));
      ewCopy.style.opacity=(1-Math.min(1,Math.max(0,(p-.8)/.08))).toFixed(3);
      quoteEl.classList.toggle('show',p>.86);}
+    // v7 · apertura: la indicación de scroll se retira al empezar el recorrido
+    if(cue)cue.style.opacity=Math.max(0,1-hp*5).toFixed(3);
+    // v7 · quiénes somos: las palabras se encienden con el avance del scroll
+    {const r=intro.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0){
+      const p=secP(intro),n=reduce?iWords.length:Math.min(iWords.length,Math.floor(Math.min(1,p/.6)*iWords.length)+(r.top<innerHeight*.35?1:0));
+      if(n!==iLit){iLit=n;iWords.forEach((w,i)=>w.classList.toggle('lit',i<n||w.classList.contains('hov')));}}}
+    // v7 · geoespacial: capas de prospectividad sobre el territorio
+    story.geo=Math.max(0,Math.min(1,1-Math.abs(cur.s-.5)/.36));
+    // v7 · biolixiviación: tres pasos sincronizados con la escena y el corte de la pila
+    {const r=bioSec.getBoundingClientRect(),vis=r.top<innerHeight&&r.bottom>0;heap.classList.toggle('run',vis&&!reduce);
+      if(vis){const st=story.bio<.34?0:story.bio<.67?1:2;
+        if(st!==bioSt){bioSt=st;heap.dataset.st=st;setT(heapSt,STN[st]);setT(bioPct,STN[st]);trioLis.forEach((li,i)=>li.classList.toggle('on',i===st));
+          hcMic.style.opacity=['.22','.7','1'][st];}}}
+    // v7 · modelo predictivo: captura → análisis → señal temprana → decisión
+    {const r=eqSec.getBoundingClientRect(),vis=r.top<innerHeight&&r.bottom>0;pc.classList.toggle('run',vis&&!reduce);
+      if(vis){buildFlow();
+        const p=secP(eqSec),ph=p<.22?0:p<.46?1:p<.7?2:3;
+        if(ph!==pmPh){pmPh=ph;pcScreen.dataset.ph=ph;pmLis.forEach((li,i)=>li.classList.toggle('on',i===ph));setT(pcPhase,PHN[ph]);pcLog.forEach(li=>li.classList.toggle('on',+li.dataset.at<=ph));}
+        pcScreen.classList.toggle('flow',p>.02);
+        const nLive=Math.min(12,Math.ceil(Math.min(1,p/.18)*12)),sq=Math.min(1,Math.max(0,(p-.22)/.22));
+        const sPos=sq*((flNarrow?flH:flW)+70)-70,al=p>.5;
+        const key=nLive+'|'+Math.round(sPos)+'|'+al;
+        if(key!==flKey){flKey=key;
+          if(flScan)flScan.setAttribute('transform',flNarrow?'translate(0,'+sPos.toFixed(1)+')':'translate('+sPos.toFixed(1)+',0)');
+          flNodes.forEach((n,i)=>{n.g.classList.toggle('live',i<nLive);n.g.classList.toggle('scanned',p>=.44||(p>.22&&(flNarrow?n.y:n.x)<sPos+40));n.g.classList.toggle('alert',i===2&&al);});
+          pcTags.forEach((li,i)=>{const on=i<Math.ceil(nLive/2);const hi=al&&(li.dataset.k==='vib'||li.dataset.k==='tmp');
+            li.querySelector('b').style.transform='scaleX('+(on?(hi?(li.dataset.k==='vib'?.86:.7):[.36,.42,.58,.5,.46,.54][i]):0)+')';
+            li.classList.toggle('hi',hi);setT(li.querySelector('em'),hi?'Alta':(on?'Normal':'—'));});}
+        const a=Math.min(1,Math.max(0,(p-.46)/.12));alert+=(a-alert)*Math.min(1,dt*3);
+        drawVib(reduce?0:(now-t0)/1000);const alv=alert>.5;monS.classList.toggle('alert',alv);setT(monS,alv?'● Sobre su patrón':'● Normal');
+        const tl=reduce?(ph===3?1:0):Math.min(1,Math.max(0,(p-.72)/.2));tlBars.forEach(b=>b.style.setProperty('--tl',tl.toFixed(3)));
+        const mins=Math.floor(p*18),secs=Math.floor((p*18*60)%60);setT(pcClock,'08:'+String(12+mins).padStart(2,'0')+':'+String(secs).padStart(2,'0'));
+        if(finePtr&&!reduce&&!small){pcBezel.style.setProperty('--ry',(mouse[0]*-7).toFixed(2)+'deg');pcBezel.style.setProperty('--rx',(mouse[1]*-4).toFixed(2)+'deg');}
+      }else alert+=(0-alert)*Math.min(1,dt*3);}
     // método: pan lateral
     if(!small){const p=secP(method);const max=track.scrollWidth-innerWidth;track.style.transform='translate3d('+(-p*Math.max(0,max)).toFixed(1)+'px,0,0)';}
-
-    // equipo: alerta temprana
-    const er=eqSec.getBoundingClientRect();
-    if(er.top<innerHeight&&er.bottom>0){const p=secP(eqSec);const a=Math.min(1,Math.max(0,(p-.35)/.3));alert+=(a-alert)*Math.min(1,dt*3);
-      drawVib(reduce?0:(now-t0)/1000);const al=alert>.5;monS.classList.toggle('alert',al);aSag.classList.toggle('alert',al);setT(aSagB,al?'ALERTA':'OK');aSagI.style.setProperty('--v',al?'.42':'.81');monS.textContent=al?'● Alerta temprana · rodamiento':'● Normal';}
-    else alert+=(0-alert)*Math.min(1,dt*3);
 
     // HUD
     setT(hudScale,fmt(cur.s));
