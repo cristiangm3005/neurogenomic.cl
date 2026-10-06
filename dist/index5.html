@@ -1,0 +1,1070 @@
+<!doctype html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="canonical" href="https://metalgenomic.cl/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_CL">
+<meta property="og:title" content="MetalGenomic | Biolixiviación, genómica e IA para minería en Chile">
+<title>MetalGenomic | Biolixiviación, genómica e IA para minería en Chile</title>
+<meta name="description" content="Biolixiviación genómica, exploración geoespacial, mantenimiento predictivo con IA y gemelo digital para mineras medianas. Diagnóstico en hasta 4 semanas.">
+<meta name="theme-color" content="#0B0A09">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"Organization","@id":"https://metalgenomic.cl/#org","name":"MetalGenomic","url":"https://metalgenomic.cl/","email":"contacto@metalgenomic.cl","parentOrganization":{"@type":"Organization","name":"Genomic Industries SpA"},"address":{"@type":"PostalAddress","addressLocality":"Copiapó","addressRegion":"Atacama","addressCountry":"CL"},"areaServed":"CL"},
+ {"@type":"Service","name":"Diagnóstico operativo","provider":{"@id":"https://metalgenomic.cl/#org"},"areaServed":"CL","description":"Revisión de datos, equipos y objetivos en hasta 4 semanas para definir un piloto medible."},
+ {"@type":"Service","name":"Biolixiviación genómica","provider":{"@id":"https://metalgenomic.cl/#org"},"areaServed":"CL"},
+ {"@type":"Service","name":"Exploración geoespacial predictiva","provider":{"@id":"https://metalgenomic.cl/#org"},"areaServed":"CL"},
+ {"@type":"Service","name":"Mantenimiento predictivo con IA","provider":{"@id":"https://metalgenomic.cl/#org"},"areaServed":"CL"},
+ {"@type":"Service","name":"Gemelo digital y BIM","provider":{"@id":"https://metalgenomic.cl/#org"},"areaServed":"CL"}
+]}
+</script>
+<style>
+/* Layout: un escenario WebGL fijo a pantalla completa (un solo mundo que desciende de 400 km a 1 µm),
+   texto anclado en esquinas distintas por acto, barras de cine como ritmo y un visor de escala fijo. */
+:root{
+  --void:#0B0A09;
+  --surface:#15120F;
+  --bone:#EEE7DB;
+  --bone-soft:#B3A898;
+  --copper:#E3955C;
+  --copper-ink:#1B0F06;
+  --line:rgba(238,231,219,.16);
+  --scrim:rgba(9,8,7,.78);
+
+  --f-display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --f-text:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+
+  --g:clamp(16px,4vw,64px);
+  --bar:0px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--void);color:var(--bone);font:400 1.0625rem/1.62 var(--f-text);letter-spacing:.005em;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--copper);outline-offset:3px;border-radius:2px}
+:where([hidden]){display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:fixed;left:var(--g);top:-60px;z-index:50;background:var(--copper);color:var(--copper-ink);padding:10px 14px;font:500 .85rem var(--f-mono)}
+.skip:focus{top:12px}
+
+/* ── Escenario ───────────────────────── */
+#gl,.fallback{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+#gl{z-index:1;opacity:0;transition:opacity .9s var(--ease)}
+.glon #gl{opacity:1}
+.fallback{background:radial-gradient(120% 80% at 70% 30%,#7a3d1c 0%,#2a150b 45%,#0b0a09 80%);transition:background 1.2s var(--ease)}
+.nogl #gl{display:none}
+.fallback[data-s="2"]{background:radial-gradient(90% 70% at 40% 40%,#3a2a20 0%,#14100d 60%,#0b0a09 100%)}
+.fallback[data-s="3"]{background:radial-gradient(90% 80% at 50% 60%,#1d4a43 0%,#0a1716 55%,#060909 100%)}
+.fallback[data-s="4"]{background:radial-gradient(100% 70% at 50% 80%,#b0582a 0%,#3a1709 45%,#0b0a09 85%)}
+
+.bars i{position:fixed;left:0;right:0;height:var(--bar);background:#060505;z-index:6;pointer-events:none}
+.bars i:first-child{top:0}.bars i:last-child{bottom:0}
+
+/* ── Nav ─────────────────────────────── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;gap:28px;padding:calc(env(safe-area-inset-top,0px) + 18px) var(--g) 18px;mix-blend-mode:normal}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 1.35rem/1 var(--f-display);letter-spacing:.06em;text-transform:uppercase}
+.brand svg{width:26px;height:26px;color:var(--copper)}
+.nav__links{display:flex;gap:26px;margin-left:auto}
+.nav__links a{font:500 .74rem/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:var(--bone-soft);transition:color .25s}
+.nav__links a:hover{color:var(--bone)}
+.btn{display:inline-flex;align-items:center;gap:12px;min-height:48px;padding:0 22px;border:1px solid transparent;border-radius:999px;font:600 .95rem/1 var(--f-text);text-decoration:none;cursor:pointer;transition:transform .35s var(--ease),background .25s,color .25s,border-color .25s}
+.btn i{font-style:normal;transition:transform .35s var(--ease)}
+.btn:hover i{transform:translateX(4px)}
+.btn--cu{background:var(--copper);color:var(--copper-ink)}
+.btn--cu:hover{background:#F0AA74}
+.btn--ghost{border-color:var(--line);color:var(--bone);background:rgba(11,10,9,.35);backdrop-filter:blur(6px)}
+.btn--ghost:hover{border-color:var(--bone)}
+.btn--sm{min-height:40px;padding:0 16px;font-size:.85rem}
+
+/* ── Visor (movimiento firma) ───────── */
+.hud{position:fixed;z-index:8;opacity:var(--hud-o,1);right:var(--g);bottom:calc(var(--bar) + 22px + env(safe-area-inset-bottom,0px));display:grid;justify-items:end;gap:6px;font:500 .7rem/1.2 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bone-soft);pointer-events:none;transition:bottom .2s linear}
+.hud__scale{font:800 clamp(2rem,3.6vw,3.2rem)/.9 var(--f-display);letter-spacing:.02em;color:var(--bone);font-variant-numeric:tabular-nums}
+.hud__rule{width:160px;height:9px;border-bottom:1px solid var(--bone-soft);background:repeating-linear-gradient(90deg,var(--bone-soft) 0 1px,transparent 1px 16px) bottom/100% 5px no-repeat}
+.hud__row{display:flex;gap:14px}
+.hud__row b{color:var(--copper);font-weight:500}
+.frame{position:fixed;inset:calc(var(--bar) + 14px) 14px calc(var(--bar) + 14px);z-index:7;pointer-events:none;transition:inset .2s linear}
+.frame i{position:absolute;width:22px;height:22px;border:solid var(--bone);opacity:.42}
+.frame i:nth-child(1){left:0;top:0;border-width:1px 0 0 1px}
+.frame i:nth-child(2){right:0;top:0;border-width:1px 1px 0 0}
+.frame i:nth-child(3){left:0;bottom:0;border-width:0 0 1px 1px}
+.frame i:nth-child(4){right:0;bottom:0;border-width:0 1px 1px 0}
+
+/* ── Actos ───────────────────────────── */
+main{position:relative;z-index:2}
+.act{position:relative}
+.stick{position:sticky;top:0;height:100vh;height:100svh;display:grid;padding:110px var(--g) 120px;overflow:hidden}
+.stick::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1}
+.a-bl{align-content:end;justify-items:start}
+.a-bl::before{background:radial-gradient(80% 70% at 0% 100%,var(--scrim) 0%,rgba(9,8,7,0) 70%)}
+.a-tr{align-content:start;justify-items:end;text-align:right}
+.a-tr::before{background:radial-gradient(75% 70% at 100% 0%,var(--scrim) 0%,rgba(9,8,7,0) 70%)}
+.a-tl{align-content:start;justify-items:start}
+.a-tl::before{background:radial-gradient(75% 75% at 0% 0%,var(--scrim) 0%,rgba(9,8,7,0) 70%)}
+.a-br{align-content:end;justify-items:end;text-align:right}
+.a-br::before{background:radial-gradient(80% 75% at 100% 100%,var(--scrim) 0%,rgba(9,8,7,0) 70%)}
+
+.k{font:500 .76rem/1.3 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--copper);margin:0 0 18px}
+.h1{font:900 clamp(3rem,min(11vw,12.5vh),11rem)/.84 var(--f-display);letter-spacing:-.005em;text-transform:uppercase;margin:0;text-wrap:balance}
+.h1 .ln{display:block;overflow:hidden;padding-bottom:.04em}
+.h1 .ln>span{display:block}
+.h1 .cu{color:var(--copper)}
+.h2{font:800 clamp(2.6rem,6.8vw,6.6rem)/.88 var(--f-display);letter-spacing:0;text-transform:uppercase;margin:0;text-wrap:balance}
+.lead{font-size:clamp(1.05rem,1.35vw,1.25rem);line-height:1.55;color:var(--bone);max-width:36ch;margin:22px 0 0;text-wrap:pretty}
+.gain{display:flex;gap:12px;align-items:baseline;margin:16px 0 0;font:500 .82rem/1.4 var(--f-mono);letter-spacing:.06em;color:var(--bone-soft)}
+.gain b{color:var(--copper);font-weight:500;text-transform:uppercase;letter-spacing:.14em}
+.a-tr .gain,.a-br .gain{justify-content:flex-end}
+.more{display:inline-flex;gap:10px;margin-top:22px;font:500 .78rem/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--bone);text-decoration:none;border-bottom:1px solid var(--copper);padding-bottom:6px}
+.more:hover{color:var(--copper)}
+
+/* reveal: solo si hay JS y movimiento */
+.motion [data-rv]{opacity:0;transform:translateY(26px);transition:opacity 1s var(--ease),transform 1.2s var(--ease)}
+.motion [data-rv].in{opacity:1;transform:none}
+.motion [data-rv="2"]{transition-delay:.12s}.motion [data-rv="3"]{transition-delay:.24s}.motion [data-rv="4"]{transition-delay:.36s}
+
+/* Hero */
+.hero .stick{padding-bottom:clamp(110px,14vh,170px)}
+.hero .stick::before{background:linear-gradient(90deg,rgba(9,8,7,.74) 0%,rgba(9,8,7,.42) 45%,rgba(9,8,7,0) 75%),radial-gradient(80% 70% at 0% 100%,var(--scrim) 0%,rgba(9,8,7,0) 70%)}
+.hero__row{display:grid;gap:26px;width:100%;margin-top:26px}
+.hero__row .lead{margin:0}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.facts{display:flex;gap:30px;margin:0;padding:0;list-style:none}
+.facts li{display:grid;gap:4px;font:500 .68rem/1.3 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bone-soft)}
+.facts b{font:800 2.3rem/.9 var(--f-display);color:var(--bone);letter-spacing:0}
+.motion .h1 .ln>span{transform:translateY(105%);transition:transform 1.4s var(--ease)}
+.motion .ready .h1 .ln>span{transform:none}
+.motion .h1 .ln:nth-child(2)>span{transition-delay:.12s}
+.motion .h1 .ln:nth-child(3)>span{transition-delay:.24s}
+
+/* Equipo · monitor de vibración */
+.mon{width:min(440px,100%);margin-top:28px;border:1px solid var(--line);background:rgba(11,10,9,.72);border-radius:6px;padding:14px 16px 10px;text-align:left}
+.mon__h{display:flex;justify-content:space-between;gap:12px;font:500 .68rem/1.2 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bone-soft)}
+.mon__s{color:#8FD0BF}
+.mon__s.alert{color:var(--copper)}
+.mon canvas{display:block;width:100%;height:86px;margin-top:10px}
+.mon__f{display:flex;justify-content:space-between;font:400 .62rem/1 var(--f-mono);letter-spacing:.1em;color:var(--bone-soft);opacity:.75;margin-top:6px;text-transform:uppercase}
+
+/* Microbio · tres pasos */
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,3vw,48px);margin:36px 0 0;padding:26px 0 0;list-style:none;border-top:1px solid var(--line);width:min(980px,100%)}
+.trio li{display:grid;gap:8px;align-content:start}
+.trio b{font:800 1.7rem/.95 var(--f-display);text-transform:uppercase;letter-spacing:.01em}
+.trio span{font-size:.95rem;line-height:1.5;color:var(--bone-soft)}
+.cap{font:400 .7rem/1.4 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--bone-soft);margin-top:18px;opacity:.8}
+
+.microbio .stick::before{background:radial-gradient(75% 75% at 0% 0%,var(--scrim) 0%,rgba(9,8,7,0) 70%),linear-gradient(0deg,rgba(9,8,7,.82) 0%,rgba(9,8,7,0) 48%)}
+/* Método · pan lateral */
+.method{height:320vh}
+.method .stick{padding:110px 0 110px;align-content:center;gap:40px}
+.method__head{padding:0 var(--g);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:20px 60px}
+.method__head .lead{margin:0;color:var(--bone-soft)}
+.track{display:flex;gap:clamp(16px,2.4vw,36px);padding:0 var(--g);will-change:transform}
+.shot{flex:0 0 clamp(290px,34vw,520px);display:grid;gap:14px;align-content:start;padding:26px 26px 30px;border-top:1px solid var(--copper);background:linear-gradient(180deg,rgba(21,18,15,.88),rgba(21,18,15,.55))}
+.shot__t{display:flex;justify-content:space-between;font:500 .7rem/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--bone-soft)}
+.shot__big{font:900 clamp(3.6rem,7vw,6.4rem)/.82 var(--f-display);text-transform:uppercase;color:var(--bone)}
+.shot__big small{display:block;font:500 .78rem/1.4 var(--f-mono);letter-spacing:.12em;color:var(--copper);margin-top:10px}
+.shot h3{font:800 1.9rem/1 var(--f-display);text-transform:uppercase;margin:6px 0 0;letter-spacing:.01em}
+.shot p{margin:0;color:var(--bone-soft);font-size:.98rem;line-height:1.55}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 0;padding:0;list-style:none}
+.tags li{font:500 .66rem/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--line);padding:7px 9px;border-radius:999px;color:var(--bone)}
+
+/* Cátodo · pico */
+.cathode{height:260vh}
+.cathode .stick{align-content:center;justify-items:center;text-align:center}
+.cathode .stick::before{background:radial-gradient(60% 40% at 50% 55%,rgba(9,8,7,.55),rgba(9,8,7,0) 75%)}
+.quote{font:900 clamp(2.8rem,8.2vw,8.6rem)/.86 var(--f-display);text-transform:uppercase;margin:0;max-width:14ch;text-wrap:balance}
+.quote span{display:inline-block;opacity:.12;transition:opacity .5s var(--ease)}
+.quote span.on{opacity:1}
+.quote span.cu{color:var(--copper)}
+.el{position:absolute;top:calc(110px + 2vh);right:var(--g);width:112px;aspect-ratio:1;border:1px solid var(--bone);display:grid;padding:10px 12px;text-align:left;background:rgba(11,10,9,.35)}
+.el small{font:500 .7rem/1 var(--f-mono)}
+.el b{font:900 3.4rem/.8 var(--f-display);align-self:center}
+.el span{font:400 .62rem/1.2 var(--f-mono);letter-spacing:.06em}
+
+/* Diagnóstico + formulario */
+.book{padding:clamp(120px,16vh,180px) var(--g) clamp(90px,12vh,140px)}
+.book__in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,80px);align-items:start}
+.book .h2{font-size:clamp(2.4rem,5vw,4.8rem)}
+.pains{display:grid;gap:8px;margin-top:30px}
+.pain{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:16px;align-items:center;width:100%;padding:16px 18px;text-align:left;background:rgba(21,18,15,.7);border:1px solid var(--line);border-radius:6px;color:var(--bone);font:inherit;cursor:pointer;transition:border-color .25s,background .25s}
+.pain:hover{border-color:rgba(238,231,219,.4)}
+.pain[aria-checked="true"]{border-color:var(--copper);background:rgba(227,149,92,.1)}
+.pain .n{font:500 .7rem var(--f-mono);color:var(--bone-soft);letter-spacing:.1em}
+.pain strong{display:block;font-weight:600}
+.pain small{display:block;color:var(--bone-soft);font-size:.86rem;margin-top:2px}
+.pain .dot{width:12px;height:12px;border-radius:50%;border:1px solid var(--bone-soft)}
+.pain[aria-checked="true"] .dot{background:var(--copper);border-color:var(--copper)}
+.rec{margin-top:18px;padding:20px 22px;border-left:2px solid var(--copper);background:rgba(11,10,9,.6)}
+.rec p{margin:0}
+.rec .k{margin-bottom:8px}
+.rec h3{font:800 1.9rem/1 var(--f-display);text-transform:uppercase;margin:0 0 12px}
+.rec dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 18px;margin:0;font-size:.95rem}
+.rec dt{font:500 .68rem/1.9 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bone-soft)}
+.rec dd{margin:0}
+.next{display:flex;flex-wrap:wrap;gap:8px 22px;margin:22px 0 0;padding:0;list-style:none;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--bone-soft)}
+.next b{color:var(--bone);font-weight:500}
+
+.form{background:rgba(21,18,15,.92);border:1px solid var(--line);border-radius:10px;padding:clamp(22px,3vw,36px);display:grid;gap:20px}
+.form__top{display:flex;justify-content:space-between;align-items:center;gap:16px;font:500 .7rem/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--bone-soft)}
+.form__bar{flex:1;max-width:140px;height:2px;background:var(--line);position:relative}
+.form__bar i{position:absolute;inset:0 50% 0 0;background:var(--copper);transition:right .5s var(--ease)}
+.form h3{font:800 2rem/1 var(--f-display);text-transform:uppercase;margin:0}
+.fstep{display:grid;gap:20px}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+legend,.lbl{display:block;font:500 .7rem/1.4 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bone-soft);margin-bottom:10px;padding:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{position:relative;cursor:pointer}
+.chips input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.chips span{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border:1px solid var(--line);border-radius:999px;font-size:.9rem;transition:border-color .2s,background .2s,color .2s}
+.chips input:checked+span{background:var(--copper);border-color:var(--copper);color:var(--copper-ink)}
+.chips input:focus-visible+span{outline:2px solid var(--copper);outline-offset:2px}
+.field{display:grid;min-width:0}
+.field input,.field textarea{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(238,231,219,.3);color:var(--bone);font:inherit;padding:10px 0;border-radius:0;transition:border-color .2s}
+.field textarea{min-height:64px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--copper)}
+.field input::placeholder,.field textarea::placeholder{color:rgba(179,168,152,.6)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.form__nav{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.msg{margin:0;font-size:.88rem;color:var(--copper);min-height:1.2em}
+.linkbtn{background:none;border:0;color:var(--bone-soft);font:500 .75rem var(--f-mono);letter-spacing:.12em;text-transform:uppercase;cursor:pointer;padding:8px 0}
+.linkbtn:hover{color:var(--bone)}
+.done{display:grid;gap:14px}
+.done pre{margin:0;max-height:220px;overflow:auto;white-space:pre-wrap;font:400 .8rem/1.55 var(--f-mono);background:rgba(11,10,9,.7);border:1px solid var(--line);border-radius:6px;padding:14px;color:var(--bone)}
+.done .acts{display:flex;flex-wrap:wrap;gap:10px}
+.assure{display:flex;flex-wrap:wrap;gap:6px 18px;font:500 .64rem/1.4 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--bone-soft);border-top:1px solid var(--line);padding-top:16px}
+.assure span::before{content:"✓ ";color:var(--copper)}
+
+/* Créditos */
+.credits{padding:clamp(120px,18vh,200px) var(--g) 0;text-align:center}
+.credits .k{margin-bottom:40px}
+.roll{display:grid;gap:30px;max-width:980px;margin:0 auto;padding:0;list-style:none}
+.roll li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;text-align:left}
+.roll h3{margin:0;text-align:right;font:500 .78rem/1.6 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bone-soft)}
+.roll p{margin:0;font-size:1rem;line-height:1.55}
+.card{min-height:88vh;display:grid;align-content:center;justify-items:center;gap:20px;padding:120px 0 60px}
+.card .h2{font-size:clamp(3rem,9vw,8.4rem)}
+.mail{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px;font:500 1rem var(--f-mono)}
+.mail code{font:inherit;user-select:all;border-bottom:1px solid var(--copper);padding-bottom:3px}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;padding:26px 0 calc(28px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line);font:500 .66rem/1.4 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--bone-soft);text-align:left}
+
+/* ── Responsive ─────────────────────── */
+@media (max-width:900px){
+  .nav__links{display:none}
+  .nav .btn{margin-left:auto}
+  .hero__row{grid-template-columns:1fr}
+  .book__in{grid-template-columns:1fr}
+  .trio{grid-template-columns:1fr;gap:18px}
+}
+@media (max-width:760px){
+  .stick{padding:96px var(--g) 150px}
+  .h1{font-size:clamp(2.6rem,13.5vw,5rem)}
+  .h2{font-size:clamp(2.4rem,12vw,3.8rem)}
+  .a-tr,.a-br{text-align:left;justify-items:start}
+  .a-tr{align-content:end}
+  .a-tl{align-content:end}
+  .a-tr .gain,.a-br .gain{justify-content:flex-start}
+  .a-bl::before,.a-tr::before,.a-tl::before,.a-br::before{background:linear-gradient(0deg,var(--scrim) 0%,rgba(9,8,7,.55) 45%,rgba(9,8,7,0) 75%)}
+  .facts{gap:20px}.facts b{font-size:1.9rem}
+  .hud{bottom:auto;top:calc(env(safe-area-inset-top,0px) + 74px);right:16px;gap:4px}
+  .hud__scale{font-size:1.6rem}
+  .hud__row:first-child{display:none}
+  .hud__rule{width:110px}
+  .hud__row:last-child{display:none}
+  .method{height:auto}
+  .method .stick{position:relative;height:auto;padding:110px 0 90px}
+  .track{flex-direction:column;transform:none!important}
+  .shot{flex:none}
+  .cathode{height:200vh}
+  .el{width:88px}.el b{font-size:2.6rem}
+  .row2{grid-template-columns:1fr}
+  .roll li{grid-template-columns:1fr;gap:6px}
+  .roll h3{text-align:left;color:var(--copper)}
+  .trio{margin-top:24px;padding-top:18px}
+  .trio span{font-size:.88rem}
+  .microbio .lead{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .motion [data-rv]{opacity:1;transform:none}
+}
+</style>
+
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="fallback" id="fallback" aria-hidden="true"></div>
+<div class="bars" aria-hidden="true"><i></i><i></i></div>
+<div class="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+<header class="nav">
+  <a class="brand" href="#inicio" aria-label="MetalGenomic, inicio">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="1.5" y="1.5" width="29" height="29" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M7 8.5c7 0 11 15 18 15M7 23.5c7 0 11-15 18-15" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+    MetalGenomic
+  </a>
+  <nav class="nav__links" aria-label="Principal">
+    <a href="#territorio">Escalas</a>
+    <a href="#metodo">Método</a>
+    <a href="#agendar">Diagnóstico</a>
+    <a href="#preguntas">Preguntas</a>
+  </nav>
+  <a class="btn btn--cu btn--sm" href="#agendar">Agendar <i aria-hidden="true">→</i></a>
+</header>
+
+<aside class="hud" aria-hidden="true">
+  <div class="hud__row"><span id="hudLabel">Territorio</span><b id="hudTc">00:00:00:00</b></div>
+  <div class="hud__scale" id="hudScale">400 km</div>
+  <div class="hud__rule"></div>
+  <div class="hud__row"><span>27°22′S · 70°19′O</span><span>Atacama</span></div>
+</aside>
+
+<main id="main">
+
+  <!-- 1 · Hero -->
+  <section class="act hero" id="inicio" data-scene="0" style="height:150vh" aria-labelledby="t-hero">
+    <div class="stick a-bl" id="heroStick">
+      <p class="k">Biotecnología + IA para minería · Copiapó, Chile</p>
+      <h1 class="h1" id="t-hero">
+        <span class="ln"><span>Más metal.</span></span>
+        <span class="ln"><span>Menos detenciones.</span></span>
+        <span class="ln"><span class="cu">Menos huella.</span></span>
+      </h1>
+      <div class="hero__row">
+        <div>
+          <p class="lead">Genómica microbiana, datos geoespaciales e IA para recuperar más cobre con menos agua y reactivos. Un piloto medible, sin detener la operación.</p>
+          <div class="ctas">
+            <a class="btn btn--cu" href="#agendar">Agendar diagnóstico operativo <i aria-hidden="true">→</i></a>
+            <a class="btn btn--ghost" href="#territorio">Ver el recorrido</a>
+          </div>
+        </div>
+        <ul class="facts" aria-label="Condiciones">
+          <li><b>≤ 4</b>semanas · diagnóstico</li>
+          <li><b>1–3</b>meses · piloto</li>
+          <li><b>NDA</b>desde la 1.ª reunión</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · Territorio -->
+  <section class="act" id="territorio" data-scene="0.5" data-label="Territorio" style="height:160vh" aria-labelledby="t-geo">
+    <div class="stick a-tr">
+      <div>
+        <p class="k" data-rv>Territorio · 400 km</p>
+        <h2 class="h2" id="t-geo" data-rv="2">Exploración<br>geoespacial<br>predictiva</h2>
+        <p class="lead" data-rv="3" style="margin-left:auto">Satélite, geología y machine learning para priorizar zonas, estimar recursos y vigilar taludes.</p>
+        <p class="gain" data-rv="3"><b>Ganas</b>Decidir dónde intervenir con menos riesgo</p>
+        <a class="more" data-rv="4" href="#agendar" data-topic="Exploración geoespacial">Evaluarlo en el diagnóstico →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · Planta -->
+  <section class="act" id="planta" data-scene="1" data-label="Planta" style="height:160vh" aria-labelledby="t-twin">
+    <div class="stick a-bl">
+      <div>
+        <p class="k" data-rv>Planta · 2 km</p>
+        <h2 class="h2" id="t-twin" data-rv="2">Gemelo digital<br>y BIM</h2>
+        <p class="lead" data-rv="3">Un modelo 3D vivo de tu planta: simula escenarios, coordina la ingeniería y muestra la operación con datos reales.</p>
+        <p class="gain" data-rv="3"><b>Ganas</b>Probar cambios sin riesgo</p>
+        <a class="more" data-rv="4" href="#agendar" data-topic="Gemelo digital">Solicitar demo del gemelo →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · Equipo -->
+  <section class="act" id="equipo" data-scene="2" data-label="Equipo" style="height:180vh" aria-labelledby="t-mnt">
+    <div class="stick a-br">
+      <div>
+        <p class="k" data-rv>Equipo · 10 m</p>
+        <h2 class="h2" id="t-mnt" data-rv="2">Mantenimiento<br>predictivo con IA</h2>
+        <p class="lead" data-rv="3" style="margin-left:auto">Vibración, temperatura y acústica de molinos, chancadores, correas y flota. La falla avisa antes de detener la planta.</p>
+        <p class="gain" data-rv="3"><b>Ganas</b>Planificar en vez de reaccionar</p>
+        <div class="mon" data-rv="4" aria-hidden="true">
+          <div class="mon__h"><span>Vibración · molino SAG</span><span class="mon__s" id="monS">● Normal</span></div>
+          <canvas id="vib"></canvas>
+          <div class="mon__f"><span>mm/s RMS</span><span>Simulación</span></div>
+        </div>
+        <a class="more" data-rv="4" href="#agendar" data-topic="Mantenimiento predictivo">Evaluarlo en el diagnóstico →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · Microbio -->
+  <section class="act microbio" id="microbio" data-scene="3" data-label="Microbio" style="height:200vh" aria-labelledby="t-bio">
+    <div class="stick a-tl">
+      <div>
+        <p class="k" data-rv>Microbio · 1 µm · nuestro diferenciador</p>
+        <h2 class="h2" id="t-bio" data-rv="2">Biolixiviación<br>genómica</h2>
+        <p class="lead" data-rv="3">Cada mineral tiene su propia comunidad microbiana. La leemos y la ponemos a disolver más cobre, incluso en baja ley.</p>
+        <p class="gain" data-rv="3"><b>Ganas</b>Más recuperación con menos ácido</p>
+        <ol class="trio">
+          <li data-rv="2"><b>Secuenciar</b><span>Metagenómica: el ADN de toda la comunidad de tu mineral y tus soluciones.</span></li>
+          <li data-rv="3"><b>Seleccionar</b><span>Consorcios nativos de Atacama que mejor disuelven tu mineral, en tus condiciones.</span></li>
+          <li data-rv="4"><b>Monitorear</b><span>Seguimos la comunidad en operación para ajustar riego, pH y aireación a tiempo.</span></li>
+        </ol>
+        <p class="cap" data-rv="4">Acidithiobacillus y Leptospirillum sobre calcopirita · render ilustrativo</p>
+        <a class="more" href="#agendar" data-topic="Biolixiviación genómica">Evaluarlo en el diagnóstico →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · Método -->
+  <section class="act method" id="metodo" data-scene="3" data-dim="0.26" data-label="Método" aria-labelledby="t-met">
+    <div class="stick" id="methodStick">
+      <div class="method__head">
+        <h2 class="h2" id="t-met" data-rv>Un problema.<br>Un piloto.<br>Tus números.</h2>
+        <p class="lead" data-rv="2">No cambias toda tu operación. Elegimos un problema concreto, medimos y escalamos solo si los números lo justifican.</p>
+      </div>
+      <ol class="track" id="track" style="list-style:none;margin:0">
+        <li class="shot">
+          <div class="shot__t"><span>Etapa 1</span><span>Diagnóstico</span></div>
+          <div class="shot__big">≤ 4<small>semanas</small></div>
+          <h3>Diagnóstico</h3>
+          <p>Revisamos tus datos, equipos y objetivos para encontrar dónde está el mayor potencial.</p>
+        </li>
+        <li class="shot">
+          <div class="shot__t"><span>Etapa 2</span><span>Piloto acotado</span></div>
+          <div class="shot__big">1–3<small>meses</small></div>
+          <h3>Piloto acotado</h3>
+          <p>En un equipo, circuito o sector. Integrado a tus sistemas y sin detener la operación.</p>
+          <ul class="tags"><li>SCADA</li><li>PI System</li><li>SAP PM</li><li>GIS</li></ul>
+        </li>
+        <li class="shot">
+          <div class="shot__t"><span>Etapa 3</span><span>Línea base</span></div>
+          <div class="shot__big">4<small>indicadores</small></div>
+          <h3>Medición</h3>
+          <p>Tus números, no promesas genéricas. Fijamos la línea base contigo antes de empezar.</p>
+          <ul class="tags"><li>Disponibilidad</li><li>Recuperación</li><li>Reactivos / t</li><li>Horas de detención</li></ul>
+        </li>
+        <li class="shot">
+          <div class="shot__t"><span>Etapa 4</span><span>Con datos</span></div>
+          <div class="shot__big">↗<small>escalar</small></div>
+          <h3>Escalamiento</h3>
+          <p>Solo si los resultados lo justifican. Si no, lo sabrás a tiempo y con evidencia de tu propia operación.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 7 · Cátodo (pico) -->
+  <section class="act cathode" id="catodo" data-scene="4" data-label="Cátodo" aria-label="Metal recuperado">
+    <div class="stick">
+      <div class="el" aria-hidden="true"><small>29</small><b>Cu</b><span>Cobre<br>63,546</span></div>
+      <p class="quote" id="quote">Al final, todo se mide en metal recuperado.</p>
+    </div>
+  </section>
+
+  <!-- 8 · Agendar -->
+  <section class="act book" id="agendar" data-scene="4" data-dim="0.2" data-label="Diagnóstico" aria-labelledby="t-book">
+    <div class="book__in">
+      <div>
+        <p class="k" data-rv>Diagnóstico express · 10 segundos</p>
+        <h2 class="h2" id="t-book" data-rv="2">¿Qué le duele hoy a tu operación?</h2>
+        <div class="pains" role="radiogroup" aria-label="Desafío principal" data-rv="3">
+          <button type="button" class="pain" role="radio" aria-checked="true" data-pain="mnt"><span class="n">A</span><span><strong>Detenciones no planificadas</strong><small>Molinos, chancadores, correas o flota fallan sin aviso.</small></span><span class="dot" aria-hidden="true"></span></button>
+          <button type="button" class="pain" role="radio" aria-checked="false" data-pain="bio"><span class="n">B</span><span><strong>Baja recuperación en baja ley</strong><small>Cada punto cuenta y el ácido pesa en el costo.</small></span><span class="dot" aria-hidden="true"></span></button>
+          <button type="button" class="pain" role="radio" aria-checked="false" data-pain="geo"><span class="n">C</span><span><strong>Dónde explorar o qué talud vigilar</strong><small>Decisiones de territorio con información incompleta.</small></span><span class="dot" aria-hidden="true"></span></button>
+          <button type="button" class="pain" role="radio" aria-checked="false" data-pain="twin"><span class="n">D</span><span><strong>Cambios en la planta o un circuito</strong><small>Quieres probar antes de ejecutar en terreno.</small></span><span class="dot" aria-hidden="true"></span></button>
+        </div>
+        <div class="rec" aria-live="polite" data-rv="4">
+          <p class="k" id="recK">Empezaríamos por · Equipo</p>
+          <h3 id="recT">Mantenimiento predictivo con IA</h3>
+          <dl>
+            <dt>Revisamos</dt><dd id="recR">Vibración, temperatura, acústica y datos de operación de tus equipos críticos.</dd>
+            <dt>Piloto</dt><dd id="recP">Un equipo crítico, por ejemplo un molino o una correa.</dd>
+          </dl>
+        </div>
+        <ol class="next" aria-label="Qué pasa después">
+          <li><b>Hoy</b> · nos cuentas tu desafío</li>
+          <li><b>1.ª reunión</b> · NDA y línea base</li>
+          <li><b>≤ 4 semanas</b> · diagnóstico</li>
+        </ol>
+      </div>
+
+      <form class="form" id="form" novalidate data-rv="2">
+        <div class="form__top"><span id="stepLbl" aria-live="polite">Paso 1 de 2</span><span class="form__bar" aria-hidden="true"><i id="stepBar"></i></span></div>
+        <div class="fstep" data-step="1">
+          <h3>¿Qué quieres mejorar?</h3>
+          <fieldset>
+            <legend>Puedes elegir más de uno</legend>
+            <div class="chips" id="chipsInt">
+              <label><input type="checkbox" name="interes" value="Mantenimiento predictivo" id="i-mnt" checked><span>Detenciones · predictivo</span></label>
+              <label><input type="checkbox" name="interes" value="Biolixiviación genómica" id="i-bio"><span>Recuperación · biolixiviación</span></label>
+              <label><input type="checkbox" name="interes" value="Exploración geoespacial" id="i-geo"><span>Territorio · geoespacial</span></label>
+              <label><input type="checkbox" name="interes" value="Gemelo digital" id="i-twin"><span>Planta · gemelo digital</span></label>
+              <label><input type="checkbox" name="interes" value="Aún no lo sé" id="i-nose"><span>Aún no lo sé</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>¿En qué etapa estás?</legend>
+            <div class="chips">
+              <label><input type="radio" name="etapa" value="Explorando opciones" id="e-1" checked><span>Explorando</span></label>
+              <label><input type="radio" name="etapa" value="Tengo un problema concreto" id="e-2"><span>Problema concreto</span></label>
+              <label><input type="radio" name="etapa" value="Listo para un piloto" id="e-3"><span>Listo para un piloto</span></label>
+            </div>
+          </fieldset>
+          <div class="field"><label class="lbl" for="f-msg">Tu desafío en una línea (opcional)</label><textarea id="f-msg" name="mensaje" placeholder="Ej.: detenciones en el molino SAG"></textarea></div>
+          <div class="form__nav"><p class="msg" id="msg1" role="status"></p><button class="btn btn--cu" type="button" id="to2">Continuar <i aria-hidden="true">→</i></button></div>
+        </div>
+        <div class="fstep" data-step="2" hidden>
+          <h3>¿A quién contactamos?</h3>
+          <div class="row2">
+            <div class="field"><label class="lbl" for="f-name">Nombre</label><input id="f-name" name="nombre" autocomplete="name" required placeholder="Tu nombre"></div>
+            <div class="field"><label class="lbl" for="f-role">Cargo (opcional)</label><input id="f-role" name="cargo" autocomplete="organization-title" placeholder="Ej.: gerente de planta"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label class="lbl" for="f-co">Empresa / faena</label><input id="f-co" name="empresa" autocomplete="organization" required placeholder="Minera, planta o faena"></div>
+            <div class="field"><label class="lbl" for="f-tel">Teléfono (opcional)</label><input id="f-tel" name="telefono" type="tel" autocomplete="tel" placeholder="+56 9 …"></div>
+          </div>
+          <div class="field"><label class="lbl" for="f-mail">Correo corporativo</label><input id="f-mail" name="correo" type="email" autocomplete="email" required placeholder="nombre@empresa.cl"></div>
+          <div class="form__nav">
+            <button class="linkbtn" type="button" id="to1">← Volver</button>
+            <button class="btn btn--cu" type="submit">Preparar solicitud <i aria-hidden="true">→</i></button>
+          </div>
+          <p class="msg" id="msg2" role="status"></p>
+        </div>
+        <div class="done" id="done" hidden tabindex="-1">
+          <p class="k" style="margin:0">Solicitud lista</p>
+          <h3>Gracias. Envíala a contacto@metalgenomic.cl</h3>
+          <pre id="sum"></pre>
+          <div class="acts">
+            <button class="btn btn--cu btn--sm" type="button" id="copySum">Copiar solicitud</button>
+            <a class="btn btn--ghost btn--sm" id="mailto" href="#">Abrir mi correo</a>
+            <button class="linkbtn" type="button" id="edit">Editar</button>
+          </div>
+        </div>
+        <div class="assure"><span>NDA desde la primera reunión</span><span>Sin compromiso</span><span>Datos solo para responderte</span></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- 9 · Créditos -->
+  <section class="act credits" id="preguntas" data-scene="4" data-dim="0.1" data-label="Créditos" aria-labelledby="t-faq">
+    <p class="k" id="t-faq">Antes de agendar · lo que suelen preguntarnos</p>
+    <ul class="roll">
+      <li data-rv><h3>¿Tenemos que cambiar nuestros sistemas?</h3><p>No. Trabajamos sobre lo que ya usas: SCADA, PI System, SAP PM y GIS.</p></li>
+      <li data-rv><h3>¿Cuánto tiempo toma?</h3><p>Diagnóstico en hasta 4 semanas. Piloto de 1 a 3 meses en un equipo, circuito o sector.</p></li>
+      <li data-rv><h3>¿Cómo sabremos si funcionó?</h3><p>Contra la línea base que fijamos juntos: disponibilidad, recuperación, reactivos por tonelada y horas de detención.</p></li>
+      <li data-rv><h3>¿Y la confidencialidad?</h3><p>NDA desde la primera reunión. Tus datos se usan solo para tu proyecto.</p></li>
+      <li data-rv><h3>¿Y si el piloto no da resultados?</h3><p>No escalamos. Lo sabrás a tiempo y con evidencia de tu operación.</p></li>
+      <li data-rv><h3>¿Qué necesitamos para empezar?</h3><p>Solo contarnos el desafío. El diagnóstico define dónde está el mayor potencial.</p></li>
+    </ul>
+    <div class="card">
+      <h2 class="h2" data-rv>Del satélite<br>al cátodo.</h2>
+      <a class="btn btn--cu" href="#agendar" data-rv="2">Agendar diagnóstico <i aria-hidden="true">→</i></a>
+      <div class="mail" data-rv="3"><code id="mailTxt">contacto@metalgenomic.cl</code><button class="linkbtn" type="button" id="copyMail">Copiar</button></div>
+    </div>
+    <footer class="foot">
+      <span>MetalGenomic · una marca de Genomic Industries SpA</span>
+      <span>Copiapó, Atacama, Chile</span>
+      <span>Imágenes renderizadas en tiempo real · ilustrativas</span>
+      <span>© 2026</span>
+    </footer>
+  </section>
+</main>
+
+<script id="fs" type="x-shader/x-fragment">
+precision highp float;
+uniform vec2 uRes;
+uniform float uTime, uScene, uDim, uAlert;
+uniform vec2 uMouse;
+#define PI 3.14159265
+
+float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+vec3 h33(vec3 p){p=fract(p*vec3(.1031,.1030,.0973));p+=dot(p,p.yxz+33.33);return fract((p.xxy+p.yxx)*p.zyx);}
+float noise(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);
+  return mix(mix(h21(i),h21(i+vec2(1,0)),u.x),mix(h21(i+vec2(0,1)),h21(i+vec2(1,1)),u.x),u.y);}
+const mat2 M2=mat2(.8,.6,-.6,.8);
+float fbm(vec2 p,float oc){float a=.5,s=0.;for(int i=0;i<9;i++){if(float(i)>=oc)break;s+=a*noise(p);p=M2*p*2.03;a*=.5;}return s;}
+float ridged(vec2 p,float oc){float a=.5,s=0.,w=1.;for(int i=0;i<9;i++){if(float(i)>=oc)break;float n=1.-abs(noise(p)*2.-1.);n*=n;s+=a*n*w;w=clamp(n*1.5,0.,1.);p=M2*p*2.03;a*=.5;}return s;}
+mat3 camMat(vec3 ro,vec3 ta){vec3 f=normalize(ta-ro);vec3 r=normalize(cross(vec3(0,1,0),f));return mat3(r,cross(f,r),f);}
+vec2 rot(vec2 p,float a){float c=cos(a),s=sin(a);return mat2(c,-s,s,c)*p;}
+vec3 aces(vec3 x){return clamp((x*(2.51*x+.03))/(x*(2.43*x+.59)+.14),0.,1.);}
+
+/* ── 0–1 · Desierto y rajo ─────────────── */
+const vec2 PIT=vec2(0.,40.);
+float terr(vec2 p,float oc){
+  float base=ridged(p*.045,oc)*17.+fbm(p*.012+7.,3.)*10.-10.;
+  vec2 q=(p-PIT)*vec2(1.,1.25);float d=length(q);float R=10.;
+  float bowl=-9.*(1.-smoothstep(0.,R,d));
+  float st=.9;float k=bowl/st;bowl=(floor(k)+smoothstep(.6,1.,fract(k)))*st;
+  float flatH=1.2+fbm(p*.08,3.)*.6;
+  float m=1.-smoothstep(R*.9,R*2.3,d);
+  float h=mix(base,flatH+bowl,m);
+  vec2 bq=abs(p-(PIT+vec2(22.,-4.)))-vec2(6.,4.);float pd=max(bq.x,bq.y);
+  h=mix(h,flatH,1.-smoothstep(0.,5.,pd));
+  h+=1.1*smoothstep(0.,.5,-pd)+1.1*smoothstep(1.4,1.9,-pd);
+  vec2 pb=abs(p-(PIT+vec2(20.,9.)))-vec2(3.,2.);float od=max(pb.x,pb.y);
+  h=mix(h,flatH,1.-smoothstep(0.,4.,od));
+  h-=.45*(1.-smoothstep(-.1,.1,od));
+  return h;
+}
+vec3 skyCol(vec3 rd,vec3 sun){
+  float y=max(rd.y,0.);
+  vec3 c=mix(vec3(1.05,.56,.30),vec3(.09,.12,.23),pow(y,.45));
+  float s=max(dot(rd,sun),0.);
+  c+=vec3(1.,.55,.25)*pow(s,8.)*.7+vec3(1.,.82,.6)*pow(s,400.)*8.;
+  c=mix(c,vec3(.95,.52,.32),exp(-abs(rd.y)*16.)*.5);
+  return c;
+}
+vec3 sceneTerrain(vec2 uv,float k){
+  vec3 sun=normalize(vec3(.75,.2,.55));
+  float tt=uTime*.6;
+  vec3 ro0=vec3(-34.+tt*.35,48.,-48.);vec3 ta0=vec3(PIT.x+4.,-6.,PIT.y+14.);
+  vec3 ro1=vec3(PIT.x-19.+sin(uTime*.05)*2.,9.5,PIT.y-17.);vec3 ta1=vec3(PIT.x+5.,-3.,PIT.y+5.);
+  float e=k*k*(3.-2.*k);
+  vec3 ro=mix(ro0,ro1,e);vec3 ta=mix(ta0,ta1,e);
+  ro.xy+=uMouse*vec2(1.6,.8);
+  vec3 rd=camMat(ro,ta)*normalize(vec3(uv,1.75));
+  float t=1.,tmax=220.;bool hit=false;
+  for(int i=0;i<Q_TS;i++){vec3 p=ro+rd*t;float d=p.y-terr(p.xz,4.);if(d<.004*t){hit=true;break;}t+=d*Q_TF;if(t>tmax)break;}
+  vec3 col;
+  if(hit){
+    vec3 p=ro+rd*t;float ep=.02+.0025*t;
+    vec3 n=normalize(vec3(terr(p.xz-vec2(ep,0),Q_NO)-terr(p.xz+vec2(ep,0),Q_NO),2.*ep,terr(p.xz-vec2(0,ep),Q_NO)-terr(p.xz+vec2(0,ep),Q_NO)));
+    float nz=fbm(p.xz*.15,4.);
+    vec3 alb=mix(vec3(.36,.19,.11),vec3(.62,.40,.24),nz);
+    alb=mix(alb,vec3(.72,.53,.27),smoothstep(.6,.72,fbm(p.xz*.05+3.,4.))*.75);
+    alb=mix(alb,vec3(.19,.37,.33),smoothstep(.66,.76,fbm(p.xz*.07-9.,4.))*.65);
+    alb*=mix(.5,1.,smoothstep(.5,.9,n.y));
+    float dP=length((p.xz-PIT)*vec2(1.,1.25));
+    alb=mix(alb,vec3(.56,.46,.37)*(.8+.4*nz),(1.-smoothstep(9.,13.,dP))*.8);
+    vec2 bq=abs(p.xz-(PIT+vec2(22.,-4.)))-vec2(6.,4.);
+    alb=mix(alb,vec3(.64,.52,.40),1.-smoothstep(-.2,.3,max(bq.x,bq.y)));
+    float sha=1.,st=.3;
+    for(int i=0;i<Q_SH;i++){vec3 q=p+n*.05+sun*st;float hh=q.y-terr(q.xz,3.);sha=min(sha,10.*hh/st);st+=clamp(hh,.6,7.);if(sha<0.||st>90.)break;}
+    sha=clamp(sha,0.,1.);sha=sha*sha*(3.-2.*sha);
+    float dif=max(dot(n,sun),0.);
+    vec3 lin=vec3(1.,.63,.38)*dif*sha*3.3;
+    lin+=vec3(.22,.28,.42)*(.5+.5*n.y)*.6;
+    lin+=vec3(.35,.18,.1)*max(dot(n,normalize(vec3(-sun.x,0.,-sun.z))),0.)*.3;
+    col=alb*lin;
+    vec2 pb=abs(p.xz-(PIT+vec2(20.,9.)))-vec2(3.,2.);
+    if(max(pb.x,pb.y)<-.05){vec3 rr=reflect(rd,vec3(0,1,0));col=mix(vec3(.04,.30,.29),skyCol(rr,sun)*.6,.12+.3*pow(1.-max(-rd.y,0.),5.));}
+    float fo=1.-exp(-t*.0058);
+    vec3 fc=mix(vec3(.34,.24,.22),vec3(1.0,.58,.33),pow(max(dot(rd,sun),0.),4.));
+    col=mix(col,fc,fo);
+  } else col=skyCol(rd,sun);
+  return col;
+}
+
+/* ── 2 · Molino SAG ──────────────────── */
+float millMap(vec3 p,out float mat){
+  float a=uTime*.22;
+  vec3 q=p;q.yz=rot(q.yz,a);
+  float r=length(q.yz);float an=atan(q.z,q.y);
+  float xx=mod(q.x+PI*.25,PI*.5)-PI*.25;
+  float shell=max(r-2.6-.07*smoothstep(.12,.0,abs(xx)),abs(q.x-.15)-3.55);
+  float bc=fract(an/(2.*PI)*40.)-.5;
+  vec2 bp=vec2(bc*.41,abs(xx)-.16);
+  shell-=.04*smoothstep(.06,.0,length(bp));
+  float gear=max(abs(q.x+3.1)-.2,r-(3.02+.06*smoothstep(-.4,.4,sin(an*96.))));
+  float fl=max(abs(q.x-3.7)-.1,r-3.2);
+  float head=min(max(max(3.7-q.x,q.x-4.7),r-2.6+(q.x-3.7)*.9),max(3.7-q.x,r-.9));
+  float d=shell*.8;mat=0.;
+  float o=min(min(gear*.8,fl),head);
+  if(o<d){d=o;mat=1.;}
+  float fl2=p.y+3.6;
+  if(fl2<d){mat=2.;d=fl2;}
+  return d;
+}
+vec3 envHall(vec3 rd){
+  vec3 c=vec3(.012,.012,.014)+vec3(.05,.035,.03)*max(rd.y,0.);
+  c+=vec3(1.,.55,.22)*smoothstep(.96,1.,cos(rd.x*16.))*smoothstep(.25,.5,rd.y)*2.2;
+  c+=vec3(.25,.36,.48)*smoothstep(.55,.0,length(rd.xy-vec2(-.65,.35)))*.9;
+  return c;
+}
+vec3 sceneMill(vec2 uv){
+  vec3 ro=vec3(-3.2+uMouse.x*.7,1.5+uMouse.y*.35,-12.5);vec3 ta=vec3(1.4,-.5,0.);
+  ro+=(vec3(h21(vec2(uTime,1.)),h21(vec2(uTime,2.)),0.)-.5)*.035*uAlert;
+  vec3 rd=camMat(ro,ta)*normalize(vec3(uv,1.9));
+  float t=0.,mat=0.;bool hit=false;
+  for(int i=0;i<Q_MS;i++){vec3 p=ro+rd*t;float m;float d=millMap(p,m);if(d<.0008*t+.0004){hit=true;mat=m;break;}t+=d;if(t>40.)break;}
+  vec3 col=envHall(rd)*.55;
+  if(hit){
+    vec3 p=ro+rd*t;vec2 e=vec2(.002,0);float m;
+    vec3 n=normalize(vec3(millMap(p+e.xyy,m)-millMap(p-e.xyy,m),millMap(p+e.yxy,m)-millMap(p-e.yxy,m),millMap(p+e.yyx,m)-millMap(p-e.yyx,m)));
+    vec3 key=normalize(vec3(-.6,.7,-.35));vec3 rim=normalize(vec3(.85,.25,.9));
+    vec3 alb;float metal;
+    if(mat<.5){vec3 q=p;q.yz=rot(q.yz,uTime*.22);float w=fbm(vec2(q.x*3.,atan(q.z,q.y)*6.),5.);
+      alb=mix(vec3(.46,.19,.06),vec3(.12,.11,.10),smoothstep(.4,.7,w));metal=.3+.5*smoothstep(.42,.72,w);}
+    else if(mat<1.5){alb=vec3(.24,.22,.2);metal=.9;}
+    else{alb=vec3(.07,.065,.06)*(.7+.6*fbm(p.xz*2.,3.));metal=.15;}
+    float dif=max(dot(n,key),0.);float ri=pow(max(dot(n,rim),0.),2.);
+    vec3 v=-rd;vec3 h=normalize(key+v);float sp=pow(max(dot(n,h),0.),70.);
+    float fr=pow(1.-max(dot(n,v),0.),5.);
+    vec3 refl=envHall(reflect(rd,n));
+    col=alb*(vec3(1.,.70,.45)*dif*dif*1.9+vec3(.3,.42,.55)*ri*1.4+.012);
+    col+=mix(vec3(.04),alb,metal)*refl*(.6+fr)+vec3(1.,.82,.62)*sp*(.35+metal);
+    if(uAlert>.4&&mat<.5){vec3 q=p;q.yz=rot(q.yz,uTime*.22);float hot=smoothstep(.5,0.,length(vec2(q.x+.6,q.y-.4)));col+=vec3(1.,.35,.08)*hot*(uAlert-.4)*.9;}
+    col=mix(col,vec3(.03,.022,.018),1.-exp(-t*.05));
+  }
+  col+=vec3(.95,.52,.24)*.035*smoothstep(-.3,.8,uv.y-uv.x*.4);
+  return col;
+}
+
+/* ── 3 · Microbios sobre calcopirita ─── */
+float sdCap(vec3 p,vec3 a,vec3 b,float r){vec3 pa=p-a,ba=b-a;float h=clamp(dot(pa,ba)/dot(ba,ba),0.,1.);return length(pa-ba*h)-r;}
+float microMap(vec3 p){
+  vec3 q=p+vec3(0.,0.,uTime*.12);
+  float c=1.7;vec3 id=floor(q/c);vec3 l=mod(q,c)-c*.5;
+  vec3 h=h33(id);float d=max(.35,-p.y-.05);
+  if(h.x>.38&&id.y>-1.){
+    vec3 dir=normalize(h33(id+7.)-.5);
+    vec3 o=(h-.5)*.55;
+    d=sdCap(l-o,-dir*.32,dir*.32+sin(uTime*.6+h.y*6.)*.08,.11);
+  }
+  vec2 c2=vec2(.56);vec2 i2=floor(p.xz/c2);vec2 l2=mod(p.xz,c2)-c2*.5;
+  float r2=h21(i2);
+  float ds=max(p.y+1.07,.09);
+  if(r2>.6){float a=r2*31.4;vec2 dd=vec2(cos(a),sin(a))*(.09+.08*fract(r2*7.));vec2 o2=(vec2(h21(i2+4.),h21(i2+9.))-.5)*.2;vec3 lp=vec3(l2.x-o2.x,p.y+1.19,l2.y-o2.y);ds=min(ds,sdCap(lp,vec3(-dd.x,0.,-dd.y),vec3(dd.x,0.,dd.y),.095));}
+  return min(d,ds);
+}
+vec3 voro(vec2 p){vec2 n=floor(p),f=fract(p);float m1=8.,m2=8.,cid=0.;
+  for(int j=-1;j<=1;j++)for(int i=-1;i<=1;i++){vec2 g=vec2(float(i),float(j));vec2 o=vec2(h21(n+g),h21(n+g+19.));vec2 r=g+o-f;float d=dot(r,r);if(d<m1){m2=m1;m1=d;cid=h21(n+g+3.1);}else if(d<m2)m2=d;}
+  return vec3(sqrt(m1),sqrt(m2),cid);}
+vec3 sceneMicro(vec2 uv){
+  vec3 ro=vec3(uMouse.x*.45,-.55+uMouse.y*.15,-2.4);vec3 ta=vec3(.1,-1.2,1.2);
+  vec3 rd=camMat(ro,ta)*normalize(vec3(uv,1.6));
+  float tp=rd.y<0.?(-1.3-ro.y)/rd.y:1e3;
+  float t=.1;bool hit=false;
+  for(int i=0;i<Q_US;i++){vec3 p=ro+rd*t;float d=microMap(p);if(d<.002){hit=true;break;}t+=max(d*.95,.004);if(t>min(tp,14.))break;}
+  vec3 bg=vec3(.008,.03,.034);vec3 col=bg;
+  vec3 L=normalize(vec3(.3,1.,-.25));
+  if(hit&&t<tp){
+    vec3 p=ro+rd*t;vec2 e=vec2(.002,0);
+    vec3 n=normalize(vec3(microMap(p+e.xyy)-microMap(p-e.xyy),microMap(p+e.yxy)-microMap(p-e.yxy),microMap(p+e.yyx)-microMap(p-e.yyx)));
+    float fr=pow(1.-max(dot(n,-rd),0.),2.5);
+    float dif=max(dot(n,L),0.)*.5+.5;
+    col=vec3(.18,.52,.45)*dif*.5+vec3(.55,1.,.88)*fr*.95+vec3(1.,.75,.45)*pow(max(dot(reflect(rd,n),L),0.),36.)*.7;
+  } else if(tp<14.){
+    t=tp;vec3 p=ro+rd*tp;vec3 v=voro(p.xz*2.4);float ed=v.y-v.x;
+    vec3 alb=vec3(.52,.40,.17)*(.45+.6*smoothstep(0.,.35,ed))*(.55+.6*v.z)*(.75+.5*fbm(p.xz*14.,3.));
+    alb=mix(alb,vec3(.28,.33,.6),smoothstep(.55,.78,fbm(p.xz*2.,3.))*.55);
+    vec3 n=normalize(vec3((v.z-.5)*.9,1.,(fract(v.z*13.7)-.5)*.9));
+    float dif=max(dot(n,L),0.);float sp=pow(max(dot(reflect(rd,n),L),0.),40.);
+    col=alb*(dif*.8+.05)+vec3(1.,.86,.6)*sp*.9;
+    col*=.35+.65*smoothstep(0.,.05,ed);
+    col*=.45+.55*smoothstep(0.,.22,microMap(p));
+  }
+  col=mix(col,bg,1.-exp(-t*.3));
+  for(int k=0;k<3;k++){float fk=float(k);vec2 g=uv*(5.+fk*5.)+vec2(uTime*.04*(fk+1.),fk*3.7);vec2 id=floor(g);vec2 f=fract(g)-.5;
+    if(h21(id+fk*11.)>.82){vec2 o=(vec2(h21(id+3.),h21(id+5.))-.5)*.5;col+=vec3(.45,.9,.8)*smoothstep(.24,.14,length(f-o))*.07*(1.-fk*.25);}}
+  return col;
+}
+
+/* ── 4 · Cobre fundido ───────────────── */
+float copH(vec2 p){return .24*fbm(p*.5+vec2(uTime*.05,uTime*.03),5.)+.05*noise(p*2.2-uTime*.12);}
+vec3 envStudio(vec3 rd){
+  vec3 c=vec3(.006,.005,.005);
+  c+=vec3(1.,.93,.86)*3.2*smoothstep(.05,.0,abs(rd.x-.32))*smoothstep(.0,.2,rd.y)*smoothstep(.95,.6,rd.y);
+  c+=vec3(1.,.8,.62)*1.8*smoothstep(.07,.0,abs(rd.x+.5))*smoothstep(.05,.25,rd.y)*smoothstep(.85,.5,rd.y);
+  c+=vec3(1.,.55,.3)*.55*exp(-abs(rd.y)*9.);
+  c+=vec3(.95,.62,.4)*1.1*smoothstep(.55,0.,length(rd-normalize(vec3(0.,.55,1.))));
+  return c;
+}
+vec3 sceneCopper(vec2 uv){
+  vec3 ro=vec3(uMouse.x*.35,.95+uMouse.y*.15,-3.);vec3 ta=vec3(0.,-.15,3.);
+  vec3 rd=camMat(ro,ta)*normalize(vec3(uv,1.8));
+  float t=.5;bool hit=false;
+  for(int i=0;i<Q_CS;i++){vec3 p=ro+rd*t;float d=p.y-copH(p.xz);if(d<.002*t){hit=true;break;}t+=d*.75;if(t>32.)break;}
+  vec3 col=envStudio(rd)*.12;
+  if(hit){
+    vec3 p=ro+rd*t;float ep=.01;
+    vec3 n=normalize(vec3(copH(p.xz-vec2(ep,0))-copH(p.xz+vec2(ep,0)),2.*ep,copH(p.xz-vec2(0,ep))-copH(p.xz+vec2(0,ep))));
+    vec3 F0=vec3(.96,.63,.48);float cs=max(dot(n,-rd),0.);
+    vec3 F=F0+(1.-F0)*pow(1.-cs,5.);
+    col=envStudio(reflect(rd,n))*F+F0*.015;
+    col=mix(col,vec3(.03,.014,.008),1.-exp(-t*.055));
+  }
+  return col;
+}
+
+/* main(): se genera en JS, un programa por escena (compilación corta y por partes) */
+</script>
+
+<script>
+(function(){
+  const root=document.documentElement;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  root.classList.add('js'); if(!reduce) root.classList.add('motion');
+  requestAnimationFrame(()=>requestAnimationFrame(()=>document.getElementById('heroStick').classList.add('ready')));
+
+  /* ── WebGL ───────────────────────────
+     Un programa por escena (compilación corta y escalonada), presupuesto de pasos
+     según el equipo, resolución adaptativa, tope de cuadros cuando no hay movimiento,
+     recuperación si se pierde el contexto y respaldo estático si el equipo no da. */
+  const cv=document.getElementById('gl');
+  const fb=document.getElementById('fallback');
+  const small=matchMedia('(max-width:760px)').matches;
+  const qs=location.search, forceGL=/[?&]gl=1\b/.test(qs);
+  const SRC=document.getElementById('fs').textContent;
+  const Q=small?{TS:60,TF:'.62',NO:'5.',SH:8,MS:56,US:64,CS:48}:{TS:92,TF:'.56',NO:'6.',SH:12,MS:72,US:88,CS:64};
+  const DEF='#define Q_TS '+Q.TS+'\n#define Q_TF '+Q.TF+'\n#define Q_NO '+Q.NO+'\n#define Q_SH '+Q.SH+'\n#define Q_MS '+Q.MS+'\n#define Q_US '+Q.US+'\n#define Q_CS '+Q.CS+'\n';
+  const EXPR=['sceneTerrain(uv,uK)','sceneMill(uv)','sceneMicro(uv)','sceneCopper(uv)'];
+  const MAIN=e=>'\nuniform float uK,uFade;\nvoid main(){vec2 uv=(gl_FragCoord.xy-.5*uRes)/uRes.y;vec3 col='+e+';col*=uDim*uFade;col=aces(col*1.08);col=pow(col,vec3(1./2.2));vec2 q=gl_FragCoord.xy/uRes;col*=.32+.68*pow(16.*q.x*q.y*(1.-q.x)*(1.-q.y),.24);col+=(h21(gl_FragCoord.xy+fract(uTime*7.)*91.)-.5)*.05;gl_FragColor=vec4(col,1.);}\n';
+  const VS='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+  let gl=null,ext=null,buf=null,progs=[],glDead=false,glLost=false,drewOnce=false;
+
+  function nogl(why){if(glDead)return;glDead=true;root.classList.add('nogl');root.classList.remove('glon');if(why)console.info('MetalGenomic: escena WebGL desactivada ('+why+'). Se muestra el fondo estático.');}
+  function initGL(){
+    progs=[];drewOnce=false;
+    try{gl=cv.getContext('webgl',{antialias:false,alpha:false,depth:false,stencil:false,powerPreference:'high-performance',preserveDrawingBuffer:false,failIfMajorPerformanceCaveat:!forceGL});}catch(e){gl=null;}
+    if(!gl){nogl('sin WebGL o con renderizado por software');return;}
+    // Renderizadores por software congelan la página: se usa el fondo estático.
+    const dbg=gl.getExtension('WEBGL_debug_renderer_info');
+    const ren=dbg?String(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL)):'';
+    if(!forceGL&&/swiftshader|llvmpipe|softpipe|software|basic render/i.test(ren)){nogl('renderizador por software: '+ren);return;}
+    ext=gl.getExtension('KHR_parallel_shader_compile');
+    buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+    // La escena del hero primero; las demás, de a una y sin bloquear el scroll.
+    compile(0);
+    [1,2,3].forEach((i,n)=>setTimeout(()=>{if(gl&&!glDead&&!glLost)compile(i);},900+n*700));
+  }
+  function compile(i){
+    if(progs[i])return;
+    const sh=(type,src)=>{const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);return s;};
+    const v=sh(gl.VERTEX_SHADER,VS),f=sh(gl.FRAGMENT_SHADER,DEF+SRC+MAIN(EXPR[i]));
+    const p=gl.createProgram();gl.attachShader(p,v);gl.attachShader(p,f);gl.linkProgram(p);
+    progs[i]={p,v,f,ok:undefined};
+  }
+  function ready(i){
+    const P=progs[i];if(!P)return false;
+    if(P.ok!==undefined)return P.ok;
+    if(ext&&!gl.getProgramParameter(P.p,ext.COMPLETION_STATUS_KHR))return false;
+    P.ok=!!gl.getProgramParameter(P.p,gl.LINK_STATUS);
+    if(!P.ok){console.warn(gl.getShaderInfoLog(P.f)||gl.getProgramInfoLog(P.p));nogl('el shader no compiló');return false;}
+    P.loc=gl.getAttribLocation(P.p,'p');P.U={};
+    ['uRes','uTime','uDim','uAlert','uMouse','uK','uFade'].forEach(n=>P.U[n]=gl.getUniformLocation(P.p,n));
+    return true;
+  }
+  cv.addEventListener('webglcontextlost',e=>{e.preventDefault();glLost=true;root.classList.remove('glon');},false);
+  cv.addEventListener('webglcontextrestored',()=>{glLost=false;initGL();},false);
+  if(/[?&]gl=0\b/.test(qs))nogl('desactivada por parámetro');else initGL();
+
+  let scale=small?.34:.42; const minScale=small?.2:.24, maxScale=small?.5:.6;
+  function size(){
+    if(!gl)return;
+    const w=Math.max(2,Math.round(innerWidth*scale)),h=Math.max(2,Math.round(innerHeight*scale));
+    if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h;gl.viewport(0,0,w,h);}
+  }
+  // escena (0..4) → programa y mezcla
+  function progFor(a){return a<=1?0:Math.min(3,a-1);}
+  function draw(i,k,fade,alpha,now){
+    const P=progs[i];gl.useProgram(P.p);
+    gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.enableVertexAttribArray(P.loc);gl.vertexAttribPointer(P.loc,2,gl.FLOAT,false,0,0);
+    const U=P.U;
+    gl.uniform2f(U.uRes,cv.width,cv.height);
+    gl.uniform1f(U.uTime,reduce?12.:(now-t0)/1000+12.);
+    gl.uniform1f(U.uDim,cur.d);gl.uniform1f(U.uAlert,reduce?0:alert);
+    gl.uniform2f(U.uMouse,mouse[0],mouse[1]);gl.uniform1f(U.uK,k);gl.uniform1f(U.uFade,fade);
+    if(alpha<1){gl.enable(gl.BLEND);gl.blendColor(0,0,0,alpha);gl.blendFunc(gl.CONSTANT_ALPHA,gl.ONE_MINUS_CONSTANT_ALPHA);}else gl.disable(gl.BLEND);
+    gl.drawArrays(gl.TRIANGLES,0,3);
+  }
+  let lastDraw=0,lastInput=performance.now(),slow=0,gAcc=0,gFrames=0;
+  addEventListener('scroll',()=>{lastInput=performance.now();},{passive:true});
+  function renderGL(now,dt){
+    if(!gl||glDead||glLost)return;
+    const s=Math.min(4,Math.max(0,cur.s));
+    const moving=now-lastInput<900||Math.abs(target_s-cur.s)>.002;
+    const budget=cur.d<.15?120:(moving?0:40);   // sin movimiento: ~25 fps; casi negro: ~8 fps
+    if(now-lastDraw<budget)return;
+    // rendimiento: si el equipo no sostiene ni la resolución mínima, se usa el fondo estático
+    if(drewOnce&&moving){gAcc+=dt;gFrames++;
+      if(gAcc>.5){const ft=gAcc/gFrames;gAcc=0;gFrames=0;
+        if(ft>.028&&scale>minScale)scale=Math.max(minScale,scale*.84);
+        else if(ft<.017&&scale<maxScale)scale=Math.min(maxScale,scale*1.05);
+        if(ft>.12&&scale<=minScale+1e-3){if(++slow>=3){nogl('el equipo no alcanza a dibujar la escena');return;}}else slow=0;}}
+    let a,f;
+    if(s<1){a=0;f=0;}else{a=Math.floor(s);f=s-a;if(a>=4){a=4;f=0;}}
+    const w=a===0?0:(f<.45?0:(f>=1?1:Math.min(1,Math.max(0,(f-.45)/.55))));
+    const ws=w*w*(3-2*w);
+    const iA=a===0?0:progFor(a),iB=progFor(Math.min(4,a+1));
+    const kA=a===0?s:1;
+    const okA=ready(iA),okB=ws>.002?ready(iB):false;
+    if(glDead)return;
+    if(!okA&&!okB)return;              // aún compilando: se ve el fondo estático
+    size();
+    const fade=(ws>.002&&ws<.998)?1-.6*Math.sin(ws*Math.PI):1;
+    if(okA&&(ws<.998||!okB))draw(iA,kA,fade,1,now);
+    if(okB&&ws>.002)draw(iB,1,fade,okA?ws:1,now);
+    lastDraw=now;
+    if(!drewOnce){drewOnce=true;root.classList.add('glon');}
+  }
+
+  /* ── Mapa de actos ─────────────────── */
+  const acts=[...document.querySelectorAll('[data-scene]')];
+  let marks=[];
+  function measure(){marks=acts.map(el=>{const r=el.getBoundingClientRect();return{el,top:r.top+scrollY,h:el.offsetHeight,s:+el.dataset.scene,d:+(el.dataset.dim||1)}});}
+  function target(){
+    const y=scrollY+innerHeight*.5;
+    for(let i=0;i<marks.length;i++){const m=marks[i];
+      if(y<m.top+m.h||i===marks.length-1){
+        const p=Math.min(1,Math.max(0,(y-m.top)/m.h));const nx=marks[i+1];
+        if(nx&&p>.68){const f=(p-.68)/.32;return{s:m.s+(nx.s-m.s)*f,d:m.d+(nx.d-m.d)*f,i,p}}
+        return{s:m.s,d:m.d,i,p};
+      }}
+  }
+
+  /* ── HUD ───────────────────────────── */
+  const hudScale=document.getElementById('hudScale'),hudLabel=document.getElementById('hudLabel'),hudTc=document.getElementById('hudTc');
+  const LOG=[5.6,3.3,1.0,-6.0];
+  function fmt(s){
+    if(s>=3.6)return'Cu · 29';
+    const a=Math.min(s,3);const i=Math.min(2,Math.floor(a));const f=a-i;
+    const v=Math.pow(10,LOG[i]+(LOG[i+1]-LOG[i])*f);
+    if(v>=1000)return(v>=10000?Math.round(v/1000):(v/1000).toFixed(1))+' km';
+    if(v>=1)return(v>=10?Math.round(v):v.toFixed(1))+' m';
+    if(v>=1e-3)return(v*1000).toFixed(v>=1e-2?0:1)+' mm';
+    return Math.max(1,Math.round(v*1e6))+' µm';
+  }
+  const labels=['Territorio','Territorio','Planta','Equipo','Microbio','Cátodo'];
+  function tc(frac){const tot=frac*160;const m=Math.floor(tot/60),s=Math.floor(tot%60),fr=Math.floor((tot%1)*24);const z=n=>String(n).padStart(2,'0');return'00:'+z(m)+':'+z(s)+':'+z(fr);}
+
+  /* ── Vibración ─────────────────────── */
+  const vib=document.getElementById('vib'),vctx=vib.getContext('2d'),monS=document.getElementById('monS');
+  const eqSec=document.getElementById('equipo');
+  let alert=0,alertT=0;
+  function drawVib(t){
+    const w=vib.clientWidth,h=vib.clientHeight,dpr=Math.min(2,devicePixelRatio||1);
+    if(vib.width!==Math.round(w*dpr)){vib.width=Math.round(w*dpr);vib.height=Math.round(h*dpr);}
+    vctx.setTransform(dpr,0,0,dpr,0,0);vctx.clearRect(0,0,w,h);
+    vctx.strokeStyle='rgba(238,231,219,.12)';vctx.lineWidth=1;
+    for(let i=1;i<4;i++){vctx.beginPath();vctx.moveTo(0,h*i/4);vctx.lineTo(w,h*i/4);vctx.stroke();}
+    const lim=h*.18;vctx.setLineDash([4,4]);vctx.strokeStyle='rgba(227,149,92,.55)';vctx.beginPath();vctx.moveTo(0,lim);vctx.lineTo(w,lim);vctx.stroke();vctx.setLineDash([]);
+    vctx.beginPath();
+    for(let x=0;x<=w;x+=2){const u=x/w*20+t*3;
+      let y=Math.sin(u*2.1)*.18+Math.sin(u*5.3+1)*.09+Math.sin(u*11.7)*.05;
+      const imp=Math.pow(Math.max(0,Math.sin(u*1.3)),28)*alert*1.15;
+      y+=imp*Math.sign(Math.sin(u*40))+ (Math.random()-.5)*.04;
+      const py=h*.55-y*h*.42;x===0?vctx.moveTo(x,py):vctx.lineTo(x,py);}
+    vctx.strokeStyle=alert>.5?'#E3955C':'#8FD0BF';vctx.lineWidth=1.4;vctx.stroke();
+  }
+
+  /* ── Bucle ─────────────────────────── */
+  let target_s=0,running=false;
+  let cur={s:0,d:1},mouse=[0,0],mt=[0,0],t0=performance.now(),last=t0,visible=true;
+  addEventListener('pointermove',e=>{mt=[(e.clientX/innerWidth-.5),-(e.clientY/innerHeight-.5)]},{passive:true});
+  document.addEventListener('visibilitychange',()=>{visible=!document.hidden;if(visible&&!running){running=true;last=performance.now();requestAnimationFrame(loop);}});
+  const track=document.getElementById('track'),method=document.getElementById('metodo');
+  const quoteWords=[];
+  (function(){const q=document.getElementById('quote');const ws=q.textContent.trim().split(/\s+/);q.innerHTML=ws.map(w=>'<span'+(/metal|recuperado/i.test(w)?' class="cu"':'')+'>'+w+'</span>').join(' ');quoteWords.push(...q.querySelectorAll('span'));})();
+  const hero=document.getElementById('inicio'),cat=document.getElementById('catodo');
+
+  function setT(el,v){if(el._v!==v){el._v=v;el.textContent=v;}}
+  function secP(el){const r=el.getBoundingClientRect();return Math.min(1,Math.max(0,-r.top/(el.offsetHeight-innerHeight)));}
+
+  function loop(now){
+    if(!visible){running=false;return;}
+    const dt=Math.min(.1,(now-last)/1000);last=now;
+    const tg=target()||{s:4,d:.1,p:0};target_s=tg.s;
+    const k=reduce?1:1-Math.pow(.0015,dt);
+    cur.s+=(tg.s-cur.s)*k;cur.d+=(tg.d-cur.d)*k;
+    mouse[0]+=(mt[0]-mouse[0])*k*.6;mouse[1]+=(mt[1]-mouse[1])*k*.6;
+
+    // barras de cine: abiertas en el hero, se cierran en el pico
+    const hp=secP(hero),cp=cat.getBoundingClientRect();
+    let bar=Math.max(0,1-hp*1.6)*Math.min(innerHeight*.085,72);
+    if(cp.top<innerHeight&&cp.bottom>0){const p=secP(cat);bar=Math.max(bar,Math.sin(Math.min(1,p*1.25)*Math.PI)*innerHeight*.13);
+      const n=Math.floor(Math.min(1,p*1.6)*quoteWords.length+.2);quoteWords.forEach((w,i)=>w.classList.toggle('on',reduce||i<n));}
+    root.style.setProperty('--bar',bar.toFixed(1)+'px');
+
+    // método: pan lateral
+    if(!small){const p=secP(method);const max=track.scrollWidth-innerWidth;track.style.transform='translate3d('+(-p*Math.max(0,max)).toFixed(1)+'px,0,0)';}
+
+    // equipo: alerta temprana
+    const er=eqSec.getBoundingClientRect();
+    if(er.top<innerHeight&&er.bottom>0){const p=secP(eqSec);const a=Math.min(1,Math.max(0,(p-.35)/.3));alert+=(a-alert)*Math.min(1,dt*3);
+      drawVib(reduce?0:(now-t0)/1000);const al=alert>.5;monS.classList.toggle('alert',al);monS.textContent=al?'● Alerta temprana · rodamiento':'● Normal';}
+    else alert+=(0-alert)*Math.min(1,dt*3);
+
+    // HUD
+    setT(hudScale,fmt(cur.s));
+    setT(hudLabel,cur.s<.25?'Territorio':labels[Math.min(5,Math.round(cur.s)+1)]);
+    setT(hudTc,tc(scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight)));
+    root.style.setProperty('--hud-o',Math.max(0,Math.min(1,(cur.d-.45)/.4)).toFixed(2));
+    fb.dataset.s=String(Math.round(cur.s));
+
+    renderGL(now,dt);
+    requestAnimationFrame(loop);
+  }
+  measure();addEventListener('resize',()=>{measure();size();});addEventListener('load',measure);
+  setTimeout(measure,1500);
+  running=true;requestAnimationFrame(loop);
+
+  /* ── Reveals ───────────────────────── */
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{rootMargin:'0px 0px -12% 0px'});
+  document.querySelectorAll('[data-rv]').forEach(el=>io.observe(el));
+
+  /* ── Diagnóstico express ───────────── */
+  const REC={
+    mnt:{k:'Equipo',t:'Mantenimiento predictivo con IA',r:'Vibración, temperatura, acústica y datos de operación de tus equipos críticos.',p:'Un equipo crítico, por ejemplo un molino o una correa.',chip:'i-mnt'},
+    bio:{k:'Microbio',t:'Biolixiviación genómica',r:'La comunidad microbiana de tu mineral y tus soluciones, y su condición de proceso.',p:'Un sector de pila o circuito de lixiviación.',chip:'i-bio'},
+    geo:{k:'Territorio',t:'Exploración geoespacial predictiva',r:'Imágenes satelitales, geología y datos de terreno de tu zona.',p:'Un sector a priorizar o un talud a vigilar.',chip:'i-geo'},
+    twin:{k:'Planta',t:'Gemelo digital y BIM',r:'Planos, modelos y datos de operación de tu planta.',p:'Un circuito o área de la planta, modelado con datos reales.',chip:'i-twin'}
+  };
+  const pains=[...document.querySelectorAll('.pain')];
+  function pick(key,focus){
+    pains.forEach(b=>{const on=b.dataset.pain===key;b.setAttribute('aria-checked',on);b.tabIndex=on?0:-1;if(on&&focus)b.focus();});
+    const r=REC[key];
+    document.getElementById('recK').textContent='Empezaríamos por · '+r.k;
+    document.getElementById('recT').textContent=r.t;
+    document.getElementById('recR').textContent=r.r;
+    document.getElementById('recP').textContent=r.p;
+    Object.values(REC).forEach(x=>document.getElementById(x.chip).checked=false);
+    document.getElementById(r.chip).checked=true;
+  }
+  pains.forEach((b,i)=>{
+    b.addEventListener('click',()=>pick(b.dataset.pain));
+    b.addEventListener('keydown',e=>{let j=null;if(e.key==='ArrowDown'||e.key==='ArrowRight')j=(i+1)%pains.length;if(e.key==='ArrowUp'||e.key==='ArrowLeft')j=(i+pains.length-1)%pains.length;if(j!==null){e.preventDefault();pick(pains[j].dataset.pain,true);}});
+  });
+  pick('mnt');
+  const topicMap={'Mantenimiento predictivo':'mnt','Biolixiviación genómica':'bio','Exploración geoespacial':'geo','Gemelo digital':'twin'};
+  document.querySelectorAll('[data-topic]').forEach(a=>a.addEventListener('click',()=>{const k=topicMap[a.dataset.topic];if(k)pick(k);}));
+
+  /* ── Formulario ────────────────────── */
+  const form=document.getElementById('form'),steps=[...form.querySelectorAll('.fstep')],done=document.getElementById('done');
+  const stepLbl=document.getElementById('stepLbl'),stepBar=document.getElementById('stepBar');
+  function show(n){steps.forEach(s=>s.hidden=+s.dataset.step!==n);done.hidden=true;stepLbl.textContent='Paso '+n+' de 2';stepBar.style.right=n===1?'50%':'0%';}
+  document.getElementById('to2').addEventListener('click',()=>{
+    const any=form.querySelectorAll('input[name="interes"]:checked').length;
+    const m=document.getElementById('msg1');
+    if(!any){m.textContent='Elige al menos una opción, o “Aún no lo sé”.';return;}
+    m.textContent='';show(2);document.getElementById('f-name').focus();
+  });
+  document.getElementById('to1').addEventListener('click',()=>show(1));
+  document.getElementById('edit').addEventListener('click',()=>show(2));
+  form.addEventListener('submit',e=>{
+    e.preventDefault();
+    const g=id=>document.getElementById(id).value.trim();
+    const m=document.getElementById('msg2');
+    if(!g('f-name')||!g('f-co')){m.textContent='Completa tu nombre y tu empresa o faena.';return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(g('f-mail'))){m.textContent='Revisa el correo: debe tener la forma nombre@empresa.cl.';document.getElementById('f-mail').focus();return;}
+    m.textContent='';
+    const ints=[...form.querySelectorAll('input[name="interes"]:checked')].map(i=>i.value).join(', ');
+    const etapa=form.querySelector('input[name="etapa"]:checked').value;
+    const body=['Solicitud de diagnóstico operativo','','Interés: '+ints,'Etapa: '+etapa,'Desafío: '+(g('f-msg')||'—'),'','Nombre: '+g('f-name'),'Cargo: '+(g('f-role')||'—'),'Empresa / faena: '+g('f-co'),'Teléfono: '+(g('f-tel')||'—'),'Correo: '+g('f-mail')].join('\n');
+    document.getElementById('sum').textContent=body;
+    document.getElementById('mailto').href='mailto:contacto@metalgenomic.cl?subject='+encodeURIComponent('Diagnóstico operativo · '+g('f-co'))+'&body='+encodeURIComponent(body);
+    steps.forEach(s=>s.hidden=true);done.hidden=false;stepLbl.textContent='Listo';stepBar.style.right='0%';done.focus();
+  });
+  function copy(text,btn,ok){
+    const done=()=>{const o=btn.textContent;btn.textContent=ok;setTimeout(()=>btn.textContent=o,1800);};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,()=>sel());}else sel();
+    function sel(){const r=document.createRange();const el=btn.id==='copyMail'?document.getElementById('mailTxt'):document.getElementById('sum');r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent='Texto seleccionado';}
+  }
+  document.getElementById('copySum').addEventListener('click',e=>copy(document.getElementById('sum').textContent,e.currentTarget,'Copiada'));
+  document.getElementById('copyMail').addEventListener('click',e=>copy('contacto@metalgenomic.cl',e.currentTarget,'Copiado'));
+})();
+</script>
+
+</body>
+</html>
