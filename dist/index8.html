@@ -2148,13 +2148,15 @@ const smaxK=(a,b,k)=>{const h=Math.max(k-Math.abs(a-b),0)/k;return Math.max(a,b)
 function heroH(x,z){
   const dx=x-HERO.o.x,dz=z-HERO.o.z,d=Math.hypot(dx,dz),az=Math.atan2(dx,dz);
   // primer plano: la ladera sobre la que se posa la cámara cae hacia una quebrada
-  let hF=124-.5*Math.max(0,d-30)+(ridged(x*.006+2.1,z*.006)-.5)*30;
+  let hF=124-(.5+.7*sm(1.3,2.4,Math.abs(az)))*Math.max(0,d-30)+(ridged(x*.006+2.1,z*.006)-.5)*30;
   const gully=Math.abs(Math.sin(az*15+fbm(x*.0035,z*.0035,3)*6));
   hF-=26*Math.pow(1-gully,3)*sm(40,320,d);
   // plano medio: crestas marcadas
-  const hM=280*Math.exp(-Math.pow((d-780)/320,2))*(.45+.8*ridged(x*.0019+3.1,z*.0019-1.7));
+  // v14 · fuera del encuadre de la portada los cordones bajan al nivel del valle: al girar la cámara no aparece un corte
+  const ea=1-sm(.9,1.4,Math.abs(az));
+  const hM=ea*280*Math.exp(-Math.pow((d-780)/320,2))*(.45+.8*ridged(x*.0019+3.1,z*.0019-1.7));
   // fondo: cordillera alta
-  const hB=sm(1250,2900,d)*(620+560*ridged(x*.00075+7.3,z*.00075+2.1));
+  const hB=(1-sm(.78,1.15,Math.abs(az)))*sm(1250,2900,d)*(620+560*ridged(x*.00075+7.3,z*.00075+2.1));
   let h=smaxK(smaxK(hF,hM,60),hB,120);
   // erosión: aristas, cárcavas y regolito; más fuerte en la quebrada para que no exista fondo plano
   const valley=Math.exp(-Math.pow((d-420)/170,2));
@@ -2171,7 +2173,11 @@ function terrH(x,z){
   const m=Math.max(1-sm(0,160,dp),1-sm(RP,RP+150,rp));
   h=h*(1-m)+(fbm(x*.03,z*.03,2)-.5)*1.6*m;
   if(rp<RP-3)h=-230;
-  if(z>360){const w=sm(360,520,z);h=h*(1-w)+(heroH(x,z)-14)*w;}
+  {const dx=x-HERO.o.x,dz=z-HERO.o.z,d=Math.hypot(dx,dz),az=Math.abs(Math.atan2(dx,dz));
+    // dentro del abanico de la portada el terreno queda bajo la malla de los cerros (sin superposición)
+    const wf=1-sm(1.3,1.55,az);if(wf>0)h=h*(1-wf)+(heroH(x,z)-14)*wf;
+    // detrás de la cámara de la portada: solo la ladera del cerro, que baja suave hacia la planta
+    if(az>1.3&&d<380){const wb=(1-sm(200,380,d))*(1-m);if(wb>0){const hb=heroH(x,z)-3;if(hb>h)h+=(hb-h)*wb;}}}
   return h;
 }
 {
@@ -2640,7 +2646,7 @@ function resize(){R.setSize(innerWidth,innerHeight,false);if(VEIN&&VEIN.userData
   camE.fov=a<.8?58:a<1.2?48:40;camI.fov=a<.8?66:a<1.2?56:48;camE.updateProjectionMatrix();camI.updateProjectionMatrix();
   if(comp){comp.setPixelRatio(PR);comp.setSize(innerWidth,innerHeight);if(ssao)ssao.ssaoMaterial.uniforms.cameraInverseProjectionMatrix.value.copy(camI.projectionMatrixInverse);}}
 addEventListener('resize',resize);
-let lastRender=0,slowN=0;
+let lastRender=0,slowN=0;const fogDust=new THREE.Color('#9c7458');
 function sideView(cam,w){const W=innerWidth,H=innerHeight,off=Math.round(w*W*.17);if(cam.userData.off===off)return;cam.userData.off=off;
   if(off<1)cam.clearViewOffset();else cam.setViewOffset(W,H,-off,0,W,H);}
 function frame(st){
@@ -2689,7 +2695,7 @@ function frame(st){
     const far=pmw>.3?2600:12000;if(camE.far!==far){camE.far=far;camE.updateProjectionMatrix();}
     // portada: cámara tipo dron sobre la cresta, mirando los cordones; se funde con el recorrido
     // v14 · portada → planta en un solo vuelo de dron: sube sobre la cresta, gira en altura mirando al valle y baja.
-    // Sin interpolar 180° de golpe y con altura mínima sobre el terreno: la cámara nunca atraviesa el cerro.
+    // En lo alto la cámara atraviesa una bruma de polvo y gira dentro de ella: nunca se ven de costado los cordones ni los bordes del terreno.
     const fl=sm(0,.2,s),hwe=1-fl;
     const a2=innerWidth/innerHeight,lift=a2<.8?10:a2<1.2?5:0,RM=!!st.reduce;
     if(!heroT0)heroT0=now;
@@ -2701,13 +2707,13 @@ function frame(st){
     if(fl<=0){camE.position.copy(heroPos);camE.lookAt(heroTgt);}
     else if(fl>=1){camE.position.copy(vA);camE.lookAt(vB);}
     else{const e=fl,u=1-e;
-      vMid.set(HERO.o.x-30,heroH(HERO.o.x,HERO.o.z)+430,HERO.o.z+60);
+      vMid.set(HERO.o.x-30,heroH(HERO.o.x,HERO.o.z)+420,HERO.o.z+40);
       camE.position.set(u*u*heroPos.x+2*u*e*vMid.x+e*e*vA.x,u*u*heroPos.y+2*u*e*vMid.y+e*e*vA.y,u*u*heroPos.z+2*u*e*vMid.z+e*e*vA.z);
       if(camE.position.z>300){const gh=heroH(camE.position.x,camE.position.z)+55;if(camE.position.y<gh)camE.position.y=gh;}
       dir0.subVectors(heroTgt,heroPos);dir1.subVectors(vB,vA);
       const y0=Math.atan2(dir0.x,dir0.z),y1=Math.atan2(dir1.x,dir1.z);let dy=y1-y0;dy=Math.atan2(Math.sin(dy),Math.cos(dy));
       const p0=Math.atan2(dir0.y,Math.hypot(dir0.x,dir0.z)),p1=Math.atan2(dir1.y,Math.hypot(dir1.x,dir1.z));
-      const yw=y0+dy*sm(.12,.88,e),pt=p0+(p1-p0)*e-.16*Math.sin(Math.PI*e);
+      const yw=y0+dy*sm(.36,.64,e),pt=p0+(p1-p0)*e-.42*Math.sin(Math.PI*e);
       vLook.set(Math.sin(yw)*Math.cos(pt),Math.sin(pt),Math.cos(yw)*Math.cos(pt)).add(camE.position);camE.lookAt(vLook);}
     {const vp=RM?1:sm(.1,.56,hpp)*(1-sm(0,.45,fl));VEIN.visible=hwe>.02&&vp>.002;
      if(VEIN.visible){veinShow(vp);VEIN.material.opacity=Math.min(1,hwe*1.4);}}
@@ -2715,7 +2721,7 @@ function frame(st){
     // luz rasante de atardecer en la portada, día pleno en el resto del recorrido
     const dusk=hwe;heroSunNow.set(-.86,.17-.1*dol,-.3).normalize();curSun.copy(DAY_SUN).lerp(heroSunNow,dusk).normalize();
     sun.position.copy(curSun).multiplyScalar(dusk>.5?3200:1400);sun.color.lerpColors(sunDay,sunDusk,dusk);
-    SKYU.uDusk.value=dusk;SKYU.uSunD.value.copy(curSun);ext.fog.color.lerpColors(fogDay,fogDusk,dusk);
+    SKYU.uDusk.value=dusk;SKYU.uSunD.value.copy(curSun);ext.fog.color.lerpColors(fogDay,fogDusk,dusk);{const hz=sm(.12,.4,fl)*(1-sm(.6,.88,fl));ext.fog.near=3200-3170*hz;ext.fog.far=9000-8680*hz;ext.fog.color.lerp(fogDust,hz);}
     const heroShadow=dusk>.5;if(heroShadow!==sun.userData.hero){sun.userData.hero=heroShadow;
       if(heroShadow){sun.target.position.set(HERO.o.x-260,0,HERO.o.z+1100);Object.assign(sun.shadow.camera,{left:-1500,right:1500,top:1300,bottom:-1300,near:100,far:7000});sun.shadow.normalBias=1.6;}
       else{sun.target.position.set(80,0,40);Object.assign(sun.shadow.camera,{left:-520,right:520,top:420,bottom:-420,near:200,far:3200});sun.shadow.normalBias=.6;}
