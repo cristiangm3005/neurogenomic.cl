@@ -28,6 +28,19 @@ La v2:
    - **Acceso a CDN**: el sitio debe poder cargar `cdn.jsdelivr.net` (o `unpkg.com`), `cdnjs.cloudflare.com` y Google Fonts; una política CSP estricta debe permitir `blob:` en `script-src`.
    - **Navegador**: aceleración por hardware activada (Chrome → Configuración → Sistema).
 
+## Si en otro navegador dice «Página no encontrada» (404)
+No es el código del 3D: en el editor estás conectado como administrador y ves cosas que un visitante no ve. Revisa en este orden:
+1. **Estás abriendo la plantilla, no una página.** Las URL tipo `/?elementor_library=...` o `/elementor_library/...` (Plantillas → Plantillas guardadas → «Vista previa») son privadas y dan 404 a cualquier visitante. Crea una página real: **Páginas → Añadir nueva → Editar con Elementor → Insertar** la plantilla.
+2. **La página no está publicada.** Botón **Publicar** (no «Guardar borrador» ni «Vista previa»; las URL con `preview=true` o `?p=123&preview` solo funcionan con sesión iniciada). En Páginas → Todas, el estado debe decir «Publicada», no «Borrador», «Pendiente» ni «Programada».
+3. **Visibilidad = Pública** (no «Privada» ni «Protegida con contraseña»).
+4. **Usa la URL correcta:** en Páginas → Todas, pasa el mouse sobre la página → **Ver**. Copia esa dirección y pruébala en una ventana de incógnito.
+5. **Refresca los enlaces permanentes:** Ajustes → Enlaces permanentes → **Guardar cambios** (sin cambiar nada). Arregla la mayoría de los 404 de páginas nuevas.
+6. **Limpia la caché** (LiteSpeed, WP Rocket, Cloudflare, caché del hosting): pueden seguir sirviendo el 404 antiguo.
+7. **Modo mantenimiento / «Próximamente»** de Elementor (Elementor → Herramientas → Modo mantenimiento) o plugins de seguridad/membresía que restrinjan la página a usuarios conectados: desactívalos o excluye la página.
+8. **Dominio:** confirma que abres el mismo dominio que WordPress tiene en Ajustes → Generales (con o sin `www`, `https`). Si el dominio es nuevo, la DNS puede tardar en propagarse en otras redes.
+
+Cuando la página se vea en incógnito, comprueba el 3D con `?mgdebug=1`.
+
 ## SEO (configurar en el plugin de SEO)
 - Título: «MetalGenomic | Biolixiviación, genómica e IA para minería en Chile»
 - Meta descripción: «Biolixiviación, exploración geoespacial, mantenimiento predictivo y gemelo digital para la mediana minería. Diagnóstico de tu operación en hasta 4 semanas.»
