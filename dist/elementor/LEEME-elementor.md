@@ -14,7 +14,14 @@ La v2:
 - si el navegador marca el GPU como de bajo rendimiento, reintenta antes de rendirse;
 - trae un modo de diagnóstico.
 
-## v5 (usar esta)
+## v6 (usar esta)
+`metalgenomic-landing-elementor-pro-v6.json` parte de la v5:
+- **Sin cajas negras ni desenfoques detrás del texto.** Se quitaron las tarjetas de la v5, las franjas difusas laterales y el desenfoque (backdrop blur) de paneles y rótulos.
+- **Gemelo digital (BIM) como plano técnico oscuro:** azul marino con retícula y estructura en azul claro. Antes era casi blanco y obligaba a poner cajas detrás del texto.
+- El contraste lo da un velo parejo y suave en toda la pantalla (sin forma ni borde) y títulos más firmes.
+- Los rótulos flotantes del 3D ya no se cruzan con la columna de texto.
+
+## v5
 `metalgenomic-landing-elementor-pro-v5.json` parte de la v4 y agrega:
 - **Celular y tablet vertical:** el texto de cada escena va en una tarjeta oscura nítida abajo (con una línea cobre), sin manchas ni sombras detrás de las frases; el 3D queda libre arriba.
 - **Portada más grande:** el título se ajusta solo al ancho de cada pantalla sin cortarse (2 líneas en escritorio y tablet, 3 en celular). Bajada y botón más grandes.
