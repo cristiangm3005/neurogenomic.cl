@@ -28,7 +28,7 @@ Archivo: `landing-3d/neurogenomic-landing-3d.html`, con su plantilla `neurogenom
 ### Concepto
 Un solo cuerpo de partículas que nunca desaparece cambia de forma siete veces. Cada forma es un capítulo:
 
-`NEUROGENOMIC` → **neurona** → **señales** (atención, emoción, activación → mapa de atención) → **IA** (esfera de datos) → **seis servicios** (seis nodos con su nombre) → **persona** → **fijación** (la retícula de eye tracking donde se toma la decisión, detrás del formulario).
+`NEUROGENOMIC` → **neurona** → **señales** (+ demo «Así mira tu cliente») (atención, emoción, activación → mapa de atención) → **IA** (esfera de datos) → **seis servicios** (seis nodos con su nombre) → **persona** → **fijación** (la retícula de eye tracking donde se toma la decisión, detrás del formulario).
 
 La marca se deshace en la neurona y la historia termina en un punto de fijación. Empieza en la marca y termina en la decisión del cliente.
 
@@ -43,6 +43,17 @@ La marca se deshace en la neurona y la historia termina en un punto de fijación
    El texto está atado al estado de la figura, no a un observador aparte.
 3. **Un morph con dirección.** La nueva forma se arma de izquierda a derecha, como un escáner, mientras las partículas trazan un arco hacia la cámara. Lo conduce el scroll y es reversible: al subir, se deshace.
 4. **La escena siempre visible.** No hay paneles opacos. El texto va sobre un degradado lateral y la figura se ubica sola, calculado en píxeles, en el espacio libre (al costado en computador, arriba en celular y tablet vertical) y escalada para que quepa entera.
+
+### Demo «Así mira tu cliente» (01 · Eye tracking + IA)
+Va entre «Señales» y «IA». La figura 3D de señales queda atenuada detrás. El cuadro queda fijo y el scroll reproduce tres pasos sobre la bolsa MESTA (marca ficticia, el mismo render del sitio). Cada animación muestra lo que dice su texto:
+
+| Paso | Texto | Lo que se ve |
+|---|---|---|
+| 1 · Qué se mide | Dónde se detiene la mirada, en qué orden y cómo varía la activación | La mirada recorre la bolsa: fijaciones numeradas en orden, cuyo tamaño indica la duración, unidas por sacadas. El elemento mirado se enmarca. Abajo, la línea de activación se dibuja en el mismo tiempo y el encabezado muestra «Fijación 4/7 · 210 ms». |
+| 2 · Qué revela | Qué elementos captan atención, cuáles se ignoran y dónde sube la activación | El mapa de calor se acumula (primero lo más mirado). Aparecen los porcentajes de atención por elemento, las zonas ciegas en línea punteada roja («0 fij.») y la marca del pico de activación sobre las notas de cata. |
+| 3 · Qué decisión permite | Priorizar, ajustar o descartar elementos antes de producir | Cada elemento recibe su veredicto en orden: **Priorizar** (variedad y notas), **Ajustar** (marca) y **Descartar** (sello de tueste, tachado). El texto lista las mismas tres decisiones. |
+
+El texto de la izquierda resalta el paso activo, con una barra que avanza al ritmo de la animación. Todo se puede revertir con el scroll y está rotulado como demostración con datos simulados.
 
 ### Hero
 - Sin menú. Durante 1,9 s las partículas llegan desde el fondo y escriben NEUROGENOMIC de izquierda a derecha. Es el único momento de «deleite» y ocurre una vez.

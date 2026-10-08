@@ -32,6 +32,7 @@ def fragment():
         for fam, fn, wt in FACES)
     three = (VEND / "three.min.js").read_text(encoding="utf-8").replace("</script", "<\\/script")
     return (s.replace("{{FONTS}}", faces).replace("{{THREE}}", f"<script>{three}</script>")
+             .replace("{{POUCH}}", "data:image/webp;base64," + base64.b64encode((ROOT / "img" / "ng-pouch-1600.webp").read_bytes()).decode())
              .replace("{{ENDPOINT}}", ENDPOINT).replace("{{CONTACT}}", "/contacto/").replace("{{PRIVACY}}", "/privacidad/"))
 
 
