@@ -14,6 +14,17 @@ La v2:
 - si el navegador marca el GPU como de bajo rendimiento, reintenta antes de rendirse;
 - trae un modo de diagnóstico.
 
+## v4 (usar esta)
+`metalgenomic-landing-elementor-pro-v4.json` parte de la v3 y corrige:
+- **Títulos en negro dentro de Elementor:** el kit global del sitio (Sitio › Tipografía/Colores) pintaba los `h1–h6`, `p`, enlaces y botones. Ahora la landing tiene prioridad sobre el kit, así que se ve igual en cualquier tema.
+- **Halos borrosos bajo el texto:** se quitaron todas las sombras difusas del texto y el efecto «lupa» de las letras al pasar el cursor. El contraste lo da el velo oscuro del fondo, más firme donde la planta se ve blanca.
+- **Paneles cortados en el editor móvil:** el alto de cada escena se mide con la ventana real, no con unidades `svh`.
+- **Portada en dos líneas** («Del dato / al cátodo.») para que en escritorio se vean la bajada y el botón sin hacer scroll.
+- **Electroobtención en móvil:** el texto ya no queda bajo las barras negras.
+- Ajustes de redacción en varias frases.
+
+Importa la v4 igual que las anteriores y reemplaza el widget de la versión previa.
+
 ## Importar
 1. WordPress → Plantillas → Plantillas guardadas → **Importar plantillas** → subir el `.json` v2.
 2. En la página: «Editar con Elementor» → carpeta → «Mis plantillas» → **Insertar** «MetalGenomic · Landing 3D» (si ya habías insertado la v1, borra ese widget primero).
