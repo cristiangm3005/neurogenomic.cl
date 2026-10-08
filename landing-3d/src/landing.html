@@ -180,7 +180,7 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
    Tres pasos conducidos por el scroll; cada animación muestra exactamente lo que dice su texto:
    1 qué se mide (fijaciones en orden + activación) · 2 qué revela (mapa de calor, zonas ciegas, pico) · 3 qué decisión permite. */
 .lx-demo{position:relative;z-index:1;height:440vh;height:440svh}
-.lx-demo .lx-frame{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:clamp(24px,4vw,72px);padding:0 var(--lx-gut)}
+.lx-demo .lx-frame{display:grid;grid-template-columns:minmax(0,500px) auto;justify-content:center;align-items:center;gap:clamp(32px,6vw,112px);padding:0 calc(var(--lx-gut) + 3vw)}
 .lx-demo .lx-frame::before{background:rgba(5,6,7,.72)}
 .lx-demo.is-in .lx-frame::before{opacity:1}
 .lx-demo .lx-txt{z-index:1;margin:0;max-width:520px;padding:0}
@@ -199,7 +199,7 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
 .lx-dm-res .k-p{background:var(--lx-lime)}.lx-dm-res .k-a{background:#FFC93D}.lx-dm-res .k-d{background:#FF6B57}
 .lx-dm-note{margin-top:12px;font:400 10.5px/1.5 var(--lx-mono);letter-spacing:.04em;color:var(--lx-tx2)}
 /* Escenario */
-.lx-dm-stage{position:relative;z-index:1;width:min(48vw,calc((86vh - 150px) * .952),640px);border:1px solid rgba(255,255,255,.12);border-radius:10px;background:rgba(8,9,10,.85);overflow:hidden}
+.lx-dm-stage{position:relative;z-index:1;width:min(42vw,calc((86vh - 150px) * .952),640px);border:1px solid rgba(255,255,255,.12);border-radius:10px;background:rgba(8,9,10,.85);overflow:hidden}
 .lx-dm-bar{display:flex;justify-content:space-between;gap:10px;padding:10px 14px;border-bottom:1px solid var(--lx-line);font:500 10.5px/1.2 var(--lx-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--lx-tx2)}
 .lx-dm-bar b{font-weight:500;color:var(--lx-lime);white-space:nowrap}
 .lx-dm-view{position:relative;aspect-ratio:800/840;overflow:hidden}
@@ -622,7 +622,7 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
     var tag = function (txt, x, y, cls) { var t = d.createElement('span'); t.className = 'lx-dm-tag ' + (cls || ''); t.innerHTML = txt; t.setAttribute('style', pct(x, y)); view.appendChild(t); return t; };
     var shareT = ['variedad', 'marca', 'notas'].map(function (k) { var a = AOI[k]; return { a: a, el: tag(a.n + ' <b>0%</b>', a.r[0], a.r[1]) }; });
     var blindT = [tag('Zona ciega · 0 fij.', 606, 322, 't-blind'), tag('0 fij.', 974, 676, 'r t-blind')];
-    var peakT = tag('↑ Pico de activación', 794, 619, 'l t-peak');
+    var peakT = tag('↑ Pico<span class="lx-dm-long"> de activación</span>', 794, 619, 'l t-peak');
     var decT = [tag('Priorizar', 790, 486, 't-p'), tag('Priorizar', 796, 597, 't-p'), tag('Ajustar', 762, 366, 't-a'), tag('Descartar', 974, 676, 'r t-d')];
     // Activación simulada: respuestas tras la variedad, las notas (pico) y el peso
     var BUMP = [[FIX[0].t0 + 120, .32], [FIX[2].t0 + 90, 1], [FIX[5].t0 + 100, .5], [FIX[6].t0, .35]], tau = 170;
