@@ -14,7 +14,15 @@ La v2:
 - si el navegador marca el GPU como de bajo rendimiento, reintenta antes de rendirse;
 - trae un modo de diagnóstico.
 
-## v6 (usar esta)
+## v7 (usar esta)
+`metalgenomic-landing-elementor-pro-v7.json` parte de la v6. La planta de biolixiviación se ajustó a la foto de referencia:
+- **Pilas:** corona gris carbón, taludes con polvo claro y la grilla de celdas de riego en líneas amarillas (la pila de biolixiviación mantiene las manchas de hierro y la actividad microbiana).
+- **Piscinas** PLS, ILS y Refino en turquesa claro con borde de geomembrana oscura; acopio cónico de mineral claro.
+- **Equipamiento nuevo:** dos torres de chancado en estructura de acero con equipos amarillos, subestación eléctrica con transformadores, pórticos y cerco, línea de alta tensión con torres hacia el este, postes de luz y flota de camiones de extracción, cargadores frontales y camionetas.
+- **Huellas de neumáticos** alrededor de las áreas de trabajo (se desvanecen a distancia y en la vista BIM).
+- Todo se construye junto con la faena y se vuelve azul técnico en el BIM.
+
+## v6
 `metalgenomic-landing-elementor-pro-v6.json` parte de la v5:
 - **Sin cajas negras ni desenfoques detrás del texto.** Se quitaron las tarjetas de la v5, las franjas difusas laterales y el desenfoque (backdrop blur) de paneles y rótulos.
 - **Gemelo digital (BIM) como plano técnico oscuro:** azul marino con retícula y estructura en azul claro. Antes era casi blanco y obligaba a poner cajas detrás del texto.
