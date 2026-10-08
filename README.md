@@ -27,6 +27,15 @@ Composición y rendimiento:
 - **Cierre:** al terminar el capítulo 05 la escena se funde y entra la sección de contacto.
 - **Móvil:** 6 000 partículas (16 000 en escritorio), escena centrada y escalada, y opacidad de 35 % mientras hay texto encima. Con `prefers-reduced-motion` la escena queda quieta y solo cambia con el scroll. En móvil se usan menos partículas y menor resolución. Sin WebGL se muestran `img/story/cap-1…5.webp`, que son capturas de la propia escena. El azul, violeta, cian y dorado se usan solo en la atmósfera 3D: la interfaz mantiene el negro y el lima de la marca.
 
+## Landing 3D sin menú · «De la mirada a la decisión»
+
+`landing-3d/` contiene una landing aparte con el mismo estilo que el sitio. Abre solo con NEUROGENOMIC en grande y usa un cuerpo de partículas que pasa por siete formas: marca → neurona → señales → IA → seis servicios → persona → fijación. Tiene un único sistema de movimiento y no usa GSAP ni Lenis.
+
+- `landing-3d/neurogenomic-landing-3d.html`: página completa (fuentes y Three.js incluidos).
+- `landing-3d/neurogenomic-landing-3d-elementor.json`: plantilla para Elementor (Importar plantilla → Insertar, Elementor Canvas).
+- `landing-3d/CRITICA-ANIMACIONES.md`: crítica de la animación del Inicio actual y especificación del nuevo sistema.
+- Fuente: `landing-3d/src/landing.html`. Build: `python3 landing-3d/build.py`.
+
 ## Responsive
 
 Breakpoints: ≤575 (teléfono), 576–767 (tablet vertical), 768–991 (tablet horizontal), 992–1199 (laptop) y ≥1200 (escritorio).
