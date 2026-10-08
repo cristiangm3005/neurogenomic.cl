@@ -14,7 +14,15 @@ La v2:
 - si el navegador marca el GPU como de bajo rendimiento, reintenta antes de rendirse;
 - trae un modo de diagnóstico.
 
-## v4 (usar esta)
+## v5 (usar esta)
+`metalgenomic-landing-elementor-pro-v5.json` parte de la v4 y agrega:
+- **Celular y tablet vertical:** el texto de cada escena va en una tarjeta oscura nítida abajo (con una línea cobre), sin manchas ni sombras detrás de las frases; el 3D queda libre arriba.
+- **Portada más grande:** el título se ajusta solo al ancho de cada pantalla sin cortarse (2 líneas en escritorio y tablet, 3 en celular). Bajada y botón más grandes.
+- **Botones nuevos:** degradado cobre con relieve, flecha en un círculo que gira al pasar el cursor, destello que cruza el botón, leve atracción hacia el cursor (solo con mouse) y un pulso suave en el botón de la portada. Los enlaces «Ver si aplica a mi faena» se rellenan de cobre al pasar el cursor.
+- **Scroll suave más notorio** con rueda y trackpad. En celular se mantiene el scroll nativo del teléfono, que ya es suave e inercial.
+- Textos de escenas, preguntas y pilares un poco más grandes.
+
+## v4
 `metalgenomic-landing-elementor-pro-v4.json` parte de la v3 y corrige:
 - **Títulos en negro dentro de Elementor:** el kit global del sitio (Sitio › Tipografía/Colores) pintaba los `h1–h6`, `p`, enlaces y botones. Ahora la landing tiene prioridad sobre el kit, así que se ve igual en cualquier tema.
 - **Halos borrosos bajo el texto:** se quitaron todas las sombras difusas del texto y el efecto «lupa» de las letras al pasar el cursor. El contraste lo da el velo oscuro del fondo, más firme donde la planta se ve blanca.
