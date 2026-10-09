@@ -14,7 +14,17 @@ La v2:
 - si el navegador marca el GPU como de bajo rendimiento, reintenta antes de rendirse;
 - trae un modo de diagnóstico.
 
-## v7 (usar esta)
+## v8 (usar esta)
+`metalgenomic-landing-elementor-pro-v8.json` aplica el documento «Landing v7 — Crítica y propuesta de mejora»:
+- **Copy (6.1):** subtítulo de portada con resultado, «Cada etapa cuenta.», Quiénes somos con equipo y 4 pilares alineados a los servicios, «Modelo 3D de planta (BIM)», un solo término «mantenimiento», celdas de flotación como único ejemplo, electroobtención sin número, pasos correctos (posicionamiento / izaje / placa madre), «Cobre.» en cobre, método con línea base en el diagnóstico, opciones del formulario reescritas, botón «Abrir en mi correo», enlaces por servicio, preguntas «¿Cuánto cuesta?» y «¿Con quién voy a trabajar?», cierre «Empecemos por el dato.».
+- **Tipografía (6.2):** una sola familia (Archivo; la condensada sale de su eje de ancho), tres niveles (display, título de sección 36–80 px, subtítulo 17–22 px), dato 15 px, etiqueta única 13 px, FAQ con pregunta dominante, un eje a la izquierda y bloques anclados arriba en escritorio.
+- **Capa de fondo (6.3):** una sola capa fija con degradado, entre el 3D y el texto, cuya opacidad sigue al texto visible. Ya no hay líneas entre secciones.
+- **Scroll (6.4):** un solo reloj para texto, cámara y animaciones; guion común (llega · entra · lectura · sale · vuela); alturas reducidas (~21 pantallas en escritorio); rueda del mouse suavizada y trackpad nativo; saltos largos con fundido.
+- **Responsive (6.5):** cinco niveles (teléfono, teléfono horizontal, tablet vertical, horizontal estándar, escritorio grande) que se recalculan al girar o redimensionar; Agendar en dos columnas desde 1100 px; áreas táctiles de 44 px; contenedores de Elementor sin recorte.
+
+**Pendiente de decisión del cliente:** confirmar «Primera reunión sin costo» y la respuesta de «¿Cuánto cuesta?»; agregar la prueba de quiénes son (equipo, formación, laboratorio, alianzas) cuando exista el dato.
+
+## v7
 `metalgenomic-landing-elementor-pro-v7.json` parte de la v6. La planta de biolixiviación se ajustó a la foto de referencia:
 - **Pilas:** corona gris carbón, taludes con polvo claro y la grilla de celdas de riego en líneas amarillas (la pila de biolixiviación mantiene las manchas de hierro y la actividad microbiana).
 - **Piscinas** PLS, ILS y Refino en turquesa claro con borde de geomembrana oscura; acopio cónico de mineral claro.
