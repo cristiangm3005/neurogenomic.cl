@@ -141,6 +141,7 @@ def fill(s, d):
     import re
     # [[opt:campo]] … [[/opt]] se publica solo si el campo tiene valor
     s = re.sub(r"\[\[opt:(\w+)\]\](.*?)\[\[/opt\]\]", lambda m: m.group(2) if d.get(m.group(1)) else "", s, flags=re.S)
+    s = re.sub(r"\[\[noopt:(\w+)\]\](.*?)\[\[/noopt\]\]", lambda m: "" if d.get(m.group(1)) else m.group(2), s, flags=re.S)
     s = re.sub(r"\{\{d:(\w+)\}\}", lambda m: d.get(m.group(1), ""), s)
     return s
 
@@ -183,6 +184,16 @@ def build_pages(el_css, zero):
         json.loads(f.read_text(encoding="utf-8"))
         print("ok", name, len(page) // 1024, "KB")
     build_services(d, css, el_css, zero)
+    # Variante de Privacidad para cuando se instale Google Analytics 4 (archivo 04 de importación)
+    dg = dict(d, analitica="Google Analytics 4")
+    title, desc, path = PAGES["privacidad"]
+    s = (HERE / "src" / "privacidad.html").read_text(encoding="utf-8")
+    graph = [org(dg), {"@type": "WebPage", "url": SITE + path, "name": title, "inLanguage": "es-CL", "publisher": {"@id": SITE + "/#organizacion"}}]
+    frag = fill(s.replace("{{FONTS}}", faces_css()).replace("{{CSS}}", css).replace("{{SITE}}", SITE).replace("{{BRANDLINE}}", brandline(dg))
+                .replace("{{JSONLD}}", jsonld(graph)), dg)
+    REG.append(dict(group=4, title="Privacidad", slug="privacidad", parent=None, desc=desc,
+                    content=[{"id": secrets.token_hex(4), "elType": "container", "isInner": False, "settings": {"container_type": "flex", "content_width": "full", "flex_direction": "column", "padding": zero, "margin": zero, "css_classes": "lx-el", "_title": f"{title} (bloque completo)"},
+                              "elements": [{"id": secrets.token_hex(4), "elType": "widget", "widgetType": "html", "isInner": False, "elements": [], "settings": {"html": el_css + frag, "_margin": zero, "_padding": zero}}]}]))
 
 
 def emit(name, title, desc, path, frag, el_css, zero, outdir, wp=None):
@@ -278,9 +289,9 @@ def build_wxr():
     título y la descripción para Yoast SEO o Rank Math. Tres archivos para no superar los límites de subida habituales."""
     def cdata(s):
         return "<![CDATA[" + str(s).replace("]]>", "]]]]><![CDATA[>") + "]]>"
-    ids = {r["slug"]: 9101 + i for i, r in enumerate(REG)}
+    ids = {r["slug"]: 9101 + i for i, r in enumerate(r for r in REG if r["group"] != 4)}
     settings = php_ser({"hide_title": "yes", "background_background": "classic", "background_color": "#050607"})
-    names = {1: "01-portada", 2: "02-contacto-privacidad-metodo", 3: "03-servicios"}
+    names = {1: "01-portada", 2: "02-contacto-privacidad-metodo", 3: "03-servicios", 4: "04-privacidad-con-analitica"}
     outdir = HERE / "subir"
     outdir.mkdir(exist_ok=True)
     for g, fname in names.items():
