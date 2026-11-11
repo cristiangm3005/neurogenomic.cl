@@ -28,6 +28,17 @@ DESC = ("Agencia chilena de neuromarketing: eye tracking, facial coding y respue
         "para validar marca, campañas, packaging y e-commerce antes de invertir.")
 
 
+REG = []  # páginas para el archivo de importación de WordPress (WXR)
+SEO = {
+    "portada": "Neurogenomic · Neuromarketing y eye tracking en Chile",
+    "contacto": "Contacto · Neurogenomic", "privacidad": "Política de privacidad · Neurogenomic",
+    "metodo": "Método: cómo medimos y sus límites · Neurogenomic", "servicios": "Servicios de neuromarketing · Neurogenomic",
+    "branding": "Branding probado con personas · Neurogenomic", "business-intelligence": "Business Intelligence y modelos predictivos · Neurogenomic",
+    "ecommerce": "E-commerce y eye tracking de checkout · Neurogenomic", "marketing-digital": "Pre-test de piezas publicitarias · Neurogenomic",
+    "seo": "SEO para buscadores y motores de IA · Neurogenomic", "desarrollo-web": "Desarrollo web con IA integrada · Neurogenomic",
+}
+
+
 def brandline(d):
     return f"Neurogenomic es una marca de {d['razon_social']}" + (f" · RUT {d['rut']}" if d.get("rut") else "")
 
@@ -90,11 +101,13 @@ def main():
     # Código para pegar directamente en un widget HTML de Elementor (mismo contenido que la plantilla)
     (HERE / "neurogenomic-landing-3d-widget.html").write_text(
         "<!-- NEUROGENOMIC · Landing 3D · pegar completo en un widget HTML (página con plantilla Elementor Canvas) -->\n" + el_css + frag, encoding="utf-8")
+    REG.append(dict(group=1, title="Portada", slug="portada", parent=None, content=tpl["content"], desc=DESC))
     f = HERE / "neurogenomic-landing-3d-elementor.json"
     f.write_text(json.dumps(tpl, ensure_ascii=False, indent=1), encoding="utf-8")
     json.loads(f.read_text(encoding="utf-8"))
     print("ok", len(page) // 1024, "KB")
     build_pages(el_css, zero)
+    build_wxr()
 
 
 # ---------------------------------------------------------------- Páginas interiores
@@ -163,6 +176,8 @@ def build_pages(el_css, zero):
                "page_settings": {"template": "elementor_canvas", "hide_title": "yes",
                                  "background_background": "classic", "background_color": "#050607"},
                "content": [cont]}
+        REG.append(dict(group=2, title={"contacto": "Contacto", "privacidad": "Privacidad", "metodo": "Método"}[name], slug=name, parent=None,
+                        content=tpl["content"], desc=desc))
         f = out / f"neurogenomic-{name}-elementor.json"
         f.write_text(json.dumps(tpl, ensure_ascii=False, indent=1), encoding="utf-8")
         json.loads(f.read_text(encoding="utf-8"))
@@ -170,7 +185,7 @@ def build_pages(el_css, zero):
     build_services(d, css, el_css, zero)
 
 
-def emit(name, title, desc, path, frag, el_css, zero, outdir):
+def emit(name, title, desc, path, frag, el_css, zero, outdir, wp=None):
     """Escribe una página en sus tres formatos: HTML suelto, bloque para widget y plantilla de Elementor."""
     import html as H
     outdir.mkdir(parents=True, exist_ok=True)
@@ -191,6 +206,8 @@ def emit(name, title, desc, path, frag, el_css, zero, outdir):
     tpl = {"title": f"Neurogenomic · {title.split(' · ')[0]}", "type": "page", "version": "0.4",
            "page_settings": {"template": "elementor_canvas", "hide_title": "yes", "background_background": "classic", "background_color": "#050607"},
            "content": [cont]}
+    if wp:
+        REG.append(dict(group=3, title=wp[0], slug=name, parent=wp[1], content=tpl["content"], desc=desc))
     f = outdir / f"neurogenomic-{name}-elementor.json"
     f.write_text(json.dumps(tpl, ensure_ascii=False, indent=1), encoding="utf-8")
     json.loads(f.read_text(encoding="utf-8"))
@@ -208,6 +225,7 @@ def build_services(d, css, el_css, zero):
             '<a href="/">Portada</a><a href="/metodo/">Método</a><a href="/contacto/">Contacto</a><a href="/privacidad/">Privacidad y datos</a></span></footer>\n')
     style = "<style>\n" + faces_css() + "\n" + css + "\n</style>\n"
     outdir = HERE / "paginas" / "servicios"
+    services = []
     for s in data:
         url = f"/servicios/{s['slug']}/"
         plazo = s.get("plazo") or "Se define en el diagnóstico"
@@ -232,7 +250,7 @@ def build_services(d, css, el_css, zero):
                 '        <a class="lx-btn" href="/contacto/">Solicitar diagnóstico <span aria-hidden="true">→</span></a>\n'
                 '      </aside>\n    </div>\n'
                 f'    <nav class="lx-svc__nav" aria-label="Otros servicios">{nav}</nav>\n  </main>\n' + foot + "  " + jsonld(graph) + "\n</div>\n")
-        emit(s["slug"], f'{s["nombre"]} · Servicios · Neurogenomic', s["lead"], url, style + body, el_css, zero, outdir)
+        services.append((s["slug"], f'{s["nombre"]} · Servicios · Neurogenomic', s["lead"], url, style + body, s["nombre"]))
     cards = "".join(f'<li><a href="/servicios/{s["slug"]}/"><b>S·{s["n"]}</b><h2>{e(s["nombre"])}</h2><p>{e(s["titulo"])}</p>'
                     f'<span>Valida: {e(s["valida"][0].lower() + s["valida"][1:])}</span></a></li>' for s in data)
     graph = [org(d), {"@type": "ItemList", "name": "Servicios de Neurogenomic", "itemListElement": [
@@ -242,7 +260,66 @@ def build_services(d, css, el_css, zero):
             '    <p class="lx-lead">Cada línea se contrata sola o integrada. Todas usan el mismo método: medir, modelar, construir y verificar.</p>\n'
             f'    <ul class="lx-svcs">{cards}</ul>\n  </main>\n' + foot + "  " + jsonld(graph) + "\n</div>\n")
     emit("servicios", "Servicios · Neurogenomic", "Branding, Business Intelligence, E-commerce, Marketing digital, SEO y Desarrollo web, validados con eye tracking, respuesta galvánica e IA.",
-         "/servicios/", style + body, el_css, zero, HERE / "paginas")
+         "/servicios/", style + body, el_css, zero, HERE / "paginas", wp=("Servicios", None))
+    # Los servicios van después del índice: en WordPress son páginas hijas de «Servicios» (/servicios/<slug>/)
+    for slug, title, desc, url, frag, nombre in services:
+        emit(slug, title, desc, url, frag, el_css, zero, outdir, wp=(nombre, "servicios"))
+
+
+def php_ser(d):
+    """Serializa un dict de textos como lo guarda WordPress (los ajustes de página de Elementor)."""
+    out = "".join(f's:{len(k.encode())}:"{k}";s:{len(v.encode())}:"{v}";' for k, v in d.items())
+    return f"a:{len(d)}:{{{out}}}"
+
+
+def build_wxr():
+    """Archivos de importación de WordPress (Herramientas › Importar › WordPress): crean todas las páginas de una vez,
+    con su slug, la página superior de los servicios, la plantilla Elementor Canvas, el contenido de Elementor y el
+    título y la descripción para Yoast SEO o Rank Math. Tres archivos para no superar los límites de subida habituales."""
+    def cdata(s):
+        return "<![CDATA[" + str(s).replace("]]>", "]]]]><![CDATA[>") + "]]>"
+    ids = {r["slug"]: 9101 + i for i, r in enumerate(REG)}
+    settings = php_ser({"hide_title": "yes", "background_background": "classic", "background_color": "#050607"})
+    names = {1: "01-portada", 2: "02-contacto-privacidad-metodo", 3: "03-servicios"}
+    outdir = HERE / "subir"
+    outdir.mkdir(exist_ok=True)
+    for g, fname in names.items():
+        items = []
+        for i, r in enumerate([r for r in REG if r["group"] == g]):
+            meta = [("_wp_page_template", "elementor_canvas"), ("_elementor_edit_mode", "builder"), ("_elementor_template_type", "wp-page"),
+                    ("_elementor_version", "3.33.0"), ("_elementor_page_settings", settings),
+                    ("_elementor_data", json.dumps(r["content"], ensure_ascii=False)),
+                    ("_yoast_wpseo_title", SEO[r["slug"]]), ("_yoast_wpseo_metadesc", r["desc"]),
+                    ("rank_math_title", SEO[r["slug"]]), ("rank_math_description", r["desc"])]
+            path = (f"/servicios/{r['slug']}/" if r["parent"] else ("/" if r["slug"] == "portada" else f"/{r['slug']}/"))
+            items.append(
+                "<item>\n"
+                f"<title>{cdata(r['title'])}</title>\n<link>{SITE}{path}</link>\n<pubDate>Wed, 11 Nov 2026 12:00:00 +0000</pubDate>\n"
+                f"<dc:creator>{cdata('neurogenomic')}</dc:creator>\n<guid isPermaLink=\"false\">{SITE}/?page_id={ids[r['slug']]}</guid>\n"
+                "<description></description>\n<content:encoded><![CDATA[]]></content:encoded>\n<excerpt:encoded><![CDATA[]]></excerpt:encoded>\n"
+                f"<wp:post_id>{ids[r['slug']]}</wp:post_id>\n<wp:post_date>{cdata('2026-11-11 09:00:00')}</wp:post_date>\n"
+                f"<wp:post_date_gmt>{cdata('2026-11-11 12:00:00')}</wp:post_date_gmt>\n"
+                f"<wp:post_modified>{cdata('2026-11-11 09:00:00')}</wp:post_modified>\n<wp:post_modified_gmt>{cdata('2026-11-11 12:00:00')}</wp:post_modified_gmt>\n"
+                f"<wp:comment_status>{cdata('closed')}</wp:comment_status>\n<wp:ping_status>{cdata('closed')}</wp:ping_status>\n"
+                f"<wp:post_name>{cdata(r['slug'])}</wp:post_name>\n<wp:status>{cdata('publish')}</wp:status>\n"
+                f"<wp:post_parent>{ids[r['parent']] if r['parent'] else 0}</wp:post_parent>\n<wp:menu_order>{i}</wp:menu_order>\n"
+                f"<wp:post_type>{cdata('page')}</wp:post_type>\n<wp:post_password><![CDATA[]]></wp:post_password>\n<wp:is_sticky>0</wp:is_sticky>\n"
+                + "".join(f"<wp:postmeta>\n<wp:meta_key>{cdata(k)}</wp:meta_key>\n<wp:meta_value>{cdata(v)}</wp:meta_value>\n</wp:postmeta>\n" for k, v in meta)
+                + "</item>\n")
+        xml = ('<?xml version="1.0" encoding="UTF-8" ?>\n'
+               '<rss version="2.0" xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/" xmlns:content="http://purl.org/rss/1.0/modules/content/" '
+               'xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:wp="http://wordpress.org/export/1.2/">\n'
+               f"<channel>\n<title>Neurogenomic</title>\n<link>{SITE}</link>\n<description>Páginas de neurogenomic.cl</description>\n<language>es-CL</language>\n"
+               f"<wp:wxr_version>1.2</wp:wxr_version>\n<wp:base_site_url>{SITE}</wp:base_site_url>\n<wp:base_blog_url>{SITE}</wp:base_blog_url>\n"
+               "<wp:author><wp:author_id>1</wp:author_id><wp:author_login><![CDATA[neurogenomic]]></wp:author_login>"
+               "<wp:author_email><![CDATA[contacto@neurogenomic.cl]]></wp:author_email><wp:author_display_name><![CDATA[Neurogenomic]]></wp:author_display_name>"
+               "<wp:author_first_name><![CDATA[]]></wp:author_first_name><wp:author_last_name><![CDATA[]]></wp:author_last_name></wp:author>\n"
+               + "".join(items) + "</channel>\n</rss>\n")
+        f = outdir / f"{fname}.xml"
+        f.write_text(xml, encoding="utf-8")
+        import xml.etree.ElementTree as ET
+        ET.parse(f)  # el archivo debe ser XML válido
+        print("ok", f.name, round(f.stat().st_size / 1048576, 2), "MB")
 
 
 if __name__ == "__main__":

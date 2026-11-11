@@ -1,4 +1,18 @@
-# Publicar neurogenomic.cl: portada, Contacto y Privacidad
+# Publicar neurogenomic.cl
+
+## Vía rápida (recomendada): 3 archivos crean las 11 páginas
+
+`subir/subir-neurogenomic.zip` trae `01-portada.xml`, `02-contacto-privacidad-metodo.xml` y `03-servicios.xml`. Se importan en **Herramientas › Importar › WordPress** y crean todas las páginas con su dirección, la página superior de los servicios, la plantilla Elementor Canvas, el contenido de Elementor y el título y la descripción para Yoast SEO o Rank Math. Probado en WordPress 7.1.4 con Elementor 4.4.0: las 11 páginas, `robots.txt` y el sitemap responden, y el contenido llega idéntico.
+
+1. Borra (y vacía de la papelera) las páginas antiguas llamadas Contacto, Privacidad, Método, Servicios o Portada, si existen.
+2. Herramientas › Importar › WordPress › **Instalar ahora** › **Ejecutar el importador**.
+3. Sube `01-portada.xml`, asigna el contenido a tu usuario, deja sin marcar «Download and import file attachments» y pulsa **Submit**. Repite con `02` y `03`, en ese orden.
+4. Ajustes › Generales: título «Neurogenomic», idioma «Español de Chile». Ajustes › Lectura: página de inicio «Portada». Ajustes › Enlaces permanentes: «Nombre de la entrada» y **Guardar**.
+5. Vacía la caché y revisa las direcciones en incógnito.
+
+Las plantillas JSON de abajo quedan como vía alternativa, página por página.
+
+## Vía alternativa: plantillas de Elementor página por página
 
 Hoy la portada enlaza a `/contacto/` y `/privacidad/`, pero ambas páginas devuelven 404. Esta guía las publica y deja un canal de contacto que funciona.
 
