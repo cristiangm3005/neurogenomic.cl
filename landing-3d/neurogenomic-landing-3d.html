@@ -205,6 +205,10 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
 
 .lx-foot{position:relative;z-index:1;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;padding:26px var(--lx-gut) 90px;border-top:1px solid var(--lx-line);background:rgba(5,6,7,.92);font:500 10.5px/1.6 var(--lx-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--lx-tx2)}
 .lx-foot a{text-decoration:underline;text-underline-offset:3px}
+.lx-foot__l{display:flex;flex-wrap:wrap;gap:8px 22px}
+.lx-foot a[href^="mailto:"]{text-transform:none;letter-spacing:.04em;color:var(--lx-lime)}
+.lx-mail{margin-top:14px;font-size:14px;color:var(--lx-tx2)}
+.lx-mail a{color:var(--lx-lime);text-decoration:underline;text-underline-offset:3px}
 
 /* ---------- Demo · Así mira tu cliente (eye tracking sobre la bolsa MESTA, marca ficticia) ----------
    Tres pasos conducidos por el scroll; cada animación muestra exactamente lo que dice su texto:
@@ -495,7 +499,11 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
         <h2 class="lx-h" id="lx-h6"><span class="lx-ln" style="--i:0"><span>¿Construimos</span></span><span class="lx-ln" style="--i:1"><span>tu próxima decisión</span></span><span class="lx-ln" style="--i:2"><span><em>con evidencia?</em></span></span></h2>
         <p class="lx-p lx-r" style="--i:2">Cuéntanos qué quieres evaluar: una marca, una campaña, un packaging o un sitio web. Revisamos el desafío y te proponemos el método adecuado.</p>
         <div class="lx-ctas lx-r" style="--i:3"><a class="lx-btn lx-btn--volt" href="/contacto/">Agendar diagnóstico <i aria-hidden="true">↗</i></a></div>
-        <form class="lx-form lx-r" style="--i:4" novalidate data-endpoint="https://formsubmit.co/ajax/cristiangm3005@gmail.com" aria-describedby="lx-form-st">
+        <form class="lx-form lx-r" style="--i:4" method="post" action="https://formsubmit.co/cristiangm3005@gmail.com" data-endpoint="https://formsubmit.co/ajax/cristiangm3005@gmail.com" aria-describedby="lx-form-st">
+          <input type="hidden" name="_subject" value="Solicitud de demo (portada) · neurogenomic.cl">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="Origen" value="Portada · micro-formulario">
           <label class="lx-form__l" for="lx-email">¿Sin tiempo? Déjanos tu correo y te escribimos</label>
           <div class="lx-form__row">
             <input id="lx-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="tu@empresa.cl" required>
@@ -505,12 +513,13 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
           <div class="lx-sr" aria-hidden="true"><label for="lx-hp">No completar</label><input id="lx-hp" name="_honey" type="text" tabindex="-1" autocomplete="off"></div>
           <p class="lx-form__st" id="lx-form-st" role="status" aria-live="polite"></p>
         </form>
-        <ul class="lx-rules lx-r" style="--i:5" aria-label="Líneas rojas"><li>No vendemos datos</li><li>No perfilamos individuos</li><li>No diseñamos manipulación</li></ul>
+        <p class="lx-mail lx-r" style="--i:5">¿Prefieres escribirnos? <a href="mailto:contacto@neurogenomic.cl">contacto@neurogenomic.cl</a></p>
+        <ul class="lx-rules lx-r" style="--i:6" aria-label="Líneas rojas"><li>No vendemos datos</li><li>No perfilamos individuos</li><li>No diseñamos manipulación</li></ul>
       </div></div>
     </section>
   </main>
 
-  <footer class="lx-foot"><span>© 2026 Neurogenomic · Una empresa de Genomic Industries SpA</span><span><a href="/privacidad/">Privacidad y ética</a></span></footer>
+  <footer class="lx-foot"><span>© 2026 Neurogenomic · Una empresa de Genomic Industries SpA</span><span class="lx-foot__l"><a href="mailto:contacto@neurogenomic.cl">contacto@neurogenomic.cl</a><a href="/contacto/">Contacto</a><a href="/privacidad/">Privacidad y datos</a></span></footer>
 
   <div class="lx-ideas" aria-hidden="true"></div>
   <div class="lx-hud" aria-hidden="true"><b class="lx-hud__i">01/05</b><span class="lx-hud__bar"><i></i></span><span class="lx-hud__n">Neurona</span></div>
@@ -733,6 +742,7 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
   /* ---------- Formulario → FormSubmit ---------- */
   (function (f) {
     if (!f) return;
+    f.noValidate = true; // con JS validamos y enviamos en la misma página; sin JS el navegador valida y envía por POST
     var em = f.querySelector('input[type=email]'), ck = f.querySelector('input[name=consentimiento]'), st = f.querySelector('.lx-form__st'), bt = f.querySelector('button'), row = f.querySelector('.lx-form__row');
     var say = function (m, cls) { st.textContent = m; st.className = 'lx-form__st' + (cls ? ' ' + cls : ''); };
     em.addEventListener('input', function () { row.classList.remove('is-err'); em.removeAttribute('aria-invalid'); });

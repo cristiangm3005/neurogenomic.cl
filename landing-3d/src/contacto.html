@@ -1,0 +1,89 @@
+<!-- NEUROGENOMIC · Contacto (/contacto/). Formulario con respaldo sin JavaScript: POST a FormSubmit, nunca GET. -->
+<style>
+{{FONTS}}
+{{CSS}}
+</style>
+<div class="lx-pg" data-lx-contacto>
+  <header class="lx-pg__top">
+    <a class="lx-pg__brand" href="/" aria-label="Neurogenomic, volver a la portada">Neuro<b>genomic</b></a>
+    <a class="lx-pg__back" href="/">← <span>Volver a la </span>portada</a>
+  </header>
+
+  <main class="lx-pg__main">
+    <p class="lx-k"><b>Contacto</b> Diagnóstico inicial</p>
+    <h1 class="lx-h">¿Construimos tu próxima decisión <em>con evidencia?</em></h1>
+    <p class="lx-lead">Cuéntanos qué quieres evaluar: una marca, una campaña, un packaging o un sitio web. Revisamos el desafío y te proponemos el método adecuado.</p>
+
+    <div class="lx-ct">
+      <div>
+        <div class="lx-ch">
+          <a href="mailto:{{d:correo}}"><span>Correo</span><strong>{{d:correo}}</strong></a>
+          [[opt:telefono]]<a href="tel:{{d:telefono_tel}}"><span>Teléfono</span><strong>{{d:telefono}}</strong></a>[[/opt]]
+          [[opt:whatsapp]]<a href="https://wa.me/{{d:whatsapp_wa}}" rel="noopener"><span>WhatsApp</span><strong>{{d:whatsapp}}</strong></a>[[/opt]]
+        </div>
+        <div class="lx-next">
+          <h2>Qué pasa después</h2>
+          <ol>
+            <li><b>01</b><span>Revisamos tu mensaje y lo que quieres evaluar.</span></li>
+            <li><b>02</b><span>Te escribimos para coordinar un diagnóstico inicial.</span></li>
+            <li><b>03</b><span>Te proponemos método, alcance y entregables.</span></li>
+          </ol>
+        </div>
+      </div>
+
+      <form class="lx-cf" method="post" action="{{FORM_POST}}" data-endpoint="{{ENDPOINT}}" aria-describedby="lx-cf-st">
+        <input type="hidden" name="_subject" value="Contacto · neurogenomic.cl">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="Origen" value="Página de contacto">
+        <div class="lx-cf__fields" style="display:grid;gap:16px">
+          <div class="lx-cf__2">
+            <div class="lx-f"><label for="cf-nombre">Nombre <i>*</i></label><input id="cf-nombre" name="Nombre" type="text" autocomplete="name" required maxlength="120"></div>
+            <div class="lx-f"><label for="cf-correo">Correo <i>*</i></label><input id="cf-correo" name="email" type="email" inputmode="email" autocomplete="email" placeholder="tu@empresa.cl" required maxlength="160"></div>
+          </div>
+          <div class="lx-cf__2">
+            <div class="lx-f"><label for="cf-empresa">Empresa</label><input id="cf-empresa" name="Empresa" type="text" autocomplete="organization" maxlength="120"></div>
+            <div class="lx-f"><label for="cf-tema">Qué quieres evaluar</label>
+              <select id="cf-tema" name="Tema"><option value="">Elige una opción</option><option>Marca</option><option>Campaña o pieza publicitaria</option><option>Packaging</option><option>Sitio web o e-commerce</option><option>Otro</option></select></div>
+          </div>
+          <div class="lx-f"><label for="cf-msg">Mensaje <i>*</i></label><textarea id="cf-msg" name="Mensaje" required maxlength="3000" placeholder="Cuéntanos el desafío, el plazo y cualquier dato útil."></textarea></div>
+          <label class="lx-ck"><input type="checkbox" name="Consentimiento" value="Sí" required> <span>Acepto que Neurogenomic use estos datos solo para responder mi solicitud, según la <a href="/privacidad/">política de privacidad</a>.</span></label>
+          <div class="lx-sr" aria-hidden="true"><label for="cf-hp">No completar</label><input id="cf-hp" name="_honey" type="text" tabindex="-1" autocomplete="off"></div>
+          <div><button class="lx-btn" type="submit">Enviar mensaje <span aria-hidden="true">→</span></button></div>
+        </div>
+        <p class="lx-st" id="lx-cf-st" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </main>
+
+  <footer class="lx-foot"><span>© 2026 Neurogenomic · Una empresa de {{d:razon_social}}</span><span class="lx-foot__l"><a href="mailto:{{d:correo}}">{{d:correo}}</a><a href="/">Portada</a><a href="/privacidad/">Privacidad y datos</a></span></footer>
+</div>
+<script>
+(function () {
+  var f = document.querySelector('[data-lx-contacto] .lx-cf');
+  if (!f || f.getAttribute('data-init')) return;
+  f.setAttribute('data-init', '1');
+  f.noValidate = true; // con JS se valida y envía sin salir de la página; sin JS, el navegador valida y envía por POST
+  var st = f.querySelector('.lx-st'), bt = f.querySelector('button[type=submit]');
+  var say = function (m, cls) { st.textContent = m; st.className = 'lx-st' + (cls ? ' ' + cls : ''); };
+  var req = [].slice.call(f.querySelectorAll('[required]'));
+  req.forEach(function (el) { el.addEventListener('input', function () { el.classList.remove('is-err'); el.removeAttribute('aria-invalid'); }); });
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (f.querySelector('[name=_honey]').value) return;
+    var bad = null;
+    req.forEach(function (el) {
+      var ok = el.type === 'checkbox' ? el.checked : el.type === 'email' ? /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(el.value.trim()) : el.value.trim().length > 1;
+      el.classList.toggle('is-err', !ok); if (!ok) { el.setAttribute('aria-invalid', 'true'); if (!bad) bad = el; } else el.removeAttribute('aria-invalid');
+    });
+    if (bad) { say(bad.type === 'checkbox' ? 'Necesitamos tu autorización para responderte.' : bad.type === 'email' ? 'Escribe un correo válido, por ejemplo nombre@empresa.cl.' : 'Completa los campos marcados con *.', 'is-err'); bad.focus(); return; }
+    var data = {}; [].forEach.call(f.elements, function (el) { if (el.name && el.name !== '_honey' && (el.type !== 'checkbox' || el.checked)) data[el.name] = el.value; });
+    data._replyto = data.email; data['Página'] = location.href;
+    bt.disabled = true; say('Enviando…');
+    fetch(f.getAttribute('data-endpoint'), { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(data) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) === 'false') throw new Error(); }); })
+      .then(function () { f.classList.add('is-sent'); say('Gracias. Recibimos tu mensaje y te escribiremos a ' + data.email + '.', 'is-ok'); })
+      .catch(function () { bt.disabled = false; say('No pudimos enviar el mensaje. Inténtalo de nuevo o escríbenos a {{d:correo}}.', 'is-err'); });
+  });
+})();
+</script>

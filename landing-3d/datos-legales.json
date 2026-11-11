@@ -1,0 +1,13 @@
+{
+  "_instrucciones": "Datos que aparecen en /privacidad/ y /contacto/. Completa los vacíos y vuelve a ejecutar: python3 landing-3d/build.py. Un campo vacío no se publica (la línea se omite) y el build avisa. Los plazos son PROPUESTAS que la empresa debe aprobar antes de publicar.",
+  "razon_social": "Genomic Industries SpA",
+  "rut": "",
+  "domicilio": "",
+  "correo": "contacto@neurogenomic.cl",
+  "telefono": "",
+  "whatsapp": "",
+  "fecha_actualizacion": "",
+  "plazo_formulario": "24 meses desde el último contacto, salvo que pidas antes su eliminación",
+  "plazo_video_crudo": "se elimina una vez extraídas y verificadas las métricas, y en ningún caso después de 30 días desde la sesión",
+  "plazo_metricas": "el plazo acordado por escrito con el cliente para cada estudio; al vencer, se eliminan o se anonimizan de forma irreversible"
+}
