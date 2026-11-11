@@ -91,3 +91,33 @@ La demo, el packaging, el caso y el centro de confianza completo siguen en las p
 4. Pulsa **Publicar**. No hace falta subir imágenes ni fuentes: todo va dentro del archivo.
 
 Para cambiar el código, edita `landing-3d/src/landing.html` y ejecuta `python3 landing-3d/build.py`.
+
+## 5. Ajustes de noviembre 2026: hero y animaciones que se explican solas
+
+**Hero**
+- Se eliminó la barra superior: reloj «REC», «Neuroscience-Driven Marketing Optimization» y «Eye tracking · Facial coding · GSR», con su CSS y su JS.
+- Las tres frases y el botón quedan centrados bajo NEUROGENOMIC, en un solo bloque un poco por encima del centro. A 1366×768 terminan a los 566 px.
+
+**NEUROGENOMIC de partículas**
+- El 92 % de los puntos forma las letras (antes el 74 %). De ellos, un 34 % dibuja el contorno de cada letra.
+- Los puntos dispersos quedan atrás y tenues.
+- Los puntos son más finos y su tamaño es proporcional al alto de la letra, así el grano es el mismo en escritorio, tablet y celular.
+- El asentamiento es más firme y hay un movimiento sutil en reposo. La interacción con el cursor se mantiene.
+- Las letras se recalculan al cambiar el tamaño de la ventana.
+
+**Franja «Qué muestra» en cada figura**
+- Tiene tres partes: una frase simple, el flujo de tres pasos que se ilumina en ciclo (1 s por paso) y los indicadores. Los números van rotulados como «Datos simulados».
+
+| Figura | Qué muestra | Flujo | Indicadores |
+|---|---|---|---|
+| Neurona | El cerebro reacciona antes de que la persona pueda explicarlo | Estímulo → Señal neuronal → Reacción | Señal neuronal ● activa · Respuesta verbal ○ todavía no |
+| Señales | Mirada, rostro y piel se convierten en un mapa de atención | Mirada · rostro · piel → Registro → Mapa de atención | Fijación (ms) · Valencia · GSR (µS), en vivo y simulados |
+| IA | La IA cruza las señales con datos de negocio y encuentra patrones | Señales + negocio → Modelo de IA → Patrón | ✓ 3/3 sincronizadas · ✓ Depurado · ◉ 2 segmentos (simulado) |
+| Servicios | Un mismo insight alimenta seis servicios | Insight → Servicio → Decisión validada | Recorre los seis servicios cada 1,8 s y enciende su nodo en la figura |
+| Persona | Producto, mensaje y canal ajustados a una persona real | Producto · mensaje · canal → Persona → Conexión | Relevancia ▲ · Fricción ▼ · Conexión ▲ |
+| Fijación (CTA) | El punto donde la mirada se fija y se toma la decisión | Estímulo → Medición → Decisión | Evidencia ● lista para decidir |
+
+- La demo «Así mira tu cliente» suma el flujo Estímulo → Medición → Insight → Decisión, sincronizado con sus tres pasos.
+- En celular la franja muestra solo el flujo, que es la idea en una línea; en tablet vertical y escritorio va completa.
+- Con movimiento reducido, la franja queda estática y con el resultado marcado.
+- Cuando Elementor vuelve a crear el widget al editarlo, la instancia anterior detiene su bucle y libera WebGL.

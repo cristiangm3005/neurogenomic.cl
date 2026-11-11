@@ -59,6 +59,9 @@ def main():
            "page_settings": {"template": "elementor_canvas", "hide_title": "yes",
                              "background_background": "classic", "background_color": "#050607"},
            "content": [cont]}
+    # Código para pegar directamente en un widget HTML de Elementor (mismo contenido que la plantilla)
+    (HERE / "neurogenomic-landing-3d-widget.html").write_text(
+        "<!-- NEUROGENOMIC · Landing 3D · pegar completo en un widget HTML (página con plantilla Elementor Canvas) -->\n" + el_css + frag, encoding="utf-8")
     f = HERE / "neurogenomic-landing-3d-elementor.json"
     f.write_text(json.dumps(tpl, ensure_ascii=False, indent=1), encoding="utf-8")
     json.loads(f.read_text(encoding="utf-8"))

@@ -51,6 +51,29 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
 .lx-lbl.is-on{opacity:1}
 .lx-lbl.is-l{flex-direction:row-reverse}
 .lx-lbl.is-l span{transform:translateX(6px)}
+.lx-lbl.is-hot span{background:var(--lx-lime);border-color:var(--lx-lime);color:#050607}
+/* Franja «idea central»: qué muestra la figura, el flujo estímulo → medición → resultado y sus indicadores */
+.lx-ideas{position:fixed;inset:0;z-index:2;pointer-events:none;overflow:hidden}
+.lx-idea{position:absolute;left:0;top:0;padding:11px 12px 10px;border:1px solid rgba(200,255,0,.22);border-radius:8px;background:rgba(5,6,7,.84);font:500 10.5px/1.35 var(--lx-mono);letter-spacing:.06em;color:var(--lx-tx2);opacity:0;transition:opacity .3s var(--lx-out);will-change:transform}
+.lx-idea.is-on{opacity:1;transition-duration:.7s;transition-delay:.25s}
+.lx-idea__t{font:400 13px/1.4 var(--lx-ff);letter-spacing:0;color:var(--lx-tx)}
+.lx-idea__t b{font:500 10px/1 var(--lx-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--lx-lime);margin-right:6px}
+.lx-idea__f{display:flex;flex-wrap:wrap;align-items:center;gap:6px 0;margin-top:9px;text-transform:uppercase}
+.lx-idea__f li{display:flex;align-items:center}
+.lx-idea__f li:not(:last-child)::after{content:"→";margin:0 7px;color:var(--lx-lime)}
+.lx-idea__f span{padding:4px 6px;border:1px solid rgba(255,255,255,.18);border-radius:3px;color:var(--lx-tx2);animation:lx-flow 3s linear infinite}
+.lx-idea__f li:nth-child(2) span{animation-delay:1s}
+.lx-idea__f li:nth-child(3) span{animation-delay:2s}
+@keyframes lx-flow{0%,30%{background:var(--lx-lime);border-color:var(--lx-lime);color:#050607}34%,100%{background:transparent;border-color:rgba(255,255,255,.18);color:var(--lx-tx2)}}
+.lx-idea__m{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:6px;margin-top:9px}
+.lx-idea__m div{padding:6px 7px;border-left:2px solid rgba(200,255,0,.55);background:rgba(255,255,255,.035)}
+.lx-idea__m dt{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--lx-tx2)}
+.lx-idea__m dd{margin:3px 0 0;font-size:12px;letter-spacing:.02em;color:var(--lx-tx);text-transform:none}
+.lx-idea__m .on dd,.lx-idea__m .up dd,.lx-idea__m .down dd,.lx-idea__m .hl dd{color:var(--lx-lime)}
+.lx-idea__m .off{border-left-color:rgba(255,255,255,.2)}
+.lx-idea__m .off dd{color:var(--lx-tx2)}
+.lx-idea__m .cyc{grid-column:1/-1}
+.lx-idea__s{margin-top:7px;text-align:right;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--lx-tx2);opacity:.75}
 .lx-lbl.is-on span{opacity:1;transform:none;transition-duration:.7s;transition-delay:var(--d,0ms)}
 
 /* ---------- Estructura de scroll: cada capítulo fija su cuadro mientras la figura se forma ---------- */
@@ -109,14 +132,9 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
 .lx-txt{transition:opacity .45s var(--lx-out),transform .45s var(--lx-out)}
 
 /* ---------- Hero: solo la marca, en grande ---------- */
-.lx-hero .lx-frame{flex-direction:column;align-items:stretch;justify-content:space-between;padding:clamp(18px,2.4vw,34px) var(--lx-gut) clamp(22px,3vw,40px)}
+/* Marca + frases como un solo bloque centrado, un poco por encima del centro óptico */
+.lx-hero .lx-frame{flex-direction:column;align-items:stretch;justify-content:center;gap:clamp(18px,3.4vh,40px);padding:clamp(16px,3vh,34px) var(--lx-gut) clamp(70px,12vh,130px)}
 .lx-hero .lx-frame::before{display:none}
-.lx-top{display:flex;justify-content:space-between;align-items:center;gap:16px;font:500 11px/1.4 var(--lx-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--lx-tx2)}
-.lx-top b{font-weight:500;color:var(--lx-tx)}
-.lx-top>span{white-space:nowrap}
-@media (max-width:1199px){.lx-top>span:last-child{display:none}}
-.lx-rec{display:inline-flex;align-items:center;gap:8px;color:var(--lx-tx)}
-.lx-rec::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--lx-lime);box-shadow:0 0 10px rgba(200,255,0,.9)}
 .lx-mark{position:relative;display:block;margin:0;font:400 clamp(60px,15.6vw,330px)/.86 var(--lx-disp);text-transform:uppercase;letter-spacing:0;white-space:nowrap;text-align:left;
   color:var(--lx-tx);transition:opacity .2s linear}
 .lx-mark>span{display:inline-block;line-height:.86}
@@ -127,11 +145,12 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
 .lx-js .lx-mark{opacity:0}
 .lx-js .lx-hero.is-ready .lx-mark{opacity:var(--mo,1);transition:opacity .9s var(--lx-out)}
 .lx-js .lx-hero.is-set .lx-mark{transition:none}
-.lx-hero__foot{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:24px}
-.lx-claim{font:400 clamp(26px,2.6vw,46px)/1 var(--lx-disp);text-transform:uppercase;max-width:20ch}
+.lx-hero__copy{display:flex;flex-direction:column;align-items:center;text-align:center}
+.lx-hero__copy .lx-ctas{justify-content:center;margin-top:clamp(16px,3vh,28px)}
+.lx-claim{font:400 clamp(26px,2.6vw,46px)/1 var(--lx-disp);text-transform:uppercase;max-width:28ch;text-wrap:balance}
 .lx-claim em{font-style:normal;color:var(--lx-lime)}
-.lx-sub{margin-top:14px;font-size:clamp(15px,1.15vw,17px);color:var(--lx-tx2);max-width:46ch}
-.lx-cue{display:flex;flex-direction:column;align-items:center;gap:12px;font:500 10px/1 var(--lx-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--lx-tx2)}
+.lx-sub{margin-top:clamp(8px,1.6vh,14px);font-size:clamp(15px,1.15vw,17px);color:var(--lx-tx2);max-width:46ch;text-wrap:balance}
+.lx-cue{position:absolute;left:50%;bottom:clamp(14px,2.6vh,28px);translate:-50% 0;display:flex;flex-direction:column;align-items:center;gap:12px;font:500 10px/1 var(--lx-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--lx-tx2)}
 .lx-cue i{position:relative;width:1px;height:54px;background:rgba(255,255,255,.18);overflow:hidden}
 .lx-cue i::after{content:"";position:absolute;left:-1px;top:0;width:3px;height:16px;background:var(--lx-lime);animation:lx-cue 1.8s var(--lx-out) infinite}
 @keyframes lx-cue{from{transform:translateY(-16px)}to{transform:translateY(54px)}}
@@ -202,6 +221,12 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
 .lx-dm-stage{position:relative;z-index:1;width:min(42vw,calc((86vh - 150px) * .952),640px);border:1px solid rgba(255,255,255,.12);border-radius:10px;background:rgba(8,9,10,.85);overflow:hidden}
 .lx-dm-bar{display:flex;justify-content:space-between;gap:10px;padding:10px 14px;border-bottom:1px solid var(--lx-line);font:500 10.5px/1.2 var(--lx-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--lx-tx2)}
 .lx-dm-bar b{font-weight:500;color:var(--lx-lime);white-space:nowrap}
+.lx-dm-flow{display:flex;flex-wrap:wrap;align-items:center;gap:4px 0;padding:8px 14px;border-bottom:1px solid var(--lx-line);font:500 10px/1 var(--lx-mono);letter-spacing:.08em;text-transform:uppercase}
+.lx-dm-flow li{display:flex;align-items:center}
+.lx-dm-flow li:not(:last-child)::after{content:"→";margin:0 6px;color:rgba(200,255,0,.6)}
+.lx-dm-flow span{padding:4px 6px;border:1px solid rgba(255,255,255,.16);border-radius:3px;color:var(--lx-tx2);transition:background-color .3s ease,color .3s ease,border-color .3s ease}
+.lx-dm-flow .is-done span{color:var(--lx-lime);border-color:rgba(200,255,0,.45)}
+.lx-dm-flow .is-on span{background:var(--lx-lime);border-color:var(--lx-lime);color:#050607}
 .lx-dm-view{position:relative;aspect-ratio:800/840;overflow:hidden}
 .lx-dm-view svg{position:absolute;inset:0;width:100%;height:100%;display:block}
 .lx-dm-cell{transition:none}
@@ -264,10 +289,7 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
   .lx-note{display:none}
   .lx-mark{white-space:normal;font-size:clamp(60px,30vw,300px);line-height:.84}
   .lx-mark>span{display:block;width:max-content}
-  .lx-hero__foot{grid-template-columns:1fr}
   .lx-cue{display:none}
-  .lx-top>span:not(.lx-rec){display:none}
-  .lx-rec{white-space:nowrap}
   .lx-pause{top:max(12px,env(safe-area-inset-top));bottom:auto}
   .lx-hud{bottom:18px}.lx-hud__bar{display:none}
   .lx-pause{padding:0!important;width:44px;justify-content:center}
@@ -281,7 +303,8 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
   .lx-demo .lx-frame::before{background:rgba(5,6,7,.78)!important}
   .lx-dm-bar__l,.lx-dm-long{display:none}
   .lx-dm-bar{justify-content:flex-end}
-  .lx-dm-stage{order:-1;justify-self:center;width:min(100%,calc(34svh * .952 + 2px))}
+  .lx-dm-stage{order:-1;justify-self:center;width:min(100%,calc(31svh * .952 + 2px))}
+  .lx-dm-step:last-child>p{display:none}
   .lx-dm-bar{padding:7px 10px;font-size:9.5px}
   .lx-dm-gsr{padding:6px 10px 6px}.lx-dm-gsr svg{height:30px;margin-top:4px}
   .lx-dm-cap{display:none}
@@ -296,6 +319,12 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
   .lx-dm-step p{font-size:14px;margin-top:4px}
   .lx-dm-note{display:none}
   .lx-dm-tag{font-size:9px;padding:3px 5px;gap:4px}
+  .lx-dm-flow{flex-wrap:nowrap;justify-content:center;padding:5px 4px;font-size:8px;letter-spacing:0}
+  .lx-dm-flow span{padding:3px}
+  .lx-dm-flow li:not(:last-child)::after{margin:0 3px}
+  .lx-idea{padding:6px 8px;font-size:9.5px}
+  .lx-idea__t,.lx-idea__m,.lx-idea__s{display:none}
+  .lx-idea__f{margin-top:0}
   .lx-demo .lx-frame{align-items:start}
 }
 @media (max-width:420px){.lx-form button{padding:0 14px}.lx-form button span{display:none}}
@@ -303,7 +332,9 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
 /* ---------- Sin WebGL: la marca va sólida y la atmósfera queda en CSS ---------- */
 .lx-nogl .lx-stage__glow{background:radial-gradient(40% 40% at 70% 45%,rgba(200,255,0,.10),transparent 70%),radial-gradient(50% 50% at 25% 80%,rgba(120,140,160,.12),transparent 70%)}
 
-@media (max-width:767px) and (max-height:740px){.lx-dm-step:last-child>p{display:none}.lx-dm-stage{width:min(100%,calc(31svh * .952 + 2px))}}
+/* Tablet vertical: hay espacio para la franja completa (frase, flujo e indicadores) */
+@media (min-width:600px) and (max-width:1023px) and (orientation:portrait){.lx-idea{padding:11px 12px 10px;font-size:10.5px}.lx-idea__t,.lx-idea__s{display:block}.lx-idea__m{display:grid}.lx-idea__f{margin-top:9px}}
+@media (max-width:767px) and (max-height:740px){.lx-dm-flow{display:none}.lx-sec .lx-list,.lx-sec .lx-chips{display:none}.lx-dm-step:last-child>p{display:none}.lx-dm-stage{width:min(100%,calc(27svh * .952 + 2px))}.lx-dm-step:not(.is-on){display:none}.lx-dm-bar{font-size:8.5px;letter-spacing:.04em;padding:6px 8px}}
 
 /* ---------- Movimiento reducido: menos y más suave, nunca cero ---------- */
 @media (prefers-reduced-motion:reduce){
@@ -312,6 +343,8 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
   .lx-js .lx-ln>span{opacity:0}.lx-js .is-in .lx-ln>span{opacity:1}
   .lx-k::after{transition:none!important}
   .lx-cue i::after{animation:none}
+  .lx-idea__f span{animation:none}
+  .lx-idea__f li:last-child span{background:var(--lx-lime);border-color:var(--lx-lime);color:#050607}
 }
 </style>
 
@@ -327,16 +360,13 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
     <!-- 0 · Marca -->
     <section class="lx-sec lx-hero" data-st="0" aria-labelledby="lx-h0">
       <div class="lx-frame">
-        <div class="lx-top lx-r" style="--i:0"><span class="lx-rec"><b class="lx-clock">REC 00:00:00.000</b></span><span>Neuroscience-Driven Marketing Optimization</span><span>Eye tracking · Facial coding · GSR</span></div>
         <h1 class="lx-mark" id="lx-h0" aria-label="Neurogenomic"><span class="lx-mark__a" aria-hidden="true">NEURO</span><span class="lx-mark__b" aria-hidden="true">GENOMIC</span></h1>
-        <div class="lx-hero__foot">
-          <div>
-            <p class="lx-claim lx-r" style="--i:1">Neurociencia + IA para decidir con <em>evidencia.</em></p>
-            <p class="lx-sub lx-r" style="--i:2">Todos miran. Nosotros medimos. Neuromarketing potenciado por inteligencia artificial.</p>
-            <div class="lx-ctas lx-r" style="--i:3"><a class="lx-btn lx-btn--volt" href="#lx-cta">Agendar diagnóstico <i aria-hidden="true">↗</i></a></div>
-          </div>
-          <span class="lx-cue lx-r" style="--i:4" aria-hidden="true">Desliza<i></i></span>
+        <div class="lx-hero__copy">
+          <p class="lx-claim lx-r" style="--i:1">Neurociencia + IA para decidir con <em>evidencia.</em></p>
+          <p class="lx-sub lx-r" style="--i:2">Todos miran. Nosotros medimos. Neuromarketing potenciado por inteligencia artificial.</p>
+          <div class="lx-ctas lx-r" style="--i:3"><a class="lx-btn lx-btn--volt" href="#lx-cta">Agendar diagnóstico <i aria-hidden="true">↗</i></a></div>
         </div>
+        <span class="lx-cue lx-r" style="--i:4" aria-hidden="true">Desliza<i></i></span>
       </div>
     </section>
 
@@ -382,6 +412,7 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
         </div>
         <figure class="lx-dm-stage lx-r" style="--i:1" aria-label="Demostración: recorrido de la mirada sobre una bolsa de café de marca ficticia, mapa de calor y decisiones por elemento">
           <div class="lx-dm-bar"><span class="lx-dm-bar__l">Eye tracking · 120 Hz</span><b class="lx-dm-read">Desliza para reproducir</b></div>
+          <ol class="lx-dm-flow"><li class="is-on"><span>Estímulo</span></li><li><span>Medición</span></li><li><span>Insight</span></li><li><span>Decisión</span></li></ol>
           <div class="lx-dm-view st-1" aria-hidden="true">
             <svg viewBox="400 100 800 840" preserveAspectRatio="xMidYMid meet">
               <image href="{{POUCH}}" x="0" y="0" width="1600" height="1000" preserveAspectRatio="none"/>
@@ -470,6 +501,7 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
 
   <footer class="lx-foot"><span>© 2026 Neurogenomic · Una empresa de Genomic Industries SpA</span><span><a href="{{PRIVACY}}">Privacidad y ética</a></span></footer>
 
+  <div class="lx-ideas" aria-hidden="true"></div>
   <div class="lx-hud" aria-hidden="true"><b class="lx-hud__i">01/05</b><span class="lx-hud__bar"><i></i></span><span class="lx-hud__n">Neurona</span></div>
   <button class="lx-pause" type="button" aria-pressed="false"><i aria-hidden="true"></i><span>Pausar animación</span></button>
 </div>
@@ -490,7 +522,7 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
   var secs = [].slice.call(root.querySelectorAll('[data-st]'));
   var hero = secs[0], mark = hero.querySelector('.lx-mark'), markA = mark.children[0], markB = mark.children[1], heroFrame = hero.querySelector('.lx-frame');
   var hud = root.querySelector('.lx-hud'), hudI = hud.querySelector('.lx-hud__i'), hudN = hud.querySelector('.lx-hud__n'), hudBar = hud.querySelector('.lx-hud__bar i');
-  var pauseBtn = root.querySelector('.lx-pause'), clock = root.querySelector('.lx-clock'), glowEl = root.querySelector('.lx-stage__glow');
+  var pauseBtn = root.querySelector('.lx-pause'), glowEl = root.querySelector('.lx-stage__glow');
   var NAMES = ['', 'Neurona', 'Señales', 'IA', 'Estrategia', 'Persona', 'Decisión'];
   var SIDE = [0, 1, -1, 1, -1, 1, 1]; // 1 = figura a la derecha (texto a la izquierda)
 
@@ -556,17 +588,10 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
   pauseBtn.addEventListener('click', function () { setPaused(!paused); });
   if (paused) setPaused(true);
 
-  var onScroll = function () { measure(); demoRender(); if (!glOn) syncText(S.stage); kick(); };
+  // En el editor de Elementor el widget se vuelve a crear al editarlo: la instancia anterior se apaga sola
+  var onScroll = function () { if (!root.isConnected) return removeEventListener('scroll', onScroll); measure(); demoRender(); if (!glOn) syncText(S.stage); kick(); };
   addEventListener('scroll', onScroll, { passive: true });
 
-  /* ---------- Reloj REC del hero ---------- */
-  var t0 = performance.now();
-  var pad = function (n, l) { n = String(n); while (n.length < l) n = '0' + n; return n; };
-  var tickClock = function (now) {
-    if (paused) return;
-    var ms = Math.floor(now - t0);
-    clock.textContent = 'REC ' + pad(Math.floor(ms / 3600000), 2) + ':' + pad(Math.floor(ms / 60000) % 60, 2) + ':' + pad(Math.floor(ms / 1000) % 60, 2) + '.' + pad(ms % 1000, 3);
-  };
 
   /* ---------- Demo · Así mira tu cliente ----------
      Coordenadas en píxeles de la imagen (1600×1000). Datos ilustrativos: marca ficticia, mirada simulada. */
@@ -575,7 +600,7 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
     var NS = 'http://www.w3.org/2000/svg', view = demo.querySelector('.lx-dm-view'), svg = view.querySelector('svg');
     var gHeat = svg.querySelector('.lx-dm-heat'), gAoi = svg.querySelector('.lx-dm-aois'), gFix = svg.querySelector('.lx-dm-fixes'), gPath = svg.querySelector('.lx-dm-path'), gaze = svg.querySelector('.lx-dm-gaze');
     var read = demo.querySelector('.lx-dm-read'), cap = demo.querySelector('.lx-dm-cap'), steps = [].slice.call(demo.querySelectorAll('.lx-dm-step')), res = [].slice.call(demo.querySelectorAll('.lx-dm-res li'));
-    var gsr = demo.querySelector('.lx-dm-gsr'), sig = gsr.querySelector('.sig'), head = gsr.querySelector('.head'), peak = gsr.querySelector('.peak'), gv = gsr.querySelector('.lx-dm-gv');
+    var flow = [].slice.call(demo.querySelectorAll('.lx-dm-flow li')), gsr = demo.querySelector('.lx-dm-gsr'), sig = gsr.querySelector('.sig'), head = gsr.querySelector('.head'), peak = gsr.querySelector('.peak'), gv = gsr.querySelector('.lx-dm-gv');
     var el = function (n, a, p) { var e = d.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); (p || svg).appendChild(e); return e; };
     var VX = 400, VY = 100, VW = 800, VH = 840;
     var pct = function (x, y) { return 'left:' + ((x - VX) / VW * 100).toFixed(2) + '%;top:' + ((y - VY) / VH * 100).toFixed(2) + '%'; };
@@ -649,6 +674,9 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
         steps.forEach(function (s, i) { s.classList.toggle('is-on', i === step - 1); });
         cap.innerHTML = CAPS[step - 1];
       }
+      // Estímulo → Medición → Insight → Decisión: el paso activo se ilumina y los anteriores quedan marcados
+      var fi = step === 1 ? (t1 > 0 ? 1 : 0) : step === 2 ? 2 : 3;
+      flow.forEach(function (li, i) { var on = i === fi, dn = i < fi; if (li._s !== on + '' + dn) { li._s = on + '' + dn; li.classList.toggle('is-on', on); li.classList.toggle('is-done', dn); } });
       steps[0].style.setProperty('--sp', t1.toFixed(3)); steps[1].style.setProperty('--sp', t2.toFixed(3)); steps[2].style.setProperty('--sp', t3.toFixed(3));
       // 1 · Qué se mide: la mirada recorre la bolsa en orden y la activación se dibuja en el mismo tiempo
       var now = t1 * T, cur = -1, gx = FIX[0][0], gy = FIX[0][1];
@@ -722,7 +750,6 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
   var startNoGL = function () {
     de.classList.add('lx-nogl'); root.classList.add('lx-nogl');
     introDone = true; hero.classList.add('is-ready', 'is-set'); measure(); syncText(S.stage);
-    if (!paused) (function loop(now) { tickClock(now); if (S.heroP < 1) requestAnimationFrame(loop); })(performance.now());
   };
 
   var hasGL = (function () { try { var c = d.createElement('canvas'); return !!(window.WebGLRenderingContext && (c.getContext('webgl') || c.getContext('experimental-webgl'))); } catch (e) { return false; } })();
@@ -752,7 +779,7 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
   function init() {
     var T = window.THREE, cv = root.querySelector('.lx-stage__cv'), lblBox = root.querySelector('.lx-stage__lbls');
     var small = innerWidth < 768, touch = !FINE;
-    var N = small ? 10000 : (touch ? 14000 : 19000);
+    var N = small ? 13000 : (touch ? 15000 : 19000);
     var renderer;
     try { renderer = new T.WebGLRenderer({ canvas: cv, antialias: false, alpha: true, powerPreference: 'high-performance' }); }
     catch (e) { return startNoGL(); }
@@ -890,7 +917,7 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
     }
 
     /* 0 · Marca: se rellena con las letras reales de NEUROGENOMIC (se recalcula al cambiar el tamaño) */
-    var wordHalf = 6;
+    var wordHalf = 6, wordPt = 1;
     var buildWord = function () {
       var W = innerWidth, H = innerHeight, c = d.createElement('canvas'); c.width = W; c.height = H;
       var cx = c.getContext('2d'), cs = getComputedStyle(mark), fs = parseFloat(cs.fontSize);
@@ -903,20 +930,32 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
         cx.fillStyle = j ? '#00ff00' : '#ff0000';
         cx.fillText(sp.textContent, r.left - fr.left, r.top - fr.top + half + asc);
       });
-      var img = cx.getImageData(0, 0, W, H).data, A = [], B = [], step = (W * H > 2e6) ? 2 : 1;
-      for (var y = 0; y < H; y += step) for (var x = 0; x < W; x += step) { var q = (y * W + x) * 4; if (img[q] > 120) A.push(x, y); else if (img[q + 1] > 120) B.push(x, y); }
-      var hw = 2 * CAM0 * Math.tan(FOV * Math.PI / 360), sc = hw / H, la = A.length / 2, lb = B.length / 2, tot = la + lb;
+      // Máscara de las letras: 1 = NEURO, 2 = GENOMIC. Se separan relleno y borde para que el contorno quede definido.
+      var img = cx.getImageData(0, 0, W, H).data, step = (W * H > 2e6) ? 2 : 1, gw = Math.ceil(W / step), gh = Math.ceil(H / step), mk = new Uint8Array(gw * gh);
+      for (var gy = 0; gy < gh; gy++) for (var gx = 0; gx < gw; gx++) { var q = (gy * step * W + gx * step) * 4; mk[gy * gw + gx] = img[q] > 120 ? 1 : img[q + 1] > 120 ? 2 : 0; }
+      var FA = [], FB = [], EA = [], EB = [], e2 = Math.max(1, Math.round(2 / step));
+      for (var gy = e2; gy < gh - e2; gy++) for (var gx = e2; gx < gw - e2; gx++) {
+        var v = mk[gy * gw + gx]; if (!v) continue;
+        var edge = !mk[gy * gw + gx - e2] || !mk[gy * gw + gx + e2] || !mk[(gy - e2) * gw + gx] || !mk[(gy + e2) * gw + gx];
+        (v === 1 ? (edge ? EA : FA) : (edge ? EB : FB)).push(gx * step, gy * step);
+      }
+      var hw = 2 * CAM0 * Math.tan(FOV * Math.PI / 360), sc = hw / H, tot = (FA.length + FB.length + EA.length + EB.length) / 2, la = (FA.length + EA.length) / 2;
       wordHalf = W / 2 * sc;
-      var NW = Math.floor(N * .74);
+      // Tamaño del punto proporcional al alto de la letra: el mismo grano en escritorio, tablet y celular
+      wordPt = clamp(fs / Math.max(1, H) / .3, .56, 1);
+      // 92 % de las partículas forma las letras (antes 74 %); de ellas, un 34 % dibuja el contorno
+      var NW = Math.floor(N * .92);
       for (var i = 0; i < N; i++) {
         var o = i * 4;
         if (i < NW && tot > 0) {
-          var pickA = R() * tot < la, arr = pickA ? A : B, n = pickA ? la : lb, k = Math.floor(R() * n) * 2;
-          put(0, i, [(arr[k] + R() * step - W / 2) * sc, -(arr[k + 1] + R() * step - H / 2) * sc, G() * .05]);
+          var pickA = R() * tot < la, onEdge = R() < .34, arr = pickA ? (onEdge && EA.length ? EA : FA) : (onEdge && EB.length ? EB : FB);
+          if (!arr.length) arr = pickA ? EA : EB;
+          var k = Math.floor(R() * arr.length / 2) * 2, jt = onEdge ? .6 : step;
+          put(0, i, [(arr[k] + R() * jt - W / 2) * sc, -(arr[k + 1] + R() * jt - H / 2) * sc, G() * .012]);
           aE[o + 1] = pickA ? 0 : 1;
-        } else { put(0, i, [(R() * 2 - 1) * wordHalf * 1.2, (R() * 2 - 1) * hw * .6, -1 - R() * 5]); aE[o + 1] = 2; }
+        } else { put(0, i, [(R() * 2 - 1) * wordHalf * 1.15, (R() * 2 - 1) * hw * .55, -3 - R() * 5]); aE[o + 1] = 2; }
       }
-      if (geo) { geo.attributes.p0.needsUpdate = true; geo.attributes.aE.needsUpdate = true; U.uWordW.value = wordHalf; }
+      if (geo) { geo.attributes.p0.needsUpdate = true; geo.attributes.aE.needsUpdate = true; U.uWordW.value = wordHalf; U.uWordPt.value = wordPt; }
     };
     var geo = null;
     buildWord();
@@ -931,7 +970,7 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
 
     var U = {
       uStage: { value: 0 }, uTime: { value: 0 }, uIntro: { value: RM ? 1 : 0 }, uLoose: { value: 0 }, uMotion: { value: RM ? 0 : 1 },
-      uSize: { value: small ? .07 : .062 }, uPix: { value: 400 }, uAlpha: { value: 1 }, uWordW: { value: wordHalf },
+      uSize: { value: small ? .07 : .062 }, uPix: { value: 400 }, uAlpha: { value: 1 }, uWordW: { value: wordHalf }, uWordPt: { value: wordPt },
       uPulse: { value: 2 }, uPC: { value: new T.Vector3() }, uMouse: { value: new T.Vector3(99, 99, 0) }, uMouseOn: { value: 0 },
       uGap: { value: new T.Vector3(gapV[0], gapV[1], gapV[2]) }, uSharp: { value: small ? 1.2 : 1.6 }
     };
@@ -940,7 +979,7 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
       vertexShader: [
         'attribute vec3 p0;attribute vec3 p1;attribute vec3 p2;attribute vec3 p3;attribute vec3 p4;attribute vec3 p5;attribute vec3 p6;',
         'attribute vec4 aD;attribute vec4 aK;attribute vec4 aE;',
-        'uniform float uStage,uTime,uIntro,uLoose,uMotion,uSize,uPix,uAlpha,uWordW,uPulse,uMouseOn;uniform vec3 uPC,uMouse,uGap;',
+        'uniform float uStage,uTime,uIntro,uLoose,uMotion,uSize,uPix,uAlpha,uWordW,uWordPt,uPulse,uMouseOn;uniform vec3 uPC,uMouse,uGap;',
         'varying vec3 vC;varying float vA;',
         'const vec3 LIME=vec3(.78,1.,0.);const vec3 WHITE=vec3(.93,.95,.97);const vec3 SILVER=vec3(.62,.68,.74);const vec3 DUST=vec3(.3,.33,.36);',
         'float h1(float n){return fract(sin(n*12.9898)*43758.5453);}',
@@ -949,8 +988,9 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
         'vec3 rotZ(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x-s*p.y,s*p.x+c*p.y,p.z);}',
         'vec3 POS(int i){',
         ' if(i==0){vec3 q=p0;float wx=clamp(q.x/uWordW*.5+.5,0.,1.);',
-        '  float ip=clamp((uIntro*1.55-wx*.42-aD.x*.13),0.,1.);ip=1.-pow(1.-ip,3.);',
+        '  float ip=clamp((uIntro*1.55-wx*.42-aD.x*.13),0.,1.);ip=1.-pow(1.-ip,4.);',
         '  vec3 from=q+vec3(sin(aD.x*40.)*7.,cos(aD.x*23.)*4.5,5.+aD.x*7.);q=mix(from,q,ip);',
+        '  q+=vec3(sin(uTime*1.6+aD.x*90.),cos(uTime*1.3+aD.x*70.),0.)*.008*uMotion;',
         '  q+=vec3(sin(uTime*1.3+aD.x*50.),cos(uTime*1.1+aD.x*31.),sin(uTime*.9+aD.x*17.))*uLoose*.22;return q;}',
         ' if(i==1){vec3 q=p1;if(aD.y>500.){q+=uGap*fract(uTime*.45+aD.x*7.)*.9;}return q;}',
         ' if(i==2){vec3 q=p2;if(aK.x<2.5){q.x=mod(p2.x+9.5+uTime*aD.z*uMotion,9.6)-9.5;float conv=smoothstep(-9.5,.1,q.x);q.y=mix(p2.y,p2.y*.25,conv)+.18*sin(q.x*1.2+aK.x*2.+uTime*.7);}return q;}',
@@ -960,7 +1000,7 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
         ' if(i==5){if(aK.w>.5&&aK.w<1.5)return rotY(p5,uTime*.15);return p5;}',
         ' if(aE.x>.5&&aE.x<1.5)return rotZ(p6,uTime*.12);return p6;}',
         'vec3 COL(int i,out float a){',
-        ' if(i==0){if(aE.y<.5){a=.85;return WHITE;}if(aE.y<1.5){a=.95;return LIME;}a=.22;return DUST;}',
+        ' if(i==0){if(aE.y<.5){a=.84;return WHITE;}if(aE.y<1.5){a=.9;return LIME;}a=.09;return DUST;}',
         ' if(i==1){if(aD.y<0.){a=.25;return DUST;}if(aD.y>500.){a=1.;return LIME;}',
         '  float bid=floor(aD.y),tp=fract(aD.y);vec3 c=mix(SILVER,WHITE,tp);if(bid<.5)c=WHITE;',
         '  float ph=fract(uTime*.22+h1(bid));float pos=bid>=400.?ph:1.-ph;float dd=tp-pos;float pl=bid<.5?0.:exp(-dd*dd*700.)*uMotion;',
@@ -992,8 +1032,9 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
         ' pos.xy+=dv/(md+.001)*inf*.42;vC=mix(vC,LIME,inf*.7);vA+=inf*.2;',
         ' vec4 mv=modelViewMatrix*vec4(pos,1.);gl_Position=projectionMatrix*mv;',
         ' float dist=-mv.z;float fog=exp(-pow(dist*.028,2.));vA*=fog;',
-        ' float sz=mix(i0==0?.78:1.,1.,ff);',
-        ' gl_PointSize=uSize*sz*(.6+aD.x*.8)*(1.+wv*1.4)*uPix/max(.5,dist);}'
+        /* Marca: puntos más finos y parejos para que el borde de cada letra se lea limpio */
+        ' float vr=.6+aD.x*.8;if(i0==0)vr=mix((.5+aD.x*.22)*uWordPt,vr,ff);',
+        ' gl_PointSize=uSize*vr*(1.+wv*1.4)*uPix/max(.5,dist);}'
       ].join('\n'),
       fragmentShader: [
         'uniform float uSharp;varying vec3 vC;varying float vA;',
@@ -1003,6 +1044,7 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
     group.add(new T.Points(geo, mat));
 
     /* --- Etiquetas HTML ancladas a la figura --- */
+    lblBox.textContent = '';
     var LBL = [
       [1, 'Soma', [somaA[0], somaA[1] + .62, 0]], [1, 'Sinapsis', term],
       [2, 'Atención', [-6.4, 1.6, 0]], [2, 'Emoción', [-6.4, .35, 0]], [2, 'Activación', [-6.4, -.9, 0]], [2, 'Mapa de atención', [1.6, 1.85, .2]],
@@ -1016,6 +1058,66 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
       return { k: l[0], el: el, v: new T.Vector3(l[2][0], l[2][1], l[2][2]) };
     });
     var tmp = new T.Vector3();
+
+    /* --- Idea central de cada figura: qué muestra, flujo estímulo → medición → resultado e indicadores ---
+       Los valores numéricos son ilustrativos y van rotulados como datos simulados. */
+    var SVC = [['S·01 Branding', 'Valida: qué propuesta de marca desarrollar'], ['S·02 Business Intelligence', 'Valida: qué hallazgos priorizar'], ['S·03 E-commerce', 'Valida: qué fricción resolver primero'],
+               ['S·04 Marketing digital', 'Valida: qué pieza pautar y qué editar'], ['S·05 SEO', 'Valida: qué contenido estructurar primero'], ['S·06 Software', 'Valida: qué flujo construir y cómo']];
+    var IDEAS = [null,
+      { t: 'el cerebro reacciona antes de que la persona pueda explicarlo.', f: ['Estímulo', 'Señal neuronal', 'Reacción'], m: [['Señal neuronal', '● Activa', 'on'], ['Respuesta verbal', '○ Todavía no', 'off']] },
+      { t: 'mirada, rostro y piel se convierten en un mapa de atención.', f: ['Mirada · rostro · piel', 'Registro', 'Mapa de atención'], m: [['Fijación', '214 ms', 'hl'], ['Valencia', '+0,18', 'hl'], ['GSR', '2,61 µS', 'hl']], sim: 1 },
+      { t: 'la IA cruza las señales con datos de negocio y encuentra patrones.', f: ['Señales + negocio', 'Modelo de IA', 'Patrón'], m: [['Señales', '✓ 3/3 sincronizadas', 'on'], ['Ruido', '✓ Depurado', 'on'], ['Patrón', '◉ 2 segmentos', 'hl']], sim: 1 },
+      { t: 'un mismo insight alimenta seis servicios.', f: ['Insight', 'Servicio', 'Decisión validada'], m: [[SVC[0][0], SVC[0][1], 'cyc']] },
+      { t: 'producto, mensaje y canal ajustados a una persona real.', f: ['Producto · mensaje · canal', 'Persona', 'Conexión'], m: [['Relevancia', '▲ Sube', 'up'], ['Fricción', '▼ Baja', 'down'], ['Conexión', '▲ Sube', 'up']] },
+      { t: 'el punto donde la mirada se fija y se toma la decisión.', f: ['Estímulo', 'Medición', 'Decisión'], m: [['Evidencia', '● Lista para decidir', 'on']] }
+    ];
+    var ideasBox = root.querySelector('.lx-ideas'); ideasBox.textContent = '';
+    var esc = function (t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); };
+    var IDEA = IDEAS.map(function (it, k) {
+      if (!it) return null;
+      var el = d.createElement('div'); el.className = 'lx-idea';
+      el.innerHTML = '<p class="lx-idea__t"><b>Qué muestra</b>' + esc(it.t.charAt(0).toUpperCase() + it.t.slice(1)) + '</p>' +
+        '<ol class="lx-idea__f">' + it.f.map(function (x) { return '<li><span>' + esc(x) + '</span></li>'; }).join('') + '</ol>' +
+        '<dl class="lx-idea__m">' + it.m.map(function (m) { return '<div class="' + m[2] + '"><dt>' + esc(m[0]) + '</dt><dd>' + esc(m[1]) + '</dd></div>'; }).join('') + '</dl>' +
+        (it.sim ? '<p class="lx-idea__s">Datos simulados</p>' : '');
+      ideasBox.appendChild(el);
+      return { k: k, el: el, dd: [].slice.call(el.querySelectorAll('dd')), dt: [].slice.call(el.querySelectorAll('dt')) };
+    });
+    var ideaT = 0, svcI = 0, ideaOn = 0, svc0 = LBL.findIndex(function (q) { return q.k === 4; });
+    // Ancho y posición de la franja: bajo la figura y por encima del indicador de capítulo y del botón de pausa
+    var slotW = function (i, stack) {
+      var W = innerWidth; if (stack) return Math.min(W - 24, 440);
+      var gut = clamp(W * .044, 18, 72), tw = Math.min(600, W * .46) + 40; return Math.min(W - gut * 1.5 - tw - 16, 430);
+    };
+    var slot = function (i, stack, h) {
+      var W = innerWidth, H = innerHeight, w = slotW(i, stack);
+      if (stack) return [W / 2 - w / 2, H - txtH[i] - h - 8, w];
+      var gut = clamp(W * .044, 18, 72), tw = Math.min(600, W * .46) + 40, fw = W - gut * 1.5 - tw, cx = SIDE[i] > 0 ? gut + tw + fw / 2 : W - gut - tw - fw / 2;
+      return [clamp(cx - w / 2, 8, W - w - 8), Math.min(H * .72, H - h - 76), w];
+    };
+    var ideaH = function (i, stack) {
+      var it = IDEA[i]; if (!it) return 0;
+      var w = slotW(i, stack); if (it.w !== w) { it.w = w; it.el.style.width = w + 'px'; it.h = 0; }
+      return it.h || (it.h = it.el.offsetHeight);
+    };
+    var ideaTick = function (dt) {
+      var near = Math.round(cur.stage), on = near >= 1 && near <= 6 && Math.abs(cur.stage - near) < .12 && cur.alpha > .7 ? near : 0;
+      if (on !== ideaOn) { IDEA.forEach(function (it) { if (it) it.el.classList.toggle('is-on', it.k === on); }); ideaOn = on; }
+      LBL.forEach(function (l, j) { var hot = on === 4 && l.k === 4 && j - svc0 === svcI; if (l.hot !== hot) { l.hot = hot; l.el.classList.toggle('is-hot', hot); } });
+      if (!on) return;
+      var it = IDEA[on], st = isStack(), sl = slot(on, st, ideaH(on, st));
+      it.el.style.transform = 'translate3d(' + sl[0].toFixed(1) + 'px,' + sl[1].toFixed(1) + 'px,0)';
+      if (RM || paused) return;
+      ideaT += dt;
+      // Señales: lecturas que cambian en vivo · Servicios: recorre los seis y enciende su nodo en la figura
+      if (on === 2 && ideaT > .35) {
+        ideaT = 0; var v = Math.round((Math.random() * .5 - .2) * 100) / 100;
+        it.dd[0].textContent = Math.round(170 + Math.random() * 140) + ' ms';
+        it.dd[1].textContent = (v < 0 ? '−' : '+') + Math.abs(v).toFixed(2).replace('.', ',');
+        it.dd[2].textContent = (2.2 + Math.random() * .9).toFixed(2).replace('.', ',') + ' µS';
+      }
+      if (on === 4 && ideaT > 1.8) { ideaT = 0; svcI = (svcI + 1) % 6; it.dt[0].textContent = SVC[svcI][0]; it.dd[0].textContent = SVC[svcI][1]; }
+    };
 
     /* --- Encuadre por etapa --- */
     var CAMZ = [CAM0, 12.6, 12.8, 12.4, 12.6, 11.8, 12.2], ROTX = [0, .06, .04, .22, .32, .1, 0];
@@ -1039,11 +1141,11 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
       if (i === 0) return [0, 0, 1];
       var W = innerWidth, H = innerHeight, wpp = 2 * CAMZ[i] * Math.tan(FOV * Math.PI / 360) / H, b = BOX[i], cx, cy, fw, fh;
       if (stack) {
-        var top = 60, bottom = i < 6 ? H - txtH[i] : H * .42;
+        var top = 60, bottom = i < 6 ? H - txtH[i] - ideaH(i, true) - 16 : H * .42;
         fw = W * .94; fh = Math.max(H * .24, bottom - top); cx = W / 2; cy = top + fh / 2;
       } else {
         var gut = clamp(W * .044, 18, 72), tw = Math.min(600, W * .46) + 40;
-        fw = W - gut * 1.5 - tw; fh = H * .8; cx = SIDE[i] > 0 ? gut + tw + fw / 2 : W - gut - tw - fw / 2; cy = H / 2;
+        fw = W - gut * 1.5 - tw; fh = H * .58; cx = SIDE[i] > 0 ? gut + tw + fw / 2 : W - gut - tw - fw / 2; cy = H * .4;
       }
       var k2 = stack ? .84 : .9, sc = Math.min(fw * wpp * k2 / b.w, fh * wpp * k2 / b.h, 1);
       return [(cx - W / 2) * wpp - b.cx * sc, (H / 2 - cy) * wpp - b.cy * sc, sc];
@@ -1060,12 +1162,13 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
     };
     size();
     var rt = 0;
-    addEventListener('resize', function () { size(); clearTimeout(rt); rt = setTimeout(function () { fitMark(); buildWord(); measureTxt(); LBL.forEach(function (l) { l.w = 0; }); kick(); }, 180); kick(); });
+    addEventListener('resize', function () { size(); clearTimeout(rt); rt = setTimeout(function () { fitMark(); buildWord(); measureTxt(); LBL.forEach(function (l) { l.w = 0; }); IDEA.forEach(function (it) { if (it) { it.w = 0; it.h = 0; } }); kick(); }, 180); kick(); });
 
     var ip = function (arr, s) { var i = Math.min(arr.length - 2, Math.floor(s)), f = s - i; return arr[i] + (arr[i + 1] - arr[i]) * f; };
     var time = 0, last = 0, raf = 0, running = !d.hidden, arrived = 0, pulseT = 9, introT = RM ? 9 : 0;
     var frame = function (now) {
       raf = 0;
+      if (!root.isConnected) { running = false; try { renderer.dispose(); } catch (e) {} return; }
       var dt = last ? Math.min(.05, (now - last) / 1000) : .016; last = now;
       if (!paused) time += dt;
       measure(); demoRender();
@@ -1099,7 +1202,6 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
       if (mouseIn) { ray.setFromCamera(ndc, camera); nrm.set(0, 0, 1).applyQuaternion(group.quaternion); plane.setFromNormalAndCoplanarPoint(nrm, group.position); if (ray.ray.intersectPlane(plane, hit)) { group.worldToLocal(hit); U.uMouse.value.lerp(hit, .25); } }
       renderer.render(scene, camera);
       syncText(cur.stage);
-      tickClock(now);
       var hw = innerWidth / 2, hh = innerHeight / 2;
       LBL.forEach(function (l) {
         var on = Math.abs(cur.stage - l.k) < .1 && cur.alpha > .7;
@@ -1116,6 +1218,7 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
         }
         if (l.on !== on) { l.on = on; l.el.classList.toggle('is-on', on); }
       });
+      ideaTick(dt);
       var moving = Math.abs(S.stage - cur.stage) > .0005 || pulseT < 1.6 || introT < 9 || mouseT > .01 || Math.abs(tOff - cur.off) > .002;
       if (running && (!paused || moving)) raf = requestAnimationFrame(frame);
     };

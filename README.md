@@ -33,6 +33,7 @@ Composición y rendimiento:
 
 - `landing-3d/neurogenomic-landing-3d.html`: página completa (fuentes y Three.js incluidos).
 - `landing-3d/neurogenomic-landing-3d-elementor.json`: plantilla para Elementor (Importar plantilla → Insertar, Elementor Canvas).
+- `landing-3d/neurogenomic-landing-3d-widget.html`: el mismo bloque para pegar directamente en un widget HTML de Elementor.
 - `landing-3d/CRITICA-ANIMACIONES.md`: crítica de la animación del Inicio actual y especificación del nuevo sistema.
 - Fuente: `landing-3d/src/landing.html`. Build: `python3 landing-3d/build.py`.
 
