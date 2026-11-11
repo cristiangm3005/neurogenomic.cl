@@ -110,6 +110,10 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
 .lx-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:22px}
 .lx-chips li{font:500 11px/1 var(--lx-mono);letter-spacing:.08em;text-transform:uppercase;padding:8px 9px;border-radius:4px;border:1px solid rgba(200,255,0,.32);color:var(--lx-tx)}
 .lx-note{margin-top:16px;font:400 11px/1.55 var(--lx-mono);letter-spacing:.04em;color:var(--lx-tx2);max-width:56ch}
+.lx-note a,.lx-more a{color:var(--lx-lime);text-decoration:underline;text-underline-offset:3px}
+.lx-more{margin-top:16px;font:500 11px/1.4 var(--lx-mono);letter-spacing:.1em;text-transform:uppercase}
+.lx-list--svc a{text-decoration:underline;text-decoration-color:rgba(200,255,0,.45);text-underline-offset:4px}
+@media (hover:hover) and (pointer:fine){.lx-list--svc a:hover{color:var(--lx-lime)}}
 
 /* ---------- Botones (mismo sistema que el sitio) ---------- */
 .lx-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:54px;padding:0 24px;border-radius:6px;border:1px solid rgba(255,255,255,.18);font:500 15px/1 var(--lx-ff);white-space:nowrap;cursor:pointer;transition:background-color .2s ease,border-color .2s ease,box-shadow .3s var(--lx-out),transform .16s var(--lx-out)}
@@ -271,7 +275,8 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
 /* Activación (GSR) */
 .lx-dm-gsr{position:relative;padding:8px 14px 10px;border-top:1px solid var(--lx-line)}
 .lx-dm-gsr__l{display:flex;justify-content:space-between;gap:10px;font:500 10px/1.2 var(--lx-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--lx-tx2)}
-.lx-dm-gsr__l b{font-weight:500;color:var(--lx-lime)}
+.lx-dm-gsr__l b{font-weight:500;color:var(--lx-lime);text-transform:none}
+.lx-u{text-transform:none}
 .lx-dm-gsr svg{display:block;width:100%;height:46px;margin-top:6px;overflow:visible}
 .lx-dm-gsr .base{fill:none;stroke:rgba(255,255,255,.12);stroke-width:1.5;vector-effect:non-scaling-stroke}
 .lx-dm-gsr .sig{fill:none;stroke:var(--lx-lime);stroke-width:2;vector-effect:non-scaling-stroke}
@@ -396,9 +401,9 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
       <div class="lx-frame"><div class="lx-txt">
         <p class="lx-k lx-r"><b>02 / 05</b> Señales y comportamiento</p>
         <h2 class="lx-h" id="lx-h2"><span class="lx-ln" style="--i:0"><span>De impulsos</span></span><span class="lx-ln" style="--i:1"><span>a señales</span></span><span class="lx-ln" style="--i:2"><span><em>medibles.</em></span></span></h2>
-        <p class="lx-p lx-r" style="--i:2">Con consentimiento informado registramos <strong>mirada, expresión facial y respuesta electrodérmica</strong>, y las interpretamos para reconocer señales asociadas a atención, emoción, motivación, preferencia e intención de compra.</p>
-        <ul class="lx-chips lx-r" style="--i:3"><li>Atención</li><li>Emoción</li><li>Motivación</li><li>Preferencia</li><li>Intención de compra</li></ul>
-        <p class="lx-note lx-r" style="--i:4">Las señales describen reacciones del grupo estudiado; no leen pensamientos ni identifican a personas.</p>
+        <p class="lx-p lx-r" style="--i:2">Con consentimiento informado registramos <strong>mirada, movimientos faciales y respuesta electrodérmica</strong>. Ninguna señal se lee sola: las cruzamos entre sí y con lo que cada persona declara para entender atención, activación y preferencia.</p>
+        <ul class="lx-chips lx-r" style="--i:3"><li>Mirada</li><li>Activación</li><li>Movimiento facial</li><li>Respuesta declarada</li></ul>
+        <p class="lx-note lx-r" style="--i:4">Un gesto no es una emoción: el rostro es una señal complementaria, nunca una lectura directa. Las señales describen reacciones del grupo estudiado; no leen pensamientos ni identifican a personas. <a href="/metodo/">Cómo medimos y sus límites →</a></p>
       </div></div>
     </section>
 
@@ -444,10 +449,11 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
         <p class="lx-p lx-r" style="--i:2">Modelos de inteligencia artificial sincronizan las señales, las depuran y las cruzan con información de negocio para detectar patrones de consumo y anticipar qué alternativa tiene más probabilidad de funcionar.</p>
         <ul class="lx-list lx-r" style="--i:3">
           <li><b>01</b><span><strong>Medir</strong><span class="d"> · biometría sobre el estímulo, la marca o el flujo actual</span></span></li>
-          <li><b>02</b><span><strong>Modelar</strong><span class="d"> · la IA cruza mirada, gesto y piel con datos de negocio</span></span></li>
+          <li><b>02</b><span><strong>Modelar</strong><span class="d"> · la IA cruza mirada, rostro, piel y respuesta declarada con datos de negocio</span></span></li>
           <li><b>03</b><span><strong>Construir</strong><span class="d"> · sobre opciones ya validadas</span></span></li>
           <li><b>04</b><span><strong>Verificar</strong><span class="d"> · se vuelve a testear antes y después de publicar</span></span></li>
         </ul>
+        <p class="lx-more lx-r" style="--i:4"><a href="/metodo/">Método: muestras y limitaciones →</a></p>
       </div></div>
     </section>
 
@@ -458,13 +464,14 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
         <h2 class="lx-h" id="lx-h4"><span class="lx-ln" style="--i:0"><span>Seis servicios.</span></span><span class="lx-ln" style="--i:1"><span><em>Un framework.</em></span></span></h2>
         <p class="lx-p lx-r" style="--i:2">La IA convierte los datos en rutas de decisión: qué mensaje priorizar, qué diseño producir y qué experiencia ajustar. Cada línea se contrata sola o integrada.</p>
         <ul class="lx-list lx-list--svc lx-r" style="--i:3">
-          <li><b>S·01</b><strong>Branding</strong><i>Qué propuesta de marca desarrollar</i></li>
-          <li><b>S·02</b><strong>Business Intelligence</strong><i>Qué hallazgos priorizar</i></li>
-          <li><b>S·03</b><strong>E-commerce</strong><i>Qué fricción resolver primero</i></li>
-          <li><b>S·04</b><strong>Marketing digital</strong><i>Qué pieza pautar y qué editar</i></li>
-          <li><b>S·05</b><strong>SEO</strong><i>Qué contenido estructurar primero</i></li>
-          <li><b>S·06</b><strong>Software</strong><i>Qué flujo construir y cómo</i></li>
+          <li><b>S·01</b><strong><a href="/servicios/branding/">Branding</a></strong><i>Qué propuesta de marca desarrollar</i></li>
+          <li><b>S·02</b><strong><a href="/servicios/business-intelligence/">Business Intelligence</a></strong><i>Qué hallazgos priorizar</i></li>
+          <li><b>S·03</b><strong><a href="/servicios/ecommerce/">E-commerce</a></strong><i>Qué fricción resolver primero</i></li>
+          <li><b>S·04</b><strong><a href="/servicios/marketing-digital/">Marketing digital</a></strong><i>Qué pieza pautar y qué editar</i></li>
+          <li><b>S·05</b><strong><a href="/servicios/seo/">SEO</a></strong><i>Qué contenido estructurar primero</i></li>
+          <li><b>S·06</b><strong><a href="/servicios/desarrollo-web/">Desarrollo web</a></strong><i>Qué flujo construir y cómo</i></li>
         </ul>
+        <p class="lx-more lx-r" style="--i:4"><a href="/servicios/">Alcance, entregables y cómo contratar →</a></p>
       </div></div>
     </section>
 
@@ -501,7 +508,8 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
             <button type="submit"><span>Agendar demo</span> <i aria-hidden="true">→</i></button>
           </div>
           <label class="lx-form__ck"><input type="checkbox" name="consentimiento" required> <span>Acepto que Neurogenomic use este correo solo para responder mi solicitud (<a href="/privacidad/">privacidad</a>).</span></label>
-          <div class="lx-sr" aria-hidden="true"><label for="lx-hp">No completar</label><input id="lx-hp" name="_honey" type="text" tabindex="-1" autocomplete="off"></div>
+          <div class="lx-sr" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><input id="lx-hp" name="_honey" type="text" tabindex="-1" autocomplete="off" aria-hidden="true"></div>
+          <input type="hidden" name="_next" value="https://neurogenomic.cl/contacto/?enviado=portada">
           <p class="lx-form__st" id="lx-form-st" role="status" aria-live="polite"></p>
         </form>
         <p class="lx-mail lx-r" style="--i:5">¿Prefieres escribirnos? <a href="mailto:contacto@neurogenomic.cl">contacto@neurogenomic.cl</a></p>
@@ -510,7 +518,8 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
     </section>
   </main>
 
-  <footer class="lx-foot"><span>© 2026 Neurogenomic · Una empresa de Genomic Industries SpA</span><span class="lx-foot__l"><a href="mailto:contacto@neurogenomic.cl">contacto@neurogenomic.cl</a><a href="/contacto/">Contacto</a><a href="/privacidad/">Privacidad y datos</a></span></footer>
+  <footer class="lx-foot"><span>© 2026 · Neurogenomic es una marca de Genomic Industries SpA</span><span class="lx-foot__l"><a href="mailto:contacto@neurogenomic.cl">contacto@neurogenomic.cl</a><a href="/servicios/">Servicios</a><a href="/metodo/">Método</a><a href="/contacto/">Contacto</a><a href="/privacidad/">Privacidad y datos</a></span></footer>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://neurogenomic.cl/#organizacion", "name": "Neurogenomic", "url": "https://neurogenomic.cl/", "email": "contacto@neurogenomic.cl", "description": "Agencia chilena de neuromarketing: eye tracking, facial coding y respuesta galvánica cruzados con IA para validar marca, campañas, packaging y e-commerce antes de invertir.", "areaServed": {"@type": "Country", "name": "Chile"}, "knowsAbout": ["Neuromarketing", "Eye tracking", "Respuesta galvánica", "Investigación de consumidores"], "parentOrganization": {"@type": "Organization", "name": "Genomic Industries SpA"}}, {"@type": "WebSite", "@id": "https://neurogenomic.cl/#sitio", "url": "https://neurogenomic.cl/", "name": "Neurogenomic", "inLanguage": "es-CL", "publisher": {"@id": "https://neurogenomic.cl/#organizacion"}}]}</script>
 
   <div class="lx-ideas" aria-hidden="true"></div>
   <div class="lx-hud" aria-hidden="true"><b class="lx-hud__i">01/05</b><span class="lx-hud__bar"><i></i></span><span class="lx-hud__n">Neurona</span></div>
@@ -713,7 +722,7 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
       clipR.setAttribute('width', ((step === 1 ? t1 : 1) * 404).toFixed(1));
       var hx = (step === 1 ? t1 : 1) * 400; head.setAttribute('x1', hx); head.setAttribute('x2', hx);
       gv.textContent = (gsrAt(tg) * 4.2).toFixed(2).replace('.', ',') + ' µS';
-      read.textContent = step === 1 ? (t1 <= 0 ? 'Desliza para reproducir' : cur >= 0 ? 'Fijación ' + (cur + 1) + '/7 · ' + FIX[cur][2] + ' ms' : 'Fijación 7/7') : step === 2 ? 'Mapa de calor · 7 fijaciones' : 'Decisión';
+      read.innerHTML = step === 1 ? (t1 <= 0 ? 'Desliza para reproducir' : cur >= 0 ? 'Fijación ' + (cur + 1) + '/7 · ' + FIX[cur][2] + ' <span class="lx-u">ms</span>' : 'Fijación 7/7') : step === 2 ? 'Mapa de calor · 7 fijaciones' : 'Decisión';
       // 2 · Qué revela: el calor se acumula (primero lo más mirado), aparecen las zonas ciegas y el pico de activación
       var hk = step === 3 ? .4 : 1;
       cells.forEach(function (c) { var o = clamp(t2 * 1.8 - (1 - c[1]) * 1.1, 0, 1) * .88 * hk; if (c._o !== o) { c._o = o; c[0].style.opacity = o.toFixed(3); } });
@@ -729,6 +738,16 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
     };
     demoRender();
   })();
+
+  /* ---------- Medición: un envío exitoso queda como conversión «generate_lead» ----------
+     Funciona con Google Tag Manager, GA4 (gtag) o Plausible si el sitio los instala; si no hay ninguno, no hace nada. */
+  var lead = function (origen) {
+    try {
+      (window.dataLayer = window.dataLayer || []).push({ event: 'generate_lead', form_origin: origen });
+      if (typeof window.gtag === 'function') window.gtag('event', 'generate_lead', { form_origin: origen });
+      if (typeof window.plausible === 'function') window.plausible('Formulario enviado', { props: { origen: origen } });
+    } catch (e) {}
+  };
 
   /* ---------- Formulario → FormSubmit ---------- */
   (function (f) {
@@ -748,7 +767,7 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
       fetch(ep, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({ _subject: 'Solicitud de demo (landing 3D) · ' + v, _template: 'table', _captcha: 'false', _replyto: v, Correo: v, Origen: 'Landing 3D', Consentimiento: 'Sí', 'Página': location.href }) })
         .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) === 'false') throw new Error(); }); })
-        .then(function () { f.classList.add('is-sent'); say('Listo. Te escribiremos a ' + v + ' para coordinar la demo.', 'is-ok'); })
+        .then(function () { f.classList.add('is-sent'); say('Listo. Te escribiremos a ' + v + ' para coordinar la demo.', 'is-ok'); lead('portada'); })
         .catch(function () { bt.disabled = false; say('No pudimos enviar tu correo. Inténtalo de nuevo en unos minutos.', 'is-err'); });
     });
   })(root.querySelector('.lx-form'));
@@ -1067,7 +1086,7 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
       [1, 'Soma', [somaA[0], somaA[1] + .62, 0]], [1, 'Sinapsis', term],
       [2, 'Atención', [-6.4, 1.6, 0]], [2, 'Emoción', [-6.4, .35, 0]], [2, 'Activación', [-6.4, -.9, 0]], [2, 'Mapa de atención', [1.6, 1.85, .2]],
       [3, 'Modelos de IA', [0, 2.35, 0]], [3, 'Patrones', [-2.4, -1.5, 0]],
-      [4, 'Branding', NODE[0]], [4, small ? 'BI' : 'Business Intelligence', NODE[1]], [4, 'E-commerce', NODE[2]], [4, small ? 'Marketing' : 'Marketing digital', NODE[3]], [4, 'SEO', NODE[4]], [4, 'Software', NODE[5]],
+      [4, 'Branding', NODE[0]], [4, 'BI', NODE[1]], [4, 'E-commerce', NODE[2]], [4, small ? 'Marketing' : 'Marketing digital', NODE[3]], [4, 'SEO', NODE[4]], [4, small ? 'Web' : 'Desarrollo web', NODE[5]],
       [5, 'Producto', CARDS[0]], [5, 'Mensaje', CARDS[1]], [5, 'Canal', CARDS[2]], [5, 'Contexto', CARDS[3]],
       [6, small ? 'Fijación' : 'Fijación · decisión', [.35, .35, 0]]
     ].map(function (l, j) {
@@ -1080,10 +1099,10 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
     /* --- Idea central de cada figura: qué muestra, flujo estímulo → medición → resultado e indicadores ---
        Los valores numéricos son ilustrativos y van rotulados como datos simulados. */
     var SVC = [['S·01 Branding', 'Valida: qué propuesta de marca desarrollar'], ['S·02 Business Intelligence', 'Valida: qué hallazgos priorizar'], ['S·03 E-commerce', 'Valida: qué fricción resolver primero'],
-               ['S·04 Marketing digital', 'Valida: qué pieza pautar y qué editar'], ['S·05 SEO', 'Valida: qué contenido estructurar primero'], ['S·06 Software', 'Valida: qué flujo construir y cómo']];
+               ['S·04 Marketing digital', 'Valida: qué pieza pautar y qué editar'], ['S·05 SEO', 'Valida: qué contenido estructurar primero'], ['S·06 Desarrollo web', 'Valida: qué flujo construir y cómo']];
     var IDEAS = [null,
       { t: 'el cerebro reacciona antes de que la persona pueda explicarlo.', f: ['Estímulo', 'Señal neuronal', 'Reacción'], m: [['Señal neuronal', '● Activa', 'on'], ['Respuesta verbal', '○ Todavía no', 'off']] },
-      { t: 'mirada, rostro y piel se convierten en un mapa de atención.', f: ['Mirada · rostro · piel', 'Registro', 'Mapa de atención'], m: [['Fijación', '214 ms', 'hl'], ['Valencia', '+0,18', 'hl'], ['GSR', '2,61 µS', 'hl']], sim: 1 },
+      { t: 'mirada, rostro y piel se convierten en un mapa de atención.', f: ['Mirada · rostro · piel', 'Registro', 'Mapa de atención'], m: [['Fijación', '214 ms', 'hl'], ['Mov. facial', '0,18', 'hl'], ['GSR', '2,61 µS', 'hl']], sim: 1 },
       { t: 'la IA cruza las señales con datos de negocio y encuentra patrones.', f: ['Señales + negocio', 'Modelo de IA', 'Patrón'], m: [['Señales', '✓ 3/3 sincronizadas', 'on'], ['Ruido', '✓ Depurado', 'on'], ['Patrón', '◉ 2 segmentos', 'hl']], sim: 1 },
       { t: 'un mismo insight alimenta seis servicios.', f: ['Insight', 'Servicio', 'Decisión validada'], m: [[SVC[0][0], SVC[0][1], 'cyc']] },
       { t: 'producto, mensaje y canal ajustados a una persona real.', f: ['Producto · mensaje · canal', 'Persona', 'Conexión'], m: [['Relevancia', '▲ Sube', 'up'], ['Fricción', '▼ Baja', 'down'], ['Conexión', '▲ Sube', 'up']] },
@@ -1129,9 +1148,9 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
       ideaT += dt;
       // Señales: lecturas que cambian en vivo · Servicios: recorre los seis y enciende su nodo en la figura
       if (on === 2 && ideaT > .35) {
-        ideaT = 0; var v = Math.round((Math.random() * .5 - .2) * 100) / 100;
+        ideaT = 0;
         it.dd[0].textContent = Math.round(170 + Math.random() * 140) + ' ms';
-        it.dd[1].textContent = (v < 0 ? '−' : '+') + Math.abs(v).toFixed(2).replace('.', ',');
+        it.dd[1].textContent = (Math.random() * .5).toFixed(2).replace('.', ',');
         it.dd[2].textContent = (2.2 + Math.random() * .9).toFixed(2).replace('.', ',') + ' µS';
       }
       if (on === 4 && ideaT > 1.8) { ideaT = 0; svcI = (svcI + 1) % 6; it.dt[0].textContent = SVC[svcI][0]; it.dd[0].textContent = SVC[svcI][1]; }

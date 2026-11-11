@@ -36,6 +36,7 @@
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="Origen" value="Página de contacto">
+        <input type="hidden" name="_next" value="{{SITE}}/contacto/?enviado=contacto">
         <div class="lx-cf__fields" style="display:grid;gap:16px">
           <div class="lx-cf__2">
             <div class="lx-f"><label for="cf-nombre">Nombre <i>*</i></label><input id="cf-nombre" name="Nombre" type="text" autocomplete="name" required maxlength="120"></div>
@@ -48,7 +49,7 @@
           </div>
           <div class="lx-f"><label for="cf-msg">Mensaje <i>*</i></label><textarea id="cf-msg" name="Mensaje" required maxlength="3000" placeholder="Cuéntanos el desafío, el plazo y cualquier dato útil."></textarea></div>
           <label class="lx-ck"><input type="checkbox" name="Consentimiento" value="Sí" required> <span>Acepto que Neurogenomic use estos datos solo para responder mi solicitud, según la <a href="/privacidad/">política de privacidad</a>.</span></label>
-          <div class="lx-sr" aria-hidden="true"><label for="cf-hp">No completar</label><input id="cf-hp" name="_honey" type="text" tabindex="-1" autocomplete="off"></div>
+          <div class="lx-sr" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><input id="cf-hp" name="_honey" type="text" tabindex="-1" autocomplete="off" aria-hidden="true"></div>
           <div><button class="lx-btn" type="submit">Enviar mensaje <span aria-hidden="true">→</span></button></div>
         </div>
         <p class="lx-st" id="lx-cf-st" role="status" aria-live="polite"></p>
@@ -56,7 +57,8 @@
     </div>
   </main>
 
-  <footer class="lx-foot"><span>© 2026 Neurogenomic · Una empresa de {{d:razon_social}}</span><span class="lx-foot__l"><a href="mailto:{{d:correo}}">{{d:correo}}</a><a href="/">Portada</a><a href="/privacidad/">Privacidad y datos</a></span></footer>
+  <footer class="lx-foot"><span>© 2026 · {{BRANDLINE}}</span><span class="lx-foot__l"><a href="mailto:{{d:correo}}">{{d:correo}}</a><a href="/">Portada</a><a href="/servicios/">Servicios</a><a href="/metodo/">Método</a><a href="/privacidad/">Privacidad y datos</a></span></footer>
+  {{JSONLD}}
 </div>
 <script>
 (function () {
@@ -67,6 +69,17 @@
   var st = f.querySelector('.lx-st'), bt = f.querySelector('button[type=submit]');
   var say = function (m, cls) { st.textContent = m; st.className = 'lx-st' + (cls ? ' ' + cls : ''); };
   var req = [].slice.call(f.querySelectorAll('[required]'));
+  // Un envío exitoso queda como conversión «generate_lead» (Tag Manager, GA4 o Plausible, si el sitio los instala)
+  var lead = function (origen) {
+    try {
+      (window.dataLayer = window.dataLayer || []).push({ event: 'generate_lead', form_origin: origen });
+      if (typeof window.gtag === 'function') window.gtag('event', 'generate_lead', { form_origin: origen });
+      if (typeof window.plausible === 'function') window.plausible('Formulario enviado', { props: { origen: origen } });
+    } catch (e) {}
+  };
+  // Regreso desde FormSubmit tras un envío sin JavaScript (?enviado=…): se confirma y se mide
+  var sent = /[?&]enviado=([\w-]+)/.exec(location.search);
+  if (sent) { say('Gracias. Recibimos tu mensaje y te escribiremos pronto.', 'is-ok'); lead(sent[1] + ' (sin JS)'); }
   req.forEach(function (el) { el.addEventListener('input', function () { el.classList.remove('is-err'); el.removeAttribute('aria-invalid'); }); });
   f.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -82,7 +95,7 @@
     bt.disabled = true; say('Enviando…');
     fetch(f.getAttribute('data-endpoint'), { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(data) })
       .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || String(j.success) === 'false') throw new Error(); }); })
-      .then(function () { f.classList.add('is-sent'); say('Gracias. Recibimos tu mensaje y te escribiremos a ' + data.email + '.', 'is-ok'); })
+      .then(function () { f.classList.add('is-sent'); say('Gracias. Recibimos tu mensaje y te escribiremos a ' + data.email + '.', 'is-ok'); lead('contacto'); })
       .catch(function () { bt.disabled = false; say('No pudimos enviar el mensaje. Inténtalo de nuevo o escríbenos a {{d:correo}}.', 'is-err'); });
   });
 })();

@@ -9,6 +9,11 @@ Hoy la portada enlaza a `/contacto/` y `/privacidad/`, pero ambas páginas devue
 | Portada | `/` | `neurogenomic-landing-3d-elementor.json` | `neurogenomic-landing-3d-widget.html` |
 | Contacto | `/contacto/` | `paginas/neurogenomic-contacto-elementor.json` | `paginas/neurogenomic-contacto-widget.html` |
 | Privacidad | `/privacidad/` | `paginas/neurogenomic-privacidad-elementor.json` | `paginas/neurogenomic-privacidad-widget.html` |
+| Método | `/metodo/` | `paginas/neurogenomic-metodo-elementor.json` | `paginas/neurogenomic-metodo-widget.html` |
+| Servicios (índice) | `/servicios/` | `paginas/neurogenomic-servicios-elementor.json` | `paginas/neurogenomic-servicios-widget.html` |
+| Cada servicio (6) | `/servicios/<slug>/` | `paginas/servicios/neurogenomic-<slug>-elementor.json` | `paginas/servicios/neurogenomic-<slug>-widget.html` |
+
+Slugs de los servicios: `branding`, `business-intelligence`, `ecommerce`, `marketing-digital`, `seo`, `desarrollo-web`. Crea cada página con **Página superior: Servicios** (panel derecho, «Atributos de página») para que su URL quede como `/servicios/<slug>/`. Los plazos y precios se editan en `servicios.json`; vacíos se publican como «Se define en el diagnóstico» y «A cotizar».
 
 Antes de publicar, completa `datos-legales.json` (RUT, domicilio, fecha de actualización) y confirma los plazos propuestos. Luego ejecuta `python3 landing-3d/build.py`. Un campo vacío no se publica.
 
@@ -18,7 +23,7 @@ Antes de publicar, completa `datos-legales.json` (RUT, domicilio, fecha de actua
 2. En el panel derecho, en **Enlace permanente / Slug**, escribe exactamente `contacto`. Si WordPress propone `contacto-2`, ya existe otra página con ese slug: búscala en Páginas (también en **Borradores** y en la **Papelera**), elimínala definitivamente y vuelve a poner `contacto`.
 3. Pulsa **Editar con Elementor**. Abre la carpeta de plantillas, luego **Mis plantillas**, luego **Importar**, y elige el JSON de la tabla. Pulsa **Insertar** y acepta los ajustes de página (Elementor Canvas).
 4. Pulsa **Publicar**. Un borrador o una página privada también da 404 a los visitantes.
-5. Repite con «Privacidad», slug `privacidad`.
+5. Repite con «Privacidad» (slug `privacidad`), «Método» (`metodo`) y «Servicios» (`servicios`), y luego con los seis servicios como páginas hijas de «Servicios».
 
 ## 2. Enlaces permanentes y `.htaccess`
 

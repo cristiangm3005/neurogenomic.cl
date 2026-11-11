@@ -1,0 +1,107 @@
+{
+  "_instrucciones": "Contenido de /servicios/ y de cada /servicios/<slug>/. 'plazo' y 'precio' vacíos se publican como «Se define en el diagnóstico» y «A cotizar». Escribe por ejemplo 'plazo': '4 a 6 semanas' o 'precio': 'Desde $X + IVA' cuando estén definidos. Luego: python3 landing-3d/build.py",
+  "servicios": [
+    {
+      "slug": "branding", "n": "01", "nombre": "Branding",
+      "titulo": "Marca probada con personas antes de lanzarla.",
+      "lead": "Nombre, color, tono y símbolo se prueban con personas del público objetivo antes de salir al mercado: dónde se detiene la mirada, cuánto activa y qué responde cada persona.",
+      "valida": "Qué propuesta de marca desarrollar.",
+      "problemas": [
+        ["Marca sin diferenciación", "Identidades que se parecen al resto de la categoría y no generan recuerdo ni preferencia."],
+        ["Decisiones por comité", "Logos y mensajes aprobados por consenso interno, sin probarlos con el público."]
+      ],
+      "entregables": [
+        ["Auditoría de la marca actual", "Mirada, activación y respuesta declarada sobre tu marca y dos o tres referentes de la categoría."],
+        ["Alternativas filtradas", "Un set corto de opciones de nombre, paleta y tono, generadas con apoyo de IA y filtradas con los hallazgos."],
+        ["Informe de validación", "La propuesta final se prueba de nuevo antes de producir, con resultados del grupo y sus límites."]
+      ],
+      "medicion": "Eye tracking y respuesta galvánica, contrastados con lo que cada participante declara. El movimiento facial se usa solo como señal complementaria.",
+      "plazo": "", "precio": ""
+    },
+    {
+      "slug": "business-intelligence", "n": "02", "nombre": "Business Intelligence",
+      "titulo": "Datos de estudios y de negocio en un solo tablero.",
+      "lead": "Integramos resultados de estudios, ventas y comportamiento digital en un sistema de decisión, con modelos que estiman qué alternativa tiene más probabilidad de funcionar.",
+      "valida": "Qué hallazgos priorizar.",
+      "problemas": [
+        ["Datos en silos", "Ventas, marketing y comportamiento viven en sistemas separados que nunca se cruzan."],
+        ["Reportes que miran al pasado", "Tableros que explican qué pasó, pero no ayudan a decidir qué hacer."]
+      ],
+      "entregables": [
+        ["Unificación de fuentes", "CRM, e-commerce, analítica web y resultados de estudios en una capa de datos común."],
+        ["Modelos predictivos", "Modelos que estiman propensión de compra o respuesta a campañas, con su margen de error."],
+        ["Tablero de decisión", "Un tablero ejecutivo con alertas y recomendaciones, no solo gráficos."]
+      ],
+      "medicion": "Combina datos de negocio con resultados agregados de estudios; nunca perfiles individuales de participantes.",
+      "plazo": "", "precio": ""
+    },
+    {
+      "slug": "ecommerce", "n": "03", "nombre": "E-commerce",
+      "titulo": "Menos fricción en el camino a la compra.",
+      "lead": "Rediseñamos fichas, carrito y checkout a partir de dónde se detiene la mirada y dónde abandona el usuario real.",
+      "valida": "Qué fricción resolver primero.",
+      "problemas": [
+        ["Abandono de carrito", "Fricciones que el equipo interno no ve, pero que aparecen en el recorrido real de compra."],
+        ["Fichas que no ayudan a decidir", "Información importante que nadie mira en los primeros segundos."]
+      ],
+      "entregables": [
+        ["Diagnóstico de fricción", "Eye tracking y análisis de sesiones sobre el flujo de compra actual, con los puntos de abandono ordenados por impacto."],
+        ["Rediseño priorizado", "Fichas, carrito y checkout rediseñados según la jerarquía visual probada."],
+        ["Verificación", "El nuevo flujo se vuelve a medir y se compara con el anterior."]
+      ],
+      "medicion": "Eye tracking sobre el sitio o un prototipo, cruzado con métricas de conversión y respuestas de los participantes.",
+      "plazo": "", "precio": ""
+    },
+    {
+      "slug": "marketing-digital", "n": "04", "nombre": "Marketing digital",
+      "titulo": "Piezas probadas antes de invertir en medios.",
+      "lead": "Cada concepto creativo se prueba con un panel antes de pautar, para invertir en las piezas que captan atención y editar las que no.",
+      "valida": "Qué pieza pautar y qué editar.",
+      "problemas": [
+        ["Presupuesto gastado en probar", "Creativos que se descubren débiles solo después de invertir en medios."],
+        ["Creatividad sin evidencia", "Piezas elegidas por gusto interno, sin datos sobre cómo las ve el público."]
+      ],
+      "entregables": [
+        ["Pre-test de conceptos", "Mirada, activación y respuesta declarada sobre cada pieza, con un informe comparativo."],
+        ["Variantes ajustadas", "Copys y creativos ajustados con apoyo de IA según los hallazgos."],
+        ["Optimización", "Seguimiento de campañas con pruebas A/B y medición de resultados."]
+      ],
+      "medicion": "Eye tracking y respuesta galvánica con respuesta declarada; el movimiento facial, solo como señal complementaria.",
+      "plazo": "", "precio": ""
+    },
+    {
+      "slug": "seo", "n": "05", "nombre": "SEO",
+      "titulo": "Visible en buscadores y en respuestas de IA.",
+      "lead": "Posicionamos tu sitio en buscadores y estructuramos el contenido para que motores de respuesta con IA puedan citarlo.",
+      "valida": "Qué contenido estructurar primero.",
+      "problemas": [
+        ["Invisibilidad orgánica", "Sitios correctos técnicamente, pero sin estrategia de contenido."],
+        ["Ausencia en respuestas de IA", "Contenido que los buscadores conversacionales no logran citar."]
+      ],
+      "entregables": [
+        ["Auditoría técnica", "Arquitectura, velocidad, indexación y datos estructurados del sitio actual."],
+        ["Estrategia de contenido", "Mapa de temas por intención de búsqueda, priorizado."],
+        ["Contenido estructurado", "Páginas y datos estructurados preparados para buscadores y motores de respuesta."]
+      ],
+      "medicion": "Métricas de búsqueda y de tráfico; cuando sirve, eye tracking sobre resultados y páginas clave.",
+      "plazo": "", "precio": ""
+    },
+    {
+      "slug": "desarrollo-web", "n": "06", "nombre": "Desarrollo web",
+      "titulo": "Sitios y aplicaciones con IA integrada desde el inicio.",
+      "lead": "Construimos sitios, landing pages, aplicaciones web y automatizaciones, con la IA conectada a tus datos de negocio desde la arquitectura.",
+      "valida": "Qué flujo construir y cómo.",
+      "problemas": [
+        ["Plataformas difíciles de mantener", "Sitios hechos por distintos proveedores, lentos y difíciles de escalar."],
+        ["IA decorativa", "Funciones de IA agregadas sin conexión con los datos reales del negocio."]
+      ],
+      "entregables": [
+        ["Arquitectura", "Tecnología, estructura de datos e integraciones definidas antes de diseñar pantallas."],
+        ["Desarrollo por etapas", "Entregas funcionales tempranas, probadas con usuarios en cada ciclo."],
+        ["IA integrada", "Automatizaciones, búsqueda, soporte o análisis conectados a tus datos."]
+      ],
+      "medicion": "Pruebas con usuarios y analítica; eye tracking cuando hay que decidir entre diseños.",
+      "plazo": "", "precio": ""
+    }
+  ]
+}

@@ -120,6 +120,40 @@ body:has(.lx-pg){margin:0;background:var(--lx-bg)}
 @media (max-width:420px){.lx-toc{grid-template-columns:1fr}.lx-pg__back span{display:none}}
 @media (prefers-reduced-motion:reduce){.lx-pg *{transition:none!important}}
 
+/* ---------- Servicios ---------- */
+.lx-valida{display:inline-flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;margin-top:22px;padding:10px 14px;border:1px solid rgba(200,255,0,.35);border-radius:6px;font-size:16px;color:#fff}
+.lx-valida span{font:500 10.5px/1.3 var(--lx-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--lx-lime)}
+.lx-svc{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:clamp(28px,5vw,72px);align-items:start;margin-top:clamp(28px,5vh,56px)}
+.lx-svc__sec{padding:24px 0;border-top:1px solid var(--lx-line)}
+.lx-svc__sec:first-child{border-top:0;padding-top:0}
+.lx-svc__sec h2{margin-bottom:14px;font:400 clamp(26px,2.4vw,36px)/1 var(--lx-disp);text-transform:uppercase}
+.lx-svc__p{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lx-svc__p li{padding:16px 18px;border:1px solid var(--lx-line);border-radius:8px;background:rgba(13,15,17,.7)}
+.lx-svc__p h3,.lx-svc__d h3{margin-bottom:6px;font:600 16px/1.3 var(--lx-ff);color:#fff}
+.lx-svc__p p,.lx-svc__d p,.lx-svc__m{color:#DADDE2;font-size:15.5px}
+.lx-svc__d{display:grid;gap:0}
+.lx-svc__d li{display:grid;grid-template-columns:40px 1fr;gap:10px;padding:14px 0;border-bottom:1px solid var(--lx-line)}
+.lx-svc__d b{font:500 11px/1.8 var(--lx-mono);color:var(--lx-lime)}
+.lx-svc__m a{color:var(--lx-lime);text-decoration:underline;text-underline-offset:3px}
+.lx-buy{position:sticky;top:24px;display:grid;gap:16px;padding:22px;border:1px solid rgba(200,255,0,.35);border-radius:10px;background:rgba(13,15,17,.9)}
+.lx-buy dl{display:grid;gap:12px}
+.lx-buy dt{font:500 10.5px/1.3 var(--lx-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--lx-tx2)}
+.lx-buy dd{margin:4px 0 0;font:400 26px/1.1 var(--lx-disp);text-transform:uppercase;color:#fff}
+.lx-buy p{font-size:14.5px;color:#DADDE2}
+.lx-svc__nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:clamp(32px,6vh,64px);padding-top:24px;border-top:1px solid var(--lx-line)}
+.lx-svc__nav a{padding:8px 11px;border:1px solid var(--lx-line);border-radius:4px;font:500 11px/1 var(--lx-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--lx-tx2)}
+.lx-svc__nav a[aria-current]{border-color:var(--lx-lime);color:var(--lx-lime)}
+.lx-svcs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:clamp(28px,5vh,56px)}
+.lx-svcs a{display:flex;flex-direction:column;gap:10px;height:100%;padding:22px;border:1px solid var(--lx-line);border-radius:10px;background:rgba(13,15,17,.75);transition:border-color .2s ease}
+.lx-svcs b{font:500 11px/1 var(--lx-mono);letter-spacing:.1em;color:var(--lx-lime)}
+.lx-svcs h2{font:400 clamp(28px,2.4vw,38px)/1 var(--lx-disp);text-transform:uppercase}
+.lx-svcs p{color:#DADDE2;font-size:15px}
+.lx-svcs span{margin-top:auto;font:500 10.5px/1.5 var(--lx-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--lx-tx2)}
+@media (hover:hover) and (pointer:fine){.lx-svcs a:hover,.lx-svc__nav a:hover{border-color:rgba(200,255,0,.55)}}
+@media (max-width:960px){.lx-svcs{grid-template-columns:1fr 1fr}}
+@media (max-width:860px){.lx-svc{grid-template-columns:1fr}.lx-buy{position:static}.lx-svc__p{grid-template-columns:1fr}}
+@media (max-width:600px){.lx-svcs{grid-template-columns:1fr}}
+
 </style>
 <div class="lx-pg" data-lx-privacidad>
   <header class="lx-pg__top">
@@ -142,7 +176,7 @@ body:has(.lx-pg){margin:0;background:var(--lx-bg)}
       <div class="lx-doc">
         <section id="pv-1">
           <h2><b>01</b>Responsable</h2>
-          <p>El responsable de los datos personales tratados en este sitio y en los estudios que Neurogenomic realiza por cuenta propia es <strong>Genomic Industries SpA</strong> (en adelante, «Neurogenomic»).</p>
+          <p>El responsable de los datos personales tratados en este sitio y en los estudios que Neurogenomic realiza por cuenta propia es <strong>Genomic Industries SpA</strong>, titular de la marca Neurogenomic (en adelante, «Neurogenomic»).</p>
           <p>Para cualquier consulta sobre esta política o sobre tus datos, escríbenos a <a href="mailto:contacto@neurogenomic.cl">contacto@neurogenomic.cl</a>.</p>
           <p>Esta política se rige por la legislación chilena sobre protección de datos personales, en particular la Ley N° 19.628, con las modificaciones introducidas por la Ley N° 21.719.</p>
         </section>
@@ -233,5 +267,6 @@ body:has(.lx-pg){margin:0;background:var(--lx-bg)}
     </div>
   </main>
 
-  <footer class="lx-foot"><span>© 2026 Neurogenomic · Una empresa de Genomic Industries SpA</span><span class="lx-foot__l"><a href="mailto:contacto@neurogenomic.cl">contacto@neurogenomic.cl</a><a href="/">Portada</a><a href="/contacto/">Contacto</a></span></footer>
+  <footer class="lx-foot"><span>© 2026 · Neurogenomic es una marca de Genomic Industries SpA</span><span class="lx-foot__l"><a href="mailto:contacto@neurogenomic.cl">contacto@neurogenomic.cl</a><a href="/">Portada</a><a href="/servicios/">Servicios</a><a href="/metodo/">Método</a><a href="/contacto/">Contacto</a></span></footer>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://neurogenomic.cl/#organizacion", "name": "Neurogenomic", "url": "https://neurogenomic.cl/", "email": "contacto@neurogenomic.cl", "description": "Agencia chilena de neuromarketing: eye tracking, facial coding y respuesta galvánica cruzados con IA para validar marca, campañas, packaging y e-commerce antes de invertir.", "areaServed": {"@type": "Country", "name": "Chile"}, "knowsAbout": ["Neuromarketing", "Eye tracking", "Respuesta galvánica", "Investigación de consumidores"], "parentOrganization": {"@type": "Organization", "name": "Genomic Industries SpA"}}, {"@type": "WebPage", "url": "https://neurogenomic.cl/privacidad/", "name": "Política de privacidad · Neurogenomic", "inLanguage": "es-CL", "publisher": {"@id": "https://neurogenomic.cl/#organizacion"}}]}</script>
 </div>
