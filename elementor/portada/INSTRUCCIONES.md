@@ -48,3 +48,11 @@ Probado en 320×568, 360×640, 360×740, 390×844, 414×896, 768×1024, 1024×76
 - Cable flexible naranja por el que viajan pulsos de señal en lima.
 - Etiquetas: «Cámara ocular · mirada», «Cámara de escena» y «Sensor de piel». En celular son más cortas: «Mirada», «Escena» y «Piel».
 - Los lentes giran levemente y se detienen con «Pausar animación».
+
+## Neurona más grande y lentes que se explican solos (versión 5)
+- Capítulo 01: la neurona ocupa más espacio (hasta 80 % del alto) sin invadir la columna de texto. En pantallas de poca altura mantiene el tamaño anterior.
+- Capítulo 02: una persona con los lentes, y cada medición se ve en acción:
+  - Mirada: los ojos detrás de los cristales se mueven; un rayo lima sale de ellos hasta un punto de fijación que se desplaza.
+  - Rostro: una cámara facial frente a la cara, con su campo de visión; una línea de escaneo recorre el rostro y enciende los puntos faciales (cejas, nariz, pómulos, boca, mentón).
+  - Piel: junto al sensor de la patilla corre una curva de respuesta electrodérmica.
+- Etiquetas: «Mirada · eye tracking», «Rostro · cámara facial» y «Piel · sensor EDA». En celular: «Mirada», «Rostro» y «Piel».
