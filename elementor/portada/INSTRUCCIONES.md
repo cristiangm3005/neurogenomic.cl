@@ -66,3 +66,10 @@ Probado en 320×568, 360×640, 360×740, 390×844, 414×896, 768×1024, 1024×76
 - En celular el diagrama se compacta: pasos sin descripción y cita corta.
 - En celular, la figura 3D se achica cuando hace falta para no tocar nunca el texto.
 - Captura de referencia: diagrama-capitulo-03.png
+
+## Sección final: logo de Neurogenomic (versión 7)
+- El círculo amarillo (retícula y mapa de calor) se reemplazó por el logo de Neurogenomic del «Sistema de logos v2», armado con las mismas partículas:
+  - Anillo de 8 segmentos en lima de marca #7FB125.
+  - Segmento de arriba a la derecha desplazado hacia afuera, en blanco (versión sobre fondo oscuro).
+  - Triángulo blanco al centro.
+- Animación: el logo se balancea suave en 3D y el segmento desplazado «late» hacia afuera. Se detiene con «Pausar animación».
