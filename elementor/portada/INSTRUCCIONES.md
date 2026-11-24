@@ -73,3 +73,13 @@ Probado en 320×568, 360×640, 360×740, 390×844, 414×896, 768×1024, 1024×76
   - Segmento de arriba a la derecha desplazado hacia afuera, en blanco (versión sobre fondo oscuro).
   - Triángulo blanco al centro.
 - Animación: el logo se balancea suave en 3D y el segmento desplazado «late» hacia afuera. Se detiene con «Pausar animación».
+
+## Capítulo 01: neurona de extremo a extremo (versión 8)
+- La neurona cruza la pantalla:
+  - Soma y dendritas a la derecha, hasta el borde.
+  - Axón largo con vaina de mielina y nodos de Ranvier.
+  - Sinapsis con una segunda neurona en el borde izquierdo.
+- El axón pasa siempre por debajo del texto: su altura se calcula según dónde termina el párrafo en cada pantalla.
+- Si no hay altura suficiente (pantallas muy grandes con el titular en 4 líneas), la neurona se achica un poco y queda anclada al borde derecho, sin tocar el texto.
+- En celular ocupa todo el ancho, arriba del texto.
+- El velo oscuro del capítulo 01 se concentra detrás de las letras, para que el axón se vea completo.

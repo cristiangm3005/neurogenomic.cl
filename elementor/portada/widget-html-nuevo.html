@@ -523,6 +523,11 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
   .lx-flow figcaption{font-size:8.5px;margin-top:4px}
 }
 
+/* ---------- Capítulo 01: el axón cruza por debajo del texto; el velo oscuro se concentra solo detrás de las letras ---------- */
+@media (orientation:landscape),(min-width:1024px){
+  .lx-sec[data-st="1"] .lx-frame::before{background:radial-gradient(ellipse 48% 42% at 24% 44%,rgba(5,6,7,.86) 0%,rgba(5,6,7,.45) 62%,transparent 100%)}
+}
+
 /* ---------- Movimiento reducido: menos y más suave, nunca cero ---------- */
 @media (prefers-reduced-motion:reduce){
   .lx-js .lx-r,.lx-js .lx-ln>span,.lx-js .lx-sec.is-out .lx-txt{transform:none!important}
@@ -1067,21 +1072,34 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
       }
       return q;
     };
-    var somaA = [1.7, .9, 0], axDir = norm([-1, -.78, .25]), dendA = [];
-    for (var k = 0; k < 8; k++) { var dv = norm(add(sph(), axDir, -.8)); grow(add(somaA, dv, .42), dv, 1.5 + R() * .9, 0, 0, .6, .07, 0, dendA); }
-    var axon = [], ap = add(somaA, axDir, .45), ad = axDir.slice();
-    for (var k = 0; k < 64; k++) { ad = norm(add(ad, [G() * .4, G() * .4 + .02, G() * .3], .12)); ap = add(ap, ad, .055); axon.push({ p: ap.slice(), b: 400, t: k / 64 * .8, r: .035 }); }
-    var term = ap.slice(), boutons = [];
-    for (var k = 0; k < 6; k++) { var tl = []; bidN = 0; var end = grow(term, norm(add(ad, sph(), .9)), .45, 3, .8, .2, .03, 410 + k, tl); axon = axon.concat(tl); boutons.push(end); }
-    var somaB = add(term, norm([-1.6, -.75, -.45]), 2.0), dendB = [], toA = norm([term[0] - somaB[0], term[1] - somaB[1], term[2] - somaB[2]]);
+    /* Neurona de extremo a extremo: soma y dendritas a la derecha (llegan al borde), un axón largo con vaina de mielina
+       y nodos de Ranvier que cruza la pantalla por debajo del texto, y la sinapsis con una segunda neurona en el borde izquierdo. */
+    var LANE_Y = -2.3;
+    var somaA = [4.6, .9, 0], dendA = [];
+    for (var k = 0; k < 10; k++) {
+      var dv = norm(add(sph(), [1, .15, 0], k < 7 ? 1.1 : .2)); dv[2] *= .45; dv = norm(dv);
+      grow(add(somaA, dv, .42), dv, 1.5 + R() * 1.2, 0, 0, .6, .075, 0, dendA);
+    }
+    var AXP = [[4.25, .55, 0], [3.5, -.35, .08], [2.4, -1.35, 0], [1.1, -2.05, -.05], [-.8, LANE_Y, .04], [-2.9, LANE_Y + .08, 0], [-4.8, LANE_Y - .06, -.04], [-6.3, LANE_Y - .12, 0]];
+    var axPt = function (t) { var n = AXP.length - 1, f = Math.min(n - 1e-6, t * n), j = Math.floor(f), u2 = f - j, p0 = AXP[Math.max(0, j - 1)], p1 = AXP[j], p2 = AXP[j + 1], p3 = AXP[Math.min(n, j + 2)];
+      var cr = function (q0, q1, q2, q3) { return .5 * (2 * q1 + (q2 - q0) * u2 + (2 * q0 - 5 * q1 + 4 * q2 - q3) * u2 * u2 + (3 * q1 - q0 - 3 * q2 + q3) * u2 * u2 * u2); };
+      return [cr(p0[0], p1[0], p2[0], p3[0]), cr(p0[1], p1[1], p2[1], p3[1]), cr(p0[2], p1[2], p2[2], p3[2])]; };
+    var axon = [], AXN = 260;
+    for (var k = 0; k <= AXN; k++) {
+      var t = k / AXN, ph = (t * 15) % 1, node = t > .08 && ph > .9;   // mielina en tramos, con nodos de Ranvier (estrechos) entre ellos
+      axon.push({ p: axPt(t), b: 400, t: t * .8, r: t < .06 ? .06 : node ? .022 : .07 });
+    }
+    var term = axPt(1), ad = norm([-1, -.25, 0]), boutons = [];
+    for (var k = 0; k < 6; k++) { var tl = []; bidN = 0; var end = grow(term, norm(add(ad, sph(), .9)), .5, 3, .8, .2, .03, 410 + k, tl); axon = axon.concat(tl); boutons.push(end); }
+    var somaB = add(term, norm([-.75, -.75, -.25]), 1.15), dendB = [], toA = norm([term[0] - somaB[0], term[1] - somaB[1], term[2] - somaB[2]]);
     bidN = 1;
-    for (var k = 0; k < 6; k++) { var dv2 = k === 0 ? toA : norm(add(sph(), toA, -.3)); grow(add(somaB, dv2, .32), dv2, k === 0 ? 1.2 : 1 + R() * .6, 1, 0, .6, .05, 200, dendB); }
+    for (var k = 0; k < 6; k++) { var dv2 = k === 0 ? toA : norm(add(sph(), [-1, -.35, 0], 1.1)); grow(add(somaB, dv2, .32), dv2, k === 0 ? .9 : .9 + R() * .7, 1, 0, .6, .05, 200, dendB); }
     var gapV = norm([somaB[0] - term[0], somaB[1] - term[1], somaB[2] - term[2]]);
     var fillN = function (i, list) { var s = list[Math.floor(R() * list.length)]; put(1, i, add(s.p, [G(), G(), G()], s.r * .55)); aD[i * 4 + 1] = s.b + s.t; };
     for (var i = 0; i < N; i++) {
       var u = R();
       if (u < .09) { put(1, i, add(somaA, sph(), .44 * Math.pow(R(), .25))); aD[i * 4 + 1] = 0; }
-      else if (u < .5) fillN(i, dendA);
+      else if (u < .46) fillN(i, dendA);
       else if (u < .64) fillN(i, axon);
       else if (u < .68) { put(1, i, add(somaB, sph(), .32 * Math.pow(R(), .25))); aD[i * 4 + 1] = 0; }
       else if (u < .84) fillN(i, dendB);
@@ -1470,22 +1488,34 @@ body:has(.lx){margin:0;background:var(--lx-bg)}
             BOX.push({ cx: (x0 + x1) / 2, cy: (y0 + y1) / 2, w: x1 - x0, h: y1 - y0 });
     }
     var txtH = [];
-    var measureTxt = function () { secs.forEach(function (el, i) { var t = el.querySelector('.lx-txt'); txtH[i] = t ? t.offsetHeight : 0; }); };
+    var txtB = [];
+    var measureTxt = function () { secs.forEach(function (el, i) { var t = el.querySelector('.lx-txt'); txtH[i] = t ? t.offsetHeight : 0; var lc = t && t.lastElementChild; txtB[i] = lc ? t.offsetTop + lc.offsetTop + lc.offsetHeight : 0; }); };
     measureTxt();
     // Encuadre en píxeles: la figura ocupa el centro del espacio que deja libre el texto (al lado en horizontal, arriba en vertical)
     var place = function (i, stack) {
       if (i === 0) return [0, 0, 1];
+      if (i === 1 && !stack) {
+        var Wn = innerWidth, Hn = innerHeight, wppN = 2 * CAMZ[1] * Math.tan(FOV * Math.PI / 360) / Hn, bN = BOX[1];
+        var ppuF = Wn / (bN.w * .94), y0 = bN.cy - bN.h / 2, y1 = bN.cy + bN.h / 2;
+        var ty = (txtB[1] || Hn * .7) + 22 + .25 * ppuF;
+        // Si no cabe a tamaño completo bajo el texto, se achica y queda anclada al borde derecho
+        var ppu = Math.min(ppuF, (Hn - 6 - ty) / (LANE_Y - y0));
+        if (ppu >= ppuF * .55 && ty - (y1 - LANE_Y) * ppu >= -Hn * .03) {
+          var scN = ppu * wppN, offX = (Wn / 2 + .03 * bN.w * ppu - (bN.cx + bN.w / 2) * ppu) * wppN;
+          return [offX, (Hn / 2 - ty) * wppN - LANE_Y * scN, scN];
+        }
+      }
       var W = innerWidth, H = innerHeight, wpp = 2 * CAMZ[i] * Math.tan(FOV * Math.PI / 360) / H, b = BOX[i], cx, cy, fw, fh;
       if (stack) {
         var top = 64, bottom = i < 6 ? H - txtH[i] - ideaH(i, true) - 28 : H * .42;
-        fw = W * .94; fh = Math.max(H * .1, bottom - top); cx = W / 2; cy = top + fh / 2;
+        fw = W * (i === 1 ? 1.06 : .94); fh = Math.max(H * .1, bottom - top); cx = W / 2; cy = top + fh / 2;
       } else {
         var gut = clamp(W * .044, 18, 72), tw = Math.min(600, W * .46) + 40;
         // La neurona (capítulo 1) se muestra más grande cuando hay altura suficiente
         var big = i === 1 && H > 600;
         fw = W - gut * 1.5 - tw; fh = H * (big ? .8 : .58); cx = SIDE[i] > 0 ? gut + tw + fw / 2 : W - gut - tw - fw / 2; cy = H * (big ? .46 : .4);
       }
-      var k2 = stack ? (i === 1 ? .82 : .72) : (big ? .94 : .86), sc = Math.min(fw * wpp * k2 / b.w, fh * wpp * k2 / b.h, i === 1 && (stack || big) ? 1.6 : 1);
+      var k2 = stack ? (i === 1 ? .82 : .72) : (big ? .94 : .86), sc = Math.min(fw * wpp * k2 / b.w, fh * wpp * k2 / b.h, i === 1 ? (stack ? 3 : big ? 1.6 : 1) : 1);
       return [(cx - W / 2) * wpp - b.cx * sc, (H / 2 - cy) * wpp - b.cy * sc, sc];
     };
     var cur = { stage: 0, off: 0, y: 0, sc: 1, z: CAM0, alpha: 1 }, mx = 0, my = 0, tmx = 0, tmy = 0, mouseIn = 0, mouseT = 0;
