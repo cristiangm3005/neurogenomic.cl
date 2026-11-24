@@ -29,3 +29,14 @@ Probado en 320×568, 360×640, 360×740, 390×844, 414×896, 768×1024, 1024×76
   - Las etiquetas (Marca 21%, Zona ciega…) siempre quedan dentro de la imagen y sin chocar entre sí.
   - En escritorio ya no toca el botón «Pausar animación».
 - Notebooks de poca altura (720–900 px): textos y listas más compactos, sin tocar el indicador de capítulo ni el botón de pausa.
+
+## Lista de servicios (versión 3)
+- La sección 04 muestra los 6 servicios con nombre y descripción en todos los dispositivos. Antes, en celular solo aparecían como etiquetas y en pantallas bajas no aparecían.
+- Descripciones (basadas en la página /servicios/):
+  - Branding: Marca probada con personas antes de lanzarla
+  - Business Intelligence: Estudios y datos de venta en un solo tablero
+  - E-commerce: Menos fricción en el camino a la compra
+  - Marketing digital: Piezas probadas antes de invertir en medios
+  - SEO: Visible en buscadores y en respuestas de IA
+  - Desarrollo web: Sitios y aplicaciones con IA integrada
+- Celular y tablet: lista en 2 columnas. Escritorio: lista en filas con código S·01–S·06.
