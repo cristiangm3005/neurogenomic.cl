@@ -83,3 +83,19 @@ Probado en 320×568, 360×640, 360×740, 390×844, 414×896, 768×1024, 1024×76
 - Si no hay altura suficiente (pantallas muy grandes con el titular en 4 líneas), la neurona se achica un poco y queda anclada al borde derecho, sin tocar el texto.
 - En celular ocupa todo el ancho, arriba del texto.
 - El velo oscuro del capítulo 01 se concentra detrás de las letras, para que el axón se vea completo.
+
+## Versión 9: dendritas visibles, animaciones más grandes, Ley 21.719 y datos legales
+- Neurona:
+  - Dendritas más gruesas, más densas y más brillantes.
+  - La neurona entra completa en pantalla, sin salirse por arriba ni por los lados.
+  - No toca el texto ni el indicador de capítulo.
+- Lentes (capítulo 02) y servicios (capítulo 04): animaciones más grandes en escritorio, tablet y celular.
+- Ley 21.719 (texto oficial en BCN, https://www.bcn.cl/leychile/navegar?idNorma=1209272):
+  - Capítulo 02: los datos biométricos son datos sensibles (art. 2 g) y solo se registran con consentimiento expreso (art. 16).
+  - Formulario: «Acepto que Genomic Complexity SpA (Neurogenomic) use este correo solo para responder mi solicitud, conforme a la Ley 21.719».
+  - Contacto: bloque legal con los derechos del titular (acceso, rectificación, supresión, oposición, portabilidad y bloqueo) y los datos del responsable.
+  - No se publica fecha de entrada en vigencia. El texto vigente en BCN (versión del 05-02-2026) indica el 15 de octubre de 2027, no el 1 de diciembre.
+- Datos legales, tomados del certificado de estatuto:
+  - Razón social: Genomic Complexity SpA. RUT: 77.958.319-8. Dirección: Laurel 120, Copiapó, Región de Atacama.
+  - Aparecen en el pie, en el bloque legal y en los datos estructurados (schema.org: legalName, taxID, address).
+- Celular: el logo de la sección final se ve completo y se desvanece cuando el texto de contacto sube hacia él.
