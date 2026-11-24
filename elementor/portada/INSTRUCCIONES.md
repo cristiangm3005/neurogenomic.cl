@@ -40,3 +40,11 @@ Probado en 320×568, 360×640, 360×740, 390×844, 414×896, 768×1024, 1024×76
   - SEO: Visible en buscadores y en respuestas de IA
   - Desarrollo web: Sitios y aplicaciones con IA integrada
 - Celular y tablet: lista en 2 columnas. Escritorio: lista en filas con código S·01–S·06.
+
+## Capítulo 02 «Qué medimos»: lentes de eye tracking (versión 4)
+- La animación de corrientes de señales se reemplazó por unos lentes de eye tracking en vista explosionada, hechos con las mismas partículas que el resto de la escena (no usa imágenes).
+- Marco y patillas en verde lima para que se distingan sobre el fondo oscuro.
+- Piezas separadas: lente, placa de circuito, batería (ámbar) y tapa de la carcasa.
+- Cable flexible naranja por el que viajan pulsos de señal en lima.
+- Etiquetas: «Cámara ocular · mirada», «Cámara de escena» y «Sensor de piel». En celular son más cortas: «Mirada», «Escena» y «Piel».
+- Los lentes giran levemente y se detienen con «Pausar animación».
