@@ -56,3 +56,13 @@ Probado en 320×568, 360×640, 360×740, 390×844, 414×896, 768×1024, 1024×76
   - Rostro: una cámara facial frente a la cara, con su campo de visión; una línea de escaneo recorre el rostro y enciende los puntos faciales (cejas, nariz, pómulos, boca, mentón).
   - Piel: junto al sensor de la patilla corre una curva de respuesta electrodérmica.
 - Etiquetas: «Mirada · eye tracking», «Rostro · cámara facial» y «Piel · sensor EDA». En celular: «Mirada», «Rostro» y «Piel».
+
+## Capítulo 03: diagrama del método (versión 6)
+- La lista de 4 pasos se reemplazó por un diagrama propio:
+  - Entradas: Mirada · Rostro · Piel y «Tus datos de negocio».
+  - Flujo: 01 Sincroniza → 02 Depura → 03 Cruza → 04 Predice. Un pulso lima recorre los pasos y se detiene con «Pausar animación».
+  - Resultado: «Probabilidad de funcionar» con barras por alternativa y el «Por qué», marcado como ejemplo ilustrativo.
+- Cita: «Flujo basado en Usman et al., 2025, Frontiers in Computational Neuroscience» (https://doi.org/10.3389/fncom.2024.1516440). No se copió la figura del paper: el diagrama es propio.
+- En celular el diagrama se compacta: pasos sin descripción y cita corta.
+- En celular, la figura 3D se achica cuando hace falta para no tocar nunca el texto.
+- Captura de referencia: diagrama-capitulo-03.png
